@@ -10,7 +10,6 @@ dist
 build
 eggs
 parts
-bin
 var
 sdist
 develop-eggs
@@ -34,3 +33,17 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# local settings
+wonder/romeo/settings/local.py
+
+# virtual env
+env/
+
+# sqlite db
+romeo.db
+
+# webassets
+wonder/romeo/static/.webassets-manifest
+wonder/romeo/static/.webassets-cache
+wonder/romeo/static/gen

@@ -1,0 +1,4 @@
+PIL >= 1.1
+pytest >= 2.5
+fixture >= 1.5
+cssmin >= 0.2

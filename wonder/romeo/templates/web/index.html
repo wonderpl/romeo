@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="{{ config.ASSETS_URL }}/root/favicon.ico">
+    <title>Romeo</title>
+
+    {% assets filters="cssmin", output="gen/base.%(version)s.css",
+      "assets/vendor/bootstrap/css/bootstrap.css",
+      "assets/vendor/bootstrap/css/bootstrap-theme.css",
+      "assets/css/base.css"
+     %}
+    <link rel="stylesheet" href="{{ ASSET_URL }}"/>
+    {% endassets %}
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Romeo</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="intro">
+        <h1>Welcome to Romeo</h1>
+        <p class="lead">Stuff goes here.</p>
+      </div>
+
+    </div>
+
+    {% assets filters="rjsmin", output="gen/base.%(version)s.js",
+      "assets/vendor/jquery.js",
+      "assets/vendor/bootstrap/js/bootstrap.js"
+     %}
+    <script src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+  </body>
+</html>
