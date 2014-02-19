@@ -36,7 +36,9 @@ def _init_db(app):
 
 def _load_extensions(app, wsgi=False):
     assetenv.init_app(app)
+
     login_manager.init_app(app)
+    login_manager.login_view = 'user.login'
 
     if wsgi:
         app.wsgi_app = ProxyFix(app.wsgi_app)
