@@ -1,6 +1,6 @@
 import wtforms
 from flask.ext.wtf import Form
-from .models import User
+from .models import AccountUser
 
 
 class LoginForm(Form):
@@ -11,7 +11,7 @@ class LoginForm(Form):
     def validate(self):
         success = super(LoginForm, self).validate()
         if success:
-            self.user = User.get_from_credentials(self.username.data, self.password.data)
+            self.user = AccountUser.get_from_credentials(self.username.data, self.password.data)
             if not self.user:
                 self._errors = dict(username='mismatch')
                 success = False

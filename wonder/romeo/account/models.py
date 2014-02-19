@@ -1,16 +1,30 @@
-from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, CHAR
+from sqlalchemy.orm import relationship
+from werkzeug.routing import RequestRedirect
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask import url_for, flash
 from flask.ext.login import UserMixin
 from wonder.romeo import db, login_manager
 
 
-class User(db.Model):
-    __tablename__ = 'user'
+class Account(db.Model):
+    __tablename__ = 'account'
 
     id = Column(Integer, primary_key=True)
+    name = Column(String(128), nullable=False)
+    wonder_user = Column(CHAR(22))
+
+
+class AccountUser(db.Model):
+    __tablename__ = 'account_user'
+
+    id = Column(Integer, primary_key=True)
+    account_id = Column('account', ForeignKey(Account.id), nullable=False)
     username = Column(String(128), unique=True, nullable=False)
     password_hash = Column(String(128), nullable=False)
     active = Column(Boolean, nullable=False, default=True, server_default='true')
+
+    account = relationship(Account, backref='users')
 
     @classmethod
     def get_from_credentials(cls, username, password):
@@ -39,8 +53,14 @@ class UserProxy(UserMixin):
     @property
     def user(self):
         if not self._user:
-            self._user = User.query.get(self.id)
+            self._user = AccountUser.query.get(self.id)
+            if not self._user:
+                flash('session expired')
+                raise RequestRedirect(url_for('account.logout'))
         return self._user
+
+    def is_active(self):
+        return self.user.active
 
     def __getattr__(self, name):
         return getattr(self.user, name)

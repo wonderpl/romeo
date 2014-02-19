@@ -38,7 +38,7 @@ def _load_extensions(app, wsgi=False):
     assetenv.init_app(app)
 
     login_manager.init_app(app)
-    login_manager.login_view = 'user.login'
+    login_manager.login_view = 'account.login'
 
     if wsgi:
         app.wsgi_app = ProxyFix(app.wsgi_app)
@@ -59,8 +59,8 @@ def _load_extensions(app, wsgi=False):
 def _register_blueprints(app):
     # init web views
     from .root.views import rootapp
-    from .user.views import userapp
-    for blueprint in rootapp, userapp:
+    from .account.views import accountapp
+    for blueprint in rootapp, accountapp:
         app.register_blueprint(blueprint)
 
 
