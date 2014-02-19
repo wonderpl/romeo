@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="{{ config.ASSETS_URL }}/root/favicon.ico">
-    <title>Romeo</title>
+    <title>{% block title %}Romeo{% endblock %}</title>
 
     {% assets filters="cssmin", output="gen/base.%(version)s.css",
       "assets/vendor/bootstrap/css/bootstrap.css",
@@ -25,6 +25,7 @@
 
   <body>
 
+    {% block header %}
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -45,7 +46,26 @@
         </div>
       </div>
     </div>
+    {% endblock %}
 
+    {% block messages %}
+      {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+          {% for category, m in messages %}
+            {% if category %}
+            <div class="alert alert-{{ category }}">
+            {% else %}
+            <div class="alert">
+            {% endif %}
+              <a href="#" class="close" data-dismiss="alert">x</a>
+              {{ m }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    {% endblock %}
+
+    {% block content %}
     <div class="container">
 
       <div class="intro">
@@ -54,12 +74,15 @@
       </div>
 
     </div>
+    {% endblock %}
 
+    {% block bottomjs %}
     {% assets filters="rjsmin", output="gen/base.%(version)s.js",
       "assets/vendor/jquery.js",
       "assets/vendor/bootstrap/js/bootstrap.js"
      %}
     <script src="{{ ASSET_URL }}"></script>
     {% endassets %}
+    {% endblock %}
   </body>
 </html>

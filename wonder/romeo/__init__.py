@@ -3,6 +3,7 @@ from werkzeug.contrib.fixers import ProxyFix
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.script import Manager
+from flask.ext.login import LoginManager
 from flask.ext.assets import Environment, ManageAssets
 
 
@@ -35,6 +36,7 @@ def _init_db(app):
 
 def _load_extensions(app, wsgi=False):
     assetenv.init_app(app)
+    login_manager.init_app(app)
 
     if wsgi:
         app.wsgi_app = ProxyFix(app.wsgi_app)
@@ -54,8 +56,10 @@ def _load_extensions(app, wsgi=False):
 
 def _register_blueprints(app):
     # init web views
-    from .web.views import root
-    app.register_blueprint(root)
+    from .root.views import rootapp
+    from .user.views import userapp
+    for blueprint in rootapp, userapp:
+        app.register_blueprint(blueprint)
 
 
 def create_app(wsgi=False):
@@ -69,6 +73,7 @@ def create_app(wsgi=False):
 
 
 db = SQLAlchemy()
+login_manager = LoginManager()
 assetenv = Environment()
 manager = Manager(create_app, with_default_commands=True)
 manager.add_command('assets', ManageAssets(assetenv))
