@@ -1,8 +1,12 @@
-import os
 import sys
+import os
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 from logging.config import fileConfig
+sys.path.insert(0, os.getcwd())
+from wonder.romeo import db, create_app
+
+app = create_app()
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -12,16 +16,11 @@ config = context.config
 # This line sets up loggers basically.
 fileConfig(config.config_file_name)
 
-# Initialise the app so alembic can detect what tables we have
-sys.path.insert(0, os.getcwd())
-from wonder.romeo import app, init_app
-init_app()
-
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = None  # db.metadata
+target_metadata = db.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

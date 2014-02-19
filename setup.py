@@ -27,7 +27,7 @@ class build_static_assets(Command):
 
     def run(self):
         sys.path.insert(0, self.build_dir)
-        from wonder.romeo.manager import run
+        from wonder.romeo.commands import run
         status = run(*'assets --parse-templates build --production --no-cache'.split())
         sys.path.remove(self.build_dir)
         if status:
@@ -84,7 +84,7 @@ setup(
     ] + [('share/wonder/romeo/' + x[0], map(lambda y: x[0] + '/' + y, x[2]))
          for x in os.walk('alembic')],
     entry_points={
-        'console_scripts': ['%s-manage = wonder.romeo.manager:run' % name]
+        'console_scripts': ['%s-manage = wonder.romeo.commands:run' % name]
     },
     install_requires=list(parse_requirements('requirements.txt')),
     setup_requires=['setuptools_git'],
