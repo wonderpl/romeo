@@ -6,8 +6,7 @@ from hashlib import sha256
 from urlparse import urljoin
 from collections import namedtuple
 import requests
-from flask import json
-from wonder.romeo import app
+from flask import json, current_app
 from wonder.romeo.core.s3 import s3connection
 #from rockpack.mainsite.services.video.models import Video, VideoThumbnail
 
@@ -23,7 +22,7 @@ def _parse_datetime(dt):
 
 def _generate_signature(method, path, params, body=''):
     # See http://support.ooyala.com/developers/documentation/tasks/api_signing_requests.html
-    head = app.config['OOYALA_SECRET'] + method.upper() + path
+    head = current_app.config['OOYALA_SECRET'] + method.upper() + path
     for key, value in sorted(params.iteritems()):
         head += key + '=' + str(value)
     return b64encode(sha256(head + body).digest())[0:43]
@@ -33,7 +32,7 @@ def _ooyala_feed(feed, *resource, **kwargs):
     method = kwargs.pop('method', 'post' if 'data' in kwargs else 'get')
     path = '/'.join(('', 'v2', feed) + resource)
     params = dict(
-        api_key=app.config['OOYALA_API_KEY'],
+        api_key=current_app.config['OOYALA_API_KEY'],
         expires=int(time()) + 60,
     )
     params.update(kwargs.pop('query_params', {}))
@@ -70,7 +69,7 @@ def get_video_data(id, fetch_all_videos=True, fetch_metadata=False):
 def create_asset(s3path, metadata):
     # get metadata from s3
     chunk_size = 2 ** 22
-    bucket = s3connection().get_bucket(app.config['VIDEO_S3_BUCKET'])
+    bucket = s3connection().get_bucket(current_app.config['VIDEO_S3_BUCKET'])
     key = bucket.get_key(s3path)
     if not key:
         app.logger.error('s3://%s/%s not found', bucket.name, s3path)

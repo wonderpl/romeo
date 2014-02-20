@@ -1,5 +1,4 @@
 import boto
-from wonder.romeo import app
 
 
 jpeg_policy = {

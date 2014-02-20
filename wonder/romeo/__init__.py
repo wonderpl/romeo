@@ -60,7 +60,11 @@ def _register_blueprints(app):
     # init web views
     from .root.views import rootapp
     from .account.views import accountapp
-    for blueprint in rootapp, accountapp:
+    from .analytics.views import analyticsapp
+    from .payments.views import paymentsapp
+
+    bps = [rootapp, accountapp, analyticsapp, paymentsapp]
+    for blueprint in bps:
         app.register_blueprint(blueprint)
 
 
