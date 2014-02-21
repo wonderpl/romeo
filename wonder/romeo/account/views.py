@@ -1,5 +1,5 @@
 from flask import Blueprint, request, render_template, url_for, redirect
-from flask.ext.login import current_user, login_user, logout_user, login_required, fresh_login_required
+from flask.ext.login import login_user, logout_user, fresh_login_required
 from .forms import LoginForm
 from .models import UserProxy
 
@@ -25,17 +25,4 @@ def logout():
 @accountapp.route('/settings')
 @fresh_login_required
 def settings():
-    # XXX: account requires hit on db
-    return 'settings: %s' % current_user.account.name
-
-
-@accountapp.route('/protected')
-@login_required
-def protected():
-    # XXX: get_id() should not hit db
-    return 'protected: %s' % current_user.get_id()
-
-
-@accountapp.route('/open')
-def open():
-    return 'open: %s' % current_user.get_id()
+    return render_template('account/settings.html')

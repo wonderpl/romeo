@@ -1,5 +1,6 @@
 import os
 import sys
+from werkzeug.utils import import_string
 from flask import current_app
 from . import manager
 
@@ -37,6 +38,11 @@ def dbshell(slave=False):
 
 
 def run(*args):
+    # XXX: Need to import here before manager is run to ensure additional
+    # commands are registered
+    for mod in 'account', 'video':
+        import_string('wonder.romeo.%s.commands' % mod)
+
     if args:
         return manager.handle(sys.argv[0], args)
     else:

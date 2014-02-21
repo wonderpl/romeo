@@ -1,10 +1,11 @@
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, CHAR
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, CHAR, event
 from sqlalchemy.orm import relationship
 from werkzeug.routing import RequestRedirect
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import url_for, flash
 from flask.ext.login import UserMixin
 from wonder.romeo import db, login_manager
+from wonder.romeo.core.db import genid
 
 
 class Account(db.Model):
@@ -19,7 +20,7 @@ class AccountUser(db.Model):
     __tablename__ = 'account_user'
 
     id = Column(Integer, primary_key=True)
-    account_id = Column('account', ForeignKey(Account.id), nullable=False)
+    account_id = Column('account', ForeignKey(Account.id), nullable=False, index=True)
     username = Column(String(128), unique=True, nullable=False)
     password_hash = Column(String(128), nullable=False)
     active = Column(Boolean, nullable=False, default=True, server_default='true')
@@ -69,3 +70,7 @@ class UserProxy(UserMixin):
 @login_manager.user_loader
 def load_user(userid):
     return UserProxy(userid)
+
+
+event.listen(Account, 'before_insert', genid())
+event.listen(AccountUser, 'before_insert', genid())

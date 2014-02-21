@@ -33,7 +33,7 @@ def upgrade():
         sa.PrimaryKeyConstraint('id'),
         sa.UniqueConstraint('username')
     )
-    op.create_index('account_user_account', 'account_user', ['account'])
+    op.create_index('ix_account_user_account', 'account_user', ['account'])
 
 
 def downgrade():

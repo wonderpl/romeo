@@ -1,9 +1,11 @@
 import logging
+from werkzeug.utils import import_string
 from werkzeug.contrib.fixers import ProxyFix
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.script import Manager
 from flask.ext.login import LoginManager
+from flask.ext.cache import Cache
 from flask.ext.assets import Environment, ManageAssets
 
 
@@ -35,9 +37,9 @@ def _init_db(app):
 
 
 def _load_extensions(app, wsgi=False):
-    assetenv.init_app(app)
+    for ext in assetenv, cache, login_manager:
+        ext.init_app(app)
 
-    login_manager.init_app(app)
     login_manager.login_view = 'account.login'
 
     if wsgi:
@@ -56,16 +58,14 @@ def _load_extensions(app, wsgi=False):
             DebugToolbarExtension(app)
 
 
-def _register_blueprints(app):
-    # init web views
-    from .root.views import rootapp
-    from .account.views import accountapp
-    from .analytics.views import analyticsapp
-    from .payments.views import paymentsapp
+def _register_middleware(app):
+    from wonder.romeo.core import sqs
+    sqs.init_app(app)
 
-    bps = [rootapp, accountapp, analyticsapp, paymentsapp]
-    for blueprint in bps:
-        app.register_blueprint(blueprint)
+
+def _register_blueprints(app):
+    for blueprint in app.config['BLUEPRINTS']:
+        app.register_blueprint(import_string(blueprint))
 
 
 def create_app(wsgi=False):
@@ -74,6 +74,7 @@ def create_app(wsgi=False):
     _setup_logging(app)
     _init_db(app)
     _load_extensions(app, wsgi=wsgi)
+    _register_middleware(app)
     _register_blueprints(app)
     return app
 
@@ -81,5 +82,6 @@ def create_app(wsgi=False):
 db = SQLAlchemy()
 login_manager = LoginManager()
 assetenv = Environment()
+cache = Cache()
 manager = Manager(create_app, with_default_commands=True)
 manager.add_command('assets', ManageAssets(assetenv))
