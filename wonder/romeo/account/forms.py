@@ -16,3 +16,7 @@ class LoginForm(Form):
                 self._errors = dict(username='mismatch')
                 success = False
         return success
+
+
+class ChangePasswordForm(Form):
+    password = wtforms.PasswordField()

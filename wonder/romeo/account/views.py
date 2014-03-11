@@ -1,6 +1,7 @@
-from flask import Blueprint, request, render_template, url_for, redirect
-from flask.ext.login import login_user, logout_user, fresh_login_required
-from .forms import LoginForm
+from flask import Blueprint, request, render_template, url_for, redirect, jsonify
+from flask.ext.login import login_user, logout_user, fresh_login_required, current_user
+from wonder.romeo.core import dolly
+from .forms import LoginForm, ChangePasswordForm
 from .models import UserProxy
 
 
@@ -22,7 +23,23 @@ def logout():
     return redirect(url_for('root.home'))
 
 
+@accountapp.route('/_verify_account')
+def verify():
+    if current_user.get_id():
+        return jsonify(
+            id=current_user.account.id,
+            username=current_user.account.name,
+        )
+    else:
+        return jsonify(), 401
+
+
 @accountapp.route('/settings')
 @fresh_login_required
 def settings():
-    return render_template('account/settings.html')
+    account = current_user.account
+    dollyuser = dolly.get_userdata(account.dolly_user, account.dolly_token)
+    change_password_form = ChangePasswordForm()
+    return render_template('account/settings.html',
+                           dollyuser=dollyuser,
+                           change_password_form=change_password_form)

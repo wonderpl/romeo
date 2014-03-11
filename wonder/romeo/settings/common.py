@@ -33,6 +33,8 @@ ASSETS_AUTO_BUILD = False
 
 # Dolly services
 DOLLY_WS_BASE = 'http://api.wonderpl.com/ws/'
+DOLLY_WS_SECURE_BASE = 'https://secure.wonderpl.com/ws/'
+DOLLY_WS_CLIENT_AUTH = 'Basic YzhmZTVmNnJvY2s4NzNkcGFjazE5UTo='
 
 # AWS
 VIDEO_S3_BUCKET = 'video.dev.wonderpl.com'

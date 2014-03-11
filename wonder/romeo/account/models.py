@@ -13,7 +13,8 @@ class Account(db.Model):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(128), nullable=False)
-    wonder_user = Column(CHAR(22))
+    dolly_user = Column(CHAR(22))
+    dolly_token = Column(String(128))
 
 
 class AccountUser(db.Model):
@@ -69,7 +70,12 @@ class UserProxy(UserMixin):
 
 @login_manager.user_loader
 def load_user(userid):
-    return UserProxy(userid)
+    try:
+        userid = int(userid)
+    except ValueError:
+        return
+    else:
+        return UserProxy(userid)
 
 
 event.listen(Account, 'before_insert', genid())
