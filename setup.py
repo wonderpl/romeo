@@ -75,7 +75,7 @@ setup(
     license="Copyright 2014 Wonder Place Ltd",
     url="http://dev.rockpack.com/",
     zip_safe=False,
-    packages=find_packages(),
+    packages=find_packages(exclude=['test']),
     include_package_data=True,
     data_files=[
         ('/etc/wonder/romeo', ['uwsgi.ini']),
