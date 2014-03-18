@@ -1,16 +1,16 @@
 import os
-from datetime import datetime
 from flask import Blueprint, current_app, request, render_template, jsonify, abort, flash
-from flask.ext.login import current_user, login_required
 from flask.ext import restful
-import wtforms as wtf
 from flask.ext.wtf import Form
+from flask.ext.login import current_user, login_required
+from sqlalchemy.orm.exc import NoResultFound
+import wtforms as wtf
 from wonder.romeo import api
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.s3 import s3connection, video_bucket
 from wonder.romeo.core.sqs import background_on_sqs
 from wonder.romeo.core.ooyala import get_video_data, create_asset
-from .models import Video, VideoTag, VideoThumbnail
+from .models import Video, VideoTag, VideoTagVideo, VideoThumbnail
 from .forms import VideoUploadForm
 
 
@@ -180,23 +180,43 @@ class VideoApi(restful.Resource):
 
         return 204
 
+
 class VideoTagListApi(restful.Resource):
     def get(self, video_id):
         video = Video.query.get_or_404(video_id)
         return [dict(id=tag.id, label=tag.label) for tag in video.tags]
 
+    def post(self, video_id):
+        # TODO: add account constraint
+        video = Video.query.get_or_404(video_id)
+        tag = VideoTag.query.get_or_404(request.form.get('id'))
+        VideoTagVideo.query.session.add(
+            VideoTagVideo(video_id=video.id, tag_id=tag.id)
+        )
+        VideoTagVideo.query.session.commit()
+
 
 class VideoTagApi(restful.Resource):
-    def post(self, video_id):
-        if not VideoTag.query.filter(
-            VideoTag.account_id == account_id,
-            VideoTag.id == request.form.get('tag_id')
-        ).count():
-            abort(404)
-
-        VideoTagVideo(video_id=video_id, tag_id=tag_id)
+    def post(self):
+        try:
+            video = VideoTag.query.filter(
+                VideoTag.account_id == request.form.get('account_id'),
+                VideoTag.label == request.form.get('label')
+            ).one()
+        except NoResultFound:
+            VideoTag.query.session.add(
+                VideoTag(
+                    label=request.form.get('label'),
+                    account_id=request.form.get('account_id')
+                )
+            )
+            VideoTag.query.session.commit()
+            return 204
+        else:
+            abort(400)
 
 
 api.add_resource(VideoListApi, '/apivideo')
 api.add_resource(VideoApi, '/apivideo/<string:video_id>')
 api.add_resource(VideoTagListApi, '/apivideo/<string:video_id>/tag')
+api.add_resource(VideoTagApi, '/tag')
