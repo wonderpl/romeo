@@ -3,6 +3,7 @@ Flask-WTF >= 0.9
 Flask-Login >= 0.2
 Flask-Cache >= 0.11
 Flask-Script >= 0.6
+Flask-RESTful>=0.2.12
 #Flask-Assets >= 0.8
 git+git://github.com/miracle2k/flask-assets.git@d89884ec765c7040e8347063f4041f59b944236c
 Flask-SQLAlchemy >= 1.0
