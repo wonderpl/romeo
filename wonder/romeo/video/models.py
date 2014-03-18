@@ -2,6 +2,7 @@ from sqlalchemy import (
     Column, Integer, String, Boolean, DateTime, ForeignKey, Enum,
     PrimaryKeyConstraint, func, event)
 from sqlalchemy.orm import relationship, backref
+from sqlalchemy.ext.associationproxy import association_proxy
 from flask import session
 from wonder.romeo import db
 from wonder.romeo.core.db import genid
@@ -28,6 +29,8 @@ class Video(db.Model):
     category = Column(String(8))
 
     account = relationship(Account, backref='videos')
+
+    tags = association_proxy("tags_associations", "tag")
 
     def record_workflow_event(self, type, value=None):
         self.workflow_events.append(VideoWorkflowEvent.create(type, value))
@@ -77,7 +80,8 @@ class VideoTagVideo(db.Model):
     video_id = Column('video', ForeignKey(Video.id), nullable=False)
     tag_id = Column('tag', ForeignKey(VideoTag.id), nullable=False)
 
-    video = relationship(Video, backref='tags')
+    video = relationship(Video, backref='tags_associations')
+    tag = relationship(VideoTag, backref='videos_associations')
 
 
 class VideoWorkflowEvent(db.Model):

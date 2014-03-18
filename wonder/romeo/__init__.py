@@ -7,6 +7,7 @@ from flask.ext.script import Manager
 from flask.ext.login import LoginManager
 from flask.ext.cache import Cache
 from flask.ext.assets import Environment, ManageAssets
+from flask.ext import restful
 
 
 def _configure(app):
@@ -34,6 +35,10 @@ def _setup_logging(app):
 def _init_db(app):
     app.config.setdefault('SQLALCHEMY_DATABASE_URI', app.config.get('DATABASE_URL', ''))
     db.init_app(app)
+
+
+def _init_api(app):
+    api.init_app(app)
 
 
 def _load_extensions(app, wsgi=False):
@@ -76,9 +81,11 @@ def create_app(wsgi=False):
     _load_extensions(app, wsgi=wsgi)
     _register_middleware(app)
     _register_blueprints(app)
+    _init_api(app)
     return app
 
 
+api = restful.Api()
 db = SQLAlchemy()
 login_manager = LoginManager()
 assetenv = Environment()

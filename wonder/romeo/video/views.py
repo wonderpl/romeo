@@ -1,11 +1,16 @@
 import os
+from datetime import datetime
 from flask import Blueprint, current_app, request, render_template, jsonify, abort, flash
 from flask.ext.login import current_user, login_required
+from flask.ext import restful
+import wtforms as wtf
+from flask.ext.wtf import Form
+from wonder.romeo import api
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.s3 import s3connection, video_bucket
 from wonder.romeo.core.sqs import background_on_sqs
 from wonder.romeo.core.ooyala import get_video_data, create_asset
-from .models import Video, VideoThumbnail
+from .models import Video, VideoTag, VideoThumbnail
 from .forms import VideoUploadForm
 
 
@@ -99,3 +104,99 @@ def ooyala_callback():
 
     # TODO: Add tag, send notification
     return '', 204
+
+
+def video_item(video):
+    video_fields = {
+        'id': lambda x: x,
+        'deleted': lambda x: x,
+        'status': lambda x: x,
+        'public': lambda x: x,
+        'date_added': lambda x: x.strftime('%Y-%m-%d %H:%M:%S'),
+        'date_updated': lambda x: x.strftime('%Y-%m-%d %H:%M:%S'),
+        'title': lambda x: x,
+        'description': lambda x: x,
+        'duration': lambda x: x,
+        'category': lambda x: x
+    }
+
+    locale_fields = ['locale', 'link_url', 'link_title', 'title', 'description']
+
+    thumbnail_fields = ['url', 'width', 'height']
+
+    # Add basic video data
+    data = {field: func(getattr(video, field)) for field, func in video_fields.iteritems()}
+
+    # Attach locale data
+    for locale in video.locale_meta:
+        locale_d = data.setdefault('locale', {})
+        for field in locale_fields:
+            locale_d.setdefault(locale.locale, {})[field] = getattr(locale, field)
+
+    # Attach thumbnail data
+    for thumbnail in video.thumbnails:
+        data.setdefault('thumbnails', []).append({field: getattr(thumbnail, field) for f in thumbnail_fields})
+
+    data['tags'] = []
+    for tag in VideoTag.query.all(): #filter(VideoTag.account_id == account_id):
+        data['tags'].append(dict(label=tag.label, id=tag.id))
+
+    return data
+
+
+class VideoListApi(restful.Resource):
+    def get(self):
+        return dict(videos=[video_item(video) for video in Video.query.order_by('date_added').all()])
+
+
+class VideoForm(Form):
+    title = wtf.StringField()
+    description = wtf.StringField()
+    category = wtf.StringField()
+    public = wtf.StringField()
+
+
+class VideoLocaleForm(Form):
+    locale_title = wtf.StringField()
+    locale_link_url = wtf.StringField()
+    locale_link_title = wtf.StringField()
+    locale_description = wtf.StringField()
+
+
+class VideoApi(restful.Resource):
+    def get(self, video_id):
+        video = Video.query.get_or_404(video_id)
+        return video_item(video)
+
+    def post(self, video_id):
+        video = Video.query.get_or_404(video_id)
+
+        form = VideoForm(csrf_enabled=False)
+        if not form.validate():
+            abort(400, form_errors=form.errors)
+
+        video.title = form.title.data or video.title
+        video.query.session.commit()
+
+        return 204
+
+class VideoTagListApi(restful.Resource):
+    def get(self, video_id):
+        video = Video.query.get_or_404(video_id)
+        return [dict(id=tag.id, label=tag.label) for tag in video.tags]
+
+
+class VideoTagApi(restful.Resource):
+    def post(self, video_id):
+        if not VideoTag.query.filter(
+            VideoTag.account_id == account_id,
+            VideoTag.id == request.form.get('tag_id')
+        ).count():
+            abort(404)
+
+        VideoTagVideo(video_id=video_id, tag_id=tag_id)
+
+
+api.add_resource(VideoListApi, '/apivideo')
+api.add_resource(VideoApi, '/apivideo/<string:video_id>')
+api.add_resource(VideoTagListApi, '/apivideo/<string:video_id>/tag')
