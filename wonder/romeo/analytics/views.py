@@ -1,7 +1,9 @@
 from datetime import datetime, timedelta
 import urllib
-from flask import Blueprint, request, abort, url_for, jsonify
-from wonder.romeo.core import ooyala
+from flask import Blueprint, request, abort, url_for, jsonify, json
+from flask.ext import restful
+from wonder.romeo import api
+from . import ooyala
 #from wonder.romeo.core.webservice import WebService, expose_ajax, secure_view
 #from wonder.romeo.core.oauth.decorators import check_authorization
 #from wonder.romeo.services.video import models
@@ -37,7 +39,7 @@ def _videos_request(feed, path='', breakdown_by=''):
     return ooyala._ooyala_feed(feed, path, query_params=dict(breakdown_by=breakdown_by))
 
 
-def _video_data_transform(d):
+def video_data_transform(d):
     metrics = d['metrics']['video']
     return {
         'plays': metrics.get('plays', 0),
@@ -51,14 +53,37 @@ def _video_data_transform(d):
     }
 
 
-def _process_individual(data):
+def process_performance(data):
     metrics = data['results']['total']
     result = []
     for m in metrics:
         r = dict(date=m['date'])
         if m.get('metrics'):
-            r.update(_video_data_transform(m))
+            r.update(video_data_transform(m))
         result.append(r)
+    return dict(metrics=result)
+
+
+def process_geo(data):
+    result = []
+    for m in data['results']:
+        this = {}
+        this['video'] = video_data_transform(m)
+        this['video']['viewing_time'] = m['metrics']['video'].get('time_watched', 0)
+        this.setdefault('geo', {}).update({'name': m['name']})
+        # For some reason this is a string and not a dict
+        if m.get('geo_data'):
+            if m['geo_data'] is None:
+                this['geo']['location'] = {}
+            else:
+                if not type(m['geo_data']) is dict:
+                    m['geo_data'] = json.loads(m['geo_data'])
+                this['geo']['location'] = m['geo_data']['location']
+        if m['metrics']['video'].get('name'):
+            m['country_name'] = m['video']['name']
+            m['region_count'] = m['video']['region_count']
+
+        result.append(this)
     return dict(metrics=result)
 
 
@@ -72,7 +97,7 @@ def _process_total(data):
         transformed_data.update({
             video_id: {
                 'name': d['name'],
-                'metrics': _video_data_transform(d)
+                'metrics': video_data_transform(d)
             }
         })
         if d.get('name'):
@@ -87,7 +112,17 @@ def videos_total(start, end=None):
 
 def videos_individual(resource_id, start, end=None):
     path = 'reports/asset/%s/performance/total/%s' % (resource_id, _format_dates(start, end))
-    return _process_individual(_videos_request('analytics', path, breakdown_by='day'))
+    return process_performance(_videos_request('analytics', path, breakdown_by='day'))
+
+
+def video_cities(resource_id, start, end=None):
+    path = 'reports/asset/%s/performance/cities/%s' % (resource_id, _format_dates(start, end))
+    return process_geo(_videos_request('analytics', path))
+
+
+def video_countries(resource_id, start, end=None):
+    path = 'reports/asset/%s/performance/countries/%s' % (resource_id, _format_dates(start, end))
+    return process_geo(_videos_request('analytics', path))
 
 
 def ooyala_labelid_from_userid(user_id):
@@ -97,45 +132,67 @@ def ooyala_labelid_from_userid(user_id):
             return label['id']
 
 
-@analyticsapp.route('/<user_id>')
-def video_all(user_id):
-    """ Returns all videos for <user_id> """
+class PerformanceMetricsApi(restful.Resource):
+    def get(self, video_id):
+        data = videos_individual(video_id, request.args.get('start', datetime.now()), request.args.get('end', None))
+        return data
 
-    labels = _videos_request('labels')
-    label_id = None
 
-    for label in labels['items']:
-        if label['name'] == 'Lucas Hugh':
-            label_id = label['id']
-            break
+class CitiesMetricsApi(restful.Resource):
+    def get(self, video_id):
+        data = video_cities(video_id, request.args.get('start', datetime.now()), request.args.get('end', None))
+        return data
 
-    if not label_id:
-        abort(404)
 
-    raw_video_data = _videos_request('labels', label_id + '/assets')
-    response_data = []
+class CountriesMetricsApi(restful.Resource):
+    def get(self, video_id):
+        data = video_countries(video_id, request.args.get('start', datetime.now()), request.args.get('end', None))
+        return data
 
-    for video in raw_video_data.get('items'):
-        resource_url = url_for(
-            'analytics.video_individual',
-            user_id=user_id,
-            video_id=video['embed_code'],
-            _external=True)
 
-        response_data.append(
-            dict(
-                date_uploaded=video['created_at'],
-                duration=video['duration'],
-                embed_code=video['embed_code'],
-                name=video['name'],
-                thumbnail_url=video['preview_image_url'],
-                resource_url=resource_url,
-                resource_url_weekly=resource_url + '?' + urllib.urlencode(
-                    {'start': (datetime.now() - timedelta(days=7)).strftime(DATE_FORMAT),
-                        'end': datetime.now().strftime(DATE_FORMAT)})
+api.add_resource(CitiesMetricsApi, '/analytics/cities/<string:video_id>')
+api.add_resource(CountriesMetricsApi, '/analytics/countries/<string:video_id>')
+api.add_resource(PerformanceMetricsApi, '/analytics/performance/<string:video_id>')
+
+"""
+        ## Returns all video metrics for an account
+
+        labels = _videos_request('labels')
+        label_id = None
+
+        for label in labels['items']:
+            if label['name'] == 'Lucas Hugh':
+                label_id = label['id']
+                break
+
+        if not label_id:
+            abort(404)
+
+        raw_video_data = _videos_request('labels', label_id + '/assets')
+        response_data = []
+
+        for video in raw_video_data.get('items'):
+            resource_url = url_for(
+                'analytics.video_individual',
+                user_id=1,
+                video_id=video['embed_code'],
+                _external=True)
+
+            response_data.append(
+                dict(
+                    date_uploaded=video['created_at'],
+                    duration=video['duration'],
+                    embed_code=video['embed_code'],
+                    name=video['name'],
+                    thumbnail_url=video['preview_image_url'],
+                    resource_url=resource_url,
+                    resource_url_weekly=resource_url + '?' + urllib.urlencode(
+                        {'start': (datetime.now() - timedelta(days=7)).strftime(DATE_FORMAT),
+                            'end': datetime.now().strftime(DATE_FORMAT)})
+                )
             )
-        )
-    return jsonify(dict(videos=dict(items=response_data)))
+        return dict(videos=dict(items=response_data))
+"""
 
 
 @analyticsapp.route('/<user_id>/<video_id>')
