@@ -70,6 +70,28 @@ class VideoTag(db.Model):
     label = Column(String(128), nullable=False)
     dolly_channel = Column(String(128))
 
+    account = relationship(Account, backref='tags')
+
+    def __unicode__(self):
+        return self.label
+
+    def __repr__(self):
+        return 'VideoTag(id={t.id!r}, label={t.label!r})'.format(t=self)
+
+    @classmethod
+    def create_from_dolly_channels(cls, account_id, channels):
+        existing = dict(cls.query.filter_by(account_id=account_id).
+                        values(cls.dolly_channel, cls.label))
+        return [
+            cls(
+                account_id=account_id,
+                dolly_channel=channel['id'],
+                label=channel['title'],
+            )
+            for channel in channels
+            if channel['id'] not in existing and not channel.get('favourites')
+        ]
+
 
 class VideoTagVideo(db.Model):
     __tablename__ = 'video_tag_video'

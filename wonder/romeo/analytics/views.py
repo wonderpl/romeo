@@ -1,8 +1,6 @@
-from datetime import datetime, timedelta
-import urllib
-from flask import Blueprint, request, abort, url_for, jsonify, json
-from flask.ext import restful
-from wonder.romeo import api
+from datetime import datetime
+from flask import Blueprint, request, jsonify, json
+from wonder.romeo.core.rest import Resource, api_resource
 from . import ooyala
 #from wonder.romeo.core.webservice import WebService, expose_ajax, secure_view
 #from wonder.romeo.core.oauth.decorators import check_authorization
@@ -162,7 +160,8 @@ def default_kwargs(request):
     return k
 
 
-class PerformanceMetricsApi(restful.Resource):
+@api_resource('/analytics/performance/<string:video_id>')
+class PerformanceMetricsApi(Resource):
     def get(self, video_id):
         data = videos_individual(
             get_resource_id_from_video(video_id),
@@ -171,7 +170,8 @@ class PerformanceMetricsApi(restful.Resource):
         return data
 
 
-class CitiesMetricsApi(restful.Resource):
+@api_resource('/analytics/cities/<string:video_id>')
+class CitiesMetricsApi(Resource):
     def get(self, video_id):
         data = video_cities(
             get_resource_id_from_video(video_id),
@@ -180,7 +180,8 @@ class CitiesMetricsApi(restful.Resource):
         return data
 
 
-class CountriesMetricsApi(restful.Resource):
+@api_resource('/analytics/countries/<string:video_id>')
+class CountriesMetricsApi(Resource):
     def get(self, video_id):
         data = video_countries(
             get_resource_id_from_video(video_id),
@@ -189,7 +190,8 @@ class CountriesMetricsApi(restful.Resource):
         return data
 
 
-class RegionsMetricsApi(restful.Resource):
+@api_resource('/analytics/countries/<string:country>/<string:video_id>')
+class RegionsMetricsApi(Resource):
     def get(self, country, video_id):
         data = video_regions(
             get_resource_id_from_video(video_id),
@@ -198,11 +200,6 @@ class RegionsMetricsApi(restful.Resource):
             **default_kwargs(request))
         return data
 
-
-api.add_resource(CitiesMetricsApi, '/api/analytics/cities/<string:video_id>')
-api.add_resource(RegionsMetricsApi, '/api/analytics/countries/<string:country>/<string:video_id>')
-api.add_resource(CountriesMetricsApi, '/api/analytics/countries/<string:video_id>')
-api.add_resource(PerformanceMetricsApi, '/api/analytics/performance/<string:video_id>')
 
 """
         ## Returns all video metrics for an account

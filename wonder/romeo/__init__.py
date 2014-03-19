@@ -7,7 +7,7 @@ from flask.ext.script import Manager
 from flask.ext.login import LoginManager
 from flask.ext.cache import Cache
 from flask.ext.assets import Environment, ManageAssets
-from flask.ext import restful
+from flask.ext.restful import Api
 
 
 def _configure(app):
@@ -85,7 +85,7 @@ def create_app(wsgi=False):
     return app
 
 
-api = restful.Api()
+api = Api(prefix='/api', catch_all_404s=True)
 db = SQLAlchemy()
 login_manager = LoginManager()
 assetenv = Environment()

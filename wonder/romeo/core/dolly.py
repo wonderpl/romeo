@@ -44,28 +44,6 @@ def get_categories():
     return categories
 
 
-def get_userdata(userid, token):
-    response = _request(userid + '/', token=token, params=dict(data='none'))
-    return response.json()
-
-
-def set_display_name(userid, token, name):
-    response = _request(userid + '/first_name/', 'put', name, token=token)
-    assert response.status_code == 204
-
-
-def set_avatar_image(userid, token, image):
-    response = _request(userid + '/avatar/', 'put',
-                        files={'image': image}, token=token)
-    assert response.status_code == 200
-
-
-def set_profile_image(userid, token, image):
-    response = _request(userid + '/profile_cover/', 'put',
-                        files={'image': image}, token=token)
-    assert response.status_code == 200
-
-
 def login(userid):
     # Use app session interface to create a cookie value that can be used
     # with _verify_user to confirm the user exists.
@@ -79,3 +57,50 @@ def login(userid):
     headers = {'Authorization': current_app.config['DOLLY_WS_CLIENT_AUTH']}
     response = _request('login/external/', 'post', jsondata=tokendata, headers=headers)
     return response.json()
+
+
+class DollyUser(object):
+
+    def __init__(self, userid, token):
+        self.userid = userid
+        self.token = token
+
+    def _user_request(self, resource='', *args, **kwargs):
+        kwargs.setdefault('token', self.token)
+        if resource and not resource.endswith('/'):
+            resource += '/'
+        return _request('%s/%s' % (self.userid, resource), *args, **kwargs)
+
+    def get_userdata(self):
+        return self._user_request(params=dict(data='channels')).json()
+
+    def set_display_name(self, name):
+        self._user_request('first_name', 'put', name)
+
+    def set_avatar_image(self, image):
+        self._user_request('avatar', 'put', files=dict(image=image))
+
+    def set_profile_image(self, image):
+        self._user_request('profile_cover', 'put', files=dict(image=image))
+
+    def create_channel(self, channeldata):
+        for field in 'category', 'cover', 'description', 'public', 'title':
+            channeldata.setdefault(field, '')
+        response = self._user_request('channels', 'post', jsondata=channeldata)
+        if response.status_code == 201:
+            response.json()
+
+    def delete_channel(self, channelid):
+        self._user_request('channels/%s' % channelid, 'delete')
+
+    def publish_video(self, channelid, videodata):
+        self._user_request('channels/%s/videos' % channelid, 'post',
+                           jsondata=(('ooyala', videodata['external_id']),))
+
+    def remove_video(self, channelid, videodata):
+        # need to fetch all channel videos and remove
+        resource = 'channels/%s/videos' % channelid
+        response = self._user_request(resource, params=dict(size=1000)).json()
+        videos = [v['id'] for v in response['videos']['items']
+                  if v['video']['source_id'] != videodata['external_id']]
+        self._user_request(resource, 'put', jsondata=videos)

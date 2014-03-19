@@ -1,11 +1,10 @@
 import os
 from flask import Blueprint, current_app, request, render_template, jsonify, abort, flash
-from flask.ext import restful
 from flask.ext.wtf import Form
 from flask.ext.login import current_user, login_required
 from sqlalchemy.orm.exc import NoResultFound
 import wtforms as wtf
-from wonder.romeo import api
+from wonder.romeo.core.rest import Resource, api_resource
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.s3 import s3connection, video_bucket
 from wonder.romeo.core.sqs import background_on_sqs
@@ -143,7 +142,8 @@ def video_item(video):
     return data
 
 
-class VideoListApi(restful.Resource):
+@api_resource('/video')
+class VideoListApi(Resource):
     def get(self):
         return dict(videos=[video_item(video) for video in Video.query.order_by('date_added').all()])
 
@@ -162,7 +162,8 @@ class VideoLocaleForm(Form):
     locale_description = wtf.StringField()
 
 
-class VideoApi(restful.Resource):
+@api_resource('/video/<string:video_id>')
+class VideoApi(Resource):
     def get(self, video_id):
         video = Video.query.get_or_404(video_id)
         return video_item(video)
@@ -180,7 +181,8 @@ class VideoApi(restful.Resource):
         return 204
 
 
-class VideoTagListApi(restful.Resource):
+@api_resource('/video/<string:video_id>/tag')
+class VideoTagListApi(Resource):
     def get(self, video_id):
         video = Video.query.get_or_404(video_id)
         return {tag.id: tag.label for tag in video.tags}
@@ -195,7 +197,8 @@ class VideoTagListApi(restful.Resource):
         VideoTagVideo.query.session.commit()
 
 
-class VideoTagApi(restful.Resource):
+@api_resource('/tag')
+class VideoTagApi(Resource):
     def post(self):
         try:
             video = VideoTag.query.filter(
@@ -213,9 +216,3 @@ class VideoTagApi(restful.Resource):
             return 204
         else:
             abort(400)
-
-
-api.add_resource(VideoListApi, '/api/video')
-api.add_resource(VideoApi, '/api/video/<string:video_id>')
-api.add_resource(VideoTagListApi, '/api/video/<string:video_id>/tag')
-api.add_resource(VideoTagApi, '/api/tag')

@@ -13,7 +13,7 @@ class LoginForm(Form):
         if success:
             self.user = AccountUser.get_from_credentials(self.username.data, self.password.data)
             if not self.user:
-                self._errors = dict(username='mismatch')
+                self._errors = dict(username=['mismatch'])
                 success = False
         return success
 
