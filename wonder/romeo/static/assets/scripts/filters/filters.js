@@ -55,7 +55,7 @@
 
                 if ( collectionmatched === false ) {
                     ng.forEach( value.collections, function(value2, key2){
-                        if ( filter.collection === value2.id ) {
+                        if ( filter.collection === value2 ) {
                             collectionmatched = true;
                         }
                     });
