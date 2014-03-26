@@ -168,8 +168,7 @@ module.exports = function (grunt) {
                     return name[name.length - 1];
                 },
                 bootstrap: function (module, script) {
-                    console.log(script.replace(/\{\{/gi, '(~').replace(/\}\}/gi, '~)'));
-                    return "angular.module('RomeoApp').run(['$templateCache', function($templateCache) { " + script.replace(/\{\{/gi, '<(').replace(/\}\}/gi, ')>') + "} ]);";
+                    return "angular.module('RomeoApp').run(['$templateCache', function($templateCache) { " + script.replace(/\{\{/gi, '(~').replace(/\}\}/gi, '~)') + "} ]);";
                 }
             },
             RomeoApp: {
