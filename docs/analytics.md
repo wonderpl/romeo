@@ -10,6 +10,8 @@ Parameter       | Required    | Value    | Description
 :-------------- | :---------- | :------- | :----------
 start           | No          | Date     | eg. 2014-03-12
 end             | No          | Date     | eg. 2014-03-12
+limit           | No          | Integer  | Page size
+page_token      | No          | String   | Next page to fetch. Null if no next page
 
 ```http
 HTTP/1.1 200 OK
@@ -51,6 +53,7 @@ Content-Type: application/json
             "weekly_uniq_plays": 8
         }
     ]
+    "next_page_token": "W1siY29sdW1uIiwiR0I6MTA4ODMiXSxbImluZGV4IiwyM10sWyJ2YWx1ZSIsMV1d"
 }
 ```
 
@@ -127,6 +130,7 @@ Content-Type: application/json
             }
         },
     ]
+    "next_page_token": "W1siY29sdW1uIiwiR0I6MTA4ODMiXSxbImluZGV4IiwyM10sWyJ2YWx1ZSIsMV1d"
 }
 ```
 
@@ -175,6 +179,7 @@ Content-Type: application/json
             }
         }
     ]
+    "next_page_token": "W1siY29sdW1uIiwiR0I6MTA4ODMiXSxbImluZGV4IiwyM10sWyJ2YWx1ZSIsMV1d"
 }
 ```
 
@@ -222,6 +227,7 @@ Content-Type: application/json
                 "weekly_uniq_plays": 0
             }
         }
-    ]
+    ],
+    "next_page_token": "W1siY29sdW1uIiwiR0I6MTA4ODMiXSxbImluZGV4IiwyM10sWyJ2YWx1ZSIsMV1d"
 }
 ```

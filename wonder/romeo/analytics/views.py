@@ -35,8 +35,13 @@ def _format_dates(start, end):
     return date_range
 
 
-def _videos_request(feed, path='', breakdown_by=''):
-    return ooyala._ooyala_feed(feed, path, query_params=dict(breakdown_by=breakdown_by))
+def _videos_request(feed, path='', breakdown_by='', limit=50, page_token=None):
+    q_params = dict(limit=limit)
+    if page_token:
+        q_params['page_token'] = page_token
+    if breakdown_by:
+        q_params['breakdown_by'] = breakdown_by
+    return ooyala._ooyala_feed(feed, path, query_params=q_params)
 
 
 def video_data_transform(d):
@@ -84,7 +89,7 @@ def process_geo(data):
             m['region_count'] = m['video']['region_count']
 
         result.append(this)
-    return dict(metrics=result)
+    return dict(metrics=result, next_page_token=data.get('next_page_token'))
 
 
 def process_total(data):
@@ -110,24 +115,24 @@ def videos_total(start, end=None):
     return process_total(_videos_request('analytics', path))
 
 
-def videos_individual(resource_id, start, end=None):
+def videos_individual(resource_id, start, end=None, limit=50, page_token=None):
     path = 'reports/asset/%s/performance/total/%s' % (resource_id, _format_dates(start, end))
-    return process_performance(_videos_request('analytics', path, breakdown_by='day'))
+    return process_performance(_videos_request('analytics', path, breakdown_by='day', limit=limit, page_token=page_token))
 
 
-def video_cities(resource_id, start, end=None):
+def video_cities(resource_id, start, end=None, limit=10, page_token=None):
     path = 'reports/asset/%s/performance/cities/%s' % (resource_id, _format_dates(start, end))
-    return process_geo(_videos_request('analytics', path))
+    return process_geo(_videos_request('analytics', path, limit=limit, page_token=page_token))
 
 
-def video_countries(resource_id, start, end=None):
+def video_countries(resource_id, start, end=None, limit=100, page_token=None):
     path = 'reports/asset/%s/performance/countries/%s' % (resource_id, _format_dates(start, end))
-    return process_geo(_videos_request('analytics', path))
+    return process_geo(_videos_request('analytics', path, limit=limit, page_token=page_token))
 
 
-def video_regions(resource_id, country, start, end=None):
+def video_regions(resource_id, country, start, end=None, limit=53, page_token=None):
     path = 'reports/asset/%s/performance/countries/%s/regions/%s' % (resource_id, country, _format_dates(start, end))
-    return process_geo(_videos_request('analytics', path))
+    return process_geo(_videos_request('analytics', path, limit=limit, page_token=page_token))
 
 
 def ooyala_labelid_from_userid(user_id):
@@ -142,12 +147,27 @@ def get_resource_id_from_video(video):
     return 'BkYXAzbDrwONuDpU3yHx8T-CLHna-_5N'
 
 
+def default_args(request):
+    return [request.args.get('start', datetime.now())]
+
+
+def default_kwargs(request):
+    k = {}
+    if request.args.get('end'):
+        k['end'] = request.args.get('end')
+    if request.args.get('limit'):
+        k['limit'] = request.args.get('limit')
+    if request.args.get('page_token'):
+        k['page_token'] = request.args.get('page_token')
+    return k
+
+
 class PerformanceMetricsApi(restful.Resource):
     def get(self, video_id):
         data = videos_individual(
             get_resource_id_from_video(video_id),
-            request.args.get('start', datetime.now()),
-            request.args.get('end', None))
+            *default_args(request),
+            **default_kwargs(request))
         return data
 
 
@@ -174,8 +194,8 @@ class RegionsMetricsApi(restful.Resource):
         data = video_regions(
             get_resource_id_from_video(video_id),
             country.upper(),
-            request.args.get('start', datetime.now()),
-            request.args.get('end', None))
+            *default_args(request),
+            **default_kwargs(request))
         return data
 
 
