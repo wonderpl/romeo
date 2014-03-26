@@ -48,10 +48,12 @@
         </div>
 
         <!-- Bottom Panel -->
-        <div id="analytics-bottom-panel">
+        <div id="analytics-bottom-panel" class="flip-container">
             <div pl-analytics-fields-key ng-if="isSection('performance') || isSection('geographic')"></div>
-            <div pl-analytics-fields-chooser ng-if="isSection('performance') || isSection('geographic')"></div>
-            <div pl-analytics-results ng-if="isSection('performance') || isSection('geographic')"></div>
+            <div class="flipper">
+                <div pl-analytics-results-table ng-if="isSection('performance') || isSection('geographic')" class="flipper-front front"></div>
+                <div pl-analytics-fields-chooser ng-if="isSection('performance') || isSection('geographic')" class="flipper-back back"></div>
+            </div>
             <!-- Engagement Bottom Here -->
         </div>
 

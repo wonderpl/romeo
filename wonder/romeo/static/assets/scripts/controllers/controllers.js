@@ -490,7 +490,7 @@
         };
     }]);
 
-    app.controller('AnalyticsController', ['$scope', '$rootScope', '$routeParams', 'StatsService', 'VideoService', function ($scope, $rootScope, $routeParams, StatsService, VideoService) {
+    app.controller('AnalyticsController', ['$scope', '$rootScope', '$routeParams', 'StatsService', 'VideoService', '$element', function ($scope, $rootScope, $routeParams, StatsService, VideoService, $element) {
 
         $scope.states = ['init', 'loading', 'complete', 'error'];
 
@@ -508,13 +508,28 @@
             engagement: null
         };
 
+
         $scope.analytics = {
             dateRange: {
                 from: moment().subtract('days', 7).toDate(),
                 to: new Date()
-            }
+            },
+            results: [],
+            key: null
         };
 
+        $scope.setResults = function(key, keyDisplayName, dateFrom, dateTo, results) {
+            $scope.analytics.key = key;
+            $scope.analytics.keyDisplayName = keyDisplayName;
+            $scope.analytics.dateRange.from = dateFrom;
+            $scope.analytics.dateRange.to = dateTo;
+            $scope.analytics.results = results;
+        };
+
+        $scope.flip = function() {
+
+            angular.element($element[0].querySelectorAll('#analytics-bottom-panel')).toggleClass('flip');
+        };
 
         $scope.setSection = function (sectionName) {
             if (_.contains($scope.sections, sectionName)) {
