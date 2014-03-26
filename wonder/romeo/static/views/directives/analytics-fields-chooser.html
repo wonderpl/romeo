@@ -1,0 +1,9 @@
+<ul id="analytics-fields-selection">
+    <li class="analytics-fields-selection-item" ng-repeat="field in fields">
+        <div class="selection-title" style="border-bottom-color: {{ field.color }}">
+            <input type="checkbox" ng-model="field.visible"/>
+            <span>{{field.displayName }}</span>
+        </div>
+        <div class="selection-description">{{ field.description }}</div>
+    </li>
+</ul>

@@ -47,3 +47,9 @@ romeo.db
 wonder/romeo/static/.webassets-manifest
 wonder/romeo/static/.webassets-cache
 wonder/romeo/static/gen
+
+# Sass cache
+.sass-cache/
+
+# node packages
+node_modules/

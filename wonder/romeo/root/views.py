@@ -6,7 +6,7 @@ rootapp = Blueprint('root', __name__)
 
 @rootapp.route('/')
 def home():
-    return render_template('root/index.html')
+    return render_template('romeo/index.html')
 
 
 @rootapp.route('/status/')

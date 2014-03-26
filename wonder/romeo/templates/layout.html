@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>{% block title %}Romeo{% endblock %}</title>
+
+    <script type="text/javascript" src="//use.typekit.net/twx7lpv.js"></script>
+    <script type="text/javascript">try {
+        Typekit.load();
+    } catch (e) {
+    }</script>
+
+    {% assets filters="cssmin", output="gen/app.%(version)s.css",
+      "assets/vendor/css/nv.d3.min.css",
+      "assets/vendor/css/ng-grid.min.css",
+      "assets/css/app.css"
+    %}
+    <link rel="stylesheet" href="{{ ASSET_URL }}"/>
+    {% endassets %}
+
+</head>
+<body ng-app="{% block appName %}RomeoApp{% endblock %}" ng-controller="MainCtrl">
+    
+    {% block content %}
+    {% endblock %}
+
+    {% block vendorjs %}
+    {% assets filters="rjsmin", output="gen/vendor.%(version)s.js",
+        "assets/vendor/js/d3.min.js",
+        "assets/vendor/js/nv.d3.js",
+        "assets/vendor/js/topojson.js",
+        "assets/vendor/js/lodash.min.js",
+        "assets/vendor/js/angular/angular.js",
+        "assets/vendor/js/angular/angular-route.js",
+        "assets/vendor/js/angular/ng-grid-2.0.7.min.js",
+        "assets/vendor/js/moment.min.js"
+    %}
+    <script src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+    {% endblock %}
+
+    {% block appjs %}
+    {% assets filters="rjsmin", output="gen/app.%(version)s.js",
+        "assets/scripts/app.js",
+        "assets/scripts/services/services.js",
+        "assets/scripts/controllers/controllers.js",
+        "assets/scripts/filters/filters.js",
+        "assets/scripts/directives/directives.js",
+        "assets/scripts/directives/analytics.js"
+    %}
+    <script src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+    {% endblock %}
+
+    {% block viewsjs %}
+    {% assets filters="rjsmin", output="gen/views.%(version)s.js",
+        "assets/scripts/views.js"
+    %}
+    <script src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+    {% endblock %}
+
+</body>
+</html>

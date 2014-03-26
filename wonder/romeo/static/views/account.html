@@ -1,0 +1,76 @@
+<div class="section">
+  <ul id="breadcrumb" class="inner">
+    <li class="home"><a href="/#/" class="icon-home"></a></li>
+    <li><span class="divider">/</span> <span>My Account</span></li>
+  </ul>
+</div>
+
+<div id="page-account" class="section" ng-controller="AccountController">
+	<div class="inner">
+		<h1>My Account</h1>
+
+		<nav id="account-nav">
+			<ul>
+				<li><a ng-click="accountNav('personal')" ng-class="{ selected: viewing == 'personal' }">Personal Details</a></li>
+				<li><a ng-click="accountNav('stats')" ng-class="{ selected: viewing == 'stats' }">Account Stats</a></li>
+				<li><a ng-click="accountNav('payment')" ng-class="{ selected: viewing == 'payment' }">Payment Info</a></li>
+			</ul>
+		</nav>
+
+		<div class="inner account-personal" ng-if="viewing == 'personal'">
+			<div class="avatar inline-block">
+				<span class="icon-user2">
+					<a href="/#/account">Change Avatar</a>
+				</span>
+			</div>
+			<form class="inline-block" ng-submit="saveUser($event)">
+				<div class="row left half-width">
+					<label>First Name</label>
+					<input type="text" ng-model="user.firstName">
+				</div><!--
+				--><div class="row half-width">
+					<label>Last Name</label>
+					<input type="text" ng-model="user.lastName">
+				</div><!--
+				--><div class="row left half-width">
+					<label>Location</label>
+					<input type="text" ng-model="user.location">
+				</div><!--
+				--><div class="row half-width">
+					<label>Email address <span>(<a ng-click="changeEmailAddress($event)">Change?</a>)</span></label>
+					<input type="text" ng-model="user.email" class="pl-disabled" ng-click="changeEmailAddress($event)">
+				</div><!--
+				--><div class="row left half-width">
+					<label>Username <span>(<a ng-click="changeUsername($event)">Change?</a>)</span></label>
+					<input type="text" ng-model="user.username" class="pl-disabled" ng-click="changeUsername($event)">
+				</div><!--
+				--><div class="row half-width">
+					<label>Password <span>(<a ng-click="changePassword($event)">Change?</a>)</span></label>
+					<input type="password" ng-model="user.password" class="pl-disabled" ng-click="changePassword($event)">
+				</div><!--
+				--><div class="row half-width">
+					<input type="submit" value="Update my details" ng-class="{ active: checkEquals(blueprint,user) }">
+				</div>
+			</form>
+		</div><!--
+		--><div class="inner account-stats" ng-if="viewing == 'stats'">
+			<div class="account-stats-left">
+				<h2>Account info</h2>
+				<p>Views left: <span>200,000</span></p>
+				<p>Encoding time left: <span>84.5 hrs</span></p>
+				<p>Total videos: <span>12</span></p>
+				<p><a href="#">Refer a friend</a></p>
+			</div><!--
+			--><div class="account-stats-right">
+				<div class="pie">
+					<div class="inner-left"></div>
+					<div class="inner-bottom"></div>
+					<label>25% used</label>
+				</div>
+			</div>
+			<a href="#" class="big-button">Upgrade to PRO</a>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+

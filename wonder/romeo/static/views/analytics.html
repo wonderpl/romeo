@@ -1,0 +1,65 @@
+<div class="section">
+    <ul id="breadcrumb" class="inner">
+        <li class="home"><a href="/#/" class="icon-home"></a></li>
+        <li><span class="divider">/</span><span>Stats</span></li>
+    </ul>
+</div>
+
+<div id="page-stats" class="section" ng-controller="AnalyticsController">
+
+    <div class="inner" ng-if="isState('complete')">
+
+        <!-- Header -->
+        <div id="analytics-header">
+            <!--  Title -->
+            <h1 id="analytics-title">Stats for {{ video.title }}</h1>
+
+            <!-- Tabs -->
+            <div id="analytics-tabs">
+                <ul>
+                    <li class="analytics-tabs-tab" ng-class="{ selected: isSection('overview') }">
+                        <a href="/#/analytics/{{ video.videoID }}/overview" class="icon-analytics">Overview</a>
+                    </li>
+                    <li class="analytics-tabs-tab" ng-class="{ selected: isSection('performance') }">
+                        <a href="/#/analytics/{{ video.videoID }}/performance" class="icon-graph">Performance</a>
+                    </li>
+                    <li class="analytics-tabs-tab" ng-class="{ selected: isSection('geographic') }">
+                        <a href="/#/analytics/{{ video.videoID }}/geographic" class="icon-earth">Geographic</a>
+                    </li>
+                    <li class="analytics-tabs-tab" ng-class="{ selected: isSection('engagement') }">
+                        <a href="/#/analytics/{{ video.videoID }}/engagement" class="icon-user">Engagement</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Date Range -->
+            <div id="analytics-date">
+                <div id="analytics-date-selected">
+                    <span>{{ analytics.dateRange.from | formatDate }} - {{ analytics.dateRange.to | formatDate }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Panel -->
+        <div id="analytics-top-panel">
+            <div pl-analytics-overview ng-if="isSection('overview')"></div>
+            <div pl-analytics-performance-chart ng-if="isSection('performance')"></div>
+            <div pl-analytics-geographic-map ng-if="isSection('geographic')"></div>
+        </div>
+
+        <!-- Bottom Panel -->
+        <div id="analytics-bottom-panel">
+            <div pl-analytics-fields-key ng-if="isSection('performance') || isSection('geographic')"></div>
+            <div pl-analytics-fields-chooser ng-if="isSection('performance') || isSection('geographic')"></div>
+            <div pl-analytics-results ng-if="isSection('performance') || isSection('geographic')"></div>
+            <!-- Engagement Bottom Here -->
+        </div>
+
+        <!-- Footer -->
+        <div id="analytics-footer">
+
+        </div>
+
+    </div>
+</div>
+</div>

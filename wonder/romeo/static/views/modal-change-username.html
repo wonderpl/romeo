@@ -1,0 +1,12 @@
+<h2>Change Username</h2>
+<form name"changeUsername" ng-submit="saveUsername(data)">
+	<div class="row">
+		<label>New Username</label>
+		<input type="text" ng-model="data.username" pl-focus-field/>
+	</div>
+	<div class="row">
+		<input type="submit" value="Save" />
+	</div>	
+	<div class="clear"></div>
+</form>
+<a class="icon-cross close-modal" ng-click="closeModal()"></a>

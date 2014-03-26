@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block appName %}RomeoApp{% endblock %}
+{% block content %}
+<header class="section">
+    <div class="inner">
+        <div class="wonder-logo"></div>
+        <nav>
+            <ul>
+                <li><a href="/#/dashboard">Dashboard</a></li>
+                <li><a href="/#/library">Library</a></li>
+                <li><a href="/#/upload">Upload</a></li>
+            </ul>
+        </nav>
+        <div class="session">
+            <a href="/#/account" class="icon-user2">Logged in as <span>Dave</span></a>
+        </div>
+    </div>
+</header>
+<ng-view></ng-view>
+{% endblock %}

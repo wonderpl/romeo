@@ -1,0 +1,288 @@
+
+/*  Form styling
+/* ======================================= */
+
+input[type=text], input[type=email], input[type=phone], input[type=password], select, textarea {
+	border: 1px solid $flat-gray-2;
+	outline: none;
+	padding: 8px 5px;
+	width: 100%;
+	font-size: 13px;
+	@include border-radius( 4px );
+
+	&.margin-bottom {
+		margin-bottom: 20px;
+	}
+}
+
+textarea {
+	height: 100px;
+}
+
+input[type=checkbox] {
+	margin: 0 0 0 0;
+}
+
+form .row {
+	display: block;
+	margin: 0 0 16px 0;
+	
+	&.full-width {
+		width: 100%;
+	}
+
+	&.half-width {
+		@include inline-block;
+		width: 47%;
+
+		&.left {
+			margin-right: 6%;
+		}
+	}
+
+	label {
+		display: block;
+		font-size: 15px;
+		padding: 0 0 3px 0;
+
+		&.inline-block {
+			@include inline-block;
+			vertical-align: top;
+		}
+
+		span {
+			font-size: 12px;
+		}
+	}
+
+	input {
+		display: block;
+
+		&.inline-block {
+			@include inline-block;
+			vertical-align: top;
+		}
+	}
+
+	input[type=submit] {
+		display: block;
+		padding: 8px;
+		border: none;
+		outline: none;
+		background: $flat-green-4;
+		color: white;
+		@include border-radius( 5px );
+		font-size: 15px;
+		cursor: pointer;
+	}
+}
+
+#customize-player {
+
+	.row {
+
+	}
+
+	.dimension {
+		@include inline-block;
+		width: 120px;
+		margin: 0 12px 0 0;
+	}
+
+	.margin-right {
+		margin-right: 8px;
+	}
+	
+	.padding {
+		@include inline-block;
+
+		&.top {
+			padding-top: 2px;
+		}
+		.right {
+			padding-right: 5px;
+		}
+		.left {
+			padding-left: 5px;
+		}
+	}
+}
+
+.thumbnail-picker {
+	display: block;
+	position: relative;
+	width: 100%;
+	background: $flat-gray-2;
+	@include transition( all .2s ease-out );
+	color: white;
+	cursor: pointer;
+	
+	&:before {
+		content: '';
+		display: block;
+		padding-top: 56.25%;
+	}
+
+	&:hover, &:focus, &:active {
+		background: $flat-red-1;
+	}
+
+	span {
+		pointer-events: none;
+		display: block;
+		width: 55px;
+		height: 55px;
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		margin: auto;
+		font-size: 50px;
+	}
+}
+
+.toolbar, .bottom-toolbar {
+	display: block;
+	width: 100%;
+	padding: 8px;
+	// @include border-radius( 5px 5px 0px 0px );
+	background: $flat-gray-1;
+	border: 1px solid darken($flat-gray-1, 20%);
+
+	input, input[type=text], button, select {
+		@include inline-block;
+		vertical-align: top;
+		padding: 5px 
+	}
+
+	.filter {
+		font-size: 13px;
+		width: 247px;
+		margin: 0 0 0 0;
+	}
+
+	// a.clear-filter {
+	// 	background: $flat-red-1;
+	// 	position: relative;
+	// 	top: -40px;
+	// 	left: 0;
+	// 	@include transition( top .2s ease-out );
+
+	// 	&.show {
+	// 		top: 0px;
+	// 	}
+	// }
+
+	// a.icon-cross {
+	// 	display: none;
+	// 	position: absolute;
+	// 	left: 234px;
+	// 	top: 15px;
+	// 	color: #000;
+	// 	text-decoration: none;
+	// 	color: $flat-gray-4;
+
+	// 	&.show {
+	// 		display: block;
+	// 	}
+	// }
+
+	select {
+		width: 150px;
+		height: 28px;
+		float: right;
+		margin: 0 0 0 10px;;
+	}
+
+	label {
+		float: right;
+		font-size: 13px;
+		@include inline-block;
+		padding: 9px 5px 0 0;
+
+		&.disabled {
+			color: $flat-gray-2;
+		}
+	}
+}
+
+// button {
+// 	@include inline-block;
+// 	width: 28px;
+// 	padding: 5px 0 0 0;
+// 	font-size: 18px;
+// 	cursor: pointer;
+
+// 	&:before {
+// 		font-size: 18px;
+// 	}
+// }
+
+// a.button {
+// 	@include inline-block;
+// 	padding: 2px 11px 0px 5px;
+// 	color: white;
+// 	text-align: center;
+// 	text-decoration: none;
+// 	font-size: 14px;
+// 	cursor: pointer;
+	
+// 	&:before {
+// 		padding: 0 5px 0px 7px;
+// 		font-size: 18px;
+// 		top: 3px;
+// 		position: relative;
+// 	}
+// }
+
+// .button, button {
+// 	@include inline-block;
+// 	@include border-radius( 4px );
+// 	@include transition( all .1s ease-out );
+// 	outline: none;
+// 	border: none;
+// 	background: $flat-green-4;
+// 	height: 28px;
+// 	color: white;
+// 	text-align: center;
+// 	text-decoration: none;
+// 	overflow: hidden;
+// 	margin: 0 0 0 10px;
+
+// 	&.right {
+// 		float: right;
+// 	}
+
+// 	&.go:before {
+// 		padding: 0px 0px 0px 4px;
+// 	}
+
+// 	&:hover, &:active, &:focus {
+// 		background: lighten($flat-green-4, 10%);
+// 	}
+
+// 	&.disabled {
+// 		background: $flat-gray-2;
+// 		&:hover, &:active, &:focus {
+// 			background: $flat-gray-2;
+// 			cursor: pointer;
+// 		}
+// 	}
+// }
+
+a.go.disabled {
+	margin-right: -50px;
+}
+
+.bottom-toolbar {
+	display: block;
+	position: absolute;
+	width: 100%;
+	padding: 8px;
+	left: 0;
+	bottom: 0;
+	background: $flat-gray-1;
+	border: 1px solid darken($flat-gray-1, 20%);
+	@include border-radius( 0px 0px 5px 5px );
+}

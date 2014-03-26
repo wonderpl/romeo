@@ -1,0 +1,12 @@
+<h2>Change E-mail Address</h2>
+<form name"changeEmailAddress" ng-submit="saveEmailAddress(data)">
+	<div class="row">
+		<label>New E-mail Address</label>
+		<input type="text" ng-model="data.email" pl-focus-field/>
+	</div>
+	<div class="row">
+		<input type="submit" value="Save" />
+	</div>	
+	<div class="clear"></div>
+</form>
+<a class="icon-cross close-modal" ng-click="closeModal()"></a>

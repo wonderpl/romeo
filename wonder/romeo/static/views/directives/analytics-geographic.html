@@ -1,0 +1,52 @@
+<div>
+    <div class="analytics-panel analytics-panel-top">
+        <svg id="geographic-map"></svg>
+        <div id="geographic-map-data">
+            <h3>Region: {{ !zoomedToUSA ? 'World' : 'USA' }}</h3>
+            <h3>{{ zoomedToUSA ? 'State' : 'Country' }}: {{ areaData.metrics.video[fields[0].field].name }}</h3>
+            <div ng-repeat="field in fields | filter: { visible: true }">
+                <span class="key-color" style="background-color: {{field.color}}"></span><span>{{ field.displayName }}</span>&nbsp;<span>{{ areaData.metrics.video[field.field] }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="analytics-panel analytics-panel-bottom flip-container">
+        <!-- List Visible Fields Here -->
+        <ul id="analytics-fields-key">
+            <li class="analytics-fields-key-item" ng-repeat="field in fields | filter: { visible: true }">
+                <span class="key-color" style="background-color: {{field.color}}"></span>
+                <span class="key-title">{{ field.displayName }}</span>
+            </li>
+            <li class="icon-edit" ng-click="flip()"></li>
+        </ul>
+        <div class="flipper">
+            <div class="flipper-front">
+
+                <table id="performance-table">
+                    <tr>
+                        <th><span class="table-title">Country</span></th>
+                        <th ng-repeat="field in fields | filter: { visible: true }">
+                            <span class="table-title" style="border-color: {{ field.color }}">{{ field.displayName }}</span>
+                        </th>
+                    </tr>
+                    <tr ng-repeat="row in data">
+                        <td>{{ row.date }}</td>
+                        <td ng-repeat="field in fields | filter: { visible: true }">
+                            <span>{{ row[field.field] }}</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="flipper-back">
+                <ul id="analytics-fields-selection">
+                    <li class="analytics-fields-selection-item" ng-repeat="field in fields">
+                        <div class="selection-title" style="border-bottom-color: {{ field.color }}">
+                            <input type="checkbox" ng-model="field.visible"/>
+                            <span>{{field.displayName }}</span>
+                        </div>
+                        <div class="selection-description">{{ field.description }}</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

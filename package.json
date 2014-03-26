@@ -1,0 +1,47 @@
+{
+  "name": "brioche",
+  "version": "0.0.0",
+  "description": "brioche =======",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/darve/brioche.git"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/darve/brioche/issues"
+  },
+  "homepage": "https://github.com/darve/brioche",
+  "dependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-contrib-concat": "0.3.0",
+    "grunt-contrib-watch": "0.5.3",
+    "grunt-contrib-compass": "~0.6.0",
+    "grunt-contrib-jshint": "~0.7.2"
+  },
+  "devDependencies": {
+    "karma-script-launcher": "~0.1.0",
+    "karma-chrome-launcher": "~0.1.2",
+    "karma-firefox-launcher": "~0.1.3",
+    "karma-html2js-preprocessor": "~0.1.0",
+    "requirejs": "~2.1.11",
+    "karma-requirejs": "~0.2.1",
+    "karma-coffee-preprocessor": "~0.1.3",
+    "karma-phantomjs-launcher": "~0.1.2",
+    "karma": "~0.10.9",
+    "karma-jasmine": "~0.1.5",
+    "karma-htmlfile-reporter": "~0.1.0",
+    "grunt-karma": "~0.6.2",
+    "phantomjs": "~1.9.7-1",
+    "grunt-angular-templates": "~0.5.3",
+    "grunt-contrib-cssmin": "~0.9.0",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-processhtml": "~0.3.0"
+  }
+}
