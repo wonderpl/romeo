@@ -6,12 +6,14 @@ Analytics
 ```http
 GET /api/analytics/performance/VIDEOID HTTP/1.1
 ```
+
 Parameter       | Required    | Value    | Description
 :-------------- | :---------- | :------- | :----------
-start           | No          | Date     | eg. 2014-03-12
-end             | No          | Date     | eg. 2014-03-12
-limit           | No          | Integer  | Page size
-page_token      | No          | String   | Next page to fetch. Null if no next page
+start           | No          | Date                     | eg. 2014-03-12
+end             | No          | Date                     | eg. 2014-03-12
+limit           | No          | Integer                  | Page size
+page_token      | No          | String                   | Next page to fetch. Null if no next page
+breakdown_by    | No          | 'day', 'week', 'month'   | Group stats by period
 
 ```http
 HTTP/1.1 200 OK
@@ -62,6 +64,13 @@ Content-Type: application/json
 ```http
 GET /api/analytics/cities/VIDEOID HTTP/1.1
 ```
+
+Parameter       | Required    | Value    | Description
+:-------------- | :---------- | :------- | :----------
+start           | No          | Date     | eg. 2014-03-12
+end             | No          | Date     | eg. 2014-03-12
+limit           | No          | Integer  | Page size
+page_token      | No          | String   | Next page to fetch. Null if no next page
 
 ```http
 HTTP/1.1 200 OK
@@ -140,6 +149,13 @@ Content-Type: application/json
 GET /api/analytics/countries/VIDEOID HTTP/1.1
 ```
 
+Parameter       | Required    | Value    | Description
+:-------------- | :---------- | :------- | :----------
+start           | No          | Date     | eg. 2014-03-12
+end             | No          | Date     | eg. 2014-03-12
+limit           | No          | Integer  | Page size
+page_token      | No          | String   | Next page to fetch. Null if no next page
+
 ```http
 HTTP/1.1 200 OK
 Content-Type: application/json
@@ -188,6 +204,13 @@ Content-Type: application/json
 ```http
 GET /api/analytics/countries/COUNTRYID/VIDEOID HTTP/1.1
 ```
+
+Parameter       | Required    | Value    | Description
+:-------------- | :---------- | :------- | :----------
+start           | No          | Date     | eg. 2014-03-12
+end             | No          | Date     | eg. 2014-03-12
+limit           | No          | Integer  | Page size
+page_token      | No          | String   | Next page to fetch. Null if no next page
 
 ```http
 HTTP/1.1 200 OK

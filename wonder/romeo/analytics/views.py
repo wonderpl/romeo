@@ -1,11 +1,7 @@
 from datetime import datetime
 from flask import Blueprint, request, jsonify, json
 from wonder.romeo.core.rest import Resource, api_resource
-from . import ooyala
-#from wonder.romeo.core.webservice import WebService, expose_ajax, secure_view
-#from wonder.romeo.core.oauth.decorators import check_authorization
-#from wonder.romeo.services.video import models
-#from wonder.romeo.services.user.models import User
+from wonder.romeo.core import ooyala
 
 
 analyticsapp = Blueprint('analytics', __name__, url_prefix='/analytics')
@@ -39,7 +35,7 @@ def _videos_request(feed, path='', breakdown_by='', limit=50, page_token=None):
         q_params['page_token'] = page_token
     if breakdown_by:
         q_params['breakdown_by'] = breakdown_by
-    return ooyala._ooyala_feed(feed, path, query_params=q_params)
+    return ooyala.ooyala_request(feed, path, query_params=q_params)
 
 
 def video_data_transform(d):
@@ -57,6 +53,8 @@ def video_data_transform(d):
 
 
 def process_performance(data):
+    if not data['results']:
+        return dict(metrics=[])
     metrics = data['results']['total']
     result = []
     for m in metrics:
@@ -108,14 +106,14 @@ def process_total(data):
     return transformed_data
 
 
-def videos_total(start, end=None):
+def videos_total(start, end=None, limit=100):
     path = 'reports/account/performance/videos/%s' % (_format_dates(start, end))
-    return process_total(_videos_request('analytics', path))
+    return process_total(_videos_request('analytics', path, limit=limit))
 
 
-def videos_individual(resource_id, start, end=None, limit=50, page_token=None):
+def videos_individual(resource_id, start, end=None, limit=50, page_token=None, breakdown_by='day'):
     path = 'reports/asset/%s/performance/total/%s' % (resource_id, _format_dates(start, end))
-    return process_performance(_videos_request('analytics', path, breakdown_by='day', limit=limit, page_token=page_token))
+    return process_performance(_videos_request('analytics', path, breakdown_by=breakdown_by, limit=limit, page_token=page_token))
 
 
 def video_cities(resource_id, start, end=None, limit=10, page_token=None):
@@ -166,6 +164,7 @@ class PerformanceMetricsApi(Resource):
         data = videos_individual(
             get_resource_id_from_video(video_id),
             *default_args(request),
+            breakdown_by=request.args.get('breakdown_by', 'day'),
             **default_kwargs(request))
         return data
 
@@ -201,47 +200,6 @@ class RegionsMetricsApi(Resource):
         return data
 
 
-"""
-        ## Returns all video metrics for an account
-
-        labels = _videos_request('labels')
-        label_id = None
-
-        for label in labels['items']:
-            if label['name'] == 'Lucas Hugh':
-                label_id = label['id']
-                break
-
-        if not label_id:
-            abort(404)
-
-        raw_video_data = _videos_request('labels', label_id + '/assets')
-        response_data = []
-
-        for video in raw_video_data.get('items'):
-            resource_url = url_for(
-                'analytics.video_individual',
-                user_id=1,
-                video_id=video['embed_code'],
-                _external=True)
-
-            response_data.append(
-                dict(
-                    date_uploaded=video['created_at'],
-                    duration=video['duration'],
-                    embed_code=video['embed_code'],
-                    name=video['name'],
-                    thumbnail_url=video['preview_image_url'],
-                    resource_url=resource_url,
-                    resource_url_weekly=resource_url + '?' + urllib.urlencode(
-                        {'start': (datetime.now() - timedelta(days=7)).strftime(DATE_FORMAT),
-                            'end': datetime.now().strftime(DATE_FORMAT)})
-                )
-            )
-        return dict(videos=dict(items=response_data))
-"""
-
-
 @analyticsapp.route('/<user_id>/<video_id>')
 def video_individual(user_id, video_id):
     """ Return data for an individual video belonging to <user_id> """
@@ -251,54 +209,3 @@ def video_individual(user_id, video_id):
         request.args.get('start', datetime.now()),
         request.args.get('end', None))
     return jsonify(data)
-
-
-"""
-class Analytics(WebService):
-
-    endpoint = '/analytics'
-
-    @expose_ajax('/<user_id>/')
-    @check_authorization()
-    def video_all(self, user_id):
-        if g.authorized.userid != user_id:
-            abort(404)
-
-        BASE_URL = url_for('basews.discover')
-
-        label_id = ooyala_labelid_from_userid(user_id)
-        if not label_id:
-            abort(404)
-
-        raw_video_data = _videos_request('labels', '%s/assets' % label_id)
-
-        response_data = []
-
-        for video in raw_video_data.get('items'):
-            resource_url = url_for('analytics.video_individual', user_id='-', video_id=video['embed_code'])
-            response_data.append(
-                dict(
-                    date_uploaded=video['created_at'],
-                    duration=video['duration'],
-                    embed_code=video['embed_code'],
-                    name=video['name'],
-                    thumbnail_url=video['preview_image_url'],
-                    resource_url=resource_url,
-                    resource_url_weekly=resource_url + '?' + urllib.urlencode(
-                        {'start': (datetime.now() - timedelta(days=7)).strftime(DATE_FORMAT),
-                            'end': datetime.now().strftime(DATE_FORMAT)})
-                )
-            )
-        return dict(videos=dict(items=response_data))
-
-    @expose_ajax('/<user_id>/<video_id>/')
-    @check_authorization()
-    def video_individual(self, user_id, video_id):
-        if g.authorized.userid != userid:
-            abort(404)
-
-        # FIXME: check the video actually belongs to the owner
-
-        data = videos_individual(video_id, request.args.get('start', datetime.now()), request.args.get('end', None))
-        return data
-"""
