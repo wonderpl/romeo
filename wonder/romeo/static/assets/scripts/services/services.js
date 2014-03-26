@@ -57,12 +57,11 @@
         // Load a modal template and SHOW it ( optional )
         modal.load = function ( url, show, scope, obj ) {
             template = $templateCache.get(modal.getUrl(url));
-            console.log(template);
             var $scp = ng.extend(scope.$new(), {
                 data: ng.extend({}, obj)
             });
-            compiledTemplate = $compile($sanitize(template))($scp);
-            $el.html(compiledTemplate);
+            $el.html(template);
+            $compile($sanitize(template))($scp);
 
             if ( show === true ) {
                 $el_bg.addClass('show');
