@@ -1,0 +1,12 @@
+<table id="analytics-results-table">
+    <thead>
+        <th><span class="results-table-column-header">{{ analytics.keyDisplayName }}</span></th>
+        <th class="results-table-column-header" ng-repeat="field in fields | filter: { visible: true }">{{ field.displayName }}</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="result in analytics.results">
+            <td>{{ result[analytics.key] }}</td>
+            <td ng-repeat="field in fields | filter: { visible: true }">{{ result[field.field] }}</td>
+        </tr>
+    </tbody>
+</table>

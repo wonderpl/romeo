@@ -106,6 +106,8 @@
                         datum.dateObj = moment(datum.date, 'YYYY-MM-DDW').toDate();
                     });
 
+                    $scope.setResults('date', 'Date', null, null, data.performance);
+
                     $scope.chartData = getChartData(data.performance);
 
                     nv.addGraph(function () {
@@ -172,38 +174,11 @@
         };
     }]);
 
-    app.directive('plAnalyticsFieldsChooser', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
+    app.directive('plAnalyticsGeographicMap', ['$rootScope', '$timeout', '$http', 'GeographicService', function ($rootScope, $timeout, $http, GeographicService) {
         return {
             restrict: 'A',
-            templateUrl: 'views/directives/analytics-fields-chooser.html',
-            controller: function ($scope) {
-
-            }
-        };
-    }]);
-
-    app.directive('plAnalyticsFieldsKey', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
-        return {
-            restrict: 'A',
-            templateUrl: 'views/directives/analytics-fields-key.html',
-            controller: function ($scope) {
-
-            }
-        };
-    }]);
-
-    app.directive('plAnalyticsGeographic', ['$rootScope', '$timeout', '$http', 'StatsService', function ($rootScope, $timeout, $http, StatsService) {
-        return {
-            restrict: 'E',
-            replace: true,
             templateUrl: 'views/directives/analytics-geographic.html',
-            scope: {
-                data: '=',
-                fields: '='
-            },
-            link: function (scope, elem, attrs) {
-
-            },
+            scope: true,
             controller: function ($scope) {
 
                 var width = 960;
@@ -228,37 +203,21 @@
                 var mapPath = d3.geo.path()
                     .projection(projection);
 
-                var zoomed = false;
-
                 $scope.zoomedToUSA = false;
                 $scope.areaData = null;
-
-                // Tranform scope.data
-                transformData();
-
-                // TODO: Load these in?
-//                $scope.fields = StatsService.getFields();
-                console.log($scope)
-                console.log($scope.fields)
-
-                function transformData() {
-                    _($scope.data.results.world).concat($scope.data.results.usa).forEach(function (datum) {
-                        // Maybe colors here later
-//                        datum.dateObj = moment(datum.date, 'YYYY-MM-DDW').toDate();
-                    });
-                }
 
                 function drawWorldMap(mapJSON, analyticsData) {
 
                     var map = drawMap(countryGroup, 'countries', mapJSON, analyticsData);
 
+                    // Add Zoom to USA
                     countryGroup.selectAll('path')
                         .filter(function (d) {
                             return d.properties.names[0] === 'United States';
                         })
                         .on('mousedown', function (d) {
                             toggleUSAZoom(function () {
-                                showStatesMap($scope.data.results.usa);
+                                showStatesMap();
                             });
                         });
 
@@ -269,7 +228,7 @@
                     return drawMap(statesGroup, 'states', mapJSON, analyticsData)
                         .on('mousedown', function () {
                             toggleUSAZoom(function () {
-                                showWorldMap($scope.data.results.world);
+                                showWorldMap();
                             });
                         });
                 }
@@ -321,21 +280,32 @@
                     $scope.$apply(function () {
                         $scope.areaData = datum;
                     });
-                    console.log(datum);
 
                 }
 
                 function getDataForWorldMap(callback) {
-                    callback();
+                    GeographicService.getOne($scope.video.videoID).then(function (data) {
+                        var results = _(data.geographic.results.world).map(function (result) {
+                            return _.extend({name: result.name}, result.metrics.video);
+                        }).value();
+                        $scope.setResults('name', 'Name', null, null, results);
+                        callback(data.geographic.results.world);
+                    });
                 }
 
                 function getDataForStatesMap(callback) {
-                    callback();
+                    GeographicService.getOne($scope.video.videoID).then(function (data) {
+                        var results = _(data.geographic.results.usa).map(function (result) {
+                            return _.extend({name: result.name}, result.metrics.video);
+                        }).value();
+                        $scope.setResults('name', 'Name', null, null, results);
+                        callback(data.geographic.results.usa);
+                    });
                 }
 
-                function showWorldMap(analyticsData) {
+                function showWorldMap() {
 
-                    getDataForWorldMap(function () {
+                    getDataForWorldMap(function (analyticsData) {
                         if (mapJSONCache.world) {
                             drawWorldMap(mapJSONCache.world, analyticsData);
                         } else {
@@ -348,8 +318,8 @@
 
                 }
 
-                function showStatesMap(analyticsData) {
-                    getDataForStatesMap(function () {
+                function showStatesMap() {
+                    getDataForStatesMap(function (analyticsData) {
                         if (mapJSONCache.states) {
                             drawStatesMap(mapJSONCache.states, analyticsData);
                         } else {
@@ -431,7 +401,37 @@
 
                 }
 
-                showWorldMap($scope.data.results.world);
+                showWorldMap();
+
+            }
+        };
+    }]);
+
+    app.directive('plAnalyticsFieldsChooser', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
+        return {
+            restrict: 'A',
+            templateUrl: 'views/directives/analytics-fields-chooser.html',
+            controller: function ($scope) {
+
+            }
+        };
+    }]);
+
+    app.directive('plAnalyticsFieldsKey', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
+        return {
+            restrict: 'A',
+            templateUrl: 'views/directives/analytics-fields-key.html',
+            controller: function ($scope) {
+
+            }
+        };
+    }]);
+
+    app.directive('plAnalyticsResultsTable', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
+        return {
+            restrict: 'A',
+            templateUrl: 'views/directives/analytics-results-table.html',
+            controller: function ($scope) {
 
             }
         };
