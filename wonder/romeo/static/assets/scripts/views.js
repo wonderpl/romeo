@@ -1,5 +1,4 @@
-angular.module('RomeoApp').run(['$templateCache', function($templateCache) {
-  'use strict';
+angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   'use strict';
 
   $templateCache.put('account.html',
     "<div class=\"section\">\n" +
@@ -96,22 +95,22 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {
     "        <!-- Header -->\n" +
     "        <div id=\"analytics-header\">\n" +
     "            <!--  Title -->\n" +
-    "            <h1 id=\"analytics-title\">Stats for {{ video.title }}</h1>\n" +
+    "            <h1 id=\"analytics-title\">Stats for (~ video.title ~)</h1>\n" +
     "\n" +
     "            <!-- Tabs -->\n" +
     "            <div id=\"analytics-tabs\">\n" +
     "                <ul>\n" +
     "                    <li class=\"analytics-tabs-tab\" ng-class=\"{ selected: isSection('overview') }\">\n" +
-    "                        <a href=\"/#/analytics/{{ video.videoID }}/overview\" class=\"icon-analytics\">Overview</a>\n" +
+    "                        <a href=\"/#/analytics/(~ video.videoID ~)/overview\" class=\"icon-analytics\">Overview</a>\n" +
     "                    </li>\n" +
     "                    <li class=\"analytics-tabs-tab\" ng-class=\"{ selected: isSection('performance') }\">\n" +
-    "                        <a href=\"/#/analytics/{{ video.videoID }}/performance\" class=\"icon-graph\">Performance</a>\n" +
+    "                        <a href=\"/#/analytics/(~ video.videoID ~)/performance\" class=\"icon-graph\">Performance</a>\n" +
     "                    </li>\n" +
     "                    <li class=\"analytics-tabs-tab\" ng-class=\"{ selected: isSection('geographic') }\">\n" +
-    "                        <a href=\"/#/analytics/{{ video.videoID }}/geographic\" class=\"icon-earth\">Geographic</a>\n" +
+    "                        <a href=\"/#/analytics/(~ video.videoID ~)/geographic\" class=\"icon-earth\">Geographic</a>\n" +
     "                    </li>\n" +
     "                    <li class=\"analytics-tabs-tab\" ng-class=\"{ selected: isSection('engagement') }\">\n" +
-    "                        <a href=\"/#/analytics/{{ video.videoID }}/engagement\" class=\"icon-user\">Engagement</a>\n" +
+    "                        <a href=\"/#/analytics/(~ video.videoID ~)/engagement\" class=\"icon-user\">Engagement</a>\n" +
     "                    </li>\n" +
     "                </ul>\n" +
     "            </div>\n" +
@@ -119,7 +118,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {
     "            <!-- Date Range -->\n" +
     "            <div id=\"analytics-date\">\n" +
     "                <div id=\"analytics-date-selected\">\n" +
-    "                    <span>{{ analytics.dateRange.from | formatDate }} - {{ analytics.dateRange.to | formatDate }}</span>\n" +
+    "                    <span>(~ analytics.dateRange.from | formatDate ~) - (~ analytics.dateRange.to | formatDate ~)</span>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "        </div>\n" +
@@ -191,40 +190,40 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {
     "\t\t\t\t<a class=\"button icon-layout right\"></a>\n" +
     "\t\t\t\t<h2 ng-show=\"selectedItems.length == 0\">Videos</h2>\n" +
     "\t\t\t\t<div id=\"selection-status\" ng-class=\"{ show: selectedItems.length > 0 }\">\n" +
-    "\t\t\t\t\t<span>{{ selectedItems.length }} video<span ng-show=\"selectedItems.length > 1\">s</span> selected: <a ng-click=\"showAddToCollectionForm($event)\">Add to a collection</a> / <a href=\"#\">View analytics</a></span>\n" +
+    "\t\t\t\t\t<span>(~ selectedItems.length ~) video<span ng-show=\"selectedItems.length > 1\">s</span> selected: <a ng-click=\"showAddToCollectionForm($event)\">Add to a collection</a> / <a href=\"#\">View analytics</a></span>\n" +
     "\t\t\t\t</div>\t\t\t\t\n" +
     "\t\t\t\t<div class=\"clear\"></div>\n" +
     "\t\t\t</div>\n" +
     "\t\t\t\n" +
     "\t\t\t<div id=\"collection-filter\" ng-class=\"{ show: filter.collection != null }\">\n" +
-    "\t\t\t\t<span>Showing videos from the collection \"{{ collections[filter.collection].label }}\" ( <a ng-click=\"clearFilter($event, 'collection')\">clear filter</a> )</span>\n" +
+    "\t\t\t\t<span>Showing videos from the collection \"(~ collections[filter.collection].label ~)\" ( <a ng-click=\"clearFilter($event, 'collection')\">clear filter</a> )</span>\n" +
     "\t\t\t</div>\n" +
     "\n" +
     "\t\t\t<div id=\"filter-status\" ng-class=\"{ show: filter.searchtext.length > 0 }\" class=\"border-top\">\n" +
-    "\t\t\t\t<span>Filtering results for \"{{ filter.searchtext }}\" ( <a ng-click=\"clearFilter($event, 'search')\">clear filter</a> )</span>\n" +
+    "\t\t\t\t<span>Filtering results for \"(~ filter.searchtext ~)\" ( <a ng-click=\"clearFilter($event, 'search')\">clear filter</a> )</span>\n" +
     "\t\t\t</div>\n" +
     "\n" +
     "\t\t\t<div id=\"search-status\" ng-class=\"{ show: filter.numresults == 0 }\">\n" +
-    "\t\t\t\t<span>Your search for {{ filter.searchtext }} returned {{ filter.numresults }} results (<a ng-click=\"clearFilter($event, 'search')\">Clear search</a>).</span>\n" +
+    "\t\t\t\t<span>Your search for (~ filter.searchtext ~) returned (~ filter.numresults ~) results (<a ng-click=\"clearFilter($event, 'search')\">Clear search</a>).</span>\n" +
     "\t\t\t</div>\n" +
     "\n" +
     "\t\t\t<ul id=\"video-list\" ng-class=\"{ loading: loading }\">\n" +
-    "\t            <li pl-draggable draggable=\"true\" ng-repeat=\"(key, video) in filter.results\" class=\"row\" data-id=\"{{ key }}\" style=\"background: transparent url({{ video.thumbnail }}) center center no-repeat; background-size: 100% auto;\">\n" +
+    "\t            <li pl-draggable draggable=\"true\" ng-repeat=\"(key, video) in filter.results\" class=\"row\" data-id=\"(~ key ~)\" style=\"background: transparent url((~ video.thumbnail ~)) center center no-repeat; background-size: 100% auto;\">\n" +
     "\t            \t<div class=\"content\">\n" +
-    "\t\t\t\t\t\t<span class=\"title\">{{ video.title }}</span>\n" +
-    "\t\t\t\t\t\t<span class=\"number-of-collections\">( in <span pl-tooltip=\"{{ listCollections(video.collections) }}\" ng-class=\"{ active: listCollections(video.collections).length > 0}\">{{ video.collections.length }} collections</span> )</span>\n" +
+    "\t\t\t\t\t\t<span class=\"title\">(~ video.title ~)</span>\n" +
+    "\t\t\t\t\t\t<span class=\"number-of-collections\">( in <span pl-tooltip=\"(~ listCollections(video.collections) ~)\" ng-class=\"{ active: listCollections(video.collections).length > 0}\">(~ video.collections.length ~) collections</span> )</span>\n" +
     "\t\t                <!-- <div class=\"inline-wrapper\">\n" +
-    "\t\t                    <span class=\"title\"><a href=\"/#/video/{{ key }}\">{{ video.title }}</a></span>\n" +
+    "\t\t                    <span class=\"title\"><a href=\"/#/video/(~ key ~)\">(~ video.title ~)</a></span>\n" +
     "\t\t                    <ul class=\"collections\">\n" +
-    "\t\t                    \t<li class=\"label\">Collections ( {{ video.collections.length }} ) :</li>\n" +
+    "\t\t                    \t<li class=\"label\">Collections ( (~ video.collections.length ~) ) :</li>\n" +
     "\t\t                        <li ng-repeat=\"collection in video.collections\" class=\"collection\">\n" +
-    "\t\t                            <a class=\"label\" ng-click=\"filterByCollection($event, collection.id)\">{{ collection }}</a>\n" +
+    "\t\t                            <a class=\"label\" ng-click=\"filterByCollection($event, collection.id)\">(~ collection ~)</a>\n" +
     "\t\t                        </li>\n" +
     "\t\t                    </ul>\n" +
     "\t\t                </div> -->\n" +
-    "\t\t                <a href=\"/#/video/{{ key }}\" class=\"button edit\"><span class=\"icon-info\"></span></a>\n" +
-    "\t\t                <a href=\"/#/analytics/{{ key }}/overview\" class=\"button analytics\" title=\"View analytics for this video\"><span title=\"View analytics for this video\" class=\"icon-pie\"></span></a>\n" +
-    "\t\t                <div data-id=\"{{ key }}\" class=\"pl-checkbox\"></div>\t            \t\t\n" +
+    "\t\t                <a href=\"/#/video/(~ key ~)\" class=\"button edit\"><span class=\"icon-info\"></span></a>\n" +
+    "\t\t                <a href=\"/#/analytics/(~ key ~)/overview\" class=\"button analytics\" title=\"View analytics for this video\"><span title=\"View analytics for this video\" class=\"icon-pie\"></span></a>\n" +
+    "\t\t                <div data-id=\"(~ key ~)\" class=\"pl-checkbox\"></div>\t            \t\t\n" +
     "\t            \t</div>\n" +
     "\t            </li>\n" +
     "\t           \t\n" +
@@ -237,8 +236,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {
     "\t\t\t</div>\n" +
     "\t\t\t<ul class=\"library-left\" id=\"collection-list\" ng-class=\"{ loading: loading }\">\n" +
     "\t\t\t\t<li class=\"all-videos\" ng-class=\"{ highlighted: filter.collection == null }\" ng-click=\"clearFilter($event)\"><span>All videos</span></li>\n" +
-    "                <li pl-droppable ng-repeat=\"(key, collection) in collections\" data-collection=\"{{ $index }}\" ng-class=\"{ highlighted: filter.collection == key }\">\n" +
-    "                    <span class=\"title\" ng-click=\"filterByCollection($event, key)\">{{ collection.label }}</span>\n" +
+    "                <li pl-droppable ng-repeat=\"(key, collection) in collections\" data-collection=\"(~ $index ~)\" ng-class=\"{ highlighted: filter.collection == key }\">\n" +
+    "                    <span class=\"title\" ng-click=\"filterByCollection($event, key)\">(~ collection.label ~)</span>\n" +
     "                    <a class=\"info\" ng-click=\"editCollection($event, collection.label, $index)\">Edit</a>\n" +
     "                </li>\n" +
     "\t\t\t</ul>\n" +
@@ -262,7 +261,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {
     "\t\t<!-- <input type=\"text\" ng-model=\"data.name\" pl-focus-field/> -->\n" +
     "\t</div>\n" +
     "\t<div class=\"row\">\n" +
-    "\t\t<input type=\"submit\" value=\"Add to {{ data.selectedAction.title }}\" />\n" +
+    "\t\t<input type=\"submit\" value=\"Add to (~ data.selectedAction.title ~)\" />\n" +
     "\t</div>\t\n" +
     "\t<div class=\"clear\"></div>\n" +
     "</form>\n" +
@@ -531,13 +530,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {
     "  <ul id=\"breadcrumb\" class=\"inner\">\n" +
     "    <li class=\"home\"><a href=\"/#/\" class=\"icon-home\"></a></li>\n" +
     "    <li><span class=\"divider\">/</span> <a href=\"/#/library\">Library</a></li>\n" +
-    "    <li><span class=\"divider\">/</span> <span>{{ $rootScope.pagetitle }}</span></li>\n" +
+    "    <li><span class=\"divider\">/</span> <span>(~ $rootScope.pagetitle ~)</span></li>\n" +
     "   </ul>\n" +
     "</div>\n" +
     "\n" +
     "<div id=\"page-video-single\" class=\"section\" ng-controller=\"VideoController\">\n" +
     "\t<div class=\"inner\">\n" +
-    "\t\t<h1>{{ video.title }}</h1>\n" +
+    "\t\t<h1>(~ video.title ~)</h1>\n" +
     "\t\t\n" +
     "\t\t<div class=\"inner half-width left\">\n" +
     "\t\t\t<h3>Edit your video details</h3>\n" +
@@ -593,12 +592,11 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {
     "\t\t<div id=\"top-right-links\">\n" +
     "\t\t\t<ul>\n" +
     "\t\t\t\t<!-- <li><a href=\"#\"></a></li> -->\n" +
-    "\t\t\t\t<!-- <li><a href=\"/#/tools/{{ video.id }}\"><span class=\"icon-tools\"></span>Monetization Tools</a></li> -->\n" +
-    "\t\t\t\t<li><a href=\"/#/analytics/{{ video.id }}\"><span class=\"icon-graph\"></span>View Analytics</a></li>\n" +
+    "\t\t\t\t<!-- <li><a href=\"/#/tools/(~ video.id ~)\"><span class=\"icon-tools\"></span>Monetization Tools</a></li> -->\n" +
+    "\t\t\t\t<li><a href=\"/#/analytics/(~ video.id ~)\"><span class=\"icon-graph\"></span>View Analytics</a></li>\n" +
     "\t\t\t</ul>\n" +
     "\t\t</div>\n" +
     "\t</div>\n" +
     "</div>"
   );
-
-}]);
+} ]);

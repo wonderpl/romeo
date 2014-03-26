@@ -137,7 +137,7 @@
     app.factory('StatsService', ['DataService', function (DataService) {
 
         var Stats;
-        var apiUrl = '/api/stats.json';
+        var apiUrl = '/static/api/stats.json';
         var fields = [
             {
                 'field': 'plays',
@@ -222,7 +222,7 @@
     app.factory('OverviewService', ['DataService', function (DataService) {
 
         var Overview = {},
-            api = 'api/stats.json';
+            api = '/static/api/stats.json';
 
         Overview.getOne = function (id, ignoreCache) {
             var url = api + '';
@@ -256,7 +256,7 @@
     app.factory('VideoService', ['DataService', function (DataService) {
 
         var Video = {},
-            api = 'api/videos.json';
+            api = '/static/api/videos.json';
 
         Video.getOne = function (id, ignoreCache) {
             var url = api + '';
