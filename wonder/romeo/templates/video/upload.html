@@ -61,9 +61,11 @@
 
 {% block bottomjs %}
   {{ super() }}
+  {#
   {% assets filters="rjsmin", output="gen/upload.%(version)s.js",
     "assets/js/upload.js"
    %}
   <script src="{{ ASSET_URL }}"></script>
   {% endassets %}
+  #}
 {% endblock %}
