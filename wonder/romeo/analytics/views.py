@@ -87,7 +87,7 @@ def process_geo(data):
     return dict(metrics=result)
 
 
-def _process_total(data):
+def process_total(data):
     transformed_data = {}
     for d in data.get('results'):
         try:
@@ -107,7 +107,7 @@ def _process_total(data):
 
 def videos_total(start, end=None):
     path = 'reports/account/performance/videos/%s' % (_format_dates(start, end))
-    return _process_total(_videos_request('analytics', path))
+    return process_total(_videos_request('analytics', path))
 
 
 def videos_individual(resource_id, start, end=None):
@@ -125,6 +125,11 @@ def video_countries(resource_id, start, end=None):
     return process_geo(_videos_request('analytics', path))
 
 
+def video_regions(resource_id, country, start, end=None):
+    path = 'reports/asset/%s/performance/countries/%s/regions/%s' % (resource_id, country, _format_dates(start, end))
+    return process_geo(_videos_request('analytics', path))
+
+
 def ooyala_labelid_from_userid(user_id):
     labels = _videos_request('labels')
     for label in labels['items']:
@@ -132,27 +137,52 @@ def ooyala_labelid_from_userid(user_id):
             return label['id']
 
 
+def get_resource_id_from_video(video):
+    # Wonder pl tour video
+    return 'BkYXAzbDrwONuDpU3yHx8T-CLHna-_5N'
+
+
 class PerformanceMetricsApi(restful.Resource):
     def get(self, video_id):
-        data = videos_individual(video_id, request.args.get('start', datetime.now()), request.args.get('end', None))
+        data = videos_individual(
+            get_resource_id_from_video(video_id),
+            request.args.get('start', datetime.now()),
+            request.args.get('end', None))
         return data
 
 
 class CitiesMetricsApi(restful.Resource):
     def get(self, video_id):
-        data = video_cities(video_id, request.args.get('start', datetime.now()), request.args.get('end', None))
+        data = video_cities(
+            get_resource_id_from_video(video_id),
+            request.args.get('start', datetime.now()),
+            request.args.get('end', None))
         return data
 
 
 class CountriesMetricsApi(restful.Resource):
     def get(self, video_id):
-        data = video_countries(video_id, request.args.get('start', datetime.now()), request.args.get('end', None))
+        data = video_countries(
+            get_resource_id_from_video(video_id),
+            request.args.get('start', datetime.now()),
+            request.args.get('end', None))
         return data
 
 
-api.add_resource(CitiesMetricsApi, '/analytics/cities/<string:video_id>')
-api.add_resource(CountriesMetricsApi, '/analytics/countries/<string:video_id>')
-api.add_resource(PerformanceMetricsApi, '/analytics/performance/<string:video_id>')
+class RegionsMetricsApi(restful.Resource):
+    def get(self, country, video_id):
+        data = video_regions(
+            get_resource_id_from_video(video_id),
+            country.upper(),
+            request.args.get('start', datetime.now()),
+            request.args.get('end', None))
+        return data
+
+
+api.add_resource(CitiesMetricsApi, '/api/analytics/cities/<string:video_id>')
+api.add_resource(RegionsMetricsApi, '/api/analytics/countries/<string:country>/<string:video_id>')
+api.add_resource(CountriesMetricsApi, '/api/analytics/countries/<string:video_id>')
+api.add_resource(PerformanceMetricsApi, '/api/analytics/performance/<string:video_id>')
 
 """
         ## Returns all video metrics for an account

@@ -6,7 +6,7 @@ Video
 Get all the video records for an account
 
 ```http
-GET /apivideo HTTP/1.1
+GET /api/video HTTP/1.1
 ```
 
 ```http
@@ -25,16 +25,7 @@ Content-Type: application/json
             "id": 3, 
             "public": true, 
             "status": "ready",
-            "tags": [
-                {
-                    "id": 3,
-                    "label": "tag 1"
-                },
-                {
-                    "id": 4,
-                    "label": "tag 2"
-                }
-            ],
+            "tags": ["3", "4"],
             "title": "first test video"
         }
     ]
@@ -46,7 +37,7 @@ Content-Type: application/json
 Get a video record
 
 ```http
-GET /apivideo/3 HTTP/1.1
+GET /api/video/3 HTTP/1.1
 ```
 
 ```http
@@ -63,23 +54,14 @@ Content-Type: application/json
     "id": 3, 
     "public": true, 
     "status": "ready", 
-    "tags": [
-        {
-            "id": 3,
-            "label": "tag 1"
-        },
-        {
-            "id": 4,
-            "label": "tag 2"
-        }
-    ],
+    "tags": ["3", "4"],
     "title": "first test video"
 }
 ```
 Update fields on the video record
 
 ```http
-POST /apivideos/3 HTTP/1.1
+POST /api/videos/3 HTTP/1.1
 Content-Type: application/json
 
 {
@@ -98,24 +80,18 @@ HTTP/1.1 204 NO CONTENT
 List tags associated with a video
 
 ```http
-GET /apivideos/3/tag HTTP/1.1
+GET /api/videos/3/tag HTTP/1.1
 
-[
-    {
-        "id": 3,
-        "label": "tag 1"
-    },
-    {
-        "id": 4,
-        "label": "tag 2"
-    }
-]
+{
+    "3": "tag 1",
+    "4": "tag 2"
+}
 ```
 
 Assign a tag to a video
 
 ```http
-POST /apivideos/3/tag HTTP/1.1
+POST /api/videos/3/tag HTTP/1.1
 
 id=3
 ```
