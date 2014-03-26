@@ -256,7 +256,7 @@
     app.factory('GeographicService', ['DataService', function (DataService) {
 
         var GeographicService = {},
-            api = 'api/stats.json';
+            api = '/static/api/stats.json';
 
         GeographicService.getOne = function (id, ignoreCache) {
             var url = api + '';

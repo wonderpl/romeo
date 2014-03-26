@@ -19,7 +19,7 @@
     app.directive('plAnalyticsOverview', ['$rootScope', '$timeout', 'OverviewService', function ($rootScope, $timeout, OverviewService) {
         return {
             restrict: 'A',
-            templateUrl: 'views/directives/analytics-overview.html',
+            templateUrl: '/static/views/directives/analytics-overview.html',
             scope: true,
             controller: function ($scope) {
                 OverviewService.getOne($scope.video.videoID).then(function (data) {
@@ -33,7 +33,7 @@
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: 'views/directives/analytics-widget.html',
+            templateUrl: '/static/views/directives/analytics-widget.html',
             scope: {
                 data: '='
             },
@@ -55,7 +55,7 @@
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: 'views/directives/analytics-widget-statistic.html',
+            templateUrl: '/static/views/directives/analytics-widget-statistic.html',
             scope: {
                 datum: '='
             }
@@ -65,7 +65,7 @@
     app.directive('plAnalyticsPerformanceChart', ['$rootScope', '$timeout', 'StatsService', function ($rootScope, $timeout, StatsService) {
         return {
             restrict: 'A',
-            templateUrl: 'views/directives/analytics-performance.html',
+            templateUrl: '/static/views/directives/analytics-performance.html',
             scope: true,
             controller: function ($scope) {
 
@@ -177,7 +177,7 @@
     app.directive('plAnalyticsGeographicMap', ['$rootScope', '$timeout', '$http', 'GeographicService', function ($rootScope, $timeout, $http, GeographicService) {
         return {
             restrict: 'A',
-            templateUrl: 'views/directives/analytics-geographic.html',
+            templateUrl: '/static/views/directives/analytics-geographic.html',
             scope: true,
             controller: function ($scope) {
 
@@ -309,7 +309,7 @@
                         if (mapJSONCache.world) {
                             drawWorldMap(mapJSONCache.world, analyticsData);
                         } else {
-                            $http({method: 'GET', url: 'api/world-110m.json'}).success(function (mapData) {
+                            $http({method: 'GET', url: '/static/api/world-110m.json'}).success(function (mapData) {
                                 mapJSONCache.world = mapData;
                                 drawWorldMap(mapData, analyticsData);
                             });
@@ -323,7 +323,7 @@
                         if (mapJSONCache.states) {
                             drawStatesMap(mapJSONCache.states, analyticsData);
                         } else {
-                            $http({method: 'GET', url: 'api/us2.json'}).success(function (mapData) {
+                            $http({method: 'GET', url: '/static/api/us2.json'}).success(function (mapData) {
                                 mapJSONCache.states = mapData;
                                 drawStatesMap(mapData, analyticsData);
                             });
@@ -410,7 +410,7 @@
     app.directive('plAnalyticsFieldsChooser', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
         return {
             restrict: 'A',
-            templateUrl: 'views/directives/analytics-fields-chooser.html',
+            templateUrl: '/static/views/directives/analytics-fields-chooser.html',
             controller: function ($scope) {
 
             }
@@ -420,7 +420,7 @@
     app.directive('plAnalyticsFieldsKey', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
         return {
             restrict: 'A',
-            templateUrl: 'views/directives/analytics-fields-key.html',
+            templateUrl: '/static/views/directives/analytics-fields-key.html',
             controller: function ($scope) {
 
             }
@@ -430,7 +430,7 @@
     app.directive('plAnalyticsResultsTable', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
         return {
             restrict: 'A',
-            templateUrl: 'views/directives/analytics-results-table.html',
+            templateUrl: '/static/views/directives/analytics-results-table.html',
             controller: function ($scope) {
 
             }
@@ -440,7 +440,7 @@
     app.directive('plAnalyticsEngagement', ['$rootScope', '$timeout', function () {
         return {
             restrict: 'E',
-            templateUrl: 'views/directives/analytics-engagement.html',
+            templateUrl: '/static/views/directives/analytics-engagement.html',
             link: function (scope, elem, attrs) {
             }
         };
