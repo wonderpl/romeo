@@ -527,7 +527,8 @@
         };
 
         $scope.flip = function() {
-            $element.find('#analytics-bottom-panel').toggleClass('flip');
+
+            angular.element($element[0].querySelectorAll('#analytics-bottom-panel')).toggleClass('flip');
         };
 
         $scope.setSection = function (sectionName) {
