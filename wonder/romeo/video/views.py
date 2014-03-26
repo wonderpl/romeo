@@ -137,9 +137,8 @@ def video_item(video):
     for thumbnail in video.thumbnails:
         data.setdefault('thumbnails', []).append({field: getattr(thumbnail, field) for f in thumbnail_fields})
 
-    data['tags'] = []
-    for tag in VideoTag.query.all(): #filter(VideoTag.account_id == account_id):
-        data['tags'].append(dict(label=tag.label, id=tag.id))
+    # TODO: filter(VideoTag.account_id == account_id)
+    data['tags'] = [str(tag.id) for tag in VideoTag.query.all()]
 
     return data
 
@@ -184,7 +183,7 @@ class VideoApi(restful.Resource):
 class VideoTagListApi(restful.Resource):
     def get(self, video_id):
         video = Video.query.get_or_404(video_id)
-        return [dict(id=tag.id, label=tag.label) for tag in video.tags]
+        return {tag.id: tag.label for tag in video.tags}
 
     def post(self, video_id):
         # TODO: add account constraint
@@ -216,7 +215,7 @@ class VideoTagApi(restful.Resource):
             abort(400)
 
 
-api.add_resource(VideoListApi, '/apivideo')
-api.add_resource(VideoApi, '/apivideo/<string:video_id>')
-api.add_resource(VideoTagListApi, '/apivideo/<string:video_id>/tag')
-api.add_resource(VideoTagApi, '/tag')
+api.add_resource(VideoListApi, '/api/video')
+api.add_resource(VideoApi, '/api/video/<string:video_id>')
+api.add_resource(VideoTagListApi, '/api/video/<string:video_id>/tag')
+api.add_resource(VideoTagApi, '/api/tag')

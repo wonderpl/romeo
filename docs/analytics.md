@@ -4,7 +4,7 @@ Analytics
 ### Performance Metrics
 
 ```http
-GET /analytics/performance/VIDEOID HTTP/1.1
+GET /api/analytics/performance/VIDEOID HTTP/1.1
 ```
 Parameter       | Required    | Value    | Description
 :-------------- | :---------- | :------- | :----------
@@ -57,7 +57,7 @@ Content-Type: application/json
 ### Geographical Metrics (By City)
 
 ```http
-GET /analytics/cities/VIDEOID HTTP/1.1
+GET /api/analytics/cities/VIDEOID HTTP/1.1
 ```
 
 ```http
@@ -133,7 +133,7 @@ Content-Type: application/json
 ### Geographical Metrics (By Country)
 
 ```http
-GET /analytics/cities/VIDEOID HTTP/1.1
+GET /api/analytics/countries/VIDEOID HTTP/1.1
 ```
 
 ```http
@@ -172,6 +172,54 @@ Content-Type: application/json
                 "playthrough_75": 0, 
                 "viewing_time": 2409837, 
                 "weekly_uniq_plays": 3
+            }
+        }
+    ]
+}
+```
+
+### Geographical Metrics (By Country and Region)
+
+```http
+GET /api/analytics/countries/COUNTRYID/VIDEOID HTTP/1.1
+```
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "metrics": [
+        {
+            "geo": {
+                "name": "Essex"
+            },
+            "video": {
+                "daily_uniq_plays": 1,
+                "monthly_uniq_plays": 1,
+                "plays": 1,
+                "playthrough_100": 1,
+                "playthrough_25": 1,
+                "playthrough_50": 1,
+                "playthrough_75": 1,
+                "viewing_time": 69090,
+                "weekly_uniq_plays": 1
+            }
+        },
+        {
+            "geo": {
+                "name": "Hillingdon"
+            },
+            "video": {
+                "daily_uniq_plays": 0,
+                "monthly_uniq_plays": 0,
+                "plays": 0,
+                "playthrough_100": 0,
+                "playthrough_25": 0,
+                "playthrough_50": 0,
+                "playthrough_75": 0,
+                "viewing_time": 0,
+                "weekly_uniq_plays": 0
             }
         }
     ]
