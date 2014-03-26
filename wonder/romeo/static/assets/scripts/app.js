@@ -11,13 +11,13 @@
                         ns + '.services',
                         ns + '.filters',
                         ns + '.analytics',
-                        'ngRoute', 'ngGrid'] /* module dependencies */);
+                        'ngRoute'] /* module dependencies */);
 
     app.config(['$routeProvider', '$interpolateProvider', function( $routeProvider, $interpolateProvider ){
         
         // Change the interpolation symbols so they don't conflict with Jinja
-        $interpolateProvider.startSymbol('<(');
-        $interpolateProvider.endSymbol(')>');
+        $interpolateProvider.startSymbol('(~');
+        $interpolateProvider.endSymbol('~)');
 
         // Home
         $routeProvider.when('/dashboard', {

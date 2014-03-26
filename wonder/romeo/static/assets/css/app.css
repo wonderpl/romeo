@@ -693,7 +693,7 @@ header .wonder-logo {
   width: 20%;
   height: 100%;
   background: #3498db;
-  background: transparent url('../img/header-logo.png?1393855762') center center no-repeat;
+  background: transparent url('/static/assets/img/header-logo.png') center center no-repeat;
   background-size: auto 50%;
 }
 /* line 60, ../../scss/partials/_global.scss */
@@ -845,7 +845,7 @@ a.big-button:hover, a.big-button:focus, a.big-button:active {
 
 /* line 172, ../../scss/partials/_global.scss */
 .loading {
-  background: transparent url('../img/loading.gif?1394534542') center center no-repeat;
+  background: transparent url('/static/assets/img/loading.gif') center center no-repeat;
   background-size: 40px auto;
 }
 
@@ -2151,7 +2151,7 @@ h1.collections-page {
   -moz-transition: width 10s linear;
   -o-transition: width 10s linear;
   transition: width 10s linear;
-  background: #2ecc71 url('../img/progress.gif?1394624723') left top repeat;
+  background: #2ecc71 url('/static/assets/img/progress.gif') left top repeat;
 }
 /* line 1647, ../../scss/partials/_global.scss */
 #upload-progress-wrapper .bar.complete {
