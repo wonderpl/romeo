@@ -166,6 +166,10 @@ module.exports = function (grunt) {
                 url: function (url) {
                     var name = url.split('/');
                     return name[name.length - 1];
+                },
+                bootstrap: function (module, script) {
+                    console.log(script.replace(/\{\{/gi, '(~').replace(/\}\}/gi, '~)'));
+                    return "angular.module('RomeoApp').run(['$templateCache', function($templateCache) { " + script.replace(/\{\{/gi, '<(').replace(/\}\}/gi, ')>') + "} ]);";
                 }
             },
             RomeoApp: {
