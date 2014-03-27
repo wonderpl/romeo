@@ -9,15 +9,13 @@
     <link rel="shortcut icon" href="{{ config.ASSETS_URL }}/root/favicon.ico">
     <title>{% block title %}Romeo{% endblock %}</title>
 
-    {#
     {% assets filters="cssmin", output="gen/base.%(version)s.css",
-      "assets/vendor/bootstrap/css/bootstrap.css",
-      "assets/vendor/bootstrap/css/bootstrap-theme.css",
-      "assets/css/base.css"
+      "assets-old/vendor/bootstrap/css/bootstrap.css",
+      "assets-old/vendor/bootstrap/css/bootstrap-theme.css",
+      "assets-old/css/base.css"
      %}
     <link rel="stylesheet" href="{{ ASSET_URL }}"/>
     {% endassets %}
-    #}
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -84,14 +82,12 @@
     {% endblock %}
 
     {% block bottomjs %}
-    {#
     {% assets filters="rjsmin", output="gen/base.%(version)s.js",
-      "assets/vendor/jquery.js",
-      "assets/vendor/bootstrap/js/bootstrap.js"
+      "assets-old/vendor/jquery.js",
+      "assets-old/vendor/bootstrap/js/bootstrap.js"
      %}
     <script src="{{ ASSET_URL }}"></script>
     {% endassets %}
-    #}
     {% endblock %}
   </body>
 </html>

@@ -9,7 +9,7 @@ except pkg_resources.DistributionNotFound:
 BLUEPRINTS = [
     'wonder.romeo.%s.views.%sapp' % (mod, mod)
     for mod in
-    'root', 'account', 'video', 'analytics', 'payments'
+    'root', 'account', 'video', 'payments'
 ]
 
 DATABASE_URL = ''
