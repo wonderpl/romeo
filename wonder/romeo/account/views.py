@@ -53,6 +53,10 @@ def settings():
 
 @api_resource('/login')
 class LoginResource(Resource):
+
+    # disable login_required decorator
+    decorators = []
+
     def post(self):
         form = LoginForm(csrf_enabled=False)
         if (form.validate_on_submit() and
