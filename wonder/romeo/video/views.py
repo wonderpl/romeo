@@ -1,16 +1,14 @@
 import os
-from flask import Blueprint, current_app, request, render_template, jsonify, abort, flash
-from flask.ext.wtf import Form
+from flask import Blueprint, current_app, request, render_template, url_for, jsonify, abort, flash
 from flask.ext.login import current_user, login_required
 from sqlalchemy.orm.exc import NoResultFound
-import wtforms as wtf
 from wonder.romeo.core.rest import Resource, api_resource
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.s3 import s3connection, video_bucket
 from wonder.romeo.core.sqs import background_on_sqs
 from wonder.romeo.core.ooyala import get_video_data, create_asset
 from .models import Video, VideoTag, VideoTagVideo, VideoThumbnail
-from .forms import VideoUploadForm
+from .forms import VideoUploadForm, VideoForm
 
 
 videoapp = Blueprint('video', __name__)
@@ -125,6 +123,7 @@ def video_item(video):
 
     # Add basic video data
     data = {field: func(getattr(video, field)) for field, func in video_fields.iteritems()}
+    data['href'] = url_for('api.video', video_id=video.id)
 
     # Attach locale data
     for locale in video.locale_meta:
@@ -142,43 +141,49 @@ def video_item(video):
     return data
 
 
-@api_resource('/video')
-class VideoListApi(Resource):
-    def get(self):
-        return dict(videos=[video_item(video) for video in Video.query.order_by('date_added').all()])
+@api_resource('/account/<int:account_id>/videos')
+class AccountVideosResource(Resource):
+    def get(self, account_id):
+        if account_id != current_user.account_id:
+            abort(403)
+        items = map(video_item, Video.query.filter_by(
+            account_id=account_id, deleted=False).order_by('date_added'))
+        return dict(video=dict(items=items, total=len(items)))
 
 
-class VideoForm(Form):
-    title = wtf.StringField()
-    description = wtf.StringField()
-    category = wtf.StringField()
-    public = wtf.StringField()
+def video_view(f):
+    def decorator(self, video_id):
+        video = Video.query.filter_by(deleted=False, id=video_id).first_or_404()
+        if video.account_id == current_user.account_id:
+            return f(self, video)
+        else:
+            abort(403)
+    return decorator
 
 
-class VideoLocaleForm(Form):
-    locale_title = wtf.StringField()
-    locale_link_url = wtf.StringField()
-    locale_link_title = wtf.StringField()
-    locale_description = wtf.StringField()
-
-
-@api_resource('/video/<string:video_id>')
-class VideoApi(Resource):
-    def get(self, video_id):
-        video = Video.query.get_or_404(video_id)
+@api_resource('/video/<int:video_id>')
+class VideoResource(Resource):
+    @video_view
+    def get(self, video):
         return video_item(video)
 
-    def post(self, video_id):
-        video = Video.query.get_or_404(video_id)
-
+    @video_view
+    @commit_on_success
+    def patch(self, video):
         form = VideoForm(csrf_enabled=False)
         if not form.validate():
-            abort(400, form_errors=form.errors)
+            print form.data
+            return dict(form_errors=form.errors), 400
 
-        video.title = form.title.data or video.title
-        video.query.session.commit()
+        form.populate_obj(video)
 
-        return 204
+        return None, 204
+
+    @video_view
+    @commit_on_success
+    def delete(self, video):
+        video.deleted = True
+        return None, 204
 
 
 @api_resource('/video/<string:video_id>/tag')
@@ -201,7 +206,7 @@ class VideoTagListApi(Resource):
 class VideoTagApi(Resource):
     def post(self):
         try:
-            video = VideoTag.query.filter(
+            VideoTag.query.filter(
                 VideoTag.account_id == request.form.get('account_id'),
                 VideoTag.label == request.form.get('label')
             ).one()
