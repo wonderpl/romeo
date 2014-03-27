@@ -25,7 +25,19 @@ Content-Type: application/json
             "id": 3, 
             "public": true, 
             "status": "ready",
-            "tags": ["3", "4"],
+            "tags": {
+                "items": [
+                    {
+                        "id": 1,
+                        "label": "tag 1"
+                    },
+                    {
+                        "id": 2,
+                        "label": "tag 2"
+                    }
+                ],
+                "total": 2
+            }
             "title": "first test video"
         }
     ]
@@ -53,8 +65,20 @@ Content-Type: application/json
     "duration": 0, 
     "id": 3, 
     "public": true, 
-    "status": "ready", 
-    "tags": ["3", "4"],
+    "status": "ready",
+    "tags": {
+        "items": [
+            {
+                "id": 1,
+                "label": "tag 1"
+            },
+            {
+                "id": 2,
+                "label": "tag 2"
+            }
+        ],
+        "total": 2
+    }
     "title": "first test video"
 }
 ```
@@ -83,8 +107,19 @@ List tags associated with a video
 GET /api/videos/3/tag HTTP/1.1
 
 {
-    "3": "tag 1",
-    "4": "tag 2"
+    "tags": {
+        "items": [
+            {
+                "id": 1,
+                "label": "tag 1"
+            },
+            {
+                "id": 2,
+                "label": "tag 2"
+            }
+        ],
+        "total": 2
+    }
 }
 ```
 
@@ -113,7 +148,23 @@ HTTP/1.1 204 OK
 Content-Type: application/json
 
 {
-    "id": 4,
-    "label": "this is a tag"
+    "tags": {
+        "items": [
+            {
+                "id": 1,
+                "label": "tag 1"
+            },
+            {
+                "id": 2,
+                "label": "tag 2"
+            },
+            {
+                "id": 3,
+                "label": "this is a tag"
+            }
+        ],
+        "total": 3
+    }
 }
+
 ```

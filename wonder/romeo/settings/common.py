@@ -12,6 +12,10 @@ BLUEPRINTS = [
     'root', 'account', 'video', 'payments'
 ]
 
+API_VIEWS = [
+    'wonder.rome.%s.views' % mod for mod in 'analytics', 'video'
+]
+
 DATABASE_URL = ''
 
 CACHE_TYPE = 'simple'

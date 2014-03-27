@@ -1,7 +1,10 @@
 import os
 from flask import Blueprint, current_app, request, render_template, url_for, jsonify, abort, flash
 from flask.ext.login import current_user, login_required
+from flask.ext.restful.reqparse import RequestParser
 from sqlalchemy.orm.exc import NoResultFound
+from wonder.romeo import db
+from wonder.romeo.core.dolly import DollyUser
 from wonder.romeo.core.rest import Resource, api_resource
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.s3 import s3connection, video_bucket
@@ -135,8 +138,8 @@ def video_item(video):
     for thumbnail in video.thumbnails:
         data.setdefault('thumbnails', []).append({field: getattr(thumbnail, field) for f in thumbnail_fields})
 
-    # TODO: filter(VideoTag.account_id == account_id)
-    data['tags'] = [str(tag.id) for tag in VideoTag.query.all()]
+    video_tags = [dict(id=tag.id, label=tag.label) for tag in video.tags]
+    data['tags'] = dict(items=video_tags, total=len(video_tags))
 
     return data
 
@@ -188,36 +191,115 @@ class VideoResource(Resource):
 
 @api_resource('/video/<string:video_id>/tag')
 class VideoTagListApi(Resource):
-    def get(self, video_id):
-        video = Video.query.get_or_404(video_id)
-        return {tag.id: tag.label for tag in video.tags}
 
-    def post(self, video_id):
-        # TODO: add account constraint
-        video = Video.query.get_or_404(video_id)
-        tag = VideoTag.query.get_or_404(request.form.get('id'))
-        VideoTagVideo.query.session.add(
+    tag_parser = RequestParser()
+    tag_parser.add_argument('id', type=int)
+
+    @video_view
+    @commit_on_success
+    def post(self, video):
+        args = self.tag_parser.parse_args()
+        tag_id = args.get('id')
+
+        if not tag_id:
+            abort(404)
+
+        tag = VideoTag.query.filter(
+            VideoTag.id == tag_id,
+            VideoTag.account_id == current_user.account.id
+        ).first_or_404()
+
+        video.tags.append(
             VideoTagVideo(video_id=video.id, tag_id=tag.id)
         )
-        VideoTagVideo.query.session.commit()
 
 
-@api_resource('/tag')
+@api_resource('/video/<string:video_id>/tag/<int:tag_id>')
 class VideoTagApi(Resource):
-    def post(self):
+
+    @commit_on_success
+    def delete(self, video_id, tag_id):
+        """ Delete a relation between a video and a tag """
+
         try:
-            VideoTag.query.filter(
-                VideoTag.account_id == request.form.get('account_id'),
-                VideoTag.label == request.form.get('label')
+            tag_relation = VideoTagVideo.query.filter(
+                VideoTagVideo.tag_id == tag_id
+            ).join(
+                Video,
+                (Video.id == VideoTagVideo.video_id) &
+                (Video.account_id == current_user.account.id)
             ).one()
         except NoResultFound:
-            VideoTag.query.session.add(
-                VideoTag(
-                    label=request.form.get('label'),
-                    account_id=request.form.get('account_id')
-                )
-            )
-            VideoTag.query.session.commit()
-            return 204
+            pass
         else:
-            abort(400)
+            db.session.delete(tag_relation)
+
+        return 204
+
+
+@api_resource('/tag/<int:tag_id>')
+class TagApi(Resource):
+
+    @commit_on_success
+    def delete(self, tag_id):
+        try:
+            tag = VideoTag.query.filter(
+                VideoTag.id == tag_id,
+                VideoTag.account_id == current_user.account.id).one()
+        except NoResultFound:
+            pass
+        else:
+            db.session.delete(tag)
+
+        """
+        dollyuser = DollyUser(
+            current_user.account.dolly_user,
+            current_user.account.dolly_token)
+        dollyuser.delete(tag_id)
+        """
+
+        return 201
+
+
+@api_resource('/account/<int:account_id>/tags')
+class AccountTagListApi(Resource):
+
+    tag_parser = RequestParser()
+    tag_parser.add_argument('label', type=str)
+
+    @property
+    def all_tags(self):
+        tags = VideoTag.query.filter(VideoTag.account_id == current_user.account.id)
+
+        return dict(
+            tags=dict(
+                items=[dict(id=tag.id, label=tag.label) for tag in tags],
+                total=tags.count()))
+
+    @commit_on_success
+    def _add_tag(self, label):
+        current_user.account.tags.append(
+            VideoTag(label=label)
+        )
+
+    def get(self, account_id):
+        if not account_id == current_user.account.id:
+            abort(403)
+
+        return self.all_tags
+
+    def post(self, account_id):
+        if not account_id == current_user.account.id:
+            abort(403)
+
+        args = self.tag_parser.parse_args()
+        label = args.get('label', '').strip()
+
+        if not label:
+            return dict(error='empty label'), 400
+
+        if VideoTag.query.filter(VideoTag.account_id == account_id, VideoTag.label == label).count():
+            return dict(error='tag already exists'), 400
+
+        self._add_tag(label)
+        return self.all_tags, 201

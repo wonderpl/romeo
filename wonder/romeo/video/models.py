@@ -102,8 +102,8 @@ class VideoTagVideo(db.Model):
     video_id = Column('video', ForeignKey(Video.id), nullable=False)
     tag_id = Column('tag', ForeignKey(VideoTag.id), nullable=False)
 
-    video = relationship(Video, backref='tags_associations')
-    tag = relationship(VideoTag, backref='videos_associations')
+    video = relationship(Video, backref='tags_associations', cascade='all, delete-orphan', single_parent=True)
+    tag = relationship(VideoTag, backref='videos_associations', cascade='all, delete-orphan', single_parent=True)
 
 
 class VideoWorkflowEvent(db.Model):

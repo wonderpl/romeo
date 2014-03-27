@@ -73,6 +73,11 @@ def _register_blueprints(app):
         app.register_blueprint(import_string(blueprint))
 
 
+def _register_api_views(app):
+    for view in app.config['API_VIEWS']:
+        import_string(view)
+
+
 def create_app(wsgi=False):
     app = Flask(__name__)
     _configure(app)
