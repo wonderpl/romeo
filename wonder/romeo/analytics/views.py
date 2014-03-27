@@ -1,10 +1,7 @@
 from datetime import datetime
-from flask import Blueprint, request, jsonify, json
+from flask import request, json
 from wonder.romeo.core.rest import Resource, api_resource
 from wonder.romeo.core import ooyala
-
-
-analyticsapp = Blueprint('analytics', __name__, url_prefix='/analytics')
 
 
 class MissingDateRange(Exception):
@@ -131,13 +128,6 @@ def video_regions(resource_id, country, start, end=None, limit=53, page_token=No
     return process_geo(_videos_request('analytics', path, limit=limit, page_token=page_token))
 
 
-def ooyala_labelid_from_userid(user_id):
-    labels = _videos_request('labels')
-    for label in labels['items']:
-        if label['name'] == User.query.get(user_id).username:
-            return label['id']
-
-
 def get_resource_id_from_video(video):
     # Wonder pl tour video
     return 'BkYXAzbDrwONuDpU3yHx8T-CLHna-_5N'
@@ -158,7 +148,7 @@ def default_kwargs(request):
     return k
 
 
-@api_resource('/analytics/performance/<string:video_id>')
+@api_resource('/video/<string:video_id>/analytics/performance')
 class PerformanceMetricsApi(Resource):
     def get(self, video_id):
         data = videos_individual(
@@ -169,7 +159,7 @@ class PerformanceMetricsApi(Resource):
         return data
 
 
-@api_resource('/analytics/cities/<string:video_id>')
+@api_resource('/video/<string:video_id>/analytics/city')
 class CitiesMetricsApi(Resource):
     def get(self, video_id):
         data = video_cities(
@@ -179,7 +169,7 @@ class CitiesMetricsApi(Resource):
         return data
 
 
-@api_resource('/analytics/countries/<string:video_id>')
+@api_resource('/video/<string:video_id>/analytics/country')
 class CountriesMetricsApi(Resource):
     def get(self, video_id):
         data = video_countries(
@@ -189,23 +179,12 @@ class CountriesMetricsApi(Resource):
         return data
 
 
-@api_resource('/analytics/countries/<string:country>/<string:video_id>')
+@api_resource('/video/<string:video_id>/analytics/country/<string:country>')
 class RegionsMetricsApi(Resource):
-    def get(self, country, video_id):
+    def get(self, video_id, country):
         data = video_regions(
             get_resource_id_from_video(video_id),
             country.upper(),
             *default_args(request),
             **default_kwargs(request))
         return data
-
-
-@analyticsapp.route('/<user_id>/<video_id>')
-def video_individual(user_id, video_id):
-    """ Return data for an individual video belonging to <user_id> """
-
-    data = videos_individual(
-        video_id,
-        request.args.get('start', datetime.now()),
-        request.args.get('end', None))
-    return jsonify(data)

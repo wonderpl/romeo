@@ -4,7 +4,7 @@ Analytics
 ### Performance Metrics
 
 ```http
-GET /api/analytics/performance/VIDEOID HTTP/1.1
+GET /api/video/VIDEOID/analytics/performance HTTP/1.1
 ```
 
 Parameter       | Required    | Value    | Description
@@ -62,7 +62,7 @@ Content-Type: application/json
 ### Geographical Metrics (By City)
 
 ```http
-GET /api/analytics/cities/VIDEOID HTTP/1.1
+GET /api/video/VIDEOID/analytics/city HTTP/1.1
 ```
 
 Parameter       | Required    | Value    | Description
@@ -146,7 +146,7 @@ Content-Type: application/json
 ### Geographical Metrics (By Country)
 
 ```http
-GET /api/analytics/countries/VIDEOID HTTP/1.1
+GET /api/video/VIDEOID/analytics/country HTTP/1.1
 ```
 
 Parameter       | Required    | Value    | Description
@@ -202,7 +202,7 @@ Content-Type: application/json
 ### Geographical Metrics (By Country and Region)
 
 ```http
-GET /api/analytics/countries/COUNTRYID/VIDEOID HTTP/1.1
+GET /api/video/VIDEOID/analytics/country/COUNTRYID HTTP/1.1
 ```
 
 Parameter       | Required    | Value    | Description
