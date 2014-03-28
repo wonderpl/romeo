@@ -251,6 +251,7 @@ class TagApi(Resource):
         else:
             db.session.delete(tag)
 
+        # TODO: add this back in
         """
         dollyuser = DollyUser(
             current_user.account.dolly_user,

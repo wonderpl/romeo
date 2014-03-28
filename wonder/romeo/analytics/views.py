@@ -1,7 +1,9 @@
 from datetime import datetime
 from flask import request, json
+from flask.ext.login import current_user
 from wonder.romeo.core.rest import Resource, api_resource
 from wonder.romeo.core import ooyala
+from wonder.romeo.video.models import Video
 
 
 class MissingDateRange(Exception):
@@ -128,9 +130,15 @@ def video_regions(resource_id, country, start, end=None, limit=53, page_token=No
     return process_geo(_videos_request('analytics', path, limit=limit, page_token=page_token))
 
 
-def get_resource_id_from_video(video):
+def get_resource_id_from_video(video_id):
     # Wonder pl tour video
     return 'BkYXAzbDrwONuDpU3yHx8T-CLHna-_5N'
+
+    # TODO: remove the line above which short circuits this
+    return Video.query.filter(
+        Video.account_id == current_user.account.id,
+        Video.id == video_id
+    ).first_or_404().external_id
 
 
 def default_args(request):

@@ -138,7 +138,7 @@ HTTP/1.1 204 NO CONTENT
 Add a new tag to an account
 
 ```http
-POST /tag HTTP/1.1
+POST /api/tag HTTP/1.1
 
 label=this is a tag
 ```
