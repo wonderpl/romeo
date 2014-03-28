@@ -1,4 +1,5 @@
 import os
+from functools import wraps
 from flask import Blueprint, current_app, request, render_template, url_for, jsonify, abort, flash
 from flask.ext.login import current_user, login_required
 from flask.ext.restful.reqparse import RequestParser
@@ -10,6 +11,7 @@ from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.s3 import s3connection, video_bucket
 from wonder.romeo.core.sqs import background_on_sqs
 from wonder.romeo.core.ooyala import get_video_data, create_asset
+from wonder.romeo.account.views import dolly_account_view
 from .models import Video, VideoTag, VideoTagVideo, VideoThumbnail
 from .forms import VideoUploadForm, VideoForm
 
@@ -152,15 +154,20 @@ def video_item(video):
 
 @api_resource('/account/<int:account_id>/videos')
 class AccountVideosResource(Resource):
-    def get(self, account_id):
-        if account_id != current_user.account_id:
-            abort(403)
+
+    @dolly_account_view
+    def get(self, account, dollyuser):
         items = map(video_item, Video.query.filter_by(
-            account_id=account_id, deleted=False).order_by('date_added'))
+            account_id=account.id, deleted=False).order_by('date_added'))
         return dict(video=dict(items=items, total=len(items)))
+
+    @dolly_account_view
+    def post(self, account, dollyuser):
+        pass
 
 
 def video_view(f):
+    @wraps(f)
     def decorator(self, video_id):
         video = Video.query.filter_by(deleted=False, id=video_id).first_or_404()
         if video.account_id == current_user.account_id:
@@ -179,14 +186,17 @@ class VideoResource(Resource):
     @video_view
     @commit_on_success
     def patch(self, video):
-        form = VideoForm(csrf_enabled=False)
-        if not form.validate():
-            print form.data
+        form = VideoForm(csrf_enabled=False, obj=video)
+        # Exclude form fields that weren't specified in the request
+        for field in form.data:
+            if field not in (request.json or request.form):
+                delattr(form, field)
+
+        if form.validate():
+            form.save()
+            return None, 204
+        else:
             return dict(form_errors=form.errors), 400
-
-        form.populate_obj(video)
-
-        return None, 204
 
     @video_view
     @commit_on_success

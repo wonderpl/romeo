@@ -1,3 +1,4 @@
+from functools import wraps
 from flask import Blueprint, request, render_template, url_for, redirect, jsonify, abort
 from flask.ext.login import login_user, logout_user, fresh_login_required, current_user
 from flask.ext.restful.reqparse import RequestParser
@@ -12,6 +13,17 @@ accountapp = Blueprint('account', __name__)
 
 def _dollyuser(account):
     return DollyUser(account.dolly_user, account.dolly_token)
+
+
+def dolly_account_view(f):
+    @wraps(f)
+    def decorator(self, account_id):
+        account = current_user.account
+        if account_id == current_user.account.id:
+            return f(self, account, _dollyuser(account))
+        else:
+            abort(403)
+    return decorator
 
 
 @accountapp.route('/login', methods=('GET', 'POST'))
@@ -81,18 +93,9 @@ class UserResource(Resource):
         )
 
 
-def dolly_account_view(f):
-    def decorator(self, account_id):
-        account = current_user.account
-        if account_id == current_user.account.id:
-            return f(self, account, _dollyuser(account))
-        else:
-            abort(403)
-    return decorator
-
-
 @api_resource('/account/<int:account_id>')
 class AccountResource(Resource):
+
     @dolly_account_view
     def get(self, account, dollyuser):
         userdata = dollyuser.get_userdata()
