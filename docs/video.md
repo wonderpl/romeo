@@ -3,7 +3,7 @@ Video
 
 ### Video List
 
-Get all the video records for an account
+#### Get all the video records for an account
 
 ```http
 GET /api/video HTTP/1.1
@@ -46,7 +46,7 @@ Content-Type: application/json
 
 ### Video Item
 
-Get a video record
+#### Get a video record
 
 ```http
 GET /api/video/3 HTTP/1.1
@@ -82,7 +82,7 @@ Content-Type: application/json
     "title": "first test video"
 }
 ```
-Update fields on the video record
+#### Update fields on the video record
 
 ```http
 POST /api/videos/3 HTTP/1.1
@@ -101,7 +101,7 @@ HTTP/1.1 204 NO CONTENT
 
 ### Video Tag
 
-List tags associated with a video
+#### List tags associated with a video
 
 ```http
 GET /api/videos/3/tag HTTP/1.1
@@ -123,7 +123,7 @@ GET /api/videos/3/tag HTTP/1.1
 }
 ```
 
-Assign a tag to a video
+#### Assign a tag to a video
 
 ```http
 POST /api/videos/3/tag HTTP/1.1
@@ -135,7 +135,7 @@ id=3
 HTTP/1.1 204 NO CONTENT
 ```
 
-Add a new tag to an account
+#### Add a new tag to an account
 
 ```http
 POST /api/tag HTTP/1.1
@@ -167,4 +167,26 @@ Content-Type: application/json
     }
 }
 
+```
+
+#### Update a tags label
+
+```http
+PATCH /api/tag/TAGID HTTP/1.1
+
+label=this is a tag
+```
+
+```http
+HTTP/1.1 204 NO CONTENT
+```
+
+#### Delete a tag
+
+```http
+DELETE /api/tag/TAGID HTTP/1.1
+```
+
+```http
+HTTP/1.1 204 NO CONTENT
 ```

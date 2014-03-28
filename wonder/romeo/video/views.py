@@ -240,6 +240,23 @@ class VideoTagApi(Resource):
 @api_resource('/tag/<int:tag_id>')
 class TagApi(Resource):
 
+    tag_parser = RequestParser()
+    tag_parser.add_argument('label', type=str)
+
+    @commit_on_success
+    def patch(self, tag_id):
+        args = self.tag_parser.parse_args()
+        label = args.get('label', '').strip()
+
+        tag = VideoTag.query.get(VideoTag.id == tag_id)
+        if not tag.account_id == current_user.account_id:
+            abort(403)
+
+        tag.label = label
+        # TODO: cascade to dolly
+
+        return 204
+
     @commit_on_success
     def delete(self, tag_id):
         try:
@@ -259,7 +276,7 @@ class TagApi(Resource):
         dollyuser.delete(tag_id)
         """
 
-        return 201
+        return 204
 
 
 @api_resource('/account/<int:account_id>/tags')
