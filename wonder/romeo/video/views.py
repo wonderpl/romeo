@@ -4,7 +4,7 @@ from flask.ext.login import current_user, login_required
 from flask.ext.restful.reqparse import RequestParser
 from sqlalchemy.orm.exc import NoResultFound
 from wonder.romeo import db
-from wonder.romeo.core.dolly import DollyUser
+from wonder.romeo.core.dolly import DollyUser, get_video_embed_content
 from wonder.romeo.core.rest import Resource, api_resource
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.s3 import s3connection, video_bucket
@@ -104,6 +104,12 @@ def ooyala_callback():
 
     # TODO: Add tag, send notification
     return '', 204
+
+
+@videoapp.route('/embed/<videoid>/')
+@videoapp.route('/embed/<videoid>')
+def video_embed(videoid):
+    return get_video_embed_content(videoid)
 
 
 def video_item(video):

@@ -1,4 +1,5 @@
 import requests
+from urlparse import urljoin
 from flask import current_app, json
 from wonder.romeo import cache
 
@@ -21,7 +22,7 @@ def _request(path, method='get', jsondata=None, token=None, **kwargs):
         headers['Content-Type'] = 'application/json'
     base = current_app.config['DOLLY_WS_SECURE_BASE' if 'Authorization' in headers
                               else 'DOLLY_WS_BASE']
-    response = requests.request(method, base + path, **kwargs)
+    response = requests.request(method, urljoin(base, path), **kwargs)
     response.raise_for_status()
     response.cache_max_age = _parse_cache_header(response)
     return response
@@ -42,6 +43,10 @@ def get_categories():
         if response.cache_max_age:
             cache.set(cachekey, categories, response.cache_max_age)
     return categories
+
+
+def get_video_embed_content(videoid):
+    return _request('/embed/%s/' % videoid).content
 
 
 def login(userid):
