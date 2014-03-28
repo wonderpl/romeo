@@ -29,11 +29,13 @@ Content-Type: application/json
                 "items": [
                     {
                         "id": 1,
-                        "label": "tag 1"
+                        "label": "tag 1",
+                        "description": "this is a description"
                     },
                     {
                         "id": 2,
-                        "label": "tag 2"
+                        "label": "tag 2",
+                        "description": "this is a description"
                     }
                 ],
                 "total": 2
@@ -70,11 +72,13 @@ Content-Type: application/json
         "items": [
             {
                 "id": 1,
-                "label": "tag 1"
+                "label": "tag 1",
+                "description": "this is a description"
             },
             {
                 "id": 2,
-                "label": "tag 2"
+                "label": "tag 2",
+                "description": "this is a description"
             }
         ],
         "total": 2
@@ -105,17 +109,24 @@ HTTP/1.1 204 NO CONTENT
 
 ```http
 GET /api/videos/3/tag HTTP/1.1
+```
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
 
 {
     "tags": {
         "items": [
             {
                 "id": 1,
-                "label": "tag 1"
+                "label": "tag 1",
+                "description": "this is a description"
             },
             {
                 "id": 2,
-                "label": "tag 2"
+                "label": "tag 2",
+                "description": "this is a description"
             }
         ],
         "total": 2
@@ -139,46 +150,46 @@ HTTP/1.1 204 NO CONTENT
 
 ```http
 POST /api/tag HTTP/1.1
+Content-Type: application/json
 
-label=this is a tag
+{
+    "label": "this is a tag",
+    "description": "this is a description"
+}
 ```
 
 ```http
 HTTP/1.1 204 OK
 Content-Type: application/json
+Location: /api/tag/TAGID
 
 {
-    "tags": {
-        "items": [
-            {
-                "id": 1,
-                "label": "tag 1"
-            },
-            {
-                "id": 2,
-                "label": "tag 2"
-            },
-            {
-                "id": 3,
-                "label": "this is a tag"
-            }
-        ],
-        "total": 3
-    }
+    "id:" "TAGID",
+    "href": "/api/tag/TAGID"
 }
-
 ```
 
-#### Update a tags label
+#### Update a tag
 
 ```http
-PATCH /api/tag/TAGID HTTP/1.1
+PUT /api/tag/TAGID HTTP/1.1
+Content-Type: application/json
 
-label=this is a tag
+{
+    "label": "this is a tag",
+    "description": "this is a description"
+}
 ```
 
 ```http
-HTTP/1.1 204 NO CONTENT
+HTTP/1.1 200 OK
+Content-Type: application/json
+Location: /api/tag/TAGID
+
+{
+    "id:" "TAGID",
+    "href": "/api/tag/TAGID"
+}
 ```
 
 #### Delete a tag

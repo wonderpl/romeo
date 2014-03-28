@@ -19,6 +19,10 @@ from .forms import VideoUploadForm, VideoForm
 videoapp = Blueprint('video', __name__)
 
 
+def _dollyuser(account):
+    return DollyUser(account.dolly_user, account.dolly_token)
+
+
 def _s3_path(filename, base='upload'):
     return '/'.join((base, str(current_user.account_id), filename))
 
@@ -114,6 +118,12 @@ def video_embed(videoid):
     return get_video_embed_content(videoid)
 
 
+def format_tags(tags, total=None):
+    return dict(
+        items=[dict(id=tag.id, label=tag.label, description=tag.description) for tag in tags],
+        total=total or tags.count())
+
+
 def video_item(video):
     video_fields = {
         'id': lambda x: x,
@@ -146,8 +156,7 @@ def video_item(video):
     for thumbnail in video.thumbnails:
         data.setdefault('thumbnails', []).append({field: getattr(thumbnail, field) for f in thumbnail_fields})
 
-    video_tags = [dict(id=tag.id, label=tag.label) for tag in video.tags]
-    data['tags'] = dict(items=video_tags, total=len(video_tags))
+    data['tags'] = format_tags(video.tags, total=len(video.tags))
 
     return data
 
@@ -253,25 +262,84 @@ class VideoTagApi(Resource):
         return 204
 
 
+def _add_or_update_dolly_channel(tagdata, channelid=None):
+    dollyuser = _dollyuser(current_user.account)
+    dollymethod = 'POST'
+    dollymethod_map = {'POST': dollyuser.create_channel,
+                       'PUT': dollyuser.update_channel}
+
+    for field in ['label', 'description']:
+        tagdata.setdefault(field, '')
+
+    # On dolly title == label so we'll convert
+    new_dict = dict(title=tagdata['label'],
+                    description=tagdata['description'])
+
+    args = [new_dict]
+
+    if channelid:
+        dollymethod = 'PUT'
+        args.append(channelid)
+
+    return dollymethod_map[dollymethod](*args)
+
+
+@commit_on_success
+def add_dolly_tag(tagdata):
+    # Create a new tag
+    tag = VideoTag(label=tagdata['label'], description=tagdata['description'])
+    current_user.account.tags.append(tag)
+
+    # Create corresponding channel on dolly
+    response = _add_or_update_dolly_channel(tagdata)
+
+    # Update tag with channel id
+    tag.dolly_channel = response['id']
+
+    return tag
+
+
+@commit_on_success
+def update_dolly_tag(tag_id, tagdata):
+    # Fetch existing tag
+    tag = VideoTag.query.get(tag_id)
+
+    if not tag.account_id == current_user.account_id:
+        abort(403)
+
+    # Update tag
+    tag.label = tagdata['label']
+    tag.description = tagdata['description']
+
+    # Update corresponding channel on dolly
+    _add_or_update_dolly_channel(tagdata, channelid=tag.dolly_channel)
+
+    return tag
+
+
 @api_resource('/tag/<int:tag_id>')
-class TagApi(Resource):
+class TagResource(Resource):
 
     tag_parser = RequestParser()
     tag_parser.add_argument('label', type=str)
+    tag_parser.add_argument('description', type=str)
 
     @commit_on_success
-    def patch(self, tag_id):
+    def put(self, tag_id):
         args = self.tag_parser.parse_args()
-        label = args.get('label', '').strip()
 
-        tag = VideoTag.query.get(VideoTag.id == tag_id)
-        if not tag.account_id == current_user.account_id:
-            abort(403)
-
-        tag.label = label
-        # TODO: cascade to dolly
-
-        return 204
+        tagdata = dict(label=args['label'], description=args['description'])
+        try:
+            update_dolly_tag(tag_id, tagdata)
+        except Exception as e:
+            if hasattr(e, 'response'):
+                return e.response.json(), e.response.status_code
+            else:
+                raise
+        else:
+            href = url_for('api.tag', tag_id=tag_id)
+            return (dict(id=tag_id, href=href),
+                    200, [('Location', href)])
 
     @commit_on_success
     def delete(self, tag_id):
@@ -284,13 +352,8 @@ class TagApi(Resource):
         else:
             db.session.delete(tag)
 
-        # TODO: add this back in
-        """
-        dollyuser = DollyUser(
-            current_user.account.dolly_user,
-            current_user.account.dolly_token)
+        dollyuser = _dollyuser(current_user.account)
         dollyuser.delete(tag_id)
-        """
 
         return 204
 
@@ -300,21 +363,13 @@ class AccountTagListApi(Resource):
 
     tag_parser = RequestParser()
     tag_parser.add_argument('label', type=str)
+    tag_parser.add_argument('description', type=str)
 
     @property
     def all_tags(self):
         tags = VideoTag.query.filter(VideoTag.account_id == current_user.account.id)
 
-        return dict(
-            tags=dict(
-                items=[dict(id=tag.id, label=tag.label) for tag in tags],
-                total=tags.count()))
-
-    @commit_on_success
-    def _add_tag(self, label):
-        current_user.account.tags.append(
-            VideoTag(label=label)
-        )
+        return dict(tags=format_tags(tags))
 
     def get(self, account_id):
         if not account_id == current_user.account.id:
@@ -327,13 +382,20 @@ class AccountTagListApi(Resource):
             abort(403)
 
         args = self.tag_parser.parse_args()
-        label = args.get('label', '').strip()
+        label = args.get('label') or ''
+        description = args.get('description') or ''
 
-        if not label:
-            return dict(error='empty label'), 400
-
-        if VideoTag.query.filter(VideoTag.account_id == account_id, VideoTag.label == label).count():
+        if VideoTag.query.filter(VideoTag.account_id == account_id, VideoTag.label == label.strip()).count():
             return dict(error='tag already exists'), 400
 
-        self._add_tag(label)
-        return self.all_tags, 201
+        try:
+            new_tag = add_dolly_tag(dict(label=label, description=description))
+        except Exception as e:
+            if hasattr(e, 'response'):
+                return e.response.json(), e.response.status_code
+            else:
+                raise
+        else:
+            href = url_for('api.tag', tag_id=new_tag.id)
+            return (dict(id=new_tag.id, href=href),
+                    201, [('Location', href)])

@@ -68,6 +68,7 @@ class VideoTag(db.Model):
     id = Column(Integer, primary_key=True)
     account_id = Column('account', ForeignKey(Account.id), nullable=False)
     label = Column(String(128), nullable=False)
+    description = Column(String(200), nullable=False, server_default='')
     dolly_channel = Column(String(128))
 
     account = relationship(Account, backref='tags')

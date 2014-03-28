@@ -76,6 +76,10 @@ class DollyUser(object):
             resource += '/'
         return _request('%s/%s' % (self.userid, resource), *args, **kwargs)
 
+    def _set_all_channel_data(self, channeldata):
+        for field in 'category', 'cover', 'description', 'public', 'title':
+            channeldata.setdefault(field, '')
+
     def get_userdata(self):
         return self._user_request(params=dict(data='channels')).json()
 
@@ -89,11 +93,16 @@ class DollyUser(object):
         self._user_request('profile_cover', 'put', files=dict(image=image))
 
     def create_channel(self, channeldata):
-        for field in 'category', 'cover', 'description', 'public', 'title':
-            channeldata.setdefault(field, '')
+        self._set_all_channel_data(channeldata)
         response = self._user_request('channels', 'post', jsondata=channeldata)
         if response.status_code == 201:
-            response.json()
+            return response.json()
+
+    def update_channel(self, channeldata, channelid):
+        self._set_all_channel_data(channeldata)
+        response = self._user_request('channels/%s/' % channelid, 'put', jsondata=channeldata)
+        if response.status_code == 200:
+            return response.json()
 
     def delete_channel(self, channelid):
         self._user_request('channels/%s' % channelid, 'delete')
