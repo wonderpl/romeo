@@ -55,7 +55,7 @@ class UserProxy(UserMixin):
     @property
     def user(self):
         if not self._user:
-            self._user = AccountUser.query.get(self.id)
+            self._user = AccountUser.query.filter_by(id=self.id, active=True).first()
             if not self._user:
                 flash('session expired')
                 raise RequestRedirect(url_for('account.logout'))

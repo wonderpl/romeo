@@ -61,9 +61,13 @@ class LoginResource(Resource):
         form = LoginForm(csrf_enabled=False)
         if (form.validate_on_submit() and
                 login_user(UserProxy(form.user.id, form.user), form.remember.data)):
-            return UserResource().get(current_user.id)
+            return dict(
+                user=UserResource().get(current_user.id),
+                account=AccountResource().get(current_user.account.id),
+            )
         else:
-            return dict(form_errors=form.errors), 400
+            logout_user()
+            return dict(error='invalid_request', form_errors=form.errors), 400
 
 
 @api_resource('/user/<int:user_id>')
@@ -74,7 +78,6 @@ class UserResource(Resource):
         return dict(
             href=url_for('api.user', user_id=current_user.id),
             username=current_user.username,
-            account=AccountResource().get(current_user.account.id),
         )
 
 
