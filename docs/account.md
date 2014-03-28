@@ -111,7 +111,7 @@ Content-Type: application/json
 
 Get details for a specific account user.
 
-```
+```http
 GET /api/user/<user_id> HTTP/1.1
 ```
 

@@ -29,5 +29,5 @@ class AccountTestCase(unittest.TestCase):
                 r = client.post('/api/login', data=credentials)
                 self.assertEquals(r.status_code, 200)
                 data = json.loads(r.data)
-                self.assertEquals(data['username'], credentials['username'])
+                self.assertEquals(data['user']['username'], credentials['username'])
                 self.assertEquals(data['account']['display_name'], accountdata['display_name'])
