@@ -86,6 +86,7 @@ def create_app(wsgi=False):
     _load_extensions(app, wsgi=wsgi)
     _register_middleware(app)
     _register_blueprints(app)
+    _register_api_views(app)
     _init_api(app)
     return app
 
