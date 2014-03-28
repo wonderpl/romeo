@@ -13,6 +13,7 @@ Code | Description
 :--- | :----------
 200  | OK
 201  | Used when a new resource has been created.  The response should include a `Location` header with the new resource url.
+204  | Request was processed successfully but no content is being returned.
 400  | There was an issue with the data (url query param or request body) passed to the server. See discussion below.
 401  | The credentials in the `Cookie` header were invalid.
 403  | The user has been authenticated but doesn't have access to this resource.
