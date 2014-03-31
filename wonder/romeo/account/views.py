@@ -11,7 +11,7 @@ from .models import UserProxy
 accountapp = Blueprint('account', __name__)
 
 
-def _dollyuser(account):
+def get_dollyuser(account):
     return DollyUser(account.dolly_user, account.dolly_token)
 
 
@@ -20,7 +20,7 @@ def dolly_account_view(f):
     def decorator(self, account_id):
         account = current_user.account
         if account_id == current_user.account.id:
-            return f(self, account, _dollyuser(account))
+            return f(self, account, get_dollyuser(account))
         else:
             abort(403)
     return decorator
@@ -56,7 +56,7 @@ def verify():
 @accountapp.route('/settings')
 @fresh_login_required
 def settings():
-    dollyuser = _dollyuser(current_user.account).get_userdata()
+    dollyuser = get_dollyuser(current_user.account).get_userdata()
     change_password_form = ChangePasswordForm()
     return render_template('account/settings.html',
                            dollyuser=dollyuser,

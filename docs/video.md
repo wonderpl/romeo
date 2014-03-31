@@ -3,46 +3,83 @@ Video
 
 ### Video List
 
-#### Get all the video records for an account
+To get a list of all videos associated with an account:
 
 ```http
-GET /api/video HTTP/1.1
+GET /api/account/<account_id>/videos HTTP/1.1
 ```
+
+Return a list of video records:
 
 ```http
 HTTP/1.1 200 OK
 Content-Type: application/json
 
 {
-    "videos": [
-        {
-            "category": null, 
-            "date_added": "2014-03-18 14:11:59", 
-            "date_updated": "2014-03-18 14:11:59", 
-            "deleted": false, 
-            "description": null, 
-            "duration": 0, 
-            "id": 3, 
-            "public": true, 
-            "status": "ready",
-            "tags": {
-                "items": [
-                    {
-                        "id": 1,
-                        "label": "tag 1",
-                        "description": "this is a description"
-                    },
-                    {
-                        "id": 2,
-                        "label": "tag 2",
-                        "description": "this is a description"
-                    }
-                ],
-                "total": 2
-            }
-            "title": "first test video"
-        }
-    ]
+ "video": {
+  "total": 1,
+  "items": [
+   {
+    "id": 34489679,
+    "href": "/api/video/34489679",
+    "date_added": "2014-03-27 13:49:19",
+    "date_updated": "2014-03-28 15:58:04",
+    "status": "processing",
+    "title": "test",
+    "description": "test desc",
+    "category": null,
+    "duration": 600
+   }
+  ]
+ }
+}
+```
+
+### Create
+
+To create a new video `POST` to the account videos resource with the desired
+properties.
+
+```http
+POST /api/account/<account_id>/videos HTTP/1.1
+Content-Type: application/json
+
+{
+ "title": "test"
+}
+```
+
+Property       | Required? | Value               | Description
+:------------- | :-------- | :------------------ | :----------
+title          | yes       | string (max 256)    | The video title
+description    | no        | string (max 256)    | Video description text
+category       | no        | Category ID         | Identifier from /api/categories
+filename       | no        | string              | Path to video file on S3
+
+On success the service will return a `201` with the video id & resource url:
+
+```http
+HTTP/1.1 201 CREATED
+Location: https://romeo.wonderl.com/api/video/76804765
+Content-Type: application/json
+
+{
+ "id": 76804765,
+ "href": "/api/video/76804765"
+}
+```
+
+A `400` will be returned on error:
+
+```http
+HTTP/1.1 400 BAD REQUEST
+Content-Type: application/json
+
+{
+ "error": "invalid_request",
+ "form_errors": {
+  "category": ["Not a valid choice"]
+ }
 }
 ```
 
@@ -108,7 +145,7 @@ HTTP/1.1 204 NO CONTENT
 #### List tags associated with a video
 
 ```http
-GET /api/videos/3/tag HTTP/1.1
+GET /api/videos/3/tags HTTP/1.1
 ```
 
 ```http
@@ -137,7 +174,7 @@ Content-Type: application/json
 #### Assign a tag to a video
 
 ```http
-POST /api/videos/3/tag HTTP/1.1
+POST /api/videos/3/tags HTTP/1.1
 
 id=3
 ```
