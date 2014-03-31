@@ -1,12 +1,12 @@
 angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   'use strict';
 
   $templateCache.put('account.html',
-    "<div class=\"section\">\n" +
+    "<!-- <div class=\"section\">\n" +
     "  <ul id=\"breadcrumb\" class=\"inner\">\n" +
     "    <li class=\"home\"><a href=\"/#/\" class=\"icon-home\"></a></li>\n" +
     "    <li><span class=\"divider\">/</span> <span>My Account</span></li>\n" +
     "  </ul>\n" +
-    "</div>\n" +
+    "</div> -->\n" +
     "\n" +
     "<div id=\"page-account\" class=\"section\" ng-controller=\"AccountController\">\n" +
     "\t<div class=\"inner\">\n" +
@@ -81,13 +81,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('analytics.html',
-    "<div class=\"section\">\n" +
+    "<!-- <div class=\"section\">\n" +
     "    <ul id=\"breadcrumb\" class=\"inner\">\n" +
     "        <li class=\"home\"><a href=\"/#/\" class=\"icon-home\"></a></li>\n" +
     "        <li><span class=\"divider\">/</span><span>Stats</span></li>\n" +
     "    </ul>\n" +
     "</div>\n" +
-    "\n" +
+    " -->\n" +
     "<div id=\"page-stats\" class=\"section\" ng-controller=\"AnalyticsController\">\n" +
     "\n" +
     "    <div class=\"inner\" ng-if=\"isState('complete')\">\n" +
@@ -118,7 +118,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "            <!-- Date Range -->\n" +
     "            <div id=\"analytics-date\">\n" +
     "                <div id=\"analytics-date-selected\">\n" +
-    "                    <span>(~ analytics.dateRange.from | formatDate ~) - (~ analytics.dateRange.to | formatDate ~)</span>\n" +
+    "                    <span>Date: (~ analytics.dateRange.from | date: 'shortDate' ~) - (~ analytics.dateRange.to | date: 'shortDate' ~)</span>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "        </div>\n" +
@@ -148,7 +148,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    </div>\n" +
     "</div>\n" +
-    "</div>"
+    "</div>\n"
   );
 
 
@@ -174,12 +174,12 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('library.html',
-    "<div class=\"section\">\n" +
+    "<!-- <div class=\"section\">\n" +
     "    <ul id=\"breadcrumb\" class=\"inner\">\n" +
     "        <li class=\"home\"><a href=\"/#/\" class=\"icon-home\"></a></li>\n" +
     "        <li><span class=\"divider\">/</span> <span>Library</span></li>\n" +
     "    </ul>\n" +
-    "</div>\n" +
+    "</div> -->\n" +
     "\n" +
     "<div id=\"page-collections\" class=\"section\" ng-controller=\"LibraryController\">\n" +
     "    <div class=\"inner\">\n" +
@@ -396,19 +396,20 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('upload.html',
-    "<div class=\"section\">\n" +
+    "<!-- <div class=\"section\">\n" +
     "  <ul id=\"breadcrumb\" class=\"inner\">\n" +
     "    <li class=\"home\"><a href=\"/#/\" class=\"icon-home\"></a></li>\n" +
     "    <li><span class=\"divider\">/</span> <span>Upload</span></li>\n" +
     "   </ul>\n" +
     "</div>\n" +
+    " -->\n" +
     "\n" +
     "<div id=\"page-upload\" class=\"section\" ng-controller=\"UploadController\">\n" +
     "\t<div class=\"inner\">\n" +
-    "\t\t<h1>Upload your content to Romeo</h1>\n" +
+    "\t\t<!-- <h1>Upload your content to Romeo</h1> -->\n" +
     "\n" +
     "\t\t<!-- STAGE ONE -->\n" +
-    "\t\t<div class=\"inner half-width centered\" ng-if=\"fileDropped == false\">\n" +
+    "\t\t<div class=\"inner centered\" ng-if=\"fileDropped == false\">\n" +
     "\t\t\t<div id=\"upload-dropzone\" class=\"pl-upload-dropzone\">\n" +
     "\t\t\t\t<label>\n" +
     "\t\t\t\t\tChoose your files below to upload them.<br/>\n" +

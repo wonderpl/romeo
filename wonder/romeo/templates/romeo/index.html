@@ -1,12 +1,11 @@
 {% extends "layout.html" %}
 {% block appName %}RomeoApp{% endblock %}
 {% block content %}
-<header class="section">
+<!-- <header class="section">
     <div class="inner">
         <div class="wonder-logo"></div>
         <nav>
             <ul>
-                <!-- <li><a href="/#/dashboard">Dashboard</a></li> -->
                 <li><a href="/#/library">Library</a></li>
                 <li><a href="/#/upload">Upload</a></li>
             </ul>
@@ -15,6 +14,9 @@
             <a href="/#/account" class="icon-user2">Logged in as <span>Dave</span></a>
         </div>
     </div>
-</header>
+</header> -->
+
+<a href="" id="wonder" ng-click="toggleNav()">W</a>
+
 <ng-view></ng-view>
 {% endblock %}

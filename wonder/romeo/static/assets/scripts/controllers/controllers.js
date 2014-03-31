@@ -8,6 +8,11 @@
 
     app.controller('MainCtrl', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$modal', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $modal) {
 
+        $scope.wonder = ng.element(d.getElementById('wonder'));
+        $scope.wrapper = ng.element(d.getElementById('wrapper'));
+        $scope.html = ng.element(d.querySelector('html'));
+        $scope.body = ng.element(d.body);
+
         $rootScope.isUnique = function(arr, string) {
             if ( arr.length === 0 ) {
                 return true;
@@ -22,8 +27,20 @@
             $modal.hide();
         };
 
-        // $rootScope.$on('$locationChangeSuccess', function(event){
-        // });
+        $rootScope.toggleNav = function() {
+            $scope.wonder.toggleClass('aside');
+            $scope.wrapper.toggleClass('aside');
+            $scope.html.toggleClass('aside');
+            $scope.body.toggleClass('aside');
+
+        };
+
+        $rootScope.$on('$locationChangeSuccess', function(event){
+            $scope.wonder.removeClass('aside');
+            $scope.wrapper.removeClass('aside');
+            $scope.html.removeClass('aside');
+            $scope.body.removeClass('aside');
+        });
         // $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl){
         // });
 

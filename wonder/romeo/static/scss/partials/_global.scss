@@ -13,6 +13,10 @@ body, html {
     font-family: 'proxima-nova', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    &.aside {
+        overflow: hidden;
+    }
 }
 
 
@@ -74,6 +78,86 @@ header {
                 padding: 0 5px;
                 color: $flat-blue-2;
             }
+        }
+    }
+}
+
+#wonder {
+    display: block;
+    position: fixed;
+    left: 16px;
+    top: 16px;
+    background: #bcbad4;
+    color: #fff;
+    font-size: 32px;
+    font-weight: 700;
+    padding: 12px 12px 11px 12px;
+    font-family: 'abril-text', serif;
+    text-decoration: none;
+    @include transition( all .2s ease-out );
+
+    &:hover, &:active, &:focus {
+        background: #333332;
+        color: white;
+    }
+
+    &.aside {
+        color: #333332;
+        background: white;
+    }
+}
+
+#wrapper {
+    display: block;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: 100;
+    @include transition( all .2s ease-out );
+
+    &.aside {
+        left: 200px;
+    }
+}
+
+#aside {
+    background: #333332;
+    display: block;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    color: #fff;
+    position: absolute;
+    padding: 90px 12px 12px 12px;
+    font-weight: 600;
+    font-size: 15px;
+
+    ul {
+        display: block;
+
+        li {
+            display: block;
+            padding: 10px 6px;
+            margin: 0 0 0px 0;
+
+            span {
+                padding-right: 10px;
+            }
+         
+            a {
+                color: #fff;
+                text-decoration: none;
+                @include transition( all .1s ease-out );
+
+                &:hover, &:focus, &:active {
+                    color: lighten($flat-blue-1, 15%);
+                }
+            }
+
         }
     }
 }
@@ -287,6 +371,7 @@ a.big-button {
 
 
 #page-collections {
+    padding-top: 120px;
     #collection-list {
         li.collection {
             @include inline-block;
@@ -336,19 +421,19 @@ a.big-button {
 
 #library-search-wrapper {
     display: block;
-    position: absolute;
-    width: 220px;
-    right: 0px;
-    top: 0px;
+    // position: absolute;
+    // width: 220px;
+    // right: 0px;
+    // top: 0px;
 }
 
 h1.collections-page {
     background: white;
     margin: 0;
     padding: 0 0 22px 0;
-    position: fixed;
-    left: 0;
-    top: 0;
+    // position: fixed;
+    // left: 0;
+    // top: 0;
 }
 
 #filter-status, #collection-filter {
@@ -411,13 +496,13 @@ h1.collections-page {
 
 
 #library-left {
-    // display: block;
-    // float: right;
-    // width: 72%;
-    width: 730px;
-    position: fixed;
-    left: 50%;
-    margin-left: -220px;
+    display: block;
+    float: right;
+    width: 72%;
+    // width: 730px;
+    // position: fixed;
+    // left: 50%;
+    // margin-left: -220px;
 
 }
 
@@ -725,12 +810,12 @@ h1.collections-page {
 }
 
 #library-right {
-    // float: left;
-    // width: 25%;
-    width: 260px;
-    position: fixed;
-    left: 50%;
-    margin-left: -510px;
+    float: left;
+    width: 25%;
+    // width: 260px;
+    // position: fixed;
+    // left: 50%;
+    // margin-left: -510px;
 
     h2 {
         float: left;
@@ -826,6 +911,10 @@ h1.collections-page {
 
 /*  Stats
 /* ======================================= */
+
+#page-stats {
+    padding-top: 120px;
+}
 
 #analytics-title {
     border-bottom: 1px solid rgba(0, 0, 0, 0.22);
@@ -1172,6 +1261,7 @@ h1.collections-page {
 /* ======================================= */
 
 #page-account {
+    padding-top: 120px;
 
     .avatar {
         @include inline-block;
@@ -1374,6 +1464,8 @@ h1.collections-page {
 /* ======================================= */
 
 #page-upload {
+    padding-top: 120px;
+
     .centered {
         margin: 0 auto;
         display: block;
@@ -1384,11 +1476,11 @@ h1.collections-page {
     display: block;
     position: relative;
     width: 100%;
-    border: 5px dashed $flat-blue-3;
+    border: 5px dashed #bcbad4;
     margin: 0 0 32px 0;
 
     &:first-child {
-        border: 5px dashed $flat-green-1;
+        border: 5px dashed #bcbad4;
     }
 
     label {
@@ -1410,7 +1502,7 @@ h1.collections-page {
     &:before {
         content: '';
         display: block;
-        padding-top: 100%;
+        padding-top: 65%;
     }
 }
 

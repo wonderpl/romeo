@@ -5,11 +5,8 @@
 
     <title>{% block title %}Romeo{% endblock %}</title>
 
-    <script type="text/javascript" src="//use.typekit.net/twx7lpv.js"></script>
-    <script type="text/javascript">try {
-        Typekit.load();
-    } catch (e) {
-    }</script>
+    <script type="text/javascript" src="//use.typekit.net/ftv4doz.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
     {% assets filters="cssmin", output="gen/app.%(version)s.css",
       "assets/vendor/css/nv.d3.min.css",
@@ -22,9 +19,18 @@
 </head>
 <body ng-app="{% block appName %}RomeoApp{% endblock %}" ng-controller="MainCtrl">
     
+    <div id="wrapper">
     {% block content %}
     {% endblock %}
+    </div>
 
+    <div id="aside">
+        <ul>
+            <li><a href="/#/library/"><span class="icon-home"></span>Manage my videos</a></li>
+            <li><a href="/#/upload/"><span class="icon-upload2"></span>Upload a new video</a></li>
+            <li><a href="/#/account/"><span class="icon-user2"></span>Logged in as Dave</a></li>
+        </ul>
+    </div>
     {% block vendorjs %}
     {# assets filters="rjsmin", output="gen/vendor.%(version)s.js",
         "assets/vendor/js/d3.js",

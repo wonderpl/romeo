@@ -292,7 +292,7 @@
 
                 function displayData(dataSet, feature, d) {
                     var datum = getData(dataSet, d);
-                    debugger;
+                    // debugger;
 
                     if ((!$scope.zoomedToUSA && feature === 'states') || ($scope.zoomedToUSA && feature === 'countries')) {
                         d3.select(d3.event.target).node().classList.add('highlight');
@@ -562,7 +562,7 @@
                                 }
                             );
 
-                            debugger;
+                            // debugger;
 
                         }
                     }, 100);
