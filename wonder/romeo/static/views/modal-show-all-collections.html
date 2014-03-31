@@ -1,0 +1,16 @@
+<h2>Edit Collections</h2>
+<form name"editCollectionForm" ng-submit="closeModal($event)">
+	<div class="row">
+		<label>Collections featuring {{ data.video.title }}:</label>
+		<ul class="collection-list">
+			<li ng-repeat="collection in data.video.collections">
+				{{ collections[collection].label }} <span>( <a ng-click="removeFromCollection($event, data.id, collection)">Remove</a> )</span>
+			</li>
+		</ul>
+	</div>
+	<div class="row">
+		<input type="submit" value="Save" />
+	</div>	
+	<div class="clear"></div>
+</form>
+<a class="icon-cross close-modal" ng-click="closeModal()"></a>

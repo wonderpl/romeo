@@ -1,3 +1,29 @@
 
 /* 	Base styles
 /* ======================================= */
+
+a.button {
+    @include inline-block;
+    width: 28px;
+    height: 28px;
+    padding: 5px 0 0 0;
+    position: relative;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    background: $flat-blue-4;
+    font-size: 18px;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+    @include border-radius( 4px );
+    @include transition( all .1s ease-out );
+
+    &.right {
+        float: right;
+    }
+
+    &:hover, &:active, &:focus {
+        background: lighten($flat-blue-4, 10%);
+    }
+}
