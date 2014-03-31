@@ -1,0 +1,49 @@
+<style>
+
+    body {
+        font: 10px sans-serif;
+        margin: 0;
+    }
+
+    path.line {
+        fill: none;
+        stroke: #666;
+        stroke-width: 1.5px;
+    }
+
+    path.area {
+        fill: #e7e7e7;
+        @import(user-select): none;
+    }
+
+    path.progress-area {
+        fill: #e73c33;
+    }
+
+    .axis {
+        shape-rendering: crispEdges;
+    }
+
+    .x.axis line {
+        stroke: #fff;
+    }
+
+    .x.axis .minor {
+        stroke-opacity: .5;
+    }
+
+    .x.axis path {
+        display: none;
+    }
+
+    .y.axis line, .y.axis path {
+        fill: none;
+        stroke: #000;
+    }
+
+</style>
+
+<div>
+    <iframe id="engagement-video-iframe" src="/embed/viIdNpBXDl4MwA3YlSY83xLg" width="300" height="300" frameborder="0" allowfullscreen></iframe>
+    <svg id="engagement-video-segment-chart"></svg>
+</div>

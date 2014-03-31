@@ -1213,6 +1213,10 @@ h1.collections-page {
     }
 }
 
+.country:hover,.state:hover {
+  fill: rgb(8, 28, 39);
+}
+
 /* entire container, keeps perspective */
 .flip-container {
     @include perspective(1000);
@@ -1385,6 +1389,22 @@ h1.collections-page {
     td, th {
         padding: 11px;
     }
+}
+
+#engagement-video-segment-chart,#engagement-video-iframe {
+  width: 500px;
+  height: 300px;
+}
+
+#engagement-video-iframe {
+  float: left;
+}
+
+#geographic-region-chooser {
+  position: absolute;
+  top: 11px;
+  left: 11px;
+  width: 120px;
 }
 
 /*  Account page

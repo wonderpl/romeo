@@ -1,6 +1,10 @@
 <div>
     <div class="analytics-panel analytics-panel-top">
         <svg id="geographic-map"></svg>
+        <select id="geographic-region-chooser" ng-model="zoomedToUSA" ng-change="toggleUSAZoom()">
+            <option value="{ true }">USA</option>
+            <option value="{ false }">World</option>
+        </select>
         <div id="geographic-map-data">
             <h3>Region: {{ !zoomedToUSA ? 'World' : 'USA' }}</h3>
             <h3>{{ zoomedToUSA ? 'State' : 'Country' }}: {{ areaData.name }}</h3>
