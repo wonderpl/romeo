@@ -478,7 +478,12 @@ h1.collections-page {
             @include text-shadow( 1px 1px 0px rgba(0,0,0,1) );
 
             span.active {
+                text-decoration: underline !important;
                 cursor: pointer !important;
+
+                &:hover, &:focus, &:active {
+                    text-decoration: none !important;
+                }
             }
         }
 
@@ -602,6 +607,15 @@ h1.collections-page {
         span.title {
             @include inline-block;
             padding: 8px;
+
+            a {
+                color: $flat-blue-4;
+                text-decoration: none;
+
+                &:hover, &:focus, &:active {
+                    text-decoration: underline;
+                }
+            }
         }
 
         span.number-of-collections {
@@ -751,7 +765,7 @@ h1.collections-page {
     width: 100%;
     position: relative;
     background: $flat-gray-2;
-    margin: 0 0 22px 0;
+    margin: 0 0 17px 0;
 
     &:before {
         content: '';
@@ -776,7 +790,7 @@ h1.collections-page {
     display: block;
     position: absolute;
     right: 0;
-    top: -54px;
+    top: 5px;
     width: 50%;
     text-align: right;
 
@@ -799,7 +813,7 @@ h1.collections-page {
                 @include transition( all .1s ease-out );
 
                 &:hover, &:focus, &:active {
-                    background: $flat-red-1;
+                    background: lighten($flat-blue-4, 10%);
                 }
 
                 span {

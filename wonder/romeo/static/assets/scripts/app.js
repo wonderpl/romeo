@@ -11,18 +11,19 @@
                         ns + '.services',
                         ns + '.filters',
                         ns + '.analytics',
-                        'ngRoute'] /* module dependencies */);
+                        'ngRoute',
+                        'ngCookies'] /* module dependencies */);
 
     app.config(['$routeProvider', '$interpolateProvider', function( $routeProvider, $interpolateProvider ){
-        
+    
         // Change the interpolation symbols so they don't conflict with Jinja
         $interpolateProvider.startSymbol('(~');
         $interpolateProvider.endSymbol('~)');
 
         // Home
-        $routeProvider.when('/dashboard', {
-            templateUrl: 'dashboard.html'
-        });
+        // $routeProvider.when('/dashboard', {
+        //     templateUrl: 'dashboard.html'
+        // });
 
         // Library
         $routeProvider.when('/library', {
@@ -53,10 +54,15 @@
             templateUrl: 'account.html'
         });
         
-        $routeProvider.otherwise({redirectTo: '/dashboard'});
+        $routeProvider.when('/login', {
+            templateUrl: 'login.html'
+        });
+
+        $routeProvider.otherwise({redirectTo: '/library'});
     }]);
 
-    app.run(['$timeout', '$rootScope', '$http', 'animLoop', function($timeout, $rootScope, $http, animLoop) {
+    app.run(['$timeout', '$rootScope', '$http', 'animLoop', '$cookies', function($timeout, $rootScope, $http, animLoop, $cookies) {
+        console.log($cookies);
         animLoop.setFPS(15);
     }]);
 

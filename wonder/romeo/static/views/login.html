@@ -1,0 +1,26 @@
+<div class="section">
+  <ul id="breadcrumb" class="inner">
+    <li class="home"><a href="/#/" class="icon-home"></a></li>
+    <li><span class="divider">/</span> <span>Upload</span></li>
+   </ul>
+</div>
+
+<div id="page-login" class="section" ng-controller="LoginController">
+	<div class="inner">
+		<h1>Login</h1>
+		<form ng-submit="login()">
+			<div class="row">
+				<label for="username">Username</label>
+				<input type="text" name="username" ng-model="username">
+			</div>
+			<div class="row">
+				<label for="password">Password</label>
+				<input type="password" name="password" ng-model="password">
+			</div>
+			<div class="row">
+				<input type="submit" value="Login">
+				<button ng-click="tryagain()">Try again</button>
+			</div>
+		</form>
+	</div>
+</div>

@@ -23,7 +23,7 @@ a.button {
         float: right;
     }
 
-    &:hover, &:active, &:focus {
+    &:hover, &:active, &:focus, &.active {
         background: lighten($flat-blue-4, 10%);
     }
 }

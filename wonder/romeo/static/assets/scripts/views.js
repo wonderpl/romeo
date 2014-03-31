@@ -128,6 +128,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "            <div pl-analytics-overview ng-if=\"isSection('overview')\"></div>\n" +
     "            <div pl-analytics-performance-chart ng-if=\"isSection('performance')\"></div>\n" +
     "            <div pl-analytics-geographic-map ng-if=\"isSection('geographic')\"></div>\n" +
+    "            <div pl-analytics-engagement-video-segment ng-if=\"isSection('engagement')\"></div>\n" +
     "        </div>\n" +
     "\n" +
     "        <!-- Bottom Panel -->\n" +
@@ -183,16 +184,20 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<div id=\"page-collections\" class=\"section\" ng-controller=\"LibraryController\">\n" +
     "    <div class=\"inner\">\n" +
     "    \t<h1>Manage your videos &amp; collections</h1>\n" +
-    "\n" +
+    "\t\t<div id=\"top-right-links\">\n" +
+    "\t\t\t<ul>\n" +
+    "\t\t\t\t<li><a href=\"/#/upload\"><span class=\"icon-upload2\"></span> Upload a new video</a></li>\n" +
+    "\t\t\t</ul>\n" +
+    "\t\t</div>\n" +
     "\t\t<div id=\"library-left\">\n" +
     "\t\t\t<div class=\"toolbar\">\n" +
     "\t\t\t\t<a class=\"icon-cross clear-filter\" ng-click=\"clearFilter($event)\" ng-class=\"{ show: filter.searchtext.length > 0 }\"></a>\n" +
     "\t\t\t\t<input type=\"text\" class=\"filter right\" placeholder=\"Filter Videos\" ng-model=\"filter.searchtext\" pl-focus-field>\n" +
-    "\t\t\t\t<a class=\"button icon-list right\" ng-click=\"changeView( 'list' )\"></a>\n" +
-    "\t\t\t\t<a class=\"button icon-layout right\" ng-click=\"changeView( 'grid' )\"></a>\n" +
+    "\t\t\t\t<a class=\"button icon-list right\" ng-click=\"changeView( 'list' )\" ng-class=\"{ active: viewType == 'list' }\"></a>\n" +
+    "\t\t\t\t<a class=\"button icon-layout right\" ng-click=\"changeView( 'grid' )\" ng-class=\"{ active: viewType == 'grid' }\"></a>\n" +
     "\t\t\t\t<h2 ng-show=\"selectedItems.length == 0\">Videos</h2>\n" +
     "\t\t\t\t<div id=\"selection-status\" ng-class=\"{ show: selectedItems.length > 0 }\">\n" +
-    "\t\t\t\t\t<span>(~ selectedItems.length ~) video<span ng-show=\"selectedItems.length > 1\">s</span> selected: <a ng-click=\"showAddToCollectionForm($event)\">Add to a collection</a> / <a ng-click=\"showRemoveFromCollectionForm($event)\">Remove from a collection</a></span>\n" +
+    "\t\t\t\t\t<span>(~ selectedItems.length ~) video<span ng-show=\"selectedItems.length > 1\">s</span> selected: <a ng-click=\"showAddToCollectionForm($event)\">Add to a collection</a><!-- / <a ng-click=\"showRemoveFromCollectionForm($event)\">Remove from a collection</a>--></span>\n" +
     "\t\t\t\t</div>\t\t\t\t\n" +
     "\t\t\t\t<div class=\"clear\"></div>\n" +
     "\t\t\t</div>\n" +
@@ -233,6 +238,36 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "        </div>\n" +
     "    </div>\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('login.html',
+    "<div class=\"section\">\n" +
+    "  <ul id=\"breadcrumb\" class=\"inner\">\n" +
+    "    <li class=\"home\"><a href=\"/#/\" class=\"icon-home\"></a></li>\n" +
+    "    <li><span class=\"divider\">/</span> <span>Upload</span></li>\n" +
+    "   </ul>\n" +
+    "</div>\n" +
+    "\n" +
+    "<div id=\"page-login\" class=\"section\" ng-controller=\"LoginController\">\n" +
+    "\t<div class=\"inner\">\n" +
+    "\t\t<h1>Login</h1>\n" +
+    "\t\t<form ng-submit=\"login()\">\n" +
+    "\t\t\t<div class=\"row\">\n" +
+    "\t\t\t\t<label for=\"username\">Username</label>\n" +
+    "\t\t\t\t<input type=\"text\" name=\"username\" ng-model=\"username\">\n" +
+    "\t\t\t</div>\n" +
+    "\t\t\t<div class=\"row\">\n" +
+    "\t\t\t\t<label for=\"password\">Password</label>\n" +
+    "\t\t\t\t<input type=\"password\" name=\"password\" ng-model=\"password\">\n" +
+    "\t\t\t</div>\n" +
+    "\t\t\t<div class=\"row\">\n" +
+    "\t\t\t\t<input type=\"submit\" value=\"Login\">\n" +
+    "\t\t\t\t<button ng-click=\"tryagain()\">Try again</button>\n" +
+    "\t\t\t</div>\n" +
+    "\t\t</form>\n" +
+    "\t</div>\n" +
     "</div>"
   );
 
@@ -376,7 +411,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t<div class=\"inner half-width centered\" ng-if=\"fileDropped == false\">\n" +
     "\t\t\t<div id=\"upload-dropzone\" class=\"pl-upload-dropzone\">\n" +
     "\t\t\t\t<label>\n" +
-    "\t\t\t\t\tDrag your videos here to upload and transcode them.<br/>\n" +
+    "\t\t\t\t\tChoose your files below to upload them.<br/>\n" +
     "\t\t\t\t\t<input type=\"file\" onchange=\"angular.element(this).scope().fileNameChanged()\">\n" +
     "\t\t\t\t</label>\n" +
     "\t\t\t</div>\n" +
@@ -515,7 +550,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t\t</div>\n" +
     "\t\t\t\t\t<div class=\"row\">\n" +
     "\t\t\t\t\t\t<label>Add your video to a collection</label>\n" +
-    "\t\t\t\t\t\t<select class=\"actions\" ng-options=\"collection.title for collection in collections\" ng-model=\"newVideo.collections\"></select>\n" +
+    "\t\t\t\t\t\t<select class=\"actions\" ng-options=\"collection.label for collection in collections\" ng-model=\"newVideo.collections\"></select>\n" +
     "\t\t\t\t\t</div>\n" +
     "\t\t\t\t\t<div class=\"row\">\n" +
     "\t\t\t\t\t\t<input type=\"submit\" value=\"Publish\">\t\n" +
@@ -548,11 +583,11 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('video-list-list.html',
     "<ul id=\"video-list-list\" class=\"library\" ng-class=\"{ loading: loading }\">\n" +
     "    <li ng-repeat=\"(key, video) in filter.results\" class=\"row\" data-id=\"(~ key ~)\">\n" +
-    "            <span class=\"title\">(~ video.title ~)</span>\n" +
-    "            <span class=\"number-of-collections\" ng-click=\"showAllCollections($event,key)\">( in <span ng-class=\"{ active: video.collections.length > 0}\">(~ video.collections.length ~) collections</span> )</span>\n" +
-    "            <a href=\"/#/video/(~ key ~)\" class=\"button edit\"><span class=\"icon-info\"></span></a>\n" +
-    "            <a href=\"/#/analytics/(~ key ~)/overview\" class=\"button analytics\" title=\"View analytics for this video\"><span title=\"View analytics for this video\" class=\"icon-pie\"></span></a>\n" +
-    "            <div data-id=\"(~ key ~)\" class=\"pl-checkbox\"></div>                     \n" +
+    "        <span class=\"title\"><a href=\"/#/video/(~ key ~)\">(~ video.title ~)</a></span>\n" +
+    "        <span class=\"number-of-collections\" ng-click=\"showAllCollections($event,key)\">( in <span ng-class=\"{ active: video.collections.length > 0}\">(~ video.collections.length ~) collections</span> )</span>\n" +
+    "        <a href=\"/#/video/(~ key ~)\" class=\"button edit\"><span class=\"icon-info\"></span></a>\n" +
+    "        <a href=\"/#/analytics/(~ key ~)/overview\" class=\"button analytics\" title=\"View analytics for this video\"><span title=\"View analytics for this video\" class=\"icon-pie\"></span></a>\n" +
+    "        <div data-id=\"(~ key ~)\" class=\"pl-checkbox\"></div>                     \n" +
     "    </li>\n" +
     "</ul>"
   );
@@ -597,11 +632,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t</div>\n" +
     "\t\t\t</form>\n" +
     "\t\t</div><!--\n" +
-    "\t\t--><div class=\"inner half-width right\">\n" +
+    "\t\t--><div class=\"inner half-width right\" style=\"padding-top: 57px;\">\n" +
     "\t\t\t<div class=\"wonder-embed\">\n" +
     "\t\t\t\t<iframe src=\"http://wonderpl.com/embed/viwAdAYl4is9rfPwmRE39MXA/\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen></iframe>\n" +
     "\t\t\t</div>\n" +
-    "\t\t\t<h3>Customise your embeddable player</h3>\n" +
     "\t\t\t<div id=\"customize-player\">\n" +
     "\t\t\t\t<form action=\"\">\n" +
     "\t\t\t\t\t<div class=\"row\">\n" +

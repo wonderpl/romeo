@@ -13,7 +13,7 @@
 		<div class="inner half-width centered" ng-if="fileDropped == false">
 			<div id="upload-dropzone" class="pl-upload-dropzone">
 				<label>
-					Drag your videos here to upload and transcode them.<br/>
+					Choose your files below to upload them.<br/>
 					<input type="file" onchange="angular.element(this).scope().fileNameChanged()">
 				</label>
 			</div>
@@ -152,7 +152,7 @@
 					</div>
 					<div class="row">
 						<label>Add your video to a collection</label>
-						<select class="actions" ng-options="collection.title for collection in collections" ng-model="newVideo.collections"></select>
+						<select class="actions" ng-options="collection.label for collection in collections" ng-model="newVideo.collections"></select>
 					</div>
 					<div class="row">
 						<input type="submit" value="Publish">	

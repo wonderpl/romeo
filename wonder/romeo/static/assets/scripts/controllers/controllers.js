@@ -499,8 +499,15 @@
         VideoService.getAll().then(function(data){
             $timeout(function(){
                 $scope.$apply(function(){
-                    $scope.collections = data.collections;
-                    $scope.newVideo.collections = data.collections[0];
+                    var arr = [];
+                    ng.forEach( data.collections, function( value, key ) {
+                        arr.push({
+                            key: key,
+                            label: value.label
+                        });
+                    });
+                    $scope.collections = arr;
+                    $scope.newVideo.collections = arr[0];
                 });
             }, 500);
         });
@@ -510,12 +517,12 @@
                 $scope.$apply(function(){
                     $scope.newVideo.id = Math.floor(Math.random() * 10) + parseInt(new Date().getTime()).toString(36);
                     $scope.fileDropped = true;
-                    $timeout( function(){
-                        $('.progress').css('width', '100%');
+                    $timeout( function() {
+                        d.querySelector('.progress').style.width = '100%';
                     }, 1000);
                     $timeout(function(){
-                        $('.bar').addClass('complete');
-                        $('.percentage').html('Upload complete');
+                        d.querySelector('.bar').className += ' complete';
+                        d.querySelector('.percentage').innerHTML = 'Upload complete';
                     }, 11000);
                 });
             });
@@ -529,7 +536,7 @@
                 "title": $scope.newVideo.title,
                 "description": $scope.newVideo.description,
                 "category": $scope.newVideo.category,
-                "collections": [$scope.newVideo.collections.title]
+                "collections": [$scope.newVideo.collections.key]
             };
             VideoService.save( $scope.newVideo.id, obj ).then(function(){
                 $location.path('/library/');
@@ -649,6 +656,46 @@
         // }
 
         // });
+    }]);
+
+    app.controller('LoginController', ['$scope', '$rootScope', '$routeParams', '$http', '$timeout', function ($scope, $rootScope, $routeParams, $http, $timeout) {
+
+        $scope.username = "";
+        $scope.password = "";
+        $scope.href = "";
+
+        $scope.login = function() {
+            $http({ 
+                method: 'post', 
+                url: '/api/login', 
+                data: { 
+                    "username": $scope.username, 
+                    "password": $scope.password } 
+            }).success(function(data,status,headers,config){
+
+                if ( status === 200 ) {
+                    console.log(data);
+                    $timeout(function() {
+                        $scope.$apply(function(){
+                            $scope.href = data.account.href;        
+                        });
+                    });
+                }
+
+            }).error(function(data, status, headers, config){
+                console.log('ERROR', data, status, headers, config);
+            });
+        };
+
+        $scope.retry = function(){
+            $http({
+                method: 'get',
+                url: $scope.href
+            }).success(function(data, status, headers, config){
+                console.log(data);
+            });
+        };
+
     }]);
 
 
