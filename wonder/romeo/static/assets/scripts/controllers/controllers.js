@@ -552,6 +552,8 @@
         $scope.sections = ['overview', 'performance', 'geographic', 'engagement'];
         $scope.section = $routeParams.type || 'overview';
 
+        $scope.maxFields = 5;
+
         $scope.video = {
             videoID: $routeParams.videoID
         };
@@ -566,8 +568,8 @@
 
         $scope.analytics = {
             dateRange: {
-                from: moment().subtract('days', 7).toDate(),
-                to: new Date()
+                from: moment(new Date()).subtract('days', 7).toDate(),
+                to: moment(new Date()).toDate()
             },
             results: [],
             key: null
@@ -576,8 +578,8 @@
         $scope.setResults = function(key, keyDisplayName, dateFrom, dateTo, results) {
             $scope.analytics.key = key;
             $scope.analytics.keyDisplayName = keyDisplayName;
-            $scope.analytics.dateRange.from = dateFrom;
-            $scope.analytics.dateRange.to = dateTo;
+/*            $scope.analytics.dateRange.from = dateFrom;
+            $scope.analytics.dateRange.to = dateTo;*/
             $scope.analytics.results = results;
         };
 
@@ -609,6 +611,10 @@
         $scope.setState('init');
         $scope.fields = StatsService.getFields();
         $scope.setState('loading');
+
+        $scope.getVisibleFieldsLength = function() {
+            return _.where($scope.fields,  {visible: true}).length;
+        };
 
         VideoService.getOne($routeParams.videoID).then(function(data) {
             $scope.setState('complete');

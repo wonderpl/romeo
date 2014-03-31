@@ -3,5 +3,9 @@
         <span class="key-color" style="background-color: {{field.color}}"></span>
         <span class="key-title">{{ field.displayName }}</span>
     </li>
-    <li class="icon-edit" ng-click="flip()"></li>
+    <li id="edit-icon">
+        <span>Fields <span style="color: {{ (getVisibleFieldsLength() < maxFields) ? 'green' : 'red' }};">({{ getVisibleFieldsLength() }})</span>:</span>
+        <span class="icon-edit" ng-click="flip()"></span>
+    </li>
+
 </ul>
