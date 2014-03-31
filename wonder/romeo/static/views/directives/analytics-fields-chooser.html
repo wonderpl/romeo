@@ -1,7 +1,7 @@
 <ul id="analytics-fields-selection">
-    <li class="analytics-fields-selection-item" ng-repeat="field in fields">
+    <li class="analytics-fields-selection-item" ng-repeat="field in fields"  ng-class="{ disabled: getVisibleFieldsLength() > 4 && !field.visible }">
         <div class="selection-title" style="border-bottom-color: {{ field.color }}">
-            <input type="checkbox" ng-model="field.visible"/>
+            <input type="checkbox" ng-model="field.visible" ng-disabled="getVisibleFieldsLength() > 4 && !field.visible"/>
             <span>{{field.displayName }}</span>
         </div>
         <div class="selection-description">{{ field.description }}</div>

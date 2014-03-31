@@ -203,16 +203,20 @@
                 var mapPath = d3.geo.path()
                     .projection(projection);
 
-                $scope.zoomedToUSA = false;
+                $scope.zoomedToUSA = true;
                 $scope.areaData = null;
 
-                function mouseOverEventHandler(analyticsData, feature) {
+                function mouseOverEventHandler(analyticsData, feature, group, d) {
 
+                    displayData(analyticsData, feature, d);
+                }
+
+                function mouseDownEventHandler(analyticsData, feature, group, d) {
 
                 }
 
-                function mouseDownEventHandler(analyticsData, feature) {
-
+                function mouseOutEventHandler() {
+                    d3.select(d3.event.target).node().classList.remove('highlight');
                 }
 
                 function drawWorldMap(mapJSON, analyticsData) {
@@ -226,9 +230,7 @@
                             return d.properties.names[0] === 'United States';
                         })
                         .on('mousedown', function (d) {
-                            toggleUSAZoom(function () {
-                                showStatesMap();
-                            });
+                            toggleUSAZoom();
                         });
 
                     return map;
@@ -239,10 +241,9 @@
                     statesGroup.selectAll('path').attr('class', 'state');
 
                     return drawMap(statesGroup, 'states', mapJSON, analyticsData)
+                        .attr('class', 'state')
                         .on('mousedown', function () {
-                            toggleUSAZoom(function () {
-                                showWorldMap();
-                            });
+                            toggleUSAZoom();
                         });
                 }
 
@@ -267,7 +268,8 @@
                                 return colorRange(0);
                             }
                         })
-                        .on('mouseover', _.partial(displayData, analyticsData, feature));
+                        .on('mouseover', _.partial(mouseOverEventHandler, analyticsData, feature, group))
+                        .on('mouseout', _.partial(mouseOutEventHandler, analyticsData, feature, group));
 
                     return group.selectAll('path');
 
@@ -290,14 +292,18 @@
 
                 function displayData(dataSet, feature, d) {
                     var datum = getData(dataSet, d);
+                    debugger;
 
-                    if (($scope.zoomedToUSA && feature === 'states') || (!$scope.zoomedToUSA && feature === 'countries')) {
+                    if ((!$scope.zoomedToUSA && feature === 'states') || ($scope.zoomedToUSA && feature === 'countries')) {
+                        d3.select(d3.event.target).node().classList.add('highlight');
                         $scope.$apply(function () {
                             $scope.areaData = datum;
                         });
                     }
 
                 }
+
+
 
                 function getDataForWorldMap(callback) {
                     GeographicService.getOne($scope.video.videoID).then(function (data) {
@@ -396,26 +402,26 @@
 
                 }
 
-                function toggleUSAZoom(callback) {
-
+                function toggleUSAZoom() {
+                    var callback = $scope.zoomedToUSA ? showWorldMap : showStatesMap;
                     if ($scope.zoomedToUSA) {
                         zoomFromUSA(function () {
                             $scope.$apply(function () {
-                                callback();
-                                $scope.zoomedToUSA = false;
+                                callback && callback();
                             });
                         });
                     } else {
                         zoomToUSA(function () {
                             $scope.$apply(function () {
-                                callback();
-                                $scope.zoomedToUSA = true;
+                                callback && callback();
                             });
                         });
 
                     }
 
                 }
+
+                $scope.toggleUSAZoom = toggleUSAZoom;
 
                 showWorldMap();
 
@@ -438,6 +444,7 @@
             restrict: 'A',
             templateUrl: '/static/views/directives/analytics-fields-key.html',
             controller: function ($scope) {
+
 
             }
         };

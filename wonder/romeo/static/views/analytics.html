@@ -35,7 +35,7 @@
             <!-- Date Range -->
             <div id="analytics-date">
                 <div id="analytics-date-selected">
-                    <span>{{ analytics.dateRange.from | formatDate }} - {{ analytics.dateRange.to | formatDate }}</span>
+                    <span>Date: {{ analytics.dateRange.from | date: 'shortDate' }} - {{ analytics.dateRange.to | date: 'shortDate' }}</span>
                 </div>
             </div>
         </div>
