@@ -1,7 +1,9 @@
 def pytest_configure(config):
-    from wonder.romeo import create_app
+    from wonder.romeo import create_app, db
     app = create_app()
-    app.config['DATABASE_URL'] = app.config.get('TEST_DATABASE_URL', 'sqlite://')
+    app.config['SQLALCHEMY_DATABASE_URI'] = app.config.get('TEST_DATABASE_URL', 'sqlite://')
+    app.app_context().push()
+    db.create_all()
 
 
 def pytest_unconfigure(config):

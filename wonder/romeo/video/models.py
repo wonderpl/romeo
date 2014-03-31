@@ -68,7 +68,30 @@ class VideoTag(db.Model):
     id = Column(Integer, primary_key=True)
     account_id = Column('account', ForeignKey(Account.id), nullable=False)
     label = Column(String(128), nullable=False)
+    description = Column(String(200), nullable=False, server_default='')
     dolly_channel = Column(String(128))
+
+    account = relationship(Account, backref='tags')
+
+    def __unicode__(self):
+        return self.label
+
+    def __repr__(self):
+        return 'VideoTag(id={t.id!r}, label={t.label!r})'.format(t=self)
+
+    @classmethod
+    def create_from_dolly_channels(cls, account_id, channels):
+        existing = dict(cls.query.filter_by(account_id=account_id).
+                        values(cls.dolly_channel, cls.label))
+        return [
+            cls(
+                account_id=account_id,
+                dolly_channel=channel['id'],
+                label=channel['title'],
+            )
+            for channel in channels
+            if channel['id'] not in existing and not channel.get('favourites')
+        ]
 
 
 class VideoTagVideo(db.Model):
@@ -80,8 +103,8 @@ class VideoTagVideo(db.Model):
     video_id = Column('video', ForeignKey(Video.id), nullable=False)
     tag_id = Column('tag', ForeignKey(VideoTag.id), nullable=False)
 
-    video = relationship(Video, backref='tags_associations')
-    tag = relationship(VideoTag, backref='videos_associations')
+    video = relationship(Video, backref='tags_associations', cascade='all, delete-orphan', single_parent=True)
+    tag = relationship(VideoTag, backref='videos_associations', cascade='all, delete-orphan', single_parent=True)
 
 
 class VideoWorkflowEvent(db.Model):

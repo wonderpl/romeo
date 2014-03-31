@@ -7,7 +7,7 @@ from flask.ext.script import Manager
 from flask.ext.login import LoginManager
 from flask.ext.cache import Cache
 from flask.ext.assets import Environment, ManageAssets
-from flask.ext import restful
+from flask.ext.restful import Api
 
 
 def _configure(app):
@@ -73,6 +73,11 @@ def _register_blueprints(app):
         app.register_blueprint(import_string(blueprint))
 
 
+def _register_api_views(app):
+    for view in app.config['API_VIEWS']:
+        import_string(view)
+
+
 def create_app(wsgi=False):
     app = Flask(__name__)
     _configure(app)
@@ -81,11 +86,12 @@ def create_app(wsgi=False):
     _load_extensions(app, wsgi=wsgi)
     _register_middleware(app)
     _register_blueprints(app)
+    _register_api_views(app)
     _init_api(app)
     return app
 
 
-api = restful.Api()
+api = Api(prefix='/api', catch_all_404s=True)
 db = SQLAlchemy()
 login_manager = LoginManager()
 assetenv = Environment()

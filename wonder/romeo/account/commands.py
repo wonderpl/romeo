@@ -6,9 +6,9 @@ from .models import Account, AccountUser
 
 
 @manager.command
-def createuser(account, email, password='changeme'):
+def createuser(account, username, password='changeme'):
     user = AccountUser(
-        username=email,
+        username=username,
         password_hash=generate_password_hash(password),
     )
     account = Account(name=account, users=[user])

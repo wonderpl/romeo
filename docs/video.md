@@ -3,7 +3,7 @@ Video
 
 ### Video List
 
-Get all the video records for an account
+#### Get all the video records for an account
 
 ```http
 GET /api/video HTTP/1.1
@@ -25,7 +25,21 @@ Content-Type: application/json
             "id": 3, 
             "public": true, 
             "status": "ready",
-            "tags": ["3", "4"],
+            "tags": {
+                "items": [
+                    {
+                        "id": 1,
+                        "label": "tag 1",
+                        "description": "this is a description"
+                    },
+                    {
+                        "id": 2,
+                        "label": "tag 2",
+                        "description": "this is a description"
+                    }
+                ],
+                "total": 2
+            }
             "title": "first test video"
         }
     ]
@@ -34,7 +48,7 @@ Content-Type: application/json
 
 ### Video Item
 
-Get a video record
+#### Get a video record
 
 ```http
 GET /api/video/3 HTTP/1.1
@@ -53,12 +67,26 @@ Content-Type: application/json
     "duration": 0, 
     "id": 3, 
     "public": true, 
-    "status": "ready", 
-    "tags": ["3", "4"],
+    "status": "ready",
+    "tags": {
+        "items": [
+            {
+                "id": 1,
+                "label": "tag 1",
+                "description": "this is a description"
+            },
+            {
+                "id": 2,
+                "label": "tag 2",
+                "description": "this is a description"
+            }
+        ],
+        "total": 2
+    }
     "title": "first test video"
 }
 ```
-Update fields on the video record
+#### Update fields on the video record
 
 ```http
 POST /api/videos/3 HTTP/1.1
@@ -77,18 +105,36 @@ HTTP/1.1 204 NO CONTENT
 
 ### Video Tag
 
-List tags associated with a video
+#### List tags associated with a video
 
 ```http
 GET /api/videos/3/tag HTTP/1.1
+```
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
 
 {
-    "3": "tag 1",
-    "4": "tag 2"
+    "tags": {
+        "items": [
+            {
+                "id": 1,
+                "label": "tag 1",
+                "description": "this is a description"
+            },
+            {
+                "id": 2,
+                "label": "tag 2",
+                "description": "this is a description"
+            }
+        ],
+        "total": 2
+    }
 }
 ```
 
-Assign a tag to a video
+#### Assign a tag to a video
 
 ```http
 POST /api/videos/3/tag HTTP/1.1
@@ -100,20 +146,58 @@ id=3
 HTTP/1.1 204 NO CONTENT
 ```
 
-Add a new tag to an account
+#### Add a new tag to an account
 
 ```http
-POST /tag HTTP/1.1
+POST /api/tag HTTP/1.1
+Content-Type: application/json
 
-label=this is a tag
+{
+    "label": "this is a tag",
+    "description": "this is a description"
+}
 ```
 
 ```http
 HTTP/1.1 204 OK
 Content-Type: application/json
+Location: /api/tag/TAGID
 
 {
-    "id": 4,
-    "label": "this is a tag"
+    "id:" "TAGID",
+    "href": "/api/tag/TAGID"
 }
+```
+
+#### Update a tag
+
+```http
+PUT /api/tag/TAGID HTTP/1.1
+Content-Type: application/json
+
+{
+    "label": "this is a tag",
+    "description": "this is a description"
+}
+```
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+Location: /api/tag/TAGID
+
+{
+    "id:" "TAGID",
+    "href": "/api/tag/TAGID"
+}
+```
+
+#### Delete a tag
+
+```http
+DELETE /api/tag/TAGID HTTP/1.1
+```
+
+```http
+HTTP/1.1 204 NO CONTENT
 ```

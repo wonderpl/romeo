@@ -32,8 +32,11 @@ def ooyala_request(*resource, **kwargs):
         expires=int(time()) + 60,
     )
     params.update(kwargs.pop('params', {}))
+    params.update(kwargs.pop('query_params', {}))
     params['signature'] = _generate_signature(method, path, params, kwargs.get('data', ''))
     response = requests.request(method, urljoin(BASE_URL, path), params=params, **kwargs)
+    print response.content
+    print response.url
     response.raise_for_status()
     return response.json()
 
