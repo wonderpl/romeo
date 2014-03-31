@@ -1,0 +1,9 @@
+<ul id="video-list-list" class="library" ng-class="{ loading: loading }">
+    <li ng-repeat="(key, video) in filter.results" class="row" data-id="{{ key }}">
+            <span class="title">{{ video.title }}</span>
+            <span class="number-of-collections" ng-click="showAllCollections($event,key)">( in <span ng-class="{ active: video.collections.length > 0}">{{ video.collections.length }} collections</span> )</span>
+            <a href="/#/video/{{ key }}" class="button edit"><span class="icon-info"></span></a>
+            <a href="/#/analytics/{{ key }}/overview" class="button analytics" title="View analytics for this video"><span title="View analytics for this video" class="icon-pie"></span></a>
+            <div data-id="{{ key }}" class="pl-checkbox"></div>                     
+    </li>
+</ul>

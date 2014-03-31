@@ -60,8 +60,9 @@
             var $scp = ng.extend(scope.$new(), {
                 data: ng.extend({}, obj)
             });
-            $el.html(template);
-            $compile($sanitize(template))($scp);
+            compiledTemplate = $compile($sanitize(template))($scp);
+            $el.html('');
+            $el.append(compiledTemplate);
 
             if ( show === true ) {
                 $el_bg.addClass('show');
@@ -253,39 +254,6 @@
 
     }]);
 
-    app.factory('GeographicService', ['DataService', function (DataService) {
-
-        var GeographicService = {},
-            api = '/static/api/stats.json';
-
-        GeographicService.getOne = function (id, ignoreCache) {
-            var url = api + '';
-            return DataService.request(url, ignoreCache);
-        };
-
-        GeographicService.getAll = function (ignoreCache) {
-            var url = api + '';
-            return DataService.request(url, ignoreCache);
-        };
-
-        GeographicService.query = function (query, options, ignoreCache) {
-            var url = api + '';
-            return DataService.request(url, ignoreCache);
-        };
-
-        GeographicService.save = function (id, GeographicService) {
-            var url = api + '';
-            return DataService.save(url, id, GeographicService);
-        };
-
-        return {
-            getOne: GeographicService.getOne,
-            getAll: GeographicService.getAll,
-            query: GeographicService.query,
-            save: GeographicService.save
-        };
-
-    }]);
     app.factory('VideoService', ['DataService', function (DataService) {
 
         var Video = {},
