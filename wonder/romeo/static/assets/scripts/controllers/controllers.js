@@ -177,7 +177,7 @@
         });
 
         /*  Search text change watcher
-        /* ================================== */
+         /* ================================== */
         $scope.$watch('filter.searchtext', function(newValue, oldValue){
             var res = $filter('videoSearchFilter')($scope.videos, $scope.filter);
             $scope.filter.results = res.results;
@@ -563,81 +563,66 @@
         };
     }]);
 
-    app.controller('AnalyticsController', ['$scope', '$rootScope', '$routeParams', 'StatsService', 'VideoService', '$element', function ($scope, $rootScope, $routeParams, StatsService, VideoService, $element) {
+    app.controller('AnalyticsController', ['$scope', '$rootScope', '$routeParams', '$element', 'Enum', 'AnalyticsFields', 'VideoService', function ($scope, $rootScope, $routeParams, $element, Enum, AnalyticsFields, VideoService) {
 
-        $scope.states = ['init', 'loading', 'complete', 'error'];
+        // ---- Functions ----
 
-        $scope.sections = ['overview', 'performance', 'geographic', 'engagement'];
-        $scope.section = $routeParams.type || 'overview';
+        function getVideoData(videoID) {
+            analytics.state = States.LOADING;
+            return VideoService.getOne(videoID).then(function (videoData) {
+                analytics.state = States.COMPLETE;
+                //TODO This needs correcting...
+                return videoData.videos[videoID];
+            }, function () {
+                analytics.state = States.ERROR;
+            });
+        }
 
-        $scope.maxFields = 5;
+        // ---- Variables ----
 
-        $scope.video = {
-            videoID: $routeParams.videoID
-        };
-
-        $scope.data = {
-            overview: null,
-            performance: null,
-            geographic: null,
-            engagement: null
-        };
-
-
-        $scope.analytics = {
-            dateRange: {
-                from: moment(new Date()).subtract('days', 7).toDate(),
-                to: moment(new Date()).toDate()
+        var analytics = $scope.analytics = {
+            maxFields: 5,
+            dateFrom: moment(new Date()).subtract('days', 14).toDate(),
+            dateTo: new Date(),
+            results: {
+                key: null,
+                keyDisplayName: null,
+                results: []
             },
-            results: [],
-            key: null
+            fields: AnalyticsFields,
+            video: {
+                id: null
+            }
         };
 
-        $scope.setResults = function(key, keyDisplayName, dateFrom, dateTo, results) {
-            $scope.analytics.key = key;
-            $scope.analytics.keyDisplayName = keyDisplayName;
-/*            $scope.analytics.dateRange.from = dateFrom;
-            $scope.analytics.dateRange.to = dateTo;*/
-            $scope.analytics.results = results;
+        var States = analytics.States = new Enum('INITIAL', 'LOADING', 'COMPLETE', 'ERROR');
+        var Sections = analytics.Sections= new Enum('OVERVIEW', 'PERFORMANCE', 'GEOGRAPHIC', 'ENGAGEMENT');
+
+        // Scope Functions
+
+        $scope.getFields = function (filterObj) {
+            return _.where(analytics.fields, filterObj);
         };
 
-        $scope.flip = function() {
+        $scope.isSection = function(section) {
+            return analytics.section === section;
+        };
 
+        // TODO Change flip function to be semantic and use a better selector
+        $scope.flip = function () {
             angular.element($element[0].querySelectorAll('#analytics-bottom-panel')).toggleClass('flip');
         };
 
-        $scope.setSection = function (sectionName) {
-            if (_.contains($scope.sections, sectionName)) {
-                $scope.section = sectionName;
-            }
-        };
+        // ---- Controller Code ----
 
-        $scope.isSection = function (sectionName) {
-            return (_.isString(sectionName) && ($scope.section === sectionName));
-        };
+        analytics.state = States.INITIAL;
 
-        $scope.setState = function (stateName) {
-            if (_.contains($scope.states, stateName)) {
-                $scope.state = stateName;
-            }
-        };
-
-        $scope.isState = function (stateName) {
-            return (_.isString(stateName) && ($scope.state === stateName));
-        };
-
-        $scope.setState('init');
-        $scope.fields = StatsService.getFields();
-        $scope.setState('loading');
-
-        $scope.getVisibleFieldsLength = function() {
-            return _.where($scope.fields,  {visible: true}).length;
-        };
-
-        VideoService.getOne($routeParams.videoID).then(function(data) {
-            $scope.setState('complete');
-            $scope.video = data.videos[$routeParams.videoID];
-            $scope.video.videoID = $routeParams.videoID;
+        // Load our video data FIRST
+        getVideoData($routeParams.videoID).then(function (videoData) {
+            analytics.video = videoData;
+            analytics.video.videoID = analytics.video.videoID || $routeParams.videoID;
+            analytics.section = Sections[$routeParams.type.toUpperCase()];
+            console.log($scope.isSection(analytics.Sections.OVERVIEW));
         });
 
     }]);
@@ -699,9 +684,14 @@
             }).success(function(data,status,headers,config){
 
                 if ( status === 200 ) {
-                    console.log(data);
+                    console.log('GREAT SUCCESS');
                     localStorageService.add( 'account_url', data.account.href );
-                    $scope.href = data.account.href;        
+                    $timeout(function() {
+                        $rootScope.$apply(function(){
+                            $rootScope.account = data.account;
+                            $rootScope.user = data.user;
+                        });
+                    });
                 }
 
             }).error(function(data, status, headers, config){

@@ -90,27 +90,27 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     " -->\n" +
     "<div id=\"page-stats\" class=\"section\" ng-controller=\"AnalyticsController\">\n" +
     "\n" +
-    "    <div class=\"inner\" ng-if=\"isState('complete')\">\n" +
+    "    <div class=\"inner\" ng-if=\"analytics.state === analytics.States.COMPLETE\">\n" +
     "\n" +
     "        <!-- Header -->\n" +
     "        <div id=\"analytics-header\">\n" +
     "            <!--  Title -->\n" +
-    "            <h1 id=\"analytics-title\">Stats for (~ video.title ~)</h1>\n" +
+    "            <h1 id=\"analytics-title\">Stats for (~ analytics.video.title ~)</h1>\n" +
     "\n" +
     "            <!-- Tabs -->\n" +
     "            <div id=\"analytics-tabs\">\n" +
     "                <ul>\n" +
-    "                    <li class=\"analytics-tabs-tab\" ng-class=\"{ selected: isSection('overview') }\">\n" +
-    "                        <a href=\"/#/analytics/(~ video.videoID ~)/overview\" class=\"icon-analytics\">Overview</a>\n" +
+    "                    <li class=\"analytics-tabs-tab\" ng-class=\"{ selected: isSection(analytics.Sections.OVERVIEW) }\">\n" +
+    "                        <a href=\"/#/analytics/(~ analytics.video.videoID ~)/overview\" class=\"icon-analytics\">Overview</a>\n" +
     "                    </li>\n" +
-    "                    <li class=\"analytics-tabs-tab\" ng-class=\"{ selected: isSection('performance') }\">\n" +
-    "                        <a href=\"/#/analytics/(~ video.videoID ~)/performance\" class=\"icon-graph\">Performance</a>\n" +
+    "                    <li class=\"analytics-tabs-tab\" ng-class=\"{ selected: isSection(analytics.Sections.PERFORMANCE) }\">\n" +
+    "                        <a href=\"/#/analytics/(~ analytics.video.videoID ~)/performance\" class=\"icon-graph\">Performance</a>\n" +
     "                    </li>\n" +
-    "                    <li class=\"analytics-tabs-tab\" ng-class=\"{ selected: isSection('geographic') }\">\n" +
-    "                        <a href=\"/#/analytics/(~ video.videoID ~)/geographic\" class=\"icon-earth\">Geographic</a>\n" +
+    "                    <li class=\"analytics-tabs-tab\" ng-class=\"{ selected: isSection(analytics.Sections.GEOGRAPHIC) }\">\n" +
+    "                        <a href=\"/#/analytics/(~ analytics.video.videoID ~)/geographic\" class=\"icon-earth\">Geographic</a>\n" +
     "                    </li>\n" +
-    "                    <li class=\"analytics-tabs-tab\" ng-class=\"{ selected: isSection('engagement') }\">\n" +
-    "                        <a href=\"/#/analytics/(~ video.videoID ~)/engagement\" class=\"icon-user\">Engagement</a>\n" +
+    "                    <li class=\"analytics-tabs-tab\" ng-class=\"{ selected: isSection(analytics.Sections.ENGAGEMENT) }\">\n" +
+    "                        <a href=\"/#/analytics/(~ analytics.video.videoID ~)/engagement\" class=\"icon-user\">Engagement</a>\n" +
     "                    </li>\n" +
     "                </ul>\n" +
     "            </div>\n" +
@@ -118,25 +118,25 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "            <!-- Date Range -->\n" +
     "            <div id=\"analytics-date\">\n" +
     "                <div id=\"analytics-date-selected\">\n" +
-    "                    <span>Date: (~ analytics.dateRange.from | date: 'shortDate' ~) - (~ analytics.dateRange.to | date: 'shortDate' ~)</span>\n" +
+    "                    <span>Date: (~ analytics.dateFrom | date: 'shortDate' ~) - (~ analytics.dateTo | date: 'shortDate' ~)</span>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "\n" +
     "        <!-- Top Panel -->\n" +
     "        <div id=\"analytics-top-panel\">\n" +
-    "            <div pl-analytics-overview ng-if=\"isSection('overview')\"></div>\n" +
-    "            <div pl-analytics-performance-chart ng-if=\"isSection('performance')\"></div>\n" +
-    "            <div pl-analytics-geographic-map ng-if=\"isSection('geographic')\"></div>\n" +
-    "            <div pl-analytics-engagement-video-segment ng-if=\"isSection('engagement')\"></div>\n" +
+    "            <div pl-analytics-overview ng-if=\"isSection(analytics.Sections.OVERVIEW)\"></div>\n" +
+    "            <div pl-analytics-performance-chart ng-if=\"isSection(analytics.Sections.PERFORMANCE)\"></div>\n" +
+    "            <div pl-analytics-geographic-map ng-if=\"isSection(analytics.Sections.GEOGRAPHIC)\"></div>\n" +
+    "            <div pl-analytics-engagement-video-segment ng-if=\"isSection(analytics.Sections.ENGAGEMENT)\"></div>\n" +
     "        </div>\n" +
     "\n" +
     "        <!-- Bottom Panel -->\n" +
     "        <div id=\"analytics-bottom-panel\" class=\"flip-container\">\n" +
-    "            <div pl-analytics-fields-key ng-if=\"isSection('performance') || isSection('geographic')\"></div>\n" +
+    "            <div pl-analytics-fields-key ng-if=\"isSection(analytics.Sections.PERFORMANCE) || isSection(analytics.Sections.GEOGRAPHIC)\"></div>\n" +
     "            <div class=\"flipper\">\n" +
-    "                <div pl-analytics-results-table ng-if=\"isSection('performance') || isSection('geographic')\" class=\"flipper-front front\"></div>\n" +
-    "                <div pl-analytics-fields-chooser ng-if=\"isSection('performance') || isSection('geographic')\" class=\"flipper-back back\"></div>\n" +
+    "                <div pl-analytics-results-table ng-if=\"isSection(analytics.Sections.PERFORMANCE) || isSection(analytics.Sections.GEOGRAPHIC)\" class=\"flipper-front front\"></div>\n" +
+    "                <div pl-analytics-fields-chooser ng-if=\"isSection(analytics.Sections.PERFORMANCE) || isSection(analytics.Sections.GEOGRAPHIC)\" class=\"flipper-back back\"></div>\n" +
     "            </div>\n" +
     "            <!-- Engagement Bottom Here -->\n" +
     "        </div>\n" +
@@ -147,7 +147,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        </div>\n" +
     "\n" +
     "    </div>\n" +
-    "</div>\n" +
     "</div>\n"
   );
 

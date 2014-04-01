@@ -1,21 +1,20 @@
-
 /*  Romeo Services
  /* ================================== */
 
-(function(w,d,ng,ns,m) {
+(function (w, d, ng, ns, m) {
 
     'use strict';
 
     var app = ng.module(ns + '.' + m /* module name */,
         [] /* module dependencies */);
 
-    app.factory('$sanitize', [function() {
-        return function(input) {
+    app.factory('$sanitize', [function () {
+        return function (input) {
             return input.replace('\n', '').replace('\t', '').replace('\r', '').replace(/^\s+/g, '');
         };
     }]);
 
-    app.factory('$modal', ['$rootScope', '$compile', '$sanitize', '$templateCache', function($rootScope, $compile, $sanitize, $templateCache){
+    app.factory('$modal', ['$rootScope', '$compile', '$sanitize', '$templateCache', function ($rootScope, $compile, $sanitize, $templateCache) {
 
         var modal = {},
             el = d.createElement('div'),
@@ -35,7 +34,7 @@
         b.appendChild(el);
         $el = ng.element(el);
 
-        $el_bg.bind('click', function(event){
+        $el_bg.bind('click', function (event) {
             modal.hide();
         });
 
@@ -55,7 +54,7 @@
         };
 
         // Load a modal template and SHOW it ( optional )
-        modal.load = function ( url, show, scope, obj ) {
+        modal.load = function (url, show, scope, obj) {
             template = $templateCache.get(modal.getUrl(url));
             var $scp = ng.extend(scope.$new(), {
                 data: ng.extend({}, obj)
@@ -64,17 +63,17 @@
             $el.html('');
             $el.append(compiledTemplate);
 
-            if ( show === true ) {
+            if (show === true) {
                 $el_bg.addClass('show');
                 $el.addClass('show');
             }
         };
 
         // Check if we have the URL cached
-        modal.getUrl = function ( url ) {
-            if ( urlCache[url] === undefined ) {
+        modal.getUrl = function (url) {
+            if (urlCache[url] === undefined) {
                 return url;
-            } else{
+            } else {
                 return urlCache[url];
             }
         };
@@ -89,7 +88,7 @@
 
     }]);
 
-    app.factory('$tooltip', [function(){
+    app.factory('$tooltip', [function () {
 
         var el = d.createElement('div'),
             $el,
@@ -108,23 +107,23 @@
 
         var Tooltip = {};
 
-        Tooltip.show = function(txt,el){
-            if ( 'getBoundingClientRect' in el ) {
+        Tooltip.show = function (txt, el) {
+            if ('getBoundingClientRect' in el) {
                 text.innerHTML = txt;
 
                 var targetpos = el.getBoundingClientRect(),
                     elpos = $el[0].getBoundingClientRect();
 
                 $el.css({
-                    top: (targetpos.top-32) + 'px',
-                    left: ((targetpos.left+(targetpos.width/2)) - (elpos.width/2)) + 'px'
+                    top: (targetpos.top - 32) + 'px',
+                    left: ((targetpos.left + (targetpos.width / 2)) - (elpos.width / 2)) + 'px'
                 });
 
                 $el.addClass('show');
             }
         };
 
-        Tooltip.hide = function(){
+        Tooltip.hide = function () {
             console.log('tooltip hidden');
             $el.removeClass('show');
         };
@@ -211,7 +210,7 @@
                 var url = apiUrl + '';
                 return DataService.request(url, ignoreCache);
             },
-            getFields: function() {
+            getFields: function () {
                 return fields;
             }
         };
@@ -220,36 +219,93 @@
 
     }]);
 
+    app.factory('AnalyticsFields', function() {
+        return [
+            {
+                'field': 'plays',
+                'displayName': 'Total Plays',
+                'description': 'Number of plays since beginning of time period',
+                'visible': true,
+                'color': '#7cd26f'
+            },
+            {
+                'field': 'daily_uniq_plays',
+                'displayName': 'Daily Unique Plays',
+                'visible': true,
+                'description': 'Number of unique plays since beginning of time period',
+                'color': '#8b85d0'
+            },
+            {
+                'field': 'monthly_uniq_plays',
+                'displayName': 'Monthly Unique Plays',
+                'visible': false,
+                'description': 'Number of unique plays plays since beginning of time period',
+                'color': '#5bccf6'
+            },
+            {
+                'field': 'weekly_uniq_plays',
+                'displayName': 'Weekly Unique Plays',
+                'visible': false,
+                'description': 'Number of unique plays plays since beginning of time period',
+                'color': '#e25f5c'
+            },
+            {
+                'field': 'playthrough_25',
+                'displayName': 'Playthrough > 25%',
+                'visible': false,
+                'description': 'Number of plays to 25% since beginning of time period',
+                'color': '#8b85d0'
+            },
+            {
+                'field': 'playthrough_50',
+                'displayName': 'Playthrough > 50%',
+                'visible': false,
+                'description': 'Number of plays to 50% since beginning of time period',
+                'color': '#4becd3'
+            },
+            {
+                'field': 'playthrough_75',
+                'displayName': 'Playthrough > 75%',
+                'visible': false,
+                'description': 'Number of plays to 75% since beginning of time period',
+                'color': '#ffec4a'
+            },
+            {
+                'field': 'playthrough_100',
+                'displayName': 'Playthrough > 100%',
+                'visible': false,
+                'description': 'Number of plays to 100% since beginning of time period',
+                'color': '#f38bef'
+            }
+        ];
+    });
+
     app.factory('OverviewService', ['DataService', function (DataService) {
 
-        var Overview = {},
-            api = '/static/api/stats.json';
+        return {
+            get:  function (videoId, fromDate, toDate) {
 
-        Overview.getOne = function (id, ignoreCache) {
-            var url = api + '';
-            return DataService.request(url, ignoreCache);
+                var url = _.template('/static/api/stats.json', {id: videoId });
+                var params = { start: fromDate, end: toDate };
+                return DataService.request(url, false, params).then(function(data) {
+                    return data.overview;
+                });
+
+            }
         };
 
-        Overview.getAll = function (ignoreCache) {
-            var url = api + '';
-            return DataService.request(url, ignoreCache);
-        };
+    }]);
 
-        Overview.query = function (query, options, ignoreCache) {
-            var url = api + '';
-            return DataService.request(url, ignoreCache);
-        };
-
-        Overview.save = function (id, overview) {
-            var url = api + '';
-            return DataService.save(url, id, overview);
-        };
+    app.factory('PerformanceService', ['DataService', function (DataService) {
 
         return {
-            getOne: Overview.getOne,
-            getAll: Overview.getAll,
-            query: Overview.query,
-            save: Overview.save
+            get:  function (videoId, fromDate, toDate) {
+
+                var url = _.template('/api/video/${ id }/analytics/performance', {id: videoId });
+                var params = {start: fromDate, end: toDate, breakdown_by: 'day' };
+                return DataService.request(url, false, params);
+
+            }
         };
 
     }]);
@@ -287,6 +343,40 @@
         };
 
     }]);
+    app.factory('EngagementService', ['DataService', function (DataService) {
+
+        var EngagementService = {},
+            api = '/static/api/stats.json';
+
+        EngagementService.getOne = function (id, ignoreCache) {
+            var url = api + '';
+            return DataService.request(url, ignoreCache);
+        };
+
+        EngagementService.getAll = function (ignoreCache) {
+            var url = api + '';
+            return DataService.request(url, ignoreCache);
+        };
+
+        EngagementService.query = function (query, options, ignoreCache) {
+            var url = api + '';
+            return DataService.request(url, ignoreCache);
+        };
+
+        EngagementService.save = function (id, EngagementService) {
+            var url = api + '';
+            return DataService.save(url, id, EngagementService);
+        };
+
+        return {
+            getOne: EngagementService.getOne,
+            getAll: EngagementService.getAll,
+            query: EngagementService.query,
+            save: EngagementService.save
+        };
+
+    }]);
+
     app.factory('VideoService', ['DataService', function (DataService) {
 
         var Video = {},
@@ -321,28 +411,40 @@
 
     }]);
 
-    app.factory('DataService', ['$rootScope', '$location', '$http', '$q', '$timeout', function($rootScope, $location, $http, $q, $timeout){
+    app.factory('DataService', ['$rootScope', '$location', '$http', '$q', '$timeout', function ($rootScope, $location, $http, $q, $timeout) {
 
         var Data = {},
             cache = {};
 
-        Data.save = function ( url, id, obj ) {
+        Data.save = function (url, id, obj) {
             var deferred = new $q.defer();
 
-            $timeout( function() {
-                console.log( cache[url].videos[id] = obj );
+            $timeout(function () {
+                console.log(cache[url].videos[id] = obj);
                 deferred.resolve();
-            },1000);
+            }, 1000);
 
             return deferred.promise;
         };
 
-        Data.request = function ( url, ignoreCache ){
+        Data.request = function (url, ignoreCache, params) {
 
             var deferred = new $q.defer();
-            if ( ignoreCache === true || cache[url] === undefined ) {
-                $http({ method: 'get', url: url }).success(function(data,status,headers,config){
-                    if ( status === 200 ) {
+            var makeParams = function(params) {
+                if (_.keys(params).length) {
+                    return '?' + _(params).map(function (value, key) {
+                        return _.escape(value) + '=' + _.escape(key);
+                    }).join('&');
+                } else {
+                    return '';
+                }
+            };
+
+            url += makeParams(params);
+
+            if (ignoreCache === true || cache[url] === undefined) {
+                $http({ method: 'get', url: url }).success(function (data, status, headers, config) {
+                    if (status === 200) {
                         cache[url] = data;
                         deferred.resolve(data);
                     } else {
@@ -351,7 +453,7 @@
                     }
                 });
             } else {
-                deferred.resolve( cache[url] );
+                deferred.resolve(cache[url]);
             }
 
             return deferred.promise;
@@ -364,7 +466,7 @@
 
     }]);
 
-    app.factory('FlashService', [ '$timeout', function($timeout){
+    app.factory('FlashService', [ '$timeout', function ($timeout) {
 
         var wrapper = d.createElement('ul'),
             $wrapper,
@@ -376,7 +478,7 @@
         $b.append(wrapper);
         $wrapper = ng.element(wrapper);
 
-        var Flash = function( msg, type ){
+        var Flash = function (msg, type) {
             var flash = d.createElement('li'),
                 text = d.createElement('span');
 
@@ -386,28 +488,28 @@
             flash.appendChild(text);
             $wrapper.append(flash);
 
-            $timeout(function(){
+            $timeout(function () {
                 flash.className += ' show';
-            },10);
+            }, 10);
 
-            $timeout( function(){
+            $timeout(function () {
                 flash.className += ' fade';
-            }, 3000 );
+            }, 3000);
 
-            $timeout( function(){
-                wrapper.removeChild( flash );
-            }, 4000 );
+            $timeout(function () {
+                wrapper.removeChild(flash);
+            }, 4000);
         };
 
         return {
-            flash: function(msg,type){
-                return new Flash(msg,type);
+            flash: function (msg, type) {
+                return new Flash(msg, type);
             }
         }
 
     }]);
 
-    app.factory('DragDropService', [ 'animLoop', '$rootScope', function(animLoop, $rootScope) {
+    app.factory('DragDropService', [ 'animLoop', '$rootScope', function (animLoop, $rootScope) {
 
         var ghost = d.createElement('div'),
             b = d.body || d.documentElement,
@@ -425,12 +527,12 @@
         $b = ng.element(b);
 
         // Bind some listeners to the body
-        $b.bind('mousemove', function(e){
+        $b.bind('mousemove', function (e) {
             debounceMouse = e;
         });
 
-        $b.bind('mouseup', function(e){
-            if ( dropSuccess === true ) {
+        $b.bind('mouseup', function (e) {
+            if (dropSuccess === true) {
                 dropSuccess = false;
             } else {
                 dragCancel(dragElemId);
@@ -442,22 +544,22 @@
         b.appendChild(ghost);
         $ghost = ng.element(ghost);
 
-        var showGhost = function() {
+        var showGhost = function () {
             $ghost.addClass('show');
         };
 
-        var hideGhost = function() {
+        var hideGhost = function () {
             $ghost.removeClass('show');
         };
 
-        var moveGhost = function() {
+        var moveGhost = function () {
             $ghost.css({
                 'left': x + 'px',
                 'top': y + 'px'
             });
         };
 
-        var dragStart = function(id) {
+        var dragStart = function (id) {
             dragElemId = id;
             $rootScope.$broadcast('dragStarted', id);
             dragOrigin = {
@@ -467,13 +569,13 @@
             start();
         };
 
-        var dragCancel = function(id) {
+        var dragCancel = function (id) {
             dragging = false;
             $rootScope.$broadcast('dragCancelled', id);
             stop();
         };
 
-        var dragDrop = function(id) {
+        var dragDrop = function (id) {
             dropSuccess = true;
             $rootScope.$broadcast('dragDropped', id);
             dragging = false;
@@ -481,26 +583,26 @@
             tags = [];
         };
 
-        var isDragging = function() {
+        var isDragging = function () {
             return dragging;
         };
 
-        var start = function() {
+        var start = function () {
             dragging = true;
             $ghost.addClass('show');
             // animLoop.add('moveghost', moveGhost);
         };
 
-        var stop = function() {
+        var stop = function () {
             $ghost.removeClass('show');
             // animLoop.remove('moveghost');
             hideGhost();
         };
 
-        var setTags = function(newTags) {
+        var setTags = function (newTags) {
             $ghost.html('');
             tags = [];
-            for ( var i = 0; i < newTags.length; i++ ) {
+            for (var i = 0; i < newTags.length; i++) {
                 tags[i] = d.createElement('div');
                 tags[i].className = 'tag';
                 tags[i].innerHTML = newTags[i];
@@ -508,12 +610,12 @@
             }
         };
 
-        var updateMouse = function(e){
+        var updateMouse = function (e) {
             x = e.pageX;
             y = e.pageY;
         };
 
-        animLoop.add('debounceMouse', function(){
+        animLoop.add('debounceMouse', function () {
             updateMouse(debounceMouse);
         });
         animLoop.add('moveghost', moveGhost);
@@ -528,36 +630,38 @@
         };
     }]);
 
-    app.factory('animLoop', function(){
+    app.factory('animLoop', function () {
 
         var rafLast = 0;
 
-        var requestAnimFrame = (function(){
-            return  window.requestAnimationFrame     ||
+        var requestAnimFrame = (function () {
+            return  window.requestAnimationFrame ||
                 window.webkitRequestAnimationFrame ||
-                window.mozRequestAnimationFrame    ||
-                function(callback, element) {
+                window.mozRequestAnimationFrame ||
+                function (callback, element) {
                     var currTime = new Date().getTime();
                     var timeToCall = Math.max(0, 16 - (currTime - rafLast));
-                    var id = window.setTimeout(function() { callback(currTime + timeToCall); }, timeToCall);
+                    var id = window.setTimeout(function () {
+                        callback(currTime + timeToCall);
+                    }, timeToCall);
                     rafLast = currTime + timeToCall;
                     return id;
                 };
         })();
 
-        var cancelAnimFrame = (function() {
-            return  window.cancelAnimationFrame        ||
-                window.cancelRequestAnimationFrame   ||
-                window.webkitCancelAnimationFrame    ||
+        var cancelAnimFrame = (function () {
+            return  window.cancelAnimationFrame ||
+                window.cancelRequestAnimationFrame ||
+                window.webkitCancelAnimationFrame ||
                 window.webkitCancelRequestAnimationFrame ||
-                window.mozCancelAnimationFrame     ||
-                window.mozCancelRequestAnimationFrame  ||
-                function(id) {
+                window.mozCancelAnimationFrame ||
+                window.mozCancelRequestAnimationFrame ||
+                function (id) {
                     clearTimeout(id);
                 };
         })();
 
-        var FramePipeline = function() {
+        var FramePipeline = function () {
             var _t = this;
             _t.pipeline = {};
             _t.then = new Date().getTime();
@@ -569,28 +673,28 @@
         };
 
         FramePipeline.prototype = {
-            add : function(name, fn) {
+            add: function (name, fn) {
                 this.pipeline[name] = fn;
             },
-            remove : function(name) {
+            remove: function (name) {
                 delete this.pipeline[name];
             },
-            start : function() {
+            start: function () {
                 if (!this.running) {
                     this._tick();
                     this.running = true;
                 }
             },
-            pause : function() {
+            pause: function () {
                 if (this.running) {
                     cancelAnimFrame.call(window, this.raf);
                     this.running = false;
                 }
             },
-            setFPS : function(fps) {
+            setFPS: function (fps) {
                 this.interval = 1000 / fps;
             },
-            _tick : function tick() {
+            _tick: function tick() {
                 var _t = this;
                 _t.raf = requestAnimFrame.call(window, tick.bind(_t));
                 _t.now = new Date().getTime();
@@ -606,17 +710,17 @@
 
         var pipeline = new FramePipeline();
 
-        Function.prototype.bind = Function.prototype.bind || function() {
-            return function(context) {
+        Function.prototype.bind = Function.prototype.bind || function () {
+            return function (context) {
                 var fn = this,
                     args = Array.prototype.slice.call(arguments, 1);
 
                 if (args.length) {
-                    return function() {
+                    return function () {
                         return arguments.length ? fn.apply(context, args.concat(Array.prototype.slice.call(arguments))) : fn.apply(context, args);
                     };
                 }
-                return function() {
+                return function () {
                     return arguments.length ? fn.apply(context, arguments) : fn.apply(context);
                 };
             };
@@ -625,5 +729,17 @@
         return pipeline;
     });
 
+    app.factory('Enum', function() {
 
-})(window,document,window.angular,'RomeoApp','services');
+        function Enum() {
+            var states = Array.prototype.slice.apply(arguments, [0]);
+            for (var i = 0, j = states.length; i < j; i++) {
+                this[states[i].toUpperCase()] = i;
+            }
+        }
+
+        return Enum;
+
+    })
+
+})(window, document, window.angular, 'RomeoApp', 'services');
