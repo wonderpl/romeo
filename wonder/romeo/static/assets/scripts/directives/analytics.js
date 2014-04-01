@@ -22,9 +22,13 @@
             templateUrl: '/static/views/directives/analytics-overview.html',
             scope: true,
             controller: function ($scope) {
-                OverviewService.getOne($scope.video.videoID).then(function (data) {
-                    $scope.data.overview = data.overview;
+
+                $scope.overview = {};
+
+                OverviewService.get($scope.analytics.video.videoID).then(function (data) {
+                    $scope.overview.data = data;
                 });
+
             }
         };
     }]);
@@ -62,53 +66,35 @@
         };
     }]);
 
-    app.directive('plAnalyticsPerformanceChart', ['$rootScope', '$timeout', 'StatsService', function ($rootScope, $timeout, StatsService) {
+    app.directive('plAnalyticsPerformanceChart', ['$rootScope', '$timeout', 'Enum', 'PerformanceService', function ($rootScope, $timeout, Enum, PerformanceService) {
         return {
             restrict: 'A',
             templateUrl: '/static/views/directives/analytics-performance.html',
             scope: true,
             controller: function ($scope) {
 
-                var getChartData = function (data) {
+                // Must return an array of series with {key: value}
+                function convertDataToChartFormat(data) {
 
-                    var visibleFields;
-                    var series;
-
-                    visibleFields = _($scope.fields).where({visible: true}).value();
-
-                    // TODO: Optimise
-                    series = _.map(visibleFields, function (field) {
+                    var visibleFields = $scope.getFields({visible: true});
+                    var series = _.map(visibleFields, function(field, index) {
                         return {
-                            // Series Key
                             key: field.displayName,
-
-                            // Series Values
-                            values: _.map(data, function (datum) {
+                            values: _.map(data, function(datum) {
                                 return {
                                     name: field.field,
                                     date: datum.dateObj,
-                                    value: datum[field.field]
+                                    value: field.field === 'date' ? moment(datum[field.field]).toDate() : datum[field.field]
                                 };
                             }),
 
-                            // Series Color
                             color: field.color
-                        };
+                        }
                     });
 
-                    return series;
-                };
+                }
 
-                // Get the data we need
-                StatsService.getOne($scope.video.videoID).then(function (data) {
-
-                    _(data.performance).forEach(function (datum) {
-                        datum.dateObj = moment(datum.date, 'YYYY-MM-DDW').toDate();
-                    });
-
-                    $scope.setResults('date', 'Date', null, null, data.performance);
-
-                    $scope.chartData = getChartData(data.performance);
+                function drawGraph(chartData) {
 
                     nv.addGraph(function () {
                         var chartHeight = 350;
@@ -168,6 +154,54 @@
                         return chart;
                     });
 
+                }
+
+                function setTableResults() {
+
+                }
+
+                function getPerformanceData() {
+                    return PerformanceService.get($scope.analytics.video.id, $scope.fromData, $scope.toDate);
+                }
+
+                var getChartData = function (data) {
+
+                    var visibleFields = $scope.getFields({visible: true});
+                    var series = _.map(visibleFields, function (field) {
+                        return {
+                            // Series Key
+                            key: field.displayName,
+
+                            // Series Values
+                            values: _.map(data, function (datum) {
+                                return {
+                                    name: field.field,
+                                    date: datum.dateObj,
+                                    value: datum[field.field]
+                                };
+                            }),
+
+                            // Series Color
+                            color: field.color
+                        };
+                    });
+
+                    return series;
+                };
+
+                // Get the data we need
+                PerformanceService.get($scope.analytics.video.videoID).then(function (data) {
+
+                    debugger;
+
+                    _(data.performance).forEach(function (datum) {
+                        datum.dateObj = moment(datum.date, 'YYYY-MM-DDW').toDate();
+                    });
+
+                    $scope.setResults('date', 'Date', null, null, data.performance);
+
+                    drawGraph(getChartData(data));
+
                 });
 
             }
@@ -181,8 +215,8 @@
             scope: true,
             controller: function ($scope) {
 
-                var width = 960;
-                var height = 500;
+                var width = 1024;
+                var height = 550;
 
                 var svg = d3.select('#geographic-map');
                 var allGroup = svg.append('g');
@@ -205,6 +239,7 @@
 
                 $scope.zoomedToUSA = true;
                 $scope.areaData = null;
+                $scope.analytics.setSelectedMapField = _.where($scope.fields,  {visible: true})[0];
 
                 function mouseOverEventHandler(analyticsData, feature, group, d) {
 
@@ -215,8 +250,14 @@
 
                 }
 
-                function mouseOutEventHandler() {
-                    d3.select(d3.event.target).node().classList.remove('highlight');
+                function mouseOutEventHandler(dataSet, feature, d) {
+
+                    if ((!$scope.zoomedToUSA && feature === 'states') || ($scope.zoomedToUSA && feature === 'countries')) {
+                        var path = d3.select(d3.event.target);
+                        path.attr('fill', path.attr('originalFill'));
+                    }
+
+
                 }
 
                 function drawWorldMap(mapJSON, analyticsData) {
@@ -276,12 +317,15 @@
                 }
 
                 function quantize(dataSet, stat) {
+                    var color = d3.rgb($scope.analytics.setSelectedMapField.color);
                     var values = _(dataSet).pluck('metrics').pluck('video').pluck(stat).map(Number).value();
-                    return d3.scale.log()
+                    var quantizeFunction = d3.scale.log()
                         .domain([1, d3.max(values)])
                         .interpolate(d3.interpolateRgb)
-                        .range(['#5bccf6', '#285F74'])
+                        .range([color.brighter(0.2), color.darker(2)])
                         .clamp(true);
+
+                    return quantizeFunction;
                 }
 
                 function getData(dataSet, d) {
@@ -292,18 +336,17 @@
 
                 function displayData(dataSet, feature, d) {
                     var datum = getData(dataSet, d);
-                    debugger;
 
                     if ((!$scope.zoomedToUSA && feature === 'states') || ($scope.zoomedToUSA && feature === 'countries')) {
-                        d3.select(d3.event.target).node().classList.add('highlight');
+                        var path = d3.select(d3.event.target);
+                        path.attr('originalFill', path.attr('fill')).attr('fill', d3.rgb($scope.analytics.setSelectedMapField.color).darker(4));
+
                         $scope.$apply(function () {
                             $scope.areaData = datum;
                         });
                     }
 
                 }
-
-
 
                 function getDataForWorldMap(callback) {
                     GeographicService.getOne($scope.video.videoID).then(function (data) {
@@ -421,6 +464,18 @@
 
                 }
 
+
+                $scope.$watch('analytics.setSelectedMapField', function(field) {
+                    if (field) {
+                        $scope.analytics.setSelectedMapField = field;
+                        toggleUSAZoom();
+                    } else {
+                        debugger;
+                    }
+
+                });
+
+
                 $scope.toggleUSAZoom = toggleUSAZoom;
 
                 showWorldMap();
@@ -444,7 +499,6 @@
             restrict: 'A',
             templateUrl: '/static/views/directives/analytics-fields-key.html',
             controller: function ($scope) {
-
 
             }
         };
@@ -471,8 +525,6 @@
 
                 var frame = $scope.video_iframe = document.getElementById('engagement-video-iframe').contentWindow;
 
-
-
                 // Get the data we need
                 StatsService.getOne($scope.video.videoID).then(function (data) {
 
@@ -483,7 +535,6 @@
                     var chartAreaHeight = height - chartAreaMargin.top - chartAreaMargin.bottom;
 
                     var OO, wonder;
-
 
                     var chartData = data.engagement.results[0].metrics.engagement.segments_watched.map(function (plays, index) {
                         return {
@@ -554,21 +605,14 @@
                                 'analytics',
                                 function (event, time, duration, buffer, seekrange) {
 
-                                    console.log(event);
-                                    console.log(time);
-                                    console.log(duration);
                                     setProgress(time * 1000);
 
                                 }
                             );
 
-                            debugger;
-
                         }
                     }, 100);
 
-
-                    // Compute the minimum and maximum date, and the maximum price.
                     x.domain([chartData[0].time, chartData[chartData.length - 1].time]);
                     y.domain([0, d3.max(chartData, function (d) {
                         return d.plays;
@@ -644,7 +688,6 @@
                         .attr('y1', chartAreaMargin.top)
                         .attr('x2', chartAreaMargin.left)
                         .attr('y2', chartAreaHeight + chartAreaMargin.top);
-
 
                     // Add the line path.
                     svg.append('path')

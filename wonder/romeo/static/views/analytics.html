@@ -7,27 +7,27 @@
 
 <div id="page-stats" class="section" ng-controller="AnalyticsController">
 
-    <div class="inner" ng-if="isState('complete')">
+    <div class="inner" ng-if="analytics.state === analytics.States.COMPLETE">
 
         <!-- Header -->
         <div id="analytics-header">
             <!--  Title -->
-            <h1 id="analytics-title">Stats for {{ video.title }}</h1>
+            <h1 id="analytics-title">Stats for {{ analytics.video.title }}</h1>
 
             <!-- Tabs -->
             <div id="analytics-tabs">
                 <ul>
-                    <li class="analytics-tabs-tab" ng-class="{ selected: isSection('overview') }">
-                        <a href="/#/analytics/{{ video.videoID }}/overview" class="icon-analytics">Overview</a>
+                    <li class="analytics-tabs-tab" ng-class="{ selected: isSection(analytics.Sections.OVERVIEW) }">
+                        <a href="/#/analytics/{{ analytics.video.videoID }}/overview" class="icon-analytics">Overview</a>
                     </li>
-                    <li class="analytics-tabs-tab" ng-class="{ selected: isSection('performance') }">
-                        <a href="/#/analytics/{{ video.videoID }}/performance" class="icon-graph">Performance</a>
+                    <li class="analytics-tabs-tab" ng-class="{ selected: isSection(analytics.Sections.PERFORMANCE) }">
+                        <a href="/#/analytics/{{ analytics.video.videoID }}/performance" class="icon-graph">Performance</a>
                     </li>
-                    <li class="analytics-tabs-tab" ng-class="{ selected: isSection('geographic') }">
-                        <a href="/#/analytics/{{ video.videoID }}/geographic" class="icon-earth">Geographic</a>
+                    <li class="analytics-tabs-tab" ng-class="{ selected: isSection(analytics.Sections.GEOGRAPHIC) }">
+                        <a href="/#/analytics/{{ analytics.video.videoID }}/geographic" class="icon-earth">Geographic</a>
                     </li>
-                    <li class="analytics-tabs-tab" ng-class="{ selected: isSection('engagement') }">
-                        <a href="/#/analytics/{{ video.videoID }}/engagement" class="icon-user">Engagement</a>
+                    <li class="analytics-tabs-tab" ng-class="{ selected: isSection(analytics.Sections.ENGAGEMENT) }">
+                        <a href="/#/analytics/{{ analytics.video.videoID }}/engagement" class="icon-user">Engagement</a>
                     </li>
                 </ul>
             </div>
@@ -35,25 +35,25 @@
             <!-- Date Range -->
             <div id="analytics-date">
                 <div id="analytics-date-selected">
-                    <span>Date: {{ analytics.dateRange.from | date: 'shortDate' }} - {{ analytics.dateRange.to | date: 'shortDate' }}</span>
+                    <span>Date: {{ analytics.dateFrom | date: 'shortDate' }} - {{ analytics.dateTo | date: 'shortDate' }}</span>
                 </div>
             </div>
         </div>
 
         <!-- Top Panel -->
         <div id="analytics-top-panel">
-            <div pl-analytics-overview ng-if="isSection('overview')"></div>
-            <div pl-analytics-performance-chart ng-if="isSection('performance')"></div>
-            <div pl-analytics-geographic-map ng-if="isSection('geographic')"></div>
-            <div pl-analytics-engagement-video-segment ng-if="isSection('engagement')"></div>
+            <div pl-analytics-overview ng-if="isSection(analytics.Sections.OVERVIEW)"></div>
+            <div pl-analytics-performance-chart ng-if="isSection(analytics.Sections.PERFORMANCE)"></div>
+            <div pl-analytics-geographic-map ng-if="isSection(analytics.Sections.GEOGRAPHIC)"></div>
+            <div pl-analytics-engagement-video-segment ng-if="isSection(analytics.Sections.ENGAGEMENT)"></div>
         </div>
 
         <!-- Bottom Panel -->
         <div id="analytics-bottom-panel" class="flip-container">
-            <div pl-analytics-fields-key ng-if="isSection('performance') || isSection('geographic')"></div>
+            <div pl-analytics-fields-key ng-if="isSection(analytics.Sections.PERFORMANCE) || isSection(analytics.Sections.GEOGRAPHIC)"></div>
             <div class="flipper">
-                <div pl-analytics-results-table ng-if="isSection('performance') || isSection('geographic')" class="flipper-front front"></div>
-                <div pl-analytics-fields-chooser ng-if="isSection('performance') || isSection('geographic')" class="flipper-back back"></div>
+                <div pl-analytics-results-table ng-if="isSection(analytics.Sections.PERFORMANCE) || isSection(analytics.Sections.GEOGRAPHIC)" class="flipper-front front"></div>
+                <div pl-analytics-fields-chooser ng-if="isSection(analytics.Sections.PERFORMANCE) || isSection(analytics.Sections.GEOGRAPHIC)" class="flipper-back back"></div>
             </div>
             <!-- Engagement Bottom Here -->
         </div>
@@ -64,5 +64,4 @@
         </div>
 
     </div>
-</div>
 </div>
