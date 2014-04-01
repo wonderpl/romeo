@@ -2,10 +2,7 @@
 
 {% block content %}
   <div class="container">
-    <form id="upload-form" action="{{ upload_args.action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
-      {% for field in upload_args.fields %}
-      <input type="hidden" name="{{ field.name }}" value="{{ field.value }}">
-      {% endfor %}
+    <form id="upload-form" method="post" enctype="multipart/form-data" class="form-horizontal">
       <div class="form-group">
         <label for="file" class="col-sm-2 control-label">Select file</label>
         <div class="col-sm-10">
@@ -23,9 +20,7 @@
 
   <div class="container">
     <h2>Metadata</h2>
-    <form id="metadata-form" action="{{ url_for('video.upload_complete') }}" method="post" class="form-horizontal">
-      {{ upload_form.csrf_token }}
-      <input id="videoid" type="hidden" name="videoid" value="">
+    <form id="metadata-form" method="post" class="form-horizontal">
       <input id="filename" type="hidden" name="filename" value="">
       <div class="form-group">
         <label for="title" class="col-sm-2 control-label">Title</label>
@@ -36,15 +31,8 @@
       <div class="form-group">
         <label for="category" class="col-sm-2 control-label">Category</label>
         <div class="col-sm-10">
-          <select name="category" class="form-control" placeholder="Category">
+          <select id="category" name="category" class="form-control" placeholder="Category">
             <option value="" default selected></option>
-            {% for group in upload_form.category.grouped_choices %}
-            <optgroup label="{{ group.name }}">
-              {% for category in group.sub_categories %}
-                <option value="{{ category.id }}">{{ category.name }}</option>
-              {% endfor %}
-            </optgroup>
-            {% endfor %}
           </select>
         </div>
       </div>

@@ -1,5 +1,6 @@
-from flask import Blueprint, render_template
-
+from flask import Blueprint, render_template, url_for
+from flask.ext.login import current_user
+from wonder.romeo.core.rest import api_resource, Resource
 
 rootapp = Blueprint('root', __name__)
 
@@ -27,3 +28,12 @@ def server_error(error):
 def _handle_error(code, error, template=None):
     message = str(getattr(error, 'message', error))
     return render_template(template or 'root/error.html', message=message, code=code), code
+
+
+@api_resource(None)
+class BaseResource(Resource):
+    def get(self):
+        return dict(
+            user=dict(href=url_for('api.user', user_id=current_user.id)),
+            account=dict(href=url_for('api.account', account_id=current_user.account_id)),
+        )

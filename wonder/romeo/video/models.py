@@ -1,9 +1,10 @@
+import os
 from sqlalchemy import (
     Column, Integer, String, Boolean, DateTime, ForeignKey, Enum,
     PrimaryKeyConstraint, func, event)
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.associationproxy import association_proxy
-from flask import session
+from flask import session, url_for
 from wonder.romeo import db
 from wonder.romeo.core.db import genid
 from wonder.romeo.account.models import Account, AccountUser
@@ -18,19 +19,35 @@ class Video(db.Model):
     id = Column(Integer, primary_key=True)
     account_id = Column('account', ForeignKey(Account.id), nullable=False)
     deleted = Column(Boolean(), nullable=False, server_default='false', default=False)
-    status = Column(Enum(*VIDEO_STATUS, name='video_status'), nullable=False)
+    status = Column(Enum(*VIDEO_STATUS, name='video_status'), nullable=False, default=VIDEO_STATUS[0])
     public = Column(Boolean, nullable=False, default=True, server_default='true')
     date_added = Column(DateTime(), nullable=False, default=func.now())
     date_updated = Column(DateTime(), nullable=False, default=func.now(), onupdate=func.now())
     title = Column(String(256), nullable=False)
     description = Column(String(256))
     duration = Column(Integer, nullable=False, server_default='0')
+    filename = Column(String(16))
     external_id = Column(String(32))
     category = Column(String(8))
 
     account = relationship(Account, backref='videos')
 
-    tags = association_proxy("tags_associations", "tag")
+    tags = association_proxy('tags_associations', 'tag')
+
+    @property
+    def href(self):
+        return url_for('api.video', video_id=self.id)
+
+    @property
+    def filepath(self):
+        return self.get_filepath(self.account_id, self.filename)
+
+    @classmethod
+    def get_filepath(cls, account_id, filename=None, base='video'):
+        """Return unique video file name."""
+        if not filename:
+            filename = os.urandom(8).encode('hex')
+        return '/'.join((base, str(account_id), filename))
 
     def record_workflow_event(self, type, value=None):
         self.workflow_events.append(VideoWorkflowEvent.create(type, value))
@@ -79,6 +96,10 @@ class VideoTag(db.Model):
     def __repr__(self):
         return 'VideoTag(id={t.id!r}, label={t.label!r})'.format(t=self)
 
+    @property
+    def href(self):
+        return url_for('api.tag', tag_id=self.id)
+
     @classmethod
     def create_from_dolly_channels(cls, account_id, channels):
         existing = dict(cls.query.filter_by(account_id=account_id).
@@ -103,8 +124,12 @@ class VideoTagVideo(db.Model):
     video_id = Column('video', ForeignKey(Video.id), nullable=False)
     tag_id = Column('tag', ForeignKey(VideoTag.id), nullable=False)
 
-    video = relationship(Video, backref='tags_associations', cascade='all, delete-orphan', single_parent=True)
-    tag = relationship(VideoTag, backref='videos_associations', cascade='all, delete-orphan', single_parent=True)
+    video = relationship(Video, backref='tags_associations')
+    tag = relationship(VideoTag, backref='videos_associations')  # cascade='all, delete-orphan', single_parent=True)
+
+    @property
+    def href(self):
+        return url_for('api.videotagvideo', video_id=self.video_id, tag_id=self.tag_id)
 
 
 class VideoWorkflowEvent(db.Model):

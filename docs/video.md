@@ -1,201 +1,295 @@
+Tag
+===
+
+Tags can be used to group videos into one or more collections.
+
+### Tag list
+
+```http
+GET /api/account/<account_id>/tags HTTP/1.1
+```
+
+Returns a list of video tag items:
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+ "tag": {
+  "total": 1,
+  "items": [
+   {
+    "id": 4,
+    "href": "/api/tag/4",
+    "label": "test",
+    "description": "desc"
+   }
+  ]
+ }
+}
+```
+
+
+### Tag create
+
+To create a new tag `POST` to the account tags resource:
+
+```http
+POST /api/account/<account_id>/tags HTTP/1.1
+Content-Type: application/json
+
+{
+ "label": "This will be the collection title",
+ "description": "This is a description"
+}
+```
+
+Property       | Required? | Value               | Description
+:------------- | :-------- | :------------------ | :----------
+label          | yes       | string (max 256)    | The tag/collection title
+description    | no        | string (max 256)    | The description text for the tag/collection
+
+On success, a `201` with the tag resource url will be returned:
+
+```http
+HTTP/1.1 201 CREATED
+Location: /api/tag/5
+Content-Type: application/json
+
+{
+ "id:" 5,
+ "href": "/api/tag/5"
+}
+```
+
+A `400` will be returned on error:
+
+```http
+HTTP/1.1 400 BAD REQUEST
+Content-Type: application/json
+
+{
+ "error": "invalid_request",
+ "form_errors": {
+  "label": [ "Tag already exists" ]
+ }
+}
+```
+
+### Tag update
+
+To update a tag, `PUT` replacement properties to the tag resource url:
+
+```http
+PUT /api/tag/<tag_id> HTTP/1.1
+Content-Type: application/json
+
+{
+ "label": "This will be the collection title",
+ "description": "This is a description"
+}
+```
+
+All values will replace the existing record.
+
+On success a `204` will be returned.
+
+```http
+HTTP/1.1 204 NO CONTENT
+```
+
+### Tag delete
+
+```http
+DELETE /api/tag/<tag_id> HTTP/1.1
+```
+
+```http
+HTTP/1.1 204 NO CONTENT
+```
+
 Video
 =====
 
 ### Video List
 
-#### Get all the video records for an account
+To get a list of all videos associated with an account:
 
 ```http
-GET /api/video HTTP/1.1
+GET /api/account/<account_id>/videos HTTP/1.1
 ```
+
+Return a list of video records:
 
 ```http
 HTTP/1.1 200 OK
 Content-Type: application/json
 
 {
-    "videos": [
-        {
-            "category": null, 
-            "date_added": "2014-03-18 14:11:59", 
-            "date_updated": "2014-03-18 14:11:59", 
-            "deleted": false, 
-            "description": null, 
-            "duration": 0, 
-            "id": 3, 
-            "public": true, 
-            "status": "ready",
-            "tags": {
-                "items": [
-                    {
-                        "id": 1,
-                        "label": "tag 1",
-                        "description": "this is a description"
-                    },
-                    {
-                        "id": 2,
-                        "label": "tag 2",
-                        "description": "this is a description"
-                    }
-                ],
-                "total": 2
-            }
-            "title": "first test video"
-        }
-    ]
-}
-```
-
-### Video Item
-
-#### Get a video record
-
-```http
-GET /api/video/3 HTTP/1.1
-```
-
-```http
-HTTP/1.1 200 OK
-Content-Type: application/json
-
-{
-    "category": null, 
-    "date_added": "2014-03-18 14:11:59", 
-    "date_updated": "2014-03-18 14:11:59", 
-    "deleted": false, 
-    "description": null, 
-    "duration": 0, 
-    "id": 3, 
-    "public": true, 
-    "status": "ready",
+ "video": {
+  "total": 1,
+  "items": [
+   {
+    "id": 34489679,
+    "href": "/api/video/34489679",
+    "date_added": "2014-03-27 13:49:19",
+    "date_updated": "2014-03-28 15:58:04",
+    "status": "processing",
+    "title": "test",
+    "description": "test desc",
+    "category": null,
+    "duration": 600,
+    "thumbnails": {
+     "items": []
+    },
     "tags": {
-        "items": [
-            {
-                "id": 1,
-                "label": "tag 1",
-                "description": "this is a description"
-            },
-            {
-                "id": 2,
-                "label": "tag 2",
-                "description": "this is a description"
-            }
-        ],
-        "total": 2
+     "href": "/api/video/34489679/tags",
+     "items": []
     }
-    "title": "first test video"
+   }
+  ]
+ }
 }
 ```
-#### Update fields on the video record
+
+### Video create
+
+To create a new video `POST` to the account videos resource with the desired
+properties.
 
 ```http
-POST /api/videos/3 HTTP/1.1
+POST /api/account/<account_id>/videos HTTP/1.1
 Content-Type: application/json
 
 {
-    "description": "this is a new description",
-    "title": "this is a new title",
-    "category": 34
+ "title": "test"
 }
+```
+
+Property       | Required? | Value               | Description
+:------------- | :-------- | :------------------ | :----------
+title          | yes       | string (max 256)    | The video title
+description    | no        | string (max 256)    | Video description text
+category       | no        | Category ID         | Identifier from /api/categories
+filename       | no        | string              | Path to video file on S3
+
+On success the service will return a `201` with the video id & resource url:
+
+```http
+HTTP/1.1 201 CREATED
+Location: /api/video/76804765
+Content-Type: application/json
+
+{
+ "id": 76804765,
+ "href": "/api/video/76804765",
+ "status": "uploading"
+}
+```
+
+A `400` will be returned on error:
+
+```http
+HTTP/1.1 400 BAD REQUEST
+Content-Type: application/json
+
+{
+ "error": "invalid_request",
+ "form_errors": {
+  "category": ["Not a valid choice"]
+ }
+}
+```
+
+### Video update
+
+To update the video record `PATCH` the video resource with the changed properties.
+Any properties not specified in the `PATCH` body will be left unchanged.
+
+```http
+PATCH /api/video/<video_id> HTTP/1.1
+Content-Type: application/json
+
+{
+ "title": "This is a new title",
+ "description": "this is a new description",
+ "category": 34
+}
+```
+
+A `200` with the updated status will be returned on success:
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+ "status": "processing"
+}
+```
+
+### Video delete
+
+```http
+DELETE /api/video/<video_id> HTTP/1.1
 ```
 
 ```http
 HTTP/1.1 204 NO CONTENT
 ```
 
-### Video Tag
+### Video tags
 
-#### List tags associated with a video
-
-```http
-GET /api/videos/3/tag HTTP/1.1
-```
+To associate a tag with a video (add a video to a collection), `POST` the tag id to the video
+tags sub-resource:
 
 ```http
-HTTP/1.1 200 OK
+POST /api/video/<video_id>/tags HTTP/1.1
 Content-Type: application/json
 
 {
-    "tags": {
-        "items": [
-            {
-                "id": 1,
-                "label": "tag 1",
-                "description": "this is a description"
-            },
-            {
-                "id": 2,
-                "label": "tag 2",
-                "description": "this is a description"
-            }
-        ],
-        "total": 2
-    }
+ "id": 3
 }
 ```
 
-#### Assign a tag to a video
+The resource url for the new tag relation will be returned in a `201` response:
 
 ```http
-POST /api/videos/3/tag HTTP/1.1
+HTTP/1.1 201 CREATED
+Location: /api/video/51668773/tags/3
+Content-Type: application/json
 
-id=3
+{
+ "href": "/api/video/51668773/tags/3"
+}
 ```
+
+A `204` will be returned if the video is already associated with the tag:
 
 ```http
 HTTP/1.1 204 NO CONTENT
 ```
 
-#### Add a new tag to an account
+If the tag id is invalid a `400` will be returned:
+
 
 ```http
-POST /api/tag HTTP/1.1
+HTTP/1.1 400 BAD REQUEST
 Content-Type: application/json
 
 {
-    "label": "this is a tag",
-    "description": "this is a description"
+ "error": "invalid_request",
+ "form_errors": {
+  "id": ["Invalid tag id"]
+ }
 }
 ```
 
-```http
-HTTP/1.1 204 OK
-Content-Type: application/json
-Location: /api/tag/TAGID
-
-{
-    "id:" "TAGID",
-    "href": "/api/tag/TAGID"
-}
-```
-
-#### Update a tag
+To remove a tag from a video `DELETE` the relation resource:
 
 ```http
-PUT /api/tag/TAGID HTTP/1.1
-Content-Type: application/json
-
-{
-    "label": "this is a tag",
-    "description": "this is a description"
-}
-```
-
-```http
-HTTP/1.1 200 OK
-Content-Type: application/json
-Location: /api/tag/TAGID
-
-{
-    "id:" "TAGID",
-    "href": "/api/tag/TAGID"
-}
-```
-
-#### Delete a tag
-
-```http
-DELETE /api/tag/TAGID HTTP/1.1
+DELETE /api/video/<video_id>/tags/<tag_id> HTTP/1.1
 ```
 
 ```http
