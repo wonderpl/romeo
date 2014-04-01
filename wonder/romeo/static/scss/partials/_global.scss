@@ -1,8 +1,9 @@
+
 /*  Global styles
 /* ======================================= */
 
 * {
-  @include box-sizing(border-box);
+  @include box-sizing( border-box );
 }
 
 body, html {
@@ -12,7 +13,12 @@ body, html {
   font-family: 'proxima-nova', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  &.aside {
+    overflow: hidden;
+  }
 }
+
 
 header {
   display: block;
@@ -72,6 +78,87 @@ header {
         padding: 0 5px;
         color: $flat-blue-2;
       }
+    }
+  }
+}
+
+#wonder {
+  display: block;
+  position: fixed;
+  left: 16px;
+  top: 16px;
+  background: #bcbad4;
+  color: #fff;
+  font-size: 32px;
+  font-weight: 700;
+  padding: 12px 12px 11px 12px;
+  font-family: 'abril-text', serif;
+  text-decoration: none;
+  @include transition( all .2s ease-out );
+
+  &:hover, &:active, &:focus {
+    background: #333332;
+    color: white;
+  }
+
+  &.aside {
+    color: #333332;
+    background: white;
+  }
+}
+
+#wrapper {
+  display: block;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  z-index: 100;
+  @include box-shadow( 0px -5px 10px rgba(0,0,0,1));
+  @include transition( all .2s ease-out );
+
+  &.aside {
+    left: 200px;
+  }
+}
+
+#aside {
+  background: #333332;
+  display: block;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  color: #fff;
+  position: absolute;
+  padding: 90px 12px 12px 12px;
+  font-weight: 600;
+  font-size: 15px;
+
+  ul {
+    display: block;
+
+    li {
+      display: block;
+      padding: 10px 6px;
+      margin: 0 0 0px 0;
+
+      span {
+        padding-right: 10px;
+      }
+
+      a {
+        color: #fff;
+        text-decoration: none;
+        @include transition( all .1s ease-out );
+
+        &:hover, &:focus, &:active {
+          color: lighten($flat-blue-1, 15%);
+        }
+      }
+
     }
   }
 }
@@ -146,7 +233,7 @@ a.big-button {
   padding: 16px;
   text-decoration: none;
   @include border-radius(5px);
-  @include transition(all .1s ease-out);
+  @include transition( all .1s ease-out );
   width: 470px;
 
   &:hover, &:focus, &:active {
@@ -174,6 +261,7 @@ a.big-button {
 /*  Breadcrumb
 /* ======================================= */
 
+
 #breadcrumb {
   display: block;
   margin: 0 auto 32px auto;
@@ -192,6 +280,7 @@ a.big-button {
   }
 }
 
+
 /*  Charts
 /* ======================================= */
 
@@ -204,6 +293,7 @@ a.big-button {
   height: 100%;
   background: #fff;
 }
+
 
 /*  Video Library
 /* ======================================= */
@@ -224,11 +314,11 @@ a.big-button {
     position: relative;
     font-size: 13px;
     border-bottom: 1px solid darken($flat-gray-1, 10%);
-    @include transition(background .1s ease-out);
+    @include transition( background .1s ease-out );
 
     span {
       padding: 14px 10px 12px 10px;
-      @include transition(all .1s ease-out);
+      @include transition( all .1s ease-out );
       border-left: 0px solid $flat-blue-4;
       display: block;
     }
@@ -244,7 +334,7 @@ a.big-button {
       top: 16px;
       color: $flat-blue-4;
       text-decoration: none;
-      @include transition(all .1s ease-out);
+      @include transition( all .1s ease-out );
 
       &:hover, &:focus, &:active {
         color: $flat-blue-1;
@@ -271,6 +361,7 @@ a.big-button {
   }
 }
 
+
 .video-icon {
 
   a {
@@ -279,7 +370,13 @@ a.big-button {
   }
 }
 
+#page-video-single {
+  padding-top: 120px;
+}
+
 #page-collections {
+  padding-top: 120px;
+
   #collection-list {
     li.collection {
       @include inline-block;
@@ -329,19 +426,19 @@ a.big-button {
 
 #library-search-wrapper {
   display: block;
-  position: absolute;
-  width: 220px;
-  right: 0px;
-  top: 0px;
+  // position: absolute;
+  // width: 220px;
+  // right: 0px;
+  // top: 0px;
 }
 
 h1.collections-page {
   background: white;
   margin: 0;
   padding: 0 0 22px 0;
-  position: fixed;
-  left: 0;
-  top: 0;
+  // position: fixed;
+  // left: 0;
+  // top: 0;
 }
 
 #filter-status, #collection-filter {
@@ -352,7 +449,7 @@ h1.collections-page {
   background: $flat-blue-4;
   color: #fff;
   font-size: 14px;
-  @include transition(height .2s ease-out);
+  @include transition( height .2s ease-out );
 
   span {
     padding: 12px;
@@ -372,7 +469,7 @@ h1.collections-page {
   }
 
   &.show {
-    border-top: 1px solid lighten($flat-blue-4, 5%);
+    border-top: 1px solid lighten( $flat-blue-4, 5% );
     height: 35px;
   }
 }
@@ -402,14 +499,15 @@ h1.collections-page {
   }
 }
 
+
 #library-left {
-  // display: block;
-  // float: right;
-  // width: 72%;
-  width: 730px;
-  position: fixed;
-  left: 50%;
-  margin-left: -220px;
+  display: block;
+  float: right;
+  width: 72%;
+  // width: 730px;
+  // position: fixed;
+  // left: 50%;
+  // margin-left: -220px;
 
 }
 
@@ -420,7 +518,7 @@ h1.collections-page {
   li {
     position: relative;
     background: $flat-blue-2;
-    @include border-radius(3px);
+    @include border-radius( 3px );
     @include inline-block;
     vertical-align: top;
     width: 31.33333%;
@@ -433,12 +531,12 @@ h1.collections-page {
       padding-top: 56.25%;
     }
 
-    &:nth-child(3n) {
+    &:nth-child(3n){
       margin-right: 0px;
     }
 
     .content {
-      background: rgba(0, 0, 0, 0.45);
+      background: rgba(0,0,0,0.45);
       display: block;
       position: absolute;
       left: 0;
@@ -453,7 +551,7 @@ h1.collections-page {
       font-size: 18px;
       line-height: 24px;
       padding: 7px;
-      @include text-shadow(1px 1px 0px rgba(0, 0, 0, 1));
+      @include text-shadow( 1px 1px 0px rgba(0,0,0,1) );
     }
 
     span.number-of-collections {
@@ -467,7 +565,7 @@ h1.collections-page {
       left: 0;
       width: 100%;
       padding: 5px 9px;
-      @include text-shadow(1px 1px 0px rgba(0, 0, 0, 1));
+      @include text-shadow( 1px 1px 0px rgba(0,0,0,1) );
 
       span.active {
         text-decoration: underline !important;
@@ -492,14 +590,14 @@ h1.collections-page {
       text-align: center;
       background: $flat-blue-2;
       padding: 7px 0 0 0;
-      @include border-radius(0px 0px 0px 0px);
+      @include border-radius( 0px 0px 0px 0px );
 
       &:before {
         content: "\e61f";
       }
 
       &:hover, &:active, &:focus {
-        background: lighten($flat-blue-2, 10%);
+        background: lighten( $flat-blue-2, 10% );
       }
 
       &.checked {
@@ -510,7 +608,7 @@ h1.collections-page {
         }
 
         &:hover, &:active, &:focus {
-          background: lighten($flat-green-4, 10%);
+          background: lighten( $flat-green-4, 10% );
         }
       }
     }
@@ -523,18 +621,18 @@ h1.collections-page {
 
       &.analytics {
         right: 28px;
-        @include border-radius(0px);
-        border-right: 1px solid lighten($flat-blue-2, 5%);
+        @include border-radius( 0px );
+        border-right: 1px solid lighten( $flat-blue-2, 5% );
       }
 
       &.edit {
         right: 56px;
-        @include border-radius(5px 0 0 0);
-        border-right: 1px solid lighten($flat-blue-2, 5%);
+        @include border-radius( 5px 0 0 0 );
+        border-right: 1px solid lighten( $flat-blue-2, 5% );
       }
 
       &:hover, &:focus, &:active {
-        background: lighten($flat-blue-2, 10%);
+        background: lighten( $flat-blue-2, 10% );
       }
     }
 
@@ -546,18 +644,18 @@ h1.collections-page {
 
       &.analytics {
         right: 28px;
-        @include border-radius(0px);
-        border-right: 1px solid lighten($flat-blue-2, 5%);
+        @include border-radius( 0px );
+        border-right: 1px solid lighten( $flat-blue-2, 5% );
       }
 
       &.edit {
         right: 56px;
-        @include border-radius(5px 0 0 0);
-        border-right: 1px solid lighten($flat-blue-2, 5%);
+        @include border-radius( 5px 0 0 0 );
+        border-right: 1px solid lighten( $flat-blue-2, 5% );
       }
 
       &:hover, &:focus, &:active {
-        background: lighten($flat-blue-2, 10%);
+        background: lighten( $flat-blue-2, 10% );
       }
     }
 
@@ -566,7 +664,7 @@ h1.collections-page {
         display: block;
       }
       .pl-checkbox {
-        @include border-radius(0px);
+        @include border-radius( 0px );
       }
     }
 
@@ -717,19 +815,19 @@ h1.collections-page {
 }
 
 #library-right {
-  // float: left;
-  // width: 25%;
-  width: 260px;
-  position: fixed;
-  left: 50%;
-  margin-left: -510px;
+  float: left;
+  width: 25%;
+  // width: 260px;
+  // position: fixed;
+  // left: 50%;
+  // margin-left: -510px;
 
   h2 {
     float: left;
   }
 
   input.filter {
-    @include border-radius(5px 5px 0 0);
+    @include border-radius( 5px 5px 0 0 );
     margin: 0;
   }
 
@@ -801,8 +899,8 @@ h1.collections-page {
         color: #fff;
         text-decoration: none;
         padding: 6px 10px;
-        @include border-radius(5px);
-        @include transition(all .1s ease-out);
+        @include border-radius( 5px );
+        @include transition( all .1s ease-out );
 
         &:hover, &:focus, &:active {
           background: lighten($flat-blue-4, 10%);
@@ -1197,10 +1295,12 @@ h1.collections-page {
   }
 }
 
+
 /*  Account page
 /* ======================================= */
 
 #page-account {
+  padding-top: 120px;
 
   .avatar {
     @include inline-block;
@@ -1210,7 +1310,7 @@ h1.collections-page {
     margin-right: 20px;
     position: relative;
     background: $flat-blue-2;
-    @include transition(all .2s ease-out);
+    @include transition( all .2s ease-out );
     cursor: pointer;
 
     span {
@@ -1220,7 +1320,7 @@ h1.collections-page {
       font-size: 32px;
       color: #fff;
       cursor: pointer;
-      @include transition(all .2s ease-out);
+      @include transition( all .2s ease-out );
 
       &:before {
         text-align: center;
@@ -1308,7 +1408,7 @@ h1.collections-page {
     color: $flat-blue-2;
     text-decoration: none;
     cursor: pointer;
-    @include transition(all .1s ease-out);
+    @include transition( all .1s ease-out );
 
     &:hover, &:focus, &:active {
       color: $flat-red-2;
@@ -1376,8 +1476,8 @@ h1.collections-page {
         height: 50%;
         width: 50%;
         background: $flat-blue-4;
-        @include transition(all .2s ease-out);
-        @include transform-origin(0%, 0%);
+        @include transition( all .2s ease-out );
+        @include transform-origin( 0%, 0% );
       }
 
       label {
@@ -1398,10 +1498,13 @@ h1.collections-page {
   }
 }
 
-/*  Upload
+
+/*  Upload 
 /* ======================================= */
 
 #page-upload {
+  padding-top: 120px;
+
   .centered {
     margin: 0 auto;
     display: block;
@@ -1412,11 +1515,11 @@ h1.collections-page {
   display: block;
   position: relative;
   width: 100%;
-  border: 5px dashed $flat-blue-3;
+  border: 5px dashed #bcbad4;
   margin: 0 0 32px 0;
 
   &:first-child {
-    border: 5px dashed $flat-green-1;
+    border: 5px dashed #bcbad4;
   }
 
   label {
@@ -1438,7 +1541,7 @@ h1.collections-page {
   &:before {
     content: '';
     display: block;
-    padding-top: 100%;
+    padding-top: 65%;
   }
 }
 
@@ -1497,8 +1600,8 @@ h1.collections-page {
     overflow: hidden;
     background: white;
     border: 1px solid $flat-gray-3;
-    @include box-shadow(0px 0px 2px rgba(0, 0, 0, 0.2));
-    @include border-radius(3px);
+    @include box-shadow( 0px 0px 2px rgba(0,0,0,0.2));
+    @include border-radius( 3px );
 
     .progress {
       display: block;
@@ -1507,7 +1610,7 @@ h1.collections-page {
       left: 0;
       top: 0;
       position: absolute;
-      @include transition(width 10s linear);
+      @include transition( width 10s linear );
       background: $flat-green-3 image-url('progress.gif') left top repeat;
     }
 
@@ -1536,7 +1639,7 @@ h1.collections-page {
   margin: 0 auto;
   background: $flat-gray-1;
   padding: 32px;
-  @include box-shadow(0px 0px 2px rgba(0, 0, 0, 0.8));
+  @include box-shadow( 0px 0px 2px rgba(0,0,0,0.8));
 
   h2 {
     margin: 0 0 22px 0;
@@ -1553,10 +1656,10 @@ h1.collections-page {
   left: 0;
   top: 0;
   z-index: 100;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0,0,0,0.7);
   pointer-events: none;
   @include opacity(0);
-  @include transition(all .3s ease-out);
+  @include transition( all .3s ease-out );
 
   &.show {
     @include opacity(1);
@@ -1576,9 +1679,9 @@ h1.collections-page {
   padding: 32px;
   pointer-events: none;
   @include opacity(0);
-  @include transform(translate(-50%, -50%));
-  @include transition(all .3s ease-out);
-  @include box-shadow(0px 0px 10px rgba(0, 0, 0, 0.5));
+  @include transform( translate( -50%, -50% ) );
+  @include transition( all .3s ease-out );
+  @include box-shadow( 0px 0px 10px rgba(0,0,0,0.5) );
 
   h2 {
     display: block;
@@ -1631,7 +1734,7 @@ h1.collections-page {
     outline: none;
     background: $flat-green-4;
     color: white;
-    @include border-radius(5px);
+    @include border-radius( 5px );
     font-size: 15px;
     float: right;
     cursor: pointer;
@@ -1647,7 +1750,7 @@ h1.collections-page {
     font-size: 22px;
     cursor: pointer;
     color: $flat-blue-4;
-    @include transition(color .1s ease-out);
+    @include transition( color .1s ease-out );
 
     &:hover, &:focus, &:active {
       color: $flat-blue-2;
@@ -1655,6 +1758,7 @@ h1.collections-page {
 
   }
 }
+
 
 /*  Dashboard page
 /* ======================================= */
@@ -1665,6 +1769,7 @@ h1.collections-page {
     margin: 0 0 22px 0;
   }
 }
+
 
 /*  Directives
 /* ======================================= */
@@ -1685,7 +1790,7 @@ h1.collections-page {
 
   &.show {
     display: block;
-    @include transition(all .1s ease-out);
+    @include transition( all .1s ease-out );
   }
 
   .tag {
@@ -1694,10 +1799,11 @@ h1.collections-page {
     color: #fff;
     margin: 6px;
     font-size: 13px;
-    @include border-radius(5px);
+    @include border-radius( 5px );
     background: $flat-blue-4;
   }
 }
+
 
 /*  Tooltip service
 /* ======================================= */
@@ -1710,8 +1816,8 @@ h1.collections-page {
   left: 0;
   bottom: 0;
   height: 26px;
-  @include border-radius(3px);
-  @include box-shadow(0px 1px 0px rgba(0, 0, 0, 0.5));
+  @include border-radius( 3px );
+  @include box-shadow( 0px 1px 0px rgba(0,0,0,0.5) );
 
   &:after {
     content: '';
@@ -1764,8 +1870,8 @@ h1.collections-page {
     overflow: hidden;
     position: relative;
     left: 200px;
-    @include border-radius(5px);
-    @include transition(all .1s ease-out);
+    @include border-radius( 5px );
+    @include transition( all .1s ease-out );
 
     span {
       padding: 8px;
