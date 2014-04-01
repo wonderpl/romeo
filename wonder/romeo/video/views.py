@@ -1,8 +1,7 @@
 from functools import wraps
-from flask import Blueprint, current_app, request, render_template, abort
+from flask import Blueprint, current_app, request, render_template, abort, url_for
 from flask.ext.login import current_user, login_required
 from flask.ext.restful.reqparse import RequestParser
-from sqlalchemy.orm.exc import NoResultFound
 from wonder.romeo import db
 from wonder.romeo.core.dolly import get_categories, get_video_embed_content
 from wonder.romeo.core.rest import Resource, api_resource
@@ -11,7 +10,7 @@ from wonder.romeo.core.s3 import s3connection, video_bucket
 from wonder.romeo.core.ooyala import get_video_data
 from wonder.romeo.account.views import dolly_account_view, get_dollyuser
 from .models import Video, VideoTag, VideoTagVideo, VideoThumbnail
-from .forms import VideoForm
+from .forms import VideoTagForm, VideoForm
 
 
 videoapp = Blueprint('video', __name__)
@@ -66,45 +65,96 @@ def video_embed(videoid):
     return get_video_embed_content(videoid)
 
 
-def format_tags(tags, total=None):
-    return dict(
-        items=[dict(id=tag.id, label=tag.label, description=tag.description) for tag in tags],
-        total=total or tags.count())
+@api_resource('/categories')
+class CategoriesResource(Resource):
+    def get(self):
+        return dict(category=dict(items=get_categories()))
 
 
-def video_item(video):
-    video_fields = {
-        'id': lambda x: x,
-        'href': lambda x: x,
-        'status': lambda x: x,
-        'date_added': lambda x: x.strftime('%Y-%m-%d %H:%M:%S'),
-        'date_updated': lambda x: x.strftime('%Y-%m-%d %H:%M:%S'),
-        'title': lambda x: x,
-        'description': lambda x: x,
-        'duration': lambda x: x,
-        'category': lambda x: x
-    }
+@api_resource('/account/<int:account_id>/tags')
+class AccountTagsResource(Resource):
 
-    locale_fields = ['locale', 'link_url', 'link_title', 'title', 'description']
+    tag_parser = RequestParser()
+    tag_parser.add_argument('label', type=str)
+    tag_parser.add_argument('description', type=str)
 
-    thumbnail_fields = ['url', 'width', 'height']
+    @dolly_account_view
+    def get(self, account, dollyuser):
+        items = map(_tag_item, account.tags)
+        return dict(tag=dict(items=items, total=len(items)))
 
-    # Add basic video data
-    data = {field: func(getattr(video, field)) for field, func in video_fields.iteritems()}
+    @dolly_account_view
+    @commit_on_success
+    def post(self, account, dollyuser):
+        form = VideoTagForm(account_id=account.id, csrf_enabled=False)
+        if not form.validate():
+            return dict(error='invalid_request', form_errors=form.errors), 400
 
-    # Attach locale data
-    for locale in video.locale_meta:
-        locale_d = data.setdefault('locale', {})
-        for field in locale_fields:
-            locale_d.setdefault(locale.locale, {})[field] = getattr(locale, field)
+        tag = form.save()
 
-    # Attach thumbnail data
-    for thumbnail in video.thumbnails:
-        data.setdefault('thumbnails', []).append({field: getattr(thumbnail, field) for f in thumbnail_fields})
+        if True:    # XXX: Make this conditional on some flag
+            channeldata = dict(title=tag.label, description=tag.description)
+            try:
+                tag.dolly_channel = dollyuser.create_channel(channeldata)['id']
+            except Exception as e:
+                if hasattr(e, 'response'):
+                    return e.response.json(), e.response.status_code
+                else:
+                    raise
 
-    #data['tags'] = format_tags(video.tags, total=len(video.tags))
+        return dict(id=tag.id, href=tag.href), 201, {'Location': tag.href}
 
-    return data
+
+def _tag_item(tag):
+    return dict((p, getattr(tag, p)) for p in ('id', 'href', 'label', 'description'))
+
+
+def tag_view(f):
+    @wraps(f)
+    def decorator(self, tag_id):
+        tag = VideoTag.query.filter_by(id=tag_id).first_or_404()
+        if tag.account_id == current_user.account_id:
+            return f(self, tag)
+        else:
+            abort(403)
+    return decorator
+
+
+@api_resource('/tag/<int:tag_id>')
+class TagResource(Resource):
+
+    @tag_view
+    def get(self, tag):
+        return _tag_item(tag)
+
+    @commit_on_success
+    @tag_view
+    def put(self, tag):
+        form = VideoTagForm(obj=tag, csrf_enabled=False)
+        if not form.validate():
+            return dict(error='invalid_request', form_errors=form.errors), 400
+
+        tag = form.save()
+
+        if tag.dolly_channel:
+            channeldata = dict(title=tag.label, description=tag.description)
+            try:
+                get_dollyuser(current_user.account).update_channel(tag.dolly_channel, channeldata)
+            except Exception as e:
+                if hasattr(e, 'response'):
+                    return e.response.json(), e.response.status_code
+                else:
+                    raise
+
+        return None, 204
+
+    @commit_on_success
+    @tag_view
+    def delete(self, tag):
+        if tag.dolly_channel:
+            get_dollyuser(current_user.account).delete_channel(tag.dolly_channel)
+        db.session.delete(tag)
+        return None, 204
 
 
 @api_resource('/account/<int:account_id>/upload_args')
@@ -122,23 +172,48 @@ class AccountVideosResource(Resource):
 
     @dolly_account_view
     def get(self, account, dollyuser):
-        items = map(video_item, Video.query.filter_by(
+        items = map(_video_item, Video.query.filter_by(
             account_id=account.id, deleted=False).order_by('date_added'))
         return dict(video=dict(items=items, total=len(items)))
 
-    @dolly_account_view
     @commit_on_success
+    @dolly_account_view
     def post(self, account, dollyuser):
-        form = VideoForm(csrf_enabled=False)
+        form = VideoForm(account_id=account.id, csrf_enabled=False)
         if not form.category.data:
             delattr(form, 'category')
 
         if form.validate():
-            video = form.save(account_id=current_user.account_id)
+            video = form.save()
             return dict(id=video.id, href=video.href, status=video.status), 201,\
                 {'Location': video.href}
         else:
             return dict(error='invalid_request', form_errors=form.errors), 400
+
+
+def _video_item(video):
+    data = {f: getattr(video, f) for f in (
+        'id', 'href', 'status', 'date_added', 'date_updated',
+        'title', 'description', 'duration', 'category')}
+
+    # Convert dates to strings:
+    for f, v in data.items():
+        if hasattr(v, 'isoformat'):
+            data[f] = v.isoformat()
+
+    data['thumbnails'] = dict(
+        items=[
+            {f: getattr(thumbnail, f) for f in ('url', 'width', 'height')}
+            for thumbnail in video.thumbnails
+        ]
+    )
+
+    data['tags'] = dict(
+        href=url_for('api.videotags', video_id=video.id),
+        items=map(_tag_item, video.tags),
+    )
+
+    return data
 
 
 def video_view(f):
@@ -156,12 +231,12 @@ def video_view(f):
 class VideoResource(Resource):
     @video_view
     def get(self, video):
-        return video_item(video)
+        return _video_item(video)
 
-    @video_view
     @commit_on_success
+    @video_view
     def patch(self, video):
-        form = VideoForm(csrf_enabled=False, obj=video)
+        form = VideoForm(obj=video, csrf_enabled=False)
         # Exclude form fields that weren't specified in the request
         for field in form.data:
             if field not in (request.json or request.form):
@@ -173,187 +248,60 @@ class VideoResource(Resource):
         else:
             return dict(error='invalid_request', form_errors=form.errors), 400
 
-    @video_view
     @commit_on_success
+    @video_view
     def delete(self, video):
         video.deleted = True
         return None, 204
 
 
-@api_resource('/video/<string:video_id>/tags')
+@api_resource('/video/<int:video_id>/tags')
 class VideoTagsResource(Resource):
 
     tag_parser = RequestParser()
     tag_parser.add_argument('id', type=int)
 
     @video_view
+    def get(self, video):
+        return dict(tag=dict(items=map(_tag_item, video.tags)))
+
     @commit_on_success
+    @video_view
     def post(self, video):
         args = self.tag_parser.parse_args()
-        tag_id = args.get('id')
+        tag_id = args['id']
 
-        if not tag_id:
-            abort(404)
+        tag = VideoTag.query.filter_by(id=tag_id, account_id=video.account_id).first()
+        if not tag:
+            return dict(error='invalid_request', form_errors=dict(id=['Invalid tag id'])), 400
 
-        tag = VideoTag.query.filter(
-            VideoTag.id == tag_id,
-            VideoTag.account_id == current_user.account_id
-        ).first_or_404()
+        if VideoTagVideo.query.filter_by(video_id=video.id, tag_id=tag.id).count():
+            return None, 204
 
-        video.tags.append(
-            VideoTagVideo(video_id=video.id, tag_id=tag.id)
-        )
+        if tag.dolly_channel and video.external_id:
+            videodata = dict(source_id=video.external_id)
+            get_dollyuser(current_user.account).publish_video(tag.dolly_channel, videodata)
+
+        video_tag_video = VideoTagVideo(video_id=video.id, tag_id=tag.id)
+        db.session.add(video_tag_video)
+        db.session.flush()
+
+        return dict(href=video_tag_video.href), 201, {'Location': video_tag_video.href}
 
 
-@api_resource('/video/<string:video_id>/tag/<int:tag_id>')
-class VideoTagResource(Resource):
+@api_resource('/video/<int:video_id>/tags/<int:tag_id>')
+class VideoTagVideoResource(Resource):
 
     @commit_on_success
     def delete(self, video_id, tag_id):
-        """ Delete a relation between a video and a tag """
+        video = Video.query.filter_by(id=video_id, account_id=current_user.account_id).first_or_404()
+        tag = VideoTag.query.filter_by(id=tag_id, account_id=current_user.account_id).first_or_404()
+        tag_relation = VideoTagVideo.query.filter_by(video_id=video_id, tag_id=tag_id).first_or_404()
 
-        try:
-            tag_relation = VideoTagVideo.query.filter(
-                VideoTagVideo.tag_id == tag_id
-            ).join(
-                Video,
-                (Video.id == VideoTagVideo.video_id) &
-                (Video.account_id == current_user.account_id)
-            ).one()
-        except NoResultFound:
-            pass
-        else:
-            db.session.delete(tag_relation)
+        if tag.dolly_channel and video.external_id:
+            videodata = dict(source_id=video.external_id)
+            get_dollyuser(current_user.account).remove_video(tag.dolly_channel, videodata)
 
-        return 204
+        db.session.delete(tag_relation)
 
-
-def _add_or_update_dolly_channel(tagdata, channelid=None):
-    dollyuser = get_dollyuser(current_user.account)
-    dollymethod = 'POST'
-    dollymethod_map = {'POST': dollyuser.create_channel,
-                       'PUT': dollyuser.update_channel}
-
-    for field in ['label', 'description']:
-        tagdata.setdefault(field, '')
-
-    # On dolly title == label so we'll convert
-    new_dict = dict(title=tagdata['label'],
-                    description=tagdata['description'])
-
-    args = [new_dict]
-
-    if channelid:
-        dollymethod = 'PUT'
-        args.append(channelid)
-
-    return dollymethod_map[dollymethod](*args)
-
-
-@commit_on_success
-def add_dolly_tag(**tagdata):
-    # Create a new tag
-    tag = VideoTag(**tagdata)
-    current_user.account.tags.append(tag)
-
-    # Create corresponding channel on dolly
-    response = _add_or_update_dolly_channel(tagdata)
-
-    # Update tag with channel id
-    tag.dolly_channel = response['id']
-
-    return tag
-
-
-@commit_on_success
-def update_dolly_tag(tag_id, **tagdata):
-    # Fetch existing tag
-    tag = VideoTag.query.get(tag_id)
-
-    if not tag.account_id == current_user.account_id:
-        abort(403)
-
-    # Update tag
-    for key, value in tagdata:
-        setattr(tag, key, value)
-
-    # Update corresponding channel on dolly
-    _add_or_update_dolly_channel(tagdata, channelid=tag.dolly_channel)
-
-    return tag
-
-
-@api_resource('/tag/<int:tag_id>')
-class TagResource(Resource):
-
-    tag_parser = RequestParser()
-    tag_parser.add_argument('label', type=str)
-    tag_parser.add_argument('description', type=str)
-
-    @commit_on_success
-    def put(self, tag_id):
-        args = self.tag_parser.parse_args()
-
-        try:
-            tag = update_dolly_tag(tag_id, **args)
-        except Exception as e:
-            if hasattr(e, 'response'):
-                return e.response.json(), e.response.status_code
-            else:
-                raise
-        else:
-            return dict(id=tag.id, href=tag.href)
-
-    @commit_on_success
-    def delete(self, tag_id):
-        tag = VideoTag.query.filter_by(
-            id=tag_id, account_id=current_user.account_id).first_or_404()
-        get_dollyuser(current_user.account).delete_channel(tag.dolly_channel)
-        db.session.delete(tag)
         return None, 204
-
-
-@api_resource('/account/<int:account_id>/tags')
-class AccountTagsResource(Resource):
-
-    tag_parser = RequestParser()
-    tag_parser.add_argument('label', type=str)
-    tag_parser.add_argument('description', type=str)
-
-    @property
-    def all_tags(self):
-        tags = VideoTag.query.filter_by(account_id=current_user.account_id)
-        return dict(tags=format_tags(tags))
-
-    def get(self, account_id):
-        if not account_id == current_user.account_id:
-            abort(403)
-
-        return self.all_tags
-
-    def post(self, account_id):
-        if not account_id == current_user.account_id:
-            abort(403)
-
-        args = self.tag_parser.parse_args()
-        label = args.get('label') or ''
-        description = args.get('description') or ''
-
-        if VideoTag.query.filter_by(account_id=account_id, label=label.strip()).count():
-            return dict(error='tag already exists'), 400
-
-        try:
-            tag = add_dolly_tag(label=label, description=description)
-        except Exception as e:
-            if hasattr(e, 'response'):
-                return e.response.json(), e.response.status_code
-            else:
-                raise
-        else:
-            return dict(id=tag.id, href=tag.href), 201, {'Location': tag.href}
-
-
-@api_resource('/categories')
-class CategoriesResource(Resource):
-    def get(self):
-        return dict(category=dict(items=get_categories()))

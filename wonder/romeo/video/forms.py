@@ -7,10 +7,47 @@ from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.dolly import get_categories
 from wonder.romeo.core.ooyala import create_asset
 from wonder.romeo.core.sqs import background_on_sqs
-from .models import Video
+from .models import VideoTag, Video
 
 
-class VideoForm(Form):
+class BaseForm(Form):
+
+    def __init__(self, account_id=None, *args, **kwargs):
+        super(BaseForm, self).__init__(*args, **kwargs)
+        self.obj = kwargs.get('obj')
+        self.account_id = account_id or self.obj.account_id
+
+    def save(self):
+        if self.obj:
+            obj = self.obj
+            self.populate_obj(obj)
+        else:
+            obj = self.model()
+            self.populate_obj(obj)
+            obj.account_id = self.account_id
+            db.session.add(obj)
+            db.session.flush()  # Ensure we get the id before commit
+        return obj
+
+
+class VideoTagForm(BaseForm):
+    model = VideoTag
+
+    label = wtforms.StringField(validators=[wtforms.validators.Required()])
+    description = wtforms.StringField()
+
+    def validate_label(self, field):
+        if field.data:
+            query = VideoTag.query.filter_by(account_id=self.account_id, label=field.data)
+            if self.obj:
+                query = query.filter(VideoTag.id != self.obj.id)
+            if query.count():
+                raise wtforms.ValidationError('Tag already exists')
+
+
+class VideoForm(BaseForm):
+    model = Video
+
     title = wtforms.StringField(validators=[wtforms.validators.Required()])
     description = wtforms.StringField()
     category = wtforms.SelectField(validators=[wtforms.validators.Optional()])
@@ -20,25 +57,16 @@ class VideoForm(Form):
 
     def __init__(self, *args, **kwargs):
         super(VideoForm, self).__init__(*args, **kwargs)
-        self.obj = kwargs.get('obj')
         self.category.choices = [
             (sc['id'], sc['name']) for sc in
             chain(*(c['sub_categories'] for c in get_categories()))]
 
-    def save(self, **kwargs):
-        if self.obj:
-            video = self.obj
-            self.populate_obj(video)
-            event = 'updated'
-        else:
-            kwargs.setdefault('status', 'uploading')
-            video = Video(**kwargs)
-            self.populate_obj(video)
-            db.session.add(video)
-            db.session.flush()  # Ensure we get the id before commit
-            event = 'created'
+    def save(self):
+        video = super(VideoForm, self).save()
 
-        if self.filename.data:
+        event = 'updated' if self.obj else 'created'
+
+        if self.filename and self.filename.data:
             create_asset_in_background(video.id)
             video.status = 'processing'
             event = 'uploaded'
@@ -67,7 +95,7 @@ def create_asset_in_background(video_id):
     video = Video.query.get(video_id)
     metadata = dict(name=video.title, label=video.account_id, path=video.filepath)
     #video.external_id = create_asset(video.filename, metadata)
-    print 'create_asset', metadata
+    print create_asset, metadata
     video.record_workflow_event('ooyala asset created')
 
 

@@ -17,7 +17,7 @@ def _request(path, method='get', jsondata=None, token=None, **kwargs):
     headers = kwargs.setdefault('headers', {})
     if token:
         headers['Authorization'] = 'Bearer %s' % token
-    if jsondata:
+    if jsondata is not None:
         kwargs['data'] = json.dumps(jsondata)
         headers['Content-Type'] = 'application/json'
     base = current_app.config['DOLLY_WS_SECURE_BASE' if 'Authorization' in headers
@@ -98,7 +98,7 @@ class DollyUser(object):
         if response.status_code == 201:
             return response.json()
 
-    def update_channel(self, channeldata, channelid):
+    def update_channel(self, channelid, channeldata):
         self._set_all_channel_data(channeldata)
         response = self._user_request('channels/%s/' % channelid, 'put', jsondata=channeldata)
         if response.status_code == 200:
@@ -109,12 +109,12 @@ class DollyUser(object):
 
     def publish_video(self, channelid, videodata):
         self._user_request('channels/%s/videos' % channelid, 'post',
-                           jsondata=(('ooyala', videodata['external_id']),))
+                           jsondata=(('ooyala', videodata['source_id']),))
 
     def remove_video(self, channelid, videodata):
         # need to fetch all channel videos and remove
         resource = 'channels/%s/videos' % channelid
         response = self._user_request(resource, params=dict(size=1000)).json()
         videos = [v['id'] for v in response['videos']['items']
-                  if v['video']['source_id'] != videodata['external_id']]
+                  if v['video']['source_id'] != videodata['source_id']]
         self._user_request(resource, 'put', jsondata=videos)
