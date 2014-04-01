@@ -595,14 +595,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('video.html',
-    "<div class=\"section\">\n" +
+    "<!-- <div class=\"section\">\n" +
     "  <ul id=\"breadcrumb\" class=\"inner\">\n" +
     "    <li class=\"home\"><a href=\"/#/\" class=\"icon-home\"></a></li>\n" +
     "    <li><span class=\"divider\">/</span> <a href=\"/#/library\">Library</a></li>\n" +
     "    <li><span class=\"divider\">/</span> <span>(~ $rootScope.pagetitle ~)</span></li>\n" +
     "   </ul>\n" +
     "</div>\n" +
-    "\n" +
+    " -->\n" +
     "<div id=\"page-video-single\" class=\"section\" ng-controller=\"VideoController\">\n" +
     "\t<div class=\"inner\">\n" +
     "\t\t<h1>(~ video.title ~)</h1>\n" +
