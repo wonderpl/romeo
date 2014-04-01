@@ -4,7 +4,8 @@
 
     var app = ng.module(ns + '.' + m /* module name */,
         [ns + '.services',
-            ns + '.directives'] /* module dependencies */);
+         ns + '.directives',
+         'LocalStorageModule'] /* module dependencies */);
 
     app.controller('MainCtrl', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$modal', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $modal) {
 
@@ -681,7 +682,7 @@
         // });
     }]);
 
-    app.controller('LoginController', ['$scope', '$rootScope', '$routeParams', '$http', '$timeout', function ($scope, $rootScope, $routeParams, $http, $timeout) {
+    app.controller('LoginController', ['$scope', '$rootScope', '$routeParams', '$http', '$timeout', 'localStorageService', function ($scope, $rootScope, $routeParams, $http, $timeout, localStorageService) {
 
         $scope.username = "";
         $scope.password = "";
@@ -693,29 +694,18 @@
                 url: '/api/login', 
                 data: { 
                     "username": $scope.username, 
-                    "password": $scope.password } 
+                    "password": $scope.password
+                } 
             }).success(function(data,status,headers,config){
 
                 if ( status === 200 ) {
                     console.log(data);
-                    $timeout(function() {
-                        $scope.$apply(function(){
-                            $scope.href = data.account.href;        
-                        });
-                    });
+                    localStorageService.add( 'account_url', data.account.href );
+                    $scope.href = data.account.href;        
                 }
 
             }).error(function(data, status, headers, config){
                 console.log('ERROR', data, status, headers, config);
-            });
-        };
-
-        $scope.retry = function(){
-            $http({
-                method: 'get',
-                url: $scope.href
-            }).success(function(data, status, headers, config){
-                console.log(data);
             });
         };
 

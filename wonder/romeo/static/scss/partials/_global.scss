@@ -177,6 +177,10 @@ header {
     width: 100%;
 }
 
+.page {
+    padding-top: 120px;
+}
+
 .inner {
     position: relative;
     display: block;
@@ -1751,6 +1755,15 @@ h1.collections-page {
     h2 {
         margin: 0 0 22px 0;
     }
+}
+
+
+/*  Dashboard page
+/* ======================================= */
+
+#page-login {
+    width: 320px;
+    margin: 0 auto;
 }
 
 

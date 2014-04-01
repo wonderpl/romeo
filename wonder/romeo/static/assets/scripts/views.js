@@ -243,14 +243,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('login.html',
-    "<div class=\"section\">\n" +
-    "  <ul id=\"breadcrumb\" class=\"inner\">\n" +
-    "    <li class=\"home\"><a href=\"/#/\" class=\"icon-home\"></a></li>\n" +
-    "    <li><span class=\"divider\">/</span> <span>Upload</span></li>\n" +
-    "   </ul>\n" +
-    "</div>\n" +
     "\n" +
-    "<div id=\"page-login\" class=\"section\" ng-controller=\"LoginController\">\n" +
+    "\n" +
+    "<div id=\"page-login\" class=\"page section\" ng-controller=\"LoginController\">\n" +
     "\t<div class=\"inner\">\n" +
     "\t\t<h1>Login</h1>\n" +
     "\t\t<form ng-submit=\"login()\">\n" +
@@ -264,7 +259,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t</div>\n" +
     "\t\t\t<div class=\"row\">\n" +
     "\t\t\t\t<input type=\"submit\" value=\"Login\">\n" +
-    "\t\t\t\t<button ng-click=\"tryagain()\">Try again</button>\n" +
     "\t\t\t</div>\n" +
     "\t\t</form>\n" +
     "\t</div>\n" +

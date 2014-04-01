@@ -14,6 +14,19 @@
                         'ngRoute',
                         'ngCookies'] /* module dependencies */);
 
+    app.factory('$loginCheck', ['$cookieStore', function($cookieStore){
+        return function(){
+            console.log(document.cookie.split(';'));
+            console.log($cookieStore);
+            // console.log($cookies.get('session'));
+            // if ( userid > 0 ) {
+            //     return true;
+            // } else {
+            //     return false;  
+            // }
+        };
+    }]);
+
     app.config(['$routeProvider', '$interpolateProvider', function( $routeProvider, $interpolateProvider ){
     
         // Change the interpolation symbols so they don't conflict with Jinja
@@ -61,8 +74,8 @@
         $routeProvider.otherwise({redirectTo: '/library'});
     }]);
 
-    app.run(['$timeout', '$rootScope', '$http', 'animLoop', '$cookies', function($timeout, $rootScope, $http, animLoop, $cookies) {
-        console.log($cookies);
+    app.run(['$timeout', '$rootScope', '$http', 'animLoop', '$cookies', '$loginCheck', function($timeout, $rootScope, $http, animLoop, $cookies, $loginCheck) {
+        console.log($loginCheck());
         animLoop.setFPS(15);
     }]);
 
