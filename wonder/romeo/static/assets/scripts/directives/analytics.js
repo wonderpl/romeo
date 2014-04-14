@@ -77,10 +77,10 @@
                 function convertDataToChartFormat(data) {
 
                     var visibleFields = $scope.getFields({visible: true});
-                    var series = _.map(visibleFields, function(field, index) {
+                    return _.map(visibleFields, function (field) {
                         return {
                             key: field.displayName,
-                            values: _.map(data, function(datum) {
+                            values: _.map(data, function (datum) {
                                 return {
                                     name: field.field,
                                     date: datum.dateObj,
@@ -97,15 +97,25 @@
                 function drawGraph(chartData) {
 
                     nv.addGraph(function () {
+
+                        function draw(chartData, chartWidth, chartHeight) {
+                            d3.select('#performance-chart')
+                                .attr('height', chartHeight)
+                                .attr('width', chartWidth)
+                                .datum(chartData)
+                                .transition().duration(500)
+                                .call(chart);
+                        }
+
                         var chartHeight = 350;
                         var chartWidth = 960;
 
                         var xTickValues = d3.time.scale()
-                            .domain(_.pluck($scope.chartData[0].values, 'date'))
-                            .ticks(d3.time.day, $scope.chartData);
+                            .domain(_.pluck(chartData[0].values, 'date'))
+                            .ticks(d3.time.day, chartData);
 
                         var yTickValues = d3.scale.linear()
-                            .domain([0, d3.max(_($scope.chartData).pluck('values').flatten().pluck('value').value())])
+                            .domain([0, d3.max(_(chartData).pluck('values').flatten().pluck('value').value())])
                             .nice()
                             .ticks();
 
@@ -130,24 +140,12 @@
 
                         chart.forceY([0, yTickValues.slice(-1)[0]]);
 
-                        d3.select('#performance-chart')
-                            .attr('height', chartHeight)
-                            .attr('width', chartWidth)
-                            .datum($scope.chartData)
-                            .transition().duration(500)
-                            .call(chart);
+                        draw(chartData);
 
                         nv.utils.windowResize(chart.update);
 
                         $scope.$watch('fields', function () {
-                            $scope.chartData = getChartData(data.performance);
-
-                            d3.select('#performance-chart')
-                                .attr('height', chartHeight)
-                                .attr('width', chartWidth)
-                                .datum($scope.chartData)
-                                .transition().duration(500)
-                                .call(chart);
+                            draw(convertDataToChartFormat($scope.analytics.results.results));
 
                         }, true);
 
@@ -156,77 +154,45 @@
 
                 }
 
-                function setTableResults() {
-
+                function setTableResults(data) {
+                    $scope.analytics.results.key = 'date';
+                    $scope.analytics.results.keyDisplayName = 'Date';
+                    $scope.analytics.results.results = data;
                 }
 
                 function getPerformanceData() {
-                    return PerformanceService.get($scope.analytics.video.id, $scope.fromData, $scope.toDate);
+                    return PerformanceService.get($scope.analytics.video.videoID, $scope.analytics.dateFrom, $scope.analytics.dateTo);
                 }
 
-                var getChartData = function (data) {
+                getPerformanceData().then(function (data) {
 
-                    var visibleFields = $scope.getFields({visible: true});
-                    var series = _.map(visibleFields, function (field) {
-                        return {
-                            // Series Key
-                            key: field.displayName,
-
-                            // Series Values
-                            values: _.map(data, function (datum) {
-                                return {
-                                    name: field.field,
-                                    date: datum.dateObj,
-                                    value: datum[field.field]
-                                };
-                            }),
-
-                            // Series Color
-                            color: field.color
-                        };
-                    });
-
-                    return series;
-                };
-
-                // Get the data we need
-                PerformanceService.get($scope.analytics.video.videoID).then(function (data) {
-
-                    debugger;
-
-                    _(data.performance).forEach(function (datum) {
+                    _(data).forEach(function (datum) {
                         datum.dateObj = moment(datum.date, 'YYYY-MM-DDW').toDate();
                     });
 
-                    $scope.setResults('date', 'Date', null, null, data.performance);
-
-                    drawGraph(getChartData(data));
+                    setTableResults(data);
 
                 });
+
 
             }
         };
     }]);
 
-    app.directive('plAnalyticsGeographicMap', ['$rootScope', '$timeout', '$http', 'GeographicService', function ($rootScope, $timeout, $http, GeographicService) {
+    app.directive('plAnalyticsGeographicMap', ['$rootScope', '$timeout', '$http', '$q', 'GeographicService', function ($rootScope, $timeout, $http, $q, GeographicService) {
         return {
             restrict: 'A',
             templateUrl: '/static/views/directives/analytics-geographic.html',
             scope: true,
             controller: function ($scope) {
 
-                var width = 1024;
-                var height = 550;
+                var mapWidth = 1024;
+                var mapHeight = 550;
 
                 var svg = d3.select('#geographic-map');
                 var allGroup = svg.append('g');
                 var countryGroup = allGroup.append('g');
                 var statesGroup = allGroup.append('g');
-
-                var mapJSONCache = {
-                    world: null,
-                    states: null
-                };
 
                 var projection = d3.geo.mercator()
                     .rotate([0, 0])
@@ -234,251 +200,155 @@
                     .precision(9)
                     .center([0, 20]);
 
+
                 var mapPath = d3.geo.path()
                     .projection(projection);
 
-                $scope.zoomedToUSA = true;
-                $scope.areaData = null;
-                $scope.analytics.setSelectedMapField = _.where($scope.fields,  {visible: true})[0];
-
-                function mouseOverEventHandler(analyticsData, feature, group, d) {
-
-                    displayData(analyticsData, feature, d);
-                }
-
-                function mouseDownEventHandler(analyticsData, feature, group, d) {
-
-                }
-
-                function mouseOutEventHandler(dataSet, feature, d) {
-
-                    if ((!$scope.zoomedToUSA && feature === 'states') || ($scope.zoomedToUSA && feature === 'countries')) {
-                        var path = d3.select(d3.event.target);
-                        path.attr('fill', path.attr('originalFill'));
+                var zoomRegions = $scope.zoomRegions = {
+                    world: {
+                        name: 'World',
+                        regionId: '',
+                        zoomObj: {
+                            scale: 1 ,
+                            x: -(mapWidth) + 512,
+                            y: -(mapHeight) + 275
+                        },
+                        feature: 'countries',
+                        group: countryGroup
+                    },
+                    usa: {
+                        name: 'USA',
+                        regionId: 'us',
+                        zoomObj: {
+                            scale: 2.2,
+                            x: -(mapWidth / 2.2) + 220,
+                            y: -(mapHeight / 2.2) + 100
+                        },
+                        feature: 'states',
+                        group: statesGroup
                     }
+                };
 
+                $scope.selectedRegion = zoomRegions.world;
+                $scope.analytics.selectedMapField = $scope.getFields({field: 'plays'})[0];
 
+                $scope.zoomToRegion = function(region) {
+                    var zoomDeferred = $q.defer();
+
+                    var dataDeferred = getGeographicData();
+                    var mapDeferred = getMapData();
+
+                    setRegionZoom(region.zoomObj, function() {
+                        zoomDeferred.resolve(true);
+                    });
+
+                    $q.all([dataDeferred, mapDeferred, zoomDeferred.promise]).then(function(data) {
+                        // Make this cleaner in future
+                        var mapDeferred = showMap();
+                        switch($scope.selectedRegion.name) {
+                            case 'USA':
+                                mapDeferred.then(function() {
+                                    greyMap(countryGroup);
+                                });
+                                break;
+                            default:
+                                mapDeferred.then(function() {
+                                    statesGroup.selectAll('path').remove();
+                                });
+                                break;
+                        }
+                    })
+                };
+
+                function quantize(geoData) {
+                    var color = d3.rgb($scope.analytics.selectedMapField.color);
+                    var values = _(geoData)
+                        .pluck('video')
+                        .pluck($scope.analytics.selectedMapField.field)
+                        .map(Number)
+                        .value();
+
+                    return d3.scale.log()
+                        .domain([1, d3.max(values)])
+                        .interpolate(d3.interpolateRgb)
+                        .range([color.brighter(0.2), color.darker(2)])
+                        .clamp(true);
                 }
 
-                function drawWorldMap(mapJSON, analyticsData) {
-
-                    var map = drawMap(countryGroup, 'countries', mapJSON, analyticsData);
-
-                    // Add Zoom to USA
-                    countryGroup.selectAll('path')
-                        .attr('class', 'country')
-                        .filter(function (d) {
-                            return d.properties.names[0] === 'United States';
-                        })
-                        .on('mousedown', function (d) {
-                            toggleUSAZoom();
-                        });
-
-                    return map;
-                }
-
-                function drawStatesMap(mapJSON, analyticsData) {
-
-                    statesGroup.selectAll('path').attr('class', 'state');
-
-                    return drawMap(statesGroup, 'states', mapJSON, analyticsData)
-                        .attr('class', 'state')
-                        .on('mousedown', function () {
-                            toggleUSAZoom();
-                        });
-                }
-
-                function drawMap(group, feature, mapJSON, analyticsData, stat) {
-
-                    var colorRange = quantize(analyticsData, stat || 'plays');
-
-                    group.selectAll('path')
+                function drawMap(mapGroup, mapJSON) {
+                    var feature = $scope.selectedRegion.feature;
+                    return mapGroup.selectAll('path')
                         .data(topojson.feature(mapJSON, mapJSON.objects[feature]).features)
                         .enter()
                         .append('path')
                         .attr('d', mapPath);
 
-                    group.selectAll('path')
+                }
+
+                function styleMap(mapGroup) {
+                    mapGroup.selectAll('path')
                         .attr('stroke', '#FFF')
-                        .attr('stroke-width', '0.5')
+                        .attr('stroke-width', '0.5');
+                }
+
+                function colorizeMap(mapGroup, geoData) {
+                    var color = d3.rgb($scope.analytics.selectedMapField.color);
+                    color.tweak = function(h, s, l) {
+                        var hsl = this.hsl();
+                        return d3.hsl(hsl.h + h, hsl.s + s, hsl.l + l).toString();
+                    };
+                    mapGroup.selectAll('path')
                         .attr('fill', function (d) {
-                            var datum = getData(analyticsData, d);
-                            if (datum && datum.metrics.video && datum.metrics.video[stat || 'plays']) {
-                                return colorRange(datum.metrics.video[stat || 'plays']);
+                            var datum = _(geoData).find(function(datum) {
+                                return _.contains(d.properties.names, datum.geo.name);
+                            });
+                            var colorize = quantize(geoData);
+                            if (datum && datum.video && datum.video[$scope.analytics.selectedMapField.field]) {
+                                return colorize(datum.video[$scope.analytics.selectedMapField.field]);
                             } else {
-                                return colorRange(0);
+                                return color.tweak(0, -0.2, 0.2);
                             }
                         })
-                        .on('mouseover', _.partial(mouseOverEventHandler, analyticsData, feature, group))
-                        .on('mouseout', _.partial(mouseOutEventHandler, analyticsData, feature, group));
+                }
 
-                    return group.selectAll('path');
+                function greyMap(mapGroup) {
+                    mapGroup.selectAll('path')
+                        .attr('fill', 'rgb(235, 235, 235)');
 
                 }
 
-                function quantize(dataSet, stat) {
-                    var color = d3.rgb($scope.analytics.setSelectedMapField.color);
-                    var values = _(dataSet).pluck('metrics').pluck('video').pluck(stat).map(Number).value();
-                    var quantizeFunction = d3.scale.log()
-                        .domain([1, d3.max(values)])
-                        .interpolate(d3.interpolateRgb)
-                        .range([color.brighter(0.2), color.darker(2)])
-                        .clamp(true);
-
-                    return quantizeFunction;
-                }
-
-                function getData(dataSet, d) {
-                    return _.find(dataSet, function (resultArea) {
-                        return _.contains(d.properties.names, resultArea.name);
-                    });
-                }
-
-                function displayData(dataSet, feature, d) {
-                    var datum = getData(dataSet, d);
-
-                    if ((!$scope.zoomedToUSA && feature === 'states') || ($scope.zoomedToUSA && feature === 'countries')) {
-                        var path = d3.select(d3.event.target);
-                        path.attr('originalFill', path.attr('fill')).attr('fill', d3.rgb($scope.analytics.setSelectedMapField.color).darker(4));
-
-                        $scope.$apply(function () {
-                            $scope.areaData = datum;
-                        });
-                    }
-
-                }
-
-                function getDataForWorldMap(callback) {
-                    GeographicService.getOne($scope.video.videoID).then(function (data) {
-                        var results = _(data.geographic.results.world).map(function (result) {
-                            return _.extend({name: result.name}, result.metrics.video);
-                        }).value();
-                        $scope.setResults('name', 'Name', null, null, results);
-                        callback(data.geographic.results.world);
-                    });
-                }
-
-                function getDataForStatesMap(callback) {
-                    GeographicService.getOne($scope.video.videoID).then(function (data) {
-                        var results = _(data.geographic.results.usa).map(function (result) {
-                            return _.extend({name: result.name}, result.metrics.video);
-                        }).value();
-                        $scope.setResults('name', 'Name', null, null, results);
-                        callback(data.geographic.results.usa);
-                    });
-                }
-
-                function showWorldMap() {
-
-                    getDataForWorldMap(function (analyticsData) {
-                        if (mapJSONCache.world) {
-                            drawWorldMap(mapJSONCache.world, analyticsData);
-                        } else {
-                            $http({method: 'GET', url: '/static/api/world-110m.json'}).success(function (mapData) {
-                                mapJSONCache.world = mapData;
-                                drawWorldMap(mapData, analyticsData);
-                            });
-                        }
-                    });
-
-                }
-
-                function showStatesMap() {
-                    getDataForStatesMap(function (analyticsData) {
-                        if (mapJSONCache.states) {
-                            drawStatesMap(mapJSONCache.states, analyticsData);
-                        } else {
-                            $http({method: 'GET', url: '/static/api/us2.json'}).success(function (mapData) {
-                                mapJSONCache.states = mapData;
-                                drawStatesMap(mapData, analyticsData);
-                            });
-                        }
-                    });
-                }
-
-                function zoomToUSA(callback) {
-
-                    var scale = 2.2;
-                    var xOffset = 220;
-                    var yOffset = 100;
-                    var x = -(width / scale) + xOffset;
-                    var y = -(height / scale) + yOffset;
-
-                    countryGroup
-                        .selectAll('path')
-                        .transition()
-                        .duration(500)
-                        .attr('fill', '#CBDEE5')
-                        .attr('stroke', '#CCC');
-
+                function setRegionZoom(zoomObj, callback) {
+                    callback = callback || function() {};
                     allGroup.transition()
                         .duration(750)
-                        .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')scale(' + scale + ')translate(' + x + ',' + y + ')')
-                        .style('stroke-width', 1.5 / scale + 'px')
+                        .attr('transform', 'translate(' + mapWidth / 2 + ',' + mapHeight / 2 + ')scale(' + zoomObj.scale + ')translate(' + zoomObj.x + ',' + zoomObj.y + ')')
+                        .style('stroke-width', 1.5 / zoomObj.scale + 'px')
                         .each('end', callback);
                 }
 
-                function zoomFromUSA(callback) {
 
-                    var scale = 1;
-                    var xOffset = 480;
-                    var yOffset = 250;
-                    var x = -(width / scale) + xOffset;
-                    var y = -(height / scale) + yOffset;
+                function showMap() {
 
-                    countryGroup
-                        .selectAll('path')
-                        .transition()
-                        .duration(500)
-                        .attr('fill', '#CCC')
-                        .attr('stroke', '#CCC');
-
-                    statesGroup
-                        .selectAll('path')
-                        .remove();
-
-                    allGroup.transition()
-                        .duration(750)
-                        .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')scale(' + scale + ')translate(' + x + ',' + y + ')')
-                        .style('stroke-width', 1.5 / scale + 'px')
-                        .each('end', callback);
+                    return $q.all([getMapData(), getGeographicData()]).then(function(data) {
+                        var mapData = data[0], geoData = data[1];
+                        drawMap($scope.selectedRegion.group, mapData);
+                        styleMap($scope.selectedRegion.group);
+                        colorizeMap($scope.selectedRegion.group, geoData);
+                    });
 
                 }
 
-                function toggleUSAZoom() {
-                    var callback = $scope.zoomedToUSA ? showWorldMap : showStatesMap;
-                    if ($scope.zoomedToUSA) {
-                        zoomFromUSA(function () {
-                            $scope.$apply(function () {
-                                callback && callback();
-                            });
-                        });
-                    } else {
-                        zoomToUSA(function () {
-                            $scope.$apply(function () {
-                                callback && callback();
-                            });
-                        });
-
-                    }
-
+                function getMapData() {
+                    return  GeographicService.getMap($scope.selectedRegion);
                 }
 
+                function getGeographicData() {
+                    return GeographicService.get($scope.analytics.video.videoID, $scope.selectedRegion, $scope.analytics.dateFrom, $scope.analytics.dateTo);
+                }
 
-                $scope.$watch('analytics.setSelectedMapField', function(field) {
-                    if (field) {
-                        $scope.analytics.setSelectedMapField = field;
-                        toggleUSAZoom();
-                    } else {
-                        debugger;
-                    }
-
+                $scope.$watch('analytics.selectedMapField', function() {
+                    showMap();
                 });
-
-
-                $scope.toggleUSAZoom = toggleUSAZoom;
-
-                showWorldMap();
 
             }
         };
@@ -536,7 +406,7 @@
 
                     var OO, wonder;
 
-                    var chartData = data.engagement.results[0].metrics.engagement.segments_watched.map(function (plays, index) {
+                    var chartData = data.engagement.results[0].engagement.segments_watched.map(function (plays, index) {
                         return {
                             time: index * 2500,
                             plays: ~~plays

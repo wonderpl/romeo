@@ -1,0 +1,90 @@
+[
+    {
+        "daily_uniq_plays": 12,
+        "date": "2014-01-30",
+        "monthly_uniq_plays": 9,
+        "plays": 85,
+        "playthrough_100": 19,
+        "playthrough_25": 42,
+        "playthrough_50": 26,
+        "playthrough_75": 21,
+        "weekly_uniq_plays": 9
+    },
+    {
+        "daily_uniq_plays": 8,
+        "date": "2014-01-31",
+        "monthly_uniq_plays": 12,
+        "plays": 78,
+        "playthrough_100": 19,
+        "playthrough_25": 57,
+        "playthrough_50": 46,
+        "playthrough_75": 31,
+        "weekly_uniq_plays": 3
+    },
+    {
+        "daily_uniq_plays": 0,
+        "date": "2014-02-01",
+        "monthly_uniq_plays": 0,
+        "plays": 0,
+        "playthrough_100": 0,
+        "playthrough_25": 0,
+        "playthrough_50": 0,
+        "playthrough_75": 0,
+        "weekly_uniq_plays": 0
+    },
+    {
+        "daily_uniq_plays": 0,
+        "date": "2014-02-02",
+        "monthly_uniq_plays": 3,
+        "plays": 0,
+        "playthrough_100": 0,
+        "playthrough_25": 0,
+        "playthrough_50": 0,
+        "playthrough_75": 0,
+        "weekly_uniq_plays": 0
+    },
+    {
+        "daily_uniq_plays": 3,
+        "date": "2014-02-03",
+        "monthly_uniq_plays": 12,
+        "plays": 187,
+        "playthrough_100": 24,
+        "playthrough_25": 61,
+        "playthrough_50": 48,
+        "playthrough_75": 31,
+        "weekly_uniq_plays": 3
+    },
+    {
+        "daily_uniq_plays": 6,
+        "date": "2014-02-04",
+        "monthly_uniq_plays": 15,
+        "plays": 40,
+        "playthrough_100": 11,
+        "playthrough_25": 28,
+        "playthrough_50": 23,
+        "playthrough_75": 15,
+        "weekly_uniq_plays": 4
+    },
+    {
+        "daily_uniq_plays": 12,
+        "date": "2014-02-05",
+        "monthly_uniq_plays": 18,
+        "plays": 123,
+        "playthrough_100": 25,
+        "playthrough_25": 90,
+        "playthrough_50": 67,
+        "playthrough_75": 39,
+        "weekly_uniq_plays": 9
+    },
+    {
+        "daily_uniq_plays": 8,
+        "date": "2014-02-06",
+        "monthly_uniq_plays": 21,
+        "plays": 111,
+        "playthrough_100": 25,
+        "playthrough_25": 90,
+        "playthrough_50": 67,
+        "playthrough_75": 39,
+        "weekly_uniq_plays": 9
+    }
+]

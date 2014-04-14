@@ -1,10 +1,10 @@
 <ul id="analytics-fields-key">
-    <li class="analytics-fields-key-item" ng-repeat="field in fields | filter: { visible: true }">
+    <li class="analytics-fields-key-item" ng-repeat="field in analytics.fields | filter: { visible: true }">
         <span class="key-color" style="background-color: {{field.color}}"></span>
         <span class="key-title">{{ field.displayName }}</span>
     </li>
     <li id="edit-icon">
-        <span>Fields <span style="color: {{ (getVisibleFieldsLength() < maxFields) ? 'green' : 'red' }};">({{ getVisibleFieldsLength() }})</span>:</span>
+        <span>Fields <span style="color: {{ (getFields({visible: true}).length < analytics.maxFields) ? 'green' : 'red' }};">({{ getFields({visible: true}).length }})</span>:</span>
         <span class="icon-edit" ng-click="flip()"></span>
     </li>
 

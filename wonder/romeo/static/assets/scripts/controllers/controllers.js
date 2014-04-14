@@ -591,7 +591,7 @@
             },
             fields: AnalyticsFields,
             video: {
-                id: null
+                videoID: null
             }
         };
 
@@ -669,11 +669,12 @@
 
     app.controller('LoginController', ['$scope', '$rootScope', '$routeParams', '$http', '$timeout', 'localStorageService', function ($scope, $rootScope, $routeParams, $http, $timeout, localStorageService) {
 
-        $scope.username = "";
-        $scope.password = "";
+        $scope.username = $scope.username || "";
+        $scope.password = $scope.username || "";
         $scope.href = "";
 
         $scope.login = function() {
+            debugger;
             $http({ 
                 method: 'post', 
                 url: '/api/login', 
