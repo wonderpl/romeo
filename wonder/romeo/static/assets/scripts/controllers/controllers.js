@@ -651,7 +651,7 @@
             },
             fields: AnalyticsFields,
             video: {
-                id: null
+                videoID: null
             }
         };
 
@@ -731,11 +731,12 @@
         ['$scope', '$rootScope', '$routeParams', '$http', '$timeout', 'localStorageService', 'FlashService', '$location', 
         function ($scope, $rootScope, $routeParams, $http, $timeout, localStorageService, FlashService, $location) {
 
-        $scope.username = "";
-        $scope.password = "";
+        $scope.username = $scope.username || "";
+        $scope.password = $scope.username || "";
         $scope.href = "";
 
         $scope.login = function() {
+            debugger;
             $http({ 
                 method: 'post', 
                 url: '/api/login', 

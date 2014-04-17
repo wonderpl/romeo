@@ -3,18 +3,17 @@
         <svg id="geographic-map"></svg>
         <div id="geographic-region-chooser">
             <span>Region:</span>
-            <select id="" ng-model="zoomedToUSA" ng-change="toggleUSAZoom()"
-                    ng-options="make.code as make.name for make in [{code: true, name: 'World'}, {code: false, name: 'USA'}]">
-
+            <select id="" ng-model="selectedRegion" ng-options="region as region.name for (name, region) in zoomRegions" ng-change="zoomToRegion(selectedRegion)">
+                <option value="">Select Region</option>
             </select>
         </div>
         <div id="geographic-map-data">
-            <h4>Region: {{ zoomedToUSA ? 'World' : 'USA' }}</h4>
+            <h4>Region: {{ selectedRegion.name }}</h4>
 
-            <h4>{{ !zoomedToUSA ? 'State' : 'Country' }}: {{ areaData.name }}</h4>
+            <h4>{{ areaData.name }}</h4>
 
-            <div ng-repeat="field in fields | filter: { visible: true }" class="key-row">
-                <input class="key-checkbox" type="radio" name="key-chooser" ng-value="field" ng-model="analytics.setSelectedMapField"/>
+            <div ng-repeat="field in analytics.fields | filter: { visible: true }" class="key-row">
+                <input class="key-checkbox" type="radio" name="key-chooser" ng-value="field" ng-model="analytics.selectedMapField"/>
                 <span class="key-color" style="background-color: {{field.color}}"></span><span class="key-title">{{ field.displayName }}</span>&nbsp;<span
                     class="key-value">{{ areaData.metrics.video[field.field] }}</span>
             </div>

@@ -219,7 +219,7 @@
 
     }]);
 
-    app.factory('AnalyticsFields', function() {
+    app.factory('AnalyticsFields', function () {
         return [
             {
                 'field': 'plays',
@@ -283,11 +283,11 @@
     app.factory('OverviewService', ['DataService', function (DataService) {
 
         return {
-            get:  function (videoId, fromDate, toDate) {
+            get: function (videoId, fromDate, toDate) {
 
                 var url = _.template('/static/api/stats.json', {id: videoId });
                 var params = { start: fromDate, end: toDate };
-                return DataService.request(url, false, params).then(function(data) {
+                return DataService.request(url, false, params).then(function (data) {
                     return data.overview;
                 });
 
@@ -299,11 +299,18 @@
     app.factory('PerformanceService', ['DataService', function (DataService) {
 
         return {
-            get:  function (videoId, fromDate, toDate) {
+            get: function (videoId, fromDate, toDate) {
 
                 var url = _.template('/api/video/${ id }/analytics/performance', {id: videoId });
-                var params = {start: fromDate, end: toDate, breakdown_by: 'day' };
-                return DataService.request(url, false, params);
+                var formatdate = function (date) {
+                    return moment(date).format('YYYY-MM-DD');
+                };
+
+//                var url = _.template('/static/api/performance.json', {id: videoId });
+                var params = {start: formatdate(fromDate), end: formatdate(toDate), breakdown_by: 'day' };
+                return DataService.request(url, false, params).then(function (data) {
+                    return data.metrics;
+                });
 
             }
         };
@@ -312,36 +319,28 @@
 
     app.factory('GeographicService', ['DataService', function (DataService) {
 
-        var GeographicService = {},
-            api = '/static/api/stats.json';
-
-        GeographicService.getOne = function (id, ignoreCache) {
-            var url = api + '';
-            return DataService.request(url, ignoreCache);
-        };
-
-        GeographicService.getAll = function (ignoreCache) {
-            var url = api + '';
-            return DataService.request(url, ignoreCache);
-        };
-
-        GeographicService.query = function (query, options, ignoreCache) {
-            var url = api + '';
-            return DataService.request(url, ignoreCache);
-        };
-
-        GeographicService.save = function (id, GeographicService) {
-            var url = api + '';
-            return DataService.save(url, id, GeographicService);
-        };
-
         return {
-            getOne: GeographicService.getOne,
-            getAll: GeographicService.getAll,
-            query: GeographicService.query,
-            save: GeographicService.save
-        };
+            get: function (videoId, selectedRegion, fromDate, toDate) {
 
+//                var url = _.template('/api/video/${ id }/analytics/performance', {id: videoId });
+                var url = _.template('/api/video/${ id }/analytics/country${ selectedRegionId }', {id: videoId, selectedRegionId: selectedRegion.name.match(/world/i) ? '' : '/' + selectedRegion.regionId });
+                var formatdate = function (date) {
+                    return moment(date).format('YYYY-MM-DD');
+                };
+
+                var params = {start: formatdate(fromDate), end: formatdate(toDate), breakdown_by: 'day' };
+                return DataService.request(url, false, params).then(function (data) {
+                    return data.metrics;
+                });
+
+            },
+            getMap: function (selectedRegion) {
+
+                var url = _.template('/static/api/maps/${ selectedRegion }.json', {selectedRegion: selectedRegion.name.toLowerCase() });
+                return DataService.request(url, false, {});
+
+            }
+        };
     }]);
     app.factory('EngagementService', ['DataService', function (DataService) {
 
@@ -483,7 +482,16 @@
         Data.request = function (url, ignoreCache, params) {
 
             var deferred = new $q.defer();
-            console.log('Data service making a request', url);
+
+            var makeParams = function (params) {
+                if (_.keys(params).length) {
+                    return '?' + _(params).map(function (value, key) {
+                        return  _.escape(key) + '=' + _.escape(value);
+                    }).join('&');
+                } else {
+                    return '';
+                }
+            };
 
             authCheck().then(function(account_id){  
 
@@ -794,7 +802,7 @@
         return pipeline;
     });
 
-    app.factory('Enum', function() {
+    app.factory('Enum', function () {
 
         function Enum() {
             var states = Array.prototype.slice.apply(arguments, [0]);

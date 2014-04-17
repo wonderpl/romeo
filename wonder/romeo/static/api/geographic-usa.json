@@ -1,0 +1,1192 @@
+[
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "305",
+                    "daily_uniqs": "318",
+                    "monthly_uniqs": "297"
+                },
+                "displays": "410",
+                "plays": "256",
+                "playthrough_25": "198",
+                "player_loads": "388",
+                "initial_plays": "245",
+                "video_starts": "254",
+                "uniq_video_starts": {
+                    "weekly_uniqs": "4",
+                    "daily_uniqs": "6",
+                    "monthly_uniqs": "2"
+                },
+                "uniq_replays": {
+                    "weekly_uniqs": "1",
+                    "daily_uniqs": "1",
+                    "monthly_uniqs": "1"
+                },
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "uniq_plays": {
+                    "weekly_uniqs": "3",
+                    "daily_uniqs": "5",
+                    "monthly_uniqs": "2"
+                },
+                "time_watched": "4024085",
+                "playthrough_50": "187",
+                "playthrough_75": "176",
+                "uniq_displays": {
+                    "weekly_uniqs": "4",
+                    "daily_uniqs": "8",
+                    "monthly_uniqs": "2"
+                },
+                "replays": "2",
+                "playthrough_100": "44"
+            }
+        },
+        "name": "California"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "163",
+                    "daily_uniqs": "165",
+                    "monthly_uniqs": "161"
+                },
+                "displays": "211",
+                "plays": "135",
+                "playthrough_25": "122",
+                "player_loads": "210",
+                "initial_plays": "135",
+                "video_starts": "135",
+                "uniq_video_starts": {
+                    "weekly_uniqs": "3",
+                    "daily_uniqs": "6",
+                    "monthly_uniqs": "3"
+                },
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "uniq_plays": {
+                    "weekly_uniqs": "3",
+                    "daily_uniqs": "6",
+                    "monthly_uniqs": "3"
+                },
+                "time_watched": "2219260",
+                "playthrough_50": "116",
+                "playthrough_75": "111",
+                "uniq_displays": {
+                    "weekly_uniqs": "7",
+                    "daily_uniqs": "10",
+                    "monthly_uniqs": "7"
+                },
+                "playthrough_100": "36"
+            }
+        },
+        "name": "unknown"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "48",
+                    "daily_uniqs": "48",
+                    "monthly_uniqs": "47"
+                },
+                "displays": "56",
+                "plays": "40",
+                "playthrough_25": "32",
+                "player_loads": "65",
+                "initial_plays": "40",
+                "video_starts": "40",
+                "uniq_video_starts": {
+                    "daily_uniqs": "1"
+                },
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "uniq_plays": {
+                    "daily_uniqs": "1"
+                },
+                "time_watched": "641672",
+                "playthrough_50": "32",
+                "playthrough_75": "32",
+                "uniq_displays": {
+                    "daily_uniqs": "1"
+                },
+                "playthrough_100": "13"
+            }
+        },
+        "name": "Florida"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "44",
+                    "daily_uniqs": "45",
+                    "monthly_uniqs": "44"
+                },
+                "displays": "50",
+                "plays": "35",
+                "playthrough_25": "26",
+                "player_loads": "50",
+                "initial_plays": "35",
+                "video_starts": "30",
+                "uniq_video_starts": {
+                    "weekly_uniqs": "2",
+                    "daily_uniqs": "2",
+                    "monthly_uniqs": "2"
+                },
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "uniq_plays": {
+                    "weekly_uniqs": "3",
+                    "daily_uniqs": "3",
+                    "monthly_uniqs": "3"
+                },
+                "time_watched": "460224",
+                "playthrough_50": "25",
+                "playthrough_75": "27",
+                "uniq_displays": {
+                    "weekly_uniqs": "5",
+                    "daily_uniqs": "5",
+                    "monthly_uniqs": "5"
+                },
+                "playthrough_100": "7"
+            }
+        },
+        "name": "Texas"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "40",
+                    "daily_uniqs": "42",
+                    "monthly_uniqs": "39"
+                },
+                "displays": "76",
+                "plays": "34",
+                "playthrough_25": "28",
+                "player_loads": "76",
+                "initial_plays": "34",
+                "video_starts": "36",
+                "uniq_video_starts": {
+                    "weekly_uniqs": "3",
+                    "daily_uniqs": "3",
+                    "monthly_uniqs": "3"
+                },
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "uniq_plays": {
+                    "weekly_uniqs": "3",
+                    "daily_uniqs": "3",
+                    "monthly_uniqs": "3"
+                },
+                "time_watched": "504009",
+                "playthrough_50": "27",
+                "playthrough_75": "23",
+                "uniq_displays": {
+                    "weekly_uniqs": "5",
+                    "daily_uniqs": "5",
+                    "monthly_uniqs": "5"
+                },
+                "playthrough_100": "9"
+            }
+        },
+        "name": "Illinois"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "29",
+                    "daily_uniqs": "29",
+                    "monthly_uniqs": "29"
+                },
+                "displays": "33",
+                "plays": "21",
+                "playthrough_25": "18",
+                "player_loads": "33",
+                "initial_plays": "21",
+                "video_starts": "20",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "427121",
+                "playthrough_50": "17",
+                "playthrough_75": "16",
+                "playthrough_100": "8"
+            }
+        },
+        "name": "Washington"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "27",
+                    "daily_uniqs": "31",
+                    "monthly_uniqs": "27"
+                },
+                "displays": "38",
+                "plays": "20",
+                "playthrough_25": "16",
+                "player_loads": "38",
+                "initial_plays": "20",
+                "video_starts": "26",
+                "uniq_video_starts": {
+                    "daily_uniqs": "2"
+                },
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "uniq_plays": {
+                    "daily_uniqs": "1"
+                },
+                "time_watched": "258883",
+                "playthrough_50": "14",
+                "playthrough_75": "12",
+                "uniq_displays": {
+                    "daily_uniqs": "2"
+                },
+                "playthrough_100": "5"
+            }
+        },
+        "name": "Massachusetts"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "16",
+                    "daily_uniqs": "17",
+                    "monthly_uniqs": "16"
+                },
+                "displays": "22",
+                "plays": "19",
+                "playthrough_25": "15",
+                "player_loads": "22",
+                "initial_plays": "19",
+                "video_starts": "19",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "301328",
+                "playthrough_50": "15",
+                "playthrough_75": "14",
+                "playthrough_100": "6"
+            }
+        },
+        "name": "Georgia"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "25",
+                    "daily_uniqs": "27",
+                    "monthly_uniqs": "25"
+                },
+                "displays": "34",
+                "plays": "17",
+                "playthrough_25": "12",
+                "player_loads": "34",
+                "initial_plays": "17",
+                "video_starts": "15",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "248351",
+                "playthrough_50": "12",
+                "playthrough_75": "12",
+                "playthrough_100": "3"
+            }
+        },
+        "name": "unknown"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "22",
+                    "daily_uniqs": "22",
+                    "monthly_uniqs": "22"
+                },
+                "displays": "22",
+                "plays": "16",
+                "playthrough_25": "12",
+                "player_loads": "22",
+                "initial_plays": "16",
+                "video_starts": "14",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "214098",
+                "playthrough_50": "12",
+                "playthrough_75": "11",
+                "playthrough_100": "3"
+            }
+        },
+        "name": "Pennsylvania"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "17",
+                    "daily_uniqs": "17",
+                    "monthly_uniqs": "16"
+                },
+                "displays": "19",
+                "plays": "13",
+                "playthrough_25": "9",
+                "player_loads": "19",
+                "initial_plays": "13",
+                "video_starts": "15",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "203729",
+                "playthrough_50": "9",
+                "playthrough_75": "9",
+                "playthrough_100": "2"
+            }
+        },
+        "name": "Ohio"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "10",
+                    "daily_uniqs": "10",
+                    "monthly_uniqs": "10"
+                },
+                "displays": "12",
+                "plays": "11",
+                "playthrough_25": "11",
+                "player_loads": "12",
+                "initial_plays": "11",
+                "video_starts": "11",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "211507",
+                "playthrough_50": "9",
+                "playthrough_75": "9",
+                "playthrough_100": "3"
+            }
+        },
+        "name": "Virginia"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "14",
+                    "daily_uniqs": "14",
+                    "monthly_uniqs": "14"
+                },
+                "displays": "16",
+                "plays": "11",
+                "playthrough_25": "11",
+                "player_loads": "16",
+                "initial_plays": "11",
+                "video_starts": "12",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "202234",
+                "playthrough_50": "11",
+                "playthrough_75": "11",
+                "playthrough_100": "3"
+            }
+        },
+        "name": "unknown"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "11",
+                    "daily_uniqs": "11",
+                    "monthly_uniqs": "11"
+                },
+                "displays": "13",
+                "plays": "10",
+                "playthrough_25": "8",
+                "player_loads": "13",
+                "initial_plays": "10",
+                "video_starts": "9",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "146860",
+                "playthrough_50": "8",
+                "playthrough_75": "8",
+                "playthrough_100": "4"
+            }
+        },
+        "name": "Minnesota"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "9",
+                    "daily_uniqs": "10",
+                    "monthly_uniqs": "9"
+                },
+                "displays": "12",
+                "plays": "9",
+                "playthrough_25": "8",
+                "player_loads": "12",
+                "initial_plays": "9",
+                "video_starts": "9",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "157078",
+                "playthrough_50": "8",
+                "playthrough_75": "8",
+                "playthrough_100": "2"
+            }
+        },
+        "name": "Hawaii"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "11",
+                    "daily_uniqs": "11",
+                    "monthly_uniqs": "9"
+                },
+                "displays": "14",
+                "plays": "9",
+                "playthrough_25": "10",
+                "player_loads": "14",
+                "initial_plays": "9",
+                "video_starts": "11",
+                "uniq_video_starts": {
+                    "weekly_uniqs": "1",
+                    "daily_uniqs": "1"
+                },
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "uniq_plays": {
+                    "weekly_uniqs": "1",
+                    "daily_uniqs": "1"
+                },
+                "time_watched": "183245",
+                "playthrough_50": "10",
+                "playthrough_75": "9",
+                "uniq_displays": {
+                    "weekly_uniqs": "2",
+                    "daily_uniqs": "2"
+                },
+                "playthrough_100": "3"
+            }
+        },
+        "name": "Arizona"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "16",
+                    "daily_uniqs": "16",
+                    "monthly_uniqs": "15"
+                },
+                "displays": "16",
+                "plays": "8",
+                "playthrough_25": "6",
+                "player_loads": "16",
+                "initial_plays": "8",
+                "video_starts": "6",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "147791",
+                "playthrough_50": "6",
+                "playthrough_75": "6",
+                "playthrough_100": "4"
+            }
+        },
+        "name": "Maryland"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "10",
+                    "daily_uniqs": "10",
+                    "monthly_uniqs": "10"
+                },
+                "displays": "12",
+                "plays": "8",
+                "playthrough_25": "6",
+                "player_loads": "12",
+                "initial_plays": "8",
+                "video_starts": "7",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "93437",
+                "playthrough_50": "5",
+                "playthrough_75": "5",
+                "playthrough_100": "2"
+            }
+        },
+        "name": "Connecticut"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "11",
+                    "daily_uniqs": "12",
+                    "monthly_uniqs": "10"
+                },
+                "displays": "16",
+                "plays": "8",
+                "playthrough_25": "8",
+                "player_loads": "16",
+                "initial_plays": "8",
+                "video_starts": "8",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "135973",
+                "playthrough_50": "7",
+                "playthrough_75": "7",
+                "playthrough_100": "2"
+            }
+        },
+        "name": "unknown"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "9",
+                    "daily_uniqs": "9",
+                    "monthly_uniqs": "9"
+                },
+                "displays": "10",
+                "plays": "7",
+                "playthrough_25": "7",
+                "player_loads": "10",
+                "initial_plays": "7",
+                "video_starts": "7",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "112219",
+                "playthrough_50": "6",
+                "playthrough_75": "6",
+                "playthrough_100": "3"
+            }
+        },
+        "name": "Michigan"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "6",
+                    "daily_uniqs": "6",
+                    "monthly_uniqs": "6"
+                },
+                "displays": "7",
+                "plays": "6",
+                "playthrough_25": "6",
+                "player_loads": "7",
+                "initial_plays": "6",
+                "video_starts": "6",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "90077",
+                "playthrough_50": "5",
+                "playthrough_75": "5",
+                "playthrough_100": "1"
+            }
+        },
+        "name": "Tennessee"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "8",
+                    "daily_uniqs": "8",
+                    "monthly_uniqs": "8"
+                },
+                "displays": "9",
+                "plays": "6",
+                "playthrough_25": "4",
+                "player_loads": "9",
+                "initial_plays": "6",
+                "video_starts": "5",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "34105",
+                "playthrough_50": "2",
+                "playthrough_75": "1"
+            }
+        },
+        "name": "Oregon"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "8",
+                    "daily_uniqs": "8",
+                    "monthly_uniqs": "8"
+                },
+                "displays": "10",
+                "plays": "6",
+                "playthrough_25": "6",
+                "player_loads": "10",
+                "initial_plays": "6",
+                "video_starts": "6",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "128509",
+                "playthrough_50": "6",
+                "playthrough_75": "6",
+                "playthrough_100": "2"
+            }
+        },
+        "name": "Nevada"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "5",
+                    "daily_uniqs": "6",
+                    "monthly_uniqs": "5"
+                },
+                "displays": "8",
+                "plays": "6",
+                "playthrough_25": "6",
+                "player_loads": "8",
+                "initial_plays": "6",
+                "video_starts": "6",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "136137",
+                "playthrough_50": "6",
+                "playthrough_75": "5",
+                "playthrough_100": "2"
+            }
+        },
+        "name": "Kentucky"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "7",
+                    "daily_uniqs": "7",
+                    "monthly_uniqs": "7"
+                },
+                "displays": "7",
+                "plays": "6",
+                "playthrough_25": "6",
+                "player_loads": "7",
+                "initial_plays": "6",
+                "video_starts": "6",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "125452",
+                "playthrough_50": "6",
+                "playthrough_75": "5",
+                "playthrough_100": "2"
+            }
+        },
+        "name": "Indiana"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "6",
+                    "daily_uniqs": "6",
+                    "monthly_uniqs": "6"
+                },
+                "displays": "7",
+                "plays": "5",
+                "playthrough_25": "1",
+                "player_loads": "7",
+                "initial_plays": "5",
+                "video_starts": "5",
+                "uniq_video_starts": {
+                    "daily_uniqs": "1"
+                },
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "uniq_plays": {
+                    "daily_uniqs": "1"
+                },
+                "time_watched": "34939",
+                "playthrough_50": "1",
+                "playthrough_75": "1",
+                "uniq_displays": {
+                    "daily_uniqs": "1"
+                },
+                "playthrough_100": "1"
+            }
+        },
+        "name": "Utah"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "3",
+                    "daily_uniqs": "3",
+                    "monthly_uniqs": "3"
+                },
+                "displays": "5",
+                "plays": "5",
+                "playthrough_25": "5",
+                "player_loads": "5",
+                "initial_plays": "5",
+                "video_starts": "5",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "67108",
+                "playthrough_50": "3",
+                "playthrough_75": "3"
+            }
+        },
+        "name": "Alabama"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "1",
+                    "daily_uniqs": "1",
+                    "monthly_uniqs": "1"
+                },
+                "displays": "6",
+                "plays": "4",
+                "playthrough_25": "2",
+                "player_loads": "5",
+                "initial_plays": "3",
+                "video_starts": "4",
+                "uniq_video_starts": {
+                    "weekly_uniqs": "3",
+                    "daily_uniqs": "3",
+                    "monthly_uniqs": "3"
+                },
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "uniq_plays": {
+                    "weekly_uniqs": "3",
+                    "daily_uniqs": "3",
+                    "monthly_uniqs": "3"
+                },
+                "time_watched": "129232",
+                "playthrough_50": "2",
+                "playthrough_75": "2",
+                "uniq_displays": {
+                    "weekly_uniqs": "1",
+                    "daily_uniqs": "1",
+                    "monthly_uniqs": "1"
+                },
+                "playthrough_100": "2"
+            }
+        },
+        "name": "Rhode Island"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "5",
+                    "daily_uniqs": "5",
+                    "monthly_uniqs": "4"
+                },
+                "displays": "5",
+                "plays": "4",
+                "playthrough_25": "4",
+                "player_loads": "5",
+                "initial_plays": "4",
+                "video_starts": "4",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "56221",
+                "playthrough_50": "4",
+                "playthrough_75": "4",
+                "playthrough_100": "1"
+            }
+        },
+        "name": "Missouri"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "7",
+                    "daily_uniqs": "7",
+                    "monthly_uniqs": "7"
+                },
+                "displays": "7",
+                "plays": "3",
+                "playthrough_25": "2",
+                "player_loads": "7",
+                "initial_plays": "3",
+                "video_starts": "3",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "48820",
+                "playthrough_50": "2",
+                "playthrough_75": "2",
+                "playthrough_100": "2"
+            }
+        },
+        "name": "Wisconsin"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "3",
+                    "daily_uniqs": "3",
+                    "monthly_uniqs": "3"
+                },
+                "displays": "3",
+                "plays": "3",
+                "playthrough_25": "3",
+                "player_loads": "3",
+                "initial_plays": "3",
+                "video_starts": "3",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "71099",
+                "playthrough_50": "3",
+                "playthrough_75": "3",
+                "playthrough_100": "1"
+            }
+        },
+        "name": "Kansas"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "5",
+                    "daily_uniqs": "5",
+                    "monthly_uniqs": "5"
+                },
+                "displays": "5",
+                "plays": "3",
+                "playthrough_25": "4",
+                "player_loads": "5",
+                "initial_plays": "3",
+                "video_starts": "4",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "68655",
+                "playthrough_50": "4",
+                "playthrough_75": "3",
+                "playthrough_100": "1"
+            }
+        },
+        "name": "Iowa"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "5",
+                    "daily_uniqs": "5",
+                    "monthly_uniqs": "5"
+                },
+                "displays": "6",
+                "plays": "3",
+                "playthrough_25": "3",
+                "player_loads": "6",
+                "initial_plays": "3",
+                "video_starts": "3",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "72172",
+                "playthrough_50": "3",
+                "playthrough_75": "3",
+                "playthrough_100": "1"
+            }
+        },
+        "name": "Colorado"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "3",
+                    "daily_uniqs": "3",
+                    "monthly_uniqs": "3"
+                },
+                "displays": "3",
+                "plays": "3",
+                "playthrough_25": "3",
+                "player_loads": "3",
+                "initial_plays": "3",
+                "video_starts": "3",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "57191",
+                "playthrough_50": "3",
+                "playthrough_75": "3",
+                "playthrough_100": "2"
+            }
+        },
+        "name": "unknown"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "3",
+                    "daily_uniqs": "3",
+                    "monthly_uniqs": "2"
+                },
+                "displays": "3",
+                "plays": "2",
+                "playthrough_25": "2",
+                "player_loads": "3",
+                "initial_plays": "2",
+                "video_starts": "2",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "41712",
+                "playthrough_50": "2",
+                "playthrough_75": "2"
+            }
+        },
+        "name": "Oklahoma"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "5",
+                    "daily_uniqs": "5",
+                    "monthly_uniqs": "5"
+                },
+                "displays": "6",
+                "plays": "2",
+                "playthrough_25": "2",
+                "player_loads": "6",
+                "initial_plays": "2",
+                "video_starts": "4",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "42980",
+                "playthrough_50": "2",
+                "playthrough_75": "2"
+            }
+        },
+        "name": "Louisiana"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "2",
+                    "daily_uniqs": "2",
+                    "monthly_uniqs": "2"
+                },
+                "displays": "2",
+                "plays": "2",
+                "playthrough_25": "2",
+                "player_loads": "2",
+                "initial_plays": "2",
+                "video_starts": "2",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "58389",
+                "playthrough_50": "2",
+                "playthrough_75": "2",
+                "playthrough_100": "2"
+            }
+        },
+        "name": "unknown"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "2",
+                    "daily_uniqs": "2",
+                    "monthly_uniqs": "2"
+                },
+                "displays": "2",
+                "plays": "2",
+                "playthrough_25": "1",
+                "player_loads": "2",
+                "initial_plays": "2",
+                "video_starts": "1",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "14530",
+                "playthrough_50": "1",
+                "playthrough_75": "1"
+            }
+        },
+        "name": "unknown"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "2",
+                    "daily_uniqs": "2",
+                    "monthly_uniqs": "2"
+                },
+                "displays": "2",
+                "plays": "1",
+                "playthrough_25": "1",
+                "player_loads": "2",
+                "initial_plays": "1",
+                "video_starts": "1",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "14355",
+                "playthrough_50": "1",
+                "playthrough_75": "1"
+            }
+        },
+        "name": "Wyoming"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "1",
+                    "daily_uniqs": "1",
+                    "monthly_uniqs": "1"
+                },
+                "displays": "1",
+                "plays": "1",
+                "playthrough_25": "1",
+                "player_loads": "1",
+                "initial_plays": "1",
+                "video_starts": "1",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "65451",
+                "playthrough_50": "1",
+                "playthrough_75": "1",
+                "playthrough_100": "1"
+            }
+        },
+        "name": "Vermont"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "1",
+                    "daily_uniqs": "1",
+                    "monthly_uniqs": "1"
+                },
+                "displays": "1",
+                "plays": "1",
+                "playthrough_25": "1",
+                "player_loads": "1",
+                "initial_plays": "1",
+                "video_starts": "1",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "13947",
+                "playthrough_50": "1",
+                "playthrough_75": "1"
+            }
+        },
+        "name": "Mississippi"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "1",
+                    "daily_uniqs": "1",
+                    "monthly_uniqs": "1"
+                },
+                "displays": "1",
+                "plays": "1",
+                "playthrough_25": "1",
+                "player_loads": "1",
+                "initial_plays": "1",
+                "video_starts": "1",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "29007",
+                "playthrough_50": "1",
+                "playthrough_75": "1"
+            }
+        },
+        "name": "Maine"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "2",
+                    "daily_uniqs": "2",
+                    "monthly_uniqs": "2"
+                },
+                "displays": "2",
+                "plays": "1",
+                "playthrough_25": "1",
+                "player_loads": "2",
+                "initial_plays": "1",
+                "video_starts": "2",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "17220",
+                "playthrough_50": "1",
+                "playthrough_75": "1",
+                "playthrough_100": "1"
+            }
+        },
+        "name": "unknown"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "3",
+                    "daily_uniqs": "3",
+                    "monthly_uniqs": "3"
+                },
+                "displays": "3",
+                "plays": "1",
+                "playthrough_25": "1",
+                "player_loads": "3",
+                "initial_plays": "1",
+                "video_starts": "1",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "19894",
+                "playthrough_50": "1"
+            }
+        },
+        "name": "unknown"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "2",
+                    "daily_uniqs": "2",
+                    "monthly_uniqs": "2"
+                },
+                "displays": "2",
+                "plays": "1",
+                "playthrough_25": "1",
+                "player_loads": "2",
+                "initial_plays": "1",
+                "video_starts": "1",
+                "video_bytes_downloaded": "This metric has been deprecated.",
+                "time_watched": "14708",
+                "playthrough_50": "1",
+                "playthrough_75": "1",
+                "playthrough_100": "1"
+            }
+        },
+        "name": "unknown"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "1",
+                    "daily_uniqs": "1",
+                    "monthly_uniqs": "1"
+                },
+                "displays": "1",
+                "player_loads": "1",
+                "video_bytes_downloaded": "This metric has been deprecated."
+            }
+        },
+        "name": "Nebraska"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "1",
+                    "daily_uniqs": "1",
+                    "monthly_uniqs": "1"
+                },
+                "displays": "1",
+                "player_loads": "1",
+                "video_bytes_downloaded": "This metric has been deprecated."
+            }
+        },
+        "name": "Idaho"
+    },
+    {
+        "metrics": {
+            "video": {
+                "uniq_player_loads": {
+                    "weekly_uniqs": "1",
+                    "daily_uniqs": "1",
+                    "monthly_uniqs": "1"
+                },
+                "displays": "1",
+                "player_loads": "1",
+                "video_bytes_downloaded": "This metric has been deprecated."
+            }
+        },
+        "name": "Delaware"
+    }
+]
