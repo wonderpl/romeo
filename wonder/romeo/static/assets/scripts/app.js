@@ -14,16 +14,36 @@
                         'ngRoute',
                         'ngCookies'] /* module dependencies */);
 
-    app.factory('$loginCheck', ['$cookieStore', function($cookieStore){
+    app.factory('$loginCheck', ['localStorageService', '$timeout', '$rootScope', '$http', '$location', '$q', function(localStorageService, $timeout, $rootScope, $http, $location, $q){
         return function(){
-            console.log(document.cookie.split(';'));
-            console.log($cookieStore);
-            // console.log($cookies.get('session'));
-            // if ( userid > 0 ) {
-            //     return true;
-            // } else {
-            //     return false;  
+
+            var session_url = localStorageService.get('session_url');
+
+            if ( session_url !== null && $rootScope.account !== undefined ) {
+                console.log(' AUTHED ');
+
+            } else if ( session_url === null ) {
+                console.log(' NOT AUTHED ');
+                $location.path('/login');
+
+            }
+            
+            // else if ( $rootScope.account === undefined ) {
+            //     console.log(' KIND OF AUTHED ');
+            //     $http({ method: 'get', url: localStorageService.get('session_url') }).success(function(data,status,headers,config){
+            //         $timeout(function() {
+            //             $rootScope.$apply(function(){
+            //                 $rootScope.account = data;
+            //                 $rootScope.userID = data.href.split('/');
+            //                 $rootScope.userID = $rootScope.userID[$rootScope.userID.length-1];
+            //                 console.log('DEFINITELY AUTHED NOW');
+            //                 deferred.resolve(data);
+            //             });
+            //         });
+            //     });
+            //     return deferred.promise;
             // }
+
         };
     }]);
 
@@ -71,11 +91,19 @@
             templateUrl: 'login.html'
         });
 
-        $routeProvider.otherwise({redirectTo: '/library'});
+        $routeProvider.when('/loading', {
+            templateUrl: 'loading.html'
+        });
+
+        $routeProvider.when('/logout', {
+            templateUrl: 'login.html'
+        });
+
+        $routeProvider.otherwise({redirectTo: '/login'});
     }]);
 
-    app.run(['$timeout', '$rootScope', '$http', 'animLoop', '$cookies', '$loginCheck', function($timeout, $rootScope, $http, animLoop, $cookies, $loginCheck) {
-        console.log($loginCheck());
+    app.run(['$timeout', '$rootScope', '$http', 'animLoop', '$cookies', '$loginCheck', '$location', function($timeout, $rootScope, $http, animLoop, $cookies, $loginCheck, $location) {
+        $loginCheck();
         animLoop.setFPS(15);
     }]);
 

@@ -36,6 +36,35 @@
         };
     }]);
 
+
+    app.directive('plContentEditablePlaceholder', [function(){
+        return {
+            restrict: 'A',
+            link: function(scope, elem, attrs){
+
+                var el = d.createElement('span');
+                
+                el.className = "placeholder";
+                el.innerHTML = attrs.placeholder;
+                elem.parent().append(el);
+
+                elem.bind('keydown', function(e){
+                    el.style.display = 'none';                    
+                });
+
+                elem.bind('keyup, blur', function(e){
+                    if ( elem[0].innerHTML.length > 0 ) {
+                        el.style.display = 'none';                         
+                    } else {
+                        el.style.display = 'block';
+                    }
+                });
+
+            }
+        }
+    }]);
+
+
     app.directive('plDisabled', [function(){
         return {
             restrict: 'C',
@@ -67,22 +96,6 @@
         }
     }]);
 
-    app.directive('plTooltip', ['$tooltip', function($tooltip){
-        return {
-            restrict: 'A',
-            link: function(scope, elem, attrs){
-                elem.bind('mouseenter', function(e){
-                    if ( attrs.plTooltip.length > 0 ) {
-                        $tooltip.show(attrs.plTooltip, elem[0]);    
-                    }
-                });
-                elem.bind('mouseleave', function(e){
-                    $tooltip.hide();
-                });
-            }
-        }
-    }]);
-
     app.directive('plDroppable', ['DragDropService', function(DragDropService){
         return {
             restict: 'A',
@@ -110,6 +123,32 @@
             }
         }
     }]);
+
+    app.directive('plTooltip', ['$tooltip', function($tooltip){
+        return {
+            restrict: 'A',
+            link: function(scope, elem, attrs){
+                elem.bind('mouseenter', function(e){
+                    if ( attrs.plTooltip.length > 0 ) {
+                        $tooltip.show(attrs.plTooltip, elem[0]);    
+                    }
+                });
+                elem.bind('mouseleave', function(e){
+                    $tooltip.hide();
+                });
+            }
+        }
+    }]);
+
+    app.directive('plProgressButton', [function(){
+        return {
+            restrict: 'A',
+            link: function(scope, elem, attrs){
+                    
+
+            }
+        }
+    }]);    
 
     app.directive('plFocusField', ['$timeout', function($timeout){
         return {
@@ -190,11 +229,12 @@
 
                 elem.bind('drop', function (e) {
                     e.preventDefault();
-                    // var dt = e.dataTransfer,
-                    //     file = dt.files[0];
+                    var dt = e.dataTransfer,
+                        file = dt.files[0];
+                        console.log(scope.reader);
                     // scope.reader.readAsDataURL(file);
-
-                    scope.$emit('fileDropped');
+                    // console.log(scope.reader);
+                    // scope.$emit('fileDropped');
                 });
 
             }

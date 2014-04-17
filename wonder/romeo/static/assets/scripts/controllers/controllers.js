@@ -7,7 +7,7 @@
          ns + '.directives',
          'LocalStorageModule'] /* module dependencies */);
 
-    app.controller('MainCtrl', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$modal', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $modal) {
+    app.controller('MainCtrl', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$modal', '$loginCheck', 'localStorageService', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $modal, $loginCheck, localStorageService) {
 
         $scope.wonder = ng.element(d.getElementById('wonder'));
         $scope.wrapper = ng.element(d.getElementById('wrapper'));
@@ -22,10 +22,19 @@
                 if ( arr[i] === string ) return false;
             }
             return true;
-        }
-
+        };
+        
         $rootScope.closeModal = function() {
             $modal.hide();
+        };
+
+        $rootScope.logOut = function() {
+            localStorageService.remove('session_url');
+            $location.path('/login');
+            $scope.wonder.removeClass('aside');
+            $scope.wrapper.removeClass('aside');
+            $scope.html.removeClass('aside');
+            $scope.body.removeClass('aside');
         };
 
         $rootScope.toggleNav = function() {
@@ -37,6 +46,11 @@
         };
 
         $rootScope.$on('$locationChangeSuccess', function(event){
+
+            // if ( $rootScope.authed === undefined ) {
+            //     $loginCheck();    
+            // }
+
             $scope.wonder.removeClass('aside');
             $scope.wrapper.removeClass('aside');
             $scope.html.removeClass('aside');
@@ -51,7 +65,30 @@
 
     }]);
 
-    app.controller('LibraryController', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$sanitize', '$modal', 'VideoService', 'StatsService', 'DragDropService', 'FlashService', '$filter', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $sanitize, $modal, VideoService, StatsService, DragDropService, FlashService, $filter) {
+    app.controller('LibraryController', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$sanitize', '$modal', 'VideoService', 'StatsService', 'DragDropService', 'FlashService', '$filter', '$loginCheck', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $sanitize, $modal, VideoService, StatsService, DragDropService, FlashService, $filter, $loginCheck) {
+
+        $loginCheck();
+
+        VideoService.getAll().then(function(data){
+            $timeout(function(){
+                $scope.$apply(function(){
+                    $scope.videos = data.videos;
+                    $scope.collections = data.collections;
+
+                    var res = $filter('videoSearchFilter')($scope.videos, $scope.filter);
+                    $scope.filter.results = res.results;
+                    $scope.filter.numresults = res.length;
+
+                    $scope.loading = false;
+                    $scope.selectedAction = $scope.collections[0];
+
+                    $scope.buildView();
+                });
+            }, 500);
+        }, function(err){
+            console.log(err);
+            // console.log('ERROR');
+        });
 
         // $scope.selectedAction = undefined;
         $scope.modalShowing = false;
@@ -72,25 +109,6 @@
             results: {},
             numresults: 0
         };
-
-        VideoService.getAll().then(function(data){
-            $timeout(function(){
-                $scope.$apply(function(){
-                    $scope.videos = data.videos;
-                    $scope.collections = data.collections;
-                    console.log( $scope.collections );
-
-                    var res = $filter('videoSearchFilter')($scope.videos, $scope.filter);
-                    $scope.filter.results = res.results;
-                    $scope.filter.numresults = res.length;
-
-                    $scope.loading = false;
-                    $scope.selectedAction = $scope.collections[0];
-
-                    $scope.buildView();
-                });
-            }, 500);
-        });
 
         $scope.buildView = function() {
             var template = $templateCache.get(( $scope.viewType === 'list' ? 'video-list-list' : 'video-list-grid' ) + '.html' );
@@ -425,7 +443,9 @@
 
     }]);
 
-    app.controller('AccountController', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$modal', 'FlashService', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $modal, FlashService) {
+    app.controller('AccountController', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$modal', 'FlashService', '$loginCheck', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $modal, FlashService, $loginCheck) {
+        
+        $loginCheck();
 
         $scope.viewing = 'personal';
         $scope.user = {
@@ -504,66 +524,106 @@
         };
     }]);
 
-    app.controller('UploadController', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService) {
+    app.controller('UploadController', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', '$loginCheck', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, $loginCheck) {
 
-        $scope.fileDropped = false;
-        $scope.newVideo = {
-            id: undefined,
-            title: "",
-            description: "",
-            collections: ""
-        }
+        $loginCheck();
+        $scope.state = "start";
 
-        VideoService.getAll().then(function(data){
-            $timeout(function(){
-                $scope.$apply(function(){
-                    var arr = [];
-                    ng.forEach( data.collections, function( value, key ) {
-                        arr.push({
-                            key: key,
-                            label: value.label
-                        });
-                    });
-                    $scope.collections = arr;
-                    $scope.newVideo.collections = arr[0];
-                });
-            }, 500);
+        VideoService.getCategories().then(function(data){
+            $scope.categories = data.category.items;
+            console.log('categories', data);
+        }, function(err){
+            console.log(err);
+        });      
+
+        VideoService.getUploadArgs().then(function(data){
+            console.log('upload args', data);
+        }, function(err){
+            console.log(err);
         });
 
-        $scope.fileNameChanged = function() {
-            $timeout(function(){
-                $scope.$apply(function(){
-                    $scope.newVideo.id = Math.floor(Math.random() * 10) + parseInt(new Date().getTime()).toString(36);
-                    $scope.fileDropped = true;
-                    $timeout( function() {
-                        d.querySelector('.progress').style.width = '100%';
-                    }, 1000);
-                    $timeout(function(){
-                        d.querySelector('.bar').className += ' complete';
-                        d.querySelector('.percentage').innerHTML = 'Upload complete';
-                    }, 11000);
-                });
-            });
+        $scope.fileSelected = function(e) {
+            console.log('changed');
+            d.getElementById('thumbnail').className = 'show';
+
+            $timeout( function() {
+                d.getElementById('upload-status').className = 'show';
+            }, 500);
         };
 
-        $scope.$on('fileDropped', $scope.fileNameChanged);
-
-        $scope.createVideo = function (data) {
-            // $scope.videos[$scope.newVideo.id]
-            var obj = {
-                "title": $scope.newVideo.title,
-                "description": $scope.newVideo.description,
-                "category": $scope.newVideo.category,
-                "collections": [$scope.newVideo.collections.key]
-            };
-            VideoService.save( $scope.newVideo.id, obj ).then(function(){
-                $location.path('/library/');
-            });
-            console.log($scope.newVideo);
+        $scope.proceedUpload = function(e) {
+            d.getElementById('upload-status').className = 'loading';
         };
+
+        $scope.startUpload = function(e) {
+
+        };
+
+        $scope.saveMetaData = function(e) {
+
+        };
+
+
+        // $scope.fileDropped = false;
+        // $scope.newVideo = {
+        //     id: undefined,
+        //     title: "",
+        //     description: "",
+        //     collections: ""
+        // }
+
+        // VideoService.getAll().then(function(data){
+        //     $timeout(function(){
+        //         $scope.$apply(function(){
+        //             var arr = [];
+        //             ng.forEach( data.collections, function( value, key ) {
+        //                 arr.push({
+        //                     key: key,
+        //                     label: value.label
+        //                 });
+        //             });
+        //             $scope.collections = arr;
+        //             $scope.newVideo.collections = arr[0];
+        //         });
+        //     }, 500);
+        // });
+
+        // $scope.fileNameChanged = function() {
+        //     $timeout(function(){
+        //         $scope.$apply(function(){
+        //             $scope.newVideo.id = Math.floor(Math.random() * 10) + parseInt(new Date().getTime()).toString(36);
+        //             $scope.fileDropped = true;
+        //             $timeout( function() {
+        //                 d.querySelector('.progress').style.width = '100%';
+        //             }, 1000);
+        //             $timeout(function(){
+        //                 d.querySelector('.bar').className += ' complete';
+        //                 d.querySelector('.percentage').innerHTML = 'Upload complete';
+        //             }, 11000);
+        //         });
+        //     });
+        // };
+
+        // $scope.$on('fileDropped', $scope.fileNameChanged);
+
+        // $scope.createVideo = function (data) {
+        //     // $scope.videos[$scope.newVideo.id]
+        //     var obj = {
+        //         "title": $scope.newVideo.title,
+        //         "description": $scope.newVideo.description,
+        //         "category": $scope.newVideo.category,
+        //         "collections": [$scope.newVideo.collections.key]
+        //     };
+        //     VideoService.save( $scope.newVideo.id, obj ).then(function(){
+        //         $location.path('/library/');
+        //     });
+        //     console.log($scope.newVideo);
+        // };
     }]);
 
-    app.controller('AnalyticsController', ['$scope', '$rootScope', '$routeParams', '$element', 'Enum', 'AnalyticsFields', 'VideoService', function ($scope, $rootScope, $routeParams, $element, Enum, AnalyticsFields, VideoService) {
+    app.controller('AnalyticsController', ['$scope', '$rootScope', '$routeParams', '$element', 'Enum', 'AnalyticsFields', 'VideoService', '$loginCheck', function ($scope, $rootScope, $routeParams, $element, Enum, AnalyticsFields, VideoService, $loginCheck) {
+
+        $loginCheck();
 
         // ---- Functions ----
 
@@ -667,7 +727,9 @@
         // });
     }]);
 
-    app.controller('LoginController', ['$scope', '$rootScope', '$routeParams', '$http', '$timeout', 'localStorageService', function ($scope, $rootScope, $routeParams, $http, $timeout, localStorageService) {
+    app.controller('LoginController', 
+        ['$scope', '$rootScope', '$routeParams', '$http', '$timeout', 'localStorageService', 'FlashService', '$location', 
+        function ($scope, $rootScope, $routeParams, $http, $timeout, localStorageService, FlashService, $location) {
 
         $scope.username = "";
         $scope.password = "";
@@ -684,22 +746,61 @@
             }).success(function(data,status,headers,config){
 
                 if ( status === 200 ) {
-                    console.log('GREAT SUCCESS');
-                    localStorageService.add( 'account_url', data.account.href );
+                    localStorageService.add( 'session_url', data.account.href );
                     $timeout(function() {
                         $rootScope.$apply(function(){
                             $rootScope.account = data.account;
                             $rootScope.user = data.user;
+                            $location.path('/library');
+                            $rootScope.authed = true;
                         });
                     });
+                } else {
+                    FlashService.flash( 'Incorrect username or password, please try again.', 'error' );
                 }
 
             }).error(function(data, status, headers, config){
-                console.log('ERROR', data, status, headers, config);
+                FlashService.flash( 'Incorrect username or password, please try again.', 'error' );
             });
         };
 
     }]);
 
+    app.controller('LoadingController', [ '$location', 'localStorageService', '$http', '$rootScope', 'FlashService', '$timeout', function( $location, localStorageService, $http, $rootScope, FlashService, $timeout){
+
+        // $timeout( function() {
+        //     $rootScope.$apply(function() {
+        //         $rootScope.redirectUrl = undefined;
+        //     });
+        // });
+
+        // if ( $rootScope.account === undefined ) {
+
+        //     $http({ 
+        //         method: 'get',
+        //         url: localStorageService.get('session_url'), 
+        //     }).success(function(data,status,headers,config){
+
+        //         if ( status === 200 ) {
+        //             $timeout(function() {
+        //                 $rootScope.$apply(function(){
+        //                     $rootScope.account = data.account;
+        //                     $rootScope.user = data.user;
+        //                     $rootScope.userID = data.href.split('/');
+        //                     $rootScope.userID = $rootScope.userID[$rootScope.userID.length-1];
+        //                     $location.path(url || '/library');
+        //                 });
+        //             });
+        //         }
+
+        //     }).error(function(data, status, headers, config){
+        //         FlashService.flash( 'There was an error loading your account details, please refresh this page to try again.', 'error' );
+        //     });
+
+        // } else {
+        //     $location.path(url || '/library');
+        // }
+
+    }]);
 
 })(window,document,window.angular,'RomeoApp','controllers');

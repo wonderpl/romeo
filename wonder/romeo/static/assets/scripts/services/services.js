@@ -377,10 +377,10 @@
 
     }]);
 
-    app.factory('VideoService', ['DataService', function (DataService) {
+    app.factory('VideoService', ['DataService', 'localStorageService', '$rootScope', function (DataService, localStorageService, $rootScope) {
 
         var Video = {},
-            api = '/static/api/videos.json';
+            api = '/api/account/{ account_id }/videos';
 
         Video.getOne = function (id, ignoreCache) {
             var url = api + '';
@@ -390,6 +390,16 @@
         Video.getAll = function (ignoreCache) {
             var url = api + '';
             return DataService.request(url, ignoreCache);
+        };
+
+        Video.getCategories = function( ignoreCache ) {
+            var url = '/api/categories';
+            return DataService.request(url, ignoreCache);
+        };
+
+        Video.getUploadArgs = function( ignoreCache ){
+            var url = '/api/account/{ account_id }/upload_args';
+            return DataService.request(url, true);
         };
 
         Video.query = function (query, options, ignoreCache) {
@@ -405,16 +415,58 @@
         return {
             getOne: Video.getOne,
             getAll: Video.getAll,
+            getCategories: Video.getCategories,
+            getUploadArgs: Video.getUploadArgs,
             query: Video.query,
             save: Video.save
         };
 
     }]);
 
-    app.factory('DataService', ['$rootScope', '$location', '$http', '$q', '$timeout', function ($rootScope, $location, $http, $q, $timeout) {
+    app.factory('DataService', ['$rootScope', '$location', '$http', '$q', '$timeout', 'localStorageService', function ($rootScope, $location, $http, $q, $timeout, localStorageService) {
 
         var Data = {},
-            cache = {};
+            cache = {},
+            authed = ($rootScope.account !== undefined) ? true : false;
+
+        var authCheck = function() {
+            var deferred = new $q.defer();
+
+            if ( authed === true ) {
+                $timeout(function(){
+                    deferred.resolve();
+                }, 10);
+            } else if ( localStorageService.get('session_url') !== null ) {
+                $http({ 
+                    method: 'GET',
+                    url: localStorageService.get('session_url'), 
+                }).success(function(data,status,headers,config){
+                    $timeout(function() {
+                        $rootScope.$apply(function(){
+                            console.log(data);
+                            $rootScope.account = data.account;
+                            $rootScope.user = data.user;
+                            $rootScope.userID = data.href.split('/');
+                            $rootScope.userID = $rootScope.userID[$rootScope.userID.length-1];
+                            console.log($rootScope.userID);
+                            authed = true;
+                            deferred.resolve($rootScope.userID);
+                        });
+                    });
+                }).error(function(data, status, headers, config){
+                    FlashService.flash( 'There was an error loading your account details, please refresh this page to try again.', 'error' );
+                });
+            } else {
+                $timeout(function () {
+                    deferred.reject('no session url');
+                });
+            }
+            return deferred.promise;
+        };
+
+        var format = function(str, rep) {
+           return str.toString().replace(/\{(.*?)\}/g, rep);
+        };
 
         Data.save = function (url, id, obj) {
             var deferred = new $q.defer();
@@ -427,34 +479,47 @@
             return deferred.promise;
         };
 
+
         Data.request = function (url, ignoreCache, params) {
 
             var deferred = new $q.defer();
-            var makeParams = function(params) {
-                if (_.keys(params).length) {
-                    return '?' + _(params).map(function (value, key) {
-                        return _.escape(value) + '=' + _.escape(key);
-                    }).join('&');
-                } else {
-                    return '';
-                }
-            };
+            console.log('Data service making a request', url);
 
-            url += makeParams(params);
+            authCheck().then(function(account_id){  
 
-            if (ignoreCache === true || cache[url] === undefined) {
-                $http({ method: 'get', url: url }).success(function (data, status, headers, config) {
-                    if (status === 200) {
-                        cache[url] = data;
-                        deferred.resolve(data);
+                var makeParams = function(params) {
+                    if (_.keys(params).length) {
+                        return '?' + _(params).map(function (value, key) {
+                            return _.escape(value) + '=' + _.escape(key);
+                        }).join('&');
                     } else {
-                        console.log('failed');
-                        deferred.reject('There was an error when retrieving the data.');
+                        return '';
                     }
-                });
-            } else {
-                deferred.resolve(cache[url]);
-            }
+                };
+
+                url += makeParams(params);
+                url = format(url, account_id);
+                console.log(url);
+
+                if (ignoreCache === true || cache[url] === undefined) {
+                    $http({ method: 'get', url: url }).success(function (data, status, headers, config) {
+                        if (status === 200) {
+                            cache[url] = data;
+                            deferred.resolve(data);
+                        } else {
+                            console.log('failed');
+                            deferred.reject('There was an error when retrieving the data.');
+                        }
+                    });
+                } else {
+                    deferred.resolve(cache[url]);
+                }
+
+            },function(){
+                $timeout(function(){
+                    deferred.reject('Not authorised to access this content');
+                }, 10);
+            });
 
             return deferred.promise;
         };

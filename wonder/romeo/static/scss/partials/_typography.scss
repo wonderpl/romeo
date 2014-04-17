@@ -120,17 +120,20 @@ h3 {
 .icon-export:before {
   content: "\e62a";
 }
-.icon-checkmark:before, .icon-flash-success:before {
+.icon-checkmark:before {
   content: "\e62f";
 }
 .icon-cross2:before {
   content: "\e630";
 }
-.icon-warning:before, .icon-flash-error:before, .icon-flash-warning:before {
+.icon-warning:before {
   content: "\e631";
 }
 .icon-info2:before {
   content: "\e632";
+}
+.icon-video:before {
+  content: "\e633";
 }
 .icon-earth:before {
   content: "\e62e";
@@ -165,13 +168,16 @@ h3 {
 .icon-credit:before {
   content: "\e62c";
 }
+.icon-film:before {
+  content: "\e634";
+}
 .icon-user2:before {
   content: "\e60f";
 }
 .icon-enter:before {
   content: "\e608";
 }
-.icon-video:before {
+.icon-video2:before {
   content: "\e609";
 }
 .icon-star:before {
@@ -212,4 +218,7 @@ h3 {
 }
 .icon-credit2:before {
   content: "\e62d";
+}
+.icon-film2:before {
+  content: "\e635";
 }

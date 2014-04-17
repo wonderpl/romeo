@@ -241,6 +241,17 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('loading.html',
+    "\n" +
+    "\n" +
+    "<div id=\"page-loading\" class=\"page section\" ng-controller=\"LoadingController\">\n" +
+    "\t<div class=\"inner\">\n" +
+    "\t\t<h1>One moment please...</h1>\n" +
+    "\t</div>\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('login.html',
     "\n" +
     "\n" +
@@ -250,14 +261,17 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t<form ng-submit=\"login()\">\n" +
     "\t\t\t<div class=\"row\">\n" +
     "\t\t\t\t<label for=\"username\">Username</label>\n" +
-    "\t\t\t\t<input type=\"text\" name=\"username\" ng-model=\"username\">\n" +
+    "\t\t\t\t<input type=\"text\" name=\"username\" ng-model=\"username\" autocomplete=\"off\">\n" +
     "\t\t\t</div>\n" +
     "\t\t\t<div class=\"row\">\n" +
     "\t\t\t\t<label for=\"password\">Password</label>\n" +
-    "\t\t\t\t<input type=\"password\" name=\"password\" ng-model=\"password\">\n" +
+    "\t\t\t\t<input type=\"password\" name=\"password\" ng-model=\"password\" autocomplete=\"off\">\n" +
     "\t\t\t</div>\n" +
     "\t\t\t<div class=\"row\">\n" +
-    "\t\t\t\t<input type=\"submit\" value=\"Login\">\n" +
+    "\t\t\t\t<button type=\"submit\" pl-progress-button>\n" +
+    "\t\t\t\t\t<span class=\"label\">Login</span>\n" +
+    "\t\t\t\t\t<div class=\"progress\"></div>\n" +
+    "\t\t\t\t</button>\n" +
     "\t\t\t</div>\n" +
     "\t\t</form>\n" +
     "\t</div>\n" +
@@ -401,30 +415,59 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t<div class=\"inner\">\n" +
     "\t\t<!-- <h1>Upload your content to Romeo</h1> -->\n" +
     "\n" +
+    "\t\t<div class=\"inner centered\">\n" +
+    "\t\t\t<div class=\"avatar\"><img src=\"/static/assets/img/tom.jpg\" width=\"64\" alt=\"\" /></div>\n" +
+    "\t\t\t<form id=\"upload-form\" ng-submit=\"saveMetaData($event)\">\n" +
+    "\t\t\t\t<div class=\"row\" id=\"title-row\">\n" +
+    "\t\t\t\t\t<pre id=\"upload-title\" type=\"text\" placeholder=\"Video Title\" pl-content-editable-placeholder pl-focus-field contenteditable></pre>\n" +
+    "\t\t\t\t</div>\n" +
+    "\t\t\t\t<div id=\"upload-dropzone\" class=\"pl-upload-dropzone\">\n" +
+    "\t\t\t\t\t<span class=\"icon-video\"></span>\n" +
+    "\t\t\t\t\t<input type=\"file\" id=\"file-input\" onchange=\"angular.element(this).scope().fileSelected()\">\n" +
+    "\t\t\t\t\t<div id=\"thumbnail\"></div>\n" +
+    "\t\t\t\t\t<div id=\"upload-status\">\n" +
+    "\t\t\t\t\t\t<div class=\"prompt show\">\n" +
+    "\t\t\t\t\t\t\t<a ng-click=\"proceedUpload($event)\" class=\"proceed\">\n" +
+    "\t\t\t\t\t\t\t\tUpload\n" +
+    "\t\t\t\t\t\t\t</a>\n" +
+    "\t\t\t\t\t\t\t<a ng-click=\"proceedUpload($event)\" class=\"cancel\">\n" +
+    "\t\t\t\t\t\t\t\tCancel\n" +
+    "\t\t\t\t\t\t\t</a>\n" +
+    "\t\t\t\t\t\t</div>\n" +
+    "\t\t\t\t\t\t<div class=\"progress\">\n" +
+    "\t\t\t\t\t\t\t<div class=\"bar\"></div>\n" +
+    "\t\t\t\t\t\t</div>\n" +
+    "\t\t\t\t\t</div>\n" +
+    "\t\t\t\t</div>\n" +
+    "\t\t\t\t<div class=\"row\" id=\"upload-buttons\">\n" +
+    "\t\t\t\t\t<a href=\"#\"></a>\n" +
+    "\t\t\t\t</div>\n" +
+    "\t\t\t\t<div class=\"row\" id=\"description-row\">\n" +
+    "\t\t\t\t\t<pre id=\"upload-description\" placeholder=\"Describe your video\" pl-content-editable-placeholder contenteditable></pre>\n" +
+    "\t\t\t\t</div>\n" +
+    "\t\t\t\t<div class=\"row\" id=\"category-row\">\n" +
+    "\t\t\t\t\t<select id=\"category\" name=\"category\" class=\"form-control\" placeholder=\"Category\">\n" +
+    "\t\t\t\t\t\t<optgroup ng-repeat=\"category in categories\" label=\"(~ category.name ~)\">\n" +
+    "\t\t\t\t\t\t\t<option ng-repeat=\"subcategory in category.sub_categories\" value=\"subcategory.id\">(~ subcategory.name ~)</option>\n" +
+    "\t\t\t\t\t\t</optgroup>\n" +
+    "          \t\t\t</select>\n" +
+    "\t\t\t\t</div>\n" +
+    "\t\t\t\t<div class=\"row\">\n" +
+    "\t\t\t\t\t<input type=\"submit\" value=\"Save\">\n" +
+    "\t\t\t\t</div>\n" +
+    "\t\t\t</form>\n" +
+    "\t\t</div>\n" +
+    "\t\t\n" +
     "\t\t<!-- STAGE ONE -->\n" +
-    "\t\t<div class=\"inner centered\" ng-if=\"fileDropped == false\">\n" +
+    "<!-- \t\t<div class=\"inner centered\" ng-if=\"fileDropped == false\">\n" +
     "\t\t\t<div id=\"upload-dropzone\" class=\"pl-upload-dropzone\">\n" +
     "\t\t\t\t<label>\n" +
     "\t\t\t\t\tChoose your files below to upload them.<br/>\n" +
     "\t\t\t\t\t<input type=\"file\" onchange=\"angular.element(this).scope().fileNameChanged()\">\n" +
     "\t\t\t\t</label>\n" +
     "\t\t\t</div>\n" +
-    "\t\t</div><!--\n" +
-    "\t\t<div class=\"inner half-width\" ng-if=\"fileDropped == false\">\n" +
-    "\t\t\t<div id=\"upload-instructions\">\n" +
-    "\t\t\t\t<div class=\"tooltip\">\n" +
-    "\t\t\t\t\t<h4><span class=\"icon-info\"></span>Uploading your content is easy</h4>\n" +
-    "\t\t\t\t\t<ul>\n" +
-    "\t\t\t\t\t\t<li>&bull; Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>\n" +
-    "\t\t\t\t\t\t<li>&bull; Quos, doloremque aperiam molestias magni dolore beatae enim non dolorem.</li>\n" +
-    "\t\t\t\t\t\t<li>&bull; Ipsum facere aperiam saepe voluptate magnam minima velit ratione ad ea qui.</li>\n" +
-    "\t\t\t\t\t</ul>\n" +
-    "\t\t\t\t</div>\n" +
-    "\t\t\t</div>\n" +
-    "\t\t</div>-->\n" +
-    "\t\t<!-- END OF STAGE ONE -->\n" +
+    "\t\t</div> -->\n" +
     "\n" +
-    "\t\t<!-- STAGE TWO -->\n" +
     "\t\t<div class=\"inner\" ng-if=\"fileDropped == true\">\n" +
     "\t\t\t<div id=\"upload-progress-wrapper\">\n" +
     "\t\t\t\t<div class=\"bar\">\n" +
