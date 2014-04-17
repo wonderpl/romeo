@@ -29,9 +29,17 @@ a.button {
 }
 
 .wp-button {
+    @include inline-block;
+    padding: 12px 16px;
+    margin: 0 12px;
+    border: 1px solid #37A54B;
+    color: #37A54B;
+    @include border-radius( 50px );
+    cursor: pointer;
+    text-decoration: none;
 
-    &.success {
-        border: 1px solid #37A54B;
-        color: #37A54B;
+    &.selected {
+        border: 1px solid #b4b2bc;
+        color: #b4b2bc;
     }
 }

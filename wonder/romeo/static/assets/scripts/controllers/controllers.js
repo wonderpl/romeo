@@ -58,6 +58,11 @@
         });
         // $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl){
         // });
+    
+        $rootScope.isCurrentPage = function(route){
+            console.log(route, $location.path());
+            return route === $location.path();
+        };
 
     }]);
 
@@ -525,6 +530,8 @@
     }]);
 
     app.controller('UploadController', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', '$loginCheck', '$modal', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, $loginCheck, $modal) {
+
+        console.log($location.path());
 
         $loginCheck();
         $scope.state = "start";

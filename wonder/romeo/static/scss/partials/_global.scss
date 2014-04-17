@@ -20,65 +20,84 @@ body, html {
 }
 
 
+// header {
+//   display: block;
+//   position: relative;
+//   width: 100%;
+//   margin: 0 0 32px 0;
+//   text-align: center;
+//   background: $flat-gray-1;
+
+//   nav {
+//     display: block;
+//     width: 60%;
+//     margin: 0 auto;
+
+//     ul {
+//       display: block;
+//       width: 100%;
+//     }
+
+//     li {
+//       @include inline-block;
+//       padding: 14px 8px;
+//     }
+
+//     a {
+//       text-decoration: none;
+//       color: $flat-blue-4;
+//     }
+//   }
+
+//   .wonder-logo {
+//     display: block;
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+//     width: 20%;
+//     height: 100%;
+//     background: $flat-blue-1;
+//     background: transparent image-url('header-logo.png') center center no-repeat;
+//     background-size: auto 50%;
+//   }
+
+//   .session {
+//     display: block;
+//     position: absolute;
+//     right: 0;
+//     top: 0;
+//     padding: 12px 0;
+//     width: 20%;
+//     height: 100%;
+
+//     a {
+//       color: $flat-blue-4;
+//       text-decoration: none;
+
+//       &:before {
+//         padding: 0 5px;
+//         color: $flat-blue-2;
+//       }
+//     }
+//   }
+// }
+
 header {
-  display: block;
-  position: relative;
-  width: 100%;
-  margin: 0 0 32px 0;
-  text-align: center;
-  background: $flat-gray-1;
-
-  nav {
-    display: block;
-    width: 60%;
-    margin: 0 auto;
-
-    ul {
-      display: block;
-      width: 100%;
-    }
-
-    li {
-      @include inline-block;
-      padding: 14px 8px;
-    }
-
-    a {
-      text-decoration: none;
-      color: $flat-blue-4;
-    }
+  text-align: right;
+  padding: 32px 16px 16px 16px;
+  
+  a, a.wp-button {
+    font-size: 14px;
+    margin: 0 0 0 12px;
   }
 
-  .wonder-logo {
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 20%;
-    height: 100%;
-    background: $flat-blue-1;
-    background: transparent image-url('header-logo.png') center center no-repeat;
-    background-size: auto 50%;
-  }
-
-  .session {
-    display: block;
-    position: absolute;
-    right: 0;
-    top: 0;
-    padding: 12px 0;
-    width: 20%;
-    height: 100%;
-
-    a {
-      color: $flat-blue-4;
-      text-decoration: none;
-
-      &:before {
-        padding: 0 5px;
-        color: $flat-blue-2;
-      }
-    }
+  a.avatar {
+    @include inline-block;
+    height: 42px;
+    width: 42px;
+    @include border-radius( 50px );
+    background: transparent image-url('avatar.png') center center no-repeat;
+    background-size: 100% auto;
   }
 }
 
@@ -102,7 +121,7 @@ header {
   height: 100%;
   background: #fff;
   z-index: 100;
-  @include box-shadow( 0px -5px 10px rgba(0,0,0,1));
+  // @include box-shadow( 0px -5px 10px rgba(0,0,0,1));
   @include transition( all .2s ease-out );
 
   &.aside {
@@ -1499,7 +1518,7 @@ h1.collections-page {
 /* ======================================= */
 
 #page-upload {
-  padding-top: 120px;
+  padding-top: 70px;
 
   .centered {
     margin: 0 auto;
@@ -1514,6 +1533,12 @@ h1.collections-page {
     display: block;
     margin: 0 auto 22px auto;
   }
+}
+
+#upload-draft-status {
+  color: #b4b2bc;
+  text-align: center;
+  padding: 0 0 32px 0;
 }
 
 #upload-form {

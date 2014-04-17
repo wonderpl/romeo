@@ -429,7 +429,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "\t\t<div class=\"inner centered\">\n" +
     "\t\t\t<!-- <div class=\"avatar\"><img src=\"/static/assets/img/tom.jpg\" width=\"64\" alt=\"\" /></div> -->\n" +
-    "\t\t\t<div id=\"upload-status\">\n" +
+    "\t\t\t<div id=\"upload-draft-status\" class=\"f-serif\">\n" +
     "\t\t\t\t<span>\n" +
     "\t\t\t\t\tAutosaved: 5 Mins Ago.\n" +
     "\t\t\t\t</span>\n" +
@@ -458,7 +458,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t\t</div>\n" +
     "\t\t\t\t</div>\n" +
     "\t\t\t\t<div class=\"row\" id=\"title-row\">\n" +
-    "\t\t\t\t\t<pre id=\"upload-title\" type=\"text\" placeholder=\"Edit Video Title\" pl-content-editable-placeholder pl-focus-field contenteditable></pre>\n" +
+    "\t\t\t\t\t<pre id=\"upload-title\" type=\"text\" placeholder=\"Video Title\" pl-content-editable-placeholder pl-focus-field contenteditable></pre>\n" +
     "\t\t\t\t</div>\n" +
     "\t\t\t\t<div class=\"row\" id=\"upload-buttons\">\n" +
     "\t\t\t\t\t<a href=\"#\"></a>\n" +
@@ -466,7 +466,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t<div class=\"row f-serif\" id=\"description-row\">\n" +
     "\t\t\t\t\t<pre id=\"upload-description\" placeholder=\"Add a description.  This is going to be your space to share insights into your video - blogs, recipes, ideas and more.\" pl-content-editable-placeholder contenteditable></pre>\n" +
     "\t\t\t\t</div>\n" +
-    "\n" +
     "\t\t\t\t<div class=\"row\" id=\"category-row\">\n" +
     "\t\t\t\t\t<a id=\"category-chooser\" ng-click=\"showCategories()\" class=\"f-sans\">(~ chosenCategory.label || 'Choose a category...' ~)<span class=\"icon-select\"></span></a>\n" +
     "\n" +
