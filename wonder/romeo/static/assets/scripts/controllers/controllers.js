@@ -524,10 +524,14 @@
         };
     }]);
 
-    app.controller('UploadController', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', '$loginCheck', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, $loginCheck) {
+    app.controller('UploadController', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', '$loginCheck', '$modal', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, $loginCheck, $modal) {
 
         $loginCheck();
         $scope.state = "start";
+        $scope.chosenCategory = {
+            id: undefined,
+            label: undefined
+        }
 
         VideoService.getCategories().then(function(data){
             $scope.categories = data.category.items;
@@ -536,11 +540,6 @@
             console.log(err);
         });      
 
-        VideoService.getUploadArgs().then(function(data){
-            console.log('upload args', data);
-        }, function(err){
-            console.log(err);
-        });
 
         $scope.fileSelected = function(e) {
             console.log('changed');
@@ -556,11 +555,30 @@
         };
 
         $scope.startUpload = function(e) {
+            VideoService.getUploadArgs().then(function(data){
+                console.log(data);
+                // ng.forEach( data.)
 
+            }, function(err){
+                console.log(err);
+            });
         };
 
         $scope.saveMetaData = function(e) {
 
+        };
+
+        $scope.showCategories = function(e) {
+            $modal.load('modal-show-categories.html', true, $scope, { categories: $scope.categories });
+        };
+
+        $scope.chooseCategory = function(e) {
+            var el = e.target || e.srcElement,
+                $el = ng.element(el);
+
+            $scope.chosenCategory.id = $el.data('id');
+            $scope.chosenCategory.label = 'Category: ' + $el.text();
+            $modal.hide();
         };
 
 
@@ -736,7 +754,6 @@
         $scope.href = "";
 
         $scope.login = function() {
-            debugger;
             $http({ 
                 method: 'post', 
                 url: '/api/login', 
@@ -752,7 +769,7 @@
                         $rootScope.$apply(function(){
                             $rootScope.account = data.account;
                             $rootScope.user = data.user;
-                            $location.path('/library');
+                            $location.path('/upload');
                             $rootScope.authed = true;
                         });
                     });

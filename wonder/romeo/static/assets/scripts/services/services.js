@@ -379,7 +379,8 @@
     app.factory('VideoService', ['DataService', 'localStorageService', '$rootScope', function (DataService, localStorageService, $rootScope) {
 
         var Video = {},
-            api = '/api/account/{ account_id }/videos';
+            api = '/static/api/videos.json';
+            // api = '/api/account/{ account_id }/videos';
 
         Video.getOne = function (id, ignoreCache) {
             var url = api + '';
@@ -442,12 +443,12 @@
                 }).success(function(data,status,headers,config){
                     $timeout(function() {
                         $rootScope.$apply(function(){
-                            console.log(data);
+                            // console.log(data);
                             $rootScope.account = data.account;
                             $rootScope.user = data.user;
                             $rootScope.userID = data.href.split('/');
                             $rootScope.userID = $rootScope.userID[$rootScope.userID.length-1];
-                            console.log($rootScope.userID);
+                            // console.log($rootScope.userID);
                             authed = true;
                             deferred.resolve($rootScope.userID);
                         });

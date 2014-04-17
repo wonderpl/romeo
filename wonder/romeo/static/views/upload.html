@@ -11,13 +11,19 @@
 		<!-- <h1>Upload your content to Romeo</h1> -->
 
 		<div class="inner centered">
-			<div class="avatar"><img src="/static/assets/img/tom.jpg" width="64" alt="" /></div>
+			<!-- <div class="avatar"><img src="/static/assets/img/tom.jpg" width="64" alt="" /></div> -->
+			<div id="upload-status">
+				<span>
+					Autosaved: 5 Mins Ago.
+				</span>
+			</div>
 			<form id="upload-form" ng-submit="saveMetaData($event)">
-				<div class="row" id="title-row">
-					<pre id="upload-title" type="text" placeholder="Video Title" pl-content-editable-placeholder pl-focus-field contenteditable></pre>
-				</div>
 				<div id="upload-dropzone" class="pl-upload-dropzone">
-					<span class="icon-video"></span>
+					<div class="message f-serif">
+						<span class="upper">Drag &amp; drop your video here</span>
+						<span class="icon-drag"></span>
+						<span class="lower">or choose a video from <span class="highlight">your computer</span></span>	
+					</div>
 					<input type="file" id="file-input" onchange="angular.element(this).scope().fileSelected()">
 					<div id="thumbnail"></div>
 					<div id="upload-status">
@@ -34,22 +40,23 @@
 						</div>
 					</div>
 				</div>
+				<div class="row" id="title-row">
+					<pre id="upload-title" type="text" placeholder="Edit Video Title" pl-content-editable-placeholder pl-focus-field contenteditable></pre>
+				</div>
 				<div class="row" id="upload-buttons">
 					<a href="#"></a>
 				</div>
-				<div class="row" id="description-row">
-					<pre id="upload-description" placeholder="Describe your video" pl-content-editable-placeholder contenteditable></pre>
+				<div class="row f-serif" id="description-row">
+					<pre id="upload-description" placeholder="Add a description.  This is going to be your space to share insights into your video - blogs, recipes, ideas and more." pl-content-editable-placeholder contenteditable></pre>
 				</div>
+
 				<div class="row" id="category-row">
-					<select id="category" name="category" class="form-control" placeholder="Category">
-						<optgroup ng-repeat="category in categories" label="{{ category.name }}">
-							<option ng-repeat="subcategory in category.sub_categories" value="subcategory.id">{{ subcategory.name }}</option>
-						</optgroup>
-          			</select>
+					<a id="category-chooser" ng-click="showCategories()" class="f-sans">{{ chosenCategory.label || 'Choose a category...' }}<span class="icon-select"></span></a>
+
 				</div>
-				<div class="row">
+<!-- 				<div class="row">
 					<input type="submit" value="Save">
-				</div>
+				</div> -->
 			</form>
 		</div>
 		

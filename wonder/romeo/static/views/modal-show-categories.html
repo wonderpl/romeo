@@ -1,0 +1,8 @@
+<h2>Choose a category</h2>
+<div id="category-list">
+	<ul ng-repeat="category in categories">
+		<li class="heading f-serif">{{ category.name }}</li>
+		<li ng-repeat="subcategory in category.sub_categories" data-id="{{ subcategory.id }}" ng-click="chooseCategory($event)" class="category">{{ subcategory.name }}</li>
+	</ul>
+</div>
+<a class="icon-cross close-modal" ng-click="closeModal()"></a>

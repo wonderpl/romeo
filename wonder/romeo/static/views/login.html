@@ -1,16 +1,16 @@
 
 
-<div id="page-login" class="page section" ng-controller="LoginController">
+<div id="page-login" class="page section" ng-controller="LoginController" autocomplete="off">
 	<div class="inner">
 		<h1>Login</h1>
 		<form ng-submit="login()">
 			<div class="row">
 				<label for="username">Username</label>
-				<input type="text" name="username" ng-model="username" autocomplete="off">
+				<input type="text" id="login-username" name="username" ng-model="username" autocomplete="off">
 			</div>
 			<div class="row">
 				<label for="password">Password</label>
-				<input type="password" name="password" ng-model="password" autocomplete="off">
+				<input type="password" id="login-password" name="password" ng-model="password" autocomplete="off">
 			</div>
 			<div class="row">
 				<button type="submit" pl-progress-button>

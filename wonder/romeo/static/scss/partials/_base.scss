@@ -27,3 +27,11 @@ a.button {
         background: lighten($flat-blue-4, 10%);
     }
 }
+
+.wp-button {
+
+    &.success {
+        border: 1px solid #37A54B;
+        color: #37A54B;
+    }
+}

@@ -23,6 +23,14 @@ h3 {
   text-align: center;
 }
 
+.f-sans {
+  font-family: 'proxima-nova', sans-serif;
+}
+
+.f-serif {
+  font-family: 'freight-text-pro', serif;
+}
+
 @font-face {
   font-family: 'romeo-prototype';
   src:url('/static/assets/fonts/romeo-prototype.eot?-14kfhj');
@@ -60,6 +68,15 @@ h3 {
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-select:before {
+  content: "\e638";
+}
+.icon-drag:before {
+  content: "\e636";
+}
+.icon-add-link:before {
+  content: "\e637";
+}
 .icon-user:before {
   content: "\e600";
 }
