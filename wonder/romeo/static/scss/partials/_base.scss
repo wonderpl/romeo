@@ -29,6 +29,7 @@ a.button {
 }
 
 .wp-button {
+    background: white;
     @include inline-block;
     padding: 12px 16px;
     margin: 0 12px;
