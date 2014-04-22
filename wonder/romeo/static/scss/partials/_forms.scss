@@ -64,7 +64,7 @@ form .row {
 		}
 	}
 
-	input[type=submit] {
+	input[type=submit], button[type=submit] {
 		display: block;
 		padding: 8px;
 		border: none;

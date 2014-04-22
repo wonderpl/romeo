@@ -1,22 +1,14 @@
 {% extends "layout.html" %}
 {% block appName %}RomeoApp{% endblock %}
 {% block content %}
-<!-- <header class="section">
-    <div class="inner">
-        <div class="wonder-logo"></div>
-        <nav>
-            <ul>
-                <li><a href="/#/library">Library</a></li>
-                <li><a href="/#/upload">Upload</a></li>
-            </ul>
-        </nav>
-        <div class="session">
-            <a href="/#/account" class="icon-user2">Logged in as <span>Dave</span></a>
-        </div>
-    </div>
-</header> -->
 
-<a href="" id="wonder" ng-click="toggleNav()">W</a>
+<header>
+    <a href="/#/library" class="manage wp-button" ng-class="{ selected: isCurrentPage('/library'), left: isCurrentPage('/library'), right: isCurrentPage('/upload') }">Manage</a>
+    <a href="/#/upload" class="create wp-button" ng-class="{ selected: isCurrentPage('/upload'), left: isCurrentPage('/upload'), right: isCurrentPage('/library') }">Create</a>
+    <a href="/#/account" class="avatar"></a>
+</header>
+
+<a href="/#/" id="wonder"></a>
 
 <ng-view></ng-view>
 {% endblock %}
