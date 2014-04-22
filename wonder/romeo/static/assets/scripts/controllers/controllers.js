@@ -698,6 +698,10 @@
             angular.element($element[0].querySelectorAll('#analytics-bottom-panel')).toggleClass('flip');
         };
 
+        $scope.notifyChange = function() {
+            $scope.$broadcast('fields/change');
+        };
+
         // ---- Controller Code ----
 
         analytics.state = States.INITIAL;

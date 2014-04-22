@@ -4,7 +4,7 @@
         ng-class="{ disabled: getFields({visible: true}).length > 4 && !field.visible }">
         <div class="selection-title" style="border-bottom-color: {{ field.color }}">
             <input type="checkbox" ng-model="field.visible"
-                   ng-disabled="getFields({visible: true}).length > 4 && !field.visible"/>
+                   ng-disabled="getFields({visible: true}).length > 4 && !field.visible" ng-change="notifyChange()"/>
             <span>{{ field.displayName }}</span>
         </div>
         <div class="selection-description">{{ field.description }}</div>
