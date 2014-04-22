@@ -100,11 +100,11 @@ header {
     @include transition( all .4s ease-out );
 
     &.left {
-      right: 112px;
+      right: 188px;
     }
 
     &.right {
-      right: 16px;
+      right: 76px;
     }
 
     &.transition-front {

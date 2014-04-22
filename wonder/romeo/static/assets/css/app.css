@@ -106,6 +106,7 @@ a.button:hover, a.button:active, a.button:focus, a.button.active {
 
 /* line 31, ../../scss/partials/_base.scss */
 .wp-button {
+  background: white;
   display: -moz-inline-stack;
   display: inline-block;
   vertical-align: middle;
@@ -124,7 +125,7 @@ a.button:hover, a.button:active, a.button:focus, a.button.active {
   cursor: pointer;
   text-decoration: none;
 }
-/* line 41, ../../scss/partials/_base.scss */
+/* line 42, ../../scss/partials/_base.scss */
 .wp-button.selected {
   border: 1px solid #b4b2bc;
   color: #b4b2bc;
@@ -832,11 +833,11 @@ header a.manage, header a.create {
 }
 /* line 102, ../../scss/partials/_global.scss */
 header a.manage.left, header a.create.left {
-  right: 112px;
+  right: 188px;
 }
 /* line 106, ../../scss/partials/_global.scss */
 header a.manage.right, header a.create.right {
-  right: 16px;
+  right: 76px;
 }
 /* line 127, ../../scss/partials/_global.scss */
 header a.avatar {
