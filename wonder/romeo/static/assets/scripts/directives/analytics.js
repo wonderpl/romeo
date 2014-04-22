@@ -172,7 +172,17 @@
 
                     setTableResults(data);
 
+                    $scope.$watch('analytics.fields', function() {
+                        drawGraph(convertDataToChartFormat(data));
+                    });
+
+                    $scope.$on('fields/change', function() {
+                        drawGraph(convertDataToChartFormat(data));
+                    });
+
                 });
+
+
 
 
             }
@@ -214,7 +224,8 @@
                             y: -(mapHeight) + 275
                         },
                         feature: 'countries',
-                        group: countryGroup
+                        group: countryGroup,
+                        fieldDisplayName: 'Country'
                     },
                     usa: {
                         name: 'USA',
@@ -225,7 +236,8 @@
                             y: -(mapHeight / 2.2) + 100
                         },
                         feature: 'states',
-                        group: statesGroup
+                        group: statesGroup,
+                        fieldDisplayName: 'State'
                     }
                 };
 
@@ -334,6 +346,18 @@
                         drawMap($scope.selectedRegion.group, mapData);
                         styleMap($scope.selectedRegion.group);
                         colorizeMap($scope.selectedRegion.group, geoData);
+                        _(zoomRegions).pluck('group').forEach(detachMouseEvents);
+                        attachMouseEvents($scope.selectedRegion.group, geoData);
+
+                        var tableData = _(geoData).map(function(datum) {
+                            datum.video.name = datum.geo.name;
+                            return datum.video;
+                        }).value();
+
+                        $scope.analytics.results.key = 'name';
+                        $scope.analytics.results.keyDisplayName = $scope.selectedRegion.fieldDisplayName;
+                        $scope.analytics.results.results = tableData;
+
                     });
 
                 }
@@ -344,6 +368,29 @@
 
                 function getGeographicData() {
                     return GeographicService.get($scope.analytics.video.videoID, $scope.selectedRegion, $scope.analytics.dateFrom, $scope.analytics.dateTo);
+                }
+
+                function mouseOverHandler(geoData, d) {
+                    var datum = _(geoData).find(function(datum) {
+                        return _.contains(d.properties.names, datum.geo.name);
+                    });
+                    $scope.$apply(function(){
+                        $scope.areaData = datum;
+                    });
+                }
+
+                function mouseOutHandler(geoData, d) {
+                    $scope.areaData = null;
+                }
+
+                function attachMouseEvents(group, geoData) {
+                    group.selectAll('path').on('mouseover', _.partial(mouseOverHandler, geoData));
+                    group.selectAll('path').on('mouseout', _.partial(mouseOutHandler, geoData));
+                }
+
+                function detachMouseEvents(group) {
+                    group.selectAll('path').on('mouseover', null);
+                    group.selectAll('path').on('mouseexit', null);
                 }
 
                 $scope.$watch('analytics.selectedMapField', function() {
@@ -384,7 +431,7 @@
         };
     }]);
 
-    app.directive('plAnalyticsEngagementVideoSegment', ['$rootScope', '$timeout', 'StatsService', function ($rootScope, $timeout, StatsService) {
+    app.directive('plAnalyticsEngagementVideoSegment', ['$rootScope', '$timeout', 'EngagementService', function ($rootScope, $timeout, EngagementService) {
         return {
             restrict: 'A',
             templateUrl: '/static/views/directives/analytics-engagement-video-segment.html',
@@ -396,7 +443,7 @@
                 var frame = $scope.video_iframe = document.getElementById('engagement-video-iframe').contentWindow;
 
                 // Get the data we need
-                StatsService.getOne($scope.video.videoID).then(function (data) {
+                EngagementService.get($scope.analytics.video.videoID).then(function (data) {
 
                     var width = 500;
                     var height = 300;
@@ -406,7 +453,7 @@
 
                     var OO, wonder;
 
-                    var chartData = data.engagement.results[0].engagement.segments_watched.map(function (plays, index) {
+                    var chartData = data.engagement.segments_watched.map(function (plays, index) {
                         return {
                             time: index * 2500,
                             plays: ~~plays

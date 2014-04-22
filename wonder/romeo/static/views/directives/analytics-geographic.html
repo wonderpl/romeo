@@ -10,12 +10,12 @@
         <div id="geographic-map-data">
             <h4>Region: {{ selectedRegion.name }}</h4>
 
-            <h4>{{ areaData.name }}</h4>
+            {{ areaData.geo.name }}
 
             <div ng-repeat="field in analytics.fields | filter: { visible: true }" class="key-row">
                 <input class="key-checkbox" type="radio" name="key-chooser" ng-value="field" ng-model="analytics.selectedMapField"/>
                 <span class="key-color" style="background-color: {{field.color}}"></span><span class="key-title">{{ field.displayName }}</span>&nbsp;<span
-                    class="key-value">{{ areaData.metrics.video[field.field] }}</span>
+                    class="key-value">{{ areaData.video[field.field] }}</span>
             </div>
         </div>
     </div>

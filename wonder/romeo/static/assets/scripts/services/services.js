@@ -344,34 +344,21 @@
     }]);
     app.factory('EngagementService', ['DataService', function (DataService) {
 
-        var EngagementService = {},
-            api = '/static/api/stats.json';
-
-        EngagementService.getOne = function (id, ignoreCache) {
-            var url = api + '';
-            return DataService.request(url, ignoreCache);
-        };
-
-        EngagementService.getAll = function (ignoreCache) {
-            var url = api + '';
-            return DataService.request(url, ignoreCache);
-        };
-
-        EngagementService.query = function (query, options, ignoreCache) {
-            var url = api + '';
-            return DataService.request(url, ignoreCache);
-        };
-
-        EngagementService.save = function (id, EngagementService) {
-            var url = api + '';
-            return DataService.save(url, id, EngagementService);
-        };
-
         return {
-            getOne: EngagementService.getOne,
-            getAll: EngagementService.getAll,
-            query: EngagementService.query,
-            save: EngagementService.save
+            get: function (videoId, selectedRegion, fromDate, toDate) {
+
+                var url = '/static/api/stats.json';
+//                var url = _.template('/static/api/video/${ id }/analytics/country${ selectedRegionId }', {id: videoId, selectedRegionId: selectedRegion.name.match(/world/i) ? '' : '/' + selectedRegion.regionId });
+                var formatdate = function (date) {
+                    return moment(date).format('YYYY-MM-DD');
+                };
+
+                var params = {start: formatdate(fromDate), end: formatdate(toDate), breakdown_by: 'day' };
+                return DataService.request(url, false, params).then(function (data) {
+                    return data.engagement.results[0].metrics;
+                });
+
+            }
         };
 
     }]);
