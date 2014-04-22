@@ -92,19 +92,19 @@ header {
   }
 
   a.manage, a.create {
-    position: absolute;
-    top: 32px;
-    right: 16px;
+    // position: absolute;
+    // top: 32px;
+    // right: 16px;
     width: 92px;
     text-align: center;
     @include transition( all .4s ease-out );
 
     &.left {
-      right: 188px;
+      // right: 188px;
     }
 
     &.right {
-      right: 76px;
+      // right: 76px;
     }
 
     &.transition-front {

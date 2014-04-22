@@ -821,23 +821,12 @@ header a, header a.wp-button {
 }
 /* line 94, ../../scss/partials/_global.scss */
 header a.manage, header a.create {
-  position: absolute;
-  top: 32px;
-  right: 16px;
   width: 92px;
   text-align: center;
   -webkit-transition: all 0.4s ease-out;
   -moz-transition: all 0.4s ease-out;
   -o-transition: all 0.4s ease-out;
   transition: all 0.4s ease-out;
-}
-/* line 102, ../../scss/partials/_global.scss */
-header a.manage.left, header a.create.left {
-  right: 188px;
-}
-/* line 106, ../../scss/partials/_global.scss */
-header a.manage.right, header a.create.right {
-  right: 76px;
 }
 /* line 127, ../../scss/partials/_global.scss */
 header a.avatar {

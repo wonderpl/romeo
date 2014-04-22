@@ -3,8 +3,8 @@
 {% block content %}
 
 <header>
-    <a href="/#/library" class="manage wp-button" ng-class="{ selected: isCurrentPage('/library'), left: isCurrentPage('/library'), right: isCurrentPage('/upload') }">Manage</a>
-    <a href="/#/upload" class="create wp-button" ng-class="{ selected: isCurrentPage('/upload'), left: isCurrentPage('/upload'), right: isCurrentPage('/library') }">Create</a>
+    <a href="/#/library" class="manage wp-button" ng-class="{ selected: isCurrentPage('/library'), (left: isCurrentPage('/library') || isCurrentPage('/account') ), right: isCurrentPage('/upload') }">Manage</a>
+    <a href="/#/upload" class="create wp-button" ng-class="{ selected: isCurrentPage('/upload'), left: isCurrentPage('/upload'), right: (isCurrentPage('/library') || isCurrentPage('/account') ) }">Create</a>
     <a href="/#/account" class="avatar"></a>
 </header>
 
