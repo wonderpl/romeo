@@ -91,6 +91,39 @@ header {
     margin: 0 0 0 12px;
   }
 
+  a.manage, a.create {
+    position: absolute;
+    top: 32px;
+    right: 16px;
+    width: 92px;
+    text-align: center;
+    @include transition( all .4s ease-out );
+
+    &.left {
+      right: 112px;
+    }
+
+    &.right {
+      right: 16px;
+    }
+
+    &.transition-front {
+      
+    }
+
+    &.transition-back {
+
+    }
+  }
+
+  a.manage {
+
+  }
+
+  a.create {
+
+  }
+
   a.avatar {
     @include inline-block;
     height: 42px;

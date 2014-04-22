@@ -75,6 +75,7 @@
             }
         }
     }]);
+    
 
     app.directive('plDraggable', ['DragDropService', function(DragDropService){
         return {
