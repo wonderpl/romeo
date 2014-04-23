@@ -410,7 +410,7 @@
 
     }]);
 
-    app.factory('DataService', ['$rootScope', '$location', '$http', '$q', '$timeout', 'localStorageService', function ($rootScope, $location, $http, $q, $timeout, localStorageService) {
+    app.factory('DataService', ['$rootScope', '$location', '$http', '$q', '$timeout', 'localStorageService', 'FlashService', function ($rootScope, $location, $http, $q, $timeout, localStorageService, FlashService) {
 
         var Data = {},
             cache = {},
@@ -482,16 +482,6 @@
             };
 
             authCheck().then(function(account_id){  
-
-                var makeParams = function(params) {
-                    if (_.keys(params).length) {
-                        return '?' + _(params).map(function (value, key) {
-                            return _.escape(value) + '=' + _.escape(key);
-                        }).join('&');
-                    } else {
-                        return '';
-                    }
-                };
 
                 url += makeParams(params);
                 url = format(url, account_id);
