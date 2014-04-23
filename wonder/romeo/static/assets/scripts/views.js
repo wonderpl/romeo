@@ -9,9 +9,15 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "</div> -->\n" +
     "\n" +
     "<div id=\"page-account\" class=\"section\" ng-controller=\"AccountController\">\n" +
+    "    <div class=\"background\"></div>\n" +
+    "    <div class=\"avatar\">\n" +
+    "        <span class=\"icon-user2\"></span>\n" +
+    "        <a href=\"/#/account\">Change<br>Avatar</a>\n" +
+    "    </div>\n" +
     "\t<div class=\"inner\">\n" +
-    "\t\t<h1>My Account</h1>\n" +
+    "\t\t<h1>(~ user.firstName ~) (~ user.lastName ~)</h1>\n" +
     "\n" +
+    "<!--\n" +
     "\t\t<nav id=\"account-nav\">\n" +
     "\t\t\t<ul>\n" +
     "\t\t\t\t<li><a ng-click=\"accountNav('personal')\" ng-class=\"{ selected: viewing == 'personal' }\">Personal Details</a></li>\n" +
@@ -19,41 +25,27 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t<li><a ng-click=\"accountNav('payment')\" ng-class=\"{ selected: viewing == 'payment' }\">Payment Info</a></li>\n" +
     "\t\t\t</ul>\n" +
     "\t\t</nav>\n" +
+    "-->\n" +
     "\n" +
     "\t\t<div class=\"inner account-personal\" ng-if=\"viewing == 'personal'\">\n" +
-    "\t\t\t<div class=\"avatar inline-block\">\n" +
-    "\t\t\t\t<span class=\"icon-user2\">\n" +
-    "\t\t\t\t\t<a href=\"/#/account\">Change Avatar</a>\n" +
-    "\t\t\t\t</span>\n" +
-    "\t\t\t</div>\n" +
+    "\n" +
     "\t\t\t<form class=\"inline-block\" ng-submit=\"saveUser($event)\">\n" +
-    "\t\t\t\t<div class=\"row left half-width\">\n" +
-    "\t\t\t\t\t<label>First Name</label>\n" +
-    "\t\t\t\t\t<input type=\"text\" ng-model=\"user.firstName\">\n" +
-    "\t\t\t\t</div><!--\n" +
-    "\t\t\t\t--><div class=\"row half-width\">\n" +
-    "\t\t\t\t\t<label>Last Name</label>\n" +
-    "\t\t\t\t\t<input type=\"text\" ng-model=\"user.lastName\">\n" +
-    "\t\t\t\t</div><!--\n" +
-    "\t\t\t\t--><div class=\"row left half-width\">\n" +
-    "\t\t\t\t\t<label>Location</label>\n" +
-    "\t\t\t\t\t<input type=\"text\" ng-model=\"user.location\">\n" +
-    "\t\t\t\t</div><!--\n" +
-    "\t\t\t\t--><div class=\"row half-width\">\n" +
-    "\t\t\t\t\t<label>Email address <span>(<a ng-click=\"changeEmailAddress($event)\">Change?</a>)</span></label>\n" +
-    "\t\t\t\t\t<input type=\"text\" ng-model=\"user.email\" class=\"pl-disabled\" ng-click=\"changeEmailAddress($event)\">\n" +
-    "\t\t\t\t</div><!--\n" +
-    "\t\t\t\t--><div class=\"row left half-width\">\n" +
-    "\t\t\t\t\t<label>Username <span>(<a ng-click=\"changeUsername($event)\">Change?</a>)</span></label>\n" +
-    "\t\t\t\t\t<input type=\"text\" ng-model=\"user.username\" class=\"pl-disabled\" ng-click=\"changeUsername($event)\">\n" +
-    "\t\t\t\t</div><!--\n" +
-    "\t\t\t\t--><div class=\"row half-width\">\n" +
-    "\t\t\t\t\t<label>Password <span>(<a ng-click=\"changePassword($event)\">Change?</a>)</span></label>\n" +
-    "\t\t\t\t\t<input type=\"password\" ng-model=\"user.password\" class=\"pl-disabled\" ng-click=\"changePassword($event)\">\n" +
-    "\t\t\t\t</div><!--\n" +
-    "\t\t\t\t--><div class=\"row half-width\">\n" +
-    "\t\t\t\t\t<input type=\"submit\" value=\"Update my details\" ng-class=\"{ active: checkEquals(blueprint,user) }\">\n" +
+    "\t\t\t\t<div class=\"row full-width\">\n" +
+    "\t\t\t\t\t<label>LOCATION</label>\n" +
+    "\t\t\t\t\t<input type=\"text\" ng-model=\"user.location\"/>\n" +
     "\t\t\t\t</div>\n" +
+    "                <div class=\"row full-width\">\n" +
+    "                    <label>USERNAME</label>\n" +
+    "                    <input type=\"text\" ng-model=\"user.username\"/>\n" +
+    "                </div>\n" +
+    "                <div class=\"row full-width\">\n" +
+    "                    <label>EMAIL ADDRESS</label>\n" +
+    "                    <input type=\"text\" ng-model=\"user.email\"/>\n" +
+    "                </div>\n" +
+    "                <div class=\"row full-width\">\n" +
+    "                    <label>PASSWORD</label>\n" +
+    "                    <input type=\"password\" ng-model=\"user.password\"/>\n" +
+    "                </div>\n" +
     "\t\t\t</form>\n" +
     "\t\t</div><!--\n" +
     "\t\t--><div class=\"inner account-stats\" ng-if=\"viewing == 'stats'\">\n" +
