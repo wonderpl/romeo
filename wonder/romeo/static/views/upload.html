@@ -18,27 +18,34 @@
 				</span>
 			</div>
 			<form id="upload-form" ng-submit="saveMetaData($event)">
-				<div id="upload-dropzone" class="pl-upload-dropzone">
-					<div class="message f-serif">
-						<span class="upper">Drag &amp; drop your video here</span>
-						<span class="icon-drag"></span>
-						<span class="lower">or choose a video from <span class="highlight">your computer</span></span>	
+				<div id="upload-dropzone" class="pl-upload-dropzone" ng-class="{ dashedborder : file.state == 'empty' }">
+
+					<div class="backgrounds">
+						<div ng-show="file.state == 'empty'" class="thumbnail-background"></div>
+						<div ng-show="file.state != 'empty'" class="confirm-background"></div>
 					</div>
-					<input type="file" id="file-input" onchange="angular.element(this).scope().fileSelected()">
-					<div id="thumbnail"></div>
-					<div id="upload-status">
-						<div class="prompt show">
-							<a ng-click="proceedUpload($event)" class="proceed">
-								Upload
-							</a>
-							<a ng-click="proceedUpload($event)" class="cancel">
-								Cancel
-							</a>
+
+					<div class="dialogs">
+						
+						<span ng-show="file.state == 'empty'" class="empty-upper f-serif">Drag &amp; drop your video here</span>
+						<span ng-show="file.state == 'empty'" class="empty-icon icon-drag"></span>
+						<span ng-show="file.state == 'empty'" class="empty-lower f-serif">or choose a video from <span class="highlight">your computer</span></span>
+
+						<input type="file" id="file-input" upload-file-input>
+
+						<div ng-show="file.state == 'chosen'" class="confirm-label f-serif">Is "{{ file.name }}" correct?</div>
+						<a ng-show="file.state == 'chosen'" class="confirm-cancel">Choose a different file</a>
+						<a ng-show="file.state == 'chosen'" class="confirm-proceed" ng-click="startUpload()">Upload this file</a>
+						
+						<div ng-show="file.state == 'uploading'" class="progress-bar">
+							<div class="inner-wrapper">
+								<div class="inner"></div>
+							</div>
 						</div>
-						<div class="progress">
-							<div class="bar"></div>
-						</div>
+						<div ng-show="file.state == 'uploading'" class="progress-percentage"></div>
+
 					</div>
+
 				</div>
 				<div class="row" id="title-row">
 					<pre id="upload-title" type="text" placeholder="Video Title" pl-content-editable-placeholder pl-focus-field contenteditable></pre>

@@ -510,36 +510,49 @@
             label: undefined
         }
 
+        $scope.file = {
+            name: "",
+            confirmed: false,
+            upload: {
+                progress: 0
+            },
+            process: {
+                progress: 0
+            },
+            state: "empty"
+        }
+
         VideoService.getCategories().then(function(data){
             $scope.categories = data.category.items;
-            console.log('categories', data);
         }, function(err){
             console.log(err);
         });      
 
+        $scope.$on('fileSelected', function(e, eventData){
+            var name = eventData.target.value.split('\\');
+            $timeout(function(){
+                $scope.$apply(function(){
+                    $scope.file.state = "chosen";                    
+                    $scope.file.name = name[name.length-1];
+                });
+            });
+        });
 
-        $scope.fileSelected = function(e) {
-            console.log('changed');
-            d.getElementById('thumbnail').className = 'show';
-
-            $timeout( function() {
-                d.getElementById('upload-status').className = 'show';
-            }, 500);
-        };
-
-        $scope.proceedUpload = function(e) {
-            d.getElementById('upload-status').className = 'loading';
-        };
-
-        $scope.startUpload = function(e) {
-            VideoService.getUploadArgs().then(function(data){
-                console.log(data);
-                // ng.forEach( data.)
-
-            }, function(err){
-                console.log(err);
+        $scope.startUpload = function() {
+            $timeout(function(){
+                $scope.$apply(function(){
+                    $scope.file.state = "uploading";
+                });
             });
         };
+
+        // $scope.startUpload = function(e) {
+        //     VideoService.getUploadArgs().then(function(data){
+        //         console.log(data);
+        //     }, function(err){
+        //         console.log(err);
+        //     });
+        // };
 
         $scope.saveMetaData = function(e) {
 

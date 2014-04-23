@@ -16,7 +16,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        <input id=\"avatar-picker\" type=\"file\" style=\"visibility:hidden\" onchange=\"angular.element(this).scope().changeAvatar(this.files[0])\"/>\n" +
     "    </div>\n" +
     "\t<div class=\"inner\">\n" +
-    "\t\t\n" +
     "\t\t<h1>(~ user.firstName ~) (~ user.lastName ~)</h1>\n" +
     "\n" +
     "<!--\n" +
@@ -73,8 +72,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t</div>\n" +
     "\t\t<div class=\"clear\"></div>\n" +
     "\t</div>\n" +
-    "</div>\n" +
-    "\n"
+    "</div>\n"
   );
 
 
@@ -433,27 +431,34 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t</span>\n" +
     "\t\t\t</div>\n" +
     "\t\t\t<form id=\"upload-form\" ng-submit=\"saveMetaData($event)\">\n" +
-    "\t\t\t\t<div id=\"upload-dropzone\" class=\"pl-upload-dropzone\">\n" +
-    "\t\t\t\t\t<div class=\"message f-serif\">\n" +
-    "\t\t\t\t\t\t<span class=\"upper\">Drag &amp; drop your video here</span>\n" +
-    "\t\t\t\t\t\t<span class=\"icon-drag\"></span>\n" +
-    "\t\t\t\t\t\t<span class=\"lower\">or choose a video from <span class=\"highlight\">your computer</span></span>\t\n" +
+    "\t\t\t\t<div id=\"upload-dropzone\" class=\"pl-upload-dropzone\" ng-class=\"{ dashedborder : file.state == 'empty' }\">\n" +
+    "\n" +
+    "\t\t\t\t\t<div class=\"backgrounds\">\n" +
+    "\t\t\t\t\t\t<div ng-show=\"file.state == 'empty'\" class=\"thumbnail-background\"></div>\n" +
+    "\t\t\t\t\t\t<div ng-show=\"file.state != 'empty'\" class=\"confirm-background\"></div>\n" +
     "\t\t\t\t\t</div>\n" +
-    "\t\t\t\t\t<input type=\"file\" id=\"file-input\" onchange=\"angular.element(this).scope().fileSelected()\">\n" +
-    "\t\t\t\t\t<div id=\"thumbnail\"></div>\n" +
-    "\t\t\t\t\t<div id=\"upload-status\">\n" +
-    "\t\t\t\t\t\t<div class=\"prompt show\">\n" +
-    "\t\t\t\t\t\t\t<a ng-click=\"proceedUpload($event)\" class=\"proceed\">\n" +
-    "\t\t\t\t\t\t\t\tUpload\n" +
-    "\t\t\t\t\t\t\t</a>\n" +
-    "\t\t\t\t\t\t\t<a ng-click=\"proceedUpload($event)\" class=\"cancel\">\n" +
-    "\t\t\t\t\t\t\t\tCancel\n" +
-    "\t\t\t\t\t\t\t</a>\n" +
+    "\n" +
+    "\t\t\t\t\t<div class=\"dialogs\">\n" +
+    "\t\t\t\t\t\t\n" +
+    "\t\t\t\t\t\t<span ng-show=\"file.state == 'empty'\" class=\"empty-upper f-serif\">Drag &amp; drop your video here</span>\n" +
+    "\t\t\t\t\t\t<span ng-show=\"file.state == 'empty'\" class=\"empty-icon icon-drag\"></span>\n" +
+    "\t\t\t\t\t\t<span ng-show=\"file.state == 'empty'\" class=\"empty-lower f-serif\">or choose a video from <span class=\"highlight\">your computer</span></span>\n" +
+    "\n" +
+    "\t\t\t\t\t\t<input type=\"file\" id=\"file-input\" upload-file-input>\n" +
+    "\n" +
+    "\t\t\t\t\t\t<div ng-show=\"file.state == 'chosen'\" class=\"confirm-label f-serif\">Is \"(~ file.name ~)\" correct?</div>\n" +
+    "\t\t\t\t\t\t<a ng-show=\"file.state == 'chosen'\" class=\"confirm-cancel\">Choose a different file</a>\n" +
+    "\t\t\t\t\t\t<a ng-show=\"file.state == 'chosen'\" class=\"confirm-proceed\" ng-click=\"startUpload()\">Upload this file</a>\n" +
+    "\t\t\t\t\t\t\n" +
+    "\t\t\t\t\t\t<div ng-show=\"file.state == 'uploading'\" class=\"progress-bar\">\n" +
+    "\t\t\t\t\t\t\t<div class=\"inner-wrapper\">\n" +
+    "\t\t\t\t\t\t\t\t<div class=\"inner\"></div>\n" +
+    "\t\t\t\t\t\t\t</div>\n" +
     "\t\t\t\t\t\t</div>\n" +
-    "\t\t\t\t\t\t<div class=\"progress\">\n" +
-    "\t\t\t\t\t\t\t<div class=\"bar\"></div>\n" +
-    "\t\t\t\t\t\t</div>\n" +
+    "\t\t\t\t\t\t<div ng-show=\"file.state == 'uploading'\" class=\"progress-percentage\"></div>\n" +
+    "\n" +
     "\t\t\t\t\t</div>\n" +
+    "\n" +
     "\t\t\t\t</div>\n" +
     "\t\t\t\t<div class=\"row\" id=\"title-row\">\n" +
     "\t\t\t\t\t<pre id=\"upload-title\" type=\"text\" placeholder=\"Video Title\" pl-content-editable-placeholder pl-focus-field contenteditable></pre>\n" +

@@ -162,6 +162,18 @@
         }
     }]);
 
+    app.directive('uploadFileInput', ['$timeout', '$rootScope', function($timeout, $rootScope){
+        return {
+            restrict: 'A',
+            link: function(scope, elem, attrs){
+                
+                elem.bind('change', function(e){
+                    $rootScope.$broadcast('fileSelected', e);
+                });
+            }
+        }
+    }]);
+
     app.directive('plCheckbox', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
         return {
             restrict: 'C',
