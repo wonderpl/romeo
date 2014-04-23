@@ -81,19 +81,30 @@ To change a property on the account record use the `PATCH` method.
 
 ```http
 PATCH /api/account/<account_id> HTTP/1.1
+Content-Type: application/json
 
 {
  "display_name": "test"
 }
 ```
 
-On success:
+For image properties like `profile_cover` and `avatar` a multipart body should be used,
+with a part containing the appropriate file data.
 
 ```http
-HTTP/1.1 204 NO CONTENT
+PATCH /api/account/<account_id> HTTP/1.1
+Content-Type: multipart/form-data; boundary=---xxx
+
+---xxx
+Content-Disposition: form-data; name="avatar"; filename="img.png"
+Content-Type: application/octet-stream
+
+....PNG...
 ```
 
-On error:
+On success, the updated record is returned in the same format as for `GET`.
+
+On error a `form_errors` property describes the issues per field.
 
 ```http
 HTTP/1.1 400 BAD REQUEST

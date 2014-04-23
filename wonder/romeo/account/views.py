@@ -125,4 +125,4 @@ class AccountResource(Resource):
                         return e.response.json(), e.response.status_code
                     else:
                         raise
-        return None, 204
+        return self.get(account.id)

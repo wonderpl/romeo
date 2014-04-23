@@ -47,7 +47,7 @@
         };
     }]);
 
-    app.config(['$routeProvider', '$interpolateProvider', function( $routeProvider, $interpolateProvider ){
+    app.config(['$routeProvider', '$interpolateProvider', '$httpProvider', function( $routeProvider, $interpolateProvider, $httpProvider ){
     
         // Change the interpolation symbols so they don't conflict with Jinja
         $interpolateProvider.startSymbol('(~');
@@ -100,6 +100,10 @@
         });
 
         $routeProvider.otherwise({redirectTo: '/login'});
+
+        $httpProvider.defaults.headers.patch = {
+            'Content-Type': 'application/json;charset=utf-8'
+        }
     }]);
 
     app.run(['$timeout', '$rootScope', '$http', 'animLoop', '$cookies', '$loginCheck', '$location', function($timeout, $rootScope, $http, animLoop, $cookies, $loginCheck, $location) {

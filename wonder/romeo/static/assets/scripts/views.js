@@ -12,9 +12,11 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <div class=\"background\"></div>\n" +
     "    <div class=\"avatar\">\n" +
     "        <span class=\"icon-user2\"></span>\n" +
-    "        <a href=\"/#/account\">Change<br>Avatar</a>\n" +
+    "        <label for=\"avatar-picker\">Change<br>Avatar</label>\n" +
+    "        <input id=\"avatar-picker\" type=\"file\" style=\"visibility:hidden\" onchange=\"angular.element(this).scope().changeAvatar(this.files[0])\"/>\n" +
     "    </div>\n" +
     "\t<div class=\"inner\">\n" +
+    "\t\t\n" +
     "\t\t<h1>(~ user.firstName ~) (~ user.lastName ~)</h1>\n" +
     "\n" +
     "<!--\n" +
@@ -29,34 +31,38 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "\t\t<div class=\"inner account-personal\" ng-if=\"viewing == 'personal'\">\n" +
     "\n" +
-    "\t\t\t<form class=\"inline-block\" ng-submit=\"saveUser($event)\">\n" +
+    "\t\t\t<form class=\"inline-block\" ng-submit=\"updateUser($event)\">\n" +
     "\t\t\t\t<div class=\"row full-width\">\n" +
     "\t\t\t\t\t<label>LOCATION</label>\n" +
-    "\t\t\t\t\t<input type=\"text\" ng-model=\"user.location\"/>\n" +
+    "\t\t\t\t\t<input type=\"text\" ng-model=\"user.location\" ng-change=\"changed('location', user.location)\"/>\n" +
     "\t\t\t\t</div>\n" +
     "                <div class=\"row full-width\">\n" +
     "                    <label>USERNAME</label>\n" +
-    "                    <input type=\"text\" ng-model=\"user.username\"/>\n" +
+    "                    <input type=\"text\" ng-model=\"user.username\" ng-change=\"changed('username', user.username)\"/>\n" +
     "                </div>\n" +
     "                <div class=\"row full-width\">\n" +
     "                    <label>EMAIL ADDRESS</label>\n" +
-    "                    <input type=\"text\" ng-model=\"user.email\"/>\n" +
+    "                    <input type=\"text\" ng-model=\"user.email\" ng-change=\"changed('email', user.email)\"/>\n" +
     "                </div>\n" +
     "                <div class=\"row full-width\">\n" +
     "                    <label>PASSWORD</label>\n" +
-    "                    <input type=\"password\" ng-model=\"user.password\"/>\n" +
+    "                    <input type=\"password\" ng-model=\"user.password\" ng-change=\"changed('password', user.password)\"/>\n" +
+    "                </div>\n" +
+    "                <div class=\"row full-width\">\n" +
+    "                    <label for=\"form-submit\"><span class=\"wp-button\">Save</span></label>\n" +
+    "                    <input id=\"form-submit\" type=\"submit\" style=\"visibility: hidden\">\n" +
     "                </div>\n" +
     "\t\t\t</form>\n" +
-    "\t\t</div><!--\n" +
-    "\t\t--><div class=\"inner account-stats\" ng-if=\"viewing == 'stats'\">\n" +
+    "\t\t</div>\n" +
+    "\t\t<div class=\"inner account-stats\" ng-if=\"viewing == 'stats'\">\n" +
     "\t\t\t<div class=\"account-stats-left\">\n" +
     "\t\t\t\t<h2>Account info</h2>\n" +
     "\t\t\t\t<p>Views left: <span>200,000</span></p>\n" +
     "\t\t\t\t<p>Encoding time left: <span>84.5 hrs</span></p>\n" +
     "\t\t\t\t<p>Total videos: <span>12</span></p>\n" +
     "\t\t\t\t<p><a href=\"#\">Refer a friend</a></p>\n" +
-    "\t\t\t</div><!--\n" +
-    "\t\t\t--><div class=\"account-stats-right\">\n" +
+    "\t\t\t</div>\n" +
+    "\t\t\t<div class=\"account-stats-right\">\n" +
     "\t\t\t\t<div class=\"pie\">\n" +
     "\t\t\t\t\t<div class=\"inner-left\"></div>\n" +
     "\t\t\t\t\t<div class=\"inner-bottom\"></div>\n" +

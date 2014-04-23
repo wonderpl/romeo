@@ -9,9 +9,11 @@
     <div class="background"></div>
     <div class="avatar">
         <span class="icon-user2"></span>
-        <a href="/#/account">Change<br>Avatar</a>
+        <label for="avatar-picker">Change<br>Avatar</label>
+        <input id="avatar-picker" type="file" style="visibility:hidden" onchange="angular.element(this).scope().changeAvatar(this.files[0])"/>
     </div>
 	<div class="inner">
+		
 		<h1>{{ user.firstName }} {{ user.lastName }}</h1>
 
 <!--
@@ -26,34 +28,38 @@
 
 		<div class="inner account-personal" ng-if="viewing == 'personal'">
 
-			<form class="inline-block" ng-submit="saveUser($event)">
+			<form class="inline-block" ng-submit="updateUser($event)">
 				<div class="row full-width">
 					<label>LOCATION</label>
-					<input type="text" ng-model="user.location"/>
+					<input type="text" ng-model="user.location" ng-change="changed('location', user.location)"/>
 				</div>
                 <div class="row full-width">
                     <label>USERNAME</label>
-                    <input type="text" ng-model="user.username"/>
+                    <input type="text" ng-model="user.username" ng-change="changed('username', user.username)"/>
                 </div>
                 <div class="row full-width">
                     <label>EMAIL ADDRESS</label>
-                    <input type="text" ng-model="user.email"/>
+                    <input type="text" ng-model="user.email" ng-change="changed('email', user.email)"/>
                 </div>
                 <div class="row full-width">
                     <label>PASSWORD</label>
-                    <input type="password" ng-model="user.password"/>
+                    <input type="password" ng-model="user.password" ng-change="changed('password', user.password)"/>
+                </div>
+                <div class="row full-width">
+                    <label for="form-submit"><span class="wp-button">Save</span></label>
+                    <input id="form-submit" type="submit" style="visibility: hidden">
                 </div>
 			</form>
-		</div><!--
-		--><div class="inner account-stats" ng-if="viewing == 'stats'">
+		</div>
+		<div class="inner account-stats" ng-if="viewing == 'stats'">
 			<div class="account-stats-left">
 				<h2>Account info</h2>
 				<p>Views left: <span>200,000</span></p>
 				<p>Encoding time left: <span>84.5 hrs</span></p>
 				<p>Total videos: <span>12</span></p>
 				<p><a href="#">Refer a friend</a></p>
-			</div><!--
-			--><div class="account-stats-right">
+			</div>
+			<div class="account-stats-right">
 				<div class="pie">
 					<div class="inner-left"></div>
 					<div class="inner-bottom"></div>

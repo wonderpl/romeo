@@ -452,6 +452,10 @@
         
         $loginCheck();
 
+        $scope.avatarFile = null;
+        $scope.profileFile = null;
+        $scope.formData = new FormData();
+
         $scope.viewing = 'personal';
         $scope.user = {
             firstName: "David",
@@ -462,71 +466,37 @@
             password: "davelol"
         };
 
-        $scope.blueprint = {};
-        ng.copy($scope.user, $scope.blueprint);
-
-        $scope.checkEquals = function(blueprint,user) {
-            return !ng.equals(blueprint,user);
+        $scope.changeAvatar = function(newFile) {
+            $scope.avatarFile = newFile;
         };
 
-        // $scope.$watch('user', $scope.checkFormForChanges);
-
-        $scope.accountNav = function (tab) {
-            $timeout(function(){
-                $scope.$apply(function(){
-                    $scope.viewing = tab;
-                });
-            });
+        $scope.changeProfileBackground = function(newFile) {
+            $scope.profileFile = newFile;
         };
 
-        $scope.checkFormForChanges = function() {
-
-        };
-
-        $scope.saveUser = function($event){
+        $scope.updateUser = function($event) {
+            debugger;
             $event.preventDefault();
-            $timeout(function(){
-                $scope.$apply(function(){
-                    ng.copy($scope.user, $scope.blueprint);
-                    FlashService.flash('User details saved', 'success');
-                })
-            })
+            var fd = $scope.formData;
+            //Take the first selected file
+
+            $scope.avatarFile && fd.append('avatar', $scope.avatarFile);
+            $scope.profileFile && fd.append('profile_cover', $scope.profileFile);
+
+            $http({
+                url: '/api/account/75435685',
+                method: 'PATCH',
+                headers: {'Content-Type': undefined },
+                transformRequest: angular.identity,
+                data: fd
+            });
+
         };
 
-        $scope.changeUsername = function($event) {
-            $modal.load('modal-change-username.html', true, $scope, { username: $scope.user.username });
-        };
+        $scope.changed = function(name, value) {
+            $scope.formData.append(name, value);
+        }
 
-        $scope.saveUsername = function(data) {
-            if ( data.username.length > 0 ) {
-                $scope.user.username = data.username;
-                $modal.hide();
-            }
-        };
-
-        $scope.changeEmailAddress = function($event) {
-            $modal.load('modal-change-email-address.html', true, $scope, { email: $scope.user.email });
-        };
-
-        $scope.saveEmailAddress = function(data) {
-            if ( data.email.length > 0 ) {
-                $scope.user.email = data.email;
-                $modal.hide();
-            }
-        };
-
-        $scope.changePassword = function($event) {
-            $modal.load('modal-change-password.html', true, $scope, { password1: "", password2: "" });
-        };
-
-        $scope.savePassword = function(data) {
-            if ( data.password1.length > 0 ) {
-                if ( data.password1 == data.password2 ) {
-                    $scope.user.password = data.password1;
-                    $modal.hide();
-                }
-            }
-        };
     }]);
 
     app.controller('UploadController', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', '$loginCheck', '$modal', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, $loginCheck, $modal) {
