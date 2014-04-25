@@ -410,11 +410,35 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('upload-quick-share-reecipients.html',
+    ""
+  );
+
+
+  $templateCache.put('upload-quick-share.html',
+    "\n" +
+    "<div id=\"quick-share\" class=\"f-serif\" ng-class=\"{ show: showQuickShare }\">\n" +
+    "\t<form ng-submit=\"submitQuickShareForm\">\n" +
+    "\t\t<div id=\"quick-share-recipients\">\n" +
+    "\t\t\t<tags-input ng-model=\"shareAddresses\" placeholder=\"Your recipient(s) email addresses\"></tags-input>\n" +
+    "\t\t</div>\n" +
+    "\t\t<div id=\"quick-share-body\">\n" +
+    "\t\t\t<textarea class=\"message f-serif\" name=\"message\">Hey, you should totally check out my new video on Wonder PL.</textarea>\n" +
+    "\t\t\t<div class=\"link\"><a href=\"#\">http://wndr.pl/s?v=554D4B</a></div>\n" +
+    "\t\t\t<div class=\"controls\">\n" +
+    "\t\t\t\t<button>Send</button>\n" +
+    "\t\t\t</div>\n" +
+    "\t\t</div>\n" +
+    "\t</form>\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('upload.html',
     "\n" +
     "<div id=\"page-upload\" class=\"section\" ng-controller=\"UploadController\">\n" +
     "\t<div class=\"inner\">\n" +
-    "\n" +
+    "\t\t<quick-share></quick-share>\n" +
     "\t\t<div class=\"inner centered\">\n" +
     "\t\t\t<!-- <div class=\"avatar\"><img src=\"/static/assets/img/tom.jpg\" width=\"64\" alt=\"\" /></div> -->\n" +
     "\t\t\t<div id=\"upload-draft-status\" class=\"f-serif\">\n" +
@@ -468,8 +492,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t\t<a id=\"category-chooser\" ng-click=\"showCategories()\" class=\"f-sans\">(~ chosenCategory.label || 'Choose a category...' ~)<span class=\"icon-select\"></span></a>\n" +
     "\t\t\t\t</div>\n" +
     "\n" +
-    "\t\t\t\t<video id=\"video\" src=\"\" video-thumbnail-grabber preload></video>\n" +
-    "\t\t\t\t<canvas id=\"canvas\"></canvas>\n" +
+    "<!-- \t\t\t\t<video id=\"video\" src=\"\" video-thumbnail-grabber preload></video>\n" +
+    "\t\t\t\t<canvas id=\"canvas\"></canvas> -->\n" +
     "\t\t\t</form>\n" +
     "\t\t</div>\n" +
     "\t\t\n" +

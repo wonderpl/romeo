@@ -1,0 +1,15 @@
+
+<div id="quick-share" class="f-serif" ng-class="{ show: showQuickShare }">
+	<form ng-submit="submitQuickShareForm">
+		<div id="quick-share-recipients">
+			<tags-input ng-model="shareAddresses" placeholder="Your recipient(s) email addresses"></tags-input>
+		</div>
+		<div id="quick-share-body">
+			<textarea class="message f-serif" name="message">Hey, you should totally check out my new video on Wonder PL.</textarea>
+			<div class="link"><a href="#">http://wndr.pl/s?v=554D4B</a></div>
+			<div class="controls">
+				<button>Send</button>
+			</div>
+		</div>
+	</form>
+</div>

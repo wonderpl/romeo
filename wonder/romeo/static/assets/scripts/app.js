@@ -12,7 +12,8 @@
                         ns + '.filters',
                         ns + '.analytics',
                         'ngRoute',
-                        'ngCookies'] /* module dependencies */);
+                        'ngCookies',
+                        'ngTagsInput'] /* module dependencies */);
 
     app.factory('$loginCheck', ['localStorageService', '$timeout', '$rootScope', '$http', '$location', '$q', function(localStorageService, $timeout, $rootScope, $http, $location, $q){
         return function(){

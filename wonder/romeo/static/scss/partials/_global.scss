@@ -2308,3 +2308,97 @@ video, canvas {
     width: 100%;
     position: relative;
 }
+
+#quick-share { 
+  width: 244px;
+  display: block;
+  position: fixed;
+  right: 100px;
+  top: 88px;
+  background: white;
+  border: 1px solid #d8d8d8;
+  @include border-radius( 5px );
+  @include box-shadow( 0px 2px 3px rgba(0,0,0,0.3) );
+  @include opacity(0);
+  @include transition( all .1s ease-out );
+  pointer-events: none;
+
+  &.show {
+    @include opacity(1);
+    pointer-events: auto;
+  }
+
+  &:before, &:after {
+    display: block;
+    content: '';
+    position: absolute;
+    right: 100px;
+    top: -8px;
+    width: 0; 
+    height: 0; 
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid darken(#d8d8d8, 5%);
+  }
+  
+  &:after {
+    top: -7px;
+    right: 101px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid white;
+  }
+
+  #quick-share-recipients {
+    display: block;
+    padding: 8px;
+    border-bottom: 1px solid #d8d8d8;
+  }
+
+  textarea {
+    display: block;
+    padding: 8px;
+    border: none;
+    outline: none;
+    resize: none;
+    height: 100px;
+  }
+
+  .link {
+    background: #f4f4f4;
+    display: block;
+    padding: 8px;
+    border-top: 1px dashed #ceced1;
+    border-bottom: 1px solid #ceced1;
+    
+    a {
+      color: #999999;
+      font-size: 14px;
+      text-decoration: none;
+    }
+  }
+
+  .controls {
+    display: block;
+    padding: 8px;
+    text-align: center;
+  }
+
+  button {
+    background: white;
+    @include inline-block;
+    padding: 10px 14px;
+    margin: 0 12px;
+    border: 1px solid lighten(#b4b2bc, 15%);
+    color: #b4b2bc;
+    @include border-radius( 50px );
+    cursor: pointer;
+    text-decoration: none;
+    @include transition( all .1s ease-out );
+
+    &:hover, &:focus, &:active {
+      outline: none;
+    }
+  }
+
+}

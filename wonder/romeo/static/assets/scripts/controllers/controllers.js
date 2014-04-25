@@ -501,17 +501,24 @@
 
     app.controller('UploadController', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', '$loginCheck', '$modal', 'animLoop', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, $loginCheck, $modal, animLoop) {
 
-        console.log($location.path());
-
         $loginCheck();
         $scope.state = "start";
+        $scope.showQuickShare = true;
         $scope.chosenCategory = {
             id: undefined,
             label: undefined
         }
 
-        $scope.video = d.getElementById('video');
-        $scope.canvas = d.getElementById('canvas');
+        $scope.toggleQuickShare = function() {
+            console.log('here');
+            $timeout(function(){
+                $scope.$apply(function(){
+                    $scope.showQuickShare = !$scope.showQuickShare;
+                });
+            });
+        };
+
+        $scope.shareAddresses = [];
 
         $scope.file = {
             name: "",
@@ -532,41 +539,41 @@
             console.log(err);
         });      
 
-        $scope.getThumbnail = function(v) { 
-            var style = getComputedStyle(v);
-            var ctx = $scope.canvas.getContext('2d');
-            $scope.canvas.width = style.width.split('px')[0];
-            $scope.canvas.height = style.height.split('px')[0];
+        // $scope.getThumbnail = function(v) { 
+        //     var style = getComputedStyle(v);
+        //     var ctx = $scope.canvas.getContext('2d');
+        //     $scope.canvas.width = style.width.split('px')[0];
+        //     $scope.canvas.height = style.height.split('px')[0];
 
-            ctx.drawImage( v, 0, 0, $scope.canvas.width, $scope.canvas.height ); 
-            console.log( 'image drawn' );
-            $timeout(function(){
-                $scope.getThumbnail(v);
-            });
-        };
+        //     ctx.drawImage( v, 0, 0, $scope.canvas.width, $scope.canvas.height ); 
+        //     console.log( 'image drawn' );
+        //     $timeout(function(){
+        //         $scope.getThumbnail(v);
+        //     });
+        // };
 
         $scope.$on('fileSelected', function(e, eventData){
 
-            var files = eventData.target.files;
-            var reader = new FileReader();
+            // var files = eventData.target.files;
+            // var reader = new FileReader();
 
-            reader.onload = function(theFile){
-            };
+            // reader.onload = function(theFile){
+            // };
 
             // $scope.video.addEventListener('load', function() {
             //     $scope.getThumbnail(this);
             // }, false);
 
-            for (var i = 0, f; f = files[i]; i++) {
-                console.log(f);
+            // for (var i = 0, f; f = files[i]; i++) {
+            //     console.log(f);
 
-                if ( f.type.toLowerCase().indexOf('video') !== -1 ) {
-                    $scope.video.addEventListener('play', function(e) {
-                        $scope.getThumbnail(this);
-                    }, false);
-                    $scope.video.src = window.URL.createObjectURL(f);
-                }
-            }
+            //     if ( f.type.toLowerCase().indexOf('video') !== -1 ) {
+            //         $scope.video.addEventListener('play', function(e) {
+            //             $scope.getThumbnail(this);
+            //         }, false);
+            //         $scope.video.src = window.URL.createObjectURL(f);
+            //     }
+            // }
 
             var name = eventData.target.value.split('\\');
             $timeout(function(){

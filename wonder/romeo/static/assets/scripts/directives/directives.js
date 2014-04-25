@@ -221,17 +221,22 @@
         };
     }]);
 
-    app.directive('videoThumbnailGrabber', ['$rootScope', '$timeout', function($rootScope, $timeout) {
+    app.directive('quickShare', ['$rootScope', '$timeout', '$templateCache', function($rootScope, $timeout, $templateCache) {
+        return {
+            restrict: 'E',
+            template: $templateCache.get('upload-quick-share.html'),
+            link: function (scope, elem, attrs) {
+                console.log('initialised');
+            }
+        }
+    }]);
+
+    app.directive('quickShareRecipients', ['$rootScope', '$timeout', '$templateCache', function($rootScope, $timeout, $templateCache) {
         return {
             restrict: 'A',
+            template: $templateCache.get('upload-quick-share-recipients.html'),
             link: function (scope, elem, attrs) {
-
-                console.log('video initialised');
-
-                elem.bind('loaded', function(e){
-                    console.log('VIDEO LOADED');
-                });
-
+                console.log('recipients initialised');
             }
         }
     }]);
