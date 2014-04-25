@@ -411,17 +411,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('upload.html',
-    "<!-- <div class=\"section\">\n" +
-    "  <ul id=\"breadcrumb\" class=\"inner\">\n" +
-    "    <li class=\"home\"><a href=\"/#/\" class=\"icon-home\"></a></li>\n" +
-    "    <li><span class=\"divider\">/</span> <span>Upload</span></li>\n" +
-    "   </ul>\n" +
-    "</div>\n" +
-    " -->\n" +
     "\n" +
     "<div id=\"page-upload\" class=\"section\" ng-controller=\"UploadController\">\n" +
     "\t<div class=\"inner\">\n" +
-    "\t\t<!-- <h1>Upload your content to Romeo</h1> -->\n" +
     "\n" +
     "\t\t<div class=\"inner centered\">\n" +
     "\t\t\t<!-- <div class=\"avatar\"><img src=\"/static/assets/img/tom.jpg\" width=\"64\" alt=\"\" /></div> -->\n" +
@@ -434,8 +426,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t<div id=\"upload-dropzone\" class=\"pl-upload-dropzone\" ng-class=\"{ dashedborder : file.state == 'empty' }\">\n" +
     "\n" +
     "\t\t\t\t\t<div class=\"backgrounds\">\n" +
-    "\t\t\t\t\t\t<div ng-show=\"file.state == 'empty'\" class=\"thumbnail-background\"></div>\n" +
-    "\t\t\t\t\t\t<div ng-show=\"file.state != 'empty'\" class=\"confirm-background\"></div>\n" +
+    "\t\t\t\t\t\t<div ng-show=\"file.state == 'uploading' || file.state == 'complete'\" class=\"thumbnail-background\"></div>\n" +
+    "\t\t\t\t\t\t<div ng-show=\"file.state != 'empty' && file.thumbnail == null\" class=\"confirm-background\"></div>\n" +
     "\t\t\t\t\t</div>\n" +
     "\n" +
     "\t\t\t\t\t<div class=\"dialogs\">\n" +
@@ -444,7 +436,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t\t\t<span ng-show=\"file.state == 'empty'\" class=\"empty-icon icon-drag\"></span>\n" +
     "\t\t\t\t\t\t<span ng-show=\"file.state == 'empty'\" class=\"empty-lower f-serif\">or choose a video from <span class=\"highlight\">your computer</span></span>\n" +
     "\n" +
-    "\t\t\t\t\t\t<input type=\"file\" id=\"file-input\" upload-file-input>\n" +
+    "\t\t\t\t\t\t<input ng-show=\"file.state != 'uploading'\" type=\"file\" id=\"file-input\" upload-file-input>\n" +
     "\n" +
     "\t\t\t\t\t\t<div ng-show=\"file.state == 'chosen'\" class=\"confirm-label f-serif\">Is \"(~ file.name ~)\" correct?</div>\n" +
     "\t\t\t\t\t\t<a ng-show=\"file.state == 'chosen'\" class=\"confirm-cancel\">Choose a different file</a>\n" +
@@ -452,10 +444,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t\t\t\n" +
     "\t\t\t\t\t\t<div ng-show=\"file.state == 'uploading'\" class=\"progress-bar\">\n" +
     "\t\t\t\t\t\t\t<div class=\"inner-wrapper\">\n" +
-    "\t\t\t\t\t\t\t\t<div class=\"inner\"></div>\n" +
+    "\t\t\t\t\t\t\t\t<div class=\"inner\" style=\"width: (~ file.upload.progress ~)%;\"></div>\n" +
     "\t\t\t\t\t\t\t</div>\n" +
     "\t\t\t\t\t\t</div>\n" +
-    "\t\t\t\t\t\t<div ng-show=\"file.state == 'uploading'\" class=\"progress-percentage\"></div>\n" +
+    "\t\t\t\t\t\t<div ng-show=\"file.state == 'uploading'\" class=\"progress-percentage f-serif\">(~ file.upload.progress | wholeNumber ~)%</div>\n" +
+    "\t\t\t\t\t\t<a ng-show=\"file.state == 'uploading'\" ng-class=\"{ enabled: file.upload.progress >= 55 }\" class=\"progress-pick-a-thumbnail\" ng-click=\"showThumbnailChooser()\">Pick a thumbnail</a>\n" +
+    "\n" +
+    "\t\t\t\t\t\t<a ng-show=\"file.state == 'complete'\" class=\"upload-complete icon-upload-complete\"></a>\n" +
     "\n" +
     "\t\t\t\t\t</div>\n" +
     "\n" +
@@ -471,153 +466,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t</div>\n" +
     "\t\t\t\t<div class=\"row\" id=\"category-row\">\n" +
     "\t\t\t\t\t<a id=\"category-chooser\" ng-click=\"showCategories()\" class=\"f-sans\">(~ chosenCategory.label || 'Choose a category...' ~)<span class=\"icon-select\"></span></a>\n" +
-    "\n" +
     "\t\t\t\t</div>\n" +
-    "<!-- \t\t\t\t<div class=\"row\">\n" +
-    "\t\t\t\t\t<input type=\"submit\" value=\"Save\">\n" +
-    "\t\t\t\t</div> -->\n" +
+    "\n" +
+    "\t\t\t\t<video id=\"video\" src=\"\" video-thumbnail-grabber preload></video>\n" +
+    "\t\t\t\t<canvas id=\"canvas\"></canvas>\n" +
     "\t\t\t</form>\n" +
     "\t\t</div>\n" +
     "\t\t\n" +
-    "\t\t<!-- STAGE ONE -->\n" +
-    "<!-- \t\t<div class=\"inner centered\" ng-if=\"fileDropped == false\">\n" +
-    "\t\t\t<div id=\"upload-dropzone\" class=\"pl-upload-dropzone\">\n" +
-    "\t\t\t\t<label>\n" +
-    "\t\t\t\t\tChoose your files below to upload them.<br/>\n" +
-    "\t\t\t\t\t<input type=\"file\" onchange=\"angular.element(this).scope().fileNameChanged()\">\n" +
-    "\t\t\t\t</label>\n" +
-    "\t\t\t</div>\n" +
-    "\t\t</div> -->\n" +
-    "\n" +
-    "\t\t<div class=\"inner\" ng-if=\"fileDropped == true\">\n" +
-    "\t\t\t<div id=\"upload-progress-wrapper\">\n" +
-    "\t\t\t\t<div class=\"bar\">\n" +
-    "\t\t\t\t\t<div class=\"progress\"></div>\n" +
-    "\t\t\t\t</div>\n" +
-    "\t\t\t\t<div class=\"percentage\">Uploading...</div>\n" +
-    "\t\t\t</div><!--\n" +
-    "\t\t\t--><div id=\"upload-info-wrapper\">\n" +
-    "\t\t\t\t<h2>Tell us about your content...</h2>\n" +
-    "\t\t\t\t<form ng-submit=\"createVideo(data)\">\n" +
-    "\t\t\t\t\t<div class=\"row\">\n" +
-    "\t\t\t\t\t\t<label>Video Title</label>\n" +
-    "\t\t\t\t\t\t<input type=\"text\" ng-model=\"newVideo.title\" pl-focus-field>\n" +
-    "\t\t\t\t\t</div>\n" +
-    "\t\t\t\t\t<div class=\"row\">\n" +
-    "\t\t\t\t\t\t<label>Video Description</label>\n" +
-    "\t\t\t\t\t\t<input type=\"text\" ng-model=\"newVideo.description\">\n" +
-    "\t\t\t\t\t</div>\n" +
-    "\t\t\t\t\t<div class=\"row\">\n" +
-    "\t\t\t\t\t\t<label>Video Category</label>\n" +
-    "\t\t\t\t\t\t<select ng-model=\"newVideo.category\">\n" +
-    "\t\t\t\t            <option value=\"\" default=\"\" selected=\"\"></option>\n" +
-    "\t\t\t\t            \n" +
-    "\t\t\t\t            <optgroup label=\"Food\">\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"11\">Chefs &amp; Recipes</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"12\">Wine &amp; Drink</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"113\">Healthy Eats</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"10\">Baking</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t            </optgroup>\n" +
-    "\t\t\t\t            \n" +
-    "\t\t\t\t            <optgroup label=\"Culture\">\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"114\">Men's Fashion</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"56\">Fashion</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"51\">The Arts</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"54\">LIterature</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"50\">Culture Shock</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"112\">Filmmakers</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"52\">Architecture &amp; Design</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"102\">Galleries</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"105\">Nature &amp; Science</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"53\">News Stand</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t            </optgroup>\n" +
-    "\t\t\t\t            \n" +
-    "\t\t\t\t            <optgroup label=\"Mind\">\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"60\">Inspirational</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"64\">Life Skills</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"63\">Causes</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"61\">Education</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"110\">Technology</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"65\">Business</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"108\">Travel &amp; Adventure</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t            </optgroup>\n" +
-    "\t\t\t\t            \n" +
-    "\t\t\t\t            <optgroup label=\"Entertainment\">\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"106\">Animation &amp; Shorts</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"41\">Interviews</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"42\">Classic Clips</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"43\">Vintage Videos</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"44\">Music</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t            </optgroup>\n" +
-    "\t\t\t\t            \n" +
-    "\t\t\t\t            <optgroup label=\"Wellness\">\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"23\">Beauty</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"21\">Fitness</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"20\">Wellness</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"22\">Yoga &amp; Meditation</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t            </optgroup>\n" +
-    "\t\t\t\t            \n" +
-    "\t\t\t\t            <optgroup label=\"Home &amp; Family\">\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"33\">How-To</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"104\">Environment</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"30\">Homes &amp; Gardens</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t                <option value=\"31\">i-Nanny</option>\n" +
-    "\t\t\t\t              \n" +
-    "\t\t\t\t            </optgroup>\n" +
-    "\t\t\t\t          </select>\n" +
-    "\n" +
-    "\t\t\t\t\t</div>\n" +
-    "\t\t\t\t\t<div class=\"row\">\n" +
-    "\t\t\t\t\t\t<label>Add your video to a collection</label>\n" +
-    "\t\t\t\t\t\t<select class=\"actions\" ng-options=\"collection.label for collection in collections\" ng-model=\"newVideo.collections\"></select>\n" +
-    "\t\t\t\t\t</div>\n" +
-    "\t\t\t\t\t<div class=\"row\">\n" +
-    "\t\t\t\t\t\t<input type=\"submit\" value=\"Publish\">\t\n" +
-    "\t\t\t\t\t</div>\n" +
-    "\t\t\t\t</form>\n" +
-    "\t\t\t</div>\n" +
-    "\t\t\t\n" +
-    "\t\t</div>\n" +
-    "\t\t<!-- END OF STAGE TWO -->\n" +
     "\t</div>\n" +
     "</div>"
   );

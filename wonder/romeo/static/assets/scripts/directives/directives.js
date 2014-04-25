@@ -221,6 +221,21 @@
         };
     }]);
 
+    app.directive('videoThumbnailGrabber', ['$rootScope', '$timeout', function($rootScope, $timeout) {
+        return {
+            restrict: 'A',
+            link: function (scope, elem, attrs) {
+
+                console.log('video initialised');
+
+                elem.bind('loaded', function(e){
+                    console.log('VIDEO LOADED');
+                });
+
+            }
+        }
+    }]);
+
     app.directive('plUploadDropzone', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
         return {
             restrict: 'C',

@@ -33,6 +33,12 @@
         }
     });
 
+    app.filter('wholeNumber', function() {
+        return function(num) {
+            return parseInt(num, 10);
+        };
+    });
+
     app.filter('videoSearchFilter', function() {
         return function( items, filter) {
 

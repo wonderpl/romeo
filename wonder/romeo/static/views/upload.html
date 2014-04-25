@@ -1,14 +1,6 @@
-<!-- <div class="section">
-  <ul id="breadcrumb" class="inner">
-    <li class="home"><a href="/#/" class="icon-home"></a></li>
-    <li><span class="divider">/</span> <span>Upload</span></li>
-   </ul>
-</div>
- -->
 
 <div id="page-upload" class="section" ng-controller="UploadController">
 	<div class="inner">
-		<!-- <h1>Upload your content to Romeo</h1> -->
 
 		<div class="inner centered">
 			<!-- <div class="avatar"><img src="/static/assets/img/tom.jpg" width="64" alt="" /></div> -->
@@ -21,8 +13,8 @@
 				<div id="upload-dropzone" class="pl-upload-dropzone" ng-class="{ dashedborder : file.state == 'empty' }">
 
 					<div class="backgrounds">
-						<div ng-show="file.state == 'empty'" class="thumbnail-background"></div>
-						<div ng-show="file.state != 'empty'" class="confirm-background"></div>
+						<div ng-show="file.state == 'uploading' || file.state == 'complete'" class="thumbnail-background"></div>
+						<div ng-show="file.state != 'empty' && file.thumbnail == null" class="confirm-background"></div>
 					</div>
 
 					<div class="dialogs">
@@ -31,7 +23,7 @@
 						<span ng-show="file.state == 'empty'" class="empty-icon icon-drag"></span>
 						<span ng-show="file.state == 'empty'" class="empty-lower f-serif">or choose a video from <span class="highlight">your computer</span></span>
 
-						<input type="file" id="file-input" upload-file-input>
+						<input ng-show="file.state != 'uploading'" type="file" id="file-input" upload-file-input>
 
 						<div ng-show="file.state == 'chosen'" class="confirm-label f-serif">Is "{{ file.name }}" correct?</div>
 						<a ng-show="file.state == 'chosen'" class="confirm-cancel">Choose a different file</a>
@@ -39,10 +31,13 @@
 						
 						<div ng-show="file.state == 'uploading'" class="progress-bar">
 							<div class="inner-wrapper">
-								<div class="inner"></div>
+								<div class="inner" style="width: {{ file.upload.progress }}%;"></div>
 							</div>
 						</div>
-						<div ng-show="file.state == 'uploading'" class="progress-percentage"></div>
+						<div ng-show="file.state == 'uploading'" class="progress-percentage f-serif">{{ file.upload.progress | wholeNumber }}%</div>
+						<a ng-show="file.state == 'uploading'" ng-class="{ enabled: file.upload.progress >= 55 }" class="progress-pick-a-thumbnail" ng-click="showThumbnailChooser()">Pick a thumbnail</a>
+
+						<a ng-show="file.state == 'complete'" class="upload-complete icon-upload-complete"></a>
 
 					</div>
 
@@ -58,152 +53,12 @@
 				</div>
 				<div class="row" id="category-row">
 					<a id="category-chooser" ng-click="showCategories()" class="f-sans">{{ chosenCategory.label || 'Choose a category...' }}<span class="icon-select"></span></a>
-
 				</div>
-<!-- 				<div class="row">
-					<input type="submit" value="Save">
-				</div> -->
+
+				<video id="video" src="" video-thumbnail-grabber preload></video>
+				<canvas id="canvas"></canvas>
 			</form>
 		</div>
 		
-		<!-- STAGE ONE -->
-<!-- 		<div class="inner centered" ng-if="fileDropped == false">
-			<div id="upload-dropzone" class="pl-upload-dropzone">
-				<label>
-					Choose your files below to upload them.<br/>
-					<input type="file" onchange="angular.element(this).scope().fileNameChanged()">
-				</label>
-			</div>
-		</div> -->
-
-		<div class="inner" ng-if="fileDropped == true">
-			<div id="upload-progress-wrapper">
-				<div class="bar">
-					<div class="progress"></div>
-				</div>
-				<div class="percentage">Uploading...</div>
-			</div><!--
-			--><div id="upload-info-wrapper">
-				<h2>Tell us about your content...</h2>
-				<form ng-submit="createVideo(data)">
-					<div class="row">
-						<label>Video Title</label>
-						<input type="text" ng-model="newVideo.title" pl-focus-field>
-					</div>
-					<div class="row">
-						<label>Video Description</label>
-						<input type="text" ng-model="newVideo.description">
-					</div>
-					<div class="row">
-						<label>Video Category</label>
-						<select ng-model="newVideo.category">
-				            <option value="" default="" selected=""></option>
-				            
-				            <optgroup label="Food">
-				              
-				                <option value="11">Chefs &amp; Recipes</option>
-				              
-				                <option value="12">Wine &amp; Drink</option>
-				              
-				                <option value="113">Healthy Eats</option>
-				              
-				                <option value="10">Baking</option>
-				              
-				            </optgroup>
-				            
-				            <optgroup label="Culture">
-				              
-				                <option value="114">Men's Fashion</option>
-				              
-				                <option value="56">Fashion</option>
-				              
-				                <option value="51">The Arts</option>
-				              
-				                <option value="54">LIterature</option>
-				              
-				                <option value="50">Culture Shock</option>
-				              
-				                <option value="112">Filmmakers</option>
-				              
-				                <option value="52">Architecture &amp; Design</option>
-				              
-				                <option value="102">Galleries</option>
-				              
-				                <option value="105">Nature &amp; Science</option>
-				              
-				                <option value="53">News Stand</option>
-				              
-				            </optgroup>
-				            
-				            <optgroup label="Mind">
-				              
-				                <option value="60">Inspirational</option>
-				              
-				                <option value="64">Life Skills</option>
-				              
-				                <option value="63">Causes</option>
-				              
-				                <option value="61">Education</option>
-				              
-				                <option value="110">Technology</option>
-				              
-				                <option value="65">Business</option>
-				              
-				                <option value="108">Travel &amp; Adventure</option>
-				              
-				            </optgroup>
-				            
-				            <optgroup label="Entertainment">
-				              
-				                <option value="106">Animation &amp; Shorts</option>
-				              
-				                <option value="41">Interviews</option>
-				              
-				                <option value="42">Classic Clips</option>
-				              
-				                <option value="43">Vintage Videos</option>
-				              
-				                <option value="44">Music</option>
-				              
-				            </optgroup>
-				            
-				            <optgroup label="Wellness">
-				              
-				                <option value="23">Beauty</option>
-				              
-				                <option value="21">Fitness</option>
-				              
-				                <option value="20">Wellness</option>
-				              
-				                <option value="22">Yoga &amp; Meditation</option>
-				              
-				            </optgroup>
-				            
-				            <optgroup label="Home &amp; Family">
-				              
-				                <option value="33">How-To</option>
-				              
-				                <option value="104">Environment</option>
-				              
-				                <option value="30">Homes &amp; Gardens</option>
-				              
-				                <option value="31">i-Nanny</option>
-				              
-				            </optgroup>
-				          </select>
-
-					</div>
-					<div class="row">
-						<label>Add your video to a collection</label>
-						<select class="actions" ng-options="collection.label for collection in collections" ng-model="newVideo.collections"></select>
-					</div>
-					<div class="row">
-						<input type="submit" value="Publish">	
-					</div>
-				</form>
-			</div>
-			
-		</div>
-		<!-- END OF STAGE TWO -->
 	</div>
 </div>

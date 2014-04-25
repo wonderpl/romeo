@@ -499,7 +499,7 @@
 
     }]);
 
-    app.controller('UploadController', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', '$loginCheck', '$modal', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, $loginCheck, $modal) {
+    app.controller('UploadController', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', '$loginCheck', '$modal', 'animLoop', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, $loginCheck, $modal, animLoop) {
 
         console.log($location.path());
 
@@ -510,16 +510,20 @@
             label: undefined
         }
 
+        $scope.video = d.getElementById('video');
+        $scope.canvas = d.getElementById('canvas');
+
         $scope.file = {
             name: "",
             confirmed: false,
             upload: {
-                progress: 0
+                progress: 2.5
             },
             process: {
                 progress: 0
             },
-            state: "empty"
+            state: "empty",
+            thumbnail: null
         }
 
         VideoService.getCategories().then(function(data){
@@ -528,7 +532,42 @@
             console.log(err);
         });      
 
+        $scope.getThumbnail = function(v) { 
+            var style = getComputedStyle(v);
+            var ctx = $scope.canvas.getContext('2d');
+            $scope.canvas.width = style.width.split('px')[0];
+            $scope.canvas.height = style.height.split('px')[0];
+
+            ctx.drawImage( v, 0, 0, $scope.canvas.width, $scope.canvas.height ); 
+            console.log( 'image drawn' );
+            $timeout(function(){
+                $scope.getThumbnail(v);
+            });
+        };
+
         $scope.$on('fileSelected', function(e, eventData){
+
+            var files = eventData.target.files;
+            var reader = new FileReader();
+
+            reader.onload = function(theFile){
+            };
+
+            // $scope.video.addEventListener('load', function() {
+            //     $scope.getThumbnail(this);
+            // }, false);
+
+            for (var i = 0, f; f = files[i]; i++) {
+                console.log(f);
+
+                if ( f.type.toLowerCase().indexOf('video') !== -1 ) {
+                    $scope.video.addEventListener('play', function(e) {
+                        $scope.getThumbnail(this);
+                    }, false);
+                    $scope.video.src = window.URL.createObjectURL(f);
+                }
+            }
+
             var name = eventData.target.value.split('\\');
             $timeout(function(){
                 $scope.$apply(function(){
@@ -538,21 +577,33 @@
             });
         });
 
+        $scope.incrementProgress = function(){
+            if ( $scope.file.upload.progress < 100 ) {
+                $timeout(function(){
+                    $scope.$apply(function(){
+                        $scope.file.upload.progress += 1;
+                    });
+                });
+            } else {
+                $timeout(function(){
+                    $scope.$apply(function(){
+                        $scope.file.upload.progress = 100;
+                        animLoop.remove('incrementProgress');
+                        $scope.file.state = 'complete';
+                    });
+                });
+            }
+        };
+
         $scope.startUpload = function() {
             $timeout(function(){
                 $scope.$apply(function(){
                     $scope.file.state = "uploading";
                 });
             });
+            animLoop.add('incrementProgress', $scope.incrementProgress);
+            animLoop.start();
         };
-
-        // $scope.startUpload = function(e) {
-        //     VideoService.getUploadArgs().then(function(data){
-        //         console.log(data);
-        //     }, function(err){
-        //         console.log(err);
-        //     });
-        // };
 
         $scope.saveMetaData = function(e) {
 
@@ -569,6 +620,14 @@
             $scope.chosenCategory.id = $el.data('id');
             $scope.chosenCategory.label = 'Category: ' + $el.text();
             $modal.hide();
+        };
+
+        $scope.showThumbnailChooser = function(e) {
+            $timeout(function(){
+                $scope.$apply(function(){
+                    $scope.file.thumbnail = '/static/assets/img/placeholder-photo-large.jpg';
+                });
+            });
         };
 
 
