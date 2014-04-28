@@ -68,14 +68,29 @@ h3 {
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-select:before {
-  content: "\e638";
+.icon-upload-complete:before {
+  content: "\e639";
+}
+.icon-text:before {
+  content: "\e63a";
+}
+.icon-plus:before {
+  content: "\e63b";
+}
+.icon-minus:before {
+  content: "\e63c";
+}
+.icon-hyperlink:before {
+  content: "\e63d";
+}
+.icon-add-link:before {
+  content: "\e637";
 }
 .icon-drag:before {
   content: "\e636";
 }
-.icon-add-link:before {
-  content: "\e637";
+.icon-select:before {
+  content: "\e638";
 }
 .icon-user:before {
   content: "\e600";

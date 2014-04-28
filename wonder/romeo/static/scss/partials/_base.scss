@@ -31,16 +31,28 @@ a.button {
 .wp-button {
     background: white;
     @include inline-block;
-    padding: 12px 16px;
+    padding: 10px 14px;
     margin: 0 12px;
-    border: 1px solid #37A54B;
-    color: #37A54B;
+    border: 1px solid lighten(#b4b2bc, 15%);
+    color: #b4b2bc;
     @include border-radius( 50px );
     cursor: pointer;
     text-decoration: none;
+    @include transition( all .1s ease-out );
+    user-select: none;
 
-    &.selected {
-        border: 1px solid #b4b2bc;
-        color: #b4b2bc;
+    &.highlight {
+        border: 1px solid #727272;
+        color: #727272;
     }
+    
+    &.call-to-action, &:focus, &:active, &:hover {
+        outline: none;
+        border: 1px solid #37A54B;
+        color: #37A54B;
+    }
+
+    // &:focus, &:active, &:hover {
+    //     outline: none;
+    // }
 }
