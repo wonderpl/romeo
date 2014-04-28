@@ -433,7 +433,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\n" +
     "\t</div>\n" +
     "\t<div class=\"thumbnail-controls\">\n" +
-    "\t\t\n" +
+    "\t\t<p>Frame: (~ thumbIndex ~) / (~ thumbnails.length ~)</p>\n" +
+    "\t\t<a class=\"left\" ng-click=\"thumbnailPage('left')\">&lt;</a>\n" +
+    "\t\t<a class=\"left\" ng-click=\"thumbnailPage('right')\">&rt;</a>\n" +
     "\t</div>\n" +
     "\t<a class=\"icon-cross close-modal\" ng-click=\"closeModal()\"></a>\n" +
     "</div>"

@@ -518,7 +518,13 @@
         $loginCheck();
         
         $scope.state = "start";
-        
+
+        /*
+        * State objects showing which thumbnail has been selected out of the available video thumbnails
+        */        
+        $scope.thumbIndex = 0;
+        $scope.thumbnails = ['/static/assets/img/placeholder-photo-large.jpg','/static/assets/img/placeholder-photo-large.jpg','/static/assets/img/placeholder-photo-large.jpg','/static/assets/img/placeholder-photo-large.jpg','/static/assets/img/placeholder-photo-large.jpg'];
+
         /*
         * The state object for the chosen category for the video
         */
@@ -615,7 +621,7 @@
             if ( $scope.file.upload.progress < 100 ) {
                 $timeout(function(){
                     $scope.$apply(function(){
-                        $scope.file.upload.progress += 2;
+                        $scope.file.upload.progress += 8;
                     });
                 });
             } else {
@@ -684,11 +690,14 @@
         * The progress of the upload has reached a point where we can let the user choose a thumbnail
         */
         $scope.showThumbnailChooser = function(e) {
-            $timeout(function(){
-                $scope.$apply(function(){
-                    $scope.file.thumbnail = '/static/assets/img/placeholder-photo-large.jpg';
-                });
-            });
+
+            $modal.load('modal-thumbnail-picker.html', true, $scope, { thumbnails: $scope.thumbnails }, { width: 910 });
+
+            // $timeout(function(){
+            //     $scope.$apply(function(){
+            //         $scope.file.thumbnail = '/static/assets/img/placeholder-photo-large.jpg';
+            //     });
+            // });
         };
 
     }]);

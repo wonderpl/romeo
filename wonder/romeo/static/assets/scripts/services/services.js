@@ -89,7 +89,7 @@
             modal.hide();
         });
 
-        modal.show = function () {
+        modal.show = function ( opts ) {
             $el_bg.addClass('show');
             $el.addClass('show');
         };
@@ -97,6 +97,7 @@
         modal.hide = function () {
             $el_bg.removeClass('show');
             $el.removeClass('show');
+            $el.attr('style','');
         };
 
         modal.toggle = function () {
@@ -105,7 +106,12 @@
         };
 
         // Load a modal template and SHOW it ( optional )
-        modal.load = function (url, show, scope, obj) {
+        modal.load = function (url, show, scope, obj, opts) {
+
+            if ( opts && 'width' in opts ) {
+                $el.css('width', opts.width + 'px');
+            }
+
             template = $templateCache.get(modal.getUrl(url));
             var $scp = ng.extend(scope.$new(), {
                 data: ng.extend({}, obj)

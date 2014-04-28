@@ -2054,6 +2054,35 @@ a#category-chooser {
   }
 }
 
+
+/*  Thumbnail chooser
+/* ======================================= */
+
+.thumbnail-frame {
+  display: block;
+  position: relative;
+  width: 500px;
+  margin: 0 auto;
+  background: black;
+
+  &:before {
+    display: block;
+    content: '';
+    padding-top: 56.25%;
+  }
+}
+
+.thumbnail-controls {
+  text-align: center;
+
+  a {
+    @include inline-block;
+    padding: 7px;
+    font-weight: 600;
+  }
+}
+
+
 /*  Modal
 /* ======================================= */
 #modal-bg {

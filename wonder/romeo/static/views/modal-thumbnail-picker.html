@@ -4,7 +4,9 @@
 		
 	</div>
 	<div class="thumbnail-controls">
-		
+		<p>Frame: {{ thumbIndex }} / {{ thumbnails.length }}</p>
+		<a class="left" ng-click="thumbnailPage('left')">&lt;</a>
+		<a class="left" ng-click="thumbnailPage('right')">&rt;</a>
 	</div>
 	<a class="icon-cross close-modal" ng-click="closeModal()"></a>
 </div>

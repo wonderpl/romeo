@@ -3220,9 +3220,42 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   text-decoration: none;
 }
 
+/*  Thumbnail chooser
+/* ======================================= */
+/* line 2061, ../../scss/partials/_global.scss */
+.thumbnail-frame {
+  display: block;
+  position: relative;
+  width: 500px;
+  margin: 0 auto;
+  background: black;
+}
+/* line 2068, ../../scss/partials/_global.scss */
+.thumbnail-frame:before {
+  display: block;
+  content: '';
+  padding-top: 56.25%;
+}
+
+/* line 2075, ../../scss/partials/_global.scss */
+.thumbnail-controls {
+  text-align: center;
+}
+/* line 2078, ../../scss/partials/_global.scss */
+.thumbnail-controls a {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  padding: 7px;
+  font-weight: 600;
+}
+
 /*  Modal
 /* ======================================= */
-/* line 2059, ../../scss/partials/_global.scss */
+/* line 2088, ../../scss/partials/_global.scss */
 #modal-bg {
   display: block;
   position: fixed;
@@ -3240,7 +3273,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
 }
-/* line 2072, ../../scss/partials/_global.scss */
+/* line 2101, ../../scss/partials/_global.scss */
 #modal-bg.show {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
@@ -3248,7 +3281,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   cursor: pointer;
 }
 
-/* line 2079, ../../scss/partials/_global.scss */
+/* line 2108, ../../scss/partials/_global.scss */
 #modal {
   display: block;
   position: fixed;
@@ -3279,12 +3312,12 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   -o-border-radius: 3px;
   border-radius: 3px;
 }
-/* line 2095, ../../scss/partials/_global.scss */
+/* line 2124, ../../scss/partials/_global.scss */
 #modal .modal-content {
   padding: 26px;
   display: block;
 }
-/* line 2100, ../../scss/partials/_global.scss */
+/* line 2129, ../../scss/partials/_global.scss */
 #modal h2 {
   font-family: 'proxima-nova', sans-serif;
   display: block;
@@ -3294,44 +3327,44 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   font-weight: 300;
   border-bottom: 1px solid #e5e5e5;
 }
-/* line 2111, ../../scss/partials/_global.scss */
+/* line 2140, ../../scss/partials/_global.scss */
 #modal label span {
   float: right;
   font-size: 12px;
 }
-/* line 2115, ../../scss/partials/_global.scss */
+/* line 2144, ../../scss/partials/_global.scss */
 #modal label span a {
   color: #e74c3c;
   cursor: pointer;
 }
-/* line 2122, ../../scss/partials/_global.scss */
+/* line 2151, ../../scss/partials/_global.scss */
 #modal .collection-list {
   list-style-type: disc;
   padding: 16px 0 0 20px;
   font-size: 14px;
 }
-/* line 2127, ../../scss/partials/_global.scss */
+/* line 2156, ../../scss/partials/_global.scss */
 #modal .collection-list li {
   display: list-item;
   margin: 0 0 8px 0;
 }
-/* line 2132, ../../scss/partials/_global.scss */
+/* line 2161, ../../scss/partials/_global.scss */
 #modal .collection-list span {
   font-size: 12px;
 }
-/* line 2136, ../../scss/partials/_global.scss */
+/* line 2165, ../../scss/partials/_global.scss */
 #modal .collection-list a {
   color: #c0392b;
   text-decoration: underline;
   cursor: pointer;
 }
-/* line 2143, ../../scss/partials/_global.scss */
+/* line 2172, ../../scss/partials/_global.scss */
 #modal.show {
   pointer-events: auto;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
 }
-/* line 2149, ../../scss/partials/_global.scss */
+/* line 2178, ../../scss/partials/_global.scss */
 #modal input[type=submit] {
   display: block;
   padding: 8px;
@@ -3348,7 +3381,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   float: right;
   cursor: pointer;
 }
-/* line 2162, ../../scss/partials/_global.scss */
+/* line 2191, ../../scss/partials/_global.scss */
 #modal a.close-modal {
   display: none;
   position: absolute;
@@ -3364,25 +3397,25 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   -o-transition: color 0.1s ease-out;
   transition: color 0.1s ease-out;
 }
-/* line 2174, ../../scss/partials/_global.scss */
+/* line 2203, ../../scss/partials/_global.scss */
 #modal a.close-modal:hover, #modal a.close-modal:focus, #modal a.close-modal:active {
   color: #2980b9;
 }
 
 /*  Dashboard page
 /* ======================================= */
-/* line 2185, ../../scss/partials/_global.scss */
+/* line 2214, ../../scss/partials/_global.scss */
 #page-dashboard {
   text-align: center;
 }
-/* line 2187, ../../scss/partials/_global.scss */
+/* line 2216, ../../scss/partials/_global.scss */
 #page-dashboard h2 {
   margin: 0 0 22px 0;
 }
 
 /*  Login page
 /* ======================================= */
-/* line 2196, ../../scss/partials/_global.scss */
+/* line 2225, ../../scss/partials/_global.scss */
 #page-login {
   width: 320px;
   margin: 0 auto;
@@ -3390,7 +3423,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
 
 /*  Loading page
 /* ======================================= */
-/* line 2206, ../../scss/partials/_global.scss */
+/* line 2235, ../../scss/partials/_global.scss */
 #page-loading h1 {
   display: block;
   position: fixed;
@@ -3406,13 +3439,13 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
 
 /*  Directives
 /* ======================================= */
-/* line 2224, ../../scss/partials/_global.scss */
+/* line 2253, ../../scss/partials/_global.scss */
 .pl-loader {
   width: 100%;
   height: 500px;
 }
 
-/* line 2229, ../../scss/partials/_global.scss */
+/* line 2258, ../../scss/partials/_global.scss */
 #ghost {
   display: none;
   position: fixed;
@@ -3422,7 +3455,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   text-align: center;
   pointer-events: none;
 }
-/* line 2238, ../../scss/partials/_global.scss */
+/* line 2267, ../../scss/partials/_global.scss */
 #ghost.show {
   display: block;
   -webkit-transition: all 0.1s ease-out;
@@ -3430,7 +3463,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   -o-transition: all 0.1s ease-out;
   transition: all 0.1s ease-out;
 }
-/* line 2243, ../../scss/partials/_global.scss */
+/* line 2272, ../../scss/partials/_global.scss */
 #ghost .tag {
   display: block;
   padding: 8px;
@@ -3447,7 +3480,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
 
 /*  Tooltip service
 /* ======================================= */
-/* line 2258, ../../scss/partials/_global.scss */
+/* line 2287, ../../scss/partials/_global.scss */
 #tooltip {
   pointer-events: none;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
@@ -3466,7 +3499,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   -moz-box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.5);
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.5);
 }
-/* line 2269, ../../scss/partials/_global.scss */
+/* line 2298, ../../scss/partials/_global.scss */
 #tooltip:after {
   content: '';
   display: block;
@@ -3479,18 +3512,18 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   border-right: 6px solid transparent;
   border-top: 6px solid #2980b9;
 }
-/* line 2282, ../../scss/partials/_global.scss */
+/* line 2311, ../../scss/partials/_global.scss */
 #tooltip span {
   display: block;
   padding: 6px;
   color: #fff;
   font-size: 13px;
 }
-/* line 2289, ../../scss/partials/_global.scss */
+/* line 2318, ../../scss/partials/_global.scss */
 #tooltip.active {
   text-decoration: underline;
 }
-/* line 2293, ../../scss/partials/_global.scss */
+/* line 2322, ../../scss/partials/_global.scss */
 #tooltip.show {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
@@ -3498,7 +3531,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
 
 /*  Flash service
 /* ======================================= */
-/* line 2301, ../../scss/partials/_global.scss */
+/* line 2330, ../../scss/partials/_global.scss */
 #flash-wrapper {
   display: block;
   width: 220px;
@@ -3507,7 +3540,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   top: 12px;
   z-index: 200;
 }
-/* line 2309, ../../scss/partials/_global.scss */
+/* line 2338, ../../scss/partials/_global.scss */
 #flash-wrapper li {
   display: block;
   margin: 0 0 12px 0;
@@ -3529,53 +3562,53 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   -o-transition: all 0.1s ease-out;
   transition: all 0.1s ease-out;
 }
-/* line 2323, ../../scss/partials/_global.scss */
+/* line 2352, ../../scss/partials/_global.scss */
 #flash-wrapper li span {
   padding: 8px;
   display: block;
   text-align: center;
 }
-/* line 2328, ../../scss/partials/_global.scss */
+/* line 2357, ../../scss/partials/_global.scss */
 #flash-wrapper li span:before {
   padding: 8px 0;
   display: block;
   font-size: 16px;
 }
-/* line 2335, ../../scss/partials/_global.scss */
+/* line 2364, ../../scss/partials/_global.scss */
 #flash-wrapper li.success {
   background: #27ae60;
 }
-/* line 2339, ../../scss/partials/_global.scss */
+/* line 2368, ../../scss/partials/_global.scss */
 #flash-wrapper li.error {
   background: #c0392b;
 }
-/* line 2343, ../../scss/partials/_global.scss */
+/* line 2372, ../../scss/partials/_global.scss */
 #flash-wrapper li.warning {
   background: #f1c40f;
   color: #000;
 }
-/* line 2348, ../../scss/partials/_global.scss */
+/* line 2377, ../../scss/partials/_global.scss */
 #flash-wrapper li.info {
   background: #2c3e50;
 }
-/* line 2352, ../../scss/partials/_global.scss */
+/* line 2381, ../../scss/partials/_global.scss */
 #flash-wrapper li.show {
   left: 0px;
 }
-/* line 2356, ../../scss/partials/_global.scss */
+/* line 2385, ../../scss/partials/_global.scss */
 #flash-wrapper li.fade {
   max-height: 0px;
   margin: 0;
 }
 
-/* line 2363, ../../scss/partials/_global.scss */
+/* line 2392, ../../scss/partials/_global.scss */
 video, canvas {
   display: block;
   width: 100%;
   position: relative;
 }
 
-/* line 2369, ../../scss/partials/_global.scss */
+/* line 2398, ../../scss/partials/_global.scss */
 #quick-share {
   width: 244px;
   display: block;
@@ -3601,13 +3634,13 @@ video, canvas {
   pointer-events: none;
   z-index: 200;
 }
-/* line 2384, ../../scss/partials/_global.scss */
+/* line 2413, ../../scss/partials/_global.scss */
 #quick-share.show {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
   pointer-events: auto;
 }
-/* line 2389, ../../scss/partials/_global.scss */
+/* line 2418, ../../scss/partials/_global.scss */
 #quick-share:before, #quick-share:after {
   display: block;
   content: '';
@@ -3620,7 +3653,7 @@ video, canvas {
   border-right: 8px solid transparent;
   border-bottom: 8px solid #cbcbcb;
 }
-/* line 2402, ../../scss/partials/_global.scss */
+/* line 2431, ../../scss/partials/_global.scss */
 #quick-share:after {
   top: -7px;
   right: 101px;
@@ -3628,13 +3661,13 @@ video, canvas {
   border-right: 7px solid transparent;
   border-bottom: 7px solid white;
 }
-/* line 2410, ../../scss/partials/_global.scss */
+/* line 2439, ../../scss/partials/_global.scss */
 #quick-share #quick-share-recipients {
   display: block;
   padding: 8px;
   border-bottom: 1px solid #d8d8d8;
 }
-/* line 2416, ../../scss/partials/_global.scss */
+/* line 2445, ../../scss/partials/_global.scss */
 #quick-share textarea {
   display: block;
   padding: 8px;
@@ -3643,7 +3676,7 @@ video, canvas {
   resize: none;
   height: 100px;
 }
-/* line 2425, ../../scss/partials/_global.scss */
+/* line 2454, ../../scss/partials/_global.scss */
 #quick-share .link {
   background: #f4f4f4;
   display: block;
@@ -3651,19 +3684,19 @@ video, canvas {
   border-top: 1px dashed #ceced1;
   border-bottom: 1px solid #ceced1;
 }
-/* line 2432, ../../scss/partials/_global.scss */
+/* line 2461, ../../scss/partials/_global.scss */
 #quick-share .link a {
   color: #999999;
   font-size: 14px;
   text-decoration: none;
 }
-/* line 2439, ../../scss/partials/_global.scss */
+/* line 2468, ../../scss/partials/_global.scss */
 #quick-share .controls {
   display: block;
   padding: 8px;
   text-align: center;
 }
-/* line 2445, ../../scss/partials/_global.scss */
+/* line 2474, ../../scss/partials/_global.scss */
 #quick-share button {
   background: white;
   display: -moz-inline-stack;
@@ -3688,7 +3721,7 @@ video, canvas {
   -o-transition: all 0.1s ease-out;
   transition: all 0.1s ease-out;
 }
-/* line 2457, ../../scss/partials/_global.scss */
+/* line 2486, ../../scss/partials/_global.scss */
 #quick-share button:hover, #quick-share button:focus, #quick-share button:active {
   outline: none;
 }
