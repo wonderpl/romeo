@@ -43,6 +43,8 @@
             link: function(scope, elem, attrs){
 
                 var el = d.createElement('span');
+
+                elem.attr('spellcheck', 'false');
                 
                 el.className = "placeholder";
                 el.innerHTML = attrs.placeholder;
@@ -221,6 +223,29 @@
         };
     }]);
 
+    app.directive('autoSaveField', ['$rootScope', function($rootScope){
+        return {
+            restict: 'A',
+            link: function(scope, elem, attrs) {
+                
+                var saveInterval;
+
+                var save = function(){
+                    $rootScope.$broadcast('autosave', elem, new Date().toISOString());
+                };
+                
+                elem.bind('focus', function() {
+                    saveInterval = setInterval( save, 30000 );
+                });
+
+                elem.bind('blur', function() {
+                    clearInterval( saveInterval );
+                    save();
+                });
+            }
+        }
+    }]);
+
     app.directive('quickShare', ['$rootScope', '$timeout', '$templateCache', function($rootScope, $timeout, $templateCache) {
         return {
             restrict: 'E',
@@ -237,6 +262,18 @@
             template: $templateCache.get('upload-quick-share-recipients.html'),
             link: function (scope, elem, attrs) {
                 console.log('recipients initialised');
+            }
+        }
+    }]);
+
+    app.directive('pasteable', ['$rootScope', '$timeout', function($rootScope, $timeout){
+        return {
+            restrict: 'C',
+            link: function (scope, elem, attrs) {
+                elem.bind('paste', function(e) {
+                    console.log(e);
+                    // var StrippedString = OriginalString.replace(/(<([^>]+)>)/ig,"");
+                });
             }
         }
     }]);

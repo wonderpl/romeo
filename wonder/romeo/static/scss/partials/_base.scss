@@ -39,6 +39,7 @@ a.button {
     cursor: pointer;
     text-decoration: none;
     @include transition( all .1s ease-out );
+    user-select: none;
 
     &.highlight {
         border: 1px solid #727272;

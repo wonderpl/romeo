@@ -277,136 +277,166 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('modal-add-to-collection.html',
     "<h2>Add videos to a collection</h2>\n" +
-    "<form name\"editCollectionForm\" ng-submit=\"submitAddToCollectionForm(data)\">\n" +
-    "\t<div class=\"row\">\n" +
-    "\t\t<label>Select a collection:</label>\n" +
-    "\t\t<select class=\"actions\" ng-options=\"collection.label for collection in data.collections\" ng-model=\"data.selectedAction\" pl-toolbar-dropdown></select>\n" +
-    "\t\t<!-- <input type=\"text\" ng-model=\"data.name\" pl-focus-field/> -->\n" +
-    "\t</div>\n" +
-    "\t<div class=\"row\">\n" +
-    "\t\t<input type=\"submit\" value=\"Add to (~ data.selectedAction.title ~)\" />\n" +
-    "\t</div>\t\n" +
-    "\t<div class=\"clear\"></div>\n" +
-    "</form>\n" +
-    "<a class=\"icon-cross close-modal\" ng-click=\"closeModal()\"></a>"
+    "<div class=\"modal-content\">\n" +
+    "\t<form name\"editCollectionForm\" ng-submit=\"submitAddToCollectionForm(data)\">\n" +
+    "\t\t<div class=\"row\">\n" +
+    "\t\t\t<label>Select a collection:</label>\n" +
+    "\t\t\t<select class=\"actions\" ng-options=\"collection.label for collection in data.collections\" ng-model=\"data.selectedAction\" pl-toolbar-dropdown></select>\n" +
+    "\t\t\t<!-- <input type=\"text\" ng-model=\"data.name\" pl-focus-field/> -->\n" +
+    "\t\t</div>\n" +
+    "\t\t<div class=\"row\">\n" +
+    "\t\t\t<input type=\"submit\" value=\"Add to (~ data.selectedAction.title ~)\" />\n" +
+    "\t\t</div>\t\n" +
+    "\t\t<div class=\"clear\"></div>\n" +
+    "\t</form>\n" +
+    "\t<a class=\"icon-cross close-modal\" ng-click=\"closeModal()\"></a>\n" +
+    "</div>"
   );
 
 
   $templateCache.put('modal-change-email-address.html',
     "<h2>Change E-mail Address</h2>\n" +
-    "<form name\"changeEmailAddress\" ng-submit=\"saveEmailAddress(data)\">\n" +
-    "\t<div class=\"row\">\n" +
-    "\t\t<label>New E-mail Address</label>\n" +
-    "\t\t<input type=\"text\" ng-model=\"data.email\" pl-focus-field/>\n" +
-    "\t</div>\n" +
-    "\t<div class=\"row\">\n" +
-    "\t\t<input type=\"submit\" value=\"Save\" />\n" +
-    "\t</div>\t\n" +
-    "\t<div class=\"clear\"></div>\n" +
-    "</form>\n" +
-    "<a class=\"icon-cross close-modal\" ng-click=\"closeModal()\"></a>"
+    "<div class=\"modal-content\">\n" +
+    "\t<form name\"changeEmailAddress\" ng-submit=\"saveEmailAddress(data)\">\n" +
+    "\t\t<div class=\"row\">\n" +
+    "\t\t\t<label>New E-mail Address</label>\n" +
+    "\t\t\t<input type=\"text\" ng-model=\"data.email\" pl-focus-field/>\n" +
+    "\t\t</div>\n" +
+    "\t\t<div class=\"row\">\n" +
+    "\t\t\t<input type=\"submit\" value=\"Save\" />\n" +
+    "\t\t</div>\t\n" +
+    "\t\t<div class=\"clear\"></div>\n" +
+    "\t</form>\n" +
+    "\t<a class=\"icon-cross close-modal\" ng-click=\"closeModal()\"></a>\n" +
+    "</div>"
   );
 
 
   $templateCache.put('modal-change-password.html',
     "<h2>Change Password</h2>\n" +
-    "<form name\"changePassword\" ng-submit=\"savePassword(data)\">\n" +
-    "\t<div class=\"row\">\n" +
-    "\t\t<label>New password</label>\n" +
-    "\t\t<input type=\"text\" ng-model=\"data.password1\" pl-focus-field />\n" +
-    "\t</div>\n" +
-    "\t<div class=\"row\">\n" +
-    "\t\t<label>confirm new password</label>\n" +
-    "\t\t<input type=\"text\" ng-model=\"data.password2\" />\n" +
-    "\t</div>\n" +
-    "\t<div class=\"row\">\n" +
-    "\t\t<input type=\"submit\" value=\"Save\" />\n" +
-    "\t</div>\t\n" +
-    "\t<div class=\"clear\"></div>\n" +
-    "</form>\n" +
-    "<a class=\"icon-cross close-modal\" ng-click=\"closeModal()\"></a>\n"
+    "<div class=\"modal-content\">\n" +
+    "\t<form name\"changePassword\" ng-submit=\"savePassword(data)\">\n" +
+    "\t\t<div class=\"row\">\n" +
+    "\t\t\t<label>New password</label>\n" +
+    "\t\t\t<input type=\"text\" ng-model=\"data.password1\" pl-focus-field />\n" +
+    "\t\t</div>\n" +
+    "\t\t<div class=\"row\">\n" +
+    "\t\t\t<label>confirm new password</label>\n" +
+    "\t\t\t<input type=\"text\" ng-model=\"data.password2\" />\n" +
+    "\t\t</div>\n" +
+    "\t\t<div class=\"row\">\n" +
+    "\t\t\t<input type=\"submit\" value=\"Save\" />\n" +
+    "\t\t</div>\t\n" +
+    "\t\t<div class=\"clear\"></div>\n" +
+    "\t</form>\n" +
+    "\t<a class=\"icon-cross close-modal\" ng-click=\"closeModal()\"></a>\n" +
+    "</div>"
   );
 
 
   $templateCache.put('modal-change-username.html',
     "<h2>Change Username</h2>\n" +
-    "<form name\"changeUsername\" ng-submit=\"saveUsername(data)\">\n" +
-    "\t<div class=\"row\">\n" +
-    "\t\t<label>New Username</label>\n" +
-    "\t\t<input type=\"text\" ng-model=\"data.username\" pl-focus-field/>\n" +
-    "\t</div>\n" +
-    "\t<div class=\"row\">\n" +
-    "\t\t<input type=\"submit\" value=\"Save\" />\n" +
-    "\t</div>\t\n" +
-    "\t<div class=\"clear\"></div>\n" +
-    "</form>\n" +
-    "<a class=\"icon-cross close-modal\" ng-click=\"closeModal()\"></a>"
+    "<div class=\"modal-content\">\n" +
+    "\t<form name\"changeUsername\" ng-submit=\"saveUsername(data)\">\n" +
+    "\t\t<div class=\"row\">\n" +
+    "\t\t\t<label>New Username</label>\n" +
+    "\t\t\t<input type=\"text\" ng-model=\"data.username\" pl-focus-field/>\n" +
+    "\t\t</div>\n" +
+    "\t\t<div class=\"row\">\n" +
+    "\t\t\t<input type=\"submit\" value=\"Save\" />\n" +
+    "\t\t</div>\t\n" +
+    "\t\t<div class=\"clear\"></div>\n" +
+    "\t</form>\n" +
+    "\t<a class=\"icon-cross close-modal\" ng-click=\"closeModal()\"></a>\n" +
+    "</div>"
   );
 
 
   $templateCache.put('modal-edit-collection.html',
     "<h2>Edit Collection</h2>\n" +
-    "<form name\"editCollectionForm\" ng-submit=\"submitEditCollectionForm(data)\">\n" +
-    "\t<div class=\"row\">\n" +
-    "\t\t<label>Collection Name: \n" +
-    "\t\t\t<span><a ng-click=\"deleteCollection($event, data)\">Delete Collection</a></span>\n" +
-    "\t\t</label>\n" +
-    "\t\t<input type=\"text\" ng-model=\"data.name\" pl-focus-field/>\n" +
-    "\t</div>\n" +
-    "\t<div class=\"row\">\n" +
-    "\t\t<input type=\"submit\" value=\"Save\" />\n" +
-    "\t</div>\t\n" +
-    "\t<div class=\"clear\"></div>\n" +
-    "</form>\n" +
-    "<a class=\"icon-cross close-modal\" ng-click=\"closeModal()\"></a>"
+    "<div class=\"modal-content\">\n" +
+    "\t<form name\"editCollectionForm\" ng-submit=\"submitEditCollectionForm(data)\">\n" +
+    "\t\t<div class=\"row\">\n" +
+    "\t\t\t<label>Collection Name: \n" +
+    "\t\t\t\t<span><a ng-click=\"deleteCollection($event, data)\">Delete Collection</a></span>\n" +
+    "\t\t\t</label>\n" +
+    "\t\t\t<input type=\"text\" ng-model=\"data.name\" pl-focus-field/>\n" +
+    "\t\t</div>\n" +
+    "\t\t<div class=\"row\">\n" +
+    "\t\t\t<input type=\"submit\" value=\"Save\" />\n" +
+    "\t\t</div>\t\n" +
+    "\t\t<div class=\"clear\"></div>\n" +
+    "\t</form>\n" +
+    "\t<a class=\"icon-cross close-modal\" ng-click=\"closeModal()\"></a>\n" +
+    "</div>"
   );
 
 
   $templateCache.put('modal-new-collection.html',
     "<h2>New Collection</h2>\n" +
-    "<form name\"newCollectionForm\" ng-submit=\"submitNewCollectionForm(data)\">\n" +
-    "\t<div class=\"row\">\n" +
-    "\t\t<label>Collection Name:</label>\n" +
-    "\t\t<input type=\"text\" ng-model=\"data.name\" pl-focus-field />\n" +
-    "\t</div>\n" +
-    "\t<div class=\"row\">\n" +
-    "\t\t<input type=\"submit\" value=\"save\" />\n" +
-    "\t</div>\n" +
-    "\t<div class=\"clear\"></div>\n" +
-    "</form>\n" +
-    "<a class=\"icon-cross close-modal\" ng-click=\"closeModal()\"></a>"
+    "<div class=\"modal-content\">\n" +
+    "\t<form name\"newCollectionForm\" ng-submit=\"submitNewCollectionForm(data)\">\n" +
+    "\t\t<div class=\"row\">\n" +
+    "\t\t\t<label>Collection Name:</label>\n" +
+    "\t\t\t<input type=\"text\" ng-model=\"data.name\" pl-focus-field />\n" +
+    "\t\t</div>\n" +
+    "\t\t<div class=\"row\">\n" +
+    "\t\t\t<input type=\"submit\" value=\"save\" />\n" +
+    "\t\t</div>\n" +
+    "\t\t<div class=\"clear\"></div>\n" +
+    "\t</form>\n" +
+    "\t<a class=\"icon-cross close-modal\" ng-click=\"closeModal()\"></a>\n" +
+    "</div>"
   );
 
 
   $templateCache.put('modal-show-all-collections.html',
     "<h2>Edit Collections</h2>\n" +
-    "<form name\"editCollectionForm\" ng-submit=\"closeModal($event)\">\n" +
-    "\t<div class=\"row\">\n" +
-    "\t\t<label>Collections featuring (~ data.video.title ~):</label>\n" +
-    "\t\t<ul class=\"collection-list\">\n" +
-    "\t\t\t<li ng-repeat=\"collection in data.video.collections\">\n" +
-    "\t\t\t\t(~ collections[collection].label ~) <span>( <a ng-click=\"removeFromCollection($event, data.id, collection)\">Remove</a> )</span>\n" +
-    "\t\t\t</li>\n" +
-    "\t\t</ul>\n" +
-    "\t</div>\n" +
-    "\t<div class=\"row\">\n" +
-    "\t\t<input type=\"submit\" value=\"Save\" />\n" +
-    "\t</div>\t\n" +
-    "\t<div class=\"clear\"></div>\n" +
-    "</form>\n" +
-    "<a class=\"icon-cross close-modal\" ng-click=\"closeModal()\"></a>"
+    "<div class=\"modal-content\">\n" +
+    "\t<form name\"editCollectionForm\" ng-submit=\"closeModal($event)\">\n" +
+    "\t\t<div class=\"row\">\n" +
+    "\t\t\t<label>Collections featuring (~ data.video.title ~):</label>\n" +
+    "\t\t\t<ul class=\"collection-list\">\n" +
+    "\t\t\t\t<li ng-repeat=\"collection in data.video.collections\">\n" +
+    "\t\t\t\t\t(~ collections[collection].label ~) <span>( <a ng-click=\"removeFromCollection($event, data.id, collection)\">Remove</a> )</span>\n" +
+    "\t\t\t\t</li>\n" +
+    "\t\t\t</ul>\n" +
+    "\t\t</div>\n" +
+    "\t\t<div class=\"row\">\n" +
+    "\t\t\t<input type=\"submit\" value=\"Save\" />\n" +
+    "\t\t</div>\t\n" +
+    "\t\t<div class=\"clear\"></div>\n" +
+    "\t</form>\n" +
+    "\t<a class=\"icon-cross close-modal\" ng-click=\"closeModal()\"></a>\n" +
+    "</div>"
   );
 
 
   $templateCache.put('modal-show-categories.html',
-    "<h2>Choose a category</h2>\n" +
-    "<div id=\"category-list\">\n" +
-    "\t<ul ng-repeat=\"category in categories\">\n" +
-    "\t\t<li class=\"heading f-serif\">(~ category.name ~)</li>\n" +
-    "\t\t<li ng-repeat=\"subcategory in category.sub_categories\" data-id=\"(~ subcategory.id ~)\" ng-click=\"chooseCategory($event)\" class=\"category\">(~ subcategory.name ~)</li>\n" +
-    "\t</ul>\n" +
-    "</div>\n" +
-    "<a class=\"icon-cross close-modal\" ng-click=\"closeModal()\"></a>"
+    "<h2>Select a category</h2>\n" +
+    "<div class=\"modal-content\">\n" +
+    "\t<div id=\"category-list\">\n" +
+    "\t\t<ul ng-repeat=\"category in categories\">\n" +
+    "\t\t\t<li class=\"heading f-sans\">(~ category.name ~)</li>\n" +
+    "\t\t\t<li ng-repeat=\"subcategory in category.sub_categories\" data-id=\"(~ subcategory.id ~)\" ng-click=\"chooseCategory($event)\" class=\"category\">(~ subcategory.name ~)</li>\n" +
+    "\t\t</ul>\n" +
+    "\t</div>\n" +
+    "\t<a class=\"icon-cross close-modal\" ng-click=\"closeModal()\"></a>\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('modal-thumbnail-picker.html',
+    "<h2>Pick a thumbnail</h2>\n" +
+    "<div class=\"modal-content\">\n" +
+    "\t<div class=\"thumbnail-frame\">\n" +
+    "\t\t\n" +
+    "\t</div>\n" +
+    "\t<div class=\"thumbnail-controls\">\n" +
+    "\t\t\n" +
+    "\t</div>\n" +
+    "\t<a class=\"icon-cross close-modal\" ng-click=\"closeModal()\"></a>\n" +
+    "</div>"
   );
 
 
@@ -426,7 +456,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t<textarea class=\"message f-serif\" name=\"message\">Hey, you should totally check out my new video on Wonder PL.</textarea>\n" +
     "\t\t\t<div class=\"link\"><a href=\"#\">http://wndr.pl/s?v=554D4B</a></div>\n" +
     "\t\t\t<div class=\"controls\">\n" +
-    "\t\t\t\t<button>Send</button>\n" +
+    "\t\t\t\t<button>(~ file.upload.progress <= 50 ? 'Send ( when video is ready )' : 'Send' ~) </button>\n" +
     "\t\t\t</div>\n" +
     "\t\t</div>\n" +
     "\t</form>\n" +
@@ -441,12 +471,15 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t<quick-share></quick-share>\n" +
     "\t\t<div class=\"inner centered\">\n" +
     "\t\t\t<!-- <div class=\"avatar\"><img src=\"/static/assets/img/tom.jpg\" width=\"64\" alt=\"\" /></div> -->\n" +
-    "\t\t\t<div id=\"upload-draft-status\" class=\"f-serif\">\n" +
+    "\t\t\t<!-- <div id=\"upload-draft-status\" class=\"f-serif\">\n" +
     "\t\t\t\t<span>\n" +
-    "\t\t\t\t\tAutosaved: 5 Mins Ago.\n" +
+    "\t\t\t\t\t(~ status.saved != null ? 'Last autosaved: ' + status.saved : 'Tip: Did you know that lorem ipsum dolor sit amet?' ~)\n" +
     "\t\t\t\t</span>\n" +
-    "\t\t\t</div>\n" +
+    "\t\t\t</div> -->\n" +
     "\t\t\t<form id=\"upload-form\" ng-submit=\"saveMetaData($event)\">\n" +
+    "\t\t\t\t<div class=\"row\" id=\"title-row\">\n" +
+    "\t\t\t\t\t<pre id=\"upload-title\" type=\"text\" ng-paste=\"cleanPaste($event)\" placeholder=\"Video Title\" pl-content-editable-placeholder pl-focus-field contenteditable auto-save-field></pre>\n" +
+    "\t\t\t\t</div>\n" +
     "\t\t\t\t<div id=\"upload-dropzone\" class=\"pl-upload-dropzone\" ng-class=\"{ dashedborder : file.state == 'empty' }\">\n" +
     "\n" +
     "\t\t\t\t\t<div class=\"backgrounds\">\n" +
@@ -456,15 +489,15 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "\t\t\t\t\t<div class=\"dialogs\">\n" +
     "\t\t\t\t\t\t\n" +
-    "\t\t\t\t\t\t<span ng-show=\"file.state == 'empty'\" class=\"empty-upper f-serif\">Drag &amp; drop your video here</span>\n" +
+    "\t\t\t\t\t\t<span ng-show=\"file.state == 'empty'\" class=\"empty-upper f-sans\">Drag &amp; drop your video here</span>\n" +
     "\t\t\t\t\t\t<span ng-show=\"file.state == 'empty'\" class=\"empty-icon icon-drag\"></span>\n" +
-    "\t\t\t\t\t\t<span ng-show=\"file.state == 'empty'\" class=\"empty-lower f-serif\">or choose a video from <span class=\"highlight\">your computer</span></span>\n" +
+    "\t\t\t\t\t\t<span ng-show=\"file.state == 'empty'\" class=\"empty-lower f-sans\">or choose a video from your computer</span>\n" +
     "\n" +
     "\t\t\t\t\t\t<input ng-show=\"file.state != 'uploading'\" type=\"file\" id=\"file-input\" upload-file-input>\n" +
     "\n" +
     "\t\t\t\t\t\t<div ng-show=\"file.state == 'chosen'\" class=\"confirm-label f-serif\">Is \"(~ file.name ~)\" correct?</div>\n" +
-    "\t\t\t\t\t\t<a ng-show=\"file.state == 'chosen'\" class=\"confirm-cancel\">Choose a different file</a>\n" +
-    "\t\t\t\t\t\t<a ng-show=\"file.state == 'chosen'\" class=\"confirm-proceed\" ng-click=\"startUpload()\">Upload this file</a>\n" +
+    "\t\t\t\t\t\t<a ng-show=\"file.state == 'chosen'\" class=\"confirm-cancel\">Choose a different file</a><!--\n" +
+    "\t\t\t\t\t\t--><a ng-show=\"file.state == 'chosen'\" class=\"confirm-proceed\" ng-click=\"startUpload()\">Upload</a>\n" +
     "\t\t\t\t\t\t\n" +
     "\t\t\t\t\t\t<div ng-show=\"file.state == 'uploading'\" class=\"progress-bar\">\n" +
     "\t\t\t\t\t\t\t<div class=\"inner-wrapper\">\n" +
@@ -472,24 +505,22 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t\t\t\t</div>\n" +
     "\t\t\t\t\t\t</div>\n" +
     "\t\t\t\t\t\t<div ng-show=\"file.state == 'uploading'\" class=\"progress-percentage f-serif\">(~ file.upload.progress | wholeNumber ~)%</div>\n" +
-    "\t\t\t\t\t\t<a ng-show=\"file.state == 'uploading'\" ng-class=\"{ enabled: file.upload.progress >= 55 }\" class=\"progress-pick-a-thumbnail\" ng-click=\"showThumbnailChooser()\">Pick a thumbnail</a>\n" +
     "\n" +
     "\t\t\t\t\t\t<a ng-show=\"file.state == 'complete'\" class=\"upload-complete icon-upload-complete\"></a>\n" +
+    "\t\t\t\t\t\t<div ng-show=\"file.state == 'complete'\" class=\"upload-complete-message f-sans\">Great, your video has finished processing and is ready, now you can pick a thumbnail</div>\n" +
+    "\t\t\t\t\t\t<a ng-show=\"file.state == 'complete' && file.thumbnail == null\" ng-class=\"{ enabled: file.upload.progress >= 55 }\" class=\"progress-pick-a-thumbnail\" ng-click=\"showThumbnailChooser()\">Let's pick a thumbnail</a>\n" +
     "\n" +
     "\t\t\t\t\t</div>\n" +
     "\n" +
-    "\t\t\t\t</div>\n" +
-    "\t\t\t\t<div class=\"row\" id=\"title-row\">\n" +
-    "\t\t\t\t\t<pre id=\"upload-title\" type=\"text\" placeholder=\"Video Title\" pl-content-editable-placeholder pl-focus-field contenteditable></pre>\n" +
     "\t\t\t\t</div>\n" +
     "\t\t\t\t<div class=\"row\" id=\"upload-buttons\">\n" +
     "\t\t\t\t\t<a href=\"#\"></a>\n" +
     "\t\t\t\t</div>\n" +
     "\t\t\t\t<div class=\"row f-serif\" id=\"description-row\">\n" +
-    "\t\t\t\t\t<pre id=\"upload-description\" placeholder=\"Add a description.  This is going to be your space to share insights into your video - blogs, recipes, ideas and more.\" pl-content-editable-placeholder contenteditable></pre>\n" +
+    "\t\t\t\t\t<pre id=\"upload-description\" placeholder=\"Video description\" ng-paste=\"cleanPaste($event)\" pl-content-editable-placeholder contenteditable auto-save-field></pre>\n" +
     "\t\t\t\t</div>\n" +
     "\t\t\t\t<div class=\"row\" id=\"category-row\">\n" +
-    "\t\t\t\t\t<a id=\"category-chooser\" ng-click=\"showCategories()\" class=\"f-sans\">(~ chosenCategory.label || 'Choose a category...' ~)<span class=\"icon-select\"></span></a>\n" +
+    "\t\t\t\t\t<a id=\"category-chooser\" ng-click=\"showCategories()\" class=\"f-sans\">(~ chosenCategory.label || 'Select a category' ~)<span>(~ chosenCategory.label != undefined ? '...' : '+' ~)</span></a>\n" +
     "\t\t\t\t</div>\n" +
     "\n" +
     "<!-- \t\t\t\t<video id=\"video\" src=\"\" video-thumbnail-grabber preload></video>\n" +

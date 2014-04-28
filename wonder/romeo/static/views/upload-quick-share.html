@@ -8,7 +8,7 @@
 			<textarea class="message f-serif" name="message">Hey, you should totally check out my new video on Wonder PL.</textarea>
 			<div class="link"><a href="#">http://wndr.pl/s?v=554D4B</a></div>
 			<div class="controls">
-				<button>Send</button>
+				<button>{{ file.upload.progress <= 50 ? 'Send ( when video is ready )' : 'Send' }} </button>
 			</div>
 		</div>
 	</form>

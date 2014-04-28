@@ -7,12 +7,15 @@
          ns + '.directives',
          'LocalStorageModule'] /* module dependencies */);
 
-    app.controller('MainCtrl', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$modal', '$loginCheck', 'localStorageService', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $modal, $loginCheck, localStorageService) {
+    app.controller('MainCtrl', 
+        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$modal', '$loginCheck', 'localStorageService', 
+        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $modal, $loginCheck, localStorageService) {
 
         $scope.wonder = ng.element(d.getElementById('wonder'));
         $scope.wrapper = ng.element(d.getElementById('wrapper'));
         $scope.html = ng.element(d.querySelector('html'));
         $scope.body = ng.element(d.body);
+        $scope.showQuickShare = false;
 
         $rootScope.isUnique = function(arr, string) {
             if ( arr.length === 0 ) {
@@ -42,7 +45,14 @@
             $scope.wrapper.toggleClass('aside');
             $scope.html.toggleClass('aside');
             $scope.body.toggleClass('aside');
+        };
 
+        $scope.toggleQuickShare = function(e) {
+            $timeout(function(){
+                $scope.$apply(function(){
+                    $scope.showQuickShare = !$scope.showQuickShare;
+                });
+            });
         };
 
         $rootScope.$on('$locationChangeSuccess', function(event){
@@ -63,14 +73,16 @@
             console.log(route, $location.path());
             return route === $location.path();
         };
-
     }]);
 
-    app.controller('DashboardController', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile) {
-
+    app.controller('DashboardController', 
+        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 
+        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile) {
     }]);
 
-    app.controller('LibraryController', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$sanitize', '$modal', 'VideoService', 'StatsService', 'DragDropService', 'FlashService', '$filter', '$loginCheck', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $sanitize, $modal, VideoService, StatsService, DragDropService, FlashService, $filter, $loginCheck) {
+    app.controller('LibraryController', 
+        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$sanitize', '$modal', 'VideoService', 'StatsService', 'DragDropService', 'FlashService', '$filter', '$loginCheck', 
+        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $sanitize, $modal, VideoService, StatsService, DragDropService, FlashService, $filter, $loginCheck) {
 
         $loginCheck();
 
@@ -445,10 +457,11 @@
         $scope.closeModal = function($event) {
             $modal.hide();
         };
-
     }]);
 
-    app.controller('AccountController', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$modal', 'FlashService', '$loginCheck', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $modal, FlashService, $loginCheck) {
+    app.controller('AccountController', 
+        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$modal', 'FlashService', '$loginCheck', 
+        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $modal, FlashService, $loginCheck) {
         
         $loginCheck();
 
@@ -496,30 +509,32 @@
         $scope.changed = function(name, value) {
             $scope.formData.append(name, value);
         }
-
     }]);
 
-    app.controller('UploadController', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', '$loginCheck', '$modal', 'animLoop', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, $loginCheck, $modal, animLoop) {
+    app.controller('UploadController', 
+        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', '$loginCheck', '$modal', 'animLoop', 'prettydate', '$interval', 
+        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, $loginCheck, $modal, animLoop, prettydate, $interval) {
 
         $loginCheck();
+        
         $scope.state = "start";
-        $scope.showQuickShare = true;
+        
+        /*
+        * The state object for the chosen category for the video
+        */
         $scope.chosenCategory = {
             id: undefined,
             label: undefined
-        }
-
-        $scope.toggleQuickShare = function() {
-            console.log('here');
-            $timeout(function(){
-                $scope.$apply(function(){
-                    $scope.showQuickShare = !$scope.showQuickShare;
-                });
-            });
         };
 
+        /*
+        * The state object used by the quick share modal - stores the addresses
+        */
         $scope.shareAddresses = [];
 
+        /*
+        * The state object for showing file upload progress
+        */
         $scope.file = {
             name: "",
             confirmed: false,
@@ -531,49 +546,37 @@
             },
             state: "empty",
             thumbnail: null
-        }
+        };
 
+        /*
+        * The state object for autosaving the video
+        */
+        $scope.status = {
+            saved: null,
+            date: null,
+            updateInterval: $interval(function(){
+                $timeout(function(){
+                    $scope.$apply(function(){
+                        $scope.status.saved = $scope.status.saved !== null ? prettydate($scope.status.date) : null;
+                        console.log( prettydate($scope.status.date) );
+                    });
+                });
+            },  1000)
+        };
+
+        /*
+        * Get the list of categories from the web service
+        */
         VideoService.getCategories().then(function(data){
             $scope.categories = data.category.items;
         }, function(err){
             console.log(err);
         });      
 
-        // $scope.getThumbnail = function(v) { 
-        //     var style = getComputedStyle(v);
-        //     var ctx = $scope.canvas.getContext('2d');
-        //     $scope.canvas.width = style.width.split('px')[0];
-        //     $scope.canvas.height = style.height.split('px')[0];
-
-        //     ctx.drawImage( v, 0, 0, $scope.canvas.width, $scope.canvas.height ); 
-        //     console.log( 'image drawn' );
-        //     $timeout(function(){
-        //         $scope.getThumbnail(v);
-        //     });
-        // };
-
+        /*
+        * The user has chosen a new file, respond accordingly.
+        */
         $scope.$on('fileSelected', function(e, eventData){
-
-            // var files = eventData.target.files;
-            // var reader = new FileReader();
-
-            // reader.onload = function(theFile){
-            // };
-
-            // $scope.video.addEventListener('load', function() {
-            //     $scope.getThumbnail(this);
-            // }, false);
-
-            // for (var i = 0, f; f = files[i]; i++) {
-            //     console.log(f);
-
-            //     if ( f.type.toLowerCase().indexOf('video') !== -1 ) {
-            //         $scope.video.addEventListener('play', function(e) {
-            //             $scope.getThumbnail(this);
-            //         }, false);
-            //         $scope.video.src = window.URL.createObjectURL(f);
-            //     }
-            // }
 
             var name = eventData.target.value.split('\\');
             $timeout(function(){
@@ -584,11 +587,35 @@
             });
         });
 
+        /*
+        * Listen for autosave broadcasts from our auto-save-field directives
+        */
+        $scope.$on('autosave', function(e, elem, date){
+            $timeout(function(){
+                $scope.$apply(function(){
+                    $scope.status.saved = prettydate(date);
+                    $scope.status.date = date;
+                });
+            });
+        });
+
+        /*
+        * Strips out any HTML tags and pasts in plain text
+        */
+        $scope.cleanPaste = function(e){
+            e.preventDefault();
+            var text = e.clipboardData.getData("text/plain");
+            document.execCommand("insertHTML", false, text);
+        };        
+
+        /*
+        * Used as a callback to update the size of the upload progress bar
+        */
         $scope.incrementProgress = function(){
             if ( $scope.file.upload.progress < 100 ) {
                 $timeout(function(){
                     $scope.$apply(function(){
-                        $scope.file.upload.progress += 1;
+                        $scope.file.upload.progress += 2;
                     });
                 });
             } else {
@@ -602,25 +629,49 @@
             }
         };
 
+        /*
+        * Check the progress of the file upload adn update the UI
+        */
+        $scope.getUploadProgress = function(){
+        };
+
+        /*
+        * The user has confirmed that they have chosen the correct file to upload
+        */
         $scope.startUpload = function() {
-            $timeout(function(){
-                $scope.$apply(function(){
-                    $scope.file.state = "uploading";
-                });
-            });
-            animLoop.add('incrementProgress', $scope.incrementProgress);
-            animLoop.start();
+
+            // VideoService.getUploadArgs().then(function(res){
+            //     $timeout(function(){
+            //         $scope.$apply(function(){
+                        $scope.file.state = "uploading";
+            //         });
+            //     });
+                // animLoop.add('getUploadProgress', $scope.getUploadProgress);
+                animLoop.add('incrementProgress', $scope.incrementProgress);
+                animLoop.start();
+            // });
+
         };
 
-        $scope.saveMetaData = function(e) {
+        /*
+        * Save the current state of the vide meta data
+        */
+        $scope.save = function(e) {
 
         };
 
+        /*
+        * Show the categories modal
+        */
         $scope.showCategories = function(e) {
             $modal.load('modal-show-categories.html', true, $scope, { categories: $scope.categories });
         };
 
+        /*
+        * The user has clicked on a category in the categories modal
+        */
         $scope.chooseCategory = function(e) {
+
             var el = e.target || e.srcElement,
                 $el = ng.element(el);
 
@@ -629,6 +680,9 @@
             $modal.hide();
         };
 
+        /*
+        * The progress of the upload has reached a point where we can let the user choose a thumbnail
+        */
         $scope.showThumbnailChooser = function(e) {
             $timeout(function(){
                 $scope.$apply(function(){
@@ -637,65 +691,11 @@
             });
         };
 
-
-        // $scope.fileDropped = false;
-        // $scope.newVideo = {
-        //     id: undefined,
-        //     title: "",
-        //     description: "",
-        //     collections: ""
-        // }
-
-        // VideoService.getAll().then(function(data){
-        //     $timeout(function(){
-        //         $scope.$apply(function(){
-        //             var arr = [];
-        //             ng.forEach( data.collections, function( value, key ) {
-        //                 arr.push({
-        //                     key: key,
-        //                     label: value.label
-        //                 });
-        //             });
-        //             $scope.collections = arr;
-        //             $scope.newVideo.collections = arr[0];
-        //         });
-        //     }, 500);
-        // });
-
-        // $scope.fileNameChanged = function() {
-        //     $timeout(function(){
-        //         $scope.$apply(function(){
-        //             $scope.newVideo.id = Math.floor(Math.random() * 10) + parseInt(new Date().getTime()).toString(36);
-        //             $scope.fileDropped = true;
-        //             $timeout( function() {
-        //                 d.querySelector('.progress').style.width = '100%';
-        //             }, 1000);
-        //             $timeout(function(){
-        //                 d.querySelector('.bar').className += ' complete';
-        //                 d.querySelector('.percentage').innerHTML = 'Upload complete';
-        //             }, 11000);
-        //         });
-        //     });
-        // };
-
-        // $scope.$on('fileDropped', $scope.fileNameChanged);
-
-        // $scope.createVideo = function (data) {
-        //     // $scope.videos[$scope.newVideo.id]
-        //     var obj = {
-        //         "title": $scope.newVideo.title,
-        //         "description": $scope.newVideo.description,
-        //         "category": $scope.newVideo.category,
-        //         "collections": [$scope.newVideo.collections.key]
-        //     };
-        //     VideoService.save( $scope.newVideo.id, obj ).then(function(){
-        //         $location.path('/library/');
-        //     });
-        //     console.log($scope.newVideo);
-        // };
     }]);
 
-    app.controller('AnalyticsController', ['$scope', '$rootScope', '$routeParams', '$element', 'Enum', 'AnalyticsFields', 'VideoService', '$loginCheck', function ($scope, $rootScope, $routeParams, $element, Enum, AnalyticsFields, VideoService, $loginCheck) {
+    app.controller('AnalyticsController', 
+        ['$scope', '$rootScope', '$routeParams', '$element', 'Enum', 'AnalyticsFields', 'VideoService', '$loginCheck', 
+        function ($scope, $rootScope, $routeParams, $element, Enum, AnalyticsFields, VideoService, $loginCheck) {
 
         $loginCheck();
 
@@ -762,10 +762,11 @@
             analytics.section = Sections[$routeParams.type.toUpperCase()];
             console.log($scope.isSection(analytics.Sections.OVERVIEW));
         });
-
     }]);
 
-    app.controller('VideoController', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$routeParams', '$q', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $routeParams, $q) {
+    app.controller('VideoController', 
+        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$routeParams', '$q', 
+        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $routeParams, $q) {
 
         $scope.video = {};
 
@@ -841,10 +842,11 @@
                 FlashService.flash( 'Incorrect username or password, please try again.', 'error' );
             });
         };
-
     }]);
 
-    app.controller('LoadingController', [ '$location', 'localStorageService', '$http', '$rootScope', 'FlashService', '$timeout', function( $location, localStorageService, $http, $rootScope, FlashService, $timeout){
+    app.controller('LoadingController', 
+        [ '$location', 'localStorageService', '$http', '$rootScope', 'FlashService', '$timeout', 
+        function( $location, localStorageService, $http, $rootScope, FlashService, $timeout){
 
         // $timeout( function() {
         //     $rootScope.$apply(function() {
@@ -878,7 +880,6 @@
         // } else {
         //     $location.path(url || '/library');
         // }
-
     }]);
 
 })(window,document,window.angular,'RomeoApp','controllers');

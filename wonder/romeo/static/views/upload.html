@@ -4,12 +4,15 @@
 		<quick-share></quick-share>
 		<div class="inner centered">
 			<!-- <div class="avatar"><img src="/static/assets/img/tom.jpg" width="64" alt="" /></div> -->
-			<div id="upload-draft-status" class="f-serif">
+			<!-- <div id="upload-draft-status" class="f-serif">
 				<span>
-					Autosaved: 5 Mins Ago.
+					{{ status.saved != null ? 'Last autosaved: ' + status.saved : 'Tip: Did you know that lorem ipsum dolor sit amet?' }}
 				</span>
-			</div>
+			</div> -->
 			<form id="upload-form" ng-submit="saveMetaData($event)">
+				<div class="row" id="title-row">
+					<pre id="upload-title" type="text" ng-paste="cleanPaste($event)" placeholder="Video Title" pl-content-editable-placeholder pl-focus-field contenteditable auto-save-field></pre>
+				</div>
 				<div id="upload-dropzone" class="pl-upload-dropzone" ng-class="{ dashedborder : file.state == 'empty' }">
 
 					<div class="backgrounds">
@@ -19,15 +22,15 @@
 
 					<div class="dialogs">
 						
-						<span ng-show="file.state == 'empty'" class="empty-upper f-serif">Drag &amp; drop your video here</span>
+						<span ng-show="file.state == 'empty'" class="empty-upper f-sans">Drag &amp; drop your video here</span>
 						<span ng-show="file.state == 'empty'" class="empty-icon icon-drag"></span>
-						<span ng-show="file.state == 'empty'" class="empty-lower f-serif">or choose a video from <span class="highlight">your computer</span></span>
+						<span ng-show="file.state == 'empty'" class="empty-lower f-sans">or choose a video from your computer</span>
 
 						<input ng-show="file.state != 'uploading'" type="file" id="file-input" upload-file-input>
 
 						<div ng-show="file.state == 'chosen'" class="confirm-label f-serif">Is "{{ file.name }}" correct?</div>
-						<a ng-show="file.state == 'chosen'" class="confirm-cancel">Choose a different file</a>
-						<a ng-show="file.state == 'chosen'" class="confirm-proceed" ng-click="startUpload()">Upload this file</a>
+						<a ng-show="file.state == 'chosen'" class="confirm-cancel">Choose a different file</a><!--
+						--><a ng-show="file.state == 'chosen'" class="confirm-proceed" ng-click="startUpload()">Upload</a>
 						
 						<div ng-show="file.state == 'uploading'" class="progress-bar">
 							<div class="inner-wrapper">
@@ -35,24 +38,22 @@
 							</div>
 						</div>
 						<div ng-show="file.state == 'uploading'" class="progress-percentage f-serif">{{ file.upload.progress | wholeNumber }}%</div>
-						<a ng-show="file.state == 'uploading'" ng-class="{ enabled: file.upload.progress >= 55 }" class="progress-pick-a-thumbnail" ng-click="showThumbnailChooser()">Pick a thumbnail</a>
 
 						<a ng-show="file.state == 'complete'" class="upload-complete icon-upload-complete"></a>
+						<div ng-show="file.state == 'complete'" class="upload-complete-message f-sans">Great, your video has finished processing and is ready, now you can pick a thumbnail</div>
+						<a ng-show="file.state == 'complete' && file.thumbnail == null" ng-class="{ enabled: file.upload.progress >= 55 }" class="progress-pick-a-thumbnail" ng-click="showThumbnailChooser()">Let's pick a thumbnail</a>
 
 					</div>
 
-				</div>
-				<div class="row" id="title-row">
-					<pre id="upload-title" type="text" placeholder="Video Title" pl-content-editable-placeholder pl-focus-field contenteditable></pre>
 				</div>
 				<div class="row" id="upload-buttons">
 					<a href="#"></a>
 				</div>
 				<div class="row f-serif" id="description-row">
-					<pre id="upload-description" placeholder="Add a description.  This is going to be your space to share insights into your video - blogs, recipes, ideas and more." pl-content-editable-placeholder contenteditable></pre>
+					<pre id="upload-description" placeholder="Video description" ng-paste="cleanPaste($event)" pl-content-editable-placeholder contenteditable auto-save-field></pre>
 				</div>
 				<div class="row" id="category-row">
-					<a id="category-chooser" ng-click="showCategories()" class="f-sans">{{ chosenCategory.label || 'Choose a category...' }}<span class="icon-select"></span></a>
+					<a id="category-chooser" ng-click="showCategories()" class="f-sans">{{ chosenCategory.label || 'Select a category' }}<span>{{ chosenCategory.label != undefined ? '...' : '+' }}</span></a>
 				</div>
 
 <!-- 				<video id="video" src="" video-thumbnail-grabber preload></video>

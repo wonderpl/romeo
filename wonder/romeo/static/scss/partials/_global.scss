@@ -1495,7 +1495,7 @@ h1.collections-page {
   }
 
   .inner {
-    width: 600px;
+    width: 910px;
   }
 
   .avatar {
@@ -1553,10 +1553,13 @@ h1.collections-page {
 }
 
 #title-row {
-  
+  width: 600px;
+  margin: 0 auto 32px auto;
+  display: block;
+
   pre, .placeholder {
     font-size: 50px;
-    font-weight: 800;
+    font-weight: 100;
     text-align: left;
 
     &:focus, &:active, &:hover {
@@ -1573,14 +1576,14 @@ h1.collections-page {
 }
 
 #description-row {
+  width: 600px;
+  margin: 0 auto 32px auto;
   display: block;
-  min-height: 50px;
-  margin: 0 0 22px 0;
 
     pre, .placeholder {
     font-size: 18px;
     line-height: 25px;
-    font-weight: 600;
+    font-weight: 300;
     text-align: left;
 
     &:focus, &:active, &:hover {
@@ -1606,11 +1609,12 @@ h1.collections-page {
     @include transition( all .1s ease-out );
 
     &:first-child {
-        @include border-radius( 10px );
+        // @include border-radius( 10px );
     }
 
-    &.dashedborder:first-child {
+    &.dashedborder {
         border: 2px dashed #b4b2bc;
+        @include border-radius( 10px );
     }
 
     .dialogs, .backgrounds {
@@ -1620,6 +1624,7 @@ h1.collections-page {
         top: 0;
         width: 100%;
         height: 100%;
+        @include border-radius( 10px );
     }
  
     .confirm-label, .confirm-cancel, .confirm-proceed {
@@ -1634,13 +1639,12 @@ h1.collections-page {
         margin: 0 0 120px 0;
     }
 
-    a.confirm-proceed {
+    a.confirm-proceed, a.confirm-cancel {
         @include inline-block;
-        @include border-radius( 50px );
         @include transition( all .1s ease-out );
         position: relative;
         padding: 12px 16px;
-        margin: 0 12px;
+        margin: 0px;
         border: 1px solid #ffffff;
         color: #fff;
         cursor: pointer;
@@ -1651,6 +1655,15 @@ h1.collections-page {
             color: #3a3a3a;
             background: #fff;
         }
+    }
+
+    a.confirm-proceed {
+        @include border-radius( 0px 50px 50px 0px );
+    }
+
+    a.confirm-cancel {
+        @include border-radius( 50px 0px 0px 50px );
+        border-right: none;
     }
     
     .progress-bar {
@@ -1703,16 +1716,17 @@ h1.collections-page {
         left: 0;
         right: 0;
         margin: auto;
-        bottom: 30px;
+        bottom: 135px;
         width: 160px;
         @include border-radius( 50px );
         @include transition( all .1s ease-out );
-        padding: 12px 16px;
+        padding: 8px 7px 7px 7px;
         border: 1px solid #ffffff;
         color: #fff;
         cursor: pointer;
         text-decoration: none;
         z-index: 500;
+        font-size: 14px;
         @include opacity(0.5);
 
         &.enabled {
@@ -1730,12 +1744,21 @@ h1.collections-page {
         height: 96px;
         position: absolute;
         left: 0;
-        top: 0;
+        top: 145px;
         right: 0;
-        bottom: 0;
         margin: auto;
         font-size: 96px;
         color: rgba(255,255,255,.5);
+    }
+
+    .upload-complete-message {
+      color: white;
+      font-size: 22px;
+      line-height: 28px;
+      width: 50%;
+      display: block;
+      margin: 0 auto;
+      padding-top: 265px;
     }
 
     .confirm-background {
@@ -1771,17 +1794,17 @@ h1.collections-page {
         color: #b4b2bc;
         display: block;
         text-align: center;
-        font-size: 18px;
+        font-size: 22px;
         padding: 12px 0;
     }
     
     span.empty-upper {
-        padding: 100px 0 0 0;
+        padding: 175px 0 22px 0;
     }
 
     span.empty-icon {
         color: #b4b2bc;
-        font-size: 42px;
+        font-size: 64px;
         padding: 12px 0 0 0;
     }
 
@@ -1832,7 +1855,7 @@ h1.collections-page {
     &:before {
         content: '';
         display: block;
-        padding-top: 60%;
+        padding-top: 510px;
     }
 }
 
@@ -1954,23 +1977,36 @@ h1.collections-page {
 }
 
 #category-row {
-
+  width: 600px;
+  margin: 0 auto 32px auto;
+  display: block;
+  text-align: left;
 }
 
 a#category-chooser {
-  display: block;
+  @include inline-block;
+  position: relative;
   margin: 0 0 22px 0;
   text-align: left;
   text-transform: uppercase;
   font-size: 14px;
-  color: #727272;
+  color: #51b35f;
+  font-weight: 800;
   cursor: pointer;
   @include transition( color .2s ease-out );
+  border: 1px solid #acd6b1;
+  @include border-radius( 5px );
+  padding: 7px 32px 6px 6px;
 
   span {
-    padding-left: 5px;
-    position: relative;
-    top: 2px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    padding: 7px 7px 6px 7px;
+    color: white;
+    background: $wp-green;
+
   }
 
   &:hover, &:focus, &:active, &.active {
@@ -1985,24 +2021,34 @@ a#category-chooser {
     margin: 0 0 16px 0;
 
     li.category {
-      font-size: 14px;
+
       @include inline-block;
-      vertical-align: top;
-      margin: 0 10px 8px 0;
-      color: #37A54B;
-      text-decoration: none;
+      position: relative;
+      margin: 0 0 22px 0;
+      text-align: left;
+      text-transform: uppercase;
+      font-size: 11px;
+      color: #51b35f;
+      font-weight: 600;
       cursor: pointer;
-      
+      @include transition( all .1s ease-out );
+      border: 1px solid $wp-green;
+      @include border-radius( 5px );
+      padding: 7px 6px 6px 6px;
+      margin: 0 9px 9px 0px;
+
       &:hover, &:active, &:focus {
-        text-decoration: underline;
+        background: $wp-green;
+        color: #fff;
       }
     }
 
     li.heading {
       display: block;
-      font-size: 13px;
+      font-size: 18px;
       padding-bottom: 8px;
-      color: darken(#999, 10%);
+      font-weight: 600;
+      color: $wp-grey;
       text-decoration: none;
     }
   }
@@ -2033,21 +2079,32 @@ a#category-chooser {
 #modal {
   display: block;
   position: fixed;
-  width: 460px;
+  width: 520px;
   left: 50%;
   top: 50%;
   background: white;
   z-index: 101;
-  padding: 32px;
+  padding: 0px;
   pointer-events: none;
   @include opacity(0);
   @include transform( translate( -50%, -50% ) );
   @include transition( all .3s ease-out );
   @include box-shadow( 0px 0px 10px rgba(0,0,0,0.5) );
+  @include border-radius( 3px );
+
+  .modal-content {
+    padding: 26px;
+    display: block;
+  }
 
   h2 {
+    font-family: 'proxima-nova', sans-serif;
     display: block;
-    margin: 0 0 22px 0;
+    margin: 0 0 2px 0;
+    padding: 18px 26px 18px 26px;
+    color: $wp-grey;
+    font-weight: 300;
+    border-bottom: 1px solid #e5e5e5;
   }
 
   label {
@@ -2103,7 +2160,7 @@ a#category-chooser {
   }
 
   a.close-modal {
-    display: block;
+    display: none;
     position: absolute;
     width: 22px;
     height: 22px;
@@ -2322,6 +2379,7 @@ video, canvas {
   @include opacity(0);
   @include transition( all .1s ease-out );
   pointer-events: none;
+  z-index: 200;
 
   &.show {
     @include opacity(1);
@@ -2389,8 +2447,8 @@ video, canvas {
     @include inline-block;
     padding: 10px 14px;
     margin: 0 12px;
-    border: 1px solid lighten(#b4b2bc, 15%);
-    color: #b4b2bc;
+    border: 1px solid #37A54B;
+    color: #37A54B;
     @include border-radius( 50px );
     cursor: pointer;
     text-decoration: none;
