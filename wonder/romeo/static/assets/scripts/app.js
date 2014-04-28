@@ -1,67 +1,54 @@
 
 /*  Romeo Prototype
-/* ================================== */
+ /* ================================== */
 
 (function(w,d,n,ng,ns) {
 
     'use strict';
 
     var app = ng.module(ns /* module name */,
-                       [ns + '.controllers',
-                        ns + '.services',
-                        ns + '.filters',
-                        ns + '.analytics',
-                        'ngRoute',
-                        'ngCookies',
-                        'ngTagsInput'] /* module dependencies */);
+        [ns + '.controllers',
+                ns + '.services',
+                ns + '.filters',
+                ns + '.analytics',
+            'ngRoute',
+            'ngCookies'] /* module dependencies */);
 
-    app.factory('$loginCheck', ['localStorageService', '$timeout', '$rootScope', '$http', '$location', '$q', function(localStorageService, $timeout, $rootScope, $http, $location, $q){
-        return function(){
-
-            var session_url = localStorageService.get('session_url');
-
-            if ( session_url !== null && $rootScope.account !== undefined ) {
-                console.log(' AUTHED ');
-
-            } else if ( session_url === null ) {
-                console.log(' NOT AUTHED ');
-                $location.path('/login');
-
+    app.config(['$routeProvider', '$interpolateProvider', '$httpProvider', function( $routeProvider, $interpolateProvider, $httpProvider, $location ){
+        var sessionUrl;
+        var authChecks = {
+            session: function(ErrorService, AuthService, $q) {
+                if (sessionUrl = AuthService.getSession()) {
+                    if (AuthService.isLoggedIn()) {
+                        return $q.when(true);
+                    } else {
+                        // It could be for some reason we don't have a HTTP cookie so try twice...
+                        return AuthService.retrieveSession(sessionUrl).then(function (sessionData) {
+                            AuthService.setSession(sessionData);
+                        }, function(response) {
+                            if (response.status === 401) {
+                                return AuthService.retrieveSession(sessionUrl).then(function (sessionData) {
+                                    AuthService.setSession(sessionData);
+                                });
+                            } else {
+                                return $q.reject(new ErrorService.AuthError('server_session_error'));
+                            }
+                        });
+                    }
+                } else {
+                    return $q.reject(new ErrorService.AuthError('no_session'));
+                }
             }
-            
-            // else if ( $rootScope.account === undefined ) {
-            //     console.log(' KIND OF AUTHED ');
-            //     $http({ method: 'get', url: localStorageService.get('session_url') }).success(function(data,status,headers,config){
-            //         $timeout(function() {
-            //             $rootScope.$apply(function(){
-            //                 $rootScope.account = data;
-            //                 $rootScope.userID = data.href.split('/');
-            //                 $rootScope.userID = $rootScope.userID[$rootScope.userID.length-1];
-            //                 console.log('DEFINITELY AUTHED NOW');
-            //                 deferred.resolve(data);
-            //             });
-            //         });
-            //     });
-            //     return deferred.promise;
-            // }
-
         };
-    }]);
 
-    app.config(['$routeProvider', '$interpolateProvider', '$httpProvider', function( $routeProvider, $interpolateProvider, $httpProvider ){
-    
         // Change the interpolation symbols so they don't conflict with Jinja
         $interpolateProvider.startSymbol('(~');
         $interpolateProvider.endSymbol('~)');
 
-        // Home
-        // $routeProvider.when('/dashboard', {
-        //     templateUrl: 'dashboard.html'
-        // });
-
         // Library
         $routeProvider.when('/library', {
-            templateUrl: 'library.html'
+            templateUrl: 'library.html',
+            resolve: authChecks
         });
 
         // Videos
@@ -75,19 +62,21 @@
         // - /general/
         // - /engagement/
         $routeProvider.when('/analytics/:videoID/:type', {
-            templateUrl: 'analytics.html'
+            templateUrl: 'analytics.html',
+            resolve: authChecks
         });
 
         // Video upload
         $routeProvider.when('/upload', {
-            templateUrl: 'upload.html'
+            templateUrl: 'upload.html',
+            resolve: authChecks
         });
 
         // Account management
         $routeProvider.when('/account', {
             templateUrl: 'account.html'
         });
-        
+
         $routeProvider.when('/login', {
             templateUrl: 'login.html'
         });
@@ -102,13 +91,21 @@
 
         $routeProvider.otherwise({redirectTo: '/login'});
 
+
         $httpProvider.defaults.headers.patch = {
             'Content-Type': 'application/json;charset=utf-8'
-        }
+        };
+
     }]);
 
-    app.run(['$timeout', '$rootScope', '$http', 'animLoop', '$cookies', '$loginCheck', '$location', function($timeout, $rootScope, $http, animLoop, $cookies, $loginCheck, $location) {
-        $loginCheck();
+    app.run(['$timeout', '$rootScope', '$http', 'animLoop', '$cookies', '$location', 'ErrorService', function($timeout, $rootScope, $http, animLoop, $cookies, $location, ErrorService) {
+
+        $rootScope.$on('$routeChangeError', function(evt, next, last, error) {
+            if (error instanceof ErrorService.AuthError) {
+                $location.url('/login');
+            }
+        });
+
         animLoop.setFPS(15);
     }]);
 

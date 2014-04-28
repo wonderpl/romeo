@@ -1,72 +1,25 @@
-<!-- <div class="section">
-  <ul id="breadcrumb" class="inner">
-    <li class="home"><a href="/#/" class="icon-home"></a></li>
-    <li><span class="divider">/</span> <span>My Account</span></li>
-  </ul>
-</div> -->
-
 <div id="page-account" class="section" ng-controller="AccountController">
-    <div class="background"></div>
+    <div class="background">
+        <span ng-if="isEditable" class="edit-text">UPLOAD A COVER IMAGE</span>
+    </div>
     <div class="avatar">
         <span class="icon-user2"></span>
         <label for="avatar-picker">Change<br>Avatar</label>
         <input id="avatar-picker" type="file" style="visibility:hidden" onchange="angular.element(this).scope().changeAvatar(this.files[0])"/>
     </div>
-	<div class="inner">
-		<h1>{{ user.firstName }} {{ user.lastName }}</h1>
-
-<!--
-		<nav id="account-nav">
-			<ul>
-				<li><a ng-click="accountNav('personal')" ng-class="{ selected: viewing == 'personal' }">Personal Details</a></li>
-				<li><a ng-click="accountNav('stats')" ng-class="{ selected: viewing == 'stats' }">Account Stats</a></li>
-				<li><a ng-click="accountNav('payment')" ng-class="{ selected: viewing == 'payment' }">Payment Info</a></li>
-			</ul>
-		</nav>
--->
-
-		<div class="inner account-personal" ng-if="viewing == 'personal'">
-
-			<form class="inline-block" ng-submit="updateUser($event)">
-				<div class="row full-width">
-					<label>LOCATION</label>
-					<input type="text" ng-model="user.location" ng-change="changed('location', user.location)"/>
-				</div>
+    <div ng-if="isLoggedIn" class="edit-icons">
+        <span ng-click="toggleEditable()" ng-class="{ active: isEditable }">Edit Profile</span>
+        <span>(ipad)</span>
+        <span>iphone</span>
+    </div>
+    <div class="inner">
+        <div class="inner account-personal" ng-if="viewing == 'personal'">
+            <form class="inline-block" ng-submit="updateUser($event)">
                 <div class="row full-width">
-                    <label>USERNAME</label>
-                    <input type="text" ng-model="user.username" ng-change="changed('username', user.username)"/>
+                    <h1>{{ accountForm.name }}</h1>
                 </div>
-                <div class="row full-width">
-                    <label>EMAIL ADDRESS</label>
-                    <input type="text" ng-model="user.email" ng-change="changed('email', user.email)"/>
-                </div>
-                <div class="row full-width">
-                    <label>PASSWORD</label>
-                    <input type="password" ng-model="user.password" ng-change="changed('password', user.password)"/>
-                </div>
-                <div class="row full-width">
-                    <label for="form-submit"><span class="wp-button">Save</span></label>
-                    <input id="form-submit" type="submit" style="visibility: hidden">
-                </div>
-			</form>
-		</div>
-		<div class="inner account-stats" ng-if="viewing == 'stats'">
-			<div class="account-stats-left">
-				<h2>Account info</h2>
-				<p>Views left: <span>200,000</span></p>
-				<p>Encoding time left: <span>84.5 hrs</span></p>
-				<p>Total videos: <span>12</span></p>
-				<p><a href="#">Refer a friend</a></p>
-			</div>
-			<div class="account-stats-right">
-				<div class="pie">
-					<div class="inner-left"></div>
-					<div class="inner-bottom"></div>
-					<label>25% used</label>
-				</div>
-			</div>
-			<a href="#" class="big-button">Upgrade to PRO</a>
-		</div>
-		<div class="clear"></div>
-	</div>
+            </form>
+        </div>
+    </div>
 </div>
+

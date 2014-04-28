@@ -257,15 +257,15 @@
         Stats = {
             getOne: function (id, ignoreCache) {
                 var url = apiUrl + '';
-                return DataService.request(url, ignoreCache);
+                return DataService.request({url: url});
             },
             getAll: function (id, ignoreCache) {
                 var url = apiUrl + '';
-                return DataService.request(url, ignoreCache);
+                return DataService.request({url: url});
             },
             query: function (id, ignoreCache) {
                 var url = apiUrl + '';
-                return DataService.request(url, ignoreCache);
+                return DataService.request({url: url});
             },
             getFields: function () {
                 return fields;
@@ -344,7 +344,10 @@
 
                 var url = _.template('/static/api/stats.json', {id: videoId });
                 var params = { start: fromDate, end: toDate };
-                return DataService.request(url, false, params).then(function (data) {
+                return DataService.request({
+                    url: url,
+                    params: params
+                }).then(function (data) {
                     return data.overview;
                 });
 
@@ -365,7 +368,10 @@
 
 //                var url = _.template('/static/api/performance.json', {id: videoId });
                 var params = {start: formatdate(fromDate), end: formatdate(toDate), breakdown_by: 'day' };
-                return DataService.request(url, false, params).then(function (data) {
+                return DataService.request({
+                    url: url,
+                    params: params
+                }).then(function (data) {
                     return data.metrics;
                 });
 
@@ -386,7 +392,7 @@
                 };
 
                 var params = {start: formatdate(fromDate), end: formatdate(toDate), breakdown_by: 'day' };
-                return DataService.request(url, false, params).then(function (data) {
+                return DataService.request({url: url, params: params}).then(function (data) {
                     return data.metrics;
                 });
 
@@ -394,7 +400,7 @@
             getMap: function (selectedRegion) {
 
                 var url = _.template('/static/api/maps/${ selectedRegion }.json', {selectedRegion: selectedRegion.name.toLowerCase() });
-                return DataService.request(url, false, {});
+                return DataService.request({url: url});
 
             }
         };
@@ -411,7 +417,7 @@
                 };
 
                 var params = {start: formatdate(fromDate), end: formatdate(toDate), breakdown_by: 'day' };
-                return DataService.request(url, false, params).then(function (data) {
+                return DataService.request({url: url, params: params}).then(function (data) {
                     return data.engagement.results[0].metrics;
                 });
 
@@ -424,36 +430,36 @@
 
         var Video = {},
             api = '/static/api/videos.json';
-            // api = '/api/account/{ account_id }/videos';
+        // api = '/api/account/{ account_id }/videos';
 
         Video.getOne = function (id, ignoreCache) {
             var url = api + '';
-            return DataService.request(url, ignoreCache);
+            return DataService.request({url: url});
         };
 
         Video.getAll = function (ignoreCache) {
             var url = api + '';
-            return DataService.request(url, ignoreCache);
+            return DataService.request({url: url});
         };
 
-        Video.getCategories = function( ignoreCache ) {
+        Video.getCategories = function (ignoreCache) {
             var url = '/api/categories';
-            return DataService.request(url, ignoreCache);
+            return DataService.request({url: url});
         };
 
-        Video.getUploadArgs = function( ignoreCache ){
+        Video.getUploadArgs = function (ignoreCache) {
             var url = '/api/account/{ account_id }/upload_args';
-            return DataService.request(url, true);
+            return DataService.request({url: url});
         };
 
         Video.query = function (query, options, ignoreCache) {
             var url = api + '';
-            return DataService.request(url, ignoreCache);
+            return DataService.request({url: url});
         };
 
         Video.save = function (id, video) {
             var url = api + '';
-            return DataService.save(url, id, video);
+            return DataService.save({url: url, params: video});
         };
 
         return {
@@ -466,112 +472,255 @@
         };
 
     }]);
+    /*
 
-    app.factory('DataService', ['$rootScope', '$location', '$http', '$q', '$timeout', 'localStorageService', 'FlashService', function ($rootScope, $location, $http, $q, $timeout, localStorageService, FlashService) {
+     app.factory('DataService', ['$rootScope', '$location', '$http', '$q', '$timeout', 'localStorageService', 'FlashService', function ($rootScope, $location, $http, $q, $timeout, localStorageService, FlashService) {
 
-        var Data = {},
-            cache = {},
-            authed = ($rootScope.account !== undefined) ? true : false;
+     var Data = {},
+     cache = {},
+     authed = ($rootScope.account !== undefined) ? true : false;
 
-        var authCheck = function() {
-            var deferred = new $q.defer();
+     var authCheck = function() {
+     var deferred = new $q.defer();
 
-            if ( authed === true ) {
-                $timeout(function(){
-                    deferred.resolve();
-                }, 10);
-            } else if ( localStorageService.get('session_url') !== null ) {
-                $http({ 
-                    method: 'GET',
-                    url: localStorageService.get('session_url'), 
-                }).success(function(data,status,headers,config){
-                    $timeout(function() {
-                        $rootScope.$apply(function(){
-                            // console.log(data);
-                            $rootScope.account = data.account;
-                            $rootScope.user = data.user;
-                            $rootScope.userID = data.href.split('/');
-                            $rootScope.userID = $rootScope.userID[$rootScope.userID.length-1];
-                            // console.log($rootScope.userID);
-                            authed = true;
-                            deferred.resolve($rootScope.userID);
-                        });
-                    });
-                }).error(function(data, status, headers, config){
-                    FlashService.flash( 'There was an error loading your account details, please refresh this page to try again.', 'error' );
-                });
-            } else {
-                $timeout(function () {
-                    deferred.reject('no session url');
-                });
-            }
-            return deferred.promise;
-        };
+     if ( authed === true ) {
+     $timeout(function(){
+     deferred.resolve();
+     }, 10);
+     } else if ( localStorageService.get('session_url') !== null ) {
+     $http({
+     method: 'GET',
+     url: localStorageService.get('session_url')
+     }).success(function(data,status,headers,config){
+     $timeout(function() {
+     $rootScope.$apply(function(){
+     // console.log(data);
+     $rootScope.account = data.account;
+     $rootScope.user = data.user;
+     $rootScope.userID = data.href.split('/');
+     $rootScope.userID = $rootScope.userID[$rootScope.userID.length-1];
+     // console.log($rootScope.userID);
+     authed = true;
+     deferred.resolve($rootScope.userID);
+     });
+     });
+     }).error(function(data, status, headers, config){
+     FlashService.flash( 'There was an error loading your account details, please refresh this page to try again.', 'error' );
+     });
+     } else {
+     $timeout(function () {
+     deferred.reject('no session url');
+     });
+     }
+     return deferred.promise;
+     };
 
-        var format = function(str, rep) {
-           return str.toString().replace(/\{(.*?)\}/g, rep);
-        };
+     var format = function(str, rep) {
+     return str.toString().replace(/\{(.*?)\}/g, rep);
+     };
 
-        Data.save = function (url, id, obj) {
-            var deferred = new $q.defer();
+     Data.save = function (url, id, obj) {
+     var deferred = new $q.defer();
 
-            $timeout(function () {
-                console.log(cache[url].videos[id] = obj);
-                deferred.resolve();
-            }, 1000);
+     $timeout(function () {
+     console.log(cache[url].videos[id] = obj);
+     deferred.resolve();
+     }, 1000);
 
-            return deferred.promise;
-        };
+     return deferred.promise;
+     };
 
 
-        Data.request = function (url, ignoreCache, params) {
+     Data.request = function (url, ignoreCache, params) {
 
-            var deferred = new $q.defer();
+     var deferred = new $q.defer();
 
-            var makeParams = function (params) {
-                if (_.keys(params).length) {
-                    return '?' + _(params).map(function (value, key) {
-                        return  _.escape(key) + '=' + _.escape(value);
-                    }).join('&');
-                } else {
-                    return '';
-                }
-            };
+     var makeParams = function (params) {
+     if (_.keys(params).length) {
+     return '?' + _(params).map(function (value, key) {
+     return  _.escape(key) + '=' + _.escape(value);
+     }).join('&');
+     } else {
+     return '';
+     }
+     };
 
-            authCheck().then(function(account_id){  
+     authCheck().then(function(account_id){
 
-                url += makeParams(params);
-                url = format(url, account_id);
-                console.log(url);
+     url += makeParams(params);
+     url = format(url, account_id);
+     console.log(url);
 
-                if (ignoreCache === true || cache[url] === undefined) {
-                    $http({ method: 'get', url: url }).success(function (data, status, headers, config) {
-                        if (status === 200) {
-                            cache[url] = data;
-                            deferred.resolve(data);
-                        } else {
-                            console.log('failed');
-                            deferred.reject('There was an error when retrieving the data.');
-                        }
-                    });
-                } else {
-                    deferred.resolve(cache[url]);
-                }
+     if (ignoreCache === true || cache[url] === undefined) {
+     $http({ method: 'get', url: url }).success(function (data, status, headers, config) {
+     if (status === 200) {
+     cache[url] = data;
+     deferred.resolve(data);
+     } else {
+     console.log('failed');
+     deferred.reject('There was an error when retrieving the data.');
+     }
+     });
+     } else {
+     deferred.resolve(cache[url]);
+     }
 
-            },function(){
-                $timeout(function(){
-                    deferred.reject('Not authorised to access this content');
-                }, 10);
-            });
+     },function(){
+     $timeout(function(){
+     deferred.reject('Not authorised to access this content');
+     }, 10);
+     });
 
-            return deferred.promise;
-        };
+     return deferred.promise;
+     };
+
+     return {
+     save: Data.save,
+     request: Data.request
+     };
+
+     }]);
+     */
+
+    app.factory('ErrorService', function () {
+
+        function AuthError() {
+            var tmp = Error.apply(this, arguments);
+            tmp.name = this.name = 'AuthError';
+
+            this.stack = tmp.stack;
+            this.message = tmp.message;
+
+            return this
+        }
+
+        AuthError.prototype = Object.create(Error);
 
         return {
-            save: Data.save,
-            request: Data.request
+            AuthError: AuthError
+        }
+
+    });
+
+    app.factory('DataService', ['$http', '$q', '$location', 'AuthService', 'ErrorService', function ($http, $q, $location, AuthService, ErrorService) {
+
+        var Data;
+
+        function request(options) {
+
+            var deferred;
+            var sessionUrl = AuthService.getSession();
+            var defaultOptions = {
+                method: 'GET'
+            };
+
+            options = _.extend(defaultOptions, options);
+
+            if (AuthService.isLoggedIn()) {
+                deferred = $http(options).then(function (response) {
+                    return response.data;
+                });
+            } else if (sessionUrl) {
+                deferred = AuthService.retrieveSession(sessionUrl).then(function (sessionData) {
+                    AuthService.setSession(sessionData);
+                    return $http(options).then(function (response) {
+                        return response.data;
+                    });
+                }, function (error) {
+                    return $q.reject(error);
+                });
+            } else {
+                // No idea who this person is...
+                deferred = $q.reject(new ErrorService.AuthError('no_session'));
+            }
+
+            deferred.catch(function (response) {
+                if (typeof response === 'object') {
+                    if (response instanceof ErrorService.AuthError) {
+                        AuthService.logout();
+                        $location.url('/login');
+                    } else if ('status' in response && (response.status === 401)) {
+                        return AuthService.retrieveSession(sessionUrl).then(function (sessionData) {
+                            AuthService.setSession(sessionData);
+                            return $http(options).then(function (response) {
+                                return response.data;
+                            });
+                        }, function (error) {
+                            $location.url('/login');
+                        });
+                    }
+                }
+                return arguments;
+            });
+
+            return deferred;
+        }
+
+        Data = {
+            request: request
         };
 
+        return Data;
+
+    }]);
+
+    app.factory('AuthService', ['$http', 'localStorageService', 'ErrorService', function ($http, localStorageService, ErrorService) {
+        var currentSession = null;
+
+        var AuthService = {
+
+            // Checks local storage for session and returns it
+            getSession: function () {
+                return localStorageService.get('session_url');
+            },
+
+            // Sets the session info
+            setSession: function (sessionData) {
+                localStorageService.add('session_url', sessionData.href);
+                return currentSession = sessionData;
+            },
+
+            // Attempts to retrieve session info from server
+            retrieveSession: function (session_url) {
+                return $http({
+                    method: 'GET',
+                    url: session_url,
+                    withCredentials: true
+                }).then(function (data) {
+                    return data.data;
+                });
+            },
+
+            isLoggedIn: function () {
+                return currentSession !== null;
+            },
+            login: function (username, password) {
+                return $http({
+                    method: 'post',
+                    url: '/api/login',
+                    data: {
+                        'username': username,
+                        'password': password
+                    }
+                }).success(function (data) {
+                    return AuthService.setSession(data.account);
+                }).error(function () {
+//                    debugger;
+                });
+            },
+            logout: function () {
+                // Maybe a request here? probably....
+                var deferred = $q.defer;
+                currentSession = null;
+                localStorageService.remove('session_url');
+                deferred.resolve();
+                return deferred.promise;
+            },
+            getUser: function () {
+                return currentSession;
+            }
+        };
+        return AuthService;
     }]);
 
     app.factory('FlashService', [ '$timeout', function ($timeout) {

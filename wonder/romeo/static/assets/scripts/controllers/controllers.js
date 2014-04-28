@@ -7,15 +7,12 @@
          ns + '.directives',
          'LocalStorageModule'] /* module dependencies */);
 
-    app.controller('MainCtrl', 
-        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$modal', '$loginCheck', 'localStorageService', 
-        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $modal, $loginCheck, localStorageService) {
+    app.controller('MainCtrl', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$modal', 'localStorageService', function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $modal, localStorageService) {
 
         $scope.wonder = ng.element(d.getElementById('wonder'));
         $scope.wrapper = ng.element(d.getElementById('wrapper'));
         $scope.html = ng.element(d.querySelector('html'));
         $scope.body = ng.element(d.body);
-        $scope.showQuickShare = false;
 
         $rootScope.isUnique = function(arr, string) {
             if ( arr.length === 0 ) {
@@ -57,10 +54,6 @@
 
         $rootScope.$on('$locationChangeSuccess', function(event){
 
-            // if ( $rootScope.authed === undefined ) {
-            //     $loginCheck();    
-            // }
-
             $scope.wonder.removeClass('aside');
             $scope.wrapper.removeClass('aside');
             $scope.html.removeClass('aside');
@@ -81,10 +74,8 @@
     }]);
 
     app.controller('LibraryController', 
-        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$sanitize', '$modal', 'VideoService', 'StatsService', 'DragDropService', 'FlashService', '$filter', '$loginCheck', 
-        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $sanitize, $modal, VideoService, StatsService, DragDropService, FlashService, $filter, $loginCheck) {
-
-        $loginCheck();
+        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$sanitize', '$modal', 'VideoService', 'StatsService', 'DragDropService', 'FlashService', '$filter',
+        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $sanitize, $modal, VideoService, StatsService, DragDropService, FlashService, $filter) {
 
         VideoService.getAll().then(function(data){
             $timeout(function(){
@@ -457,47 +448,50 @@
         $scope.closeModal = function($event) {
             $modal.hide();
         };
+
     }]);
 
-    app.controller('AccountController', 
-        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$modal', 'FlashService', '$loginCheck', 
-        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $modal, FlashService, $loginCheck) {
-        
-        $loginCheck();
+    app.controller('AccountController', ['$scope', '$rootScope', 'AuthService', 'DataService', function ($scope, $rootScope, AuthService, DataService) {
+
+        // Are we logged in?
+        $scope.isLoggedIn = AuthService.getSession();
+        $scope.isEditable = false;
 
         $scope.avatarFile = null;
         $scope.profileFile = null;
+
         $scope.formData = new FormData();
 
-        $scope.viewing = 'personal';
-        $scope.user = {
-            firstName: "David",
-            lastName: "Woollard",
-            username: "Darve",
-            location: "United Kingdom",
-            email: "dave@darve.co.uk",
-            password: "davelol"
+        $scope.accountForm = angular.copy($rootScope.account);
+
+        $scope.getChangedProperties = function () {
+            return _.reject($scope.accountForm, function (value, key) {
+                return value === $rootScope.user[key];
+            });
         };
 
-        $scope.changeAvatar = function(newFile) {
+        $scope.toggleEditable = function () {
+            $scope.isEditable = !$scope.isEditable;
+        };
+
+        $scope.changeAvatar = function (newFile) {
             $scope.avatarFile = newFile;
+            $scope.updateUser();
+            $scope.avatarFile = null;
         };
 
-        $scope.changeProfileBackground = function(newFile) {
+        $scope.changeProfileBackground = function (newFile) {
             $scope.profileFile = newFile;
         };
 
-        $scope.updateUser = function($event) {
-            debugger;
-            $event.preventDefault();
+        $scope.updateUser = function () {
             var fd = $scope.formData;
             //Take the first selected file
 
             $scope.avatarFile && fd.append('avatar', $scope.avatarFile);
             $scope.profileFile && fd.append('profile_cover', $scope.profileFile);
 
-            $http({
-                url: '/api/account/75435685',
+            DataService.request('/api/account/75435685', true, fd, {
                 method: 'PATCH',
                 headers: {'Content-Type': undefined },
                 transformRequest: angular.identity,
@@ -506,16 +500,17 @@
 
         };
 
-        $scope.changed = function(name, value) {
+        $scope.changed = function (name, value) {
             $scope.formData.append(name, value);
         }
+
     }]);
 
     app.controller('UploadController', 
-        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', '$loginCheck', '$modal', 'animLoop', 'prettydate', '$interval', 
-        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, $loginCheck, $modal, animLoop, prettydate, $interval) {
+        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', '$modal', 'animLoop', 'prettydate', '$interval', 
+        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, $modal, animLoop, prettydate, $interval) {
 
-        $loginCheck();
+        //$loginCheck();
         
         $scope.state = "start";
 
@@ -541,18 +536,18 @@
         /*
         * The state object for showing file upload progress
         */
-        $scope.file = {
-            name: "",
-            confirmed: false,
-            upload: {
-                progress: 2.5
-            },
-            process: {
-                progress: 0
-            },
-            state: "empty",
-            thumbnail: null
-        };
+            $scope.file = {
+                name: "",
+                confirmed: false,
+                upload: {
+                    progress: 2.5
+                },
+                process: {
+                    progress: 0
+                },
+                state: "empty",
+                thumbnail: null
+            };
 
         /*
         * The state object for autosaving the video
@@ -700,13 +695,10 @@
             // });
         };
 
+  
     }]);
 
-    app.controller('AnalyticsController', 
-        ['$scope', '$rootScope', '$routeParams', '$element', 'Enum', 'AnalyticsFields', 'VideoService', '$loginCheck', 
-        function ($scope, $rootScope, $routeParams, $element, Enum, AnalyticsFields, VideoService, $loginCheck) {
-
-        $loginCheck();
+    app.controller('AnalyticsController', ['$scope', '$rootScope', '$routeParams', '$element', 'Enum', 'AnalyticsFields', 'VideoService', function ($scope, $rootScope, $routeParams, $element, Enum, AnalyticsFields, VideoService) {
 
         // ---- Functions ----
 
@@ -815,43 +807,32 @@
         // });
     }]);
 
-    app.controller('LoginController', 
-        ['$scope', '$rootScope', '$routeParams', '$http', '$timeout', 'localStorageService', 'FlashService', '$location', 
-        function ($scope, $rootScope, $routeParams, $http, $timeout, localStorageService, FlashService, $location) {
+    app.controller('LoginController',
+        ['$scope', '$location', 'AuthService',
+            function ($scope, $location, AuthService) {
 
-        $scope.username = $scope.username || "";
-        $scope.password = $scope.username || "";
-        $scope.href = "";
+                $scope.username = $scope.username || '';
+                $scope.password = $scope.username || '';
+                $scope.href = '';
 
-        $scope.login = function() {
-            $http({ 
-                method: 'post', 
-                url: '/api/login', 
-                data: { 
-                    "username": $scope.username, 
-                    "password": $scope.password
-                } 
-            }).success(function(data,status,headers,config){
+                $scope.handleRedirect = function () {
+                    var params = $location.search();
+                    if (params.redirect) {
+                        console.log('redirect to ->' + params.redirect);
+                    } else {
+                        $location.url('/library');
+                    }
+                };
 
-                if ( status === 200 ) {
-                    localStorageService.add( 'session_url', data.account.href );
-                    $timeout(function() {
-                        $rootScope.$apply(function(){
-                            $rootScope.account = data.account;
-                            $rootScope.user = data.user;
-                            $location.path('/upload');
-                            $rootScope.authed = true;
-                        });
+                $scope.login = function () {
+                    return AuthService.login($scope.username, $scope.password).then($scope.handleRedirect, function () {
+                        // Error Logging in
                     });
-                } else {
-                    FlashService.flash( 'Incorrect username or password, please try again.', 'error' );
-                }
+                };
 
-            }).error(function(data, status, headers, config){
-                FlashService.flash( 'Incorrect username or password, please try again.', 'error' );
-            });
-        };
-    }]);
+            }
+        ]
+    );
 
     app.controller('LoadingController', 
         [ '$location', 'localStorageService', '$http', '$rootScope', 'FlashService', '$timeout', 
