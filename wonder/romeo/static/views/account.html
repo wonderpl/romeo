@@ -5,21 +5,20 @@
     <div class="avatar">
         <span class="icon-user2"></span>
         <label for="avatar-picker">Change<br>Avatar</label>
-        <input id="avatar-picker" type="file" style="visibility:hidden" onchange="angular.element(this).scope().changeAvatar(this.files[0])"/>
+        <input id="avatar-picker" type="file" style="visibility:hidden"
+               onchange="angular.element(this).scope().changeAvatar(this.files[0])"/>
     </div>
     <div ng-if="isLoggedIn" class="edit-icons">
-        <span ng-click="toggleEditable()" ng-class="{ active: isEditable }">Edit Profile</span>
+        <span ng-click="toggleEditable()" ng-class="{ active: isEditable }" class="wp-button">Edit Profile</span>
         <span>(ipad)</span>
         <span>iphone</span>
     </div>
     <div class="inner">
-        <div class="inner account-personal" ng-if="viewing == 'personal'">
-            <form class="inline-block" ng-submit="updateUser($event)">
-                <div class="row full-width">
-                    <h1>{{ accountForm.name }}</h1>
-                </div>
-            </form>
-        </div>
+        <form class="inline-block" ng-submit="updateUser($event)">
+            <div class="row full-width">
+                <h1>{{ account.name }}</h1>
+            </div>
+        </form>
     </div>
 </div>
 
