@@ -94,8 +94,7 @@ class VideoForm(BaseForm):
 def create_asset_in_background(video_id):
     video = Video.query.get(video_id)
     metadata = dict(name=video.title, label=video.account_id, path=video.filepath)
-    #video.external_id = create_asset(video.filename, metadata)
-    print create_asset, metadata
+    video.external_id = create_asset(video.filepath, metadata)
     video.record_workflow_event('ooyala asset created')
 
 
