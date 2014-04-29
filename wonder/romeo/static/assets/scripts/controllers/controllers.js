@@ -558,7 +558,7 @@
         * State objects showing which thumbnail has been selected out of the available video thumbnails
         */        
         $scope.thumbIndex = 0;
-        $scope.thumbnails = ['/static/assets/img/placeholder-photo-large.jpg','/static/assets/img/placeholder-photo-large.jpg','/static/assets/img/placeholder-photo-large.jpg','/static/assets/img/placeholder-photo-large.jpg','/static/assets/img/placeholder-photo-large.jpg'];
+        $scope.thumbnails = ['/static/assets/img/test-image-1.jpg','/static/assets/img/test-image-2.jpg','/static/assets/img/test-image-3.jpg','/static/assets/img/test-image-1.jpg','/static/assets/img/test-image-2.jpg','/static/assets/img/test-image-3.jpg'];
 
         /*
         * The state object for autosaving the video
@@ -668,20 +668,26 @@
                             $scope.video.filename = uploadPath;
                             $scope.file.state = 'processing';
                             $scope.updateVideo(data);
-                            // console.log( $scope.video );  
-                            // console.log(' FILE UPLOADED ', arguments);
 
-                            $scope.processingInterval = $interval(function(){
-                                VideoService.get(function(response){
-                                    console.log( response );
-                                    if ( response.status === 'ready' ) {
-                                        console.log(' video ready! ');
-                                        $interval.cancel($scope.processingInterval);
-                                    } else {    
-                                        console.log(' video still processing' );
-                                    }
+                            // POLLING
+                            // $scope.processingInterval = $interval(function(){
+                            //     VideoService.get($scope.video.id).then(function(response){
+                            //         console.log( response );
+                            //         if ( response.status === 'ready' ) {
+                            //             console.log(' video ready! ');
+                            //             $interval.cancel($scope.processingInterval);
+                            //         } else {    
+                            //             console.log(' video still processing' );
+                            //         }
+                            //     });
+                            // }, 20000);
+
+                            $timeout(function() {
+                                $scope.$apply(function() {
+                                    $scope.file.state = 'complete';
                                 });
-                            }, 20000);
+                            }, 5000);
+
                         });
                     });
                 }).fail(function (response) {
@@ -799,9 +805,36 @@
         * Show the thumbnail chooser
         */
         $scope.showThumbnailChooser = function(e) {
-            $modal.load('modal-thumbnail-picker.html', true, $scope, { thumbnails: $scope.thumbnails }, { width: 910 });
+            $modal.load('modal-thumbnail-picker.html', true, $scope, undefined, { width: 910 });
         };
 
+        /*
+        * Move the thumbIndex for the thumbnail choose
+        */
+        $scope.thumbnailChosen = function(dir) {
+            // Set the thumbnail to the $scope.thumbIndex
+        };
+
+        /*
+        * Move the thumbIndex for the thumbnail choose
+        */
+        $scope.thumbnailPage = function(dir) {
+            // $scope.thumbIndex = dir == 'left' ? dir > 0 ? dir-1 : dir : dir < ($scope.thumbnails.length-1) : dir
+
+            if ( dir === 'left' ) {
+                if ( $scope.thumbIndex === 0 ) {
+                    $scope.thumbIndex = ($scope.thumbnails.length-1);
+                } else {
+                    $scope.thumbIndex--;
+                }
+            } else {
+                if ( $scope.thumbIndex === ($scope.thumbnails.length-1)) {
+                    $scope.thumbIndex = 0;
+                } else {
+                    $scope.thumbIndex++;
+                }
+            }
+        };
   
     }]);
 

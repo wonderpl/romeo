@@ -113,10 +113,15 @@
             }
 
             template = $templateCache.get(modal.getUrl(url));
-            var $scp = ng.extend(scope.$new(), {
-                data: ng.extend({}, obj)
-            });
-            compiledTemplate = $compile($sanitize(template))($scp);
+            if ( obj !== undefined ) {
+                var $scp = ng.extend(scope.$new(), {
+                    data: ng.extend({}, obj)
+                });
+                compiledTemplate = $compile($sanitize(template))($scp);                
+            } else {
+                compiledTemplate = $compile($sanitize(template))(scope);
+            }
+
             $el.html('');
             $el.append(compiledTemplate);
 
