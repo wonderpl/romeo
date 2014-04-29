@@ -12,7 +12,8 @@
                 ns + '.filters',
                 ns + '.analytics',
             'ngRoute',
-            'ngCookies'] /* module dependencies */);
+            'ngCookies',
+            'angularFileUpload'] /* module dependencies */);
 
     app.config(['$routeProvider', '$interpolateProvider', '$httpProvider', function( $routeProvider, $interpolateProvider, $httpProvider, $location ){
         var sessionUrl;

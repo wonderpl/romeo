@@ -2012,7 +2012,7 @@ a#category-chooser {
   display: block;
   position: relative;
   width: 500px;
-  margin: 0 auto;
+  margin: 0 auto 16px auto;
   background: black;
 
   &:before {
@@ -2025,10 +2025,33 @@ a#category-chooser {
 .thumbnail-controls {
   text-align: center;
 
+  p {
+    display: block;
+    margin: 0 0 12px 0;
+  }
+
   a {
     @include inline-block;
-    padding: 7px;
-    font-weight: 600;
+    @include transition( all .1s ease-out );
+    padding: 12px;
+    font-size: 22px;
+    font-weight: 800;
+    border: 1px solid #e3e3e3;
+    color: black;
+    cursor: pointer;
+
+    &.left {
+      border-right: none;
+      @include border-radius( 50px 0 0 50px );
+    }
+
+    &.right {
+      @include border-radius( 0 50px 50px 0 );
+    }
+
+    &:hover, &:active, &:focus {
+      background: #e3e3e3;
+    }
   }
 }
 

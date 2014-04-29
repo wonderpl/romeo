@@ -1,78 +1,31 @@
 angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   'use strict';
 
   $templateCache.put('account.html',
-    "<!-- <div class=\"section\">\n" +
-    "  <ul id=\"breadcrumb\" class=\"inner\">\n" +
-    "    <li class=\"home\"><a href=\"/#/\" class=\"icon-home\"></a></li>\n" +
-    "    <li><span class=\"divider\">/</span> <span>My Account</span></li>\n" +
-    "  </ul>\n" +
-    "</div> -->\n" +
-    "\n" +
     "<div id=\"page-account\" class=\"section\" ng-controller=\"AccountController\">\n" +
-    "    <div class=\"background\"></div>\n" +
+    "    <div class=\"background\">\n" +
+    "        <span ng-if=\"isEditable\" class=\"edit-text\">UPLOAD A COVER IMAGE</span>\n" +
+    "    </div>\n" +
     "    <div class=\"avatar\">\n" +
     "        <span class=\"icon-user2\"></span>\n" +
     "        <label for=\"avatar-picker\">Change<br>Avatar</label>\n" +
     "        <input id=\"avatar-picker\" type=\"file\" style=\"visibility:hidden\" onchange=\"angular.element(this).scope().changeAvatar(this.files[0])\"/>\n" +
     "    </div>\n" +
-    "\t<div class=\"inner\">\n" +
-    "\t\t<h1>(~ user.firstName ~) (~ user.lastName ~)</h1>\n" +
-    "\n" +
-    "<!--\n" +
-    "\t\t<nav id=\"account-nav\">\n" +
-    "\t\t\t<ul>\n" +
-    "\t\t\t\t<li><a ng-click=\"accountNav('personal')\" ng-class=\"{ selected: viewing == 'personal' }\">Personal Details</a></li>\n" +
-    "\t\t\t\t<li><a ng-click=\"accountNav('stats')\" ng-class=\"{ selected: viewing == 'stats' }\">Account Stats</a></li>\n" +
-    "\t\t\t\t<li><a ng-click=\"accountNav('payment')\" ng-class=\"{ selected: viewing == 'payment' }\">Payment Info</a></li>\n" +
-    "\t\t\t</ul>\n" +
-    "\t\t</nav>\n" +
-    "-->\n" +
-    "\n" +
-    "\t\t<div class=\"inner account-personal\" ng-if=\"viewing == 'personal'\">\n" +
-    "\n" +
-    "\t\t\t<form class=\"inline-block\" ng-submit=\"updateUser($event)\">\n" +
-    "\t\t\t\t<div class=\"row full-width\">\n" +
-    "\t\t\t\t\t<label>LOCATION</label>\n" +
-    "\t\t\t\t\t<input type=\"text\" ng-model=\"user.location\" ng-change=\"changed('location', user.location)\"/>\n" +
-    "\t\t\t\t</div>\n" +
+    "    <div ng-if=\"isLoggedIn\" class=\"edit-icons\">\n" +
+    "        <span ng-click=\"toggleEditable()\" ng-class=\"{ active: isEditable }\">Edit Profile</span>\n" +
+    "        <span>(ipad)</span>\n" +
+    "        <span>iphone</span>\n" +
+    "    </div>\n" +
+    "    <div class=\"inner\">\n" +
+    "        <div class=\"inner account-personal\" ng-if=\"viewing == 'personal'\">\n" +
+    "            <form class=\"inline-block\" ng-submit=\"updateUser($event)\">\n" +
     "                <div class=\"row full-width\">\n" +
-    "                    <label>USERNAME</label>\n" +
-    "                    <input type=\"text\" ng-model=\"user.username\" ng-change=\"changed('username', user.username)\"/>\n" +
+    "                    <h1>(~ accountForm.name ~)</h1>\n" +
     "                </div>\n" +
-    "                <div class=\"row full-width\">\n" +
-    "                    <label>EMAIL ADDRESS</label>\n" +
-    "                    <input type=\"text\" ng-model=\"user.email\" ng-change=\"changed('email', user.email)\"/>\n" +
-    "                </div>\n" +
-    "                <div class=\"row full-width\">\n" +
-    "                    <label>PASSWORD</label>\n" +
-    "                    <input type=\"password\" ng-model=\"user.password\" ng-change=\"changed('password', user.password)\"/>\n" +
-    "                </div>\n" +
-    "                <div class=\"row full-width\">\n" +
-    "                    <label for=\"form-submit\"><span class=\"wp-button\">Save</span></label>\n" +
-    "                    <input id=\"form-submit\" type=\"submit\" style=\"visibility: hidden\">\n" +
-    "                </div>\n" +
-    "\t\t\t</form>\n" +
-    "\t\t</div>\n" +
-    "\t\t<div class=\"inner account-stats\" ng-if=\"viewing == 'stats'\">\n" +
-    "\t\t\t<div class=\"account-stats-left\">\n" +
-    "\t\t\t\t<h2>Account info</h2>\n" +
-    "\t\t\t\t<p>Views left: <span>200,000</span></p>\n" +
-    "\t\t\t\t<p>Encoding time left: <span>84.5 hrs</span></p>\n" +
-    "\t\t\t\t<p>Total videos: <span>12</span></p>\n" +
-    "\t\t\t\t<p><a href=\"#\">Refer a friend</a></p>\n" +
-    "\t\t\t</div>\n" +
-    "\t\t\t<div class=\"account-stats-right\">\n" +
-    "\t\t\t\t<div class=\"pie\">\n" +
-    "\t\t\t\t\t<div class=\"inner-left\"></div>\n" +
-    "\t\t\t\t\t<div class=\"inner-bottom\"></div>\n" +
-    "\t\t\t\t\t<label>25% used</label>\n" +
-    "\t\t\t\t</div>\n" +
-    "\t\t\t</div>\n" +
-    "\t\t\t<a href=\"#\" class=\"big-button\">Upgrade to PRO</a>\n" +
-    "\t\t</div>\n" +
-    "\t\t<div class=\"clear\"></div>\n" +
-    "\t</div>\n" +
-    "</div>\n"
+    "            </form>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "\n"
   );
 
 
@@ -432,10 +385,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t<div class=\"thumbnail-frame\">\n" +
     "\t\t\n" +
     "\t</div>\n" +
-    "\t<div class=\"thumbnail-controls\">\n" +
+    "\t<div class=\"thumbnail-controls f-sans\">\n" +
     "\t\t<p>Frame: (~ thumbIndex ~) / (~ thumbnails.length ~)</p>\n" +
-    "\t\t<a class=\"left\" ng-click=\"thumbnailPage('left')\">&lt;</a>\n" +
-    "\t\t<a class=\"left\" ng-click=\"thumbnailPage('right')\">&rt;</a>\n" +
+    "\t\t<a class=\"left\" ng-click=\"thumbnailPage('left')\">&lt;</a><!--\n" +
+    "\t\t--><a class=\"right\" ng-click=\"thumbnailPage('right')\">&gt;</a>\n" +
     "\t</div>\n" +
     "\t<a class=\"icon-cross close-modal\" ng-click=\"closeModal()\"></a>\n" +
     "</div>"
@@ -495,7 +448,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t\t\t<span ng-show=\"file.state == 'empty'\" class=\"empty-icon icon-drag\"></span>\n" +
     "\t\t\t\t\t\t<span ng-show=\"file.state == 'empty'\" class=\"empty-lower f-sans\">or choose a video from your computer</span>\n" +
     "\n" +
-    "\t\t\t\t\t\t<input ng-show=\"file.state != 'uploading'\" type=\"file\" id=\"file-input\" upload-file-input>\n" +
+    "\t\t\t\t\t\t<input ng-show=\"file.state != 'uploading'\" type=\"file\" id=\"file-input\" ng-file-select=\"onFileSelect($files)\">\n" +
     "\n" +
     "\t\t\t\t\t\t<div ng-show=\"file.state == 'chosen'\" class=\"confirm-label f-serif\">Is \"(~ file.name ~)\" correct?</div>\n" +
     "\t\t\t\t\t\t<a ng-show=\"file.state == 'chosen'\" class=\"confirm-cancel\">Choose a different file</a><!--\n" +

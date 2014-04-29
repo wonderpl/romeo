@@ -426,7 +426,7 @@
 
     }]);
 
-    app.factory('VideoService', ['DataService', 'localStorageService', '$rootScope', function (DataService, localStorageService, $rootScope) {
+    app.factory('VideoService', ['DataService', 'localStorageService', '$rootScope', 'AuthService', function (DataService, localStorageService, $rootScope, AuthService) {
 
         var Video = {},
             api = '/static/api/videos.json';
@@ -448,7 +448,7 @@
         };
 
         Video.getUploadArgs = function (ignoreCache) {
-            var url = '/api/account/{ account_id }/upload_args';
+            var url = '/api/account/' + AuthService.getUserId() + '/upload_args';
             return DataService.request({url: url});
         };
 
@@ -677,7 +677,10 @@
             // Sets the session info
             setSession: function (sessionData) {
                 localStorageService.add('session_url', sessionData.href);
-                return currentSession = sessionData;
+                currentSession = sessionData;
+                currentSession.id = sessionData.href.match(/api\/account\/(\d+)/)[1];
+                console.log(currentSession.id);
+                return currentSession;
             },
 
             // Attempts to retrieve session info from server
@@ -718,6 +721,9 @@
             },
             getUser: function () {
                 return currentSession;
+            }, 
+            getUserId: function() {
+                return currentSession.id;
             }
         };
         return AuthService;

@@ -507,8 +507,8 @@
     }]);
 
     app.controller('UploadController', 
-        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', '$modal', 'animLoop', 'prettydate', '$interval', 
-        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, $modal, animLoop, prettydate, $interval) {
+        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', '$modal', 'animLoop', 'prettydate', '$interval', '$upload', 
+        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, $modal, animLoop, prettydate, $interval, $upload) {
 
         //$loginCheck();
         
@@ -549,6 +549,8 @@
                 thumbnail: null
             };
 
+        $scope.files = null;
+
         /*
         * The state object for autosaving the video
         */
@@ -559,7 +561,6 @@
                 $timeout(function(){
                     $scope.$apply(function(){
                         $scope.status.saved = $scope.status.saved !== null ? prettydate($scope.status.date) : null;
-                        console.log( prettydate($scope.status.date) );
                     });
                 });
             },  1000)
@@ -636,21 +637,90 @@
         $scope.getUploadProgress = function(){
         };
 
+
+        $scope.onFileSelect = function($files) {
+            $scope.file.state = "chosen";
+            $scope.files = $files;
+        };
+
         /*
         * The user has confirmed that they have chosen the correct file to upload
         */
         $scope.startUpload = function() {
 
-            // VideoService.getUploadArgs().then(function(res){
-            //     $timeout(function(){
-            //         $scope.$apply(function(){
+            VideoService.getUploadArgs().then(function(uploadArgs){
+                var formData = new FormData(),
+                    uploadPath;
+
+                ng.forEach(uploadArgs.fields, function ( val ) {
+                    formData.append(val.name, val.value);
+                    if (val.name == 'key') {
+                        uploadPath = val.value;
+                    }
+                });
+
+                for (var i = 0; i < $scope.files.length; i++) {
+                  var file = $scope.files[i];
+                  $scope.upload = $upload.upload({
+                    url: uploadArgs.actino, //upload.php script, node.js route, or servlet url
+                    method: 'PUT',
+                    // method: POST or PUT,
+                    // headers: {'header-key': 'header-value'},
+                    // withCredentials: true,
+                    // data: {myObj: $scope.myModelObj},
+                    data: formData,
+                    file: file, // or list of files: $files for html5 only
+                    /* set the file formData name ('Content-Desposition'). Default is 'file' */
+                    //fileFormDataName: myFile, //or a list of names for multiple files (html5).
+                    /* customize how data is added to formData. See #40#issuecomment-28612000 for sample code */
+                    //formDataAppender: function(formData, key, val){}
+                  }).progress(function(evt) {
+                    console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+                  }).success(function(data, status, headers, config) {
+                    // file is uploaded successfully
+                    console.log(data);
+                  });
+                  //.error(...)
+                  //.then(success, error, progress); 
+                  //.xhr(function(xhr){xhr.upload.addEventListener(...)})// access and attach any event listener to XMLHttpRequest.
+                }
+
+
+
+
+                // $http({
+                //     url: uploadArgs.action,
+                //     type: 'post',
+                //     data: formData,
+                //     processData: false,
+                //     mimeType: 'multipart/form-data',
+                //     contentType: false,
+                //     xhr: function () {
+                //         var xhr = $.ajaxSettings.xhr();
+                //         xhr.upload.onprogress = function (e) {
+                //             var p = e.lengthComputable ? Math.round(e.loaded * 100 / e.total) : 0;
+                //             status.html(p ? p.toString() + '%' : '');
+                //         };
+                //         return xhr;
+                //     }
+                // }).done(function () {
+                //     // Set metadata form filename field to mark that upload is complete
+                //     filename.val(uploadPath).trigger('change');
+                //     status.hide();
+                // }).fail(function () {
+                //     console.log(arguments);
+                //     status.html('Failed');
+                // });
+
+                $timeout(function(){
+                    $scope.$apply(function(){
                         $scope.file.state = "uploading";
-            //         });
-            //     });
+                    });
+                });
                 // animLoop.add('getUploadProgress', $scope.getUploadProgress);
                 animLoop.add('incrementProgress', $scope.incrementProgress);
                 animLoop.start();
-            // });
+            });
 
         };
 
