@@ -8,21 +8,20 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <div class=\"avatar\">\n" +
     "        <span class=\"icon-user2\"></span>\n" +
     "        <label for=\"avatar-picker\">Change<br>Avatar</label>\n" +
-    "        <input id=\"avatar-picker\" type=\"file\" style=\"visibility:hidden\" onchange=\"angular.element(this).scope().changeAvatar(this.files[0])\"/>\n" +
+    "        <input id=\"avatar-picker\" type=\"file\" style=\"visibility:hidden\"\n" +
+    "               onchange=\"angular.element(this).scope().changeAvatar(this.files[0])\"/>\n" +
     "    </div>\n" +
     "    <div ng-if=\"isLoggedIn\" class=\"edit-icons\">\n" +
-    "        <span ng-click=\"toggleEditable()\" ng-class=\"{ active: isEditable }\">Edit Profile</span>\n" +
+    "        <span ng-click=\"toggleEditable()\" ng-class=\"{ active: isEditable }\" class=\"wp-button\">Edit Profile</span>\n" +
     "        <span>(ipad)</span>\n" +
     "        <span>iphone</span>\n" +
     "    </div>\n" +
     "    <div class=\"inner\">\n" +
-    "        <div class=\"inner account-personal\" ng-if=\"viewing == 'personal'\">\n" +
-    "            <form class=\"inline-block\" ng-submit=\"updateUser($event)\">\n" +
-    "                <div class=\"row full-width\">\n" +
-    "                    <h1>(~ accountForm.name ~)</h1>\n" +
-    "                </div>\n" +
-    "            </form>\n" +
-    "        </div>\n" +
+    "        <form class=\"inline-block\" ng-submit=\"updateUser($event)\">\n" +
+    "            <div class=\"row full-width\">\n" +
+    "                <h1>(~ account.name ~)</h1>\n" +
+    "            </div>\n" +
+    "        </form>\n" +
     "    </div>\n" +
     "</div>\n" +
     "\n"

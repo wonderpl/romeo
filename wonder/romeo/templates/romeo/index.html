@@ -8,7 +8,7 @@
     <a class="save-draft wp-button" ng-click="save()">Save</a>
     <!-- <a class="quick-share wp-button" ng-click="toggleQuickShare()">Quick Share</a> -->
     <!-- <a class="publish wp-button">Publish</a> -->
-    <a href="/#/account" class="avatar"></a>
+    <a href="/#/account/(~ account.id ~)" class="avatar" ng-if="isLoggedIn()"></a>
 </header>
 
 <a href="/#/" id="wonder"></a>
