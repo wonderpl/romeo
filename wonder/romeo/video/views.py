@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import Blueprint, current_app, request, render_template, abort, url_for
+from flask import Blueprint, current_app, request, render_template, abort, url_for, json
 from flask.ext.login import current_user, login_required
 from flask.ext.restful.reqparse import RequestParser
 from wonder.romeo import db
@@ -7,7 +7,7 @@ from wonder.romeo.core.dolly import get_categories, get_video_embed_content
 from wonder.romeo.core.rest import Resource, api_resource
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.s3 import s3connection, video_bucket
-from wonder.romeo.core.ooyala import get_video_data
+from wonder.romeo.core.ooyala import ooyala_request, get_video_data
 from wonder.romeo.account.views import dolly_account_view, get_dollyuser
 from .models import Video, VideoTag, VideoTagVideo, VideoThumbnail
 from .forms import VideoTagForm, VideoForm
@@ -253,6 +253,34 @@ class VideoResource(Resource):
     def delete(self, video):
         video.deleted = True
         return None, 204
+
+
+@api_resource('/video/<int:video_id>/preview_images')
+class VideoPreviewImagesResource(Resource):
+
+    @video_view
+    def get(self, video):
+        items = ooyala_request('assets', video.external_id, 'generated_preview_images')
+        return dict(image=dict(items=items))
+
+
+@api_resource('/video/<int:video_id>/primary_preview_image')
+class VideoPrimaryPreviewImageResource(Resource):
+
+    preview_image_parser = RequestParser()
+    preview_image_parser.add_argument('time', type=int, required=True)
+
+    @commit_on_success
+    @video_view
+    def put(self, video):
+        args = self.preview_image_parser.parse_args()
+        thumbnails = ooyala_request(
+            'assets', video.external_id, 'primary_preview_image',
+            data=json.dumps(dict(type='generated', time=args['time'])), method='put')
+        for t in thumbnails['sizes']:
+            del t['time']
+        video.thumbnails = [VideoThumbnail(**t) for t in thumbnails['sizes']]
+        return dict(image=dict(items=thumbnails['sizes']))
 
 
 @api_resource('/video/<int:video_id>/tags')
