@@ -170,7 +170,7 @@
             link: function(scope, elem, attrs){
                 
                 elem.bind('change', function(e){
-                    $rootScope.$broadcast('fileSelected', e);
+                    $rootScope.$broadcast('fileSelected', e, elem);
                 });
             }
         }
@@ -231,7 +231,7 @@
                 var saveInterval;
 
                 var save = function(){
-                    $rootScope.$broadcast('autosave', elem, new Date().toISOString());
+                    $rootScope.$broadcast('autosave', elem.attr('data-model'), elem[0].innerText, new Date().toISOString());
                 };
                 
                 elem.bind('focus', function() {

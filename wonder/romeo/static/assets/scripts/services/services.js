@@ -428,19 +428,7 @@
 
     app.factory('VideoService', ['DataService', 'localStorageService', '$rootScope', 'AuthService', function (DataService, localStorageService, $rootScope, AuthService) {
 
-        var Video = {},
-            api = '/static/api/videos.json';
-        // api = '/api/account/{ account_id }/videos';
-
-        Video.getOne = function (id, ignoreCache) {
-            var url = api + '';
-            return DataService.request({url: url});
-        };
-
-        Video.getAll = function (ignoreCache) {
-            var url = api + '';
-            return DataService.request({url: url});
-        };
+        var Video = {};
 
         Video.getCategories = function (ignoreCache) {
             var url = '/api/categories';
@@ -452,23 +440,41 @@
             return DataService.request({url: url});
         };
 
+        Video.create = function (data) {
+            var url = '/api/account/' + AuthService.getUserId() + '/videos';
+            return DataService.request({ url: url, method: 'POST', data: data });
+        }
+
+        Video.update = function (id, data) {
+            var url = '/api/video/' + id + '';
+            return DataService.request({ url: url, method: 'PATCH', data: data });
+        };
+
+        /*
+        * As-yet unused methods
+        */
         Video.query = function (query, options, ignoreCache) {
             var url = api + '';
             return DataService.request({url: url});
         };
-
-        Video.save = function (id, video) {
+        Video.getOne = function (id, ignoreCache) {
             var url = api + '';
-            return DataService.save({url: url, params: video});
+            return DataService.request({url: url});
+        };
+        Video.getAll = function (ignoreCache) {
+            var url = api + '';
+            return DataService.request({url: url});
         };
 
         return {
-            getOne: Video.getOne,
-            getAll: Video.getAll,
             getCategories: Video.getCategories,
             getUploadArgs: Video.getUploadArgs,
-            query: Video.query,
-            save: Video.save
+            create: Video.create,
+            update: Video.update
+            // getOne: Video.getOne,
+            // getAll: Video.getAll,
+            // query: Video.query,
+            // save: Video.save
         };
 
     }]);
@@ -679,7 +685,6 @@
                 localStorageService.add('session_url', sessionData.href);
                 currentSession = sessionData;
                 currentSession.id = sessionData.href.match(/api\/account\/(\d+)/)[1];
-                console.log(currentSession.id);
                 return currentSession;
             },
 
