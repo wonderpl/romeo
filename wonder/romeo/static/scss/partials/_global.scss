@@ -2005,6 +2005,58 @@ a#category-chooser {
   }
 }
 
+
+/*  Thumbnail chooser
+/* ======================================= */
+
+.thumbnail-frame {
+  display: block;
+  position: relative;
+  width: 500px;
+  margin: 0 auto 16px auto;
+  background: black;
+
+  &:before {
+    display: block;
+    content: '';
+    padding-top: 56.25%;
+  }
+}
+
+.thumbnail-controls {
+  text-align: center;
+
+  p {
+    display: block;
+    margin: 0 0 12px 0;
+  }
+
+  a {
+    @include inline-block;
+    @include transition( all .1s ease-out );
+    padding: 12px;
+    font-size: 22px;
+    font-weight: 800;
+    border: 1px solid #e3e3e3;
+    color: black;
+    cursor: pointer;
+
+    &.left {
+      border-right: none;
+      @include border-radius( 50px 0 0 50px );
+    }
+
+    &.right {
+      @include border-radius( 0 50px 50px 0 );
+    }
+
+    &:hover, &:active, &:focus {
+      background: #e3e3e3;
+    }
+  }
+}
+
+
 /*  Modal
 /* ======================================= */
 #modal-bg {

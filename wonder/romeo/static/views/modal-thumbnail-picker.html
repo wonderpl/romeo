@@ -3,8 +3,10 @@
 	<div class="thumbnail-frame">
 		
 	</div>
-	<div class="thumbnail-controls">
-		
+	<div class="thumbnail-controls f-sans">
+		<p>Frame: {{ thumbIndex }} / {{ thumbnails.length }}</p>
+		<a class="left" ng-click="thumbnailPage('left')">&lt;</a><!--
+		--><a class="right" ng-click="thumbnailPage('right')">&gt;</a>
 	</div>
 	<a class="icon-cross close-modal" ng-click="closeModal()"></a>
 </div>

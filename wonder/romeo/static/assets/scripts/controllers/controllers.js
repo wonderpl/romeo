@@ -509,187 +509,300 @@
 
     }]);
 
-    app.controller('UploadController',
-        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', '$modal', 'animLoop', 'prettydate', '$interval',
-            function ($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, $modal, animLoop, prettydate, $interval) {
+    app.controller('UploadController', 
+        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', '$modal', 'animLoop', 'prettydate', '$interval', '$upload', 
+        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, $modal, animLoop, prettydate, $interval, $upload) {
 
-                //$loginCheck();
+        //$loginCheck();
+        
+        $scope.state = "start";
 
-                $scope.state = "start";
+        /*
+        * State objects showing which thumbnail has been selected out of the available video thumbnails
+        */        
+        $scope.thumbIndex = 0;
+        $scope.thumbnails = ['/static/assets/img/placeholder-photo-large.jpg','/static/assets/img/placeholder-photo-large.jpg','/static/assets/img/placeholder-photo-large.jpg','/static/assets/img/placeholder-photo-large.jpg','/static/assets/img/placeholder-photo-large.jpg'];
 
-                /*
-                 * The state object for the chosen category for the video
-                 */
-                $scope.chosenCategory = {
-                    id: undefined,
-                    label: undefined
-                };
+        /*
+        * The state object for the chosen category for the video
+        */
+        $scope.chosenCategory = {
+            id: undefined,
+            label: undefined
+        };
 
-                /*
-                 * The state object used by the quick share modal - stores the addresses
-                 */
-                $scope.shareAddresses = [];
+        /*
+        * The state object used by the quick share modal - stores the addresses
+        */
+        $scope.shareAddresses = [];
 
-                /*
-                 * The state object for showing file upload progress
-                 */
-                $scope.file = {
-                    name: "",
-                    confirmed: false,
-                    upload: {
-                        progress: 2.5
-                    },
-                    process: {
-                        progress: 0
-                    },
-                    state: "empty",
-                    thumbnail: null
-                };
+        /*
+        * The state object for showing file upload progress
+        */
+            $scope.file = {
+                name: "",
+                confirmed: false,
+                upload: {
+                    progress: 2.5
+                },
+                process: {
+                    progress: 0
+                },
+                state: "empty",
+                thumbnail: null
+            };
 
-                /*
-                 * The state object for autosaving the video
-                 */
-                $scope.status = {
-                    saved: null,
-                    date: null,
-                    updateInterval: $interval(function () {
-                        $timeout(function () {
-                            $scope.$apply(function () {
-                                $scope.status.saved = $scope.status.saved !== null ? prettydate($scope.status.date) : null;
-                                console.log(prettydate($scope.status.date));
-                            });
-                        });
-                    }, 1000)
-                };
+        $scope.files = null;
 
-                /*
-                 * Get the list of categories from the web service
-                 */
-                VideoService.getCategories().then(function (data) {
-                    $scope.categories = data.category.items;
-                }, function (err) {
-                    console.log(err);
-                });
-
-                /*
-                 * The user has chosen a new file, respond accordingly.
-                 */
-                $scope.$on('fileSelected', function (e, eventData) {
-
-                    var name = eventData.target.value.split('\\');
-                    $timeout(function () {
-                        $scope.$apply(function () {
-                            $scope.file.state = "chosen";
-                            $scope.file.name = name[name.length - 1];
-                        });
+        /*
+        * The state object for autosaving the video
+        */
+        $scope.status = {
+            saved: null,
+            date: null,
+            updateInterval: $interval(function(){
+                $timeout(function(){
+                    $scope.$apply(function(){
+                        $scope.status.saved = $scope.status.saved !== null ? prettydate($scope.status.date) : null;
                     });
                 });
+            },  1000)
+        };
 
-                /*
-                 * Listen for autosave broadcasts from our auto-save-field directives
-                 */
-                $scope.$on('autosave', function (e, elem, date) {
-                    $timeout(function () {
-                        $scope.$apply(function () {
-                            $scope.status.saved = prettydate(date);
-                            $scope.status.date = date;
-                        });
+        /*
+        * Get the list of categories from the web service
+        */
+        VideoService.getCategories().then(function(data){
+            $scope.categories = data.category.items;
+        }, function(err){
+            console.log(err);
+        });      
+
+        /*
+        * The user has chosen a new file, respond accordingly.
+        */
+        $scope.$on('fileSelected', function(e, eventData){
+
+            var name = eventData.target.value.split('\\');
+            $timeout(function(){
+                $scope.$apply(function(){
+                    $scope.file.state = "chosen";                    
+                    $scope.file.name = name[name.length-1];
+                });
+            });
+        });
+
+        /*
+        * Listen for autosave broadcasts from our auto-save-field directives
+        */
+        $scope.$on('autosave', function(e, elem, date){
+            $timeout(function(){
+                $scope.$apply(function(){
+                    $scope.status.saved = prettydate(date);
+                    $scope.status.date = date;
+                });
+            });
+        });
+
+        /*
+        * Strips out any HTML tags and pasts in plain text
+        */
+        $scope.cleanPaste = function(e){
+            e.preventDefault();
+            var text = e.clipboardData.getData("text/plain");
+            document.execCommand("insertHTML", false, text);
+        };        
+
+        /*
+        * Used as a callback to update the size of the upload progress bar
+        */
+        $scope.incrementProgress = function(){
+            if ( $scope.file.upload.progress < 100 ) {
+                $timeout(function(){
+                    $scope.$apply(function(){
+                        $scope.file.upload.progress += 8;
                     });
                 });
+            } else {
+                $timeout(function(){
+                    $scope.$apply(function(){
+                        $scope.file.upload.progress = 100;
+                        animLoop.remove('incrementProgress');
+                        $scope.file.state = 'complete';
+                    });
+                });
+            }
+        };
 
-                /*
-                 * Strips out any HTML tags and pasts in plain text
-                 */
-                $scope.cleanPaste = function (e) {
-                    e.preventDefault();
-                    var text = e.clipboardData.getData("text/plain");
-                    document.execCommand("insertHTML", false, text);
-                };
+        /*
+        * Check the progress of the file upload adn update the UI
+        */
+        $scope.getUploadProgress = function(){
+        };
 
-                /*
-                 * Used as a callback to update the size of the upload progress bar
-                 */
-                $scope.incrementProgress = function () {
-                    if ($scope.file.upload.progress < 100) {
-                        $timeout(function () {
-                            $scope.$apply(function () {
-                                $scope.file.upload.progress += 2;
-                            });
-                        });
-                    } else {
-                        $timeout(function () {
-                            $scope.$apply(function () {
-                                $scope.file.upload.progress = 100;
-                                animLoop.remove('incrementProgress');
-                                $scope.file.state = 'complete';
-                            });
-                        });
+
+        $scope.onFileSelect = function($files) {
+            $scope.file.state = "chosen";
+            $scope.files = $files;
+        };
+
+        /*
+        * The user has confirmed that they have chosen the correct file to upload
+        */
+        $scope.startUpload = function() {
+
+            VideoService.getUploadArgs().then(function(uploadArgs){
+                console.log('Upload args retrieved', uploadArgs);
+                var formData = new FormData(),
+                    uploadPath;
+                $.each(uploadArgs.fields, function () {
+                    formData.append(this.name, this.value);
+                    if (this.name == 'key') {
+                        uploadPath = this.value;
                     }
-                };
+                });
+                console.log( $scope.files, $scope.files[0] );
+                formData.append('file', $scope.files[0]);
+                $.ajax({
+                    url: uploadArgs.action,
+                    type: 'post',
+                    data: formData,
+                    processData: false,
+                    mimeType: 'multipart/form-data',
+                    contentType: false,
+                    xhr: function () {
+                        var xhr = $.ajaxSettings.xhr();
+                        xhr.upload.onprogress = function (e) {
+                            var p = e.lengthComputable ? Math.round(e.loaded * 100 / e.total) : 0;
+                            console.log(p ? p.toString() + '%' : '');
+                        };
+                        return xhr;
+                    }
+                }).done(function () {
+                    console.log(' FILE UPLOADED ', arguments);
+                }).fail(function () {
+                    console.log(' UPLOAD FAILED ', arguments);
+                });
 
-                /*
-                 * Check the progress of the file upload adn update the UI
-                 */
-                $scope.getUploadProgress = function () {
-                };
 
-                /*
-                 * The user has confirmed that they have chosen the correct file to upload
-                 */
-                $scope.startUpload = function () {
+                // var formData = new FormData(),
+                //     uploadPath;
 
-                    // VideoService.getUploadArgs().then(function(res){
-                    //     $timeout(function(){
-                    //         $scope.$apply(function(){
-                    $scope.file.state = "uploading";
-                    //         });
-                    //     });
-                    // animLoop.add('getUploadProgress', $scope.getUploadProgress);
-                    animLoop.add('incrementProgress', $scope.incrementProgress);
-                    animLoop.start();
-                    // });
+                // ng.forEach(uploadArgs.fields, function ( val ) {
+                //     formData.append(val.name, val.value);
+                //     if (val.name == 'key') {
+                //         uploadPath = val.value;
+                //     }
+                // });
 
-                };
+                // for (var i = 0; i < $scope.files.length; i++) {
+                //   var file = $scope.files[i];
+                //   $scope.upload = $upload.upload({
+                //     url: uploadArgs.actino, //upload.php script, node.js route, or servlet url
+                //     method: 'PUT',
+                //     // method: POST or PUT,
+                //     // headers: {'header-key': 'header-value'},
+                //     // withCredentials: true,
+                //     // data: {myObj: $scope.myModelObj},
+                //     data: formData,
+                //     file: file, // or list of files: $files for html5 only
+                //     /* set the file formData name ('Content-Desposition'). Default is 'file' */
+                //     //fileFormDataName: myFile, //or a list of names for multiple files (html5).
+                //     /* customize how data is added to formData. See #40#issuecomment-28612000 for sample code */
+                //     //formDataAppender: function(formData, key, val){}
+                //   }).progress(function(evt) {
+                //     console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+                //   }).success(function(data, status, headers, config) {
+                //     // file is uploaded successfully
+                //     console.log(data);
+                //   });
+                //   //.error(...)
+                //   //.then(success, error, progress); 
+                //   //.xhr(function(xhr){xhr.upload.addEventListener(...)})// access and attach any event listener to XMLHttpRequest.
+                // }
 
-                /*
-                 * Save the current state of the vide meta data
-                 */
-                $scope.save = function (e) {
 
-                };
 
-                /*
-                 * Show the categories modal
-                 */
-                $scope.showCategories = function (e) {
-                    $modal.load('modal-show-categories.html', true, $scope, { categories: $scope.categories });
-                };
 
-                /*
-                 * The user has clicked on a category in the categories modal
-                 */
-                $scope.chooseCategory = function (e) {
+                // $http({
+                //     url: uploadArgs.action,
+                //     type: 'post',
+                //     data: formData,
+                //     processData: false,
+                //     mimeType: 'multipart/form-data',
+                //     contentType: false,
+                //     xhr: function () {
+                //         var xhr = $.ajaxSettings.xhr();
+                //         xhr.upload.onprogress = function (e) {
+                //             var p = e.lengthComputable ? Math.round(e.loaded * 100 / e.total) : 0;
+                //             status.html(p ? p.toString() + '%' : '');
+                //         };
+                //         return xhr;
+                //     }
+                // }).done(function () {
+                //     // Set metadata form filename field to mark that upload is complete
+                //     filename.val(uploadPath).trigger('change');
+                //     status.hide();
+                // }).fail(function () {
+                //     console.log(arguments);
+                //     status.html('Failed');
+                // });
 
-                    var el = e.target || e.srcElement,
-                        $el = ng.element(el);
-
-                    $scope.chosenCategory.id = $el.data('id');
-                    $scope.chosenCategory.label = 'Category: ' + $el.text();
-                    $modal.hide();
-                };
-
-                /*
-                 * The progress of the upload has reached a point where we can let the user choose a thumbnail
-                 */
-                $scope.showThumbnailChooser = function (e) {
-                    $timeout(function () {
-                        $scope.$apply(function () {
-                            $scope.file.thumbnail = '/static/assets/img/placeholder-photo-large.jpg';
-                        });
+                $timeout(function(){
+                    $scope.$apply(function(){
+                        $scope.file.state = "uploading";
                     });
-                };
+                });
+                // animLoop.add('getUploadProgress', $scope.getUploadProgress);
+                animLoop.add('incrementProgress', $scope.incrementProgress);
+                animLoop.start();
+            });
 
-            }]);
+        };
+
+        /*
+        * Save the current state of the vide meta data
+        */
+        $scope.save = function(e) {
+
+        };
+
+        /*
+        * Show the categories modal
+        */
+        $scope.showCategories = function(e) {
+            $modal.load('modal-show-categories.html', true, $scope, { categories: $scope.categories });
+        };
+
+        /*
+        * The user has clicked on a category in the categories modal
+        */
+        $scope.chooseCategory = function(e) {
+
+            var el = e.target || e.srcElement,
+                $el = ng.element(el);
+
+            $scope.chosenCategory.id = $el.data('id');
+            $scope.chosenCategory.label = 'Category: ' + $el.text();
+            $modal.hide();
+        };
+
+        /*
+        * The progress of the upload has reached a point where we can let the user choose a thumbnail
+        */
+        $scope.showThumbnailChooser = function(e) {
+
+            $modal.load('modal-thumbnail-picker.html', true, $scope, { thumbnails: $scope.thumbnails }, { width: 910 });
+
+            // $timeout(function(){
+            //     $scope.$apply(function(){
+            //         $scope.file.thumbnail = '/static/assets/img/placeholder-photo-large.jpg';
+            //     });
+            // });
+        };
+
+  
+    }]);
 
     app.controller('AnalyticsController', ['$scope', '$rootScope', '$routeParams', '$element', 'Enum', 'AnalyticsFields', 'VideoService', function ($scope, $rootScope, $routeParams, $element, Enum, AnalyticsFields, VideoService) {
 
@@ -758,46 +871,47 @@
         });
     }]);
 
-    app.controller('VideoController',
-        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$routeParams', '$q',
-            function ($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $routeParams, $q) {
+    app.controller('VideoController', 
+        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$routeParams', '$q', 
+        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $routeParams, $q) {
 
-                $scope.video = {};
+        $scope.video = {};
 
-                // VideoService.getAll().then(function(data){
-                //     $timeout(function(){
-                //         $scope.$apply(function(){
-                //             $scope.videos = data.videos;
-                //             var res = $filter('videoSearchFilter')($scope.videos, $scope.filterText);
-                //             $scope.searchResults = res.results;
-                //             $scope.numResults = res.length;
-                //             $scope.collections = data.collections;
-                //             $scope.loading = false;
-                //             $scope.selectedAction = $scope.collections[0];
-                //         });
-                //     }, 500);
-                // });
+        // VideoService.getAll().then(function(data){
+        //     $timeout(function(){
+        //         $scope.$apply(function(){
+        //             $scope.videos = data.videos;
+        //             var res = $filter('videoSearchFilter')($scope.videos, $scope.filterText);
+        //             $scope.searchResults = res.results;
+        //             $scope.numResults = res.length;
+        //             $scope.collections = data.collections;
+        //             $scope.loading = false;
+        //             $scope.selectedAction = $scope.collections[0];
+        //         });
+        //     }, 500);
+        // });
 
-                // $timeout(function(){
-                //     $scope.$apply(function(){
-                //         $rootScope.pagetitle = $rootScope.data.videos[$routeParams.videoID].title;
-                //         $scope.video = $rootScope.data.videos[$routeParams.videoID];
-                //     });
-                // });
 
-                var template, tmpl;
+        // $timeout(function(){
+        //     $scope.$apply(function(){
+        //         $rootScope.pagetitle = $rootScope.data.videos[$routeParams.videoID].title;
+        //         $scope.video = $rootScope.data.videos[$routeParams.videoID];
+        //     });
+        // });
 
-                // $scope.$watch( 'metrics', function(newValue){
+        var template, tmpl;
 
-                // for ( var i = 0; i < $scope.metrics.length; i++ ) {
-                //     $scope.chartConfig.xAxis.categories.push( moment( new Date($scope.metrics[i].date) ).format("MMM Do YY") );
-                //     $scope.chartConfig.series[0].data.push($scope.metrics[i].plays);
-                //     $scope.chartConfig.series[1].data.push($scope.metrics[i].daily_uniq_plays);
-                //     console.log('DATA');
-                // }
+        // $scope.$watch( 'metrics', function(newValue){
 
-                // });
-            }]);
+        // for ( var i = 0; i < $scope.metrics.length; i++ ) {
+        //     $scope.chartConfig.xAxis.categories.push( moment( new Date($scope.metrics[i].date) ).format("MMM Do YY") );
+        //     $scope.chartConfig.series[0].data.push($scope.metrics[i].plays);
+        //     $scope.chartConfig.series[1].data.push($scope.metrics[i].daily_uniq_plays);
+        //     console.log('DATA');
+        // }
+
+        // });
+    }]);
 
     app.controller('LoginController',
         ['$scope', '$location', 'AuthService',
@@ -826,42 +940,42 @@
         ]
     );
 
-    app.controller('LoadingController',
-        [ '$location', 'localStorageService', '$http', '$rootScope', 'FlashService', '$timeout',
-            function ($location, localStorageService, $http, $rootScope, FlashService, $timeout) {
+    app.controller('LoadingController', 
+        [ '$location', 'localStorageService', '$http', '$rootScope', 'FlashService', '$timeout', 
+        function( $location, localStorageService, $http, $rootScope, FlashService, $timeout){
 
-                // $timeout( function() {
-                //     $rootScope.$apply(function() {
-                //         $rootScope.redirectUrl = undefined;
-                //     });
-                // });
+        // $timeout( function() {
+        //     $rootScope.$apply(function() {
+        //         $rootScope.redirectUrl = undefined;
+        //     });
+        // });
 
-                // if ( $rootScope.account === undefined ) {
+        // if ( $rootScope.account === undefined ) {
 
-                //     $http({
-                //         method: 'get',
-                //         url: localStorageService.get('session_url'),
-                //     }).success(function(data,status,headers,config){
+        //     $http({ 
+        //         method: 'get',
+        //         url: localStorageService.get('session_url'), 
+        //     }).success(function(data,status,headers,config){
 
-                //         if ( status === 200 ) {
-                //             $timeout(function() {
-                //                 $rootScope.$apply(function(){
-                //                     $rootScope.account = data.account;
-                //                     $rootScope.user = data.user;
-                //                     $rootScope.userID = data.href.split('/');
-                //                     $rootScope.userID = $rootScope.userID[$rootScope.userID.length-1];
-                //                     $location.path(url || '/library');
-                //                 });
-                //             });
-                //         }
+        //         if ( status === 200 ) {
+        //             $timeout(function() {
+        //                 $rootScope.$apply(function(){
+        //                     $rootScope.account = data.account;
+        //                     $rootScope.user = data.user;
+        //                     $rootScope.userID = data.href.split('/');
+        //                     $rootScope.userID = $rootScope.userID[$rootScope.userID.length-1];
+        //                     $location.path(url || '/library');
+        //                 });
+        //             });
+        //         }
 
-                //     }).error(function(data, status, headers, config){
-                //         FlashService.flash( 'There was an error loading your account details, please refresh this page to try again.', 'error' );
-                //     });
+        //     }).error(function(data, status, headers, config){
+        //         FlashService.flash( 'There was an error loading your account details, please refresh this page to try again.', 'error' );
+        //     });
 
-                // } else {
-                //     $location.path(url || '/library');
-                // }
-            }]);
+        // } else {
+        //     $location.path(url || '/library');
+        // }
+    }]);
 
-})(window, document, window.angular, 'RomeoApp', 'controllers');
+})(window,document,window.angular,'RomeoApp','controllers');
