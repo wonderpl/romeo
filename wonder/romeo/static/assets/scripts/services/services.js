@@ -450,6 +450,11 @@
             return DataService.request({ url: url, method: 'PATCH', data: data });
         };
 
+        Video.get = function(id) {
+            var url = '/api/video/' + id + '';
+            return DataService.request({ url: url, method: 'GET'});
+        }
+
         /*
         * As-yet unused methods
         */
@@ -470,7 +475,8 @@
             getCategories: Video.getCategories,
             getUploadArgs: Video.getUploadArgs,
             create: Video.create,
-            update: Video.update
+            update: Video.update,
+            get: Video.get
             // getOne: Video.getOne,
             // getAll: Video.getAll,
             // query: Video.query,

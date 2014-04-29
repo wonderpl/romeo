@@ -1712,6 +1712,30 @@ h1.collections-page {
       padding-top: 265px;
     }
 
+    .processing-loading {
+      display: block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 165px;
+      width: 64px;
+      height: 64px;
+      margin: auto;
+      background: transparent image-url('spinner.gif') center center no-repeat;
+      background-size: 100% auto;
+    }
+
+    .processing-message {
+      color: white;
+      font-size: 22px;
+      line-height: 28px;
+      width: 50%;
+      display: block;
+      margin: 0 auto;
+      padding-top: 265px;
+    }
+
+
     .confirm-background {
         display: block;
         position: absolute;

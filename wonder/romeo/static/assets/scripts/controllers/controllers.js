@@ -666,9 +666,22 @@
                         $scope.$apply(function(){
                             var data = { filename: uploadPath };
                             $scope.video.filename = uploadPath;
-                            $scope.updateVideo(data);      
-                            console.log( $scope.video );  
-                            console.log(' FILE UPLOADED ', arguments);
+                            $scope.file.state = 'processing';
+                            $scope.updateVideo(data);
+                            // console.log( $scope.video );  
+                            // console.log(' FILE UPLOADED ', arguments);
+
+                            $scope.processingInterval = $interval(function(){
+                                VideoService.get(function(response){
+                                    console.log( response );
+                                    if ( response.status === 'ready' ) {
+                                        console.log(' video ready! ');
+                                        $interval.cancel($scope.processingInterval);
+                                    } else {    
+                                        console.log(' video still processing' );
+                                    }
+                                });
+                            }, 20000);
                         });
                     });
                 }).fail(function (response) {
