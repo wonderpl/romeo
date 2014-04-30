@@ -496,7 +496,7 @@
                 DataService.request({
                     url: 'api/account/' + accountID
                 }).then(function(data) {
-                    deferred.resolve(data.data);
+                    deferred.resolve(data);
                 }, deferred.reject);
             } else if (sessionUrl = AuthService.getSession()) {
                 AuthService.retrieveSession(sessionUrl).then(deferred.resolve, deferred.reject);
@@ -557,11 +557,11 @@
                 username: accountData.display_name,
                 description: null,
                 avatarURL: accountData.avatar,
-                profileURL: accountData.profile_cover
+                profileURL: accountData.profile_cover.replace(/thumbnail_medium/, 'ipad')
             };
             $scope.State = 'SUCCESS';
         }, function() {
-            debugger;
+//            debugger;
             $scope.State = 'ERROR';
         });
 
@@ -1036,7 +1036,7 @@
                     if (params.redirect) {
                         console.log('redirect to ->' + params.redirect);
                     } else {
-                        $location.url('/library');
+                        $location.url('/upload');
                     }
                 };
 
@@ -1057,6 +1057,7 @@
         // $timeout( function() {
         //     $rootScope.$apply(function() {
         //         $rootScope.redirectUrl = undefined;
+        //     });
         //     });
         // });
 
