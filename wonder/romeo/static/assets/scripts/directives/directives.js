@@ -66,7 +66,6 @@
         }
     }]);
 
-
     app.directive('plDisabled', [function(){
         return {
             restrict: 'C',

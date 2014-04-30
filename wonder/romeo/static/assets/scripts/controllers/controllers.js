@@ -7,7 +7,7 @@
                 ns + '.directives',
             'LocalStorageModule'] /* module dependencies */);
 
-    app.controller('MainCtrl', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$modal', 'localStorageService', 'AuthService', function ($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $modal, localStorageService, AuthService) {
+    app.controller('MainCtrl', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$modal', '$element', 'localStorageService', 'AuthService', function ($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $modal, $element, localStorageService, AuthService) {
 
         $scope.wonder = ng.element(d.getElementById('wonder'));
         $scope.wrapper = ng.element(d.getElementById('wrapper'));
@@ -18,7 +18,7 @@
 
         if ($scope.isLoggedIn) {
             if (!($scope.account = AuthService.getUser())) {
-                AuthService.retrieveSession(AuthService.getSession()).then(function(sessionData) {
+                AuthService.retrieveSession(AuthService.getSession()).then(function (sessionData) {
                     $scope.account = sessionData;
                     AuthService.setSession(sessionData);
                 });
@@ -63,7 +63,13 @@
             });
         };
 
-        $rootScope.$on('$locationChangeSuccess', function (event) {
+        $rootScope.$on('$locationChangeSuccess', function (event, newRoute, oldRoute) {
+
+            var newRoutePart = newRoute.replace(/http:\/\/localhost:5000\/#\/(\w*)\/.+/, '$1');
+            var oldRoutePart = oldRoute.replace(/http:\/\/localhost:5000\/#\/(\w*)\/.+/, '$1');
+
+            $element.removeClass('route-' + oldRoutePart);
+            $element.addClass('route-' + newRoutePart);
 
             $scope.wonder.removeClass('aside');
             $scope.wrapper.removeClass('aside');
@@ -528,12 +534,15 @@
             $scope.profileFile = null;
         };
 
-        $scope.updateUser = function () {
-            var fd = $scope.formData;
+        $scope.changeField = function (name, value) {
+            $scope.updateUser(name, value);
+        };
+
+        $scope.updateUser = function (name, value) {
+            var fd = new FormData();
             //Take the first selected file
 
-            $scope.avatarFile && fd.append('avatar', $scope.avatarFile);
-            $scope.profileFile && fd.append('profile_cover', $scope.profileFile);
+            fd.append(name, value);
 
             DataService.request({
                 url: '/api/account/75435685',
@@ -541,7 +550,15 @@
                 headers: {'Content-Type': undefined },
                 transformRequest: angular.identity,
                 data: fd
-            });
+            }).then(function (accountData) {
+                $scope.profileData = {
+                    name: accountData.name,
+                    username: accountData.display_name,
+                    description: null,
+                    avatarURL: accountData.avatar,
+                    profileURL: accountData.profile_cover.replace(/thumbnail_medium/, 'ipad')
+                };
+            })
 
         };
 
@@ -549,9 +566,15 @@
             $scope.formData.append(name, value);
         };
 
+        $scope.disallowNewlines = function ($event) {
+            if ($event.keyCode === 13) {
+                $event.preventDefault();
+            }
+        };
+
         /* ----- Logic Here ---- */
 
-        $scope.getAccountData($routeParams.accountID).then(function(accountData) {
+        $scope.getAccountData($routeParams.accountID).then(function (accountData) {
             $scope.profileData = {
                 name: accountData.name,
                 username: accountData.display_name,
@@ -560,18 +583,25 @@
                 profileURL: accountData.profile_cover.replace(/thumbnail_medium/, 'ipad')
             };
             $scope.State = 'SUCCESS';
-        }, function() {
+        }, function () {
 //            debugger;
             $scope.State = 'ERROR';
         });
 
+        /*        avatar: "http://media.dev.wonderpl.com/images/avatar/thumbnail_medium/_SXWl-cdXyMlP5z_FSgqLg.jpg"
+         display_name: "test"
+         href: "/api/account/75435685"
+         name: "test"
+         player_logo: null
+         profile_cover: "http://media.dev.wonderpl.com/images/profile/thumbnail_medium/2sInhh8sbbAsRK-C_Yf4bQ.jpg"*/
 
-/*        avatar: "http://media.dev.wonderpl.com/images/avatar/thumbnail_medium/_SXWl-cdXyMlP5z_FSgqLg.jpg"
-        display_name: "test"
-        href: "/api/account/75435685"
-        name: "test"
-        player_logo: null
-        profile_cover: "http://media.dev.wonderpl.com/images/profile/thumbnail_medium/2sInhh8sbbAsRK-C_Yf4bQ.jpg"*/
+        $scope.$watch('isEditable', function (newValue) {
+            if (newValue) {
+                $timeout(function () {
+                    $element.find('h2:first').focus();
+                });
+            }
+        });
 
     }]);
 

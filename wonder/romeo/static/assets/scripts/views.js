@@ -4,35 +4,33 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<div id=\"page-account\" class=\"section\" ng-controller=\"AccountController\">\n" +
     "    <div ng-if=\"State === 'SUCCESS'\">\n" +
     "        <div class=\"background\" style=\"background-image: url((~ profileData.profileURL ~));\"></div>\n" +
-    "        <div ng-if=\"isEditable\">\n" +
-    "            <label for=\"profile-picker\" class=\"edit-text\">Upload Profile</label>\n" +
-    "            <input id=\"profile-picker\" type=\"file\" style=\"visibility:hidden\"\n" +
-    "                   onchange=\"angular.element(this).scope().changeProfileBackground(this.files[0])\"/>\n" +
+    "        <div ng-if=\"isEditable\" class=\"edit-text\">\n" +
+    "            <label for=\"profile-picker\">Upload A Cover Image</label>\n" +
+    "            <input id=\"profile-picker\" type=\"file\" class=\"hidden-input\"\n" +
+    "                   onchange=\"angular.element(this).scope().changeField('profile_cover', this.files[0])\"/>\n" +
     "        </div>\n" +
     "        <div class=\"avatar\" style=\"background-image: url((~ profileData.avatarURL ~));\">\n" +
-    "            <div ng-if=\"isEditable\">\n" +
-    "                <label for=\"avatar-picker\">Change<br>Avatar</label>\n" +
-    "                <input id=\"avatar-picker\" type=\"file\" style=\"visibility:hidden\"\n" +
-    "                       onchange=\"angular.element(this).scope().changeAvatar(this.files[0])\"/>\n" +
+    "            <div ng-if=\"isEditable\" class=\"avatar-change\">\n" +
+    "                <label for=\"avatar-picker\" class=\"icon-export\">&nbsp;</label>\n" +
+    "                <input id=\"avatar-picker\" type=\"file\" class=\"hidden-input\"\n" +
+    "                       onchange=\"angular.element(this).scope().changeField('avatar', this.files[0])\"/>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "        <div ng-if=\"isLoggedIn\" class=\"edit-icons\">\n" +
     "            <span ng-click=\"toggleEditable()\" ng-class=\"{ active: isEditable }\" class=\"wp-button\">Edit Profile</span>\n" +
-    "            <span>(ipad)</span>\n" +
-    "            <span>iphone</span>\n" +
+    "            <!--            <span>(ipad)</span>\n" +
+    "                        <span>iphone</span>-->\n" +
     "        </div>\n" +
     "        <div class=\"inner\">\n" +
-    "            <form class=\"inline-block\" ng-submit=\"updateUser($event)\">\n" +
-    "                <div class=\"row full-width\">\n" +
-    "                    <h1>(~ profileData.name ~)</h1>\n" +
-    "                </div>\n" +
-    "                <div class=\"row full-width\">\n" +
-    "                    <h1>(~ profileData.username ~)</h1>\n" +
-    "                </div>\n" +
-    "                <div class=\"row full-width\">\n" +
-    "                    <h1>(~ profileData.description ~)</h1>\n" +
-    "                </div>\n" +
-    "            </form>\n" +
+    "            <div class=\"row full-width\">\n" +
+    "                <h2 class=\"name\" contenteditable=\"(~isEditable~)\" onblur=\"angular.element(this).scope().changeField('name', this.innerHTML)\" onkeydown=\"angular.element(this).scope().disallowNewlines(event)\">(~ profileData.name ~)</h2>\n" +
+    "            </div>\n" +
+    "            <div class=\"row full-width\">\n" +
+    "                <h3 class=\"display-name\" contenteditable=\"(~isEditable~)\" onblur=\"angular.element(this).scope().changeField('display_name', this.innerHTML)\" onkeydown=\"angular.element(this).scope().disallowNewlines(event)\">(~ profileData.username ~)</h3>\n" +
+    "            </div>\n" +
+    "            <div class=\"row full-width\">\n" +
+    "                <h3 class=\"name\">(~ profileData.description ~)</h3>\n" +
+    "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "    <div ng-if=\"State === 'NOT_FOUND'\">\n" +

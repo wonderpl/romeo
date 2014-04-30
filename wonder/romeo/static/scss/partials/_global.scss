@@ -143,8 +143,21 @@ header {
   height: 32px;
   background: transparent image-url('header-logo.png') center center no-repeat;
   background-size: 100% auto;
+
 }
 
+.route-account {
+
+  #wonder {
+    background: transparent image-url('header-logo-white.png') center center no-repeat;
+    background-size: 100% auto;
+  }
+
+  header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.74);
+    padding: 32px 16px 32px 16px;
+  }
+}
 #wrapper {
   display: block;
   position: relative;
@@ -895,7 +908,7 @@ h1.collections-page {
 
 }
 
-/*  Wonder Embed 
+/*  Wonder Embed
 /* ======================================= */
 
 .wonder-embed {
@@ -1307,9 +1320,9 @@ h1.collections-page {
 .analytics-panel-bottom {
   width: 100%
 }
-
+  
 #performance-table {
-  width: 100%;
+  width: 100%;  
   border-collapse: collapse;
 
   tr > th > span.table-title {
@@ -1376,12 +1389,13 @@ h1.collections-page {
     left: 50%;
     border-radius: 25px;
     background-color: rgba(0,0,0,0.65);
-    padding: 10px;
+    padding: 4px;
     font-size: .7em;
     font-weight: bold;
     color: #fff;
-    width: 200px;
-    margin-left: -100px;
+    width: 130px;
+    line-height: 20px;
+    margin-left: -65px;
 
     &:hover {
       border: 1px solid #fff;
@@ -1417,19 +1431,19 @@ h1.collections-page {
 
     @include box-shadow(0px 1px 1px #3A3A3A);
 
-    .icon-user2 {
-      display: block;
-      margin-top: 30px;
+    .avatar-change {
+      color: #FFF;
+      line-height: 30px;
+      position: absolute;
+      top: 70px;
+      left: 70px;
+      background: rgba(0,0,0,0.65);
+      border-radius: 50%;
+      height: 30px;
+      width: 30px;
+      padding: 2px 8px;
     }
 
-    a {
-
-    }
-
-    h1 {
-      font-size: 1.6em;
-      color: $flat-concrete;
-    }
   }
 
   .edit-icons {
@@ -1437,15 +1451,46 @@ h1.collections-page {
     position: absolute;
     top: 580px;
     left: 15px;
+
+    span.active {
+      background-color: $flat-gray-1;
+    }
   }
 
   .inner {
+
+    [contenteditable] {
+      outline: 0px solid transparent;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .name {
+      margin: 20px 0 8px 0;
+    }
+
+    .display-name {
+      font-size: 1.2em;
+    }
+
+    .descriptions {
+
+    }
 
   }
 
 }
 
-/*  Upload 
+.hidden-input {
+  visibility: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+/*  Upload
 /* ======================================= */
 
 #page-upload {
@@ -1500,7 +1545,7 @@ h1.collections-page {
         color: #333332;
         font-family: 'proxima-nova', sans-serif;
     }
-    
+
     .row {
       position: relative;
     }
@@ -1636,7 +1681,7 @@ h1.collections-page {
         @include border-radius( 50px 0px 0px 50px );
         border-right: none;
     }
-    
+
     .progress-bar {
         background: #6d6d6d;
         border: 2px solid #c5c5c5;
@@ -1705,7 +1750,7 @@ h1.collections-page {
             &:hover, &:active, &:focus {
                 color: #3a3a3a;
                 background: #fff;
-            }            
+            }
         }
     }
 
@@ -1792,7 +1837,7 @@ h1.collections-page {
         font-size: 22px;
         padding: 12px 0;
     }
-    
+
     span.empty-upper {
         padding: 175px 0 22px 0;
     }
@@ -2414,7 +2459,7 @@ video, canvas {
     position: relative;
 }
 
-#quick-share { 
+#quick-share {
   width: 244px;
   display: block;
   position: fixed;
@@ -2440,13 +2485,13 @@ video, canvas {
     position: absolute;
     right: 100px;
     top: -8px;
-    width: 0; 
-    height: 0; 
+    width: 0;
+    height: 0;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
     border-bottom: 8px solid darken(#d8d8d8, 5%);
   }
-  
+
   &:after {
     top: -7px;
     right: 101px;
@@ -2476,7 +2521,7 @@ video, canvas {
     padding: 8px;
     border-top: 1px dashed #ceced1;
     border-bottom: 1px solid #ceced1;
-    
+
     a {
       color: #999999;
       font-size: 14px;
