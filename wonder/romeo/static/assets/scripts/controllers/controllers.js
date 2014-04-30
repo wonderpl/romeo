@@ -606,8 +606,8 @@
     }]);
 
     app.controller('UploadController', 
-        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', '$modal', 'animLoop', 'prettydate', '$interval', '$upload', '$q', 
-        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, $modal, animLoop, prettydate, $interval, $upload, $q) {
+        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', 'AccountService', '$modal', 'animLoop', 'prettydate', '$interval', '$upload', '$q', 
+        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, AccountService, $modal, animLoop, prettydate, $interval, $upload, $q) {
 
         /*
         * The state object for the chosen category for the video
@@ -637,6 +637,11 @@
         * State object for remembering changes to the video record, before the title is added
         */
         $scope.deferredData = {};
+
+        /*
+        * State object for the custom logo used on the embedded player
+        */
+        $scope.customLogo = null;
 
         /*
         * State object for the actual Video record
@@ -981,7 +986,15 @@
             };
 
             file.readAsDataURL($files[0]);
+        };
 
+        /*
+        * Increment the previewIndex
+        */
+        $scope.saveCustomLogo = function($files) {
+            AccountService.saveCustomLogo($files[0]).then(function(response){
+                console.log(response);
+            });
         };
 
     }]);

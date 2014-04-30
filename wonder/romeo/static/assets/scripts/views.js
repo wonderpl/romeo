@@ -541,6 +541,12 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t<div class=\"row\" id=\"customize-your-player\">\n" +
     "\t\t\t\t\t<h2>Add your own logo to the player</h2>\n" +
     "\t\t\t\t\t<input type=\"file\" ng-file-select=\"customLogoSelected($files)\" ng-file-drop=\"customLogoSelected($files)\">\n" +
+    "\t\t\t\t\t<div id=\"custom-logo-status\">\n" +
+    "\t\t\t\t\t\t<p ng-show=\"customLogo.status == 'error'\">Sorry, your logo is too large! Please reduce it's dimensions.</p>\n" +
+    "\t\t\t\t\t\t<p ng-show=\"customLogo.status == 'error'\">Sorry, your logo is too large! Please reduce it's dimensions.</p>\n" +
+    "\t\t\t\t\t\t<p ng-show=\"customLogo.status == 'error'\">Sorry, your logo is too large! Please reduce it's dimensions.</p>\n" +
+    "\t\t\t\t\t</div>\n" +
+    "\t\t\t\t\t<button ng-click=\"saveCustomLogo()\">Save logo</button>\n" +
     "\t\t\t\t</div>\n" +
     "\n" +
     "\t\t\t</form>\n" +

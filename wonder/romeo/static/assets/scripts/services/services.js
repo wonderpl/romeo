@@ -431,6 +431,10 @@
 
     }]);
 
+
+    /*
+    * Methods for interacting with the Video web services
+    */
     app.factory('VideoService', ['DataService', 'localStorageService', '$rootScope', 'AuthService', function (DataService, localStorageService, $rootScope, AuthService) {
 
         var Video = {};
@@ -458,7 +462,7 @@
         Video.create = function (data) {
             var url = '/api/account/' + AuthService.getUserId() + '/videos';
             return DataService.request({ url: url, method: 'POST', data: data });
-        }
+        };
 
         Video.update = function (id, data) {
             var url = '/api/video/' + id + '';
@@ -468,22 +472,6 @@
         Video.get = function(id) {
             var url = '/api/video/' + id + '';
             return DataService.request({ url: url, method: 'GET'});
-        }
-
-        /*
-        * As-yet unused methods
-        */
-        Video.query = function (query, options, ignoreCache) {
-            var url = api + '';
-            return DataService.request({url: url});
-        };
-        Video.getOne = function (id, ignoreCache) {
-            var url = api + '';
-            return DataService.request({url: url});
-        };
-        Video.getAll = function (ignoreCache) {
-            var url = api + '';
-            return DataService.request({url: url});
         };
 
         return {
@@ -494,122 +482,33 @@
             create: Video.create,
             update: Video.update,
             get: Video.get
-            // getOne: Video.getOne,
-            // getAll: Video.getAll,
-            // query: Video.query,
-            // save: Video.save
+        };
+    }]);
+
+    /*
+    * Methods for interacting with the Account web services
+    */
+    app.factory('AccountService', ['DataService', 'localStorageService', '$rootScope', 'AuthService', function (DataService, localStorageService, $rootScope, AuthService) {
+
+        var Account = {};
+
+        Account.saveCustomLogo = function (file) {
+
+            var formData = new FormData();
+            formData.append('player_logo', file);
+
+            return DataService.request({
+                url: '/api/account/' + AuthService.getUserId(),
+                method: 'PATCH',
+                headers: {'Content-Type': undefined },
+                data: formData
+            });
         };
 
+        return {
+            saveCustomLogo: Account.saveCustomLogo
+        };
     }]);
-    /*
-
-     app.factory('DataService', ['$rootScope', '$location', '$http', '$q', '$timeout', 'localStorageService', 'FlashService', function ($rootScope, $location, $http, $q, $timeout, localStorageService, FlashService) {
-
-     var Data = {},
-     cache = {},
-     authed = ($rootScope.account !== undefined) ? true : false;
-
-     var authCheck = function() {
-     var deferred = new $q.defer();
-
-     if ( authed === true ) {
-     $timeout(function(){
-     deferred.resolve();
-     }, 10);
-     } else if ( localStorageService.get('session_url') !== null ) {
-     $http({
-     method: 'GET',
-     url: localStorageService.get('session_url')
-     }).success(function(data,status,headers,config){
-     $timeout(function() {
-     $rootScope.$apply(function(){
-     // console.log(data);
-     $rootScope.account = data.account;
-     $rootScope.user = data.user;
-     $rootScope.userID = data.href.split('/');
-     $rootScope.userID = $rootScope.userID[$rootScope.userID.length-1];
-     // console.log($rootScope.userID);
-     authed = true;
-     deferred.resolve($rootScope.userID);
-     });
-     });
-     }).error(function(data, status, headers, config){
-     FlashService.flash( 'There was an error loading your account details, please refresh this page to try again.', 'error' );
-     });
-     } else {
-     $timeout(function () {
-     deferred.reject('no session url');
-     });
-     }
-     return deferred.promise;
-     };
-
-     var format = function(str, rep) {
-     return str.toString().replace(/\{(.*?)\}/g, rep);
-     };
-
-     Data.save = function (url, id, obj) {
-     var deferred = new $q.defer();
-
-     $timeout(function () {
-     console.log(cache[url].videos[id] = obj);
-     deferred.resolve();
-     }, 1000);
-
-     return deferred.promise;
-     };
-
-
-     Data.request = function (url, ignoreCache, params) {
-
-     var deferred = new $q.defer();
-
-     var makeParams = function (params) {
-     if (_.keys(params).length) {
-     return '?' + _(params).map(function (value, key) {
-     return  _.escape(key) + '=' + _.escape(value);
-     }).join('&');
-     } else {
-     return '';
-     }
-     };
-
-     authCheck().then(function(account_id){
-
-     url += makeParams(params);
-     url = format(url, account_id);
-     console.log(url);
-
-     if (ignoreCache === true || cache[url] === undefined) {
-     $http({ method: 'get', url: url }).success(function (data, status, headers, config) {
-     if (status === 200) {
-     cache[url] = data;
-     deferred.resolve(data);
-     } else {
-     console.log('failed');
-     deferred.reject('There was an error when retrieving the data.');
-     }
-     });
-     } else {
-     deferred.resolve(cache[url]);
-     }
-
-     },function(){
-     $timeout(function(){
-     deferred.reject('Not authorised to access this content');
-     }, 10);
-     });
-
-     return deferred.promise;
-     };
-
-     return {
-     save: Data.save,
-     request: Data.request
-     };
-
-     }]);
-     */
 
     app.factory('ErrorService', function () {
 
@@ -1030,7 +929,6 @@
         }
 
         return Enum;
-
     })
 
 })(window, document, window.angular, 'RomeoApp', 'services');

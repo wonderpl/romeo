@@ -103,6 +103,12 @@
 				<div class="row" id="customize-your-player">
 					<h2>Add your own logo to the player</h2>
 					<input type="file" ng-file-select="customLogoSelected($files)" ng-file-drop="customLogoSelected($files)">
+					<div id="custom-logo-status">
+						<p ng-show="customLogo.status == 'error'">Sorry, your logo is too large! Please reduce it's dimensions.</p>
+						<p ng-show="customLogo.status == 'error'">Sorry, your logo is too large! Please reduce it's dimensions.</p>
+						<p ng-show="customLogo.status == 'error'">Sorry, your logo is too large! Please reduce it's dimensions.</p>
+					</div>
+					<button ng-click="saveCustomLogo()">Save logo</button>
 				</div>
 
 			</form>
