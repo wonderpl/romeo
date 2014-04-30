@@ -14,8 +14,16 @@
         $scope.html = ng.element(d.querySelector('html'));
         $scope.body = ng.element(d.body);
 
-        $scope.account = AuthService.getUser();
         $scope.isLoggedIn = AuthService.isLoggedIn();
+
+        if ($scope.isLoggedIn) {
+            if (!($scope.account = AuthService.getUser())) {
+                AuthService.retrieveSession(AuthService.getSession()).then(function(sessionData) {
+                    $scope.account = sessionData;
+                    AuthService.setSession(sessionData);
+                });
+            }
+        }
 
         $rootScope.isUnique = function (arr, string) {
             if (arr.length === 0) {
@@ -453,10 +461,13 @@
 
             }]);
 
-    app.controller('AccountController', ['$scope', '$rootScope', 'AuthService', 'DataService', function ($scope, $rootScope, AuthService, DataService) {
+    app.controller('AccountController', ['$scope', '$rootScope', '$location', '$routeParams', 'AuthService', 'DataService', '$q', function ($scope, $rootScope, $location, $routeParams, AuthService, DataService, $q) {
+
+        var sessionUrl;
+        var accountID;
 
         // Are we logged in?
-        $scope.isLoggedIn = AuthService.getSession();
+        $scope.State = 'INIT';
         $scope.isEditable = false;
 
         $scope.avatarFile = null;
@@ -465,6 +476,35 @@
         $scope.formData = new FormData();
 
         $scope.account = angular.copy(AuthService.getUser());
+
+        $scope.isLoggedIn = AuthService.isLoggedIn();
+
+        $scope.profileData = {
+            accountID: null,
+            name: null,
+            username: null,
+            description: null,
+            avatarURL: null,
+            profileURL: null
+        };
+
+        $scope.getAccountData = function(accountID) {
+
+            var deferred = $q.defer();
+
+            if (accountID) {
+                DataService.request({
+                    url: 'api/account/' + accountID
+                }).then(function(data) {
+                    deferred.resolve(data.data);
+                }, deferred.reject);
+            } else if (sessionUrl = AuthService.getSession()) {
+                AuthService.retrieveSession(sessionUrl).then(deferred.resolve, deferred.reject);
+            }
+
+            return deferred.promise;
+        };
+
 
         $scope.getChangedProperties = function () {
             return _.reject($scope.accountForm, function (value, key) {
@@ -484,6 +524,8 @@
 
         $scope.changeProfileBackground = function (newFile) {
             $scope.profileFile = newFile;
+            $scope.updateUser();
+            $scope.profileFile = null;
         };
 
         $scope.updateUser = function () {
@@ -505,7 +547,31 @@
 
         $scope.changed = function (name, value) {
             $scope.formData.append(name, value);
-        }
+        };
+
+        /* ----- Logic Here ---- */
+
+        $scope.getAccountData($routeParams.accountID).then(function(accountData) {
+            $scope.profileData = {
+                name: accountData.name,
+                username: accountData.display_name,
+                description: null,
+                avatarURL: accountData.avatar,
+                profileURL: accountData.profile_cover
+            };
+            $scope.State = 'SUCCESS';
+        }, function() {
+            debugger;
+            $scope.State = 'ERROR';
+        });
+
+
+/*        avatar: "http://media.dev.wonderpl.com/images/avatar/thumbnail_medium/_SXWl-cdXyMlP5z_FSgqLg.jpg"
+        display_name: "test"
+        href: "/api/account/75435685"
+        name: "test"
+        player_logo: null
+        profile_cover: "http://media.dev.wonderpl.com/images/profile/thumbnail_medium/2sInhh8sbbAsRK-C_Yf4bQ.jpg"*/
 
     }]);
 

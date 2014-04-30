@@ -1,24 +1,45 @@
 <div id="page-account" class="section" ng-controller="AccountController">
-    <div class="background">
-        <span ng-if="isEditable" class="edit-text">UPLOAD A COVER IMAGE</span>
-    </div>
-    <div class="avatar">
-        <span class="icon-user2"></span>
-        <label for="avatar-picker">Change<br>Avatar</label>
-        <input id="avatar-picker" type="file" style="visibility:hidden"
-               onchange="angular.element(this).scope().changeAvatar(this.files[0])"/>
-    </div>
-    <div ng-if="isLoggedIn" class="edit-icons">
-        <span ng-click="toggleEditable()" ng-class="{ active: isEditable }" class="wp-button">Edit Profile</span>
-        <span>(ipad)</span>
-        <span>iphone</span>
-    </div>
-    <div class="inner">
-        <form class="inline-block" ng-submit="updateUser($event)">
-            <div class="row full-width">
-                <h1>{{ account.name }}</h1>
+    <div ng-if="State === 'SUCCESS'">
+        <div class="background" style="background-image: url((~ profileData.profileURL ~));"></div>
+        <div ng-if="isEditable">
+            <label for="profile-picker" class="edit-text">Upload Profile</label>
+            <input id="profile-picker" type="file" style="visibility:hidden"
+                   onchange="angular.element(this).scope().changeProfileBackground(this.files[0])"/>
+        </div>
+        <div class="avatar" style="background-image: url((~ profileData.avatarURL ~));">
+            <div ng-if="isEditable">
+                <label for="avatar-picker">Change<br>Avatar</label>
+                <input id="avatar-picker" type="file" style="visibility:hidden"
+                       onchange="angular.element(this).scope().changeAvatar(this.files[0])"/>
             </div>
-        </form>
+        </div>
+        <div ng-if="isLoggedIn" class="edit-icons">
+            <span ng-click="toggleEditable()" ng-class="{ active: isEditable }" class="wp-button">Edit Profile</span>
+            <span>(ipad)</span>
+            <span>iphone</span>
+        </div>
+        <div class="inner">
+            <form class="inline-block" ng-submit="updateUser($event)">
+                <div class="row full-width">
+                    <h1>{{ profileData.name }}</h1>
+                </div>
+                <div class="row full-width">
+                    <h1>{{ profileData.username }}</h1>
+                </div>
+                <div class="row full-width">
+                    <h1>{{ profileData.description }}</h1>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div ng-if="State === 'NOT_FOUND'">
+        <div class="account-error">Profile Not Found</div>
+    </div>
+    <div ng-if="State === 'ERROR'">
+        <div class="account-error">Error Loading Profile</div>
+    </div>
+    <div ng-if="State === 'INIT'">
+        <div class="account-loading">Loading Profile</div>
     </div>
 </div>
 

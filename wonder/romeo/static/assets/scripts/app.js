@@ -74,7 +74,7 @@
         });
 
         // Account management
-        $routeProvider.when('/account/:accountID', {
+        $routeProvider.when('/account/:accountID?', {
             templateUrl: 'account.html'
         });
 
