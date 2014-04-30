@@ -23,3 +23,4 @@ def _get_bucket(name):
 
 s3connection = LocalProxy(_get_connection)
 video_bucket = LocalProxy(lambda: _get_bucket(current_app.config['VIDEO_S3_BUCKET']))
+media_bucket = LocalProxy(lambda: _get_bucket(current_app.config['MEDIA_S3_BUCKET']))

@@ -42,6 +42,9 @@ DOLLY_WS_CLIENT_AUTH = 'Basic YzhmZTVmNnJvY2s4NzNkcGFjazE5UTo='
 
 # AWS
 VIDEO_S3_BUCKET = 'video.dev.wonderpl.com'
+MEDIA_S3_BUCKET = 'media.dev.wonderpl.com'
+
+MEDIA_BASE_URL = 'http://media.dev.wonderpl.com'
 
 SQS_REGION = 'eu-west-1'
 SQS_DEFAULT_VISIBILITY_TIMEOUT = 600
