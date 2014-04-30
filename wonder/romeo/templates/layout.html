@@ -31,42 +31,44 @@
             <li><a ng-click="logOut()">Log out</a></li>
         </ul>
     </div> -->
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    
     {% block vendorjs %}
-    {# assets filters="rjsmin", output="gen/vendor.%(version)s.js",
-        "assets/vendor/js/d3.js",
-        "assets/vendor/js/nv.d3.js",
-        "assets/vendor/js/topojson.js",
-        "assets/vendor/js/lodash.js",
-        "assets/vendor/js/angular/angular.js",
-        "assets/vendor/js/angular/angular-route.js",
-        "assets/vendor/js/moment.js"
-    #}
-    <!--<script src="{{ ASSET_URL }}"></script>-->
-    {# endassets #}
+        {% assets filters="rjsmin", output="gen/vendor.%(version)s.js",
+            "assets/vendor/js/d3.js",
+            "assets/vendor/js/nv.d3.js",
+            "assets/vendor/js/topojson.js",
+            "assets/vendor/js/lodash.js",
+            "assets/vendor/js/angular/angular.js",
+            "assets/vendor/js/angular/angular-route.js",
+            "assets/vendor/js/angular/angular-cookies.js",
+            "assets/vendor/js/angular/angular-localstorage.js",
+            "assets/vendor/js/ng-tags.js",
+            "assets/vendor/js/angular-file-upload/angular-file-upload-shim.min.js", 
+            "assets/vendor/js/angular-file-upload/angular-file-upload.min.js", 
+            "assets/vendor/js/moment.js"
+        %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
     {% endblock %}
 
     {% block appjs %}
-    {# assets filters="rjsmin", output="gen/app.%(version)s.js",
-        "assets/scripts/app.js",
-        "assets/scripts/services/services.js",
-        "assets/scripts/controllers/controllers.js",
-        "assets/scripts/filters/filters.js",
-        "assets/scripts/directives/directives.js",
-        "assets/scripts/directives/analytics.js"
-    #}
-    <!--<script src="{{ ASSET_URL }}"></script>-->
-    {# endassets #}
+        {% assets filters="rjsmin", output="gen/app.%(version)s.js",
+            "assets/scripts/app.js",
+            "assets/scripts/services/services.js",
+            "assets/scripts/controllers/controllers.js",
+            "assets/scripts/filters/filters.js",
+            "assets/scripts/directives/directives.js",
+            "assets/scripts/directives/analytics.js"
+        %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
     {% endblock %}
 
     {% block viewsjs %}
-    {# assets filters="rjsmin", output="gen/views.%(version)s.js",
-        "assets/scripts/views.js"
-    #}
-    <!--<script src="{{ ASSET_URL }}"></script>-->
-    {# endassets #}
+        {% assets filters="rjsmin", output="gen/views.%(version)s.js",
+            "assets/scripts/views.js"
+        %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
     {% endblock %}
     
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="/static/assets/vendor/js/d3.js"></script>
     <script src="/static/assets/vendor/js/nv.d3.js"></script>
     <script src="/static/assets/vendor/js/topojson.js"></script>
@@ -87,6 +89,6 @@
     <script src="/static/assets/scripts/directives/directives.js"></script>
     <script src="/static/assets/scripts/directives/analytics.js"></script>
 
-    <script src="/static/assets/scripts/views.js"></script>
+    <script src="/static/assets/scripts/views.js"></script>-->
 </body>
 </html>

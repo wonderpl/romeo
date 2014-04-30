@@ -18,6 +18,7 @@
 					<div class="backgrounds">
 						<div ng-show="file.state == 'uploading' || file.state == 'complete'" class="thumbnail-background"></div>
 						<div ng-show="file.state != 'empty' && file.thumbnail == null" class="confirm-background"></div>
+						<div ng-show="chosenPreviewImage != null" style="background: black url({{ chosenPreviewImage }}) center center no-repeat; background-size: cover;"></div>
 					</div>
 
 					<div class="dialogs">

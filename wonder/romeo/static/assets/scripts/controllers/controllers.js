@@ -623,8 +623,9 @@
         /*
         * State objects showing which thumbnail has been selected out of the available video thumbnails
         */        
-        $scope.thumbIndex = 0;
-        $scope.thumbnails = ['/static/assets/img/test-image-1.jpg','/static/assets/img/test-image-2.jpg','/static/assets/img/test-image-3.jpg','/static/assets/img/test-image-1.jpg','/static/assets/img/test-image-2.jpg','/static/assets/img/test-image-3.jpg'];
+        $scope.previewIndex = 0;
+        $scope.chosenPreviewImage = null;
+        $scope.previewImages = ['/static/assets/img/test-image-1.jpg','/static/assets/img/test-image-2.jpg','/static/assets/img/test-image-3.jpg','/static/assets/img/test-image-1.jpg','/static/assets/img/test-image-2.jpg','/static/assets/img/test-image-3.jpg'];
 
         /*
         * The state object for autosaving the video
@@ -874,34 +875,39 @@
         /*
         * Show the thumbnail chooser
         */
-        $scope.showThumbnailChooser = function(e) {
-            $modal.load('modal-thumbnail-picker.html', true, $scope, undefined, { width: 910 });
+        $scope.showPreviewImageChooser = function(e) {
+            $modal.load('modal-preview-image-picker.html', true, $scope, undefined, { width: 910 });
         };
 
         /*
-        * Move the thumbIndex for the thumbnail choose
+        * Move the previewIndex for the preview image choose
         */
-        $scope.thumbnailChosen = function(dir) {
-            // Set the thumbnail to the $scope.thumbIndex
+        $scope.previewImageChosen = function(dir) {
+            VideoService.setPreviewImage().then(function(response){
+                console.log( response );
+                $timeout(function() {
+                    $scope.$apply(function(){
+                        $scope.chosenPreviewImage = $scope.previewImages[$scope.previewIndex].url;        
+                    });
+                });
+            });
         };
 
         /*
-        * Move the thumbIndex for the thumbnail choose
+        * Increment the previewIndex
         */
-        $scope.thumbnailPage = function(dir) {
-            // $scope.thumbIndex = dir == 'left' ? dir > 0 ? dir-1 : dir : dir < ($scope.thumbnails.length-1) : dir
-
+        $scope.previewImageNav = function(dir) {
             if ( dir === 'left' ) {
-                if ( $scope.thumbIndex === 0 ) {
-                    $scope.thumbIndex = ($scope.thumbnails.length-1);
+                if ( $scope.previewIndex === 0 ) {
+                    $scope.previewIndex = ($scope.previewImages.length-1);
                 } else {
-                    $scope.thumbIndex--;
+                    $scope.previewIndex--;
                 }
             } else {
-                if ( $scope.thumbIndex === ($scope.thumbnails.length-1)) {
-                    $scope.thumbIndex = 0;
+                if ( $scope.previewIndex === ($scope.previewImages.length-1)) {
+                    $scope.previewIndex = 0;
                 } else {
-                    $scope.thumbIndex++;
+                    $scope.previewIndex++;
                 }
             }
         };
