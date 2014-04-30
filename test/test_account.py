@@ -21,7 +21,7 @@ class AccountTestCase(unittest.TestCase):
 
     def test_login(self):
         credentials = dict(username='a@b.com', password='123')
-        accountdata = dict(display_name='test', avatar_thumbnail_url='', profile_cover_url='')
+        accountdata = dict(display_name='test', description= None, avatar_thumbnail_url='', profile_cover_url='')
         self._create_test_user(**credentials)
         with patch('wonder.romeo.account.views.DollyUser') as DollyUser:
             DollyUser.return_value.get_userdata.return_value = accountdata

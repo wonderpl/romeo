@@ -254,3 +254,42 @@ Content-Type: application/json
     "next_page_token": "W1siY29sdW1uIiwiR0I6MTA4ODMiXSxbImluZGV4IiwyM10sWyJ2YWx1ZSIsMV1d"
 }
 ```
+
+### Engagement Metrics
+
+```http
+GET /api/video/VIDEOID/analytics/engagement HTTP/1.1
+```
+
+Parameter       | Required    | Value    | Description
+:-------------- | :---------- | :------- | :----------
+start           | No          | Date                     | eg. 2014-03-12
+end             | No          | Date                     | eg. 2014-03-12
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "metrics": {
+        "percentage_watched": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+        ],
+    "segments_watched": [
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+        ],
+    }
+}
+```
