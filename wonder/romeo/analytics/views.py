@@ -105,6 +105,15 @@ def process_total(data):
     return transformed_data
 
 
+def process_engagement(data):
+    result = {}
+    d = data['results'].pop()
+    if d:
+        result['segments_watched'] = d['metrics']['engagement']['segments_watched']
+        result['percentage_watched'] = d['metrics']['engagement']['percentage_watched']
+    return dict(metrics=result)
+
+
 def videos_total(start, end=None, limit=100):
     path = 'reports/account/performance/videos/%s' % (_format_dates(start, end))
     return process_total(_videos_request('analytics', path, limit=limit))
@@ -128,6 +137,12 @@ def video_countries(resource_id, start, end=None, limit=100, page_token=None):
 def video_regions(resource_id, country, start, end=None, limit=53, page_token=None):
     path = 'reports/asset/%s/performance/countries/%s/regions/%s' % (resource_id, country, _format_dates(start, end))
     return process_geo(_videos_request('analytics', path, limit=limit, page_token=page_token))
+
+
+def videos_engagement(resource_id, start, end=None, limit=500, page_token=None):
+    print start, end
+    path = 'reports/asset/%s/engagement/total/%s' % (resource_id, _format_dates(start, end))
+    return process_engagement(_videos_request('analytics', path, limit=limit, page_token=page_token))
 
 
 def get_resource_id_from_video(video_id):
@@ -195,4 +210,14 @@ class RegionsMetricsApi(Resource):
             country.upper(),
             *default_args(request),
             **default_kwargs(request))
+        return data
+
+
+@api_resource('/video/<string:video_id>/analytics/engagement')
+class EngagementMetricsApi(Resource):
+    def get(self, video_id):
+        data = videos_engagement(
+            get_resource_id_from_video(video_id),
+            request.args.get('start', datetime.now()),
+            request.args.get('end', None))
         return data
