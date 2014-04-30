@@ -435,14 +435,19 @@
 
         var Video = {};
 
-        Video.getCategories = function (ignoreCache) {
+        Video.getCategories = function () {
             var url = '/api/categories';
             return DataService.request({url: url});
         };
 
-        Video.getUploadArgs = function (ignoreCache) {
+        Video.getUploadArgs = function () {
             var url = '/api/account/' + AuthService.getUserId() + '/upload_args';
             return DataService.request({url: url});
+        };
+
+        Video.getPreviewImages = function (id) {
+            var url = '/api/video/' + id + '/preview_images';
+            return DataService.request({ url: url, method: 'GET'});
         };
 
         Video.create = function (data) {
@@ -479,6 +484,7 @@
         return {
             getCategories: Video.getCategories,
             getUploadArgs: Video.getUploadArgs,
+            getPreviewImages: Video.getPreviewImages,
             create: Video.create,
             update: Video.update,
             get: Video.get

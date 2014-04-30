@@ -1036,19 +1036,19 @@ body.embedded, html.embedded {
   background: #000;
   background-size: 32px auto;
   display: block;
-  width: 100%;
+  width: 600px;
   max-width: 960px;
   margin: 0 auto 64px auto;
   position: relative;
   overflow: hidden;
 }
-/* line 61, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 62, ../../scss/partials/wonderplayer_weblite.scss */
 #wonderplayer:before {
   content: '';
   display: block;
   padding-top: 56.25%;
 }
-/* line 67, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 68, ../../scss/partials/wonderplayer_weblite.scss */
 #wonderplayer iframe, #wonderplayer .fake-iframe {
   display: block;
   position: absolute;
@@ -1059,7 +1059,7 @@ body.embedded, html.embedded {
   z-index: 500;
 }
 
-/* line 78, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 79, ../../scss/partials/wonderplayer_weblite.scss */
 .yt-play-button {
   width: 100px;
   height: 71px;
@@ -1072,17 +1072,17 @@ body.embedded, html.embedded {
   margin: auto;
   pointer-events: none;
 }
-/* line 90, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 91, ../../scss/partials/wonderplayer_weblite.scss */
 .yt-play-button.show {
   display: block;
 }
 
-/* line 95, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 96, ../../scss/partials/wonderplayer_weblite.scss */
 .controls-disabled {
   pointer-events: none;
 }
 
-/* line 99, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 100, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper {
   display: block;
   width: 100%;
@@ -1093,7 +1093,7 @@ body.embedded, html.embedded {
   position: absolute;
   overflow: hidden;
 }
-/* line 117, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 118, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper.fullscreen {
   position: fixed;
   left: 0;
@@ -1103,12 +1103,12 @@ body.embedded, html.embedded {
   margin: auto;
   max-width: 100%;
 }
-/* line 127, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 128, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper object {
   z-index: -1;
   position: relative;
 }
-/* line 132, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 133, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-player, #wonder-wrapper .innerWrapper, #wonder-wrapper iframe, #wonder-wrapper #ooyala-player {
   display: block;
   position: absolute;
@@ -1120,7 +1120,7 @@ body.embedded, html.embedded {
   right: 0;
   z-index: 0;
 }
-/* line 144, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 145, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper iframe {
   display: block;
   position: absolute;
@@ -1129,11 +1129,11 @@ body.embedded, html.embedded {
   width: 100%;
   height: 100%;
 }
-/* line 153, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 154, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper.no-poster iframe {
   z-index: 500;
 }
-/* line 157, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 158, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-poster {
   display: block;
   width: 100%;
@@ -1153,7 +1153,7 @@ body.embedded, html.embedded {
   -o-user-select: none;
   user-select: none;
 }
-/* line 174, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 175, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-poster:after {
   background: black;
   width: 100%;
@@ -1170,7 +1170,7 @@ body.embedded, html.embedded {
   -o-transition: opacity .1s ease-out;
   transition: opacity .1s ease-out;
 }
-/* line 191, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 192, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-poster img {
   display: block;
   width: 100%;
@@ -1188,7 +1188,7 @@ body.embedded, html.embedded {
   transition: all 0.4s ease-out;
   overflow: hidden;
 }
-/* line 209, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 210, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-poster table {
   width: 100%;
   height: 100%;
@@ -1199,20 +1199,20 @@ body.embedded, html.embedded {
   font-size: 40px;
   z-index: 200;
 }
-/* line 220, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 221, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-poster.youtube {
   background: transparent !important;
 }
-/* line 223, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 224, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-poster.youtube table {
   top: -110px;
 }
-/* line 228, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 229, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-poster span {
   filter: alpha(opacity=75);
   opacity: 0.75;
 }
-/* line 232, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 233, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-poster span:after {
   content: 'your video is loading';
   display: block;
@@ -1224,30 +1224,30 @@ body.embedded, html.embedded {
   line-height: 28px;
   -webkit-transition: all .4s ease-out;
 }
-/* line 245, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 246, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-poster.loading {
   pointer-events: none;
 }
-/* line 247, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 248, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-poster.loading span {
   pointer-events: none;
 }
-/* line 249, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 250, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-poster.loading span:after {
   content: 'your video is loading';
   display: block;
   filter: alpha(opacity=75);
   opacity: 0.75;
 }
-/* line 258, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 259, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-poster.hide {
   display: none;
 }
-/* line 263, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 264, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-poster.ios5 span:after {
   display: none !important;
 }
-/* line 267, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 268, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-loader {
   display: block;
   position: absolute;
@@ -1276,19 +1276,19 @@ body.embedded, html.embedded {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   cursor: pointer;
 }
-/* line 292, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 293, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-loader.youtube {
   display: none;
 }
-/* line 296, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 297, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-loader.youtube-show {
   display: block;
 }
-/* line 300, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 301, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-loader.no-cursor {
   cursor: none !important;
 }
-/* line 304, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 305, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-loader span {
   position: absolute;
   display: block;
@@ -1305,13 +1305,13 @@ body.embedded, html.embedded {
   font-family: sans-serif;
   pointer-events: none;
 }
-/* line 321, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 322, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-loader.show {
   filter: alpha(opacity=75);
   opacity: 1;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-/* line 328, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 329, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls {
   display: block;
   position: absolute;
@@ -1331,15 +1331,15 @@ body.embedded, html.embedded {
   background: rgba(123, 128, 133, 0.43);
   border-top: 1px solid white;
 }
-/* line 347, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 348, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls.show {
   bottom: 0px;
 }
-/* line 351, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 352, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls.hide {
   bottom: -38px;
 }
-/* line 355, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 356, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls a, #wonder-wrapper #wonder-controls button {
   color: #fff;
   text-decoration: none;
@@ -1353,17 +1353,17 @@ body.embedded, html.embedded {
   -o-transition: color 0.15s ease-out, background-size 0.15s ease-out, top 0.15s ease-out;
   transition: color 0.15s ease-out, background-size 0.15s ease-out, top 0.15s ease-out;
 }
-/* line 368, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 369, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls a:hover, #wonder-wrapper #wonder-controls a:focus, #wonder-wrapper #wonder-controls a:active, #wonder-wrapper #wonder-controls button:hover, #wonder-wrapper #wonder-controls button:focus, #wonder-wrapper #wonder-controls button:active {
   color: #bcbad4;
   filter: alpha(opacity=80);
   opacity: 0.8;
 }
-/* line 374, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 375, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls a.hidden, #wonder-wrapper #wonder-controls button.hidden {
   display: none;
 }
-/* line 378, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 379, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls a.wonder-play, #wonder-wrapper #wonder-controls button.wonder-play {
   left: 0;
   width: 60px;
@@ -1371,14 +1371,14 @@ body.embedded, html.embedded {
   background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAvCAYAAACVDljoAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAhBJREFUeNrMmE8og2Ecx5+tpdQODru47LRSc5CLlqS5ue4kTtpx/maUmpRSc9hJucjKiRtymdsULUWtKVo4KXGYchCRzPfJ71dvb2beefe+v299IpGPx/t8f8/zeqvVag6EgZKMVyk1CEpgDQSU0Hjpow8kwDVIghapopw2kAEXICZZlBMCO+AIRCSLcvpAAWyBoGRRHQ8YBmWwDPxSRTmtIAWuQNzizzoqymkHWXAGopJFOd0gT5suJFmUE6M6y1C9iRVVNCCSNDASzRgYdm+IAI1i2wdGs3YuD4w8PctiRTlRaocstYVYUf4dcerfFPWxSFGOnyZbmSadR6ooJ0hnh4KVA48bopyIlQOPm6LmA0/6t4HhtqjxwDNvGBg+qaLmgVGiu5xYUU4Y5IiwZFFOB5/MpIq+gAXQCfbVTw+tgGzTxro1flGSaBHMgEOp9VQBY6CnlqTbK/oB1sEieKz3zW6J6pWbAudSZ73eIENgwIqkkyv6Spe/NH1uOU6I7oJpc91IEr0E43RvEnlnegKToMsuSbtX9BNs0L2oYvdfb5foMa1iUeqbkjswAvqbKfmfFX2julkBz070WyOie2AO3Dg5KayI6rrRL8IO3Ji5f3lGdd3Mqu93SK5I1ltRXTebVDcPbp8Fa4meUN2cSjlVm//192AU9EqSNK7oO1gFS07VTSOieoNMOF03VvMlwADpINwvQzjqdwAAAABJRU5ErkJggg==) center center no-repeat;
   background-size: 14px auto;
 }
-/* line 386, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 387, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls a.wonder-pause, #wonder-wrapper #wonder-controls button.wonder-pause {
   width: 60px;
   height: 38px;
   background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAnCAYAAABnlOo2AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGhJREFUeNrs2DEKwCAMheGm0OvU+x9Dr+OQOnQSxARSCPR/kEUe5HONqOqRKfKCrKoypm0695hq3T8/nM4PXEGdZbygHtQJA30eQIAAAQIECBAgQIAAAQIECBAgQKlB/7ugSbYr7CPAAG2cEEOPGuG0AAAAAElFTkSuQmCC) center center no-repeat;
   background-size: 14px auto;
 }
-/* line 393, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 394, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls a.wonder-volume, #wonder-wrapper #wonder-controls button.wonder-volume {
   left: 65.5%;
   top: 0;
@@ -1390,7 +1390,7 @@ body.embedded, html.embedded {
   -webkit-backface-visibility: none;
   z-index: 5;
 }
-/* line 404, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 405, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls a.wonder-volume img, #wonder-wrapper #wonder-controls button.wonder-volume img {
   display: block;
   width: 18px;
@@ -1404,36 +1404,36 @@ body.embedded, html.embedded {
   border: none;
   outline: none;
 }
-/* line 418, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 419, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls a.wonder-volume.vol-0 img, #wonder-wrapper #wonder-controls button.wonder-volume.vol-0 img {
   display: none;
 }
-/* line 423, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 424, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls a.wonder-volume.vol-1 .vol-1, #wonder-wrapper #wonder-controls button.wonder-volume.vol-1 .vol-1 {
   display: block;
 }
-/* line 426, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 427, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls a.wonder-volume.vol-1 .vol-2, #wonder-wrapper #wonder-controls a.wonder-volume.vol-1 .vol-3, #wonder-wrapper #wonder-controls button.wonder-volume.vol-1 .vol-2, #wonder-wrapper #wonder-controls button.wonder-volume.vol-1 .vol-3 {
   display: none;
 }
-/* line 432, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 433, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls a.wonder-volume.vol-2 .vol-1, #wonder-wrapper #wonder-controls a.wonder-volume.vol-2 .vol-2, #wonder-wrapper #wonder-controls button.wonder-volume.vol-2 .vol-1, #wonder-wrapper #wonder-controls button.wonder-volume.vol-2 .vol-2 {
   display: block;
 }
-/* line 435, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 436, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls a.wonder-volume.vol-2 .vol-3, #wonder-wrapper #wonder-controls button.wonder-volume.vol-2 .vol-3 {
   display: none;
 }
-/* line 440, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 441, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls a.wonder-volume.vol-3 img, #wonder-wrapper #wonder-controls button.wonder-volume.vol-3 img {
   display: block;
 }
-/* line 445, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 446, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls a.wonder-rewind, #wonder-wrapper #wonder-controls button.wonder-rewind {
   left: 62px;
   top: 14px;
 }
-/* line 450, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 451, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls a.wonder-logo, #wonder-wrapper #wonder-controls button.wonder-logo {
   width: 20%;
   left: auto;
@@ -1444,7 +1444,7 @@ body.embedded, html.embedded {
   background-size: auto 60%;
   cursor: pointer;
 }
-/* line 461, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 462, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls a.wonder-fullscreen, #wonder-wrapper #wonder-controls button.wonder-fullscreen {
   right: 0px;
   top: 0px;
@@ -1453,7 +1453,7 @@ body.embedded, html.embedded {
   background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAvCAYAAACVDljoAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAb9JREFUeNrs2d1KAkEUB3B3zWtLMcu6UxRDLMuofJR6jqCeoIsog0QolAgKCbqu6PNJeoVeQGI7B87AIGW7Z2d2Z2EG/uDFzpwfw+7sUR3P81JJGG4qISMx0BnIF3PuMeQo4JxDyD6rmscbp3hvM3PCKciBdkMgRbq6oWcQRwHUobW0QHuKkDL2XDW0rxgpY/uqoJeakDL2Iix0oBkpYwdc6DAipIwdBoVeQdIRIkVcqu0Leh0TUiRNhqnQ25iRMvbmL+jIEKSMHU1C7wxDyli0edg93UP2IN8Gdndo2sV2FI+EDHwYG96OZtwEIHGM7VcRC7VQC7VQCzUP2kmAs4PQB8iOwchtNCI0C3mEbBqIRNMTGsU9itgXSNsgZJtM2cmHSWA3DECuQ54F8renfpYuaMWIbNGGzf13POXowrUYkKtUO+f3HM3TzjYjRDYJmQ964Bcgr5BGBMgG1Spw30w48R2yohGJa79NQ/p9hQpsXQOyTmvPq3rXF2nBmkJkjXayqLopWSBsVQGySmst6uqeSlSgEgJZoZ0s6W7zliAfkDJjbpnmLgediL89HTB3ZgvyyZjT4xRzkvLv8o8AAwCdr1X+LSKregAAAABJRU5ErkJggg==) center center no-repeat;
   background-size: 18px auto;
 }
-/* line 471, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 472, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls span.wonder-timer {
   display: block;
   width: 55px;
@@ -1471,7 +1471,7 @@ body.embedded, html.embedded {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* line 490, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 491, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls .scrubber {
   display: block;
   position: absolute;
@@ -1484,14 +1484,14 @@ body.embedded, html.embedded {
   border-radius: 100px;
   z-index: 10;
 }
-/* line 502, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 503, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls .scrubber.vid {
   height: 6px;
   width: 45%;
   left: 8%;
   top: 16px;
 }
-/* line 508, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 509, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls .scrubber.vid:after {
   position: absolute;
   left: 0;
@@ -1512,7 +1512,7 @@ body.embedded, html.embedded {
   filter: alpha(opacity=0);
   opacity: 0;
 }
-/* line 541, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 542, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls .scrubber.vid.loading:after {
   filter: alpha(opacity=100);
   opacity: 1;
@@ -1521,7 +1521,7 @@ body.embedded, html.embedded {
   -o-transition: opacity .2s ease-out;
   transition: opacity .2s ease-out;
 }
-/* line 560, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 561, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls .scrubber.vol {
   opacity: 0;
   width: 6px;
@@ -1534,7 +1534,7 @@ body.embedded, html.embedded {
   -o-transition: bottom .3s ease-out .125s, opacity .18s ease-out;
   transition: bottom .3s ease-out .125s, opacity .18s ease-out;
 }
-/* line 574, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 575, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls .scrubber.vol-visible {
   opacity: 1;
   bottom: 60px;
@@ -1543,7 +1543,7 @@ body.embedded, html.embedded {
   -o-transition: bottom .2s ease-out, opacity .18s ease-out .13s;
   transition: bottom .2s ease-out, opacity .18s ease-out .13s;
 }
-/* line 585, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 586, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls .scrubber-progress {
   -webkit-border-radius: 100px;
   -moz-border-radius: 100px;
@@ -1554,21 +1554,21 @@ body.embedded, html.embedded {
   background: white;
   z-index: 10;
 }
-/* line 595, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 596, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls .scrubber-progress.vid {
   width: 0%;
   height: 100%;
   left: 0px;
   top: 0px;
 }
-/* line 602, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 603, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls .scrubber-progress.vol {
   width: 100%;
   height: 100%;
   bottom: 0px;
   left: 0px;
 }
-/* line 610, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 611, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls .scrubber-buffer {
   width: 0%;
   height: 100%;
@@ -1584,11 +1584,11 @@ body.embedded, html.embedded {
   z-index: 9;
   pointer-events: none;
 }
-/* line 625, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 626, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls .scrubber-buffer.hide {
   display: none;
 }
-/* line 630, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 631, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls .scrubber-timer {
   display: block;
   position: absolute;
@@ -1618,12 +1618,12 @@ body.embedded, html.embedded {
   -o-border-radius: 6px;
   border-radius: 6px;
 }
-/* line 659, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 660, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls .scrubber-timer.show {
   filter: alpha(opacity=100);
   opacity: 1;
 }
-/* line 664, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 665, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls .scrubber-timer:after {
   content: '';
   position: absolute;
@@ -1637,7 +1637,7 @@ body.embedded, html.embedded {
   border-right: 6px solid transparent;
   border-top: 6px solid black;
 }
-/* line 679, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 680, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls .scrubber-handle {
   display: block;
   position: absolute;
@@ -1649,43 +1649,43 @@ body.embedded, html.embedded {
   background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3dJREFUeNrEWEtPU0EUPi1NG1qEtoGiwgI28iiKCRJ2PlDjxoVxg0vjH1ATMfEP4GuB/wCXsjNx4xMfOxQTani6EBJApZAWkJZHivh9l7lhijHe9pbbk3yZuU0658s5Z2a+M67t7W2xaq9ejJZgOAWcBU4AR4AQUAEsA0ngKzAEDADvzl+Iblld32WFDEhEMNwErgIHxbr9BB4DvSAVt0UGJLwYbgN3AD9/CwR8UllVJqFQQAJlPvF6S8TjKZFMZks2N7cktbohyWRKFhdWJZXaMJdKA/eA+yC1mTMZEGEK+oHj/K6KHJC6+koJBv2Ww7K0lJbpqUVZiP8yfxoGroDQpGUyIMK6eAoE/X6vNEUPSzgckHwtkUjJ+Oh3SaeNoCwBl0Do/X/JgEgnhmdMS6S6XKItNUiDW+xaJvNbRkfmJD6/ws814CIIDfyTDIg0YBjk7qipDUkzIlJIo6/xsR8yN8tNZ+y+Dj1lbo2ID8MTEmF9NDUfkkKby+Uy1o1gfXUc9Cu/2WRgt1isrJGWo7XGH/fDuG4U69MPrBXozkoT2FVj/o110tZeZ6tYrVoSRT30adqsn3qka96MzHUSYXqcIEILwU/VTrpKgRtGZF4+H/FgnOHJ2t5Rn9M5YteWcQ59HJzidB6oZWROkghPVieJGBUMf/QLY5mccatLzwyZ46b5PUcybZw5HRXTNL+tJNNoXIBlvqKQ0fw2uJUewe3rKQoZzW+YZMo5K8T9k49pfss5WzEvsmKY5nfFraQihFGmKGQ0vwmSmeCMCq0YpvmdJJnPpiorhml+YyTzhjNNGjpqmt/XJPOBdwPFs9PR4d2kRDvvprduXN2soD7+QvHspE3t+usjD3OTP6KuYMgonp0w6hmVojXlf0fpUdhg6OGcKn6/zxyuPwY/ynqU/yzZ+ZAVzXaCKj6XtjdXUc71VdsSU36zNTDYsZK6WFdsJ6ji94MI11XtCruDLuX3L0Euqm24DKyznYgNzxQsZVznS2zWbFPW6WdvZ2mpo2T/FLKhjVmsY/l0lBqhRtVrH+N3RPXaFTmIsGXVa8d3D7aY6rUn8nmF8GmvEKXmKwSlYjC0o1+pRygDmAZeesbhmUwb21Z7heD2vQs80Gsk3/eZatVOXGOQcshQXB2oveb2tf1YtOfl6jTQqb1chZVA4xZJ2Hm5+iPAABTOk9pj8ColAAAAAElFTkSuQmCC) center center no-repeat;
   background-size: 14px auto;
 }
-/* line 690, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 691, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls .scrubber-handle.vid {
   left: 0%;
   top: -8px;
   margin-left: -9px;
 }
-/* line 696, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 697, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls .scrubber-handle.vol {
   bottom: 0%;
   left: -8px;
   margin-top: -7px;
 }
-/* line 703, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 704, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls .scrubber-target {
   display: block;
   position: absolute;
   margin: 0 auto;
   z-index: 20;
 }
-/* line 709, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 710, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls .scrubber-target.vid {
   width: 47%;
   height: 100%;
   left: 6%;
 }
-/* line 715, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 716, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls .scrubber-target.vol {
   width: 34px;
   right: 31%;
   height: 100px;
   bottom: -120px;
 }
-/* line 722, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 723, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls .scrubber-target.vol-visible {
   bottom: 50px;
 }
-/* line 726, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 727, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls .scrubber-target img {
   display: block;
   position: absolute;
@@ -1698,41 +1698,41 @@ body.embedded, html.embedded {
   user-select: none;
   cursor: pointer;
 }
-/* line 742, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 743, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls.volume-disabled a.wonder-logo {
   width: 18%;
 }
-/* line 745, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 746, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls.volume-disabled a.wonder-volume {
   display: none !important;
 }
-/* line 748, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 749, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls.volume-disabled .wonder-timer {
   left: 66%;
 }
-/* line 752, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 753, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls.volume-disabled .scrubber.vid {
   width: 53%;
 }
-/* line 760, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 761, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls.ie10 a.wonder-logo {
   right: 0%;
   width: 22%;
 }
-/* line 765, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 766, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls.ie10 a.wonder-fullscreen {
   display: none;
 }
-/* line 769, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 770, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls.ie10 a.wonder-volume {
   right: 22%;
 }
-/* line 775, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 776, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-wrapper #wonder-controls {
   bottom: 0px;
 }
 
-/* line 794, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 795, ../../scss/partials/wonderplayer_weblite.scss */
 .blur {
   -webkit-filter: blur(6px);
   -moz-filter: blur(6px);
@@ -1747,7 +1747,7 @@ body.embedded, html.embedded {
 /*
 	Hide all the OO controls
 */
-/* line 811, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 812, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-player .oo_full_controls, #wonder-player .oo_controls_inner {
   width: 100% !important;
   height: 60px !important;
@@ -1761,12 +1761,12 @@ body.embedded, html.embedded {
   -o-border-radius: 100px;
   border-radius: 100px;
 }
-/* line 824, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 825, ../../scss/partials/wonderplayer_weblite.scss */
 #wonder-player .oo_controls_inner {
   background: none !important;
 }
 
-/* line 829, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 830, ../../scss/partials/wonderplayer_weblite.scss */
 .iframe-test {
   background: #2980b9;
   display: block;
@@ -1775,20 +1775,20 @@ body.embedded, html.embedded {
   position: relative;
   color: #fff;
 }
-/* line 838, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 839, ../../scss/partials/wonderplayer_weblite.scss */
 .iframe-test h1 {
   font-size: 32px;
   margin: 0 0 22px 0;
 }
 
-/* line 844, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 845, ../../scss/partials/wonderplayer_weblite.scss */
 iframe {
   border: none;
   background: transparent;
   outline: none;
 }
 
-/* line 850, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 851, ../../scss/partials/wonderplayer_weblite.scss */
 #iframe-wrapper {
   display: block;
   max-width: 1280px;
@@ -1796,7 +1796,7 @@ iframe {
   position: relative;
   margin: 0 auto;
 }
-/* line 857, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 858, ../../scss/partials/wonderplayer_weblite.scss */
 #iframe-wrapper .col {
   background: #3498db;
   height: 100%;
@@ -1808,11 +1808,11 @@ iframe {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 868, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 869, ../../scss/partials/wonderplayer_weblite.scss */
 #iframe-wrapper .col.col-left {
   left: 0;
 }
-/* line 872, ../../scss/partials/wonderplayer_weblite.scss */
+/* line 873, ../../scss/partials/wonderplayer_weblite.scss */
 #iframe-wrapper .col.col-right {
   right: 0;
   background: #1abc9c;
@@ -3812,7 +3812,7 @@ h1.collections-page {
   top: 0;
   width: 100%;
   height: 100%;
-  background: transparent url('/static/assets/img/placeholder-photo-large.jpg') center bottom no-repeat;
+  background: transparent url('/static/assets/img/test-image-1.jpg') center bottom no-repeat;
   background-size: cover;
   pointer-events: none;
   -webkit-transition: all 0.2s ease-out;

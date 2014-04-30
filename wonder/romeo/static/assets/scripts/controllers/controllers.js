@@ -588,13 +588,12 @@
         * The user has chosen a new file, respond accordingly.
         */
         $scope.fileSelected = function($files){
-            // var name = eventData.target.value.split('\\');
-            // console.log( $files );
+            var name = $files[0].name.split('\\');
             $timeout(function(){
                 $scope.$apply(function(){
                     $scope.file.state = "chosen";                    
                     $scope.file.data = $files[0];
-                    // $scope.file.name = name[name.length-1];
+                    $scope.file.name = name[name.length-1];
                 });
             });
         };
@@ -651,10 +650,9 @@
                     xhr: function () {
                         var xhr = $.ajaxSettings.xhr();
                         xhr.upload.onprogress = function (e) {
-                            var p = e.lengthComputable ? Math.round(e.loaded * 100 / e.total) : 0;
                             $timeout( function() {
                                 $scope.$apply(function() {
-                                    console.log( p );
+                                    var p = e.lengthComputable ? Math.round(e.loaded * 100 / e.total) : 0;
                                     $scope.file.upload.progress = p;
                                 });
                             });
@@ -670,23 +668,35 @@
                             $scope.updateVideo(data);
 
                             // POLLING
-                            // $scope.processingInterval = $interval(function(){
-                            //     VideoService.get($scope.video.id).then(function(response){
-                            //         console.log( response );
-                            //         if ( response.status === 'ready' ) {
-                            //             console.log(' video ready! ');
-                            //             $interval.cancel($scope.processingInterval);
-                            //         } else {    
-                            //             console.log(' video still processing' );
-                            //         }
-                            //     });
-                            // }, 20000);
+                            $scope.processingInterval = $interval(function(){
 
-                            $timeout(function() {
-                                $scope.$apply(function() {
-                                    $scope.file.state = 'complete';
+                                // Check for thumbnails
+                                VideoService.getPreviewImages($scope.video.id).then(function(response){
+                                    console.log('checking for preview images', response);
                                 });
-                            }, 5000);
+
+                                // Check for state change in the video record
+                                VideoService.get($scope.video.id).then(function(response){
+                                    console.log( 'checking for state change', response );
+                                    if ( response.status === 'ready' ) {
+                                        console.log(' video ready! ');
+                                        $interval.cancel($scope.processingInterval);
+                                        $timeout(function() {
+                                            $scope.$apply(function() {
+                                                $scope.file.state = 'complete';
+                                            });
+                                        });
+                                    } else {    
+                                        console.log(' video still processing' );
+                                    }
+                                });
+                            }, 20000);
+
+                            // $timeout(function() {
+                            //     $scope.$apply(function() {
+                            //         $scope.file.state = 'complete';
+                            //     });
+                            // }, 5000);
 
                         });
                     });
