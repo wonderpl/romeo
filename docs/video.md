@@ -239,6 +239,65 @@ DELETE /api/video/<video_id> HTTP/1.1
 HTTP/1.1 204 NO CONTENT
 ```
 
+### Video thumbnails
+
+To get a list of images extracted from the key frames of a video:
+
+```http
+GET /api/video/<video_id>/preview_images HTTP/1.1
+```
+
+Each item in the response includes the time of the key frame that can be used as an identifier
+for setting the `primary_preview_image`. The number of images returned depends on the length
+of the video. The images should be the same width and height as the video content.
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+ "image": {
+  "items": [
+   {
+    "time": 0,
+    "url": "http://path/to/image",
+    "width": 1920,
+    "height": 1080
+   }
+  ]
+ }
+}
+```
+
+To set the primary image `PUT` the required time index to the `primary_preview_image`
+sub-resource:
+
+```http
+PUT /api/video/<video_id>/primary_preview_image HTTP/1.1
+Content-Type: application/json
+
+{"time": 45000}
+```
+
+On success the response will list all the available thumbnails for that image:
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+ "image": {
+  "items": [
+   {
+    "url": "http://path/to/thumbnail1",
+    "width": 96,
+    "height": 54
+   }
+  ]
+ }
+}
+```
+
 ### Video tags
 
 To associate a tag with a video (add a video to a collection), `POST` the tag id to the video

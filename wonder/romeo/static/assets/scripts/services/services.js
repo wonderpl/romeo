@@ -113,10 +113,15 @@
             }
 
             template = $templateCache.get(modal.getUrl(url));
-            var $scp = ng.extend(scope.$new(), {
-                data: ng.extend({}, obj)
-            });
-            compiledTemplate = $compile($sanitize(template))($scp);
+            if ( obj !== undefined ) {
+                var $scp = ng.extend(scope.$new(), {
+                    data: ng.extend({}, obj)
+                });
+                compiledTemplate = $compile($sanitize(template))($scp);                
+            } else {
+                compiledTemplate = $compile($sanitize(template))(scope);
+            }
+
             $el.html('');
             $el.append(compiledTemplate);
 
@@ -428,47 +433,65 @@
 
     app.factory('VideoService', ['DataService', 'localStorageService', '$rootScope', 'AuthService', function (DataService, localStorageService, $rootScope, AuthService) {
 
-        var Video = {},
-            api = '/static/api/videos.json';
-        // api = '/api/account/{ account_id }/videos';
+        var Video = {};
 
+        Video.getCategories = function () {
+            var url = '/api/categories';
+            return DataService.request({url: url});
+        };
+
+        Video.getUploadArgs = function () {
+            var url = '/api/account/' + AuthService.getUserId() + '/upload_args';
+            return DataService.request({url: url});
+        };
+
+        Video.getPreviewImages = function (id) {
+            var url = '/api/video/' + id + '/preview_images';
+            return DataService.request({ url: url, method: 'GET'});
+        };
+
+        Video.create = function (data) {
+            var url = '/api/account/' + AuthService.getUserId() + '/videos';
+            return DataService.request({ url: url, method: 'POST', data: data });
+        }
+
+        Video.update = function (id, data) {
+            var url = '/api/video/' + id + '';
+            return DataService.request({ url: url, method: 'PATCH', data: data });
+        };
+
+        Video.get = function(id) {
+            var url = '/api/video/' + id + '';
+            return DataService.request({ url: url, method: 'GET'});
+        }
+
+        /*
+        * As-yet unused methods
+        */
+        Video.query = function (query, options, ignoreCache) {
+            var url = api + '';
+            return DataService.request({url: url});
+        };
         Video.getOne = function (id, ignoreCache) {
             var url = api + '';
             return DataService.request({url: url});
         };
-
         Video.getAll = function (ignoreCache) {
             var url = api + '';
             return DataService.request({url: url});
         };
 
-        Video.getCategories = function (ignoreCache) {
-            var url = '/api/categories';
-            return DataService.request({url: url});
-        };
-
-        Video.getUploadArgs = function (ignoreCache) {
-            var url = '/api/account/' + AuthService.getUserId() + '/upload_args';
-            return DataService.request({url: url});
-        };
-
-        Video.query = function (query, options, ignoreCache) {
-            var url = api + '';
-            return DataService.request({url: url});
-        };
-
-        Video.save = function (id, video) {
-            var url = api + '';
-            return DataService.save({url: url, params: video});
-        };
-
         return {
-            getOne: Video.getOne,
-            getAll: Video.getAll,
             getCategories: Video.getCategories,
             getUploadArgs: Video.getUploadArgs,
-            query: Video.query,
-            save: Video.save
+            getPreviewImages: Video.getPreviewImages,
+            create: Video.create,
+            update: Video.update,
+            get: Video.get
+            // getOne: Video.getOne,
+            // getAll: Video.getAll,
+            // query: Video.query,
+            // save: Video.save
         };
 
     }]);
@@ -679,7 +702,6 @@
                 localStorageService.add('session_url', sessionData.href);
                 currentSession = sessionData;
                 currentSession.id = sessionData.href.match(/api\/account\/(\d+)/)[1];
-                console.log(currentSession.id);
                 return currentSession;
             },
 

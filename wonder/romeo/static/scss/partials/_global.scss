@@ -1723,6 +1723,30 @@ h1.collections-page {
       padding-top: 265px;
     }
 
+    .processing-loading {
+      display: block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 165px;
+      width: 64px;
+      height: 64px;
+      margin: auto;
+      background: transparent image-url('spinner.gif') center center no-repeat;
+      background-size: 100% auto;
+    }
+
+    .processing-message {
+      color: white;
+      font-size: 22px;
+      line-height: 28px;
+      width: 50%;
+      display: block;
+      margin: 0 auto;
+      padding-top: 265px;
+    }
+
+
     .confirm-background {
         display: block;
         position: absolute;
@@ -1828,7 +1852,7 @@ h1.collections-page {
   top: 0;
   width: 100%;
   height: 100%;
-  background: transparent image-url('placeholder-photo-large.jpg') center bottom no-repeat;
+  background: transparent image-url('test-image-1.jpg') center bottom no-repeat;
   background-size: cover;
   pointer-events: none;
   @include transition( all .2s ease-out );
@@ -2026,6 +2050,7 @@ a#category-chooser {
   width: 500px;
   margin: 0 auto 16px auto;
   background: black;
+  cursor: pointer;
 
   &:before {
     display: block;
