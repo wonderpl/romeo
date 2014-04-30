@@ -695,7 +695,7 @@
             },
 
             isLoggedIn: function () {
-                return currentSession !== null;
+                return AuthService.getSession() != null;
             },
             login: function (username, password) {
                 return $http({
