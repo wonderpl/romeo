@@ -450,6 +450,11 @@
             return DataService.request({ url: url, method: 'GET'});
         };
 
+        Video.setPreviewImage = function(id, data) {
+            var url = '/api/video/' + id + '/primary_preview_image';
+            return DataService.request({ url: url, method: 'POST', data: data });
+        };
+
         Video.create = function (data) {
             var url = '/api/account/' + AuthService.getUserId() + '/videos';
             return DataService.request({ url: url, method: 'POST', data: data });
