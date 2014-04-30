@@ -1515,7 +1515,7 @@ h1.collections-page {
 }
 
 #title-row {
-  width: 600px;
+  width: 660px;
   margin: 0 auto 32px auto;
   display: block;
 
@@ -1538,7 +1538,7 @@ h1.collections-page {
 }
 
 #description-row {
-  width: 600px;
+  width: 660px;
   margin: 0 auto 32px auto;
   display: block;
 
@@ -1589,6 +1589,15 @@ h1.collections-page {
         @include border-radius( 10px );
     }
  
+    .chosen-background {
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
+
     .confirm-label, .confirm-cancel, .confirm-proceed {
         color: #fff;
     }
@@ -1963,7 +1972,7 @@ h1.collections-page {
 }
 
 #category-row {
-  width: 600px;
+  width: 660px;
   margin: 0 auto 32px auto;
   display: block;
   text-align: left;
@@ -2044,7 +2053,7 @@ a#category-chooser {
 /*  Thumbnail chooser
 /* ======================================= */
 
-.thumbnail-frame {
+.preview-image-frame {
   display: block;
   position: relative;
   width: 500px;
@@ -2059,7 +2068,7 @@ a#category-chooser {
   }
 }
 
-.thumbnail-controls {
+.preview-image-controls {
   text-align: center;
 
   p {

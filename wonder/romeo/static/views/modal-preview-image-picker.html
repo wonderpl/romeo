@@ -2,7 +2,7 @@
 <div class="modal-content">
 	<div class="preview-image-frame" style="background: transparent url({{ previewImages[previewIndex].url }}) center center no-repeat; background-size: cover;" ng-click="previewImageChosen()"></div>
 	<div class="preview-image-controls f-sans">
-		<p>Frame: {{ previewIndex }} / {{ previewImages.length }}</p>
+		<p>Frame: {{ previewIndex+1 }} / {{ previewImages.length }}</p>
 		<a class="left" ng-click="previewImageNav('left')">&lt;</a><!--
 		--><a class="right" ng-click="previewImageNav('right')">&gt;</a>
 	</div>

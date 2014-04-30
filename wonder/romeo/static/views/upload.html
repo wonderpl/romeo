@@ -18,7 +18,7 @@
 					<div class="backgrounds">
 						<div ng-show="file.state == 'uploading' || file.state == 'complete'" class="thumbnail-background"></div>
 						<div ng-show="file.state != 'empty' && file.thumbnail == null" class="confirm-background"></div>
-						<div ng-show="chosenPreviewImage != null" style="background: black url({{ chosenPreviewImage }}) center center no-repeat; background-size: cover;"></div>
+						<div class="chosen-background" ng-show="chosenPreviewImage != null" style="background: black url({{ chosenPreviewImage }}) center center no-repeat; background-size: cover;"></div>
 					</div>
 
 					<div class="dialogs">
@@ -45,7 +45,7 @@
 
 						<a ng-show="file.state == 'complete'" class="upload-complete icon-upload-complete"></a>
 						<div ng-show="file.state == 'complete'" class="upload-complete-message f-sans">Great, your video has finished processing and is ready, now you can pick a thumbnail</div>
-						<a ng-show="file.state == 'complete' && file.thumbnail == null" ng-class="{ enabled: file.upload.progress >= 55 }" class="progress-pick-a-thumbnail" ng-click="showThumbnailChooser()">Let's pick a thumbnail</a>
+						<a ng-show="file.state == 'complete' && file.thumbnail == null" ng-class="{ enabled: file.upload.progress >= 55 }" class="progress-pick-a-thumbnail" ng-click="showPreviewImageChooser()">Let's pick a thumbnail</a>
 
 					</div>
 
@@ -59,8 +59,12 @@
 				<div class="row" id="category-row">
 					<a id="category-chooser" ng-click="showCategories()" class="f-sans">{{ chosenCategory.label || 'Select a category' }}<span>{{ chosenCategory.label != undefined ? '...' : '+' }}</span></a>
 				</div>
+
+				<div class="row">
+					<h2>Customise your embedded player by adding your logo</h2>
+				</div>
 				
-				<div id="wonderplayer" class="web-lite-player">
+				<div id="wonderplayer" class="web-lite-player" style="background: black url({{ chosenPreviewImage }}) center center no-repeat; background-size: cover;">
 					<div id="wonder-wrapper">
 						<div id="wonder-loader" class="youtube f-sans f-uppercase"><span></span></div> 
 						<img class="yt-play-button" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABHCAYAAADx2uLMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABbdJREFUeNrsXV1MW2UYfnta2gJt+Rs6wub4izNbHWD4LYUxuNiiMXHeiPHaay9MvMNr4+Kd3uzOZYkSuRhisuCFSxYEh4CQjGXRCDOKaOTH9Y+eUorv+/UrnjUttsg43zn9nuTha3t+cnifvuf93u87/V7L3t4e5Akr8iVkPbIcaUc60lq75n0Rb1PbFE1Ln1l4q6RttyETvKXtqQvd0+x/EOhYlZ8feEvv4/xYamN8v5hm/0SGz2N8G3GHtzEN1bT2b+QKch65m49xbXns+zJyCOlDNoJELvgZOY0cQX6VywGWHDzkDeR73CskDg/ylg+5OIcSpAH5EfI1acsjxS3ku8jlfARpQ36JrJH2eypYQ76KnMtFkA7kt3nGF4n8scPj8az2w/Seihd5W4pxLKDe5wS3eVYPoR5Bl7TVseI7ZHcmD3lHiqELurjtn/AQD/JX3kocPwLI09SmPGRIiqErPDzf279lvSltojuGUresamwfIUukTXRFGFlHHtIqxRACpcgWEqRW2kIYnFK4MhJiwE2CFEs7CAMHCeKSdhAnjshbloCCyFuWOCiRHiKghwibg6yt/Qnr6xuFJIiLBHGKenULC/dhePgDuHt3CuLxeCEI4hRakOJiJ2xsbMGNG1/AtWsfw9TUTEF0ex2iXp3FYgG32wUnTlTC6uofcPPmKArzCczOLphWEJvIghBSM5ouVynQy5WVX2B5+RF6y/cwMNALXu8LUhD9PAagrMwDu7u78ODBj7C09BCam70wONgHZ882SkH08hhFUaCioowF+sXF+/Dw4U9w4cJ56O/3QVNTveEFsRvxykkYq9UKlZUVKMwuxpUfmMe0tHjh4kUf1NWdNqwgRUb+SiWFUaC8POkxk5P30GuWoK2tmcWYkyefMdK/Y009YW4K2Gw21iNTVRXu3JlkvbGenk6MMb1MMAOgyLC3rIM8xm63ozBVEI2qMDHxDczPL0JXVzv09nahMB7hPcSUTymSMA6HHZxOB0Qi2zA2dhtmZubRYzrA5+sAj0fIWQeL6R8ZTQrjYAwEgjA6Og7T07PoLZ3IbiaaQLAbPqjng5ISJxuO2dzcgpGRMRRmDvr6uqG11Yse4xbiGhX475+GmchbYD/rr66uZBn/9eufwvj41+J0TCDP38AZGZTpkyihUJgF/IaGM9xDXhQqhuwUiiCRSBTC4QjU1taA39/JxBAshiRIEIu5vcKC3hCFYDAMNTXPwpUrg6ynJWgvK0aCxM0rhIoeEWY5ycBAH+tZiZ4gkiAxswmhqjH0iCAGbxdcvjzAhlBoMNIAiNvM1MuisazHj4PgdpdCf7+fDZkYbCwrbvigTh5Bo72U9FGe4fd38NHe5wz5nSJBVOMKEWdCUBbe3t6CXtFj9PkQ1XAxhISgGcNAIIQ5RQKam8/zGcMmM9x1WS8raqRMOxAIsPGpc+eeN+OcelT4WxZ5BIGy60QiAfX1Z+DSpR5oa2sxY29dFVoQ8oRgMMREaWykYQ4fS+pMDLEF2d6OQlVVOQwNvc6EoBlBk0MVOobQAwvUe6JMu0DAYkhE1KujsacCQ5iy9DBICCVIRNpBCiKRGRESJCTtIJaHbEs7iNPTl0FdLIRIkFVpB2Hwu1wNSKD4AXw1oL+QM9IeuoM0WE9N334m7aE7Pqc/2jUXf0O6pV10QRB5CjRrLtIijMPSLrrhfa6BXLdXAGRdt5fwNnJT2ujYsMltvo9Ma7/TQvxTUEA/U9AJOa39DnwHcqE1abOnhjVu49n0DdmeWqQyCn5I1rqQOFrc4rady7TxoMdIqeDIVeRbkKwOI/H/MM9teRWyFHPJFkOy4RVILocta1DlDqpBdY8n3kdWgyod2iptFTz4O+HfamzaCm32DO8VyFytTeHnsMKTVdqs/Pz5VmkjqJrj6AGvGA+mCj93lG/PVqUt9T69Mlu211G+7xYcskrbPwIMAEmT3tvASzM4AAAAAElFTkSuQmCC"/>

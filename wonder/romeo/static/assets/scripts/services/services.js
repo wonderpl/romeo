@@ -452,7 +452,7 @@
 
         Video.setPreviewImage = function(id, data) {
             var url = '/api/video/' + id + '/primary_preview_image';
-            return DataService.request({ url: url, method: 'POST', data: data });
+            return DataService.request({ url: url, method: 'PUT', data: data });
         };
 
         Video.create = function (data) {
@@ -490,6 +490,7 @@
             getCategories: Video.getCategories,
             getUploadArgs: Video.getUploadArgs,
             getPreviewImages: Video.getPreviewImages,
+            setPreviewImage: Video.setPreviewImage,
             create: Video.create,
             update: Video.update,
             get: Video.get

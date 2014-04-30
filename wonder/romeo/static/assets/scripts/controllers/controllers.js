@@ -576,8 +576,8 @@
     }]);
 
     app.controller('UploadController', 
-        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', '$modal', 'animLoop', 'prettydate', '$interval', '$upload', 
-        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, $modal, animLoop, prettydate, $interval, $upload) {
+        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', '$modal', 'animLoop', 'prettydate', '$interval', '$upload', '$q', 
+        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, $modal, animLoop, prettydate, $interval, $upload, $q) {
 
         /*
         * The state object for the chosen category for the video
@@ -625,7 +625,7 @@
         */        
         $scope.previewIndex = 0;
         $scope.chosenPreviewImage = null;
-        $scope.previewImages = ['/static/assets/img/test-image-1.jpg','/static/assets/img/test-image-2.jpg','/static/assets/img/test-image-3.jpg','/static/assets/img/test-image-1.jpg','/static/assets/img/test-image-2.jpg','/static/assets/img/test-image-3.jpg'];
+        $scope.previewImages = [];
 
         /*
         * The state object for autosaving the video
@@ -732,33 +732,43 @@
                             var data = { filename: uploadPath };
                             $scope.video.filename = uploadPath;
                             $scope.file.state = 'processing';
-                            $scope.updateVideo(data);
-
-                            // POLLING
-                            $scope.processingInterval = $interval(function(){
-
-                                // Check for thumbnails
-                                VideoService.getPreviewImages($scope.video.id).then(function(response){
-                                    console.log('checking for preview images', response);
-                                    $scope.thumbnails = response.images.items;
-                                });
-
-                                // Check for state change in the video record
-                                VideoService.get($scope.video.id).then(function(response){
-                                    console.log( 'checking for state change', response );
-                                    if ( response.status === 'ready' ) {
-                                        $interval.cancel($scope.processingInterval);
-                                        $timeout(function() {
-                                            $scope.$apply(function() {
-                                                $scope.file.state = 'complete';
+                            $scope.updateVideo(data).then(function() {
+                                console.log( ' SETTING THE INTERVAL ');
+                                // POLLING
+                                $scope.processingInterval = setInterval(function(){
+                                    console.log('interval firing');
+                                    // Check for state change in the video record
+                                    VideoService.get($scope.video.id).then(function(response){
+                                        console.log( 'checking for state change', response );
+                                        if ( response.status === 'ready' ) {
+                                            clearInterval($scope.processingInterval);
+                                            
+                                            // Check for preview images
+                                            VideoService.getPreviewImages($scope.video.id).then(function(response){
+                                                $timeout(function() {
+                                                    $scope.$apply(function() {
+                                                        $scope.previewImages = response.image.items;
+                                                        console.log($scope.previewImages);
+                                                    });
+                                                });
                                             });
-                                        });
-                                    } else {    
-                                        console.log(' video still processing' );
-                                    }
-                                });
-                            }, 10000);
 
+                                            $timeout(function() {
+                                                $scope.$apply(function() {
+                                                    $scope.file.state = 'complete';
+                                                });
+                                            });
+                                        } else {    
+                                            console.log(' video still processing' );
+                                        }
+                                    });
+
+                                }, 10000);
+                                setTimeout(function(){
+                                    console.log('interval should be firing NOW');
+                                }, 10000);
+                                console.log( ' INTERVAL SET ');
+                            });
                         });
                     });
                 }).fail(function (response) {
@@ -828,6 +838,8 @@
         */
         $scope.updateVideo = function(data) {
 
+            var deferred = new $q.defer();
+
             if ( $scope.video.id !== null ) {
                 VideoService.update($scope.video.id, data).then(function(response){
                     $timeout( function() {
@@ -835,13 +847,16 @@
                             console.log('record updated successfully', arguments);
                             ng.extend($scope.video, response);
                             console.log( $scope.video );
+                            deferred.resolve();
                         });
                     });
                 });
             } else {
+                deferred.resolve();
                 ng.extend($scope.deferredData, data);
             }
-        
+
+            return deferred.promise;
         };
 
         /*
@@ -882,16 +897,21 @@
         /*
         * Move the previewIndex for the preview image choose
         */
-        $scope.previewImageChosen = function(dir) {
-            VideoService.setPreviewImage().then(function(response){
-                console.log( response );
-                $timeout(function() {
-                    $scope.$apply(function(){
-                        $scope.chosenPreviewImage = $scope.previewImages[$scope.previewIndex].url;        
-                    });
+        $scope.previewImageChosen = function() {
+            
+            var data = {
+                time: $scope.previewImages[$scope.previewIndex].time
+            };
+
+            VideoService.setPreviewImage($scope.video.id, data);
+            
+            $timeout(function() {
+                $scope.$apply(function(){
+                    $scope.chosenPreviewImage = $scope.previewImages[$scope.previewIndex].url;        
+                    $modal.hide();
                 });
             });
-        };
+    };
 
         /*
         * Increment the previewIndex
