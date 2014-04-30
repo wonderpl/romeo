@@ -26,6 +26,7 @@ Set-Cookie: session=XXX
   "href": "/api/account/27250600",
   "name": "romeo account name",
   "display_name": "dolly user name",
+  "description": "dolly profile description",
   "profile_cover": "http://path/to/dolly/profile/cover.jpg",
   "avatar": "http://path/to/dolly/avatar/image.jpg",
   "player_logo": null
@@ -71,6 +72,7 @@ Content-Type: application/json
  "href": "/api/account/27250600",
  "name": "romeo account name",
  "display_name": "dolly user name",
+ "description": "dolly profile description",
  "profile_cover": "http://path/to/dolly/profile/cover.jpg",
  "avatar": "http://path/to/dolly/avatar/image.jpg",
  "player_logo": null

@@ -103,6 +103,7 @@ class AccountResource(Resource):
             href=url_for('api.account', account_id=account.id),
             name=account.name,
             display_name=userdata['display_name'],
+            description=userdata['description'],
             avatar=userdata['avatar_thumbnail_url'],
             profile_cover=userdata['profile_cover_url'],
             player_logo=None,
@@ -110,6 +111,7 @@ class AccountResource(Resource):
 
     account_parser = RequestParser()
     account_parser.add_argument('display_name', dest='set_display_name')
+    account_parser.add_argument('description', dest='set_description')
     account_parser.add_argument('avatar', location='files', dest='set_avatar_image')
     account_parser.add_argument('profile_cover', location='files', dest='set_profile_image')
 

@@ -86,6 +86,9 @@ class DollyUser(object):
     def set_display_name(self, name):
         self._user_request('first_name', 'put', name)
 
+    def set_description(self, description):
+        self._user_request('description', 'put', description)
+
     def set_avatar_image(self, image):
         self._user_request('avatar', 'put', files=dict(image=image))
 
