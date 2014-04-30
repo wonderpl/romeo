@@ -739,13 +739,13 @@
                                 // Check for thumbnails
                                 VideoService.getPreviewImages($scope.video.id).then(function(response){
                                     console.log('checking for preview images', response);
+                                    $scope.thumbnails = response.images.items;
                                 });
 
                                 // Check for state change in the video record
                                 VideoService.get($scope.video.id).then(function(response){
                                     console.log( 'checking for state change', response );
                                     if ( response.status === 'ready' ) {
-                                        console.log(' video ready! ');
                                         $interval.cancel($scope.processingInterval);
                                         $timeout(function() {
                                             $scope.$apply(function() {
@@ -756,13 +756,7 @@
                                         console.log(' video still processing' );
                                     }
                                 });
-                            }, 20000);
-
-                            // $timeout(function() {
-                            //     $scope.$apply(function() {
-                            //         $scope.file.state = 'complete';
-                            //     });
-                            // }, 5000);
+                            }, 10000);
 
                         });
                     });
