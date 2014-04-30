@@ -10,18 +10,19 @@
 @import "partials/nvd3";
 @import "partials/animation";
 @import "partials/ngTags";
-@import "partials/wonderplayer_weblite";
+@import "partials/wonderplayer/_global";
 
 // default global styles
 @import "partials/global";
+@import "partials/wonderplayer/_tablet";
 
 // Mobile
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 480px) {
   @import "partials/mobile";  
 }
 
 // Tablet
-@media screen and (max-width: 959px) {
+@media screen and (min-width: 480px) and (max-width: 959px) {
   @import "partials/tablet";  
 }
 

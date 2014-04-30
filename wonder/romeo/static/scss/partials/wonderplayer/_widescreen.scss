@@ -1,0 +1,92 @@
+
+/* 	Widescreen styles
+/* ======================================= */
+
+#ooyalaplayer {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 99;
+}
+
+#wonder-wrapper {
+	#wonder-controls {
+		a {
+			&.wonder-play {
+				width: 6%;
+			}
+			&.wonder-pause {
+				width: 6%;
+			}
+			&.wonder-volume {
+				left: auto;
+				right: 29%;
+			}
+			&.wonder-logo {
+				left: auto;
+				right: 6%;
+				width: 16%;
+			}
+			&.wonder-fullscreen {
+				width: 6%;
+			}
+		}
+	
+		span.wonder-timer {
+			width: 5%;
+			left: 66%;
+		}
+
+		// The wrappers for the scrubber bars
+		.scrubber {
+			&.vid {
+				width: 55%;
+			}
+			&.vol {
+				right: 24.3%;
+			}
+		}
+
+		.scrubber-target {
+			&.vid {
+				width: 57%;
+			}
+			&.vol {
+				right: 24.3%;
+			}
+		}
+
+		&.volume-disabled {
+			.wonder-logo {
+				right: 5%;
+			}
+			.wonder-timer {
+				left: 73.5%;
+			}
+			.scrubber {
+				&.vid {
+					width: 63%;
+				}
+			}
+			.scrubber-target {
+				&.vid {
+					width: 67%;
+				}
+			}
+		}
+
+		&.ie10 {
+
+			.scrubber {
+				&.vol {
+					right: 22%;
+				}
+			}
+			.scrubber-target {
+				&.vol {
+					right: 22%;
+				}
+			}
+		}
+	}
+}

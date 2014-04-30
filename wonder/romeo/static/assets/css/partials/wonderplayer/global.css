@@ -1,0 +1,826 @@
+/* 	Global styles
+/* ======================================= */
+/* line 15, ../../../../scss/partials/wonderplayer/global.scss */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* line 22, ../../../../scss/partials/wonderplayer/global.scss */
+body, html {
+  background: transparent;
+  border: none;
+  outline: none;
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* line 39, ../../../../scss/partials/wonderplayer/global.scss */
+body.embedded, html.embedded {
+  position: fixed;
+}
+
+/* line 44, ../../../../scss/partials/wonderplayer/global.scss */
+#player {
+  position: relative;
+  z-index: 50;
+  display: block;
+}
+
+/* line 50, ../../../../scss/partials/wonderplayer/global.scss */
+#wonderplayer {
+  background: #000;
+  background-size: 32px auto;
+  display: block;
+  width: 600px;
+  max-width: 960px;
+  margin: 0 auto 64px auto;
+  position: relative;
+  overflow: hidden;
+}
+/* line 62, ../../../../scss/partials/wonderplayer/global.scss */
+#wonderplayer:before {
+  content: '';
+  display: block;
+  padding-top: 56.25%;
+}
+/* line 68, ../../../../scss/partials/wonderplayer/global.scss */
+#wonderplayer iframe, #wonderplayer .fake-iframe {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 500;
+}
+
+/* line 79, ../../../../scss/partials/wonderplayer/global.scss */
+.yt-play-button {
+  width: 100px;
+  height: 71px;
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  pointer-events: none;
+}
+/* line 91, ../../../../scss/partials/wonderplayer/global.scss */
+.yt-play-button.show {
+  display: block;
+}
+
+/* line 96, ../../../../scss/partials/wonderplayer/global.scss */
+.controls-disabled {
+  pointer-events: none;
+}
+
+/* line 100, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper {
+  display: block;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  margin: auto;
+  position: absolute;
+  overflow: hidden;
+}
+/* line 118, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper.fullscreen {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  max-width: 100%;
+}
+/* line 128, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper object {
+  z-index: -1;
+  position: relative;
+}
+/* line 133, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-player, #wonder-wrapper .innerWrapper, #wonder-wrapper iframe, #wonder-wrapper #ooyala-player {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+}
+/* line 145, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper iframe {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+/* line 154, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper.no-poster iframe {
+  z-index: 500;
+}
+/* line 158, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-poster {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  color: #fff;
+  font-family: sans-serif;
+  -webkit-user-select: none;
+  /* Chrome all / Safari all */
+  -moz-user-select: none;
+  /* Firefox all */
+  -ms-user-select: none;
+  /* IE 10+ */
+  -o-user-select: none;
+  user-select: none;
+}
+/* line 175, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-poster:after {
+  background: black;
+  width: 100%;
+  height: 100%;
+  content: ' ';
+  left: 0;
+  top: 0;
+  position: absolute;
+  z-index: 100;
+  filter: alpha(opacity=30);
+  opacity: .3;
+  -webkit-transition: opacity .1s ease-out;
+  -moz-transition: opacity .1s ease-out;
+  -o-transition: opacity .1s ease-out;
+  transition: opacity .1s ease-out;
+}
+/* line 192, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-poster img {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  filter: alpha(opacity=70);
+  -webkit-transition: all 0.4s ease-out;
+  -moz-transition: all 0.4s ease-out;
+  -o-transition: all 0.4s ease-out;
+  transition: all 0.4s ease-out;
+  overflow: hidden;
+}
+/* line 210, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-poster table {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  text-align: center;
+  font-size: 40px;
+  z-index: 200;
+}
+/* line 221, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-poster.youtube {
+  background: transparent !important;
+}
+/* line 224, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-poster.youtube table {
+  top: -110px;
+}
+/* line 229, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-poster span {
+  filter: alpha(opacity=75);
+  opacity: 0.75;
+}
+/* line 233, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-poster span:after {
+  content: 'your video is loading';
+  display: block;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  text-align: center;
+  padding: 0 0 22px 0;
+  font-size: 26px;
+  line-height: 28px;
+  -webkit-transition: all .4s ease-out;
+}
+/* line 246, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-poster.loading {
+  pointer-events: none;
+}
+/* line 248, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-poster.loading span {
+  pointer-events: none;
+}
+/* line 250, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-poster.loading span:after {
+  content: 'your video is loading';
+  display: block;
+  filter: alpha(opacity=75);
+  opacity: 0.75;
+}
+/* line 259, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-poster.hide {
+  display: none;
+}
+/* line 264, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-poster.ios5 span:after {
+  display: none !important;
+}
+/* line 268, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-loader {
+  display: block;
+  position: absolute;
+  z-index: 300;
+  left: 0;
+  top: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  background-size: 32px auto;
+  -webkit-transition: all 0.4s ease-out;
+  -moz-transition: all 0.4s ease-out;
+  -o-transition: all 0.4s ease-out;
+  transition: all 0.4s ease-out;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  -webkit-user-select: none;
+  /* Chrome all / Safari all */
+  -moz-user-select: none;
+  /* Firefox all */
+  -ms-user-select: none;
+  /* IE 10+ */
+  -o-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+}
+/* line 293, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-loader.youtube {
+  display: none;
+}
+/* line 297, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-loader.youtube-show {
+  display: block;
+}
+/* line 301, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-loader.no-cursor {
+  cursor: none !important;
+}
+/* line 305, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-loader span {
+  position: absolute;
+  display: block;
+  width: 100%;
+  text-align: center;
+  height: 46px;
+  top: 0;
+  bottom: 0;
+  padding: 0 20px;
+  margin: auto;
+  z-index: 200;
+  font-size: 40px;
+  color: #fff;
+  font-family: sans-serif;
+  pointer-events: none;
+}
+/* line 322, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-loader.show {
+  filter: alpha(opacity=75);
+  opacity: 1;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+/* line 329, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls {
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0px;
+  width: 100%;
+  height: 38px;
+  z-index: 10000;
+  -webkit-transition: bottom 0.15s ease-out;
+  -moz-transition: bottom 0.15s ease-out;
+  -o-transition: bottom 0.15s ease-out;
+  transition: bottom 0.15s ease-out;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  background: #7b8085;
+  background: rgba(123, 128, 133, 0.43);
+  border-top: 1px solid white;
+}
+/* line 348, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls.show {
+  bottom: 0px;
+}
+/* line 352, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls.hide {
+  bottom: -38px;
+}
+/* line 356, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls a, #wonder-wrapper #wonder-controls button {
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  font-size: 32px;
+  position: absolute;
+  cursor: pointer;
+  -webkit-transition: color 0.15s ease-out, background-size 0.15s ease-out, top 0.15s ease-out;
+  -moz-transition: color 0.15s ease-out, background-size 0.15s ease-out, top 0.15s ease-out;
+  -o-transition: color 0.15s ease-out, background-size 0.15s ease-out, top 0.15s ease-out;
+  transition: color 0.15s ease-out, background-size 0.15s ease-out, top 0.15s ease-out;
+}
+/* line 369, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls a:hover, #wonder-wrapper #wonder-controls a:focus, #wonder-wrapper #wonder-controls a:active, #wonder-wrapper #wonder-controls button:hover, #wonder-wrapper #wonder-controls button:focus, #wonder-wrapper #wonder-controls button:active {
+  color: #bcbad4;
+  filter: alpha(opacity=80);
+  opacity: 0.8;
+}
+/* line 375, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls a.hidden, #wonder-wrapper #wonder-controls button.hidden {
+  display: none;
+}
+/* line 379, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls a.wonder-play, #wonder-wrapper #wonder-controls button.wonder-play {
+  left: 0;
+  width: 60px;
+  height: 38px;
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAvCAYAAACVDljoAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAhBJREFUeNrMmE8og2Ecx5+tpdQODru47LRSc5CLlqS5ue4kTtpx/maUmpRSc9hJucjKiRtymdsULUWtKVo4KXGYchCRzPfJ71dvb2beefe+v299IpGPx/t8f8/zeqvVag6EgZKMVyk1CEpgDQSU0Hjpow8kwDVIghapopw2kAEXICZZlBMCO+AIRCSLcvpAAWyBoGRRHQ8YBmWwDPxSRTmtIAWuQNzizzoqymkHWXAGopJFOd0gT5suJFmUE6M6y1C9iRVVNCCSNDASzRgYdm+IAI1i2wdGs3YuD4w8PctiRTlRaocstYVYUf4dcerfFPWxSFGOnyZbmSadR6ooJ0hnh4KVA48bopyIlQOPm6LmA0/6t4HhtqjxwDNvGBg+qaLmgVGiu5xYUU4Y5IiwZFFOB5/MpIq+gAXQCfbVTw+tgGzTxro1flGSaBHMgEOp9VQBY6CnlqTbK/oB1sEieKz3zW6J6pWbAudSZ73eIENgwIqkkyv6Spe/NH1uOU6I7oJpc91IEr0E43RvEnlnegKToMsuSbtX9BNs0L2oYvdfb5foMa1iUeqbkjswAvqbKfmfFX2julkBz070WyOie2AO3Dg5KayI6rrRL8IO3Ji5f3lGdd3Mqu93SK5I1ltRXTebVDcPbp8Fa4meUN2cSjlVm//192AU9EqSNK7oO1gFS07VTSOieoNMOF03VvMlwADpINwvQzjqdwAAAABJRU5ErkJggg==) center center no-repeat;
+  background-size: 14px auto;
+}
+/* line 387, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls a.wonder-pause, #wonder-wrapper #wonder-controls button.wonder-pause {
+  width: 60px;
+  height: 38px;
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAnCAYAAABnlOo2AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGhJREFUeNrs2DEKwCAMheGm0OvU+x9Dr+OQOnQSxARSCPR/kEUe5HONqOqRKfKCrKoypm0695hq3T8/nM4PXEGdZbygHtQJA30eQIAAAQIECBAgQIAAAQIECBAgQKlB/7ugSbYr7CPAAG2cEEOPGuG0AAAAAElFTkSuQmCC) center center no-repeat;
+  background-size: 14px auto;
+}
+/* line 394, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls a.wonder-volume, #wonder-wrapper #wonder-controls button.wonder-volume {
+  left: 65.5%;
+  top: 0;
+  width: 34px;
+  height: 38px;
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAoCAYAAABq13MpAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAASRJREFUeNrs2MFKAlEUxvEzNa1DrBQUFQkiEILwBfQJXNtj9A7uVDRs1dqdtGqTaK/Tomfw9h24F1pNNnPPxIFz4L+bufzmzjADkzjnSGj6qIbeYi98IgS+R+/oXGJxCfSdB1ekbmFsdA9tUZUEJyb6Fu3QJQlPLPQN2qMrKmFioK/9DteppCmK7qIP1KASpwi64x+JJpU86Q986w8Xwe/fDWrTP0zqX1Ov/tlUMbyzL5rAAd0nZcPoU41oMrShDW1oQxva0IY2dDb6UyN6og2d+B+QAzREZ0eex/85Rkcc94DW0dWMzhFf7LP7fcY518+syMkMX2lDB/iTNnSAL7WhA3yhDR3gc23o0EwjmptKolOhj9YjOkh/EaXmAn3FXvRbgAEAnel6IjCS8UgAAAAASUVORK5CYII=) center center no-repeat;
+  background-size: 18px auto;
+  -webkit-transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: none;
+  z-index: 5;
+}
+/* line 405, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls a.wonder-volume img, #wonder-wrapper #wonder-controls button.wonder-volume img {
+  display: block;
+  width: 18px;
+  height: auto;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border: none;
+  outline: none;
+}
+/* line 419, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls a.wonder-volume.vol-0 img, #wonder-wrapper #wonder-controls button.wonder-volume.vol-0 img {
+  display: none;
+}
+/* line 424, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls a.wonder-volume.vol-1 .vol-1, #wonder-wrapper #wonder-controls button.wonder-volume.vol-1 .vol-1 {
+  display: block;
+}
+/* line 427, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls a.wonder-volume.vol-1 .vol-2, #wonder-wrapper #wonder-controls a.wonder-volume.vol-1 .vol-3, #wonder-wrapper #wonder-controls button.wonder-volume.vol-1 .vol-2, #wonder-wrapper #wonder-controls button.wonder-volume.vol-1 .vol-3 {
+  display: none;
+}
+/* line 433, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls a.wonder-volume.vol-2 .vol-1, #wonder-wrapper #wonder-controls a.wonder-volume.vol-2 .vol-2, #wonder-wrapper #wonder-controls button.wonder-volume.vol-2 .vol-1, #wonder-wrapper #wonder-controls button.wonder-volume.vol-2 .vol-2 {
+  display: block;
+}
+/* line 436, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls a.wonder-volume.vol-2 .vol-3, #wonder-wrapper #wonder-controls button.wonder-volume.vol-2 .vol-3 {
+  display: none;
+}
+/* line 441, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls a.wonder-volume.vol-3 img, #wonder-wrapper #wonder-controls button.wonder-volume.vol-3 img {
+  display: block;
+}
+/* line 446, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls a.wonder-rewind, #wonder-wrapper #wonder-controls button.wonder-rewind {
+  left: 62px;
+  top: 14px;
+}
+/* line 451, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls a.wonder-logo, #wonder-wrapper #wonder-controls button.wonder-logo {
+  width: 20%;
+  left: auto;
+  right: 8%;
+  top: 0px;
+  height: 36px;
+  background: transparent url(data:image/png;base64,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) center center no-repeat;
+  background-size: auto 60%;
+  cursor: pointer;
+}
+/* line 462, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls a.wonder-fullscreen, #wonder-wrapper #wonder-controls button.wonder-fullscreen {
+  right: 0px;
+  top: 0px;
+  width: 60px;
+  height: 38px;
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAvCAYAAACVDljoAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAb9JREFUeNrs2d1KAkEUB3B3zWtLMcu6UxRDLMuofJR6jqCeoIsog0QolAgKCbqu6PNJeoVeQGI7B87AIGW7Z2d2Z2EG/uDFzpwfw+7sUR3P81JJGG4qISMx0BnIF3PuMeQo4JxDyD6rmscbp3hvM3PCKciBdkMgRbq6oWcQRwHUobW0QHuKkDL2XDW0rxgpY/uqoJeakDL2Iix0oBkpYwdc6DAipIwdBoVeQdIRIkVcqu0Leh0TUiRNhqnQ25iRMvbmL+jIEKSMHU1C7wxDyli0edg93UP2IN8Gdndo2sV2FI+EDHwYG96OZtwEIHGM7VcRC7VQC7VQCzUP2kmAs4PQB8iOwchtNCI0C3mEbBqIRNMTGsU9itgXSNsgZJtM2cmHSWA3DECuQ54F8renfpYuaMWIbNGGzf13POXowrUYkKtUO+f3HM3TzjYjRDYJmQ964Bcgr5BGBMgG1Spw30w48R2yohGJa79NQ/p9hQpsXQOyTmvPq3rXF2nBmkJkjXayqLopWSBsVQGySmst6uqeSlSgEgJZoZ0s6W7zliAfkDJjbpnmLgediL89HTB3ZgvyyZjT4xRzkvLv8o8AAwCdr1X+LSKregAAAABJRU5ErkJggg==) center center no-repeat;
+  background-size: 18px auto;
+}
+/* line 472, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls span.wonder-timer {
+  display: block;
+  width: 55px;
+  overflow: hidden;
+  height: 100%;
+  text-align: center;
+  color: #fff;
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  position: absolute;
+  left: 56.5%;
+  padding-top: 9px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* line 491, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls .scrubber {
+  display: block;
+  position: absolute;
+  margin: 0 auto;
+  background: #000;
+  background: rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  -o-border-radius: 100px;
+  border-radius: 100px;
+  z-index: 10;
+}
+/* line 503, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls .scrubber.vid {
+  height: 6px;
+  width: 45%;
+  left: 8%;
+  top: 16px;
+}
+/* line 509, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls .scrubber.vid:after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  content: '';
+  background-color: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.3) url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAALCAYAAAD1JjQCAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAYhJREFUeNqclDsvREEYhuesyybrYOOWyAYNS+dauhT+htsv2BXRb6jUktUplrh0GpdCu6jdOqtQoKVQOt7h/ZLPZI7FJs/Jnmffd07OzM6YKIoKYAsEwICEcobUepzNrYCS43QuETOe19nLDRgAKZAGh3T9DLWCE7osXQs4Blegj066t6qrx8tWc/KlDgyCO7APGhkaBhW6kG4I3INd0EAn3QPQ5jjd/dHJFM2AF7DE5QocJ7k5urxyklsGzSAZ063qrFgHz2CKATtLRcfV0z2BCZWT7jTvkzHj/crZyznooegEZ3QZugzvL9Ty2VyZvkvlyk5X57o97ltO3jrgGz+CDTr72yRno6imdpy5Tf5nAuV0989OHpADr2BebfFFruescpJb4HaP6+Y9LlfNWbHD3THGBzSBPe6iUbpQ5UY4UMrTTXOXaRd6cl5neIbIdrRnxjU44lliXS+4BKegHdQo53bFdThdnYt1wefJZ8y7+fpsgwpYVa4EHsAaeAORcgVP7t/uQ4ABAEz6pT9CwgUmAAAAAElFTkSuQmCC) left top repeat;
+  -webkit-transition: opacity .2s ease-out;
+  -moz-transition: opacity .2s ease-out;
+  -o-transition: opacity .2s ease-out;
+  transition: opacity .2s ease-out;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  -o-border-radius: 100px;
+  border-radius: 100px;
+  filter: alpha(opacity=0);
+  opacity: 0;
+}
+/* line 542, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls .scrubber.vid.loading:after {
+  filter: alpha(opacity=100);
+  opacity: 1;
+  -webkit-transition: opacity .2s ease-out;
+  -moz-transition: opacity .2s ease-out;
+  -o-transition: opacity .2s ease-out;
+  transition: opacity .2s ease-out;
+}
+/* line 561, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls .scrubber.vol {
+  opacity: 0;
+  width: 6px;
+  margin: 0 13px;
+  height: 80px;
+  right: 31%;
+  bottom: -120px;
+  -webkit-transition: bottom .3s ease-out .125s, opacity .18s ease-out;
+  -moz-transition: bottom .3s ease-out .125s, opacity .18s ease-out;
+  -o-transition: bottom .3s ease-out .125s, opacity .18s ease-out;
+  transition: bottom .3s ease-out .125s, opacity .18s ease-out;
+}
+/* line 575, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls .scrubber.vol-visible {
+  opacity: 1;
+  bottom: 60px;
+  -webkit-transition: bottom .2s ease-out, opacity .18s ease-out .13s;
+  -moz-transition: bottom .2s ease-out, opacity .18s ease-out .13s;
+  -o-transition: bottom .2s ease-out, opacity .18s ease-out .13s;
+  transition: bottom .2s ease-out, opacity .18s ease-out .13s;
+}
+/* line 586, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls .scrubber-progress {
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  -o-border-radius: 100px;
+  border-radius: 100px;
+  display: block;
+  position: absolute;
+  background: white;
+  z-index: 10;
+}
+/* line 596, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls .scrubber-progress.vid {
+  width: 0%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+}
+/* line 603, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls .scrubber-progress.vol {
+  width: 100%;
+  height: 100%;
+  bottom: 0px;
+  left: 0px;
+}
+/* line 611, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls .scrubber-buffer {
+  width: 0%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  -o-border-radius: 100px;
+  border-radius: 100px;
+  display: block;
+  position: absolute;
+  background: #9b989c;
+  z-index: 9;
+  pointer-events: none;
+}
+/* line 626, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls .scrubber-buffer.hide {
+  display: none;
+}
+/* line 631, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls .scrubber-timer {
+  display: block;
+  position: absolute;
+  left: 0%;
+  top: -60px;
+  width: 80px;
+  margin-left: -37px;
+  height: 28px;
+  background: black;
+  color: white;
+  text-align: center;
+  padding: 6px;
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid black;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  -moz-box-shadow: inset 0 1px 4px rgba(255, 255, 255, 0.3);
+  -webkit-box-shadow: inset 0 1px 4px rgba(255, 255, 255, 0.3);
+  box-shadow: inset 0 1px 4px rgba(255, 255, 255, 0.3);
+  -webkit-transition: opacity .1s ease-out;
+  -moz-transition: opacity .1s ease-out;
+  -o-transition: opacity .1s ease-out;
+  transition: opacity .1s ease-out;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -o-border-radius: 6px;
+  border-radius: 6px;
+}
+/* line 660, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls .scrubber-timer.show {
+  filter: alpha(opacity=100);
+  opacity: 1;
+}
+/* line 665, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls .scrubber-timer:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  bottom: -6px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid black;
+}
+/* line 680, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls .scrubber-handle {
+  display: block;
+  position: absolute;
+  font-size: 22px;
+  width: 22px;
+  height: 22px;
+  z-index: 11;
+  color: #bcbad4;
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3dJREFUeNrEWEtPU0EUPi1NG1qEtoGiwgI28iiKCRJ2PlDjxoVxg0vjH1ATMfEP4GuB/wCXsjNx4xMfOxQTani6EBJApZAWkJZHivh9l7lhijHe9pbbk3yZuU0658s5Z2a+M67t7W2xaq9ejJZgOAWcBU4AR4AQUAEsA0ngKzAEDADvzl+Iblld32WFDEhEMNwErgIHxbr9BB4DvSAVt0UGJLwYbgN3AD9/CwR8UllVJqFQQAJlPvF6S8TjKZFMZks2N7cktbohyWRKFhdWJZXaMJdKA/eA+yC1mTMZEGEK+oHj/K6KHJC6+koJBv2Ww7K0lJbpqUVZiP8yfxoGroDQpGUyIMK6eAoE/X6vNEUPSzgckHwtkUjJ+Oh3SaeNoCwBl0Do/X/JgEgnhmdMS6S6XKItNUiDW+xaJvNbRkfmJD6/ws814CIIDfyTDIg0YBjk7qipDUkzIlJIo6/xsR8yN8tNZ+y+Dj1lbo2ID8MTEmF9NDUfkkKby+Uy1o1gfXUc9Cu/2WRgt1isrJGWo7XGH/fDuG4U69MPrBXozkoT2FVj/o110tZeZ6tYrVoSRT30adqsn3qka96MzHUSYXqcIEILwU/VTrpKgRtGZF4+H/FgnOHJ2t5Rn9M5YteWcQ59HJzidB6oZWROkghPVieJGBUMf/QLY5mccatLzwyZ46b5PUcybZw5HRXTNL+tJNNoXIBlvqKQ0fw2uJUewe3rKQoZzW+YZMo5K8T9k49pfss5WzEvsmKY5nfFraQihFGmKGQ0vwmSmeCMCq0YpvmdJJnPpiorhml+YyTzhjNNGjpqmt/XJPOBdwPFs9PR4d2kRDvvprduXN2soD7+QvHspE3t+usjD3OTP6KuYMgonp0w6hmVojXlf0fpUdhg6OGcKn6/zxyuPwY/ynqU/yzZ+ZAVzXaCKj6XtjdXUc71VdsSU36zNTDYsZK6WFdsJ6ji94MI11XtCruDLuX3L0Euqm24DKyznYgNzxQsZVznS2zWbFPW6WdvZ2mpo2T/FLKhjVmsY/l0lBqhRtVrH+N3RPXaFTmIsGXVa8d3D7aY6rUn8nmF8GmvEKXmKwSlYjC0o1+pRygDmAZeesbhmUwb21Z7heD2vQs80Gsk3/eZatVOXGOQcshQXB2oveb2tf1YtOfl6jTQqb1chZVA4xZJ2Hm5+iPAABTOk9pj8ColAAAAAElFTkSuQmCC) center center no-repeat;
+  background-size: 14px auto;
+}
+/* line 691, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls .scrubber-handle.vid {
+  left: 0%;
+  top: -8px;
+  margin-left: -9px;
+}
+/* line 697, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls .scrubber-handle.vol {
+  bottom: 0%;
+  left: -8px;
+  margin-top: -7px;
+}
+/* line 704, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls .scrubber-target {
+  display: block;
+  position: absolute;
+  margin: 0 auto;
+  z-index: 20;
+}
+/* line 710, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls .scrubber-target.vid {
+  width: 47%;
+  height: 100%;
+  left: 6%;
+}
+/* line 716, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls .scrubber-target.vol {
+  width: 34px;
+  right: 31%;
+  height: 100px;
+  bottom: -120px;
+}
+/* line 723, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls .scrubber-target.vol-visible {
+  bottom: 50px;
+}
+/* line 727, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls .scrubber-target img {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+/* line 743, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls.volume-disabled a.wonder-logo {
+  width: 18%;
+}
+/* line 746, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls.volume-disabled a.wonder-volume {
+  display: none !important;
+}
+/* line 749, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls.volume-disabled .wonder-timer {
+  left: 66%;
+}
+/* line 753, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls.volume-disabled .scrubber.vid {
+  width: 53%;
+}
+/* line 761, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls.ie10 a.wonder-logo {
+  right: 0%;
+  width: 22%;
+}
+/* line 766, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls.ie10 a.wonder-fullscreen {
+  display: none;
+}
+/* line 770, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls.ie10 a.wonder-volume {
+  right: 22%;
+}
+/* line 776, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-wrapper #wonder-controls {
+  bottom: 0px;
+}
+
+/* line 795, ../../../../scss/partials/wonderplayer/global.scss */
+.blur {
+  -webkit-filter: blur(6px);
+  -moz-filter: blur(6px);
+  -o-filter: blur(6px);
+  -ms-filter: blur(6px);
+  filter: blur(6px);
+  margin: -1px;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translateZ(0) scale(1, 1);
+}
+
+/*
+	Hide all the OO controls
+*/
+/* line 812, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-player .oo_full_controls, #wonder-player .oo_controls_inner {
+  width: 100% !important;
+  height: 60px !important;
+  left: 0 !important;
+  right: 0 !important;
+  margin-bottom: -10px !important;
+  background: rgba(0, 0, 0, 0.2) !important;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  -ms-border-radius: 100px;
+  -o-border-radius: 100px;
+  border-radius: 100px;
+}
+/* line 825, ../../../../scss/partials/wonderplayer/global.scss */
+#wonder-player .oo_controls_inner {
+  background: none !important;
+}
+
+/* line 830, ../../../../scss/partials/wonderplayer/global.scss */
+.iframe-test {
+  background: #2980b9;
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  color: #fff;
+}
+/* line 839, ../../../../scss/partials/wonderplayer/global.scss */
+.iframe-test h1 {
+  font-size: 32px;
+  margin: 0 0 22px 0;
+}
+
+/* line 845, ../../../../scss/partials/wonderplayer/global.scss */
+iframe {
+  border: none;
+  background: transparent;
+  outline: none;
+}
+
+/* line 851, ../../../../scss/partials/wonderplayer/global.scss */
+#iframe-wrapper {
+  display: block;
+  max-width: 1280px;
+  height: 100%;
+  position: relative;
+  margin: 0 auto;
+}
+/* line 858, ../../../../scss/partials/wonderplayer/global.scss */
+#iframe-wrapper .col {
+  background: #3498db;
+  height: 100%;
+  width: 50%;
+  position: absolute;
+  top: 0;
+  padding: 60px 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* line 869, ../../../../scss/partials/wonderplayer/global.scss */
+#iframe-wrapper .col.col-left {
+  left: 0;
+}
+/* line 873, ../../../../scss/partials/wonderplayer/global.scss */
+#iframe-wrapper .col.col-right {
+  right: 0;
+  background: #1abc9c;
+}

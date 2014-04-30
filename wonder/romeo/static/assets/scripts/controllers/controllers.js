@@ -941,7 +941,7 @@
                     $modal.hide();
                 });
             });
-    };
+        };
 
         /*
         * Increment the previewIndex
@@ -962,6 +962,28 @@
             }
         };
   
+        /*
+        * Increment the previewIndex
+        */
+        $scope.customLogoSelected = function($files) {
+
+            console.log($files[0]);
+            var file = new FileReader();
+
+            file.onload = function(e){
+                console.log('file loaded', e);
+                $timeout( function() {
+                    $scope.$apply(function() {
+                        $scope.customLogo = e.target.result;
+                    });
+                });
+
+            };
+
+            file.readAsDataURL($files[0]);
+
+        };
+
     }]);
 
     app.controller('AnalyticsController', ['$scope', '$rootScope', '$routeParams', '$element', 'Enum', 'AnalyticsFields', 'VideoService', function ($scope, $rootScope, $routeParams, $element, Enum, AnalyticsFields, VideoService) {

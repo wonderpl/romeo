@@ -1,0 +1,137 @@
+/* 	Mobile styles
+/* ======================================= */
+/* line 5, ../../../../scss/partials/wonderplayer/mobile.scss */
+.yt-play-button {
+  width: 60px;
+  height: 43px;
+}
+
+/* line 15, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-poster span {
+  font-size: 18px;
+  line-height: 24px;
+}
+/* line 19, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-poster span:after {
+  padding: 0;
+  font-size: 11px;
+  line-height: 20px;
+}
+/* line 34, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-poster table, #wonder-wrapper #wonder-poster.youtube table {
+  display: none !important;
+}
+/* line 44, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper .wonder-play-big {
+  display: block;
+}
+/* line 48, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-controls {
+  height: 32px;
+}
+/* line 52, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-controls a.hidden {
+  display: none;
+}
+/* line 56, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-controls a.wonder-play {
+  width: 17%;
+  height: 32px;
+  background-size: 13px auto;
+}
+/* line 62, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-controls a.wonder-pause {
+  width: 17%;
+  height: 32px;
+  background-size: 13px auto;
+}
+/* line 68, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-controls a.wonder-volume {
+  left: 74%;
+  height: 34px;
+}
+/* line 73, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-controls a.wonder-rewind {
+  left: 62px;
+  top: 14px;
+}
+/* line 78, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-controls a.wonder-logo {
+  display: none;
+}
+/* line 82, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-controls a.wonder-fullscreen {
+  right: 0px;
+  top: 0px;
+  width: 17%;
+  height: 32px;
+  background-size: 17px auto;
+}
+/* line 91, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-controls span.wonder-timer {
+  right: 17%;
+  left: auto;
+  padding-top: 16px;
+  font-size: 13px;
+  width: 10%;
+  display: none;
+}
+/* line 102, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-controls .scrubber.vid {
+  top: 13px;
+  width: 48%;
+  left: 20%;
+  height: 6px;
+}
+/* line 109, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-controls .scrubber.vol {
+  left: 73%;
+}
+/* line 115, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-controls .scrubber-target.vid {
+  width: 59%;
+  left: 13%;
+}
+/* line 119, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-controls .scrubber-target.vol {
+  left: 73%;
+}
+/* line 124, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-controls .scrubber-handle {
+  background-size: 12px auto;
+}
+/* line 126, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-controls .scrubber-handle.vid {
+  top: -8px;
+}
+/* line 133, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-controls.volume-disabled .scrubber.vid {
+  width: 59%;
+}
+/* line 138, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-controls.volume-disabled .scrubber-target.vid {
+  width: 72%;
+}
+/* line 145, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-controls.ie10 a.wonder-volume {
+  right: 5%;
+  left: auto;
+}
+/* line 150, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-controls.ie10 .scrubber.vid {
+  width: 58%;
+}
+/* line 155, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-controls.ie10 .scrubber-target.vid {
+  width: 69%;
+}
+/* line 160, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-controls.ie10 .scrubber.vol {
+  right: 5%;
+  left: auto;
+}
+/* line 167, ../../../../scss/partials/wonderplayer/mobile.scss */
+#wonder-wrapper #wonder-controls.ie10 .scrubber-target.vol {
+  right: 5%;
+  left: auto;
+}

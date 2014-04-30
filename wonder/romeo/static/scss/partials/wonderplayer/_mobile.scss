@@ -1,0 +1,175 @@
+
+/* 	Mobile styles
+/* ======================================= */
+
+.yt-play-button {
+	width: 60px;
+	height: 43px;
+}
+
+#wonder-wrapper {
+	
+	#wonder-poster {
+		// display: none;
+
+		span {
+			font-size: 18px;
+			line-height: 24px;
+
+			&:after {
+				padding: 0;
+				font-size: 11px;
+				line-height: 20px;
+			}
+		}
+
+		&.loading span {
+			&:after {
+
+			}
+		}
+	}
+
+	#wonder-poster, #wonder-poster.youtube {
+		table {
+			display: none !important;
+
+			// span {
+			// 	font-size: 13px;
+			// 	line-height: 21px;
+			// }
+		}
+	}
+
+	.wonder-play-big {
+		display: block;
+	}
+
+	#wonder-controls {
+		height: 32px;
+
+		a {
+			&.hidden {
+				display: none;
+			}
+
+			&.wonder-play {
+				width: 17%;
+				height: 32px;
+				background-size: 13px auto;
+			}
+
+			&.wonder-pause {
+				width: 17%;
+				height: 32px;
+				background-size: 13px auto;
+			}
+
+			&.wonder-volume {
+				left: 74%;
+				height: 34px;
+			}
+
+			&.wonder-rewind {
+				left: 62px;
+				top: 14px;
+			}
+
+			&.wonder-logo {
+				display: none;
+			}
+
+			&.wonder-fullscreen {
+				right: 0px;
+				top: 0px;
+				width: 17%;
+				height: 32px;
+				background-size: 17px auto;
+			}
+		}
+	
+		span.wonder-timer {
+			right: 17%;
+			left: auto;
+			padding-top: 16px;
+			font-size: 13px;
+			width: 10%;
+			display: none;
+		}
+
+		// The wrappers for the scrubber bars
+		.scrubber {
+			&.vid {
+				top: 13px;
+				width: 48%;
+				left: 20%;
+				height: 6px;
+			}
+
+			&.vol {
+				left: 73%;
+			}
+		}
+
+		.scrubber-target {
+			&.vid {
+				width: 59%;
+				left: 13%;
+			}
+			&.vol {
+				left: 73%;
+			}
+		}
+
+		.scrubber-handle {
+			background-size: 12px auto;
+			&.vid {
+				top: -8px;
+			}
+		}
+
+		&.volume-disabled {
+			.scrubber {
+				&.vid {
+					width: 59%;
+				}
+			}
+			.scrubber-target {
+				&.vid {
+					width: 72%;
+				}
+			}
+		}
+
+		&.ie10 {
+			a.wonder-volume {
+				right: 5%;
+				left: auto;
+			}
+			.scrubber {
+				&.vid {
+					width: 58%;
+				}
+			}
+			.scrubber-target {
+				&.vid {
+					width: 69%;
+				}
+			}
+			.scrubber {
+				&.vol {
+					right: 5%;
+					left: auto;
+				}
+			}
+
+			.scrubber-target {
+				&.vol {
+					right: 5%;
+					left: auto;
+				}
+			}
+
+		}
+	}
+}
