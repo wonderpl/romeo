@@ -139,6 +139,7 @@ Content-Type: application/json
     "title": "test",
     "description": "test desc",
     "category": null,
+    "player_logo_url": null,
     "duration": 600,
     "thumbnails": {
      "items": []
@@ -218,16 +219,21 @@ Content-Type: application/json
 }
 ```
 
-A `200` with the updated status will be returned on success:
+To update the `player_logo` use a multipart body with the image data.
 
 ```http
-HTTP/1.1 200 OK
-Content-Type: application/json
+PATCH /api/video/<video_id> HTTP/1.1
+Content-Type: multipart/form-data; boundary=---xxx
 
-{
- "status": "processing"
-}
+---xxx
+Content-Disposition: form-data; name="player_logo"; filename="img.png"
+Content-Type: application/octet-stream
+
+....PNG...
 ```
+
+On success a `200` with the updated resource record will be returned (in the same format
+as a `GET`).
 
 ### Video delete
 

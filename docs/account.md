@@ -28,8 +28,7 @@ Set-Cookie: session=XXX
   "display_name": "dolly user name",
   "description": "dolly profile description",
   "profile_cover": "http://path/to/dolly/profile/cover.jpg",
-  "avatar": "http://path/to/dolly/avatar/image.jpg",
-  "player_logo": null
+  "avatar": "http://path/to/dolly/avatar/image.jpg"
  },
  "user": {
   "href": "/api/user/56945137",
@@ -74,8 +73,7 @@ Content-Type: application/json
  "display_name": "dolly user name",
  "description": "dolly profile description",
  "profile_cover": "http://path/to/dolly/profile/cover.jpg",
- "avatar": "http://path/to/dolly/avatar/image.jpg",
- "player_logo": null
+ "avatar": "http://path/to/dolly/avatar/image.jpg"
 }
 ```
 

@@ -1,10 +1,8 @@
-import os
-from urlparse import urljoin
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, CHAR, event
 from sqlalchemy.orm import relationship
 from werkzeug.routing import RequestRedirect
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask import url_for, flash, current_app
+from flask import url_for, flash
 from flask.ext.login import UserMixin
 from wonder.romeo import db, login_manager
 from wonder.romeo.core.db import genid
@@ -17,21 +15,6 @@ class Account(db.Model):
     name = Column(String(128), nullable=False)
     dolly_user = Column(CHAR(22))
     dolly_token = Column(String(128))
-    player_logo_filename = Column(String(128))
-
-    def get_player_logo_filepath(self, size=None):
-        if self.player_logo_filename:
-            return 'images/logo/' + (size or 'original') + '/' + self.player_logo_filename
-
-    def get_player_logo_url(self, size=None):
-        path = self.get_player_logo_filepath(size)
-        if path:
-            return urljoin(current_app.config['MEDIA_BASE_URL'], path)
-
-    @classmethod
-    def get_random_player_logo_filename(cls):
-        """Return unique file name for a player logo."""
-        return os.urandom(8).encode('hex')
 
 
 class AccountUser(db.Model):

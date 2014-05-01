@@ -1,10 +1,11 @@
 import os
+from urlparse import urljoin
 from sqlalchemy import (
     Column, Integer, String, Boolean, DateTime, ForeignKey, Enum,
     PrimaryKeyConstraint, func, event)
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.associationproxy import association_proxy
-from flask import session, url_for
+from flask import session, url_for, current_app
 from wonder.romeo import db
 from wonder.romeo.core.db import genid
 from wonder.romeo.account.models import Account, AccountUser
@@ -29,6 +30,7 @@ class Video(db.Model):
     filename = Column(String(16))
     external_id = Column(String(32))
     category = Column(String(8))
+    player_logo_filename = Column(String(128))
 
     account = relationship(Account, backref='videos')
 
@@ -40,14 +42,30 @@ class Video(db.Model):
 
     @property
     def filepath(self):
-        return self.get_filepath(self.account_id, self.filename)
+        return self.get_video_filepath(self.account_id, self.filename)
 
     @classmethod
-    def get_filepath(cls, account_id, filename=None, base='video'):
+    def get_random_filename(cls):
+        return os.urandom(8).encode('hex')
+
+    @classmethod
+    def get_video_filepath(cls, account_id, filename, base='video'):
         """Return unique video file name."""
-        if not filename:
-            filename = os.urandom(8).encode('hex')
         return '/'.join((base, str(account_id), filename))
+
+    @classmethod
+    def get_player_logo_filepath(cls, filename, base='images/logo', size=None):
+        return '/'.join((base, (size or 'original'), filename))
+
+    def get_player_logo_url(self, size=None):
+        if self.player_logo_filename:
+            path = self.get_player_logo_filepath(self.player_logo_filename, size=size)
+            return urljoin(current_app.config['MEDIA_BASE_URL'], path)
+
+    def set_player_logo(self, filename):
+        self.player_logo_filename = filename
+
+    player_logo = property(get_player_logo_url, set_player_logo)
 
     def record_workflow_event(self, type, value=None):
         self.workflow_events.append(VideoWorkflowEvent.create(type, value))

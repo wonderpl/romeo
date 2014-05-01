@@ -1,4 +1,5 @@
 from itertools import chain
+from PIL import Image
 import wtforms
 from flask import request
 from flask.ext.wtf import Form
@@ -6,6 +7,7 @@ from wonder.romeo import db
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.dolly import get_categories
 from wonder.romeo.core.ooyala import create_asset
+from wonder.romeo.core.s3 import upload_file, media_bucket
 from wonder.romeo.core.sqs import background_on_sqs
 from .models import VideoTag, Video
 
@@ -52,6 +54,7 @@ class VideoForm(BaseForm):
     description = wtforms.StringField()
     category = wtforms.SelectField(validators=[wtforms.validators.Optional()])
     filename = wtforms.StringField()
+    player_logo = wtforms.FileField()
     link_url = wtforms.StringField()
     link_title = wtforms.StringField()
 
@@ -87,6 +90,22 @@ class VideoForm(BaseForm):
         # TODO: Check account id?
         if field.data:
             field.data = field.data.rsplit('/')[-1]
+
+    def validate_player_logo(self, field):
+        if field.data:
+            try:
+                image = Image.open(field.data)
+                content_type = Image.MIME[image.format]
+            except Exception as e:
+                raise wtforms.ValidationError(e.message)
+
+            stream = field.data.stream
+            stream.seek(0)
+
+            field.data = Video.get_random_filename()
+            upload_file(media_bucket, Video.get_player_logo_filepath(field.data),
+                        stream, content_type)
+            # TODO: save thumbnails
 
 
 @background_on_sqs

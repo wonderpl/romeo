@@ -162,8 +162,9 @@ class VideoUploadArgsResource(Resource):
 
     @dolly_account_view
     def get(self, account, dollyuser):
+        key = Video.get_video_filepath(account.id, Video.get_random_filename())
         upload_args = s3connection.build_post_form_args(
-            video_bucket.name, Video.get_filepath(account.id), 3600, storage_class=None)
+            video_bucket.name, key, 3600, storage_class=None)
         return upload_args
 
 
@@ -173,7 +174,7 @@ class AccountVideosResource(Resource):
     @dolly_account_view
     def get(self, account, dollyuser):
         items = map(_video_item, Video.query.filter_by(
-            account_id=account.id, deleted=False).order_by('date_added'))
+            account_id=account.id, deleted=False).order_by('date_added').all())
         return dict(video=dict(items=items, total=len(items)))
 
     @commit_on_success
@@ -200,6 +201,8 @@ def _video_item(video):
     for f, v in data.items():
         if hasattr(v, 'isoformat'):
             data[f] = v.isoformat()
+
+    data['player_logo_url'] = video.get_player_logo_url()
 
     data['thumbnails'] = dict(
         items=[
@@ -239,12 +242,12 @@ class VideoResource(Resource):
         form = VideoForm(obj=video, csrf_enabled=False)
         # Exclude form fields that weren't specified in the request
         for field in form.data:
-            if field not in (request.json or request.form):
+            if field not in (request.json or request.form or request.files):
                 delattr(form, field)
 
         if form.validate():
             form.save()
-            return dict(status=video.status), 200
+            return _video_item(video), 200
         else:
             return dict(error='invalid_request', form_errors=form.errors), 400
 
