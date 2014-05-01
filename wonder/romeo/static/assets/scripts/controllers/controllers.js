@@ -14,6 +14,7 @@
         $scope.html = ng.element(d.querySelector('html'));
         $scope.body = ng.element(d.body);
 
+        $scope.currentRoute = $location;
         $scope.isLoggedIn = AuthService.isLoggedIn();
 
         if ($scope.isLoggedIn) {
@@ -82,6 +83,10 @@
         $rootScope.isCurrentPage = function (route) {
             console.log(route, $location.path());
             return route === $location.path();
+        };
+
+        $rootScope.getCurrentRoute = function () {
+            return $location.path().split('/')[1];
         };
     }]);
 
@@ -467,7 +472,9 @@
 
             }]);
 
-    app.controller('AccountController', ['$scope', '$rootScope', '$location', '$routeParams', 'AuthService', 'DataService', '$q', function ($scope, $rootScope, $location, $routeParams, AuthService, DataService, $q) {
+    app.controller('AccountController', 
+        ['$scope', '$rootScope', '$location', '$routeParams', 'AuthService', 'DataService', '$q', '$timeout', 
+        function ($scope, $rootScope, $location, $routeParams, AuthService, DataService, $q, $timeout) {
 
         var sessionUrl;
         var accountID;
@@ -606,8 +613,8 @@
     }]);
 
     app.controller('UploadController', 
-        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', 'AccountService', '$modal', 'animLoop', 'prettydate', '$interval', '$upload', '$q', 
-        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, AccountService, $modal, animLoop, prettydate, $interval, $upload, $q) {
+        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', 'AccountService', 'AuthService', '$modal', 'animLoop', 'prettydate', '$interval', '$upload', '$q', 'FlashService', 
+        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, AccountService, AuthService, $modal, animLoop, prettydate, $interval, $upload, $q, FlashService) {
 
         /*
         * The state object for the chosen category for the video
@@ -639,11 +646,6 @@
         $scope.deferredData = {};
 
         /*
-        * State object for the custom logo used on the embedded player
-        */
-        $scope.customLogo = null;
-
-        /*
         * State object for the actual Video record
         */                
         $scope.video = {
@@ -652,7 +654,8 @@
             status: null,
             title: "",
             description: "", 
-            category: null
+            category: null,
+            player_url: null
         };
 
         /*
@@ -676,6 +679,8 @@
                 });
             },  30000)
         };
+
+        $scope.$draftStatusMessage = $('#upload-draft-status');
 
         /*
         * Get the list of categories from the web service
@@ -831,26 +836,48 @@
                     $scope.status.saved = prettydate(date);
                     $scope.status.date = date;
                     $scope.video[attr] = val;
+                    $scope.updateStatusMessage();
 
                     if ( $scope.video.id === null ) {
                         if ( $scope.video.title.length > 0 ) {
                             console.log('GONNA CREATE THE VIDEO');
-                            $scope.createVideo();
+                            $scope.createVideo().then(function(){
+                                // $scope.updateStatusMessage();
+                            });
                         }
                     } else {
                         var data = {};
                         data[attr] = val;
-                        $scope.updateVideo(data);
+                        $scope.updateVideo(data).then(function(){
+                            // $scope.updateStatusMessage();
+                        });
                     }
                 });
-            });
-            
+            }); 
         });
+
+        /*
+        * Update the draft status message
+        */
+        $scope.updateStatusMessage = function() {
+            $scope.$draftStatusMessage.removeClass('transitionable');
+            $timeout(function(){
+                $scope.$draftStatusMessage.addClass('saved');
+            }, 10);
+            $timeout(function(){
+                $scope.$draftStatusMessage.addClass('transitionable');
+            }, 20);
+            $timeout(function(){
+                $scope.$draftStatusMessage.removeClass('saved');
+            }, 500);
+        };
 
         /*
         * Create a video record ( if there is no valid video id present )
         */
         $scope.createVideo = function(e) {
+
+            var deferred = new $q.defer();
 
             // Bundle in any deferred data
             var data = { title: $scope.video.title};
@@ -863,9 +890,12 @@
                         ng.extend($scope.video, response);
                         $scope.deferredData = {};
                         console.log( $scope.video );
+                        deferred.resolve();
                     });
                 });
             });
+
+            return deferred.promise;
         };
 
         /*
@@ -968,11 +998,10 @@
         };
   
         /*
-        * Increment the previewIndex
+        * The user has selected a custom logo for their player via the file input
         */
         $scope.customLogoSelected = function($files) {
 
-            console.log($files[0]);
             var file = new FileReader();
 
             file.onload = function(e){
@@ -992,10 +1021,10 @@
         };
 
         /*
-        * Increment the previewIndex
+        * Save the custom logo the user has chosen
         */
         $scope.saveCustomLogo = function() {
-            AccountService.saveCustomLogo($scope.customLogo.file).then(function(response){
+            VideoService.saveCustomLogo($scope.video.id, $scope.customLogo.file).then(function(response){
                 console.log(response);
             });
         };

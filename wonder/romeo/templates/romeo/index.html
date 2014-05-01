@@ -4,19 +4,20 @@
 
 <header>
     <!-- <a href="/#/library" class="manage wp-button">Manage</a> -->
+    <a href="/#/" id="wonder"></a>
     <span ng-if="isLoggedIn">
         <!--<a class="delete wp-button">Delete</a>-->
-        <a class="save-draft wp-button" ng-click="save()">Save Draft</a>
+        <!-- <a class="save-draft wp-button" ng-click="save()">Save Draft</a> -->
         <!--<a class="quick-share wp-button" ng-click="toggleQuickShare()">Quick Share</a>-->
         <!--<a class="publish wp-button">Publish</a>-->
-        <a href="/#/account/(~ account.id ~)" class="avatar" style="background-image: url((~ account.avatar ~));"></a>
+        <a href="/#/library" class="manage wp-button">Manage</a>
+        <a href="/#/upload" class="upload wp-button">Upload</a>
+        <a href="/#/account" class="avatar" style="background-image: url((~ account.avatar ~));"></a>
     </span>
     <span ng-if="!isLoggedIn">
         <a class="login wp-button">Login</a>
     </span>
 </header>
-
-<a href="/#/" id="wonder"></a>
 
 <ng-view></ng-view>
 {% endblock %}

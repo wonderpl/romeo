@@ -83,8 +83,13 @@ body, html {
 // }
 
 header {
+  position: fixed;
+  z-index: 1000;
   text-align: right;
-  padding: 32px 16px 16px 16px;
+  display: block;
+  width: 100%;
+  padding: 32px 16px 32px 16px;
+  border-bottom: 1px solid #eee;
   
   a, a.wp-button {
     font-size: 14px;
@@ -148,16 +153,21 @@ header {
 
 .route-account {
 
-  #wonder {
-    background: transparent image-url('header-logo-white.png') center center no-repeat;
-    background-size: 100% auto;
-  }
+  // #wonder {
+  //   background: transparent image-url('header-logo-white.png') center center no-repeat;
+  //   background-size: 100% auto;
+  // }
 
   header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.74);
-    padding: 32px 16px 32px 16px;
+    // border-bottom: 1px solid rgba(255, 255, 255, 0.74);
+    // padding: 32px 16px 32px 16px;
   }
 }
+
+.page-upload header {
+  background: white;
+}
+
 #wrapper {
   display: block;
   position: relative;
@@ -1494,7 +1504,7 @@ h1.collections-page {
 /* ======================================= */
 
 #page-upload {
-  padding-top: 70px;
+  padding-top: 160px;
 
   .centered {
     margin: 0 auto;
@@ -1512,9 +1522,25 @@ h1.collections-page {
 }
 
 #upload-draft-status {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 600px;
+  margin: 0 auto;
   color: #b4b2bc;
   text-align: center;
-  padding: 0 0 32px 0;
+  padding: 38px 0 32px 0;
+  z-index: 1001;
+
+  &.transitionable {
+    @include transition( all .4s ease-out );
+  }
+
+  &.saved {
+    // font-size: 18px;
+    color: black;
+  }
 }
 
 #upload-form {
@@ -2101,6 +2127,19 @@ a#category-chooser {
   margin: 0 auto 100px auto;
 }
 
+.wonder-logo-chooser {
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  @include opacity(0);
+  right: 10%;
+  left: auto;
+  top: 0;
+  height: 37px;
+  width: 20%;
+}
+
+
 
 /*  Thumbnail chooser
 /* ======================================= */
@@ -2403,7 +2442,7 @@ a#category-chooser {
   width: 220px;
   position: fixed;
   right: 12px;
-  top: 12px;
+  top: 90px;
   z-index: 200;
 
   li {

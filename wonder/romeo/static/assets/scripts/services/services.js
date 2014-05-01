@@ -469,6 +469,26 @@
             return DataService.request({ url: url, method: 'PATCH', data: data });
         };
 
+        Video.saveCustomLogo = function (id, file) {
+
+            var deferred = new $q.defer(),
+                formData = new FormData();
+
+            formData.append('player_logo', file);
+            $.ajax({
+                url: '/api/video/' + id,
+                type: 'PATCH',
+                data: formData,
+                processData: false,
+                mimeType: 'multipart/form-data',
+                contentType: false
+            }).done(function (response) {
+                return deferred.resolve(response);
+            });
+
+            return deferred.promise;
+        };
+
         Video.get = function(id) {
             var url = '/api/video/' + id + '';
             return DataService.request({ url: url, method: 'GET'});
@@ -488,22 +508,31 @@
     /*
     * Methods for interacting with the Account web services
     */
-    app.factory('AccountService', ['DataService', 'localStorageService', '$rootScope', 'AuthService', function (DataService, localStorageService, $rootScope, AuthService) {
+    app.factory('AccountService', ['DataService', 'localStorageService', '$rootScope', 'AuthService', '$q', '$timeout', function (DataService, localStorageService, $rootScope, AuthService, $q, $timeout) {
 
         var Account = {};
 
         Account.saveCustomLogo = function (file) {
 
-            var formData = new FormData();
-            formData.append('player_logo', file);
+            var deferred = new $q.defer(),
+                formData = new FormData();
 
-            return DataService.request({
+            formData.append('player_logo', file);
+            $.ajax({
                 url: '/api/account/' + AuthService.getUserId(),
-                method: 'PATCH',
-                headers: {'Content-Type': undefined },
-                data: formData
+                type: 'PATCH',
+                data: formData,
+                processData: false,
+                mimeType: 'multipart/form-data',
+                contentType: false
+            }).done(function (response) {
+                return deferred.resolve(response);
             });
+
+            return deferred.promise;
         };
+
+
 
         return {
             saveCustomLogo: Account.saveCustomLogo
@@ -595,6 +624,12 @@
     app.factory('AuthService', ['$http', 'localStorageService', 'ErrorService', function ($http, localStorageService, ErrorService) {
         var currentSession = null;
 
+        var checkInterval = function() {
+            if ( currentSession !== null ) {
+                $interval.cancel(checkInterval);
+            }
+        };
+
         var AuthService = {
 
             // Checks local storage for session and returns it
@@ -624,6 +659,7 @@
             isLoggedIn: function () {
                 return AuthService.getSession() != null;
             },
+
             login: function (username, password) {
                 return $http({
                     method: 'post',
@@ -635,9 +671,10 @@
                 }).success(function (data) {
                     return AuthService.setSession(data.account);
                 }).error(function () {
-//                    debugger;
+                    // debugger;
                 });
             },
+
             logout: function () {
                 // Maybe a request here? probably....
                 var deferred = $q.defer;
@@ -647,6 +684,13 @@
                 return deferred.promise;
             },
             getUser: function () {
+                // var deferred = new $q.defer();
+                // if ( currentSession == null ) {
+                // } else {
+                // }
+                // // deferred.resolve(currentSession)
+                // return deferred.promise;
+
                 return currentSession;
             }, 
             getUserId: function() {

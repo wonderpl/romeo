@@ -442,11 +442,11 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t<quick-share></quick-share>\n" +
     "\t\t<div class=\"inner centered\">\n" +
     "\t\t\t<!-- <div class=\"avatar\"><img src=\"/static/assets/img/tom.jpg\" width=\"64\" alt=\"\" /></div> -->\n" +
-    "\t\t\t<!-- <div id=\"upload-draft-status\" class=\"f-serif\">\n" +
+    "\t\t\t<div id=\"upload-draft-status\" class=\"f-serif\">\n" +
     "\t\t\t\t<span>\n" +
-    "\t\t\t\t\t(~ status.saved != null ? 'Last autosaved: ' + status.saved : 'Tip: Did you know that lorem ipsum dolor sit amet?' ~)\n" +
+    "\t\t\t\t\t(~ status.saved != null ? 'Saved: ' + status.saved : 'Tip: Did you know that you can add your own logo to our player?' ~)\n" +
     "\t\t\t\t</span>\n" +
-    "\t\t\t</div> -->\n" +
+    "\t\t\t</div>\n" +
     "\t\t\t<form id=\"upload-form\" ng-submit=\"saveMetaData($event)\">\n" +
     "\t\t\t\t<div class=\"row\" id=\"title-row\">\n" +
     "\t\t\t\t\t<pre id=\"upload-title\" type=\"text\" ng-paste=\"cleanPaste($event)\" placeholder=\"Video Title\" data-model=\"title\" pl-content-editable-placeholder pl-focus-field contenteditable auto-save-field></pre>\n" +
@@ -489,7 +489,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "\t\t\t\t</div>\n" +
     "\t\t\t\t<div class=\"row\" id=\"upload-buttons\">\n" +
-    "\t\t\t\t\t<a href=\"#\"></a>\n" +
+    "\t\t\t\t\t<a class=\"wp-button\" id=\"click-to-more\">Add a link...</a>\n" +
     "\t\t\t\t</div>\n" +
     "\t\t\t\t<div class=\"row f-serif\" id=\"description-row\">\n" +
     "\t\t\t\t\t<pre id=\"upload-description\" placeholder=\"Video description\" ng-paste=\"cleanPaste($event)\" data-model=\"description\" pl-content-editable-placeholder contenteditable auto-save-field></pre>\n" +
@@ -515,7 +515,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t\t\t        <img class=\"vol-2\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAoCAYAAABq13MpAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAATNJREFUeNrsmLFKA0EQhnOaQlKo4APEwkIQsRILX8BO0iZV0BfIS1ilsbC2UcFW0EJs1CdQLKxTBCs9bEzwcP2OXGBykOOu2lmYHz7YKRa+O2Z3joucc7XQslALMCZt0iZt0iZt0vPyBCewXnlnOsY9EbtJfqEPjbJ7I4/fHjGsiPoFDuBDc3tcwo+od+AWGprbI6UJz242Z5rbY5oleID9rE5gG941X3kjaItWqcNRCPf0AK5FfRjKcLkT642iA6lJeijWEayFIJ1/s0kI0rti/V00ZLRIL0JX1I/pCNEu3csO3zQXmidiSgcSMRHfoF60x6fsFlzlRvgY9jSP8S9YFfUfHMO55q+819wDtMoI+5a+h084hU24KbvRZ3sswzijUiL7a2rSJm3SJm3SJk3+BRgA8LFe4j8YonoAAAAASUVORK5CYII=\" />\n" +
     "\t\t\t\t\t\t        <img class=\"vol-3\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAoCAYAAABq13MpAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAbhJREFUeNrs2c8rRFEUB/B53qSYaRYyVopSimTBhJRZ2diJlLAQs1IWFkr5H6xYYKOslGKNJfm5YGespPGzEDUZmeb53rq3jjtvyu6dU3PqU+dMM/U16d33zjie54WkVUVIYAUdug/WISEpdAxScA7HMCjt36MHdmAfGjiHvoc767V+uISBkp9SV4+AuTAOGe9v5WHK7zMcQhsxWLGCF/QfxDa0MQHfJLjqu+l7HKaHi7qKbIOr51togRznw2UXFsjcCPNmcBgf4w7s6auJqiw0wwPnY1x9m7OQ13ME5iTce1zDFpknISzhhmmV9LWQlBD6CJ7JLCJ0AU7InJByP31F+lYpoZ9IH5cS+oP0USmhq0j/KSV0PenfpIRuI/2NhNAqY5LMFxJCq8B1ZD6QEHqG9C9wyD10OwyTeQN+ON9Pu/r4NoucL2iCR87f9KK1eVpSgbmsEPyM6idxU2mo5vw0ntI7D1NZ6OC6QojCms/CZojj3qMSpn02TDkY47hh6oJXr7gy9oKGCvrqEYca6wlcLWk64VTCqlftp3thxHomLKpwwEHfYRk24ezfW5zyD0Xl0KXrV4ABABBpntz13cW2AAAAAElFTkSuQmCC\" />\n" +
     "\t\t\t\t\t\t    </a>\n" +
-    "\t\t\t\t\t\t    <a class=\"wonder-logo\" href=\"/\" target=\"_blank\" style=\"background: transparent url((~ customLogo.data ~)) center center no-repeat; background-size: cover;\"></a>\n" +
+    "\t\t\t\t\t\t    <a class=\"wonder-logo\" target=\"_blank\" style=\"background: transparent url((~ existingCustomLogo || customLogo.data ~)) center center no-repeat; background-size: cover;\"></a>\n" +
+    "\t\t\t\t\t\t    <input class=\"wonder-logo-chooser\" type=\"file\" ng-file-select=\"customLogoSelected($files)\" ng-file-drop=\"customLogoSelected($files)\">\n" +
     "\t\t\t\t\t\t    <a class=\"fullscreen wonder-fullscreen player-icon-fullscreen\"></a>\n" +
     "\t\t\t\t\t\t    <!-- <span class=\"wonder-timer\">--:--</span> -->\n" +
     "\t\t\t\t\t\t    <div class=\"scrubber vid loading\">\n" +

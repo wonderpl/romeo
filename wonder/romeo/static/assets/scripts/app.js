@@ -90,7 +90,7 @@
             templateUrl: 'login.html'
         });
 
-        $routeProvider.otherwise({redirectTo: '/login'});
+        $routeProvider.otherwise({redirectTo: '/upload'});
 
 
         $httpProvider.defaults.headers.patch = {
