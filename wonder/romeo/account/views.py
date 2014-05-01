@@ -4,7 +4,7 @@ from flask.ext.login import login_user, logout_user, fresh_login_required, curre
 from flask.ext.restful.reqparse import RequestParser
 from wonder.romeo.core.rest import Resource, api_resource
 from wonder.romeo.core.dolly import DollyUser
-from .forms import LoginForm, ChangePasswordForm
+from .forms import LoginForm, ChangePasswordForm, PlayerLogoForm
 from .models import UserProxy
 
 
@@ -106,7 +106,7 @@ class AccountResource(Resource):
             description=userdata['description'],
             avatar=userdata['avatar_thumbnail_url'],
             profile_cover=userdata['profile_cover_url'],
-            player_logo=None,
+            player_logo=account.get_player_logo_url(),
         )
 
     account_parser = RequestParser()
@@ -114,12 +114,20 @@ class AccountResource(Resource):
     account_parser.add_argument('description', dest='set_description')
     account_parser.add_argument('avatar', location='files', dest='set_avatar_image')
     account_parser.add_argument('profile_cover', location='files', dest='set_profile_image')
+    account_parser.add_argument('player_logo', location='files')
 
     @dolly_account_view
     def patch(self, account, dollyuser):
         args = self.account_parser.parse_args()
         for arg, value in args.items():
             if value:
+                if arg == 'player_logo':
+                    form = PlayerLogoForm(csrf_enabled=False)
+                    if form.validate_on_submit():
+                        form.save(account)
+                        continue
+                    else:
+                        return dict(error='invalid_request', form_errors=form.errors), 400
                 try:
                     getattr(dollyuser, arg)(value)
                 except Exception as e:
