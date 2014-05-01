@@ -979,7 +979,10 @@
                 console.log('file loaded', e);
                 $timeout( function() {
                     $scope.$apply(function() {
-                        $scope.customLogo = e.target.result;
+                        $scope.customLogo = {
+                            data: e.target.result,
+                            file: $files[0]
+                        };
                     });
                 });
 
@@ -991,8 +994,8 @@
         /*
         * Increment the previewIndex
         */
-        $scope.saveCustomLogo = function($files) {
-            AccountService.saveCustomLogo($files[0]).then(function(response){
+        $scope.saveCustomLogo = function() {
+            AccountService.saveCustomLogo($scope.customLogo.file).then(function(response){
                 console.log(response);
             });
         };
