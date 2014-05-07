@@ -104,7 +104,7 @@
   text-align: center;
   padding: 38px 0 32px 0;
   z-index: 1001;
-
+  display: none !important;
   &.transitionable {
     @include transition( all .4s ease-out );
   }

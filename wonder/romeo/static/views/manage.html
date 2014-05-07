@@ -1,5 +1,44 @@
 <div id="page-manage" class="section" ng-controller="ManageController">
+    
     <div class="inner">
-    	<h1>Manage your videos &amp; collections</h1>
+
+		<div id="manage-top">
+			<div id="manage-top-left">
+				<h2>All Videos &raquo; <span class="highlight">{{ currentFilter.name }}</span></h2>
+			</div>
+			<div id="manage-top-right">
+				<searchfield></searchfield>
+			</div>
+		</div><!-- end of top section -->
+
+		<div id="manage-body">
+			<div id="manage-left">
+				<h3>Manage</h3>
+				<ul>
+					<li><a>All videos</a></li>
+					<li><a>Uploads in progress</a></li>
+					<li><a>Recently added videos</a></li>
+				</ul>
+				<h3>Collections not visible in app</h3>
+				<ul>
+					<li><a>Add a new collection</a></li>
+				</ul>
+				<h3>Collections visible in app</h3>
+				<ul>
+				</ul>
+			</div><!-- end of manage body left section -->
+			<div id="manage-right">
+				<div id="manage-toolbar"></div>
+				<div id="manage-search-results">
+					<ul>
+						<li ng-repeat="video in Videos">
+							<span class="title">{{ video.title | elipsis:20}}</span>
+							<div class="frame" style="background: black url((~ video.thumbnails.items[0].url ~)) center center no-repeat; background-size: cover;"></div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
     </div>
 </div>

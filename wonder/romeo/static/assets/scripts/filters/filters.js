@@ -33,6 +33,18 @@
         }
     });
 
+    app.filter('elipsis', function(){
+        return function(str, len) {
+            var newstr = str.substring(0,len);
+            
+            if ( newstr.charAt(newstr.length-1) === ' ' ) {
+                newstr.substring(0,newstr.length-1);
+            }
+
+            return newstr + '...';
+        };
+    })
+
     app.filter('wholeNumber', function() {
         return function(num) {
             return parseInt(num, 10);

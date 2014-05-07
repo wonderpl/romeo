@@ -2,5 +2,74 @@
 /* ======================================= */
 
 #page-manage {
-	
+	padding-top: 160px;	
+}
+
+#manage-top {
+	border-bottom: 2px solid #f0f0f0;
+	margin: 0 0 15px 0;
+}
+
+#manage-left {
+	@include inline-block;
+	float: left;
+	width: 220px;
+
+	h3 {
+		font-size: 13px;
+		color: darken(#c7c7c7, 10%);
+		margin: 0 0 8px 0;
+		font-weight: 600;
+		padding: 0;
+	}
+
+	li {
+		color: #797979;
+		display: block;
+		margin: 0 0 16px 0;
+	}
+
+	ul {
+		display: block;
+		margin: 0 0 25px 0;
+	}
+}
+
+#manage-right {
+	@include inline-block;
+	float: right;
+	width: 780px;
+
+	#manage-toolbar {
+		display: block;
+		height: 50px;
+	}
+
+	#manage-search-results {
+		display: block;
+
+		li {
+			@include inline-block;
+			width: 30%;
+			margin: 0 2.3% 26px 0;
+			color: #cdcdcd;
+
+			span.title {
+				color: #727272;
+				display: block;
+				padding-bottom: 10px;
+			}
+			.frame {
+				display: block;
+				width: 100%;
+				background: black;
+
+				&:before {
+					display: block;
+					content: '';
+					padding-top: 56.25%;
+				}
+			}
+		}
+	}
 }

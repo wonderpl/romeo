@@ -435,7 +435,9 @@
     /*
     * Methods for interacting with the Video web services
     */
-    app.factory('VideoService', ['DataService', 'localStorageService', '$rootScope', 'AuthService', '$q', function (DataService, localStorageService, $rootScope, AuthService, $q) {
+    app.factory('VideoService', 
+        ['DataService', 'localStorageService', '$rootScope', 'AuthService', '$q', 
+        function (DataService, localStorageService, $rootScope, AuthService, $q) {
 
         var Video = {},
             Videos = {};
@@ -535,7 +537,10 @@
             var deferred = new $q.defer();
             AuthService.getSessionId().then(function(response){
                 DataService.request({ url: '/api/account/' + response + '/videos', method: 'GET'}).then(function(response){
-                    $rootScope.$broadcast('videos updated', response);
+                    // $rootScope.$broadcast('videos updated', response);
+                    console.log(response.video.items);
+                    Videos = response.video.items;
+                    $rootScope.Videos = response.video.items;
                 });
             });
             return deferred.promise;
@@ -585,8 +590,10 @@
                 });
             } else {
                 DataService.request({url: ('/api/account/' + ID)}).then(function(response){
+                    console.log('User added to rootscope');
                     User = response;
-                    $rootScope.$broadcast('user updated', response);
+                    $rootScope.User = response;
+                    // $rootScope.$broadcast('user updated', response);
                     deferred.resolve(response);
                 });
             }

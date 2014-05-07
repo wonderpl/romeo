@@ -35,6 +35,11 @@
             resolve: authChecks
         });
 
+        $routeProvider.when('/manage/:filter/:id', {
+            templateUrl: 'manage.html',
+            resolve: authChecks
+        });
+
         // Videos
         $routeProvider.when('/video/:videoID', {
             templateUrl: 'video.html'

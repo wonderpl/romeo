@@ -135,7 +135,7 @@
         //         });
         //     });
         // });
-        
+
     }]);
 
     app.controller('DashboardController',
@@ -522,8 +522,27 @@
     // }]);
 
     app.controller('ManageController', 
-        ['$scope', '$rootScope', '$timeout', '$location', '$modal', 'VideoService', 'DragDropService', 'FlashService', '$filter',
-        function ($scope, $rootScope, $timeout, $location, $modal, VideoService, DragDropService, FlashService, $filter) {
+        ['$scope', '$rootScope', 'AuthService', 'AccountService', '$timeout', '$location', '$modal', 'VideoService', 'DragDropService', 'FlashService', '$filter', '$routeParams',
+        function ($scope, $rootScope, AuthService, AccountService, $timeout, $location, $modal, VideoService, DragDropService, FlashService, $filter, $routeParams) {
+
+        console.log($routeParams);
+
+        /*
+        * State object representing how the videos are filtered
+        */
+        $scope.filters = {
+            "collection": {
+
+            }, 
+            "uploads": {
+                name: "Uploads in progress"
+            }
+        };
+
+        $scope.currentFilter = {
+            
+        };
+
 
     }]);
 
@@ -610,8 +629,8 @@
     }]);
 
     app.controller('UploadController', 
-        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', 'AccountService', 'AuthService', '$modal', 'animLoop', 'prettydate', '$interval', '$upload', '$q', 'FlashService', 
-        function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, AccountService, AuthService, $modal, animLoop, prettydate, $interval, $upload, $q, FlashService) {
+        ['$scope', '$rootScope', 'AuthService', 'AccountService', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', '$modal', 'animLoop', 'prettydate', '$interval', '$upload', '$q', 'FlashService', 
+        function($scope, $rootScope, AuthService, AccountService, $http, $timeout, $location, $templateCache, $compile, VideoService, $modal, animLoop, prettydate, $interval, $upload, $q, FlashService) {
 
         /*
         * The state object for the chosen category for the video
@@ -790,31 +809,37 @@
             });
 
             $scope.updateVideo({ filename: $scope.uploadPath }).then(function() {
+
+
                 $scope.processingInterval = setInterval(function(){
 
-                    // Check for state change in the video record
-                    VideoService.get($scope.video.id).then(function(response){
-                        if ( response.status === 'ready' ) {
-                            clearInterval($scope.processingInterval);
-                            
-                            VideoService.getPreviewImages($scope.video.id).then(function(response){
-                                $timeout(function() {
-                                    $scope.$apply(function() {
-                                        $scope.previewImages = response.image.items;
+                    if ( $scope.video.id !== null ) {
+                        // Check for state change in the video record
+                        VideoService.get($scope.video.id).then(function(response){
+                            if ( response.status === 'ready' ) {
+                                clearInterval($scope.processingInterval);
+                                
+                                VideoService.getPreviewImages($scope.video.id).then(function(response){
+                                    $timeout(function() {
+                                        $scope.$apply(function() {
+                                            $scope.previewImages = response.image.items;
+                                        });
                                     });
                                 });
-                            });
 
-                            $timeout(function() {
-                                $scope.$apply(function() {
-                                    $scope.file.state = 'complete';
+                                $timeout(function() {
+                                    $scope.$apply(function() {
+                                        $scope.file.state = 'complete';
+                                    });
                                 });
-                            });
-                        } else {  
-                        }
-                    });
+                            } else {  
+                            }
+                        });                        
+                    }
+
 
                 }, 10000);
+
             }); 
         };
 
@@ -862,9 +887,7 @@
         $scope.$watch('showClickToMore', function(oldValue, newValue){
             if ( newValue === false ) {
                 if ( $scope.clickToMore.text.length > 0 && $scope.clickToMore.link.match(/https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,}/) !== null )
-                $scope.updateVideo({ link_title: $scope.clickToMore.text }).then(function(){
-                    $scope.updateVideo({ link_url: $scope.clickToMore.link });
-                });
+                $scope.updateVideo({ link_title: $scope.clickToMore.text, link_url: $scope.clickToMore.link })
                 $scope.updateStatusMessage();                
             }
         }); 
@@ -873,16 +896,18 @@
         * Update the draft status message
         */
         $scope.updateStatusMessage = function() {
-            $scope.$draftStatusMessage.removeClass('transitionable');
-            $timeout(function(){
-                $scope.$draftStatusMessage.addClass('saved');
-            }, 10);
-            $timeout(function(){
-                $scope.$draftStatusMessage.addClass('transitionable');
-            }, 20);
-            $timeout(function(){
-                $scope.$draftStatusMessage.removeClass('saved');
-            }, 500);
+            // $scope.$draftStatusMessage.removeClass('transitionable');
+            // $timeout(function(){
+            //     $scope.$draftStatusMessage.addClass('saved');
+            // }, 10);
+            // $timeout(function(){
+            //     $scope.$draftStatusMessage.addClass('transitionable');
+            // }, 20);
+            // $timeout(function(){
+            //     $scope.$draftStatusMessage.removeClass('saved');
+            // }, 500);
+
+            FlashService.flash('Saved', 'success');
         };
 
         /*

@@ -258,8 +258,47 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('manage.html',
     "<div id=\"page-manage\" class=\"section\" ng-controller=\"ManageController\">\n" +
+    "    \n" +
     "    <div class=\"inner\">\n" +
-    "    \t<h1>Manage your videos &amp; collections</h1>\n" +
+    "\n" +
+    "\t\t<div id=\"manage-top\">\n" +
+    "\t\t\t<div id=\"manage-top-left\">\n" +
+    "\t\t\t\t<h2>All Videos &raquo; <span class=\"highlight\">(~ currentFilter.name ~)</span></h2>\n" +
+    "\t\t\t</div>\n" +
+    "\t\t\t<div id=\"manage-top-right\">\n" +
+    "\t\t\t\t<searchfield></searchfield>\n" +
+    "\t\t\t</div>\n" +
+    "\t\t</div><!-- end of top section -->\n" +
+    "\n" +
+    "\t\t<div id=\"manage-body\">\n" +
+    "\t\t\t<div id=\"manage-left\">\n" +
+    "\t\t\t\t<h3>Manage</h3>\n" +
+    "\t\t\t\t<ul>\n" +
+    "\t\t\t\t\t<li><a>All videos</a></li>\n" +
+    "\t\t\t\t\t<li><a>Uploads in progress</a></li>\n" +
+    "\t\t\t\t\t<li><a>Recently added videos</a></li>\n" +
+    "\t\t\t\t</ul>\n" +
+    "\t\t\t\t<h3>Collections not visible in app</h3>\n" +
+    "\t\t\t\t<ul>\n" +
+    "\t\t\t\t\t<li><a>Add a new collection</a></li>\n" +
+    "\t\t\t\t</ul>\n" +
+    "\t\t\t\t<h3>Collections visible in app</h3>\n" +
+    "\t\t\t\t<ul>\n" +
+    "\t\t\t\t</ul>\n" +
+    "\t\t\t</div><!-- end of manage body left section -->\n" +
+    "\t\t\t<div id=\"manage-right\">\n" +
+    "\t\t\t\t<div id=\"manage-toolbar\"></div>\n" +
+    "\t\t\t\t<div id=\"manage-search-results\">\n" +
+    "\t\t\t\t\t<ul>\n" +
+    "\t\t\t\t\t\t<li ng-repeat=\"video in Videos\">\n" +
+    "\t\t\t\t\t\t\t<span class=\"title\">(~ video.title | elipsis:20~)</span>\n" +
+    "\t\t\t\t\t\t\t<div class=\"frame\" style=\"background: black url((~ video.thumbnails.items[0].url ~)) center center no-repeat; background-size: cover;\"></div>\n" +
+    "\t\t\t\t\t\t</li>\n" +
+    "\t\t\t\t\t</ul>\n" +
+    "\t\t\t\t</div>\n" +
+    "\t\t\t</div>\n" +
+    "\t\t</div>\n" +
+    "\n" +
     "    </div>\n" +
     "</div>"
   );

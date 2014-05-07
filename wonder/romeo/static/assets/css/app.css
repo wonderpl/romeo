@@ -1915,7 +1915,7 @@ header #wonder:hover, header #wonder:focus, header #wonder:active {
 /*  Page specific headers
 /* ======================================= */
 /* line 76, ../../scss/partials/_global.scss */
-.page-upload header {
+.page-upload header, .page-manage header {
   background: white;
 }
 
@@ -3874,37 +3874,38 @@ video, canvas {
   border: none;
   outline: none;
   font-weight: 300;
+  resize: none;
 }
-/* line 267, ../../scss/partials/romeo/_account.scss */
+/* line 268, ../../scss/partials/romeo/_account.scss */
 #edit-profile-details input.disabled, #edit-profile-details textarea.disabled {
   cursor: default;
 }
-/* line 271, ../../scss/partials/romeo/_account.scss */
+/* line 272, ../../scss/partials/romeo/_account.scss */
 #edit-profile-details input:hover, #edit-profile-details input:active, #edit-profile-details input:focus, #edit-profile-details textarea:hover, #edit-profile-details textarea:active, #edit-profile-details textarea:focus {
   border: none;
   outline: none;
 }
 
-/* line 278, ../../scss/partials/romeo/_account.scss */
+/* line 279, ../../scss/partials/romeo/_account.scss */
 #edit-profile-name {
   color: #4a4a4a;
   font-size: 26px;
 }
 
-/* line 283, ../../scss/partials/romeo/_account.scss */
+/* line 284, ../../scss/partials/romeo/_account.scss */
 #edit-profile-username {
   color: #727272;
   font-size: 18px;
   margin-bottom: 10px;
 }
 
-/* line 289, ../../scss/partials/romeo/_account.scss */
+/* line 290, ../../scss/partials/romeo/_account.scss */
 #edit-profile-description {
   color: #4a4a4a;
   font-size: 18px;
 }
 
-/* line 294, ../../scss/partials/romeo/_account.scss */
+/* line 295, ../../scss/partials/romeo/_account.scss */
 #toggle-editable-button {
   position: absolute;
   bottom: -60px;
@@ -3913,14 +3914,14 @@ video, canvas {
   background: #727272;
   color: white;
 }
-/* line 302, ../../scss/partials/romeo/_account.scss */
+/* line 303, ../../scss/partials/romeo/_account.scss */
 #toggle-editable-button:hover, #toggle-editable-button:focus, #toggle-editable-button:active {
   border: 1px solid #727272;
   color: #727272;
   background: white;
 }
 
-/* line 309, ../../scss/partials/romeo/_account.scss */
+/* line 310, ../../scss/partials/romeo/_account.scss */
 .account-upload-spinner {
   display: block;
   width: 100%;
@@ -4052,6 +4053,7 @@ video, canvas {
   text-align: center;
   padding: 38px 0 32px 0;
   z-index: 1001;
+  display: none !important;
 }
 /* line 108, ../../scss/partials/romeo/_upload.scss */
 #upload-draft-status.transitionable {
@@ -4815,6 +4817,101 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
 /* line 761, ../../scss/partials/romeo/_upload.scss */
 .preview-image-controls a:hover, .preview-image-controls a:active, .preview-image-controls a:focus {
   background: #e3e3e3;
+}
+
+/*  Manage
+/* ======================================= */
+/* line 4, ../../scss/partials/romeo/_manage.scss */
+#page-manage {
+  padding-top: 160px;
+}
+
+/* line 8, ../../scss/partials/romeo/_manage.scss */
+#manage-top {
+  border-bottom: 2px solid #f0f0f0;
+  margin: 0 0 15px 0;
+}
+
+/* line 13, ../../scss/partials/romeo/_manage.scss */
+#manage-left {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  float: left;
+  width: 220px;
+}
+/* line 18, ../../scss/partials/romeo/_manage.scss */
+#manage-left h3 {
+  font-size: 13px;
+  color: #aeaeae;
+  margin: 0 0 8px 0;
+  font-weight: 600;
+  padding: 0;
+}
+/* line 26, ../../scss/partials/romeo/_manage.scss */
+#manage-left li {
+  color: #797979;
+  display: block;
+  margin: 0 0 16px 0;
+}
+/* line 32, ../../scss/partials/romeo/_manage.scss */
+#manage-left ul {
+  display: block;
+  margin: 0 0 25px 0;
+}
+
+/* line 38, ../../scss/partials/romeo/_manage.scss */
+#manage-right {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  float: right;
+  width: 780px;
+}
+/* line 43, ../../scss/partials/romeo/_manage.scss */
+#manage-right #manage-toolbar {
+  display: block;
+  height: 50px;
+}
+/* line 48, ../../scss/partials/romeo/_manage.scss */
+#manage-right #manage-search-results {
+  display: block;
+}
+/* line 51, ../../scss/partials/romeo/_manage.scss */
+#manage-right #manage-search-results li {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  width: 30%;
+  margin: 0 2.3% 26px 0;
+  color: #cdcdcd;
+}
+/* line 57, ../../scss/partials/romeo/_manage.scss */
+#manage-right #manage-search-results li span.title {
+  color: #727272;
+  display: block;
+  padding-bottom: 10px;
+}
+/* line 62, ../../scss/partials/romeo/_manage.scss */
+#manage-right #manage-search-results li .frame {
+  display: block;
+  width: 100%;
+  background: black;
+}
+/* line 67, ../../scss/partials/romeo/_manage.scss */
+#manage-right #manage-search-results li .frame:before {
+  display: block;
+  content: '';
+  padding-top: 56.25%;
 }
 
 /* 	Tablet styles
