@@ -40,6 +40,16 @@
             resolve: authChecks
         });
 
+        $routeProvider.when('/manage/:filter', {
+            templateUrl: 'manage.html',
+            resolve: authChecks
+        });
+
+        $routeProvider.when('/manage', {
+            templateUrl: 'manage.html',
+            resolve: authChecks
+        });
+
         // Videos
         $routeProvider.when('/video/:videoID', {
             templateUrl: 'video.html'
@@ -56,7 +66,7 @@
         });
 
         // Video upload
-        $routeProvider.when('/upload', {
+        $routeProvider.when('/upload/', {
             templateUrl: 'upload.html',
             resolve: authChecks
         });

@@ -525,24 +525,42 @@
         ['$scope', '$rootScope', 'AuthService', 'AccountService', '$timeout', '$location', '$modal', 'VideoService', 'DragDropService', 'FlashService', '$filter', '$routeParams',
         function ($scope, $rootScope, AuthService, AccountService, $timeout, $location, $modal, VideoService, DragDropService, FlashService, $filter, $routeParams) {
 
-        console.log($routeParams);
-
         /*
         * State object representing how the videos are filtered
         */
         $scope.filters = {
-            "collection": {
-
-            }, 
+            "none": {
+                slug: "none",
+                name: "",
+                filter: {}
+            },
             "uploads": {
-                name: "Uploads in progress"
+                slug: "uploads",
+                name: "Uploads in progress",
+                filter: {}
+            },
+            "recent": {
+                slug: "recent",
+                name: "Recent videos",
+                filter: {}
             }
         };
 
-        $scope.currentFilter = {
-            
-        };
+        /*
+        * Grab the filter parameter from the URL and change the filter
+        */
+        $scope.currentFilter = 'filter' in $routeParams ? $scope.filters[$routeParams['filter']] : $scope.filters["none"];
 
+        /*
+        * Function to change the filter
+        */
+        $scope.changeFilter = function(filter) {
+            $timeout(function(){
+                $scope.$apply(function(){
+                    $scope.currentFilter = $scope.filters[filter];
+                });
+            });
+        };
 
     }]);
 

@@ -4825,14 +4825,77 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
 #page-manage {
   padding-top: 160px;
 }
+/* line 7, ../../scss/partials/romeo/_manage.scss */
+#page-manage a {
+  -webkit-transition: color 0.1s ease-out;
+  -moz-transition: color 0.1s ease-out;
+  -o-transition: color 0.1s ease-out;
+  transition: color 0.1s ease-out;
+  cursor: pointer;
+}
+/* line 11, ../../scss/partials/romeo/_manage.scss */
+#page-manage a:hover, #page-manage a:active, #page-manage a:focus {
+  color: #59ad62;
+}
+/* line 15, ../../scss/partials/romeo/_manage.scss */
+#page-manage a.highlighted {
+  color: #59ad62;
+}
+/* line 18, ../../scss/partials/romeo/_manage.scss */
+#page-manage a.highlighted:focus, #page-manage a.highlighted:active, #page-manage a.highlighted:hover {
+  color: black;
+}
+/* line 24, ../../scss/partials/romeo/_manage.scss */
+#page-manage .highlighted {
+  color: #59ad62;
+}
 
-/* line 8, ../../scss/partials/romeo/_manage.scss */
+/* line 29, ../../scss/partials/romeo/_manage.scss */
 #manage-top {
   border-bottom: 2px solid #f0f0f0;
+  padding: 0 0 5px 0;
   margin: 0 0 15px 0;
 }
 
-/* line 13, ../../scss/partials/romeo/_manage.scss */
+/* line 35, ../../scss/partials/romeo/_manage.scss */
+#manage-top-left {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  float: left;
+  width: 600px;
+}
+
+/* line 41, ../../scss/partials/romeo/_manage.scss */
+#manage-top-right {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  float: right;
+  width: 180px;
+}
+/* line 46, ../../scss/partials/romeo/_manage.scss */
+#manage-top-right input#manage-search-videos {
+  width: 100%;
+  display: block;
+  position: relative;
+  top: -10px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  -ms-border-radius: 50px;
+  -o-border-radius: 50px;
+  border-radius: 50px;
+  border: 2px solid #e3e3e3;
+  padding-left: 12px;
+}
+
+/* line 57, ../../scss/partials/romeo/_manage.scss */
 #manage-left {
   display: -moz-inline-stack;
   display: inline-block;
@@ -4843,7 +4906,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   float: left;
   width: 220px;
 }
-/* line 18, ../../scss/partials/romeo/_manage.scss */
+/* line 62, ../../scss/partials/romeo/_manage.scss */
 #manage-left h3 {
   font-size: 13px;
   color: #aeaeae;
@@ -4851,19 +4914,19 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   font-weight: 600;
   padding: 0;
 }
-/* line 26, ../../scss/partials/romeo/_manage.scss */
+/* line 70, ../../scss/partials/romeo/_manage.scss */
 #manage-left li {
   color: #797979;
   display: block;
   margin: 0 0 16px 0;
 }
-/* line 32, ../../scss/partials/romeo/_manage.scss */
+/* line 76, ../../scss/partials/romeo/_manage.scss */
 #manage-left ul {
   display: block;
   margin: 0 0 25px 0;
 }
 
-/* line 38, ../../scss/partials/romeo/_manage.scss */
+/* line 82, ../../scss/partials/romeo/_manage.scss */
 #manage-right {
   display: -moz-inline-stack;
   display: inline-block;
@@ -4874,16 +4937,16 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   float: right;
   width: 780px;
 }
-/* line 43, ../../scss/partials/romeo/_manage.scss */
+/* line 87, ../../scss/partials/romeo/_manage.scss */
 #manage-right #manage-toolbar {
   display: block;
   height: 50px;
 }
-/* line 48, ../../scss/partials/romeo/_manage.scss */
+/* line 92, ../../scss/partials/romeo/_manage.scss */
 #manage-right #manage-search-results {
   display: block;
 }
-/* line 51, ../../scss/partials/romeo/_manage.scss */
+/* line 95, ../../scss/partials/romeo/_manage.scss */
 #manage-right #manage-search-results li {
   display: -moz-inline-stack;
   display: inline-block;
@@ -4895,19 +4958,19 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   margin: 0 2.3% 26px 0;
   color: #cdcdcd;
 }
-/* line 57, ../../scss/partials/romeo/_manage.scss */
+/* line 101, ../../scss/partials/romeo/_manage.scss */
 #manage-right #manage-search-results li span.title {
   color: #727272;
   display: block;
   padding-bottom: 10px;
 }
-/* line 62, ../../scss/partials/romeo/_manage.scss */
+/* line 106, ../../scss/partials/romeo/_manage.scss */
 #manage-right #manage-search-results li .frame {
   display: block;
   width: 100%;
   background: black;
 }
-/* line 67, ../../scss/partials/romeo/_manage.scss */
+/* line 111, ../../scss/partials/romeo/_manage.scss */
 #manage-right #manage-search-results li .frame:before {
   display: block;
   content: '';

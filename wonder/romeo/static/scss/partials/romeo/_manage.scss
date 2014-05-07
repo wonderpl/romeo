@@ -3,11 +3,55 @@
 
 #page-manage {
 	padding-top: 160px;	
+
+	a {
+		@include transition( color .1s ease-out );
+		cursor: pointer;
+
+		&:hover, &:active, &:focus {
+			color: $wp-green;			
+		}
+
+		&.highlighted {
+			color: $wp-green;
+
+			&:focus, &:active, &:hover {
+				color: black
+			}
+		}
+	}
+
+	.highlighted {
+		color: $wp-green;
+	}
 }
 
 #manage-top {
 	border-bottom: 2px solid #f0f0f0;
+	padding: 0 0 5px 0;
 	margin: 0 0 15px 0;
+}
+
+#manage-top-left {
+	@include inline-block;
+	float: left;
+	width: 600px;
+}
+
+#manage-top-right {
+	@include inline-block;
+	float: right;
+	width: 180px;
+
+	input#manage-search-videos {
+		width: 100%;
+		display: block;
+		position: relative;
+		top: -10px;
+		@include border-radius( 50px );
+		border: 2px solid #e3e3e3;
+		padding-left: 12px;
+	}
 }
 
 #manage-left {

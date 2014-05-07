@@ -4,20 +4,21 @@
 
 		<div id="manage-top">
 			<div id="manage-top-left">
-				<h2>All Videos &raquo; <span class="highlight">{{ currentFilter.name }}</span></h2>
+				<h2>All Videos &raquo; <span class="highlighted">{{ currentFilter.name }}</span></h2>
 			</div>
 			<div id="manage-top-right">
-				<searchfield></searchfield>
+				<input type="text" id="manage-search-videos" placeholder="Search" />
 			</div>
+			<div class="clear"></div>
 		</div><!-- end of top section -->
 
 		<div id="manage-body">
 			<div id="manage-left">
 				<h3>Manage</h3>
 				<ul>
-					<li><a>All videos</a></li>
-					<li><a>Uploads in progress</a></li>
-					<li><a>Recently added videos</a></li>
+					<li><a ng-click="changeFilter('none')" ng-class="{ highlighted: currentFilter.slug == 'none' }">All videos</a></li>
+					<li><a ng-click="changeFilter('uploads')" ng-class="{ highlighted: currentFilter.slug == 'uploads' }">Uploads in progress</a></li>
+					<li><a ng-click="changeFilter('recent')" ng-class="{ highlighted: currentFilter.slug == 'recent' }">Recently added videos</a></li>
 				</ul>
 				<h3>Collections not visible in app</h3>
 				<ul>
@@ -25,6 +26,7 @@
 				</ul>
 				<h3>Collections visible in app</h3>
 				<ul>
+					<li><a>Add a new collection</a></li>
 				</ul>
 			</div><!-- end of manage body left section -->
 			<div id="manage-right">
@@ -38,6 +40,7 @@
 					</ul>
 				</div>
 			</div>
+			<div class="clear"></div>
 		</div>
 
     </div>

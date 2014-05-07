@@ -263,20 +263,21 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "\t\t<div id=\"manage-top\">\n" +
     "\t\t\t<div id=\"manage-top-left\">\n" +
-    "\t\t\t\t<h2>All Videos &raquo; <span class=\"highlight\">(~ currentFilter.name ~)</span></h2>\n" +
+    "\t\t\t\t<h2>All Videos &raquo; <span class=\"highlighted\">(~ currentFilter.name ~)</span></h2>\n" +
     "\t\t\t</div>\n" +
     "\t\t\t<div id=\"manage-top-right\">\n" +
-    "\t\t\t\t<searchfield></searchfield>\n" +
+    "\t\t\t\t<input type=\"text\" id=\"manage-search-videos\" placeholder=\"Search\" />\n" +
     "\t\t\t</div>\n" +
+    "\t\t\t<div class=\"clear\"></div>\n" +
     "\t\t</div><!-- end of top section -->\n" +
     "\n" +
     "\t\t<div id=\"manage-body\">\n" +
     "\t\t\t<div id=\"manage-left\">\n" +
     "\t\t\t\t<h3>Manage</h3>\n" +
     "\t\t\t\t<ul>\n" +
-    "\t\t\t\t\t<li><a>All videos</a></li>\n" +
-    "\t\t\t\t\t<li><a>Uploads in progress</a></li>\n" +
-    "\t\t\t\t\t<li><a>Recently added videos</a></li>\n" +
+    "\t\t\t\t\t<li><a ng-click=\"changeFilter('none')\" ng-class=\"{ highlighted: currentFilter.slug == 'none' }\">All videos</a></li>\n" +
+    "\t\t\t\t\t<li><a ng-click=\"changeFilter('uploads')\" ng-class=\"{ highlighted: currentFilter.slug == 'uploads' }\">Uploads in progress</a></li>\n" +
+    "\t\t\t\t\t<li><a ng-click=\"changeFilter('recent')\" ng-class=\"{ highlighted: currentFilter.slug == 'recent' }\">Recently added videos</a></li>\n" +
     "\t\t\t\t</ul>\n" +
     "\t\t\t\t<h3>Collections not visible in app</h3>\n" +
     "\t\t\t\t<ul>\n" +
@@ -284,6 +285,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t</ul>\n" +
     "\t\t\t\t<h3>Collections visible in app</h3>\n" +
     "\t\t\t\t<ul>\n" +
+    "\t\t\t\t\t<li><a>Add a new collection</a></li>\n" +
     "\t\t\t\t</ul>\n" +
     "\t\t\t</div><!-- end of manage body left section -->\n" +
     "\t\t\t<div id=\"manage-right\">\n" +
@@ -297,6 +299,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t\t</ul>\n" +
     "\t\t\t\t</div>\n" +
     "\t\t\t</div>\n" +
+    "\t\t\t<div class=\"clear\"></div>\n" +
     "\t\t</div>\n" +
     "\n" +
     "    </div>\n" +
