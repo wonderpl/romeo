@@ -552,9 +552,9 @@
         /*
         * Used to send PATCH requests to the webservice, updating individual parts of the user account
         */
-        Account.updateUser = function() {
-            var url = '';
-            return DataService.request({url: url});
+        Account.updateUser = function(data) {
+            var url = '/api/account/' + ID;
+            return DataService.request({url: url, method: 'PATCH', data: data });
         };
 
         Account.updateCoverImage = function(data) {
@@ -710,10 +710,7 @@
         ['$http', '$q', '$location', 'AuthService', 'ErrorService', '$timeout',
         function ($http, $q, $location, AuthService, ErrorService, $timeout) {
 
-        var Data = {},
-            defaultOptions = {
-                method: 'GET'
-            };
+        var Data = {};
 
         /*
         * If the user is authorised to make a request, go for it!
@@ -721,8 +718,6 @@
         Data.request = function(options) {
             var deferred = new $q.defer();
 
-            options = ng.extend(options, defaultOptions);
-            
             AuthService.loginCheck().then(function(){
                 
                 $http(options).then(function(response){

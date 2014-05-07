@@ -237,7 +237,6 @@
   .row {
     display: block;
     position: relative;
-    padding-bottom: 24px;
   }
 
   .placeholder {
@@ -257,6 +256,23 @@
       border: none;
     }
   }
+
+  input, textarea {
+    text-align: center;
+    border: none;
+    outline: none;
+    color: #4a4a4a;
+    font-weight: 300;
+
+    &.disabled {
+      cursor: default;
+    }
+
+    &:hover, &:active, &:focus {
+      border: none;
+      outline: none;
+    }
+  }
 }
 
 #edit-profile-name {
@@ -266,6 +282,7 @@
 #edit-profile-username {
   color: #777782;
   font-size: 18px;
+  margin-bottom: 10px;
 }
 
 #edit-profile-description {

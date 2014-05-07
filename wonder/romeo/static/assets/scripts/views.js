@@ -33,6 +33,16 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </div> -->\n" +
     "    <div class=\"inner\" id=\"edit-profile-details\">\n" +
     "        <div class=\"row\">\n" +
+    "            <input type=\"text\" id=\"edit-profile-name\" ng-model=\"User.display_name\" data-model=\"display_name\" placeholder=\"Your Full Name\" ng-class=\"{ disabled: !isEditable }\" auto-save-field disable-new-lines />\n" +
+    "        </div>\n" +
+    "        <div class=\"row\">\n" +
+    "            <input type=\"text\" id=\"edit-profile-username\" ng-model=\"User.name\" data-model=\"name\" placeholder=\"Your Username\" ng-class=\"{ disabled: !isEditable }\" auto-save-field disable-new-lines />\n" +
+    "        </div>\n" +
+    "        <div class=\"row\">\n" +
+    "            <textarea type=\"text\" id=\"edit-profile-description\" ng-model=\"User.description\" data-model-\"description\" placeholder=\"Describe yourself in a few words\" ng-class=\"{ disabled: !isEditable }\" auto-save-field disable-new-lines></textarea\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <!--<div class=\"row\">\n" +
     "            <pre id=\"edit-profile-name\" ng-class=\"{ disabled: !isEditable }\" placeholder=\"Your Full Name\" ng-paste=\"cleanPaste($event)\" data-model=\"display_name\" pl-content-editable-placeholder contenteditable auto-save-field disableNewLines>(~ User.display_name ~)</pre>\n" +
     "        </div>\n" +
     "        <div class=\"row\">\n" +
@@ -40,7 +50,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        </div>\n" +
     "        <div class=\"row\">\n" +
     "            <pre id=\"edit-profile-description\" ng-class=\"{ disabled: !isEditable }\" placeholder=\"Describe yourself in a few words\" ng-paste=\"cleanPaste($event)\" data-model=\"description\" pl-content-editable-placeholder contenteditable auto-save-field disableNewLines>(~ User.description ~)</pre>\n" +
-    "        </div>\n" +
+    "        </div>-->\n" +
     "    </div>\n" +
     "</div>\n" +
     "\n"

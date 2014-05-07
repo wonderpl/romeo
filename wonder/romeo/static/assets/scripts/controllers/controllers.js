@@ -728,11 +728,12 @@
         * Listen for autosave broadcasts from our auto-save-field directives
         */
         $scope.$on('autosave', function(e, attr, val, date){
-            $timeout(function(){
-                $scope.$apply(function(){
-                    console.log( ' AUTOSAVE CAUGHT ' );
-                });
-            }); 
+            var data = {};
+            data[attr] = val;
+            AccountService.updateUser(data);
+            // .then(function(){
+            //     AccountService.getUser();
+            // }); 
         });
 
     }]);

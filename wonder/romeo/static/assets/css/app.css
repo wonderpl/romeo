@@ -115,8 +115,8 @@ a.button:hover, a.button:active, a.button:focus, a.button.active {
   *display: inline;
   padding: 10px 14px;
   margin: 0 12px;
-  border: 1px solid #dcdbe0;
-  color: #b4b2bc;
+  border: 1px solid #727272;
+  color: #727272;
   -webkit-border-radius: 50px;
   -moz-border-radius: 50px;
   -ms-border-radius: 50px;
@@ -130,18 +130,18 @@ a.button:hover, a.button:active, a.button:focus, a.button.active {
   transition: all 0.1s ease-out;
   user-select: none;
 }
-/* line 44, ../../scss/partials/_base.scss */
+/* line 45, ../../scss/partials/_base.scss */
 .wp-button.highlight {
   border: 1px solid #727272;
   color: #727272;
 }
-/* line 49, ../../scss/partials/_base.scss */
+/* line 50, ../../scss/partials/_base.scss */
 .wp-button.call-to-action, .wp-button:focus, .wp-button:active, .wp-button:hover {
   outline: none;
   border: 1px solid #37A54B;
   color: #37A54B;
 }
-/* line 56, ../../scss/partials/_base.scss */
+/* line 57, ../../scss/partials/_base.scss */
 .wp-button.call-to-action:focus, .wp-button.call-to-action:active, .wp-button.call-to-action:hover {
   outline: none;
   border: 1px solid #37A54B;
@@ -3849,9 +3849,8 @@ video, canvas {
 #edit-profile-details .row {
   display: block;
   position: relative;
-  padding-bottom: 24px;
 }
-/* line 243, ../../scss/partials/romeo/_account.scss */
+/* line 242, ../../scss/partials/romeo/_account.scss */
 #edit-profile-details .placeholder {
   color: #999;
   position: absolute;
@@ -3860,34 +3859,52 @@ video, canvas {
   z-index: 10;
   width: 100%;
 }
-/* line 252, ../../scss/partials/romeo/_account.scss */
+/* line 251, ../../scss/partials/romeo/_account.scss */
 #edit-profile-details pre {
   color: #4a4a4a;
 }
-/* line 255, ../../scss/partials/romeo/_account.scss */
+/* line 254, ../../scss/partials/romeo/_account.scss */
 #edit-profile-details pre:focus, #edit-profile-details pre:hover, #edit-profile-details pre:active {
   outline: none;
   border: none;
 }
+/* line 260, ../../scss/partials/romeo/_account.scss */
+#edit-profile-details input, #edit-profile-details textarea {
+  text-align: center;
+  border: none;
+  outline: none;
+  color: #4a4a4a;
+  font-weight: 300;
+}
+/* line 267, ../../scss/partials/romeo/_account.scss */
+#edit-profile-details input.disabled, #edit-profile-details textarea.disabled {
+  cursor: default;
+}
+/* line 271, ../../scss/partials/romeo/_account.scss */
+#edit-profile-details input:hover, #edit-profile-details input:active, #edit-profile-details input:focus, #edit-profile-details textarea:hover, #edit-profile-details textarea:active, #edit-profile-details textarea:focus {
+  border: none;
+  outline: none;
+}
 
-/* line 262, ../../scss/partials/romeo/_account.scss */
+/* line 278, ../../scss/partials/romeo/_account.scss */
 #edit-profile-name {
   font-size: 26px;
 }
 
-/* line 266, ../../scss/partials/romeo/_account.scss */
+/* line 282, ../../scss/partials/romeo/_account.scss */
 #edit-profile-username {
   color: #777782;
   font-size: 18px;
+  margin-bottom: 10px;
 }
 
-/* line 271, ../../scss/partials/romeo/_account.scss */
+/* line 288, ../../scss/partials/romeo/_account.scss */
 #edit-profile-description {
   color: #777782;
   font-size: 18px;
 }
 
-/* line 276, ../../scss/partials/romeo/_account.scss */
+/* line 293, ../../scss/partials/romeo/_account.scss */
 #toggle-editable-button {
   position: absolute;
   bottom: -60px;
@@ -3896,14 +3913,14 @@ video, canvas {
   background: #727272;
   color: white;
 }
-/* line 284, ../../scss/partials/romeo/_account.scss */
+/* line 301, ../../scss/partials/romeo/_account.scss */
 #toggle-editable-button:hover, #toggle-editable-button:focus, #toggle-editable-button:active {
   border: 1px solid #727272;
   color: #727272;
   background: white;
 }
 
-/* line 291, ../../scss/partials/romeo/_account.scss */
+/* line 308, ../../scss/partials/romeo/_account.scss */
 .account-upload-spinner {
   display: block;
   width: 100%;

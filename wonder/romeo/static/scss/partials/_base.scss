@@ -33,8 +33,9 @@ a.button {
     @include inline-block;
     padding: 10px 14px;
     margin: 0 12px;
-    border: 1px solid lighten(#b4b2bc, 15%);
-    color: #b4b2bc;
+    border: 1px solid #727272;
+    // lighten(#b4b2bc, 15%);
+    color: #727272;
     @include border-radius( 50px );
     cursor: pointer;
     text-decoration: none;

@@ -234,7 +234,6 @@
 
     /*
     * Description: Used on the upload page - broadcasts from the rootscope when the data changes
-    * Used on: Input fields
     */
     app.directive('autoSaveField', ['$rootScope', function($rootScope){
         return {
@@ -244,17 +243,23 @@
                 var saveInterval;
 
                 var save = function(){
-                    $rootScope.$broadcast('autosave', elem.attr('data-model'), elem[0].innerText, new Date().toISOString());
+                    $rootScope.$broadcast('autosave', elem.attr('data-model'), elem[0].innerText || elem.val(), new Date().toISOString());
                 };
                 
                 elem.bind('focus', function() {
-                    saveInterval = setInterval( save, 30000 );
-                    $rootScope.$broadcast('inputFocussed');
+                    if ( elem.hasClass('disabled') ){
+                        elem.blur();
+                    } else {
+                        saveInterval = setInterval( save, 30000 );
+                        $rootScope.$broadcast('inputFocussed');                        
+                    }
                 });
 
                 elem.bind('blur', function() {
-                    clearInterval( saveInterval );
-                    save();
+                    if ( !elem.hasClass('disabled') ){
+                        clearInterval( saveInterval );
+                        save();
+                    }
                 });
 
                 elem.bind('keydown', function(e) {
