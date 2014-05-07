@@ -192,22 +192,24 @@ class AccountVideosResource(Resource):
             return dict(error='invalid_request', form_errors=form.errors), 400
 
 
-def _video_item(video):
-    data = {f: getattr(video, f) for f in (
-        'id', 'href', 'status', 'date_added', 'date_updated',
-        'title', 'description', 'duration', 'category')}
+def _video_item(video, full=False):
+    fields = ('id', 'href', 'status', 'date_added', 'date_updated', 'title')
+    if full:
+        fields += ('description', 'category', 'link_url', 'link_title', 'duration')
+    data = {f: getattr(video, f) for f in fields}
 
     # Convert dates to strings:
     for f, v in data.items():
         if hasattr(v, 'isoformat'):
             data[f] = v.isoformat()
 
-    data['player_logo_url'] = video.get_player_logo_url()
+    if full:
+        data['player_logo_url'] = video.get_player_logo_url()
 
     data['thumbnails'] = dict(
         items=[
             {f: getattr(thumbnail, f) for f in ('url', 'width', 'height')}
-            for thumbnail in video.thumbnails
+            for thumbnail in video.thumbnails[:None if full else 1]
         ]
     )
 
@@ -234,7 +236,7 @@ def video_view(f):
 class VideoResource(Resource):
     @video_view
     def get(self, video):
-        return _video_item(video)
+        return _video_item(video, full=True)
 
     @commit_on_success
     @video_view
@@ -247,7 +249,7 @@ class VideoResource(Resource):
 
         if form.validate():
             form.save()
-            return _video_item(video), 200
+            return _video_item(video, full=True), 200
         else:
             return dict(error='invalid_request', form_errors=form.errors), 400
 

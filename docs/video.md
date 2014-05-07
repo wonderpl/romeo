@@ -137,10 +137,7 @@ Content-Type: application/json
     "date_updated": "2014-03-28 15:58:04",
     "status": "processing",
     "title": "test",
-    "description": "test desc",
     "category": null,
-    "player_logo_url": null,
-    "duration": 600,
     "thumbnails": {
      "items": []
     },
@@ -199,6 +196,54 @@ Content-Type: application/json
  "error": "invalid_request",
  "form_errors": {
   "category": ["Not a valid choice"]
+ }
+}
+```
+
+### Video detail
+
+To get full video resource record:
+
+```http
+GET /api/video/<video_id> HTTP/1.1
+```
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+ "id": 51668773,
+ "href": "/api/video/51668773",
+ "status": "processing",
+ "date_added": "2014-03-31T23:16:24.871134",
+ "date_updated": "2014-05-01T16:47:33.841167",
+ "title": "test",
+ "description": "",
+ "duration": 60,
+ "category": "some cat",
+ "link_url": "http://x.com",
+ "link_title": "test",
+ "player_logo_url": "http://path/to/logo/img",
+ "thumbnails": {
+  "items": [
+   {
+    "url": "http://path/to/image.jpg",
+    "width": 1920,
+    "height": 1080
+   }
+  ]
+ },
+ "tags": {
+  "href": "/api/video/51668773/tags",
+  "items": [
+   {
+    "id": 5,
+    "href": "/api/tag/5",
+    "label": "test2",
+    "description": "desc"
+   }
+  ]
  }
 }
 ```

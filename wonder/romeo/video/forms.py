@@ -55,7 +55,7 @@ class VideoForm(BaseForm):
     category = wtforms.SelectField(validators=[wtforms.validators.Optional()])
     filename = wtforms.StringField()
     player_logo = wtforms.FileField()
-    link_url = wtforms.StringField()
+    link_url = wtforms.StringField(validators=[wtforms.validators.URL()])
     link_title = wtforms.StringField()
 
     def __init__(self, *args, **kwargs):

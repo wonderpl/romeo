@@ -4,6 +4,7 @@ from sqlalchemy import (
     Column, Integer, String, Boolean, DateTime, ForeignKey, Enum,
     PrimaryKeyConstraint, func, event)
 from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.ext.associationproxy import association_proxy
 from flask import session, url_for, current_app
 from wonder.romeo import db
@@ -25,7 +26,6 @@ class Video(db.Model):
     date_added = Column(DateTime(), nullable=False, default=func.now())
     date_updated = Column(DateTime(), nullable=False, default=func.now(), onupdate=func.now())
     title = Column(String(256), nullable=False)
-    description = Column(String(256))
     duration = Column(Integer, nullable=False, server_default='0')
     filename = Column(String(16))
     external_id = Column(String(32))
@@ -66,6 +66,27 @@ class Video(db.Model):
         self.player_logo_filename = filename
 
     player_logo = property(get_player_logo_url, set_player_logo)
+
+    @property
+    def default_locale_meta(self):
+        if not hasattr(self, '_default_locale_meta'):
+            try:
+                self._default_locale_meta =\
+                    VideoLocaleMeta.query.filter_by(video_id=self.id, locale='').one()
+            except NoResultFound:
+                self._default_locale_meta = VideoLocaleMeta(locale='', title=self.title)
+                self.locale_meta.append(self._default_locale_meta)
+        return self._default_locale_meta
+
+    def _default_locale_meta_property(property):
+        return (
+            lambda self: getattr(self.default_locale_meta, property),
+            lambda self, value: setattr(self.default_locale_meta, property, value),
+        )
+
+    description = property(*_default_locale_meta_property('description'))
+    link_url = property(*_default_locale_meta_property('link_url'))
+    link_title = property(*_default_locale_meta_property('link_title'))
 
     def record_workflow_event(self, type, value=None):
         self.workflow_events.append(VideoWorkflowEvent.create(type, value))
