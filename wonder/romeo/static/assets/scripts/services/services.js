@@ -435,41 +435,70 @@
     /*
     * Methods for interacting with the Video web services
     */
-    app.factory('VideoService', ['DataService', 'localStorageService', '$rootScope', 'AuthService', function (DataService, localStorageService, $rootScope, AuthService) {
+    app.factory('VideoService', ['DataService', 'localStorageService', '$rootScope', 'AuthService', '$q', function (DataService, localStorageService, $rootScope, AuthService, $q) {
 
-        var Video = {};
+        var Video = {},
+            Videos = {};
 
+        /*
+        * Returns a promise, which if resolves returns an array of all of the available video categories
+        */
         Video.getCategories = function () {
             var url = '/api/categories';
             console.log('DataService about to be called on:', url);
             return DataService.request({url: url});
         };
 
+        /*
+        * Returns an object with Amazon S3 credentials that are required for uploading video files
+        */
         Video.getUploadArgs = function () {
-            var url = '/api/account/' + AuthService.getUserId() + '/upload_args';
-            return DataService.request({url: url});
+            var deferred = new $q.defer();
+            AuthService.getSessionId().then(function(response){
+                deferred.resolve(DataService.request({url: '/api/account/' + response + '/upload_args'}));
+            });
+            return deferred.promise;
         };
 
+        /*
+        * Ask the web service for the preview images for a specific video
+        */
         Video.getPreviewImages = function (id) {
+            console.log('get preview images called on video id', id);
             var url = '/api/video/' + id + '/preview_images';
             return DataService.request({ url: url, method: 'GET'});
         };
 
+        /*
+        * Set a specific preview image to be used on a specific video
+        */
         Video.setPreviewImage = function(id, data) {
             var url = '/api/video/' + id + '/primary_preview_image';
             return DataService.request({ url: url, method: 'PUT', data: data });
         };
 
+        /*
+        * Create a new video record - returns a promise, which if resolved contains the video id.
+        */
         Video.create = function (data) {
-            var url = '/api/account/' + AuthService.getUserId() + '/videos';
-            return DataService.request({ url: url, method: 'POST', data: data });
+            var deferred = new $q.defer();
+            AuthService.getSessionId().then(function(response){
+                deferred.resolve(DataService.request({url: '/api/account/' + response + '/videos', method: 'POST', data: data}));
+            });
+            return deferred.promise;
         };
 
+        /*
+        * Update a specific video record ( PATCH )
+        */
         Video.update = function (id, data) {
             var url = '/api/video/' + id + '';
             return DataService.request({ url: url, method: 'PATCH', data: data });
         };
 
+        /*
+        * Upload a custom logo to be used for the embedded player for this video
+        */
         Video.saveCustomLogo = function (id, file) {
 
             var deferred = new $q.defer(),
@@ -490,15 +519,30 @@
             return deferred.promise;
         };
 
+        /*
+        * Get a specific video from the web service
+        */
         Video.get = function(id) {
+            console.log('video GET called');
             var url = '/api/video/' + id + '';
             return DataService.request({ url: url, method: 'GET'});
         };
 
+        /*
+        * Get all of the videos from the web service for the user who is currently logged in.
+        */
         Video.getAll = function() {
-            var url = '/api/account/' + AuthService.getUserId() + '/videos';
-            return DataService.request({ url: url, method: 'GET'});
+            var deferred = new $q.defer();
+            AuthService.getSessionId().then(function(response){
+                DataService.request({ url: '/api/account/' + response + '/videos', method: 'GET'}).then(function(response){
+                    $rootScope.$broadcast('videos updated', response);
+                });
+            });
+            return deferred.promise;
         };
+
+
+        Video.getAll();
 
         return {
             getCategories: Video.getCategories,
@@ -533,9 +577,9 @@
                 AuthService.getSessionId().then(function(response){
                     ID = response;
                     DataService.request({url: ('/api/account/' + ID)}).then(function(response){
-                        console.log('User:', response);
                         User = response;
-                        $rootScope.$broadcast('user updated', response);
+                        $rootScope.User = response;
+                        // $rootScope.$broadcast('user updated', response);
                         deferred.resolve(response);
                     });
                 });
@@ -565,7 +609,9 @@
             return DataService.uploadImage( ('/api/account/' + ID), 'avatar', data);
         };
 
-        Account.getUser();
+        Account.getUser().then(function(response){
+            console.log('Account Service initialised');
+        });
 
         return {
             getUser: Account.getUser,
@@ -611,8 +657,6 @@
         */
         Auth.isLoggedIn = function() {
             return loggedIn;
-            // console.log( 'is logged in', localStorageService.get('session_url') !== null );
-            // return localStorageService.get('session_url') !== null;
         };
 
         /*
@@ -649,8 +693,7 @@
         */
         Auth.setSession = function(sessionData) {
             localStorageService.add('session_url', sessionData.href);
-            session = sessionData;
-            session.id = sessionData.href.match(/api\/account\/(\d+)/)[1];
+            session = sessionData.href;
             return session;
         };
 
@@ -660,15 +703,15 @@
         Auth.getSession = function() {
             var deferred = new $q.defer();
 
-            if ( session !== null ) {
-                $timeout(function(){
-                    deferred.resolve(session);
-                });
-            } else {
-                $timeout(function(){
+            $timeout(function() {
+                if ( session !== null ) {
+                    deferred.resolve(session.account || session);
+                } else if ( localStorageService.get('session_url') !== null ) {
                     deferred.resolve(localStorageService.get('session_url'));
-                });
-            }
+                } else {
+                    deferred.reject('no session');
+                }
+            });
 
             return deferred.promise;
         };
@@ -680,6 +723,8 @@
             var deferred = new $q.defer();
             Auth.getSession().then(function(response){
                 deferred.resolve(response.match(/api\/account\/(\d+)/)[1]);
+            }, function(response){
+                deferred.reject('not logged in');
             });
             return deferred.promise;
         };

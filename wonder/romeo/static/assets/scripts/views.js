@@ -36,10 +36,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "            <input type=\"text\" id=\"edit-profile-name\" ng-model=\"User.display_name\" data-model=\"display_name\" placeholder=\"Your Full Name\" ng-class=\"{ disabled: !isEditable }\" auto-save-field disable-new-lines />\n" +
     "        </div>\n" +
     "        <div class=\"row\">\n" +
-    "            <input type=\"text\" id=\"edit-profile-username\" ng-model=\"User.name\" data-model=\"name\" placeholder=\"Your Username\" ng-class=\"{ disabled: !isEditable }\" auto-save-field disable-new-lines />\n" +
+    "            <input type=\"text\" id=\"edit-profile-username\" class=\"disabled\" value=\"@(~ User.name ~)\" data-model=\"name\" placeholder=\"Your Username\" auto-save-field disable-new-lines />\n" +
     "        </div>\n" +
     "        <div class=\"row\">\n" +
-    "            <textarea type=\"text\" id=\"edit-profile-description\" ng-model=\"User.description\" data-model-\"description\" placeholder=\"Describe yourself in a few words\" ng-class=\"{ disabled: !isEditable }\" auto-save-field disable-new-lines></textarea\n" +
+    "            <textarea type=\"text\" id=\"edit-profile-description\" ng-model=\"User.description\" data-model=\"description\" placeholder=\"Describe yourself in a few words\" ng-class=\"{ disabled: !isEditable }\" auto-save-field disable-new-lines></textarea\n" +
     "        </div>\n" +
     "\n" +
     "        <!--<div class=\"row\">\n" +
@@ -252,6 +252,15 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t</div>\n" +
     "\t\t</form>\n" +
     "\t</div>\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('manage.html',
+    "<div id=\"page-manage\" class=\"section\" ng-controller=\"ManageController\">\n" +
+    "    <div class=\"inner\">\n" +
+    "    \t<h1>Manage your videos &amp; collections</h1>\n" +
+    "    </div>\n" +
     "</div>"
   );
 

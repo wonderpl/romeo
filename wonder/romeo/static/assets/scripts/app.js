@@ -29,9 +29,9 @@
         $interpolateProvider.startSymbol('(~');
         $interpolateProvider.endSymbol('~)');
 
-        // Library
-        $routeProvider.when('/library', {
-            templateUrl: 'library.html',
+        // Manage
+        $routeProvider.when('/manage', {
+            templateUrl: 'manage.html',
             resolve: authChecks
         });
 

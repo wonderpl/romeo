@@ -122,7 +122,20 @@
             e.preventDefault();
             var text = e.clipboardData.getData("text/plain");
             document.execCommand("insertHTML", false, text);
-        };        
+        };
+
+        /*
+        * Listen for changes to the user object
+        */
+        // $scope.$on('user updated', function(e, data){
+        //     $timeout(function() {
+        //         $rootScope.$apply(function() {
+        //             $rootScope.User = data;
+        //             // $scope.$broadcast('update autosave fields')
+        //         });
+        //     });
+        // });
+        
     }]);
 
     app.controller('DashboardController',
@@ -130,519 +143,389 @@
             function ($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile) {
             }]);
 
-    app.controller('LibraryController',
-        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$sanitize', '$modal', 'VideoService', 'StatsService', 'DragDropService', 'FlashService', '$filter',
-            function ($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $sanitize, $modal, VideoService, StatsService, DragDropService, FlashService, $filter) {
+    // app.controller('LibraryController',
+    //     ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$sanitize', '$modal', 'VideoService', 'StatsService', 'DragDropService', 'FlashService', '$filter',
+    //         function ($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $sanitize, $modal, VideoService, StatsService, DragDropService, FlashService, $filter) {
 
-                VideoService.getAll().then(function (data) {
-                    $timeout(function () {
-                        $scope.$apply(function () {
-                            console.log(data);
-                            $scope.videos = data.videos;
-                            $scope.collections = data.collections;
+    //     VideoService.getAll().then(function (data) {
+    //         $timeout(function () {
+    //             $scope.$apply(function () {
+    //                 console.log(data);
+    //                 $scope.videos = data.videos;
+    //                 $scope.collections = data.collections;
 
-                            var res = $filter('videoSearchFilter')($scope.videos, $scope.filter);
-                            $scope.filter.results = res.results;
-                            $scope.filter.numresults = res.length;
+    //                 var res = $filter('videoSearchFilter')($scope.videos, $scope.filter);
+    //                 $scope.filter.results = res.results;
+    //                 $scope.filter.numresults = res.length;
 
-                            $scope.loading = false;
-                            $scope.selectedAction = $scope.collections[0];
+    //                 $scope.loading = false;
+    //                 $scope.selectedAction = $scope.collections[0];
 
-                            $scope.buildView();
-                        });
-                    }, 500);
-                }, function (err) {
-                    console.log(err);
-                    // console.log('ERROR');
-                });
+    //                 $scope.buildView();
+    //             });
+    //         }, 500);
+    //     }, function (err) {
+    //         console.log(err);
+    //         // console.log('ERROR');
+    //     });
 
-                // $scope.selectedAction = undefined;
-                $scope.modalShowing = false;
-                $scope.dragItem = undefined;
-                $scope.loading = true;
-                $scope.numResults = 0;
-                $scope.viewType = "grid";
+    //     // $scope.selectedAction = undefined;
+    //     $scope.modalShowing = false;
+    //     $scope.dragItem = undefined;
+    //     $scope.loading = true;
+    //     $scope.numResults = 0;
+    //     $scope.viewType = "grid";
 
-                $scope.selectedItems = [];
-                $scope.searchResults = {};
-                $scope.filterText = '';
+    //     $scope.selectedItems = [];
+    //     $scope.searchResults = {};
+    //     $scope.filterText = '';
 
-                $scope.view = ng.element(d.getElementById('video-view'));
+    //     $scope.view = ng.element(d.getElementById('video-view'));
 
-                $scope.filter = {
-                    collection: null,
-                    searchtext: "",
-                    results: {},
-                    numresults: 0
-                };
-
-                $scope.buildView = function () {
-                    var template = $templateCache.get(( $scope.viewType === 'list' ? 'video-list-list' : 'video-list-grid' ) + '.html');
-                    var tmpl = $compile($sanitize(template))($scope);
-                    $scope.view.html('');
-                    $scope.view.append(tmpl);
-                };
-
-                $scope.changeView = function (view) {
-                    $timeout(function () {
-                        $scope.$apply(function () {
-                            $scope.selectedItems = [];
-                            $scope.$broadcast('deselectAll');
-                            $scope.viewType = view;
-                            $scope.buildView();
-                        });
-                    });
-                };
-
-                // Listen for checkbox events ( these are coming from the checkbox directive )
-                $scope.$on('checkboxChecked', function (event, checked, id) {
-                    $timeout(function () {
-                        $scope.$apply(function () {
-                            if (checked === true) {
-                                if ($rootScope.isUnique($scope.selectedItems, id)) {
-                                    $scope.selectedItems.push(id);
-                                }
-                            } else {
-                                for (var i = 0; i < $scope.selectedItems.length; i++) {
-                                    if (id === $scope.selectedItems[i]) {
-                                        $scope.selectedItems.splice(i, 1);
-                                    }
-                                }
-                            }
-                            $scope.$broadcast('dropdown-' + ( $scope.selectedItems.length > 0 ? 'enabled' : 'disabled' ));
-                        });
-                    });
-                });
-
-                /*  Drag n' Drop events
-                 /* ================================== */
-                $scope.$on('dragStarted', function (e, index) {
-                    $timeout(function () {
-                        $scope.$apply(function () {
-                            // If the selected items list is empty
-                            if ($scope.selectedItems.length === 0) {
-                                $scope.dragItem = index;
-                                DragDropService.setTags([$scope.videos[index].title]);
-                            } else {
-                                // Not in the list
-                                if ($rootScope.isUnique($scope.selectedItems, index)) {
-                                    $timeout(function () {
-                                        $scope.$apply(function () {
-                                            $scope.selectedItems = [];
-                                            $scope.dragItem = index;
-                                            DragDropService.setTags([$scope.videos[index].title]);
-                                            $scope.$broadcast('deselectAll');
-                                        });
-                                    });
-                                    // In the list
-                                } else {
-                                    $scope.dragItem = undefined;
-                                }
-                            }
-                        });
-                    });
-                });
-
-                $scope.$on('dragDropped', function (e, index) {
-                    $timeout(function () {
-                        $scope.$apply(function () {
-                            $scope.selectedAction = index;
-                            $scope.addToCollection();
-                        });
-                    });
-                });
-
-                $scope.$on('dragCancelled', function (e, index) {
-                    $timeout(function () {
-                        $scope.$apply(function () {
-                            $scope.dragItem = undefined;
-                        });
-                    });
-                });
-
-                /*  Search text change watcher
-                 /* ================================== */
-                $scope.$watch('filter.searchtext', function (newValue, oldValue) {
-                    var res = $filter('videoSearchFilter')($scope.videos, $scope.filter);
-                    $scope.filter.results = res.results;
-                    $scope.filter.numresults = res.length;
-                });
-
-                /*  Selected ( checked ) item watcher
-                 /* ================================== */
-                $scope.$watchCollection('selectedItems', function (newValue, oldValue) {
-                    var tags = [];
-                    if ($scope.dragItem !== undefined) {
-                        console.log($scope.videos[$scope.dragItem]);
-                        tags.push($scope.videos[$scope.dragItem]);
-                    }
-                    if (newValue.length > 0) {
-                        for (var i = 0; i < newValue.length; i++) {
-                            tags.push($scope.videos[newValue[i]].title);
-                        }
-                        DragDropService.setTags(tags);
-                    }
-                });
-
-                /*  UI Actions
-                 /* ================================== */
-
-                // Apply a filter to the video list
-                $scope.filterByCollection = function ($event, id) {
-                    event.preventDefault();
-                    $timeout(function () {
-                        $scope.$apply(function () {
-                            $scope.filter.collection = id;
-                            var res = $filter('videoSearchFilter')($scope.videos, $scope.filter);
-                            $scope.filter.results = res.results;
-                            $scope.filter.numresults = res.length;
-                        });
-                    });
-                };
-
-                // Clear the video list filter
-                $scope.clearFilter = function ($event, txt) {
-                    event.preventDefault();
-                    var type = txt || '';
-
-                    $timeout(function () {
-                        $scope.$apply(function () {
-
-                            if (type === 'collection') {
-                                $scope.filter.collection = null;
-                            } else if (type === 'search') {
-                                $scope.filter.searchtext = '';
-                            } else {
-                                $scope.filter.collection = null;
-                                $scope.filter.searchtext = '';
-                            }
-
-                            var res = $filter('videoSearchFilter')($scope.videos, $scope.filter);
-                            $scope.filter.results = res.results;
-                            $scope.filter.numresults = res.length;
-                        });
-                    });
-                };
-
-                // $scope.noResults = function(){
-                // console.log( $filter('videoSearchFilter')($scope.videos, $scope.filterText) );
-                // if ( $filter('videoSearchFilter')($scope.videos).length ) {
-                // }
-                // };
-
-                $scope.showAddToCollectionForm = function ($event) {
-                    var arr = [];
-                    ng.forEach($scope.collections, function (value, key) {
-                        arr.push({
-                            key: key,
-                            label: value.label
-                        });
-                    });
-                    $modal.load('modal-add-to-collection.html', true, $scope, { collections: arr, selectedAction: arr[0] });
-                };
-
-                $scope.submitAddToCollectionForm = function (data) {
-                    $timeout(function () {
-                        $scope.$apply(function () {
-                            $scope.selectedAction = data.selectedAction.key
-                            $scope.addToCollection();
-                            $modal.hide();
-                        });
-                    });
-                };
-
-                $scope.showRemoveFromCollectionForm = function ($event) {
-                    var arr = [];
-                    ng.forEach($scope.collections, function (value, key) {
-                        arr.push({
-                            key: key,
-                            label: value.label
-                        });
-                    });
-                    $modal.load('modal-remove-from-collection.html', true, $scope, { collections: arr, selectedAction: arr[0] });
-                };
-
-                $scope.submitRemoveFromCollectionForm = function (data) {
-                    $timeout(function () {
-                        $scope.$apply(function () {
-                            $scope.selectedAction = data.selectedAction.key
-                            $scope.addToCollection();
-                            $modal.hide();
-                        });
-                    });
-                };
-
-                $scope.addToCollection = function ($event) {
-                    if ($event) {
-                        $event.preventDefault();
-                    }
-                    $timeout(function () {
-                        $scope.$apply(function () {
-
-                            var cat = $scope.selectedAction;
-
-                            console.log('cat', cat);
-
-                            if ($scope.dragItem !== undefined && $rootScope.isUnique($scope.selectedItems, $scope.dragItem)) {
-                                $scope.selectedItems.push($scope.dragItem);
-                            }
-
-                            for (var i = 0; i < $scope.selectedItems.length; i++) {
-                                if ($rootScope.isUnique($scope.videos[$scope.selectedItems[i]].collections, cat) === true) {
-                                    $scope.videos[$scope.selectedItems[i]].collections.push(cat);
-                                    FlashService.flash('Successfully added ' + $scope.videos[$scope.selectedItems[i]].title + ' to ' + $scope.collections[cat].label, 'success');
-                                } else {
-                                    FlashService.flash($scope.videos[$scope.selectedItems[i]].title + ' is already in the collection ' + $scope.collections[cat].label, 'warning');
-                                }
-                            }
-                            $scope.selectedItems = [];
-                            $scope.$broadcast('dropdown-disabled');
-                            $scope.$broadcast('deselectAll');
-                        });
-                    });
-                };
-
-                $scope.removeFromCollection = function ($event, index, collection) {
-                    $event.preventDefault();
-                    ng.forEach($scope.videos[index].collections, function (value, key) {
-                        if (value === collection) {
-                            $timeout(function () {
-                                $scope.$apply(function () {
-                                    $scope.videos[index].collections.splice(key, 1);
-                                    FlashService.flash('Successfully removed video from collection', 'success');
-                                });
-                            });
-                        }
-                    });
-                };
-
-                $scope.selectAll = function ($event) {
-                    $event.preventDefault();
-
-                    $scope.$broadcast('selectAll');
-
-                    $timeout(function () {
-                        $scope.$apply(function () {
-                            $scope.selectedItems = [];
-                            ng.forEach($scope.videos, function (value, key) {
-                                $scope.selectedItems.push(key);
-                            });
-                            console.log($scope.selectedItems);
-                            $scope.$broadcast('dropdown-enabled');
-                        });
-                    });
-                };
-
-                $scope.deselectAll = function ($event) {
-                    $event.preventDefault();
-                    $scope.$broadcast('deselectAll');
-                    $timeout(function () {
-                        $scope.$apply(function () {
-                            $scope.selectedItems = [];
-                            $scope.$broadcast('dropdown-disabled');
-                        });
-                    });
-                };
-
-                $scope.listCollections = function (arr) {
-                    var col = [];
-                    ng.forEach(arr, function (value, key) {
-                        col.push($scope.collections[value].label);
-                    });
-                    return col.join(', ');
-                };
-
-                $scope.showEditCollectionForm = function ($event, name, id) {
-                    $modal.load('modal-edit-collection.html', true, $scope, { id: id, name: name });
-                };
-
-                $scope.submitEditCollectionForm = function (data) {
-                    if (data.name.length > 0) {
-                        $scope.collections[data.id].title = data.name;
-                        $modal.hide();
-                    }
-                };
-
-                $scope.deleteCollection = function ($event, data) {
-
-                    $timeout(function () {
-                        $scope.$apply(function () {
-                            delete $scope.collections[data.id];
-                            $scope.filter.collection = null;
-                        });
-                    });
-
-                    ng.forEach($scope.videos, function (value, key) {
-                        ng.forEach(value.collections, function (value2, key2) {
-                            if (parseInt(value2) === parseInt(data.id)) {
-                                $timeout(function () {
-                                    $scope.$apply(function () {
-                                        $scope.videos[key].collections.splice(key2, 1);
-                                    });
-                                });
-                            }
-                        });
-                    });
-                    $modal.hide();
-                };
-
-                $scope.showNewCollectionForm = function ($event) {
-                    $modal.load('modal-new-collection.html', true, $scope, {});
-                };
-
-                $scope.submitNewCollectionForm = function (data) {
-                    $scope.collections[Math.floor(Math.random() * 10) + parseInt(new Date().getTime()).toString(36)] = {
-                        label: data.name
-                    }
-                    $modal.hide();
-                };
-
-                $scope.showAllCollections = function ($event, key) {
-                    $event.preventDefault();
-                    $modal.load('modal-show-all-collections.html', true, $scope, { id: key, video: $scope.videos[key] });
-                };
-
-                $scope.closeModal = function ($event) {
-                    $modal.hide();
-                };
-
-            }]);
-
-    // app.controller('AccountController', 
-    //     ['$scope', '$rootScope', '$location', '$routeParams', 'AuthService', 'DataService', '$q', '$timeout', 
-    //     function ($scope, $rootScope, $location, $routeParams, AuthService, DataService, $q, $timeout) {
-
-    //     var sessionUrl;
-    //     var accountID;
-
-    //     // Are we logged in?
-    //     $scope.State = 'INIT';
-    //     $scope.isEditable = false;
-
-    //     $scope.avatarFile = null;
-    //     $scope.profileFile = null;
-
-    //     $scope.formData = new FormData();
-
-    //     $scope.account = angular.copy(AuthService.getUser());
-
-    //     $scope.isLoggedIn = AuthService.isLoggedIn();
-    //     console.log('is logged in', $scope.isLoggedIn );
-
-    //     $scope.profileData = {
-    //         accountID: null,
-    //         name: null,
-    //         username: null,
-    //         description: null,
-    //         avatarURL: null,
-    //         profileURL: null
+    //     $scope.filter = {
+    //         collection: null,
+    //         searchtext: "",
+    //         results: {},
+    //         numresults: 0
     //     };
 
-    //     $scope.getAccountData = function(accountID) {
-
-    //         var deferred = $q.defer();
-
-    //         if (accountID) {
-    //             DataService.request({
-    //                 url: 'api/account/' + accountID
-    //             }).then(function(data) {
-    //                 deferred.resolve(data);
-    //             }, deferred.reject);
-    //         } else if (sessionUrl = AuthService.getSession()) {
-    //             AuthService.retrieveSession(sessionUrl).then(deferred.resolve, deferred.reject);
-    //         }
-
-    //         return deferred.promise;
+    //     $scope.buildView = function () {
+    //         var template = $templateCache.get(( $scope.viewType === 'list' ? 'video-list-list' : 'video-list-grid' ) + '.html');
+    //         var tmpl = $compile($sanitize(template))($scope);
+    //         $scope.view.html('');
+    //         $scope.view.append(tmpl);
     //     };
 
-
-    //     $scope.getChangedProperties = function () {
-    //         return _.reject($scope.accountForm, function (value, key) {
-    //             return value === $rootScope.user[key];
+    //     $scope.changeView = function (view) {
+    //         $timeout(function () {
+    //             $scope.$apply(function () {
+    //                 $scope.selectedItems = [];
+    //                 $scope.$broadcast('deselectAll');
+    //                 $scope.viewType = view;
+    //                 $scope.buildView();
+    //             });
     //         });
     //     };
 
-    //     $scope.toggleEditable = function () {
-    //         $scope.isEditable = !$scope.isEditable;
+    //     // Listen for checkbox events ( these are coming from the checkbox directive )
+    //     $scope.$on('checkboxChecked', function (event, checked, id) {
+    //         $timeout(function () {
+    //             $scope.$apply(function () {
+    //                 if (checked === true) {
+    //                     if ($rootScope.isUnique($scope.selectedItems, id)) {
+    //                         $scope.selectedItems.push(id);
+    //                     }
+    //                 } else {
+    //                     for (var i = 0; i < $scope.selectedItems.length; i++) {
+    //                         if (id === $scope.selectedItems[i]) {
+    //                             $scope.selectedItems.splice(i, 1);
+    //                         }
+    //                     }
+    //                 }
+    //                 $scope.$broadcast('dropdown-' + ( $scope.selectedItems.length > 0 ? 'enabled' : 'disabled' ));
+    //             });
+    //         });
+    //     });
+
+    //     /*  Drag n' Drop events
+    //      /* ================================== */
+    //     $scope.$on('dragStarted', function (e, index) {
+    //         $timeout(function () {
+    //             $scope.$apply(function () {
+    //                 // If the selected items list is empty
+    //                 if ($scope.selectedItems.length === 0) {
+    //                     $scope.dragItem = index;
+    //                     DragDropService.setTags([$scope.videos[index].title]);
+    //                 } else {
+    //                     // Not in the list
+    //                     if ($rootScope.isUnique($scope.selectedItems, index)) {
+    //                         $timeout(function () {
+    //                             $scope.$apply(function () {
+    //                                 $scope.selectedItems = [];
+    //                                 $scope.dragItem = index;
+    //                                 DragDropService.setTags([$scope.videos[index].title]);
+    //                                 $scope.$broadcast('deselectAll');
+    //                             });
+    //                         });
+    //                         // In the list
+    //                     } else {
+    //                         $scope.dragItem = undefined;
+    //                     }
+    //                 }
+    //             });
+    //         });
+    //     });
+
+    //     $scope.$on('dragDropped', function (e, index) {
+    //         $timeout(function () {
+    //             $scope.$apply(function () {
+    //                 $scope.selectedAction = index;
+    //                 $scope.addToCollection();
+    //             });
+    //         });
+    //     });
+
+    //     $scope.$on('dragCancelled', function (e, index) {
+    //         $timeout(function () {
+    //             $scope.$apply(function () {
+    //                 $scope.dragItem = undefined;
+    //             });
+    //         });
+    //     });
+
+    //     /*  Search text change watcher
+    //      /* ================================== */
+    //     $scope.$watch('filter.searchtext', function (newValue, oldValue) {
+    //         var res = $filter('videoSearchFilter')($scope.videos, $scope.filter);
+    //         $scope.filter.results = res.results;
+    //         $scope.filter.numresults = res.length;
+    //     });
+
+    //     /*  Selected ( checked ) item watcher
+    //      /* ================================== */
+    //     $scope.$watchCollection('selectedItems', function (newValue, oldValue) {
+    //         var tags = [];
+    //         if ($scope.dragItem !== undefined) {
+    //             console.log($scope.videos[$scope.dragItem]);
+    //             tags.push($scope.videos[$scope.dragItem]);
+    //         }
+    //         if (newValue.length > 0) {
+    //             for (var i = 0; i < newValue.length; i++) {
+    //                 tags.push($scope.videos[newValue[i]].title);
+    //             }
+    //             DragDropService.setTags(tags);
+    //         }
+    //     });
+
+    //     /*  UI Actions
+    //      /* ================================== */
+
+    //     // Apply a filter to the video list
+    //     $scope.filterByCollection = function ($event, id) {
+    //         event.preventDefault();
+    //         $timeout(function () {
+    //             $scope.$apply(function () {
+    //                 $scope.filter.collection = id;
+    //                 var res = $filter('videoSearchFilter')($scope.videos, $scope.filter);
+    //                 $scope.filter.results = res.results;
+    //                 $scope.filter.numresults = res.length;
+    //             });
+    //         });
     //     };
 
-    //     $scope.changeAvatar = function (newFile) {
-    //         $scope.avatarFile = newFile;
-    //         $scope.updateUser();
-    //         $scope.avatarFile = null;
+    //     // Clear the video list filter
+    //     $scope.clearFilter = function ($event, txt) {
+    //         event.preventDefault();
+    //         var type = txt || '';
+
+    //         $timeout(function () {
+    //             $scope.$apply(function () {
+
+    //                 if (type === 'collection') {
+    //                     $scope.filter.collection = null;
+    //                 } else if (type === 'search') {
+    //                     $scope.filter.searchtext = '';
+    //                 } else {
+    //                     $scope.filter.collection = null;
+    //                     $scope.filter.searchtext = '';
+    //                 }
+
+    //                 var res = $filter('videoSearchFilter')($scope.videos, $scope.filter);
+    //                 $scope.filter.results = res.results;
+    //                 $scope.filter.numresults = res.length;
+    //             });
+    //         });
     //     };
 
-    //     $scope.changeProfileBackground = function (newFile) {
-    //         $scope.profileFile = newFile;
-    //         $scope.updateUser();
-    //         $scope.profileFile = null;
+    //     // $scope.noResults = function(){
+    //     // console.log( $filter('videoSearchFilter')($scope.videos, $scope.filterText) );
+    //     // if ( $filter('videoSearchFilter')($scope.videos).length ) {
+    //     // }
+    //     // };
+
+    //     $scope.showAddToCollectionForm = function ($event) {
+    //         var arr = [];
+    //         ng.forEach($scope.collections, function (value, key) {
+    //             arr.push({
+    //                 key: key,
+    //                 label: value.label
+    //             });
+    //         });
+    //         $modal.load('modal-add-to-collection.html', true, $scope, { collections: arr, selectedAction: arr[0] });
     //     };
 
-    //     $scope.changeField = function (name, value) {
-    //         $scope.updateUser(name, value);
+    //     $scope.submitAddToCollectionForm = function (data) {
+    //         $timeout(function () {
+    //             $scope.$apply(function () {
+    //                 $scope.selectedAction = data.selectedAction.key
+    //                 $scope.addToCollection();
+    //                 $modal.hide();
+    //             });
+    //         });
     //     };
 
-    //     $scope.updateUser = function (name, value) {
-    //         var fd = new FormData();
-    //         //Take the first selected file
-
-    //         fd.append(name, value);
-
-    //         DataService.request({
-    //             url: '/api/account/75435685',
-    //             method: 'PATCH',
-    //             headers: {'Content-Type': undefined },
-    //             transformRequest: angular.identity,
-    //             data: fd
-    //         }).then(function (accountData) {
-    //             $scope.profileData = {
-    //                 name: accountData.name,
-    //                 username: accountData.display_name,
-    //                 description: null,
-    //                 avatarURL: accountData.avatar,
-    //                 profileURL: accountData.profile_cover.replace(/thumbnail_medium/, 'ipad')
-    //             };
-    //         })
-
+    //     $scope.showRemoveFromCollectionForm = function ($event) {
+    //         var arr = [];
+    //         ng.forEach($scope.collections, function (value, key) {
+    //             arr.push({
+    //                 key: key,
+    //                 label: value.label
+    //             });
+    //         });
+    //         $modal.load('modal-remove-from-collection.html', true, $scope, { collections: arr, selectedAction: arr[0] });
     //     };
 
-    //     $scope.changed = function (name, value) {
-    //         $scope.formData.append(name, value);
+    //     $scope.submitRemoveFromCollectionForm = function (data) {
+    //         $timeout(function () {
+    //             $scope.$apply(function () {
+    //                 $scope.selectedAction = data.selectedAction.key
+    //                 $scope.addToCollection();
+    //                 $modal.hide();
+    //             });
+    //         });
     //     };
 
-    //     $scope.disallowNewlines = function ($event) {
-    //         if ($event.keyCode === 13) {
+    //     $scope.addToCollection = function ($event) {
+    //         if ($event) {
     //             $event.preventDefault();
+    //         }
+    //         $timeout(function () {
+    //             $scope.$apply(function () {
+
+    //                 var cat = $scope.selectedAction;
+
+    //                 console.log('cat', cat);
+
+    //                 if ($scope.dragItem !== undefined && $rootScope.isUnique($scope.selectedItems, $scope.dragItem)) {
+    //                     $scope.selectedItems.push($scope.dragItem);
+    //                 }
+
+    //                 for (var i = 0; i < $scope.selectedItems.length; i++) {
+    //                     if ($rootScope.isUnique($scope.videos[$scope.selectedItems[i]].collections, cat) === true) {
+    //                         $scope.videos[$scope.selectedItems[i]].collections.push(cat);
+    //                         FlashService.flash('Successfully added ' + $scope.videos[$scope.selectedItems[i]].title + ' to ' + $scope.collections[cat].label, 'success');
+    //                     } else {
+    //                         FlashService.flash($scope.videos[$scope.selectedItems[i]].title + ' is already in the collection ' + $scope.collections[cat].label, 'warning');
+    //                     }
+    //                 }
+    //                 $scope.selectedItems = [];
+    //                 $scope.$broadcast('dropdown-disabled');
+    //                 $scope.$broadcast('deselectAll');
+    //             });
+    //         });
+    //     };
+
+    //     $scope.removeFromCollection = function ($event, index, collection) {
+    //         $event.preventDefault();
+    //         ng.forEach($scope.videos[index].collections, function (value, key) {
+    //             if (value === collection) {
+    //                 $timeout(function () {
+    //                     $scope.$apply(function () {
+    //                         $scope.videos[index].collections.splice(key, 1);
+    //                         FlashService.flash('Successfully removed video from collection', 'success');
+    //                     });
+    //                 });
+    //             }
+    //         });
+    //     };
+
+    //     $scope.selectAll = function ($event) {
+    //         $event.preventDefault();
+
+    //         $scope.$broadcast('selectAll');
+
+    //         $timeout(function () {
+    //             $scope.$apply(function () {
+    //                 $scope.selectedItems = [];
+    //                 ng.forEach($scope.videos, function (value, key) {
+    //                     $scope.selectedItems.push(key);
+    //                 });
+    //                 console.log($scope.selectedItems);
+    //                 $scope.$broadcast('dropdown-enabled');
+    //             });
+    //         });
+    //     };
+
+    //     $scope.deselectAll = function ($event) {
+    //         $event.preventDefault();
+    //         $scope.$broadcast('deselectAll');
+    //         $timeout(function () {
+    //             $scope.$apply(function () {
+    //                 $scope.selectedItems = [];
+    //                 $scope.$broadcast('dropdown-disabled');
+    //             });
+    //         });
+    //     };
+
+    //     $scope.listCollections = function (arr) {
+    //         var col = [];
+    //         ng.forEach(arr, function (value, key) {
+    //             col.push($scope.collections[value].label);
+    //         });
+    //         return col.join(', ');
+    //     };
+
+    //     $scope.showEditCollectionForm = function ($event, name, id) {
+    //         $modal.load('modal-edit-collection.html', true, $scope, { id: id, name: name });
+    //     };
+
+    //     $scope.submitEditCollectionForm = function (data) {
+    //         if (data.name.length > 0) {
+    //             $scope.collections[data.id].title = data.name;
+    //             $modal.hide();
     //         }
     //     };
 
-    //     /* ----- Logic Here ---- */
+    //     $scope.deleteCollection = function ($event, data) {
 
-    //     $scope.getAccountData($routeParams.accountID).then(function (accountData) {
-    //         $scope.profileData = {
-    //             name: accountData.name,
-    //             username: accountData.display_name,
-    //             description: null,
-    //             avatarURL: accountData.avatar,
-    //             profileURL: accountData.profile_cover.replace(/thumbnail_medium/, 'ipad')
-    //         };
-    //         $scope.State = 'SUCCESS';
-    //     }, function () {
-    //         $scope.State = 'ERROR';
-    //     });
-
-    //     /*
-    //     * Listen for autosave broadcasts from our auto-save-field directives
-    //     */
-    //     $scope.$on('autosave', function(e, attr, val, date){
-
-    //         $timeout(function(){
-    //             $scope.$apply(function(){
-    //                 console.log( ' AUTOSAVE CAUGHT ' );
+    //         $timeout(function () {
+    //             $scope.$apply(function () {
+    //                 delete $scope.collections[data.id];
+    //                 $scope.filter.collection = null;
     //             });
-    //         }); 
-    //     });
+    //         });
+
+    //         ng.forEach($scope.videos, function (value, key) {
+    //             ng.forEach(value.collections, function (value2, key2) {
+    //                 if (parseInt(value2) === parseInt(data.id)) {
+    //                     $timeout(function () {
+    //                         $scope.$apply(function () {
+    //                             $scope.videos[key].collections.splice(key2, 1);
+    //                         });
+    //                     });
+    //                 }
+    //             });
+    //         });
+    //         $modal.hide();
+    //     };
+
+    //     $scope.showNewCollectionForm = function ($event) {
+    //         $modal.load('modal-new-collection.html', true, $scope, {});
+    //     };
+
+    //     $scope.submitNewCollectionForm = function (data) {
+    //         $scope.collections[Math.floor(Math.random() * 10) + parseInt(new Date().getTime()).toString(36)] = {
+    //             label: data.name
+    //         }
+    //         $modal.hide();
+    //     };
+
+    //     $scope.showAllCollections = function ($event, key) {
+    //         $event.preventDefault();
+    //         $modal.load('modal-show-all-collections.html', true, $scope, { id: key, video: $scope.videos[key] });
+    //     };
+
+    //     $scope.closeModal = function ($event) {
+    //         $modal.hide();
+    //     };
+
     // }]);
+
+    app.controller('ManageController', 
+        ['$scope', '$rootScope', '$timeout', '$location', '$modal', 'VideoService', 'DragDropService', 'FlashService', '$filter',
+        function ($scope, $rootScope, $timeout, $location, $modal, VideoService, DragDropService, FlashService, $filter) {
+
+    }]);
 
     app.controller('AccountController', 
         ['$scope', '$rootScope', '$location', '$routeParams', 'AccountService', '$q', '$timeout', 
@@ -713,18 +596,6 @@
         };
 
         /*
-        * Listen for changes to the user object
-        */
-        $scope.$on('user updated', function(e, data){
-            $timeout(function() {
-                $rootScope.$apply(function() {
-                    $rootScope.User = data;
-                    $scope.$broadcast('update autosave fields')
-                });
-            });
-        });
-
-        /*
         * Listen for autosave broadcasts from our auto-save-field directives
         */
         $scope.$on('autosave', function(e, attr, val, date){
@@ -741,10 +612,6 @@
     app.controller('UploadController', 
         ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', 'AccountService', 'AuthService', '$modal', 'animLoop', 'prettydate', '$interval', '$upload', '$q', 'FlashService', 
         function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, AccountService, AuthService, $modal, animLoop, prettydate, $interval, $upload, $q, FlashService) {
-
-        // AuthService.getUser().then(function(session){
-        //     console.log('SESSION RETREIVED', session);
-        // });
 
         /*
         * The state object for the chosen category for the video
@@ -852,6 +719,12 @@
         */
         $scope.startUpload = function() {
 
+            $timeout(function(){
+                $scope.$apply(function(){
+                    $scope.file.state = "uploading";
+                });
+            });
+
             VideoService.getUploadArgs().then(function(uploadArgs){
 
                 var formData = new FormData();
@@ -876,12 +749,6 @@
                 })
                 .done($scope.uploadSuccess)
                 .fail($scope.uploadFail);
-                
-                $timeout(function(){
-                    $scope.$apply(function(){
-                        $scope.file.state = "uploading";
-                    });
-                });
 
                 animLoop.start();
             });
@@ -924,6 +791,7 @@
 
             $scope.updateVideo({ filename: $scope.uploadPath }).then(function() {
                 $scope.processingInterval = setInterval(function(){
+
                     // Check for state change in the video record
                     VideoService.get($scope.video.id).then(function(response){
                         if ( response.status === 'ready' ) {
@@ -981,7 +849,9 @@
         $scope.$on('inputFocussed', function(e){
             $timeout(function() {
                 $scope.$apply(function(){
-                    $scope.showClickToMore = false;                
+                    if ( $scope.showClickToMore === true ) {
+                        $scope.showClickToMore = false;
+                    }
                 });
             });
         });
@@ -991,6 +861,7 @@
         */
         $scope.$watch('showClickToMore', function(oldValue, newValue){
             if ( newValue === false ) {
+                if ( $scope.clickToMore.text.length > 0 && $scope.clickToMore.link.match(/https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,}/) !== null )
                 $scope.updateVideo({ link_title: $scope.clickToMore.text }).then(function(){
                     $scope.updateVideo({ link_url: $scope.clickToMore.link });
                 });

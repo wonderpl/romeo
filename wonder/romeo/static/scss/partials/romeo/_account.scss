@@ -261,7 +261,7 @@
     text-align: center;
     border: none;
     outline: none;
-    color: #4a4a4a;
+    // color: #4a4a4a;
     font-weight: 300;
 
     &.disabled {
@@ -276,17 +276,18 @@
 }
 
 #edit-profile-name {
+  color: #4a4a4a;
   font-size: 26px;
 }
 
 #edit-profile-username {
-  color: #777782;
+  color: #727272;
   font-size: 18px;
   margin-bottom: 10px;
 }
 
 #edit-profile-description {
-  color: #777782;
+  color: #4a4a4a;
   font-size: 18px;
 }
 

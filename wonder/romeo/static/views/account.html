@@ -33,10 +33,10 @@
             <input type="text" id="edit-profile-name" ng-model="User.display_name" data-model="display_name" placeholder="Your Full Name" ng-class="{ disabled: !isEditable }" auto-save-field disable-new-lines />
         </div>
         <div class="row">
-            <input type="text" id="edit-profile-username" ng-model="User.name" data-model="name" placeholder="Your Username" ng-class="{ disabled: !isEditable }" auto-save-field disable-new-lines />
+            <input type="text" id="edit-profile-username" class="disabled" value="@(~ User.name ~)" data-model="name" placeholder="Your Username" auto-save-field disable-new-lines />
         </div>
         <div class="row">
-            <textarea type="text" id="edit-profile-description" ng-model="User.description" data-model-"description" placeholder="Describe yourself in a few words" ng-class="{ disabled: !isEditable }" auto-save-field disable-new-lines></textarea
+            <textarea type="text" id="edit-profile-description" ng-model="User.description" data-model="description" placeholder="Describe yourself in a few words" ng-class="{ disabled: !isEditable }" auto-save-field disable-new-lines></textarea
         </div>
 
         <!--<div class="row">

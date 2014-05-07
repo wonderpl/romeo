@@ -3873,7 +3873,6 @@ video, canvas {
   text-align: center;
   border: none;
   outline: none;
-  color: #4a4a4a;
   font-weight: 300;
 }
 /* line 267, ../../scss/partials/romeo/_account.scss */
@@ -3888,23 +3887,24 @@ video, canvas {
 
 /* line 278, ../../scss/partials/romeo/_account.scss */
 #edit-profile-name {
+  color: #4a4a4a;
   font-size: 26px;
 }
 
-/* line 282, ../../scss/partials/romeo/_account.scss */
+/* line 283, ../../scss/partials/romeo/_account.scss */
 #edit-profile-username {
-  color: #777782;
+  color: #727272;
   font-size: 18px;
   margin-bottom: 10px;
 }
 
-/* line 288, ../../scss/partials/romeo/_account.scss */
+/* line 289, ../../scss/partials/romeo/_account.scss */
 #edit-profile-description {
-  color: #777782;
+  color: #4a4a4a;
   font-size: 18px;
 }
 
-/* line 293, ../../scss/partials/romeo/_account.scss */
+/* line 294, ../../scss/partials/romeo/_account.scss */
 #toggle-editable-button {
   position: absolute;
   bottom: -60px;
@@ -3913,14 +3913,14 @@ video, canvas {
   background: #727272;
   color: white;
 }
-/* line 301, ../../scss/partials/romeo/_account.scss */
+/* line 302, ../../scss/partials/romeo/_account.scss */
 #toggle-editable-button:hover, #toggle-editable-button:focus, #toggle-editable-button:active {
   border: 1px solid #727272;
   color: #727272;
   background: white;
 }
 
-/* line 308, ../../scss/partials/romeo/_account.scss */
+/* line 309, ../../scss/partials/romeo/_account.scss */
 .account-upload-spinner {
   display: block;
   width: 100%;
