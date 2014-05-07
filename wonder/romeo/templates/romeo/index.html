@@ -10,9 +10,10 @@
         <!-- <a class="save-draft wp-button" ng-click="save()">Save Draft</a> -->
         <!--<a class="quick-share wp-button" ng-click="toggleQuickShare()">Quick Share</a>-->
         <!--<a class="publish wp-button">Publish</a>-->
+        <a class="save-upload wp-button call-to-action" ng-click="save()" ng-show="isCurrentPage('/upload')">Save</a>
         <a href="/#/library" class="manage wp-button">Manage</a>
         <a href="/#/upload" class="upload wp-button">Upload</a>
-        <a href="/#/account" class="avatar" style="background-image: url((~ account.avatar ~));"></a>
+        <a href="/#/account" class="avatar" style="background-image: url((~ User.avatar ~));"></a>
     </span>
     <span ng-if="!isLoggedIn">
         <a class="login wp-button">Login</a>

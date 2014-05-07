@@ -16,29 +16,12 @@
             'angularFileUpload'] /* module dependencies */);
 
     app.config(['$routeProvider', '$interpolateProvider', '$httpProvider', function( $routeProvider, $interpolateProvider, $httpProvider, $location ){
+        
         var sessionUrl;
         var authChecks = {
-            session: function(ErrorService, AuthService, $q) {
-                if (sessionUrl = AuthService.getSession()) {
-                    if (AuthService.isLoggedIn()) {
-                        return $q.when(true);
-                    } else {
-                        // It could be for some reason we don't have a HTTP cookie so try twice...
-                        return AuthService.retrieveSession(sessionUrl).then(function (sessionData) {
-                            AuthService.setSession(sessionData);
-                        }, function(response) {
-                            if (response.status === 401) {
-                                return AuthService.retrieveSession(sessionUrl).then(function (sessionData) {
-                                    AuthService.setSession(sessionData);
-                                });
-                            } else {
-                                return $q.reject(new ErrorService.AuthError('server_session_error'));
-                            }
-                        });
-                    }
-                } else {
-                    return $q.reject(new ErrorService.AuthError('no_session'));
-                }
+            loggedin: function(ErrorService, AuthService, $q) {
+                console.log('logged in authcheck');
+                return AuthService.loginCheck();
             }
         };
 
@@ -74,8 +57,9 @@
         });
 
         // Account management
-        $routeProvider.when('/account/:accountID?', {
-            templateUrl: 'account.html'
+        $routeProvider.when('/account', {
+            templateUrl: 'account.html',
+            resolve: authChecks
         });
 
         $routeProvider.when('/login', {
@@ -92,7 +76,6 @@
 
         $routeProvider.otherwise({redirectTo: '/upload'});
 
-
         $httpProvider.defaults.headers.patch = {
             'Content-Type': 'application/json;charset=utf-8'
         };
@@ -102,6 +85,7 @@
     app.run(['$timeout', '$rootScope', '$http', 'animLoop', '$cookies', '$location', 'ErrorService', function($timeout, $rootScope, $http, animLoop, $cookies, $location, ErrorService) {
 
         $rootScope.$on('$routeChangeError', function(evt, next, last, error) {
+            console.log( error );
             if (error instanceof ErrorService.AuthError) {
                 $location.url('/login');
             }

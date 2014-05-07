@@ -441,6 +441,7 @@
 
         Video.getCategories = function () {
             var url = '/api/categories';
+            console.log('DataService about to be called on:', url);
             return DataService.request({url: url});
         };
 
@@ -494,6 +495,11 @@
             return DataService.request({ url: url, method: 'GET'});
         };
 
+        Video.getAll = function() {
+            var url = '/api/account/' + AuthService.getUserId() + '/videos';
+            return DataService.request({ url: url, method: 'GET'});
+        };
+
         return {
             getCategories: Video.getCategories,
             getUploadArgs: Video.getUploadArgs,
@@ -501,43 +507,342 @@
             setPreviewImage: Video.setPreviewImage,
             create: Video.create,
             update: Video.update,
-            get: Video.get
+            get: Video.get,
+            getAll: Video.getAll
         };
     }]);
 
     /*
     * Methods for interacting with the Account web services
     */
-    app.factory('AccountService', ['DataService', 'localStorageService', '$rootScope', 'AuthService', '$q', '$timeout', function (DataService, localStorageService, $rootScope, AuthService, $q, $timeout) {
+    app.factory('AccountService', 
+        ['DataService', 'localStorageService', '$rootScope', 'AuthService', '$q', '$timeout', 
+        function (DataService, localStorageService, $rootScope, AuthService, $q, $timeout) {
 
-        var Account = {};
+        var Account = {},
+            User = null,
+            ID = null;
 
-        Account.saveCustomLogo = function (file) {
+        /*
+        * Returns a promise, which if resolved returns the User object from the web service.
+        */
+        Account.getUser = function() {
+            var deferred = new $q.defer();
+            
+            if ( ID === null ) {
+                AuthService.getSessionId().then(function(response){
+                    ID = response;
+                    DataService.request({url: ('/api/account/' + ID)}).then(function(response){
+                        console.log('User:', response);
+                        User = response;
+                        $rootScope.$broadcast('user updated', response);
+                        deferred.resolve(response);
+                    });
+                });
+            } else {
+                DataService.request({url: ('/api/account/' + ID)}).then(function(response){
+                    User = response;
+                    $rootScope.$broadcast('user updated', response);
+                    deferred.resolve(response);
+                });
+            }
+            return deferred.promise;
+        };
 
-            var deferred = new $q.defer(),
-                formData = new FormData();
+        /*
+        * Used to send PATCH requests to the webservice, updating individual parts of the user account
+        */
+        Account.updateUser = function() {
+            var url = '';
+            return DataService.request({url: url});
+        };
 
-            formData.append('player_logo', file);
-            $.ajax({
-                url: '/api/account/' + AuthService.getUserId(),
-                type: 'PATCH',
-                data: formData,
-                processData: false,
-                mimeType: 'multipart/form-data',
-                contentType: false
-            }).done(function (response) {
-                return deferred.resolve(response);
+        Account.updateCoverImage = function(data) {
+            return DataService.uploadImage( ('/api/account/' + ID), 'profile_cover', data);
+        };
+
+        Account.updateAvatar = function(data) {
+            return DataService.uploadImage( ('/api/account/' + ID), 'avatar', data);
+        };
+
+        Account.getUser();
+
+        return {
+            getUser: Account.getUser,
+            updateUser: Account.updateUser,
+            updateCoverImage: Account.updateCoverImage,
+            updateAvatar: Account.updateAvatar,
+            User: User
+        };
+    }]);
+
+    /*
+    * Methods for logging in and out, and for accessing credentials used by the other services
+    */
+    app.factory('AuthService', 
+        ['$rootScope', '$http', 'localStorageService', 'ErrorService', '$timeout', '$q', '$interval', '$location',
+        function ($rootScope, $http, localStorageService, ErrorService, $timeout, $q, $interval, $location) {
+
+        var Auth = {},
+            session = null,
+            loggedIn = false;
+
+        /*
+        * POSTS the users login credentials to the server.  If successful, we add the session url to local storage.
+        */
+        Auth.login = function(username, password){
+            return $http({
+                method: 'post',
+                url: '/api/login',
+                data: {
+                    'username': username,
+                    'password': password
+                }
+            }).success(function (data) {
+                console.log('login response', data);
+                return Auth.setSession(data.account);
+            }).error(function () {
+                // debugger;
+            });
+        };
+
+        /*
+        * Returns a BOOLEAN.  If there is no session url in local storage, we aren't letting them in.
+        */
+        Auth.isLoggedIn = function() {
+            return loggedIn;
+            // console.log( 'is logged in', localStorageService.get('session_url') !== null );
+            // return localStorageService.get('session_url') !== null;
+        };
+
+        /*
+        * Returns a PROMISE.  Checks if the user is logged in.  
+        * First we check if the user has a session url in local storage
+        * Second we check if we get a valid response when we try and communicated
+        */
+        Auth.loginCheck = function() {
+            var deferred = new $q.defer();
+            $timeout(function(){
+                if ( loggedIn === true ) {
+                    deferred.resolve();
+                } else {
+                    Auth.getSession().then(function(response){
+                        $http({method: 'GET', url: (response.href || response) }).then(function(response){
+                            loggedIn = true;
+                            $rootScope.isLoggedIn = true;
+                            deferred.resolve();
+                        }, function(response){
+                            loggedIn = false;
+                            $rootScope.isLoggedIn = false;
+                            deferred.reject('not logged in');
+                        });
+                    }, function(){
+                        deferred.reject('not logged in');
+                    });    
+                }
+            });
+            return deferred.promise;
+        };
+
+        /*
+        * Adds the session url to local storage
+        */
+        Auth.setSession = function(sessionData) {
+            localStorageService.add('session_url', sessionData.href);
+            session = sessionData;
+            session.id = sessionData.href.match(/api\/account\/(\d+)/)[1];
+            return session;
+        };
+
+        /*
+        * returns a BOOLEAN.  If there is no session url in local storage, we aren't letting them in.
+        */
+        Auth.getSession = function() {
+            var deferred = new $q.defer();
+
+            if ( session !== null ) {
+                $timeout(function(){
+                    deferred.resolve(session);
+                });
+            } else {
+                $timeout(function(){
+                    deferred.resolve(localStorageService.get('session_url'));
+                });
+            }
+
+            return deferred.promise;
+        };
+
+        /*
+        * Try to pick out the ID from the session url
+        */
+        Auth.getSessionId = function() {
+            var deferred = new $q.defer();
+            Auth.getSession().then(function(response){
+                deferred.resolve(response.match(/api\/account\/(\d+)/)[1]);
+            });
+            return deferred.promise;
+        };
+
+        /*
+        * Redirects the user to the login page
+        */
+        Auth.redirect = function() {
+            $location.path('/login');
+        };
+
+        return {
+            login: Auth.login,
+            isLoggedIn: Auth.isLoggedIn,
+            loginCheck: Auth.loginCheck,
+            setSession: Auth.setSession,
+            getSession: Auth.getSession,
+            getSessionId: Auth.getSessionId,
+            redirect: Auth.redirect
+        }
+
+    }]);
+
+    /*
+    * This service does the heavy lifting of actually making requests to the web services.
+    */
+    app.factory('DataService', 
+        ['$http', '$q', '$location', 'AuthService', 'ErrorService', '$timeout',
+        function ($http, $q, $location, AuthService, ErrorService, $timeout) {
+
+        var Data = {},
+            defaultOptions = {
+                method: 'GET'
+            };
+
+        /*
+        * If the user is authorised to make a request, go for it!
+        */
+        Data.request = function(options) {
+            var deferred = new $q.defer();
+
+            options = ng.extend(options, defaultOptions);
+            
+            AuthService.loginCheck().then(function(){
+                
+                $http(options).then(function(response){
+                    deferred.resolve(response.data);
+                });
+
+            }, function(){
+                AuthService.redirect();
+                deferred.reject();
             });
 
             return deferred.promise;
         };
 
+        /*
+        * Make a patch request with some image data
+        */
+        Data.uploadImage = function(url, fieldname, data) {
 
+            var deferred = new $q.defer(),
+                formData = new FormData();
+
+            formData.append(fieldname, data);
+
+            var onprogress = function() {
+                var xhr = $.ajaxSettings.xhr();
+                xhr.upload.onprogress = function (e) {
+                    var p = e.lengthComputable ? Math.round(e.loaded * 100 / e.total) : 0;
+                    deferred.notify(p);
+                };
+                return xhr;
+            };
+
+            $.ajax({
+                url: url,
+                type: 'PATCH',
+                data: formData,
+                processData: false,
+                mimeType: 'multipart/form-data',
+                contentType: false
+                // , xhr: onprogress
+            }).done(function (response) {
+                deferred.resolve(response);
+            }).fail(function(response){
+                deferred.reject(response);
+            });
+
+            return deferred.promise;
+        };
 
         return {
-            saveCustomLogo: Account.saveCustomLogo
+            request: Data.request,
+            uploadImage: Data.uploadImage
         };
+
     }]);
+
+    // app.factory('DataService', ['$http', '$q', '$location', 'AuthService', 'ErrorService', function ($http, $q, $location, AuthService, ErrorService) {
+
+    //     var Data;
+
+    //     function request(options) {
+
+    //         var deferred;
+    //         var sessionUrl = AuthService.getSession();
+    //         var defaultOptions = {
+    //             method: 'GET'
+    //         };
+
+    //         options = _.extend(defaultOptions, options);
+
+    //         if (AuthService.isLoggedIn()) {
+    //             // We are logged in - make the actual request
+    //             deferred = $http(options).then(function (response) {
+    //                 return response.data;
+    //             });
+    //         } else if (sessionUrl) {
+    //             deferred = AuthService.retrieveSession(sessionUrl).then(function (sessionData) {
+    //                 AuthService.setSession(sessionData);
+    //                 return $http(options).then(function (response) {
+    //                     return response.data;
+    //                 });
+    //             }, function (error) {
+    //                 return $q.reject(error);
+    //             });
+    //         } else {
+    //             // No idea who this person is...
+    //             deferred = $q.reject(new ErrorService.AuthError('no_session'));
+    //         }
+
+    //         deferred.catch(function (response) {
+    //             if (typeof response === 'object') {
+    //                 if (response instanceof ErrorService.AuthError) {
+    //                     AuthService.logout();
+    //                     $location.url('/login');
+    //                 } else if ('status' in response && (response.status === 401)) {
+    //                     return AuthService.retrieveSession(sessionUrl).then(function (sessionData) {
+    //                         AuthService.setSession(sessionData);
+    //                         return $http(options).then(function (response) {
+    //                             return response.data;
+    //                         });
+    //                     }, function (error) {
+    //                         $location.url('/login');
+    //                     });
+    //                 }
+    //             }
+    //             return arguments;
+    //         });
+
+    //         return deferred;
+    //     }
+
+    //     Data = {
+    //         request: request
+    //     };
+
+    //     return Data;
+
+    // }]);
+
 
     app.factory('ErrorService', function () {
 
@@ -559,146 +864,108 @@
 
     });
 
-    app.factory('DataService', ['$http', '$q', '$location', 'AuthService', 'ErrorService', function ($http, $q, $location, AuthService, ErrorService) {
 
-        var Data;
+    // app.factory('AuthService', 
+    //     ['$http', 'localStorageService', 'ErrorService', '$timeout', '$q', '$interval', 
+    //     function ($http, localStorageService, ErrorService, $timeout, $q, $interval) {
+    //     var currentSession = null,
+    //         checkInterval;
 
-        function request(options) {
+    //     var AuthService = {
 
-            var deferred;
-            var sessionUrl = AuthService.getSession();
-            var defaultOptions = {
-                method: 'GET'
-            };
+    //         // Checks local storage for session and returns it
+    //         getSession: function () {
+    //             return localStorageService.get('session_url');
+    //         },
 
-            options = _.extend(defaultOptions, options);
+    //         // Sets the session info
+    //         setSession: function (sessionData) {
+    //             localStorageService.add('session_url', sessionData.href);
+    //             currentSession = sessionData;
+    //             currentSession.id = sessionData.href.match(/api\/account\/(\d+)/)[1];
+    //             return currentSession;
+    //         },
 
-            if (AuthService.isLoggedIn()) {
-                deferred = $http(options).then(function (response) {
-                    return response.data;
-                });
-            } else if (sessionUrl) {
-                deferred = AuthService.retrieveSession(sessionUrl).then(function (sessionData) {
-                    AuthService.setSession(sessionData);
-                    return $http(options).then(function (response) {
-                        return response.data;
-                    });
-                }, function (error) {
-                    return $q.reject(error);
-                });
-            } else {
-                // No idea who this person is...
-                deferred = $q.reject(new ErrorService.AuthError('no_session'));
-            }
+    //         // Attempts to retrieve session info from server
+    //         retrieveSession: function (session_url) {
+    //             return $http({
+    //                 method: 'GET',
+    //                 url: session_url,
+    //                 withCredentials: true
+    //             }).then(function (data) {
+    //                 return data.data;
+    //             });
+    //         },
 
-            deferred.catch(function (response) {
-                if (typeof response === 'object') {
-                    if (response instanceof ErrorService.AuthError) {
-                        AuthService.logout();
-                        $location.url('/login');
-                    } else if ('status' in response && (response.status === 401)) {
-                        return AuthService.retrieveSession(sessionUrl).then(function (sessionData) {
-                            AuthService.setSession(sessionData);
-                            return $http(options).then(function (response) {
-                                return response.data;
-                            });
-                        }, function (error) {
-                            $location.url('/login');
-                        });
-                    }
-                }
-                return arguments;
-            });
+    //         isLoggedIn: function () {
+    //             return AuthService.getSession() != null;
+    //         },
 
-            return deferred;
-        }
+    //         login: function (username, password) {
+    //             return $http({
+    //                 method: 'post',
+    //                 url: '/api/login',
+    //                 data: {
+    //                     'username': username,
+    //                     'password': password
+    //                 }
+    //             }).success(function (data) {
+    //                 return AuthService.setSession(data.account);
+    //             }).error(function () {
+    //                 // debugger;
+    //             });
+    //         },
 
-        Data = {
-            request: request
-        };
+    //         logout: function () {
+    //             // Maybe a request here? probably....
+    //             var deferred = $q.defer;
+    //             currentSession = null;
+    //             localStorageService.remove('session_url');
+    //             deferred.resolve();
+    //             return deferred.promise;
+    //         },
 
-        return Data;
+    //         getUser: function () {
 
-    }]);
+    //             var deferred = new $q.defer();
 
-    app.factory('AuthService', ['$http', 'localStorageService', 'ErrorService', function ($http, localStorageService, ErrorService) {
-        var currentSession = null;
+    //             // if ( currentSession === null ) {
+    //             //     var deferred = new $q.defer();
 
-        var checkInterval = function() {
-            if ( currentSession !== null ) {
-                $interval.cancel(checkInterval);
-            }
-        };
+    //             //     $timeout(function(){
+    //             //         checkInterval = $interval(function(){
+    //             //             console.log('interval firing', currentSession);
+    //             //             if ( currentSession !== null ) {
+    //             //                 $interval.cancel(checkInterval);
+    //             //                 deferred.resolve(currentSession);
+    //             //             }
+    //             //         }, 200 );
+    //             //     });
 
-        var AuthService = {
+    //             //     return deferred.promise;
+    //             // } else {
 
-            // Checks local storage for session and returns it
-            getSession: function () {
-                return localStorageService.get('session_url');
-            },
+    //             // }
 
-            // Sets the session info
-            setSession: function (sessionData) {
-                localStorageService.add('session_url', sessionData.href);
-                currentSession = sessionData;
-                currentSession.id = sessionData.href.match(/api\/account\/(\d+)/)[1];
-                return currentSession;
-            },
+    //             $timeout(function() {
+    //                 deferred.resolve(currentSession);
+    //             });
 
-            // Attempts to retrieve session info from server
-            retrieveSession: function (session_url) {
-                return $http({
-                    method: 'GET',
-                    url: session_url,
-                    withCredentials: true
-                }).then(function (data) {
-                    return data.data;
-                });
-            },
+    //             return deferred.promise;
 
-            isLoggedIn: function () {
-                return AuthService.getSession() != null;
-            },
-
-            login: function (username, password) {
-                return $http({
-                    method: 'post',
-                    url: '/api/login',
-                    data: {
-                        'username': username,
-                        'password': password
-                    }
-                }).success(function (data) {
-                    return AuthService.setSession(data.account);
-                }).error(function () {
-                    // debugger;
-                });
-            },
-
-            logout: function () {
-                // Maybe a request here? probably....
-                var deferred = $q.defer;
-                currentSession = null;
-                localStorageService.remove('session_url');
-                deferred.resolve();
-                return deferred.promise;
-            },
-            getUser: function () {
-                // var deferred = new $q.defer();
-                // if ( currentSession == null ) {
-                // } else {
-                // }
-                // // deferred.resolve(currentSession)
-                // return deferred.promise;
-
-                return currentSession;
-            }, 
-            getUserId: function() {
-                return currentSession.id;
-            }
-        };
-        return AuthService;
-    }]);
+    //         }, 
+    //         getUserId: function() {
+    //             if ( currentSession === null ) {
+    //                 $timeout(function(){
+    //                     return currentSession.id;
+    //                 }, 6000);
+    //             } else {
+    //                 return currentSession.id;
+    //             }
+    //         }
+    //     };
+    //     return AuthService;
+    // }]);
 
     app.factory('FlashService', [ '$timeout', function ($timeout) {
 
@@ -740,7 +1007,6 @@
                 return new Flash(msg, type);
             }
         }
-
     }]);
 
     app.factory('DragDropService', [ 'animLoop', '$rootScope', function (animLoop, $rootScope) {

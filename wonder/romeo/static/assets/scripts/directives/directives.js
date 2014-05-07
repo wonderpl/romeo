@@ -36,8 +36,7 @@
         };
     }]);
 
-
-    app.directive('plContentEditablePlaceholder', [function(){
+    app.directive('plContentEditablePlaceholder', ['$timeout', function($timeout){
         return {
             restrict: 'A',
             link: function(scope, elem, attrs){
@@ -62,6 +61,18 @@
                     }
                 });
 
+                if ( elem[0].innerHTML.length > 0 ) {
+                    el.style.display = 'none';
+                }
+
+                scope.$on('update autosave fields', function(e){
+                    $timeout( function() {
+                        if ( elem[0].innerHTML.length > 0 ) {
+                            el.style.display = 'none';
+                        }
+                    }, 300);
+                });
+
             }
         }
     }]);
@@ -75,8 +86,7 @@
                 });
             }
         }
-    }]);
-    
+    }]);    
 
     app.directive('plDraggable', ['DragDropService', function(DragDropService){
         return {
@@ -222,6 +232,10 @@
         };
     }]);
 
+    /*
+    * Description: Used on the upload page - broadcasts from the rootscope when the data changes
+    * Used on: Input fields
+    */
     app.directive('autoSaveField', ['$rootScope', function($rootScope){
         return {
             restict: 'A',
@@ -235,11 +249,35 @@
                 
                 elem.bind('focus', function() {
                     saveInterval = setInterval( save, 30000 );
+                    $rootScope.$broadcast('inputFocussed');
                 });
 
                 elem.bind('blur', function() {
                     clearInterval( saveInterval );
                     save();
+                });
+
+                elem.bind('keydown', function(e) {
+                    if ( elem.hasClass('disabled') ) {
+                        e.preventDefault();
+                    }
+                });
+            }
+        }
+    }]);
+
+    /*
+    * Description: Used on the account page to prohibit users from putting single line fields onto more than one line
+    * Used on: Input fields
+    */
+    app.directive('disableNewLines', ['$rootScope', function($rootScope){
+        return {
+            restict: 'A',
+            link: function(scope, elem, attrs) {
+                elem.on('keydown', function(e){
+                    if ( e.keyCode === 13 ) {
+                        e.preventDefault();
+                    }
                 });
             }
         }
@@ -250,7 +288,6 @@
             restrict: 'E',
             template: $templateCache.get('upload-quick-share.html'),
             link: function (scope, elem, attrs) {
-                console.log('initialised');
             }
         }
     }]);

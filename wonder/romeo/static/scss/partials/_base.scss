@@ -52,6 +52,16 @@ a.button {
         color: #37A54B;
     }
 
+    &.call-to-action {
+        &:focus, &:active, &:hover {
+            outline: none;
+            border: 1px solid #37A54B;
+            color: white;
+            background: #37A54B;
+        }
+    }
+
+
     // &:focus, &:active, &:hover {
     //     outline: none;
     // }

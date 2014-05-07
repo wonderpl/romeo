@@ -14,6 +14,11 @@
 
 // default global styles
 @import "partials/global";
+
+// Romeo specific styles
+@import "partials/romeo/analytics";
+@import "partials/romeo/account";
+@import "partials/romeo/upload";
 @import "partials/wonderplayer/_tablet";
 
 // Mobile

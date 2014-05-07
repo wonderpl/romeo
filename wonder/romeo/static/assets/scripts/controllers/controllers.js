@@ -7,24 +7,34 @@
                 ns + '.directives',
             'LocalStorageModule'] /* module dependencies */);
 
-    app.controller('MainCtrl', ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$modal', '$element', 'localStorageService', 'AuthService', function ($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $modal, $element, localStorageService, AuthService) {
+    app.controller('MainCtrl', 
+        ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', '$modal', '$element', 'localStorageService', 'AuthService', 
+        function ($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $modal, $element, localStorageService, AuthService) {
 
+        /*
+        * Empty state object for when we have some User data
+        */
+        $rootScope.User = {};
+
+        /*
+        * Cached Selectors ( not sure which of these are still needed )
+        */
         $scope.wonder = ng.element(d.getElementById('wonder'));
         $scope.wrapper = ng.element(d.getElementById('wrapper'));
         $scope.html = ng.element(d.querySelector('html'));
         $scope.body = ng.element(d.body);
 
         $scope.currentRoute = $location;
-        $scope.isLoggedIn = AuthService.isLoggedIn();
+        // $scope.isLoggedIn = AuthService.isLoggedIn();
 
-        if ($scope.isLoggedIn) {
-            if (!($scope.account = AuthService.getUser())) {
-                AuthService.retrieveSession(AuthService.getSession()).then(function (sessionData) {
-                    $scope.account = sessionData;
-                    AuthService.setSession(sessionData);
-                });
-            }
-        }
+        // if ($scope.isLoggedIn) {
+        //     if (!($scope.account = AuthService.getUser())) {
+        //         AuthService.retrieveSession(AuthService.getSession()).then(function (sessionData) {
+        //             $scope.account = sessionData;
+        //             AuthService.setSession(sessionData);
+        //         });
+        //     }
+        // }
 
         $rootScope.isUnique = function (arr, string) {
             if (arr.length === 0) {
@@ -64,6 +74,17 @@
             });
         };
 
+        /*
+        * Listen for route change errors
+        */
+        $rootScope.$on('$routeChangeError', function(error){
+            console.log('route fail', arguments);
+            AuthService.redirect();
+        });
+
+        /*
+        * Route changed successfully
+        */
         $rootScope.$on('$locationChangeSuccess', function (event, newRoute, oldRoute) {
 
             var newRoutePart = newRoute.replace(/http:\/\/localhost:5000\/#\/(\w*)\/.+/, '$1');
@@ -80,14 +101,28 @@
         // $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl){
         // });
 
+        /*
+        * Used in templating for logic based on the current route
+        */
         $rootScope.isCurrentPage = function (route) {
-            console.log(route, $location.path());
             return route === $location.path();
         };
 
+        /*
+        * Returns the current route in plain text
+        */
         $rootScope.getCurrentRoute = function () {
             return $location.path().split('/')[1];
         };
+
+        /*
+        * Strips out any HTML tags and pasts in plain text
+        */
+        $rootScope.cleanPaste = function(e){
+            e.preventDefault();
+            var text = e.clipboardData.getData("text/plain");
+            document.execCommand("insertHTML", false, text);
+        };        
     }]);
 
     app.controller('DashboardController',
@@ -102,6 +137,7 @@
                 VideoService.getAll().then(function (data) {
                     $timeout(function () {
                         $scope.$apply(function () {
+                            console.log(data);
                             $scope.videos = data.videos;
                             $scope.collections = data.collections;
 
@@ -472,142 +508,231 @@
 
             }]);
 
+    // app.controller('AccountController', 
+    //     ['$scope', '$rootScope', '$location', '$routeParams', 'AuthService', 'DataService', '$q', '$timeout', 
+    //     function ($scope, $rootScope, $location, $routeParams, AuthService, DataService, $q, $timeout) {
+
+    //     var sessionUrl;
+    //     var accountID;
+
+    //     // Are we logged in?
+    //     $scope.State = 'INIT';
+    //     $scope.isEditable = false;
+
+    //     $scope.avatarFile = null;
+    //     $scope.profileFile = null;
+
+    //     $scope.formData = new FormData();
+
+    //     $scope.account = angular.copy(AuthService.getUser());
+
+    //     $scope.isLoggedIn = AuthService.isLoggedIn();
+    //     console.log('is logged in', $scope.isLoggedIn );
+
+    //     $scope.profileData = {
+    //         accountID: null,
+    //         name: null,
+    //         username: null,
+    //         description: null,
+    //         avatarURL: null,
+    //         profileURL: null
+    //     };
+
+    //     $scope.getAccountData = function(accountID) {
+
+    //         var deferred = $q.defer();
+
+    //         if (accountID) {
+    //             DataService.request({
+    //                 url: 'api/account/' + accountID
+    //             }).then(function(data) {
+    //                 deferred.resolve(data);
+    //             }, deferred.reject);
+    //         } else if (sessionUrl = AuthService.getSession()) {
+    //             AuthService.retrieveSession(sessionUrl).then(deferred.resolve, deferred.reject);
+    //         }
+
+    //         return deferred.promise;
+    //     };
+
+
+    //     $scope.getChangedProperties = function () {
+    //         return _.reject($scope.accountForm, function (value, key) {
+    //             return value === $rootScope.user[key];
+    //         });
+    //     };
+
+    //     $scope.toggleEditable = function () {
+    //         $scope.isEditable = !$scope.isEditable;
+    //     };
+
+    //     $scope.changeAvatar = function (newFile) {
+    //         $scope.avatarFile = newFile;
+    //         $scope.updateUser();
+    //         $scope.avatarFile = null;
+    //     };
+
+    //     $scope.changeProfileBackground = function (newFile) {
+    //         $scope.profileFile = newFile;
+    //         $scope.updateUser();
+    //         $scope.profileFile = null;
+    //     };
+
+    //     $scope.changeField = function (name, value) {
+    //         $scope.updateUser(name, value);
+    //     };
+
+    //     $scope.updateUser = function (name, value) {
+    //         var fd = new FormData();
+    //         //Take the first selected file
+
+    //         fd.append(name, value);
+
+    //         DataService.request({
+    //             url: '/api/account/75435685',
+    //             method: 'PATCH',
+    //             headers: {'Content-Type': undefined },
+    //             transformRequest: angular.identity,
+    //             data: fd
+    //         }).then(function (accountData) {
+    //             $scope.profileData = {
+    //                 name: accountData.name,
+    //                 username: accountData.display_name,
+    //                 description: null,
+    //                 avatarURL: accountData.avatar,
+    //                 profileURL: accountData.profile_cover.replace(/thumbnail_medium/, 'ipad')
+    //             };
+    //         })
+
+    //     };
+
+    //     $scope.changed = function (name, value) {
+    //         $scope.formData.append(name, value);
+    //     };
+
+    //     $scope.disallowNewlines = function ($event) {
+    //         if ($event.keyCode === 13) {
+    //             $event.preventDefault();
+    //         }
+    //     };
+
+    //     /* ----- Logic Here ---- */
+
+    //     $scope.getAccountData($routeParams.accountID).then(function (accountData) {
+    //         $scope.profileData = {
+    //             name: accountData.name,
+    //             username: accountData.display_name,
+    //             description: null,
+    //             avatarURL: accountData.avatar,
+    //             profileURL: accountData.profile_cover.replace(/thumbnail_medium/, 'ipad')
+    //         };
+    //         $scope.State = 'SUCCESS';
+    //     }, function () {
+    //         $scope.State = 'ERROR';
+    //     });
+
+    //     /*
+    //     * Listen for autosave broadcasts from our auto-save-field directives
+    //     */
+    //     $scope.$on('autosave', function(e, attr, val, date){
+
+    //         $timeout(function(){
+    //             $scope.$apply(function(){
+    //                 console.log( ' AUTOSAVE CAUGHT ' );
+    //             });
+    //         }); 
+    //     });
+    // }]);
+
     app.controller('AccountController', 
-        ['$scope', '$rootScope', '$location', '$routeParams', 'AuthService', 'DataService', '$q', '$timeout', 
-        function ($scope, $rootScope, $location, $routeParams, AuthService, DataService, $q, $timeout) {
+        ['$scope', '$rootScope', '$location', '$routeParams', 'AccountService', '$q', '$timeout', 
+        function ($scope, $rootScope, $location, $routeParams, AccountService, $q, $timeout) {
 
-        var sessionUrl;
-        var accountID;
-
-        // Are we logged in?
-        $scope.State = 'INIT';
+        /*
+        * State object representing whether the user is in Edit mode or not
+        */
         $scope.isEditable = false;
 
-        $scope.avatarFile = null;
-        $scope.profileFile = null;
+        /*
+        * State objects representing the state of the image uploads
+        */
+        $scope.coverImageUploading = false;
+        $scope.avatarImageUploading = false;
 
-        $scope.formData = new FormData();
-
-        $scope.account = angular.copy(AuthService.getUser());
-
-        $scope.isLoggedIn = AuthService.isLoggedIn();
-
-        $scope.profileData = {
-            accountID: null,
-            name: null,
-            username: null,
-            description: null,
-            avatarURL: null,
-            profileURL: null
-        };
-
-        $scope.getAccountData = function(accountID) {
-
-            var deferred = $q.defer();
-
-            if (accountID) {
-                DataService.request({
-                    url: 'api/account/' + accountID
-                }).then(function(data) {
-                    deferred.resolve(data);
-                }, deferred.reject);
-            } else if (sessionUrl = AuthService.getSession()) {
-                AuthService.retrieveSession(sessionUrl).then(deferred.resolve, deferred.reject);
-            }
-
-            return deferred.promise;
-        };
-
-
-        $scope.getChangedProperties = function () {
-            return _.reject($scope.accountForm, function (value, key) {
-                return value === $rootScope.user[key];
+        /*
+        * Toggle the isEditable state of the scope
+        */
+        $scope.toggleEditable = function() {
+            $timeout(function() {
+                $scope.$apply(function() {
+                    $scope.isEditable = !$scope.isEditable;        
+                });
             });
         };
 
-        $scope.toggleEditable = function () {
-            $scope.isEditable = !$scope.isEditable;
+        /*
+        * The user has selected a cover image via the file input
+        * First callback: Successfully uploaded file
+        * Second callback: Error
+        * Third callback: Notification
+        */
+        $scope.coverImageSelected = function($files) {
+            $scope.coverImageUploading = true;
+            AccountService.updateCoverImage($files[0]).then(function(response){
+                $scope.coverImageUploading = false;
+                if ( $scope.avatarUploading === false ) {
+                    $scope.isEditable = false;
+                }
+                AccountService.getUser();
+            }, function(){
+            }, function(response){
+                $scope.coverImageUploading = true;
+                FlashService.flash( 'There was an error uploading your cover image, please try again', 'error');
+            });
         };
 
-        $scope.changeAvatar = function (newFile) {
-            $scope.avatarFile = newFile;
-            $scope.updateUser();
-            $scope.avatarFile = null;
+        /*
+        * The user has selected an avatar image via the file input
+        * First callback: Successfully uploaded file
+        * Second callback: Error
+        * Third callback: notification
+        */
+        $scope.avatarImageSelected = function($files) {
+            $scope.avatarUploading = true;
+            AccountService.updateAvatar($files[0]).then(function(response){
+                $scope.avatarUploading = false;
+                if ( $scope.coverImageUploading === false ) {
+                    $scope.isEditable = false;
+                }
+                AccountService.getUser();
+            }, function(){
+            }, function(response){
+                $scope.avatarUploading = true;
+                FlashService.flash( 'There was an error uploading your cover image, please try again', 'error');
+            });
         };
 
-        $scope.changeProfileBackground = function (newFile) {
-            $scope.profileFile = newFile;
-            $scope.updateUser();
-            $scope.profileFile = null;
-        };
-
-        $scope.changeField = function (name, value) {
-            $scope.updateUser(name, value);
-        };
-
-        $scope.updateUser = function (name, value) {
-            var fd = new FormData();
-            //Take the first selected file
-
-            fd.append(name, value);
-
-            DataService.request({
-                url: '/api/account/75435685',
-                method: 'PATCH',
-                headers: {'Content-Type': undefined },
-                transformRequest: angular.identity,
-                data: fd
-            }).then(function (accountData) {
-                $scope.profileData = {
-                    name: accountData.name,
-                    username: accountData.display_name,
-                    description: null,
-                    avatarURL: accountData.avatar,
-                    profileURL: accountData.profile_cover.replace(/thumbnail_medium/, 'ipad')
-                };
-            })
-
-        };
-
-        $scope.changed = function (name, value) {
-            $scope.formData.append(name, value);
-        };
-
-        $scope.disallowNewlines = function ($event) {
-            if ($event.keyCode === 13) {
-                $event.preventDefault();
-            }
-        };
-
-        /* ----- Logic Here ---- */
-
-        $scope.getAccountData($routeParams.accountID).then(function (accountData) {
-            $scope.profileData = {
-                name: accountData.name,
-                username: accountData.display_name,
-                description: null,
-                avatarURL: accountData.avatar,
-                profileURL: accountData.profile_cover.replace(/thumbnail_medium/, 'ipad')
-            };
-            $scope.State = 'SUCCESS';
-        }, function () {
-//            debugger;
-            $scope.State = 'ERROR';
+        /*
+        * Listen for changes to the user object
+        */
+        $scope.$on('user updated', function(e, data){
+            $timeout(function() {
+                $rootScope.$apply(function() {
+                    $rootScope.User = data;
+                    $scope.$broadcast('update autosave fields')
+                });
+            });
         });
 
-        /*        avatar: "http://media.dev.wonderpl.com/images/avatar/thumbnail_medium/_SXWl-cdXyMlP5z_FSgqLg.jpg"
-         display_name: "test"
-         href: "/api/account/75435685"
-         name: "test"
-         player_logo: null
-         profile_cover: "http://media.dev.wonderpl.com/images/profile/thumbnail_medium/2sInhh8sbbAsRK-C_Yf4bQ.jpg"*/
-
-        $scope.$watch('isEditable', function (newValue) {
-            if (newValue) {
-                $timeout(function () {
-                    $element.find('h2:first').focus();
+        /*
+        * Listen for autosave broadcasts from our auto-save-field directives
+        */
+        $scope.$on('autosave', function(e, attr, val, date){
+            $timeout(function(){
+                $scope.$apply(function(){
+                    console.log( ' AUTOSAVE CAUGHT ' );
                 });
-            }
+            }); 
         });
 
     }]);
@@ -615,6 +740,10 @@
     app.controller('UploadController', 
         ['$scope', '$rootScope', '$http', '$timeout', '$location', '$templateCache', '$compile', 'VideoService', 'AccountService', 'AuthService', '$modal', 'animLoop', 'prettydate', '$interval', '$upload', '$q', 'FlashService', 
         function($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, VideoService, AccountService, AuthService, $modal, animLoop, prettydate, $interval, $upload, $q, FlashService) {
+
+        // AuthService.getUser().then(function(session){
+        //     console.log('SESSION RETREIVED', session);
+        // });
 
         /*
         * The state object for the chosen category for the video
@@ -659,6 +788,15 @@
         };
 
         /*
+        * State object for the click-more-data
+        */                
+        $scope.clickToMore = {
+            text: "",
+            link: ""
+        };
+        $scope.showClickToMore = false;
+
+        /*
         * State objects showing which thumbnail has been selected out of the available video thumbnails
         */        
         $scope.previewIndex = 0;
@@ -680,6 +818,9 @@
             },  30000)
         };
 
+        /*
+        * Cache the element we use for showing save status
+        */
         $scope.$draftStatusMessage = $('#upload-draft-status');
 
         /*
@@ -706,42 +847,18 @@
         };
 
         /*
-        * Strips out any HTML tags and pasts in plain text
-        */
-        $scope.cleanPaste = function(e){
-            e.preventDefault();
-            var text = e.clipboardData.getData("text/plain");
-            document.execCommand("insertHTML", false, text);
-        };        
-
-        /*
-        * Check the progress of the file upload adn update the UI
-        */
-        $scope.getUploadProgress = function(){
-        };
-
-        /*
-        * The user has selected a file via the file input
-        */
-        // $scope.onFileSelect = function($files) {
-        //     $scope.file.state = "chosen";
-        //     $scope.file.data = $files;
-        // };
-
-        /*
         * The user has confirmed that they have chosen the correct file to upload
         */
         $scope.startUpload = function() {
 
             VideoService.getUploadArgs().then(function(uploadArgs){
 
-                var formData = new FormData(),
-                    uploadPath;
+                var formData = new FormData();
 
                 $.each(uploadArgs.fields, function () {
                     formData.append(this.name, this.value);
                     if (this.name == 'key') {
-                        uploadPath = this.value;
+                        $scope.uploadPath = this.value;
                     }
                 });
 
@@ -754,67 +871,11 @@
                     processData: false,
                     mimeType: 'multipart/form-data',
                     contentType: false,
-                    xhr: function () {
-                        var xhr = $.ajaxSettings.xhr();
-                        xhr.upload.onprogress = function (e) {
-                            $timeout( function() {
-                                $scope.$apply(function() {
-                                    var p = e.lengthComputable ? Math.round(e.loaded * 100 / e.total) : 0;
-                                    $scope.file.upload.progress = p;
-                                });
-                            });
-                        };
-                        return xhr;
-                    }
-                }).done(function (response) {
-                    $timeout(function() {
-                        $scope.$apply(function(){
-                            var data = { filename: uploadPath };
-                            $scope.video.filename = uploadPath;
-                            $scope.file.state = 'processing';
-                            $scope.updateVideo(data).then(function() {
-                                console.log( ' SETTING THE INTERVAL ');
-                                // POLLING
-                                $scope.processingInterval = setInterval(function(){
-                                    console.log('interval firing');
-                                    // Check for state change in the video record
-                                    VideoService.get($scope.video.id).then(function(response){
-                                        console.log( 'checking for state change', response );
-                                        if ( response.status === 'ready' ) {
-                                            clearInterval($scope.processingInterval);
-                                            
-                                            // Check for preview images
-                                            VideoService.getPreviewImages($scope.video.id).then(function(response){
-                                                $timeout(function() {
-                                                    $scope.$apply(function() {
-                                                        $scope.previewImages = response.image.items;
-                                                        console.log($scope.previewImages);
-                                                    });
-                                                });
-                                            });
-
-                                            $timeout(function() {
-                                                $scope.$apply(function() {
-                                                    $scope.file.state = 'complete';
-                                                });
-                                            });
-                                        } else {    
-                                            console.log(' video still processing' );
-                                        }
-                                    });
-
-                                }, 10000);
-                                setTimeout(function(){
-                                    console.log('interval should be firing NOW');
-                                }, 10000);
-                                console.log( ' INTERVAL SET ');
-                            });
-                        });
-                    });
-                }).fail(function (response) {
-                    console.log(' UPLOAD FAILED ', arguments);
-                });
-
+                    xhr: $scope.uploadProgress
+                })
+                .done($scope.uploadSuccess)
+                .fail($scope.uploadFail);
+                
                 $timeout(function(){
                     $scope.$apply(function(){
                         $scope.file.state = "uploading";
@@ -823,7 +884,69 @@
 
                 animLoop.start();
             });
+        };
 
+        /*
+        * Check the progress of the file upload adn update the UI
+        */
+        $scope.uploadProgress = function(){
+            var xhr = $.ajaxSettings.xhr();
+            xhr.upload.onprogress = function (e) {
+                $timeout( function() {
+                    $scope.$apply(function() {
+                        var p = e.lengthComputable ? Math.round(e.loaded * 100 / e.total) : 0;
+                        $scope.file.upload.progress = p;
+                    });
+                });
+            };
+            return xhr;
+        };
+
+        /*
+        * The file upload was a total shambles - respond to the error
+        */
+        $scope.uploadFail = function(response) {
+            console.log(' UPLOAD FAILED ', arguments);
+        };
+
+        /*
+        * The file upload was successful - take the next steps
+        */
+        $scope.uploadSuccess = function(response) {
+            
+            $timeout(function() {
+                $scope.$apply(function(){
+                    $scope.video.filename = $scope.uploadPath;
+                    $scope.file.state = 'processing';
+                });
+            });
+
+            $scope.updateVideo({ filename: $scope.uploadPath }).then(function() {
+                $scope.processingInterval = setInterval(function(){
+                    // Check for state change in the video record
+                    VideoService.get($scope.video.id).then(function(response){
+                        if ( response.status === 'ready' ) {
+                            clearInterval($scope.processingInterval);
+                            
+                            VideoService.getPreviewImages($scope.video.id).then(function(response){
+                                $timeout(function() {
+                                    $scope.$apply(function() {
+                                        $scope.previewImages = response.image.items;
+                                    });
+                                });
+                            });
+
+                            $timeout(function() {
+                                $scope.$apply(function() {
+                                    $scope.file.state = 'complete';
+                                });
+                            });
+                        } else {  
+                        }
+                    });
+
+                }, 10000);
+            }); 
         };
 
         /*
@@ -837,24 +960,42 @@
                     $scope.status.date = date;
                     $scope.video[attr] = val;
                     $scope.updateStatusMessage();
-
+                    $scope.showClickToMore = false;
                     if ( $scope.video.id === null ) {
                         if ( $scope.video.title.length > 0 ) {
-                            console.log('GONNA CREATE THE VIDEO');
-                            $scope.createVideo().then(function(){
-                                // $scope.updateStatusMessage();
-                            });
+                            $scope.createVideo();
                         }
                     } else {
                         var data = {};
                         data[attr] = val;
-                        $scope.updateVideo(data).then(function(){
-                            // $scope.updateStatusMessage();
-                        });
+                        $scope.updateVideo(data);
                     }
                 });
             }); 
         });
+
+        /*
+        * Listen for broadcasts from the Autosave directives
+        */
+        $scope.$on('inputFocussed', function(e){
+            $timeout(function() {
+                $scope.$apply(function(){
+                    $scope.showClickToMore = false;                
+                });
+            });
+        });
+
+        /*
+        * Save the Click to more data when it is shown or hidden
+        */
+        $scope.$watch('showClickToMore', function(oldValue, newValue){
+            if ( newValue === false ) {
+                $scope.updateVideo({ link_title: $scope.clickToMore.text }).then(function(){
+                    $scope.updateVideo({ link_url: $scope.clickToMore.link });
+                });
+                $scope.updateStatusMessage();                
+            }
+        }); 
 
         /*
         * Update the draft status message
@@ -1029,9 +1170,25 @@
             });
         };
 
+        /*
+        * Toggle the display of the Click To More overlay
+        */
+        $scope.toggleClickToMore = function() {
+            $timeout(function(){
+                $scope.$apply(function(){
+                    $scope.showClickToMore = !$scope.showClickToMore;
+
+                    if ( $scope.showClickToMore === true ) {
+                        $('#click-to-more-text input').focus();
+                    }
+                });
+            });
+        };
     }]);
 
-    app.controller('AnalyticsController', ['$scope', '$rootScope', '$routeParams', '$element', 'Enum', 'AnalyticsFields', 'VideoService', function ($scope, $rootScope, $routeParams, $element, Enum, AnalyticsFields, VideoService) {
+    app.controller('AnalyticsController', 
+        ['$scope', '$rootScope', '$routeParams', '$element', 'Enum', 'AnalyticsFields', 'VideoService', 
+        function ($scope, $rootScope, $routeParams, $element, Enum, AnalyticsFields, VideoService) {
 
         // ---- Functions ----
 

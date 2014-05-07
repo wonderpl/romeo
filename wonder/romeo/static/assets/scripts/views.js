@@ -2,45 +2,45 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('account.html',
     "<div id=\"page-account\" class=\"section\" ng-controller=\"AccountController\">\n" +
-    "    <div ng-if=\"State === 'SUCCESS'\">\n" +
-    "        <div class=\"background\" style=\"background-image: url((~ profileData.profileURL ~));\"></div>\n" +
-    "        <div ng-if=\"isEditable\" class=\"edit-text\">\n" +
-    "            <label for=\"profile-picker\">Upload A Cover Image</label>\n" +
-    "            <input id=\"profile-picker\" type=\"file\" class=\"hidden-input\"\n" +
-    "                   onchange=\"angular.element(this).scope().changeField('profile_cover', this.files[0])\"/>\n" +
+    "\n" +
+    "    <div id=\"edit-profile-cover-image\" style=\"background-image: url((~ User.profile_cover ~));\">\n" +
+    "        <div class=\"edit-background\" ng-class=\"{ show: isEditable }\"></div>\n" +
+    "        <span class=\"upload-target\" ng-show=\"isEditable && !coverImageUploading\"></span>\n" +
+    "        <span class=\"account-upload-spinner\" ng-show=\"coverImageUploading\"></span>\n" +
+    "        <input type=\"file\" id=\"edit-profile-cover-image-choose-background\" ng-file-select=\"coverImageSelected($files)\" ng-show=\"isEditable\" />\n" +
+    "\n" +
+    "        <div id=\"edit-profile-avatar\" style=\"background-image: url((~ User.avatar ~));\">\n" +
+    "            <div class=\"edit-background\" ng-class=\"{ show: isEditable }\"></div>\n" +
+    "            <span class=\"upload-target\" ng-show=\"isEditable && !avatarUploading\"></span>\n" +
+    "            <span class=\"account-upload-spinner\" ng-show=\"avatarUploading\"></span>\n" +
+    "            <input type=\"file\" id=\"edit-profile-avatar-choose-avatar\" ng-file-select=\"avatarImageSelected($files)\" ng-show=\"isEditable\" />\n" +
     "        </div>\n" +
-    "        <div class=\"avatar\" style=\"background-image: url((~ profileData.avatarURL ~));\">\n" +
-    "            <div ng-if=\"isEditable\" class=\"avatar-change\">\n" +
-    "                <label for=\"avatar-picker\" class=\"icon-export\">&nbsp;</label>\n" +
-    "                <input id=\"avatar-picker\" type=\"file\" class=\"hidden-input\"\n" +
-    "                       onchange=\"angular.element(this).scope().changeField('avatar', this.files[0])\"/>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "        <div ng-if=\"isLoggedIn\" class=\"edit-icons\">\n" +
-    "            <span ng-click=\"toggleEditable()\" ng-class=\"{ active: isEditable }\" class=\"wp-button\">Edit Profile</span>\n" +
-    "            <!--            <span>(ipad)</span>\n" +
-    "                        <span>iphone</span>-->\n" +
-    "        </div>\n" +
-    "        <div class=\"inner\">\n" +
-    "            <div class=\"row full-width\">\n" +
-    "                <h2 class=\"name\" contenteditable=\"(~isEditable~)\" onblur=\"angular.element(this).scope().changeField('name', this.innerHTML)\" onkeydown=\"angular.element(this).scope().disallowNewlines(event)\">(~ profileData.name ~)</h2>\n" +
-    "            </div>\n" +
-    "            <div class=\"row full-width\">\n" +
-    "                <h3 class=\"display-name\" contenteditable=\"(~isEditable~)\" onblur=\"angular.element(this).scope().changeField('display_name', this.innerHTML)\" onkeydown=\"angular.element(this).scope().disallowNewlines(event)\">(~ profileData.username ~)</h3>\n" +
-    "            </div>\n" +
-    "            <div class=\"row full-width\">\n" +
-    "                <h3 class=\"name\">(~ profileData.description ~)</h3>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
+    "        <a ng-click=\"toggleEditable()\" ng-class=\"{ active: isEditable }\" class=\"wp-button\" id=\"toggle-editable-button\">(~ isEditable ? \"Stop Editing\" : \"Edit Profile\" ~)</a>\n" +
     "    </div>\n" +
-    "    <div ng-if=\"State === 'NOT_FOUND'\">\n" +
-    "        <div class=\"account-error\">Profile Not Found</div>\n" +
-    "    </div>\n" +
-    "    <div ng-if=\"State === 'ERROR'\">\n" +
-    "        <div class=\"account-error\">Error Loading Profile</div>\n" +
-    "    </div>\n" +
-    "    <div ng-if=\"State === 'INIT'\">\n" +
-    "        <div class=\"account-loading\">Loading Profile</div>\n" +
+    "    \n" +
+    "    <!-- <div class=\"background\" style=\"background-image: url((~ User.profile_cover ~));\">\n" +
+    "        <div ng-if=\"isEditable\" class=\"edit-text\"><input id=\"profile-picker\" type=\"file\" class=\"hidden-input\"/></div>\n" +
+    "    </div> -->\n" +
+    "\n" +
+    "<!--     <div class=\"avatar\" style=\"background-image: url((~ User.avatar ~));\">\n" +
+    "        <div ng-if=\"isEditable\" class=\"avatar-change\">\n" +
+    "            <label for=\"avatar-picker\" class=\"icon-export\">&nbsp;</label>\n" +
+    "            <input id=\"avatar-picker\" type=\"file\" class=\"hidden-input\" />\n" +
+    "        </div>\n" +
+    "    </div> -->\n" +
+    "    <!-- <div ng-if=\"isLoggedIn\" class=\"edit-icons\">\n" +
+    "        \n" +
+    "    </div> -->\n" +
+    "    <div class=\"inner\" id=\"edit-profile-details\">\n" +
+    "        <div class=\"row\">\n" +
+    "            <pre id=\"edit-profile-name\" ng-class=\"{ disabled: !isEditable }\" placeholder=\"Your Full Name\" ng-paste=\"cleanPaste($event)\" data-model=\"display_name\" pl-content-editable-placeholder contenteditable auto-save-field disableNewLines>(~ User.display_name ~)</pre>\n" +
+    "        </div>\n" +
+    "        <div class=\"row\">\n" +
+    "            <pre id=\"edit-profile-username\" ng-class=\"{ disabled: !isEditable }\" placeholder=\"Your Username\" ng-paste=\"cleanPaste($event)\" data-model=\"name\" pl-content-editable-placeholder contenteditable auto-save-field disableNewLines>(~ User.name ~)</pre>\n" +
+    "        </div>\n" +
+    "        <div class=\"row\">\n" +
+    "            <pre id=\"edit-profile-description\" ng-class=\"{ disabled: !isEditable }\" placeholder=\"Describe yourself in a few words\" ng-paste=\"cleanPaste($event)\" data-model=\"description\" pl-content-editable-placeholder contenteditable auto-save-field disableNewLines>(~ User.description ~)</pre>\n" +
+    "        </div>\n" +
     "    </div>\n" +
     "</div>\n" +
     "\n"
@@ -484,16 +484,26 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t\t\t<a ng-show=\"file.state == 'complete'\" class=\"upload-complete icon-upload-complete\"></a>\n" +
     "\t\t\t\t\t\t<div ng-show=\"file.state == 'complete'\" class=\"upload-complete-message f-sans\">Great, your video has finished processing and is ready, now you can pick a thumbnail</div>\n" +
     "\t\t\t\t\t\t<a ng-show=\"file.state == 'complete' && file.thumbnail == null\" ng-class=\"{ enabled: file.upload.progress >= 55 }\" class=\"progress-pick-a-thumbnail\" ng-click=\"showPreviewImageChooser()\">Let's pick a thumbnail</a>\n" +
-    "\n" +
     "\t\t\t\t\t</div>\n" +
+    "\t\t\t\t</div>\n" +
     "\n" +
+    "\t\t\t\t<div class=\"row\" id=\"click-to-more-wrapper\">\n" +
+    "\t\t\t\t\t<a class=\"wp-button\" id=\"click-to-more\" ng-click=\"toggleClickToMore()\">(~ clickToMore.text.length == 0 ? \"Add a link...\" : clickToMore.text ~)</a>\n" +
+    "\t\t\t\t\t<div id=\"click-to-more-form\" ng-class=\"{ show: showClickToMore }\">\n" +
+    "\t\t\t\t\t\t<div id=\"click-to-more-text\" class=\"icon-text click-to-more-row\">\n" +
+    "\t\t\t\t\t\t\t<input type=\"text\" ng-model=\"clickToMore.text\" placeholder=\"Create a custom button...\">\n" +
+    "\t\t\t\t\t\t</div>\n" +
+    "\t\t\t\t\t\t<div id=\"click-to-more-link\" class=\"icon-hyperlink click-to-more-row \">\n" +
+    "\t\t\t\t\t\t\t<input type=\"text\" ng-model=\"clickToMore.link\" placeholder=\"http://google.com/\">\n" +
+    "\t\t\t\t\t\t</div>\n" +
+    "\t\t\t\t\t\t\n" +
+    "\t\t\t\t\t</div>\n" +
     "\t\t\t\t</div>\n" +
-    "\t\t\t\t<div class=\"row\" id=\"upload-buttons\">\n" +
-    "\t\t\t\t\t<a class=\"wp-button\" id=\"click-to-more\">Add a link...</a>\n" +
-    "\t\t\t\t</div>\n" +
+    "\n" +
     "\t\t\t\t<div class=\"row f-serif\" id=\"description-row\">\n" +
     "\t\t\t\t\t<pre id=\"upload-description\" placeholder=\"Video description\" ng-paste=\"cleanPaste($event)\" data-model=\"description\" pl-content-editable-placeholder contenteditable auto-save-field></pre>\n" +
     "\t\t\t\t</div>\n" +
+    "\n" +
     "\t\t\t\t<div class=\"row\" id=\"category-row\">\n" +
     "\t\t\t\t\t<a id=\"category-chooser\" ng-click=\"showCategories()\" class=\"f-sans\">(~ chosenCategory.label || 'Select a category' ~)<span>(~ chosenCategory.label != undefined ? '...' : '+' ~)</span></a>\n" +
     "\t\t\t\t</div>\n" +

@@ -1,43 +1,43 @@
 <div id="page-account" class="section" ng-controller="AccountController">
-    <div ng-if="State === 'SUCCESS'">
-        <div class="background" style="background-image: url((~ profileData.profileURL ~));"></div>
-        <div ng-if="isEditable" class="edit-text">
-            <label for="profile-picker">Upload A Cover Image</label>
-            <input id="profile-picker" type="file" class="hidden-input"
-                   onchange="angular.element(this).scope().changeField('profile_cover', this.files[0])"/>
+
+    <div id="edit-profile-cover-image" style="background-image: url((~ User.profile_cover ~));">
+        <div class="edit-background" ng-class="{ show: isEditable }"></div>
+        <span class="upload-target" ng-show="isEditable && !coverImageUploading"></span>
+        <span class="account-upload-spinner" ng-show="coverImageUploading"></span>
+        <input type="file" id="edit-profile-cover-image-choose-background" ng-file-select="coverImageSelected($files)" ng-show="isEditable" />
+
+        <div id="edit-profile-avatar" style="background-image: url((~ User.avatar ~));">
+            <div class="edit-background" ng-class="{ show: isEditable }"></div>
+            <span class="upload-target" ng-show="isEditable && !avatarUploading"></span>
+            <span class="account-upload-spinner" ng-show="avatarUploading"></span>
+            <input type="file" id="edit-profile-avatar-choose-avatar" ng-file-select="avatarImageSelected($files)" ng-show="isEditable" />
         </div>
-        <div class="avatar" style="background-image: url((~ profileData.avatarURL ~));">
-            <div ng-if="isEditable" class="avatar-change">
-                <label for="avatar-picker" class="icon-export">&nbsp;</label>
-                <input id="avatar-picker" type="file" class="hidden-input"
-                       onchange="angular.element(this).scope().changeField('avatar', this.files[0])"/>
-            </div>
-        </div>
-        <div ng-if="isLoggedIn" class="edit-icons">
-            <span ng-click="toggleEditable()" ng-class="{ active: isEditable }" class="wp-button">Edit Profile</span>
-            <!--            <span>(ipad)</span>
-                        <span>iphone</span>-->
-        </div>
-        <div class="inner">
-            <div class="row full-width">
-                <h2 class="name" contenteditable="{{isEditable}}" onblur="angular.element(this).scope().changeField('name', this.innerHTML)" onkeydown="angular.element(this).scope().disallowNewlines(event)">{{ profileData.name }}</h2>
-            </div>
-            <div class="row full-width">
-                <h3 class="display-name" contenteditable="{{isEditable}}" onblur="angular.element(this).scope().changeField('display_name', this.innerHTML)" onkeydown="angular.element(this).scope().disallowNewlines(event)">{{ profileData.username }}</h3>
-            </div>
-            <div class="row full-width">
-                <h3 class="name">{{ profileData.description }}</h3>
-            </div>
-        </div>
+        <a ng-click="toggleEditable()" ng-class="{ active: isEditable }" class="wp-button" id="toggle-editable-button">(~ isEditable ? "Stop Editing" : "Edit Profile" ~)</a>
     </div>
-    <div ng-if="State === 'NOT_FOUND'">
-        <div class="account-error">Profile Not Found</div>
-    </div>
-    <div ng-if="State === 'ERROR'">
-        <div class="account-error">Error Loading Profile</div>
-    </div>
-    <div ng-if="State === 'INIT'">
-        <div class="account-loading">Loading Profile</div>
+    
+    <!-- <div class="background" style="background-image: url((~ User.profile_cover ~));">
+        <div ng-if="isEditable" class="edit-text"><input id="profile-picker" type="file" class="hidden-input"/></div>
+    </div> -->
+
+<!--     <div class="avatar" style="background-image: url((~ User.avatar ~));">
+        <div ng-if="isEditable" class="avatar-change">
+            <label for="avatar-picker" class="icon-export">&nbsp;</label>
+            <input id="avatar-picker" type="file" class="hidden-input" />
+        </div>
+    </div> -->
+    <!-- <div ng-if="isLoggedIn" class="edit-icons">
+        
+    </div> -->
+    <div class="inner" id="edit-profile-details">
+        <div class="row">
+            <pre id="edit-profile-name" ng-class="{ disabled: !isEditable }" placeholder="Your Full Name" ng-paste="cleanPaste($event)" data-model="display_name" pl-content-editable-placeholder contenteditable auto-save-field disableNewLines>(~ User.display_name ~)</pre>
+        </div>
+        <div class="row">
+            <pre id="edit-profile-username" ng-class="{ disabled: !isEditable }" placeholder="Your Username" ng-paste="cleanPaste($event)" data-model="name" pl-content-editable-placeholder contenteditable auto-save-field disableNewLines>(~ User.name ~)</pre>
+        </div>
+        <div class="row">
+            <pre id="edit-profile-description" ng-class="{ disabled: !isEditable }" placeholder="Describe yourself in a few words" ng-paste="cleanPaste($event)" data-model="description" pl-content-editable-placeholder contenteditable auto-save-field disableNewLines>(~ User.description ~)</pre>
+        </div>
     </div>
 </div>
 

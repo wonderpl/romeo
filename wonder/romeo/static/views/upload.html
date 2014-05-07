@@ -46,16 +46,26 @@
 						<a ng-show="file.state == 'complete'" class="upload-complete icon-upload-complete"></a>
 						<div ng-show="file.state == 'complete'" class="upload-complete-message f-sans">Great, your video has finished processing and is ready, now you can pick a thumbnail</div>
 						<a ng-show="file.state == 'complete' && file.thumbnail == null" ng-class="{ enabled: file.upload.progress >= 55 }" class="progress-pick-a-thumbnail" ng-click="showPreviewImageChooser()">Let's pick a thumbnail</a>
-
 					</div>
+				</div>
 
+				<div class="row" id="click-to-more-wrapper">
+					<a class="wp-button" id="click-to-more" ng-click="toggleClickToMore()">{{ clickToMore.text.length == 0 ? "Add a link..." : clickToMore.text }}</a>
+					<div id="click-to-more-form" ng-class="{ show: showClickToMore }">
+						<div id="click-to-more-text" class="icon-text click-to-more-row">
+							<input type="text" ng-model="clickToMore.text" placeholder="Create a custom button...">
+						</div>
+						<div id="click-to-more-link" class="icon-hyperlink click-to-more-row ">
+							<input type="text" ng-model="clickToMore.link" placeholder="http://google.com/">
+						</div>
+						
+					</div>
 				</div>
-				<div class="row" id="upload-buttons">
-					<a class="wp-button" id="click-to-more">Add a link...</a>
-				</div>
+
 				<div class="row f-serif" id="description-row">
 					<pre id="upload-description" placeholder="Video description" ng-paste="cleanPaste($event)" data-model="description" pl-content-editable-placeholder contenteditable auto-save-field></pre>
 				</div>
+
 				<div class="row" id="category-row">
 					<a id="category-chooser" ng-click="showCategories()" class="f-sans">{{ chosenCategory.label || 'Select a category' }}<span>{{ chosenCategory.label != undefined ? '...' : '+' }}</span></a>
 				</div>
