@@ -92,7 +92,7 @@ class AccountTagsResource(Resource):
 
         tag = form.save()
 
-        if True:    # XXX: Make this conditional on some flag
+        if form.public.data:
             channeldata = dict(title=tag.label, description=tag.description)
             try:
                 tag.dolly_channel = dollyuser.create_channel(channeldata)['id']
@@ -106,7 +106,7 @@ class AccountTagsResource(Resource):
 
 
 def _tag_item(tag):
-    return dict((p, getattr(tag, p)) for p in ('id', 'href', 'label', 'description'))
+    return dict((p, getattr(tag, p)) for p in ('id', 'href', 'label', 'description', 'public'))
 
 
 def tag_view(f):

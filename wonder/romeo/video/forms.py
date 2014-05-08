@@ -37,6 +37,7 @@ class VideoTagForm(BaseForm):
 
     label = wtforms.StringField(validators=[wtforms.validators.Required()])
     description = wtforms.StringField()
+    public = wtforms.BooleanField()
 
     def validate_label(self, field):
         if field.data:
@@ -45,6 +46,9 @@ class VideoTagForm(BaseForm):
                 query = query.filter(VideoTag.id != self.obj.id)
             if query.count():
                 raise wtforms.ValidationError('Tag already exists')
+
+    def validate_public(self, field):
+        field.data = bool(field.raw_data[0]) if field.raw_data else False
 
 
 class VideoForm(BaseForm):

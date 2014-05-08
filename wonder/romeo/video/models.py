@@ -139,6 +139,14 @@ class VideoTag(db.Model):
     def href(self):
         return url_for('api.tag', tag_id=self.id)
 
+    @property
+    def public(self):
+        return bool(self.dolly_channel)
+
+    @public.setter
+    def public(self, value):
+        pass
+
     @classmethod
     def create_from_dolly_channels(cls, account_id, channels):
         existing = dict(cls.query.filter_by(account_id=account_id).

@@ -20,7 +20,7 @@ def _configure(app):
 
 
 def _setup_logging(app):
-    if not app.debug:
+    if True:    # not app.debug:
         handler = logging.StreamHandler()
         handler.setFormatter(logging.Formatter(
             '%(asctime)s - %(levelname)s: %(message)s', '%Y-%m-%dT%H:%M:%S'))
