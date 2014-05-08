@@ -243,7 +243,7 @@
                 var saveInterval;
 
                 var save = function(){
-                    $rootScope.$broadcast('autosave', elem.attr('data-model'), elem[0].innerText || elem.val(), new Date().toISOString());
+                    $rootScope.$broadcast('autosave', elem.attr('data-model'), elem[0].innerHTML || elem.val(), new Date().toISOString());
                 };
                 
                 elem.bind('focus', function() {

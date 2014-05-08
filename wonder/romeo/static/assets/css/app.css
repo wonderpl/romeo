@@ -4126,43 +4126,45 @@ video, canvas {
   font-size: 50px;
   font-weight: 100;
   text-align: left;
+  min-height: 50px;
 }
-/* line 170, ../../scss/partials/romeo/_upload.scss */
+/* line 171, ../../scss/partials/romeo/_upload.scss */
 #title-row pre:focus, #title-row pre:active, #title-row pre:hover, #title-row .placeholder:focus, #title-row .placeholder:active, #title-row .placeholder:hover {
   outline: none;
   border: none;
 }
-/* line 176, ../../scss/partials/romeo/_upload.scss */
+/* line 177, ../../scss/partials/romeo/_upload.scss */
 #title-row pre {
   position: relative;
   z-index: 20;
 }
 
-/* line 183, ../../scss/partials/romeo/_upload.scss */
+/* line 184, ../../scss/partials/romeo/_upload.scss */
 #description-row {
   width: 600px;
   margin: 0 auto 32px auto;
   display: block;
 }
-/* line 188, ../../scss/partials/romeo/_upload.scss */
+/* line 189, ../../scss/partials/romeo/_upload.scss */
 #description-row pre, #description-row .placeholder {
   font-size: 18px;
   line-height: 25px;
   font-weight: 300;
   text-align: left;
+  min-height: 25px;
 }
-/* line 194, ../../scss/partials/romeo/_upload.scss */
+/* line 196, ../../scss/partials/romeo/_upload.scss */
 #description-row pre:focus, #description-row pre:active, #description-row pre:hover, #description-row .placeholder:focus, #description-row .placeholder:active, #description-row .placeholder:hover {
   outline: none;
   border: none;
 }
-/* line 200, ../../scss/partials/romeo/_upload.scss */
+/* line 202, ../../scss/partials/romeo/_upload.scss */
 #description-row pre {
   position: relative;
   z-index: 20;
 }
 
-/* line 207, ../../scss/partials/romeo/_upload.scss */
+/* line 209, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone {
   display: block;
   position: relative;
@@ -4175,7 +4177,7 @@ video, canvas {
   -o-transition: all 0.1s ease-out;
   transition: all 0.1s ease-out;
 }
-/* line 220, ../../scss/partials/romeo/_upload.scss */
+/* line 222, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone.dashedborder {
   border: 2px dashed #b4b2bc;
   -webkit-border-radius: 10px;
@@ -4184,7 +4186,7 @@ video, canvas {
   -o-border-radius: 10px;
   border-radius: 10px;
 }
-/* line 225, ../../scss/partials/romeo/_upload.scss */
+/* line 227, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone .dialogs, #upload-dropzone .backgrounds {
   display: block;
   position: absolute;
@@ -4198,7 +4200,7 @@ video, canvas {
   -o-border-radius: 10px;
   border-radius: 10px;
 }
-/* line 235, ../../scss/partials/romeo/_upload.scss */
+/* line 237, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone .chosen-background {
   display: block;
   position: absolute;
@@ -4207,11 +4209,11 @@ video, canvas {
   width: 100%;
   height: 100%;
 }
-/* line 244, ../../scss/partials/romeo/_upload.scss */
+/* line 246, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone .confirm-label, #upload-dropzone .confirm-cancel, #upload-dropzone .confirm-proceed {
   color: #fff;
 }
-/* line 247, ../../scss/partials/romeo/_upload.scss */
+/* line 249, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone .confirm-label {
   text-align: center;
   display: block;
@@ -4220,7 +4222,7 @@ video, canvas {
   font-style: italic;
   margin: 0 0 120px 0;
 }
-/* line 256, ../../scss/partials/romeo/_upload.scss */
+/* line 258, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone a.confirm-proceed, #upload-dropzone a.confirm-cancel {
   display: -moz-inline-stack;
   display: inline-block;
@@ -4240,12 +4242,12 @@ video, canvas {
   cursor: pointer;
   text-decoration: none;
 }
-/* line 267, ../../scss/partials/romeo/_upload.scss */
+/* line 269, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone a.confirm-proceed:hover, #upload-dropzone a.confirm-proceed:active, #upload-dropzone a.confirm-proceed:focus, #upload-dropzone a.confirm-cancel:hover, #upload-dropzone a.confirm-cancel:active, #upload-dropzone a.confirm-cancel:focus {
   color: #3a3a3a;
   background: #fff;
 }
-/* line 273, ../../scss/partials/romeo/_upload.scss */
+/* line 275, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone a.confirm-proceed {
   z-index: 500;
   -webkit-border-radius: 0px 50px 50px 0px;
@@ -4254,7 +4256,7 @@ video, canvas {
   -o-border-radius: 0px 50px 50px 0px;
   border-radius: 0px 50px 50px 0px;
 }
-/* line 278, ../../scss/partials/romeo/_upload.scss */
+/* line 280, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone a.confirm-cancel {
   -webkit-border-radius: 50px 0px 0px 50px;
   -moz-border-radius: 50px 0px 0px 50px;
@@ -4263,7 +4265,7 @@ video, canvas {
   border-radius: 50px 0px 0px 50px;
   border-right: none;
 }
-/* line 283, ../../scss/partials/romeo/_upload.scss */
+/* line 285, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone .progress-bar {
   background: #6d6d6d;
   border: 2px solid #c5c5c5;
@@ -4282,7 +4284,7 @@ video, canvas {
   -o-border-radius: 100px;
   border-radius: 100px;
 }
-/* line 297, ../../scss/partials/romeo/_upload.scss */
+/* line 299, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone .progress-bar .inner {
   position: absolute;
   display: block;
@@ -4302,11 +4304,11 @@ video, canvas {
   -o-transition: all 0.1s linear;
   transition: all 0.1s linear;
 }
-/* line 309, ../../scss/partials/romeo/_upload.scss */
+/* line 311, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone .progress-bar .inner.complete {
   width: 100%;
 }
-/* line 315, ../../scss/partials/romeo/_upload.scss */
+/* line 317, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone .progress-percentage {
   display: block;
   width: 100%;
@@ -4318,7 +4320,7 @@ video, canvas {
   text-align: center;
   color: #fff;
 }
-/* line 327, ../../scss/partials/romeo/_upload.scss */
+/* line 329, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone .progress-pick-a-thumbnail {
   display: block;
   position: absolute;
@@ -4346,17 +4348,17 @@ video, canvas {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
   opacity: 0.5;
 }
-/* line 346, ../../scss/partials/romeo/_upload.scss */
+/* line 348, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone .progress-pick-a-thumbnail.enabled {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
 }
-/* line 348, ../../scss/partials/romeo/_upload.scss */
+/* line 350, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone .progress-pick-a-thumbnail.enabled:hover, #upload-dropzone .progress-pick-a-thumbnail.enabled:active, #upload-dropzone .progress-pick-a-thumbnail.enabled:focus {
   color: #3a3a3a;
   background: #fff;
 }
-/* line 355, ../../scss/partials/romeo/_upload.scss */
+/* line 357, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone .upload-complete {
   display: block;
   width: 96px;
@@ -4369,7 +4371,7 @@ video, canvas {
   font-size: 96px;
   color: rgba(255, 255, 255, 0.5);
 }
-/* line 368, ../../scss/partials/romeo/_upload.scss */
+/* line 370, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone .upload-complete-message {
   color: white;
   font-size: 22px;
@@ -4379,7 +4381,7 @@ video, canvas {
   margin: 0 auto;
   padding-top: 265px;
 }
-/* line 378, ../../scss/partials/romeo/_upload.scss */
+/* line 380, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone .processing-loading {
   display: block;
   position: absolute;
@@ -4392,7 +4394,7 @@ video, canvas {
   background: transparent url('/static/assets/img/spinner.gif') center center no-repeat;
   background-size: 100% auto;
 }
-/* line 391, ../../scss/partials/romeo/_upload.scss */
+/* line 393, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone .processing-message {
   color: white;
   font-size: 22px;
@@ -4402,7 +4404,7 @@ video, canvas {
   margin: 0 auto;
   padding-top: 265px;
 }
-/* line 402, ../../scss/partials/romeo/_upload.scss */
+/* line 404, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone .confirm-background {
   display: block;
   position: absolute;
@@ -4429,7 +4431,7 @@ video, canvas {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#727272', endColorstr='#3a3a3a',GradientType=0 );
   /* IE6-8 */
 }
-/* line 422, ../../scss/partials/romeo/_upload.scss */
+/* line 424, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone .message {
   display: block;
   position: absolute;
@@ -4438,7 +4440,7 @@ video, canvas {
   width: 100%;
   height: 100%;
 }
-/* line 431, ../../scss/partials/romeo/_upload.scss */
+/* line 433, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone span.empty-upper, #upload-dropzone span.empty-lower, #upload-dropzone span.empty-icon {
   color: #b4b2bc;
   display: block;
@@ -4446,26 +4448,26 @@ video, canvas {
   font-size: 22px;
   padding: 12px 0;
 }
-/* line 439, ../../scss/partials/romeo/_upload.scss */
+/* line 441, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone span.empty-upper {
   padding: 175px 0 22px 0;
 }
-/* line 443, ../../scss/partials/romeo/_upload.scss */
+/* line 445, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone span.empty-icon {
   color: #b4b2bc;
   font-size: 64px;
   padding: 12px 0 0 0;
 }
-/* line 449, ../../scss/partials/romeo/_upload.scss */
+/* line 451, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone span.empty-lower {
   padding: 8px 0 0 0;
 }
-/* line 453, ../../scss/partials/romeo/_upload.scss */
+/* line 455, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone span.highlight {
   color: black;
   text-decoration: underline;
 }
-/* line 458, ../../scss/partials/romeo/_upload.scss */
+/* line 460, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone input#file-input {
   display: block;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
@@ -4481,11 +4483,11 @@ video, canvas {
   cursor: pointer;
   z-index: 400;
 }
-/* line 472, ../../scss/partials/romeo/_upload.scss */
+/* line 474, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone input#file-input.hide {
   display: none;
 }
-/* line 477, ../../scss/partials/romeo/_upload.scss */
+/* line 479, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone label {
   display: block;
   width: 100%;
@@ -4501,14 +4503,14 @@ video, canvas {
   line-height: 36px;
   text-align: center;
 }
-/* line 493, ../../scss/partials/romeo/_upload.scss */
+/* line 495, ../../scss/partials/romeo/_upload.scss */
 #upload-dropzone:before {
   content: '';
   display: block;
   padding-top: 510px;
 }
 
-/* line 500, ../../scss/partials/romeo/_upload.scss */
+/* line 502, ../../scss/partials/romeo/_upload.scss */
 .thumbnail-background {
   display: block;
   position: absolute;
@@ -4525,37 +4527,37 @@ video, canvas {
   transition: all 0.2s ease-out;
 }
 
-/* line 518, ../../scss/partials/romeo/_upload.scss */
+/* line 520, ../../scss/partials/romeo/_upload.scss */
 #upload-instructions .tooltip {
   display: block;
   width: 75%;
   margin: 0 auto;
 }
-/* line 523, ../../scss/partials/romeo/_upload.scss */
+/* line 525, ../../scss/partials/romeo/_upload.scss */
 #upload-instructions .tooltip h4 {
   font-size: 24px;
   text-align: center;
   color: #2c3e50;
   margin: 0 0 22px 0;
 }
-/* line 529, ../../scss/partials/romeo/_upload.scss */
+/* line 531, ../../scss/partials/romeo/_upload.scss */
 #upload-instructions .tooltip h4 span {
   position: relative;
   top: 3px;
   padding-right: 12px;
 }
-/* line 536, ../../scss/partials/romeo/_upload.scss */
+/* line 538, ../../scss/partials/romeo/_upload.scss */
 #upload-instructions .tooltip ul {
   list-style: disc;
 }
-/* line 540, ../../scss/partials/romeo/_upload.scss */
+/* line 542, ../../scss/partials/romeo/_upload.scss */
 #upload-instructions .tooltip li {
   text-align: left;
   display: block;
   margin: 0 0 12px 0;
 }
 
-/* line 548, ../../scss/partials/romeo/_upload.scss */
+/* line 550, ../../scss/partials/romeo/_upload.scss */
 #upload-progress-wrapper {
   display: block;
   width: 50%;
@@ -4565,7 +4567,7 @@ video, canvas {
   width: 50%;
   height: 110px;
 }
-/* line 559, ../../scss/partials/romeo/_upload.scss */
+/* line 561, ../../scss/partials/romeo/_upload.scss */
 #upload-progress-wrapper .bar {
   display: block;
   position: absolute;
@@ -4587,7 +4589,7 @@ video, canvas {
   -o-border-radius: 3px;
   border-radius: 3px;
 }
-/* line 574, ../../scss/partials/romeo/_upload.scss */
+/* line 576, ../../scss/partials/romeo/_upload.scss */
 #upload-progress-wrapper .bar .progress {
   display: block;
   height: 20px;
@@ -4601,15 +4603,15 @@ video, canvas {
   transition: width 10s linear;
   background: #2ecc71 url('/static/assets/img/progress.gif') left top repeat;
 }
-/* line 585, ../../scss/partials/romeo/_upload.scss */
+/* line 587, ../../scss/partials/romeo/_upload.scss */
 #upload-progress-wrapper .bar.complete {
   background: #1abc9c;
 }
-/* line 588, ../../scss/partials/romeo/_upload.scss */
+/* line 590, ../../scss/partials/romeo/_upload.scss */
 #upload-progress-wrapper .bar.complete .progress {
   display: none;
 }
-/* line 594, ../../scss/partials/romeo/_upload.scss */
+/* line 596, ../../scss/partials/romeo/_upload.scss */
 #upload-progress-wrapper .percentage {
   display: block;
   text-align: center;
@@ -4617,7 +4619,7 @@ video, canvas {
   padding-top: 50px;
 }
 
-/* line 602, ../../scss/partials/romeo/_upload.scss */
+/* line 604, ../../scss/partials/romeo/_upload.scss */
 #upload-info-wrapper {
   display: block;
   width: 50%;
@@ -4628,12 +4630,12 @@ video, canvas {
   -moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.8);
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.8);
 }
-/* line 612, ../../scss/partials/romeo/_upload.scss */
+/* line 614, ../../scss/partials/romeo/_upload.scss */
 #upload-info-wrapper h2 {
   margin: 0 0 22px 0;
 }
 
-/* line 617, ../../scss/partials/romeo/_upload.scss */
+/* line 619, ../../scss/partials/romeo/_upload.scss */
 #category-row {
   width: 600px;
   margin: 0 auto 32px auto;
@@ -4641,7 +4643,7 @@ video, canvas {
   text-align: left;
 }
 
-/* line 624, ../../scss/partials/romeo/_upload.scss */
+/* line 626, ../../scss/partials/romeo/_upload.scss */
 a#category-chooser {
   display: -moz-inline-stack;
   display: inline-block;
@@ -4669,7 +4671,7 @@ a#category-chooser {
   border-radius: 5px;
   padding: 7px 32px 6px 6px;
 }
-/* line 639, ../../scss/partials/romeo/_upload.scss */
+/* line 641, ../../scss/partials/romeo/_upload.scss */
 a#category-chooser span {
   position: absolute;
   right: 0;
@@ -4679,18 +4681,18 @@ a#category-chooser span {
   color: white;
   background: #59ad62;
 }
-/* line 650, ../../scss/partials/romeo/_upload.scss */
+/* line 652, ../../scss/partials/romeo/_upload.scss */
 a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a#category-chooser.active {
   color: #37A54B;
 }
 
-/* line 656, ../../scss/partials/romeo/_upload.scss */
+/* line 658, ../../scss/partials/romeo/_upload.scss */
 #category-list ul {
   text-align: left;
   display: block;
   margin: 0 0 16px 0;
 }
-/* line 661, ../../scss/partials/romeo/_upload.scss */
+/* line 663, ../../scss/partials/romeo/_upload.scss */
 #category-list ul li.category {
   display: -moz-inline-stack;
   display: inline-block;
@@ -4719,12 +4721,12 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   padding: 7px 6px 6px 6px;
   margin: 0 9px 9px 0px;
 }
-/* line 678, ../../scss/partials/romeo/_upload.scss */
+/* line 680, ../../scss/partials/romeo/_upload.scss */
 #category-list ul li.category:hover, #category-list ul li.category:active, #category-list ul li.category:focus {
   background: #59ad62;
   color: #fff;
 }
-/* line 684, ../../scss/partials/romeo/_upload.scss */
+/* line 686, ../../scss/partials/romeo/_upload.scss */
 #category-list ul li.heading {
   display: block;
   font-size: 18px;
@@ -4734,7 +4736,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   text-decoration: none;
 }
 
-/* line 695, ../../scss/partials/romeo/_upload.scss */
+/* line 697, ../../scss/partials/romeo/_upload.scss */
 #customize-your-player {
   display: block;
   width: 600px;
@@ -4742,7 +4744,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   margin: 0 auto 100px auto;
 }
 
-/* line 702, ../../scss/partials/romeo/_upload.scss */
+/* line 704, ../../scss/partials/romeo/_upload.scss */
 .wonder-logo-chooser {
   cursor: pointer;
   position: absolute;
@@ -4758,7 +4760,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
 
 /*  Thumbnail chooser
 /* ======================================= */
-/* line 719, ../../scss/partials/romeo/_upload.scss */
+/* line 721, ../../scss/partials/romeo/_upload.scss */
 .preview-image-frame {
   display: block;
   position: relative;
@@ -4767,23 +4769,23 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   background: black;
   cursor: pointer;
 }
-/* line 727, ../../scss/partials/romeo/_upload.scss */
+/* line 729, ../../scss/partials/romeo/_upload.scss */
 .preview-image-frame:before {
   display: block;
   content: '';
   padding-top: 56.25%;
 }
 
-/* line 734, ../../scss/partials/romeo/_upload.scss */
+/* line 736, ../../scss/partials/romeo/_upload.scss */
 .preview-image-controls {
   text-align: center;
 }
-/* line 737, ../../scss/partials/romeo/_upload.scss */
+/* line 739, ../../scss/partials/romeo/_upload.scss */
 .preview-image-controls p {
   display: block;
   margin: 0 0 12px 0;
 }
-/* line 742, ../../scss/partials/romeo/_upload.scss */
+/* line 744, ../../scss/partials/romeo/_upload.scss */
 .preview-image-controls a {
   display: -moz-inline-stack;
   display: inline-block;
@@ -4802,7 +4804,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   color: black;
   cursor: pointer;
 }
-/* line 752, ../../scss/partials/romeo/_upload.scss */
+/* line 754, ../../scss/partials/romeo/_upload.scss */
 .preview-image-controls a.left {
   border-right: none;
   -webkit-border-radius: 50px 0 0 50px;
@@ -4811,7 +4813,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   -o-border-radius: 50px 0 0 50px;
   border-radius: 50px 0 0 50px;
 }
-/* line 757, ../../scss/partials/romeo/_upload.scss */
+/* line 759, ../../scss/partials/romeo/_upload.scss */
 .preview-image-controls a.right {
   -webkit-border-radius: 0 50px 50px 0;
   -moz-border-radius: 0 50px 50px 0;
@@ -4819,7 +4821,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   -o-border-radius: 0 50px 50px 0;
   border-radius: 0 50px 50px 0;
 }
-/* line 761, ../../scss/partials/romeo/_upload.scss */
+/* line 763, ../../scss/partials/romeo/_upload.scss */
 .preview-image-controls a:hover, .preview-image-controls a:active, .preview-image-controls a:focus {
   background: #e3e3e3;
 }

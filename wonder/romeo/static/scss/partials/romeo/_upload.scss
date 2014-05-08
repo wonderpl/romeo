@@ -166,6 +166,7 @@
     font-size: 50px;
     font-weight: 100;
     text-align: left;
+    min-height: 50px;
 
     &:focus, &:active, &:hover {
       outline: none;
@@ -190,6 +191,7 @@
     line-height: 25px;
     font-weight: 300;
     text-align: left;
+    min-height: 25px;
 
     &:focus, &:active, &:hover {
       outline: none;

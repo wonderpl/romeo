@@ -616,6 +616,59 @@
             });
         };
 
+        /*
+        * Listen for the dragStarted event
+        */
+        $scope.$on('dragStarted', function (e, index) {
+            $timeout(function () {
+                $scope.$apply(function () {
+                    // If the selected items list is empty
+                    if ($scope.selectedItems.length === 0) {
+                        $scope.dragItem = index;
+                        DragDropService.setTags([$scope.videos[index].title]);
+                    } else {
+                        // Not in the list
+                        if ($rootScope.isUnique($scope.selectedItems, index)) {
+                            $timeout(function () {
+                                $scope.$apply(function () {
+                                    $scope.selectedItems = [];
+                                    $scope.dragItem = index;
+                                    DragDropService.setTags([$scope.videos[index].title]);
+                                    $scope.$broadcast('deselectAll');
+                                });
+                            });
+                            // In the list
+                        } else {
+                            $scope.dragItem = undefined;
+                        }
+                    }
+                });
+            });
+        });
+
+        /*
+        * Listen for the dragDropped event
+        */
+        $scope.$on('dragDropped', function (e, index) {
+            $timeout(function () {
+                $scope.$apply(function () {
+                    $scope.selectedAction = index;
+                    $scope.addToCollection();
+                });
+            });
+        });
+
+        /*
+        * Listen for the dragCancelled event
+        */
+        $scope.$on('dragCancelled', function (e, index) {
+            $timeout(function () {
+                $scope.$apply(function () {
+                    $scope.dragItem = undefined;
+                });
+            });
+        });
+
     }]);
 
     app.controller('AccountController', 
@@ -919,7 +972,7 @@
         * Listen for autosave broadcasts from our auto-save-field directives
         */
         $scope.$on('autosave', function(e, attr, val, date){
-
+            console.log('autosave caught', attr, val);
             $timeout(function(){
                 $scope.$apply(function(){
                     $scope.status.saved = prettydate(date);
@@ -928,6 +981,7 @@
                     $scope.updateStatusMessage();
                     $scope.showClickToMore = false;
                     if ( $scope.video.id === null ) {
+                        console.log( 'AUTOSAVED', $scope.video.title, $scope.video.title.length );                        
                         if ( $scope.video.title.length > 0 ) {
                             $scope.createVideo();
                         }

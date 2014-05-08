@@ -332,6 +332,14 @@
         };
 
         /*
+        * Add a video to a collection
+        */
+        Video.addToCollection = function(video, tag) {
+            var url = '/api/video/' + video + '/tags';
+            return DataService.request({ url: url, method: 'POST', data: { id: tag } });
+        };
+
+        /*
         * Initialise the service
         */
         Video.getAll();
@@ -355,11 +363,11 @@
     * Methods for interacting with the Tag web services
     */
     app.factory('TagService', 
-        ['DataService', 'VideoService', '$rootScope', 'AuthService', '$q', 
-        function (DataService, VideoService, $rootScope, AuthService, $q) {
+        ['DataService', 'VideoService', '$rootScope', 'AuthService', '$q', '$timeout', 
+        function (DataService, VideoService, $rootScope, AuthService, $q, $timeout) {
 
         var Tag = {},
-            Tags = {};
+            Tags = null;
 
         /*
         * Make a GET request to the web service for all of the tags
@@ -368,15 +376,16 @@
             var deferred = new $q.defer();
                 AuthService.getSessionId().then(function(response){
                     DataService.request({url: '/api/account/' + response + '/tags'}).then(function(response){
-                        console.log('tags retrieved', response);
                         $rootScope.Tags = response.tag.items;
+                        Tags = response.tag.items;
+                        deferred.resolve(response);
                     });
                 });
             return deferred.promise;
         };
 
         Tag.createTag = function(data){
-          var deferred = new $q.defer();
+            var deferred = new $q.defer();
                 AuthService.getSessionId().then(function(response){
                     deferred.resolve(DataService.request({url: '/api/account/' + response + '/tags', method: 'POST', data: data}));
                 });
@@ -384,15 +393,35 @@
         };
 
         /*
+        * Returns the label of a given ID
+        */
+        Tag.getLabel = function(id) {
+            var deferred = new $q.defer();
+
+            $timeout(function() {
+                ng.forEach(Tags, function(value, key){
+                    console.log('smashing through labels', id, value.id);
+                    if ( value.id == id ) {
+                        deferred.resolve(value.label);
+                    }
+                }); 
+            });
+
+            return deferred.promise;
+        };
+
+        /*
         * Initialise the service
         */
-        Tag.getTags();
+        // Tag.getTags();
 
         /*
         * Expose the methods to the service
         */
         return {
-            getTags: Tag.getTags
+            getTags: Tag.getTags,
+            createTag: Tag.createTag,
+            getLabel: Tag.getLabel
         };
     }]);
 
