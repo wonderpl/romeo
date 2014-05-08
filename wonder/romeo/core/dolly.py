@@ -101,6 +101,11 @@ class DollyUser(object):
         if response.status_code == 201:
             return response.json()
 
+    def get_channel(self, channelid):
+        response = self._user_request('channels/%s' % channelid)
+        if response.status_code == 200:
+            return response.json()
+
     def update_channel(self, channelid, channeldata):
         self._set_all_channel_data(channeldata)
         response = self._user_request('channels/%s/' % channelid, 'put', jsondata=channeldata)
