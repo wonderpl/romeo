@@ -12,9 +12,11 @@
         function ($scope, $rootScope, $http, $timeout, $location, $templateCache, $compile, $modal, $element, localStorageService, AuthService) {
 
         /*
-        * Empty state object for when we have some User data
+        * Empty state objects for when we have data
         */
         $rootScope.User = {};
+        $rootScope.Videos = {};
+        $rootScope.Tags = {};
 
         /*
         * Cached Selectors ( not sure which of these are still needed )
@@ -123,6 +125,14 @@
             var text = e.clipboardData.getData("text/plain");
             document.execCommand("insertHTML", false, text);
         };
+
+        /*
+        * Useful function for determining whether an object is empty or not
+        */
+        $rootScope.isEmpty = function(obj){
+            return $.isEmptyObject(obj)
+        };
+
 
         /*
         * Listen for changes to the user object
@@ -522,8 +532,8 @@
     // }]);
 
     app.controller('ManageController', 
-        ['$scope', '$rootScope', 'AuthService', 'AccountService', '$timeout', '$location', '$modal', 'VideoService', 'TagService', 'DragDropService', 'FlashService', '$filter', '$routeParams',
-        function ($scope, $rootScope, AuthService, AccountService, $timeout, $location, $modal, VideoService, TagService, DragDropService, FlashService, $filter, $routeParams) {
+        ['$scope', '$rootScope', 'AuthService', 'AccountService', '$timeout', '$location', '$modal', 'VideoService', 'TagService', 'DragDropService', 'FlashService', '$filter', '$routeParams', '$q',
+        function ($scope, $rootScope, AuthService, AccountService, $timeout, $location, $modal, VideoService, TagService, DragDropService, FlashService, $filter, $routeParams, $q) {
 
         /*
         * State object representing how the videos are filtered
@@ -531,41 +541,63 @@
         $scope.filters = {
             "none": {
                 slug: "none",
-                name: "",
-                filter: {}
+                name: ""
             },
             "uploads": {
                 slug: "uploads",
-                name: "Uploads in progress",
-                filter: {}
+                name: "Uploads in progress"
             },
             "recent": {
                 slug: "recent",
-                name: "Recent videos",
-                filter: {}
+                name: "Recent videos"
+            },
+            "collection": {
+                slug: "collection"
             }
         };
 
         /*
+        * The text used to filter the results
+        */
+        $scope.searchText = '';
+
+        /*
         * Grab the filter parameter from the URL and change the filter
         */
-        $scope.currentFilter = 'filter' in $routeParams ? $scope.filters[$routeParams['filter']] : $scope.filters["none"];
+        TagService.getTags().then(function(response){
+            if ( 'filter' in $routeParams ) {
+                $scope.changeFilter([$routeParams['filter']]).then(function(response) {
+                    $scope.currentFilter = response;
+                });
+            }
+            // $scope.currentFilter = 'filter' in $routeParams ? $timeout(function(){$scope.changeFilter([$routeParams['filter']])}) : $scope.filters["none"];            
+        });
+
 
         /*
         * Function to change the filter
         */
         $scope.changeFilter = function(filter) {
-            $timeout(function(){
-                $scope.$apply(function(){
-                    $scope.currentFilter = $scope.filters[filter];
+            
+            var deferred = new $q.defer();
+            var newFilter = {};
+
+            newFilter = ng.copy($scope.filters[filter]);
+            newFilter.id = 'id' in $routeParams ? $routeParams['id'] : "";
+
+            if ( newFilter.name == undefined ) {
+                TagService.getLabel(newFilter.id).then(function(response){  
+                    newFilter.name = response;
+                    deferred.resolve(newFilter);
                 });
-            });
+            }
+            return deferred.promise;
         };
 
         /*
         * Shows the 'add new collection modal'
         */
-        $scope.showAddNewCollectionform = function() {
+        $scope.showAddNewCollectionForm = function() {
             $modal.load('modal-new-collection.html', true, $scope, { label: "", description: "" });
         };
 
@@ -573,10 +605,14 @@
         * Submits the 'add new collection' form and makes a request to the web services.
         */
         $scope.submitAddNewCollectionForm = function(data) {
+            console.log(data);
             $modal.hide();
             TagService.createTag({
                 label: data.label,
                 description: data.description
+            }).then(function(response){
+                console.log('tag created successfully');
+                TagService.getTags();
             });
         };
 

@@ -7,7 +7,7 @@
 				<h2>All Videos &raquo; <span class="highlighted">{{ currentFilter.name }}</span></h2>
 			</div>
 			<div id="manage-top-right" class="icon-search">
-				<input type="text" id="manage-search-videos" placeholder="Search" />
+				<input type="text" id="manage-search-videos" placeholder="Search" ng-model="searchText" />
 			</div>
 			<div class="clear"></div>
 		</div><!-- end of top section -->
@@ -22,20 +22,20 @@
 				</ul>
 				<h3>Collections not visible in app</h3>
 				<ul>
-					<li><a>Add a new collection</a></li>
-					<li ng-repeat="tag in Tags"></li>
+					<li ng-repeat="tag in Tags"><a href="/#/manage/collection/{{ tag.id }}">{{ tag.label }}</a></li>
+					<li><a ng-click="showAddNewCollectionForm()">Create a new collection</a></li>
 				</ul>
 				<h3>Collections visible in app</h3>
 				<ul>
-					<li><a>Add a new collection</a></li>
+					<li><a ng-click="showAddNewCollectionForm()">Create a new collection</a></li>
 				</ul>
 			</div><!-- end of manage body left section -->
-			<div id="manage-right">
+			<div id="manage-right" ng-class="{ loading: isEmpty(Videos) }">
 				<div id="manage-toolbar"></div>
 				<div id="manage-search-results">
 					<ul>
-						<li ng-repeat="video in Videos">
-							<span class="title">{{ video.title | elipsis:20}}</span>
+						<li ng-repeat="video in Videos | filter: { title: searchText }">
+							<a class="title">{{ video.title | elipsis:20 }}</a>
 							<div class="frame" style="background: black url((~ video.thumbnails.items[0].url ~)) center center no-repeat; background-size: cover;"></div>
 						</li>
 					</ul>

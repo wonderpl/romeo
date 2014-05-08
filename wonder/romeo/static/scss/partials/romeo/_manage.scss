@@ -87,12 +87,22 @@
 		display: block;
 		margin: 0 0 25px 0;
 	}
+
+	a {
+		color: #797979;
+		text-decoration: none;
+	}
 }
 
 #manage-right {
 	@include inline-block;
 	float: right;
 	width: 780px;
+	min-height: 420px;
+
+	&.loading {
+		background: transparent image-url('loading.gif') center center no-repeat;	
+	}
 
 	#manage-toolbar {
 		display: block;
@@ -107,12 +117,18 @@
 			width: 30%;
 			margin: 0 2.3% 26px 0;
 			color: #cdcdcd;
+			cursor: pointer;
 
-			span.title {
+			&:hover, &:focus, &:active {
+				color: $wp-green;
+			}
+
+			a.title {
 				color: #727272;
 				display: block;
 				padding-bottom: 10px;
 			}
+
 			.frame {
 				display: block;
 				width: 100%;
