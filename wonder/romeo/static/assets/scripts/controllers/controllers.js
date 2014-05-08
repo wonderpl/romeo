@@ -522,8 +522,8 @@
     // }]);
 
     app.controller('ManageController', 
-        ['$scope', '$rootScope', 'AuthService', 'AccountService', '$timeout', '$location', '$modal', 'VideoService', 'DragDropService', 'FlashService', '$filter', '$routeParams',
-        function ($scope, $rootScope, AuthService, AccountService, $timeout, $location, $modal, VideoService, DragDropService, FlashService, $filter, $routeParams) {
+        ['$scope', '$rootScope', 'AuthService', 'AccountService', '$timeout', '$location', '$modal', 'VideoService', 'TagService', 'DragDropService', 'FlashService', '$filter', '$routeParams',
+        function ($scope, $rootScope, AuthService, AccountService, $timeout, $location, $modal, VideoService, TagService, DragDropService, FlashService, $filter, $routeParams) {
 
         /*
         * State object representing how the videos are filtered
@@ -559,6 +559,24 @@
                 $scope.$apply(function(){
                     $scope.currentFilter = $scope.filters[filter];
                 });
+            });
+        };
+
+        /*
+        * Shows the 'add new collection modal'
+        */
+        $scope.showAddNewCollectionform = function() {
+            $modal.load('modal-new-collection.html', true, $scope, { label: "", description: "" });
+        };
+
+        /*
+        * Submits the 'add new collection' form and makes a request to the web services.
+        */
+        $scope.submitAddNewCollectionForm = function(data) {
+            $modal.hide();
+            TagService.createTag({
+                label: data.label,
+                description: data.description
             });
         };
 

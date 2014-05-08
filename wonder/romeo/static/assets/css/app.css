@@ -188,16 +188,16 @@ h3 {
 }
 
 @font-face {
-  font-family: 'romeo-prototype';
-  src: url("/static/assets/fonts/romeo-prototype.eot?-14kfhj");
-  src: url("/static/assets/fonts/romeo-prototype.eot?#iefix-14kfhj") format("embedded-opentype"), url("/static/assets/fonts/romeo-prototype.woff?-14kfhj") format("woff"), url("/static/assets/fonts/romeo-prototype.ttf?-14kfhj") format("truetype"), url("/static/assets/fonts/romeo-prototype.svg?-14kfhj#romeo-prototype") format("svg");
+  font-family: 'icomoon';
+  src: url("/static/assets/fonts/icomoon.eot?-14kfhj");
+  src: url("/static/assets/fonts/icomoon.eot?#iefix-14kfhj") format("embedded-opentype"), url("/static/assets/fonts/icomoon.woff?-14kfhj") format("woff"), url("/static/assets/fonts/icomoon.ttf?-14kfhj") format("truetype"), url("/static/assets/fonts/icomoon.svg?-14kfhj#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
 }
 
 /* line 46, ../../scss/partials/_typography.scss */
 [class^="icon-"]:before, [class*=" icon-"]:before {
-  font-family: 'romeo-prototype';
+  font-family: 'icomoon';
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -374,146 +374,151 @@ h3 {
 }
 
 /* line 170, ../../scss/partials/_typography.scss */
+.icon-search:before {
+  content: "\e63e";
+}
+
+/* line 173, ../../scss/partials/_typography.scss */
 .icon-earth:before {
   content: "\e62e";
 }
 
-/* line 173, ../../scss/partials/_typography.scss */
+/* line 176, ../../scss/partials/_typography.scss */
 .icon-exit:before {
   content: "\e60b";
 }
 
-/* line 176, ../../scss/partials/_typography.scss */
+/* line 179, ../../scss/partials/_typography.scss */
 .icon-pie2:before {
   content: "\e60c";
 }
 
-/* line 179, ../../scss/partials/_typography.scss */
+/* line 182, ../../scss/partials/_typography.scss */
 .icon-bars2:before {
   content: "\e60d";
 }
 
-/* line 182, ../../scss/partials/_typography.scss */
+/* line 185, ../../scss/partials/_typography.scss */
 .icon-stats:before {
   content: "\e60e";
 }
 
-/* line 185, ../../scss/partials/_typography.scss */
+/* line 188, ../../scss/partials/_typography.scss */
 .icon-upload2:before {
   content: "\e610";
 }
 
-/* line 188, ../../scss/partials/_typography.scss */
+/* line 191, ../../scss/partials/_typography.scss */
 .icon-info22:before {
   content: "\e617";
 }
 
-/* line 191, ../../scss/partials/_typography.scss */
+/* line 194, ../../scss/partials/_typography.scss */
 .icon-remove:before {
   content: "\e618";
 }
 
-/* line 194, ../../scss/partials/_typography.scss */
+/* line 197, ../../scss/partials/_typography.scss */
 .icon-copy:before {
   content: "\e619";
 }
 
-/* line 197, ../../scss/partials/_typography.scss */
+/* line 200, ../../scss/partials/_typography.scss */
 .icon-images:before {
   content: "\e624";
 }
 
-/* line 200, ../../scss/partials/_typography.scss */
+/* line 203, ../../scss/partials/_typography.scss */
 .icon-credit:before {
   content: "\e62c";
 }
 
-/* line 203, ../../scss/partials/_typography.scss */
+/* line 206, ../../scss/partials/_typography.scss */
 .icon-film:before {
   content: "\e634";
 }
 
-/* line 206, ../../scss/partials/_typography.scss */
+/* line 209, ../../scss/partials/_typography.scss */
 .icon-user2:before {
   content: "\e60f";
 }
 
-/* line 209, ../../scss/partials/_typography.scss */
+/* line 212, ../../scss/partials/_typography.scss */
 .icon-enter:before {
   content: "\e608";
 }
 
-/* line 212, ../../scss/partials/_typography.scss */
+/* line 215, ../../scss/partials/_typography.scss */
 .icon-video2:before {
   content: "\e609";
 }
 
-/* line 215, ../../scss/partials/_typography.scss */
+/* line 218, ../../scss/partials/_typography.scss */
 .icon-star:before {
   content: "\e60a";
 }
 
-/* line 218, ../../scss/partials/_typography.scss */
+/* line 221, ../../scss/partials/_typography.scss */
 .icon-info-large:before {
   content: "\e614";
 }
 
-/* line 221, ../../scss/partials/_typography.scss */
+/* line 224, ../../scss/partials/_typography.scss */
 .icon-arrow-move:before {
   content: "\e615";
 }
 
-/* line 224, ../../scss/partials/_typography.scss */
+/* line 227, ../../scss/partials/_typography.scss */
 .icon-th-menu:before {
   content: "\e616";
 }
 
-/* line 227, ../../scss/partials/_typography.scss */
+/* line 230, ../../scss/partials/_typography.scss */
 .icon-th-list:before {
   content: "\e61d";
 }
 
-/* line 230, ../../scss/partials/_typography.scss */
+/* line 233, ../../scss/partials/_typography.scss */
 .icon-home:before {
   content: "\e621";
 }
 
-/* line 233, ../../scss/partials/_typography.scss */
+/* line 236, ../../scss/partials/_typography.scss */
 .icon-pencil3:before {
   content: "\e627";
 }
 
-/* line 236, ../../scss/partials/_typography.scss */
+/* line 239, ../../scss/partials/_typography.scss */
 .icon-edit:before {
   content: "\e62b";
 }
 
-/* line 239, ../../scss/partials/_typography.scss */
+/* line 242, ../../scss/partials/_typography.scss */
 .icon-facetime-video:before {
   content: "\e611";
 }
 
-/* line 242, ../../scss/partials/_typography.scss */
+/* line 245, ../../scss/partials/_typography.scss */
 .icon-check:before {
   content: "\e61e";
 }
 
-/* line 245, ../../scss/partials/_typography.scss */
+/* line 248, ../../scss/partials/_typography.scss */
 .icon-check-empty:before {
   content: "\e61f";
 }
 
-/* line 248, ../../scss/partials/_typography.scss */
+/* line 251, ../../scss/partials/_typography.scss */
 .icon-th:before {
   content: "\e626";
 }
 
-/* line 251, ../../scss/partials/_typography.scss */
+/* line 254, ../../scss/partials/_typography.scss */
 .icon-credit2:before {
   content: "\e62d";
 }
 
-/* line 254, ../../scss/partials/_typography.scss */
+/* line 257, ../../scss/partials/_typography.scss */
 .icon-film2:before {
   content: "\e635";
 }
@@ -4878,9 +4883,17 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   zoom: 1;
   *display: inline;
   float: right;
+  position: relative;
   width: 180px;
 }
-/* line 46, ../../scss/partials/romeo/_manage.scss */
+/* line 47, ../../scss/partials/romeo/_manage.scss */
+#manage-top-right:before {
+  position: absolute;
+  left: 10px;
+  top: 2px;
+  color: #4e4e4e;
+}
+/* line 54, ../../scss/partials/romeo/_manage.scss */
 #manage-top-right input#manage-search-videos {
   width: 100%;
   display: block;
@@ -4892,10 +4905,12 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   -o-border-radius: 50px;
   border-radius: 50px;
   border: 2px solid #e3e3e3;
-  padding-left: 12px;
+  padding-left: 29px;
+  background: transparent;
+  color: #4e4e4e;
 }
 
-/* line 57, ../../scss/partials/romeo/_manage.scss */
+/* line 67, ../../scss/partials/romeo/_manage.scss */
 #manage-left {
   display: -moz-inline-stack;
   display: inline-block;
@@ -4906,7 +4921,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   float: left;
   width: 220px;
 }
-/* line 62, ../../scss/partials/romeo/_manage.scss */
+/* line 72, ../../scss/partials/romeo/_manage.scss */
 #manage-left h3 {
   font-size: 13px;
   color: #aeaeae;
@@ -4914,19 +4929,19 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   font-weight: 600;
   padding: 0;
 }
-/* line 70, ../../scss/partials/romeo/_manage.scss */
+/* line 80, ../../scss/partials/romeo/_manage.scss */
 #manage-left li {
   color: #797979;
   display: block;
   margin: 0 0 16px 0;
 }
-/* line 76, ../../scss/partials/romeo/_manage.scss */
+/* line 86, ../../scss/partials/romeo/_manage.scss */
 #manage-left ul {
   display: block;
   margin: 0 0 25px 0;
 }
 
-/* line 82, ../../scss/partials/romeo/_manage.scss */
+/* line 92, ../../scss/partials/romeo/_manage.scss */
 #manage-right {
   display: -moz-inline-stack;
   display: inline-block;
@@ -4937,16 +4952,16 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   float: right;
   width: 780px;
 }
-/* line 87, ../../scss/partials/romeo/_manage.scss */
+/* line 97, ../../scss/partials/romeo/_manage.scss */
 #manage-right #manage-toolbar {
   display: block;
   height: 50px;
 }
-/* line 92, ../../scss/partials/romeo/_manage.scss */
+/* line 102, ../../scss/partials/romeo/_manage.scss */
 #manage-right #manage-search-results {
   display: block;
 }
-/* line 95, ../../scss/partials/romeo/_manage.scss */
+/* line 105, ../../scss/partials/romeo/_manage.scss */
 #manage-right #manage-search-results li {
   display: -moz-inline-stack;
   display: inline-block;
@@ -4958,19 +4973,19 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   margin: 0 2.3% 26px 0;
   color: #cdcdcd;
 }
-/* line 101, ../../scss/partials/romeo/_manage.scss */
+/* line 111, ../../scss/partials/romeo/_manage.scss */
 #manage-right #manage-search-results li span.title {
   color: #727272;
   display: block;
   padding-bottom: 10px;
 }
-/* line 106, ../../scss/partials/romeo/_manage.scss */
+/* line 116, ../../scss/partials/romeo/_manage.scss */
 #manage-right #manage-search-results li .frame {
   display: block;
   width: 100%;
   background: black;
 }
-/* line 111, ../../scss/partials/romeo/_manage.scss */
+/* line 121, ../../scss/partials/romeo/_manage.scss */
 #manage-right #manage-search-results li .frame:before {
   display: block;
   content: '';

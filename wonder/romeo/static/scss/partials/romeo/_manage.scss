@@ -41,7 +41,15 @@
 #manage-top-right {
 	@include inline-block;
 	float: right;
+	position: relative;
 	width: 180px;
+
+	&:before {
+		position: absolute;
+		left: 10px;
+		top: 2px;
+		color: #4e4e4e;
+	}
 
 	input#manage-search-videos {
 		width: 100%;
@@ -50,7 +58,9 @@
 		top: -10px;
 		@include border-radius( 50px );
 		border: 2px solid #e3e3e3;
-		padding-left: 12px;
+		padding-left: 29px;
+		background: transparent;
+		color: #4e4e4e;
 	}
 }
 

@@ -32,19 +32,19 @@ h3 {
 }
 
 @font-face {
-  font-family: 'romeo-prototype';
-  src:url('/static/assets/fonts/romeo-prototype.eot?-14kfhj');
-  src:url('/static/assets/fonts/romeo-prototype.eot?#iefix-14kfhj') format('embedded-opentype'),
-    url('/static/assets/fonts/romeo-prototype.woff?-14kfhj') format('woff'),
-    url('/static/assets/fonts/romeo-prototype.ttf?-14kfhj') format('truetype'),
-    url('/static/assets/fonts/romeo-prototype.svg?-14kfhj#romeo-prototype') format('svg');
+  font-family: 'icomoon';
+  src:url('/static/assets/fonts/icomoon.eot?-14kfhj');
+  src:url('/static/assets/fonts/icomoon.eot?#iefix-14kfhj') format('embedded-opentype'),
+    url('/static/assets/fonts/icomoon.woff?-14kfhj') format('woff'),
+    url('/static/assets/fonts/icomoon.ttf?-14kfhj') format('truetype'),
+    url('/static/assets/fonts/icomoon.svg?-14kfhj#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
 [class^="icon-"], [class*=" icon-"] {
   &:before {
-    font-family: 'romeo-prototype';
+    font-family: 'icomoon';
     speak: none;
     font-style: normal;
     font-weight: normal;
@@ -166,6 +166,9 @@ h3 {
 }
 .icon-video:before {
   content: "\e633";
+}
+.icon-search:before {
+  content: "\e63e";
 }
 .icon-earth:before {
   content: "\e62e";

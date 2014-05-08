@@ -8,12 +8,18 @@
     var app = ng.module(ns + '.' + m /* module name */,
         [] /* module dependencies */);
 
+    /*
+    * Strips out newlines, tabs etc
+    */
     app.factory('$sanitize', [function () {
         return function (input) {
             return input.replace('\n', '').replace('\t', '').replace('\r', '').replace(/^\s+/g, '');
         };
     }]);
 
+    /*
+    * Converts dates into a nice looking "x minutes ago" string
+    */
     app.factory('prettydate', [function(){
 
         return function(date_str){
@@ -62,9 +68,11 @@
 
             return date_str;
         };
-
     }]);
 
+    /*
+    * Service used for creating modal pop-ups
+    */
     app.factory('$modal', ['$rootScope', '$compile', '$sanitize', '$templateCache', function ($rootScope, $compile, $sanitize, $templateCache) {
 
         var modal = {},
@@ -89,6 +97,9 @@
             modal.hide();
         });
 
+        /*
+        * Show the modal ( assuming it has a compiled view inside it )
+        */
         modal.show = function ( opts ) {
             $el_bg.addClass('show');
             $el.addClass('show');
@@ -105,7 +116,14 @@
             $el.toggleClass('show');
         };
 
-        // Load a modal template and SHOW it ( optional )
+        /*
+        * Load the modal template and show it ( optional )
+        * url: the name of the template in the template cache
+        * show: bool, defines whether it is show when straight after loading
+        * scope: the scope of the controller that has called the modal to load is passed in
+        * obj: any data that is needed in the modal is passed in
+        * opts: any additional options that are required
+        */
         modal.load = function (url, show, scope, obj, opts) {
 
             if ( opts && 'width' in opts ) {
@@ -131,7 +149,9 @@
             }
         };
 
-        // Check if we have the URL cached
+        /*
+        * Check if the URL is cached
+        */
         modal.getUrl = function (url) {
             if (urlCache[url] === undefined) {
                 return url;
@@ -140,16 +160,20 @@
             }
         };
 
-        // Expose our public methods
+        /*
+        * Expose the methods to the service
+        */
         return {
             show: modal.show,
             hide: modal.hide,
             toggle: modal.toggle,
             load: modal.load
         };
-
     }]);
 
+    /*
+    * Service for displaying tooltips
+    */
     app.factory('$tooltip', [function () {
 
         var el = d.createElement('div'),
@@ -196,242 +220,6 @@
         };
     }]);
 
-    app.factory('StatsService', ['DataService', function (DataService) {
-
-        var Stats;
-        var apiUrl = '/static/api/stats.json';
-        var fields = [
-            {
-                'field': 'plays',
-                'displayName': 'Total Plays',
-                'description': 'Number of plays since beginning of time period',
-                'visible': true,
-                'color': '#7cd26f'
-            },
-            {
-                'field': 'daily_uniq_plays',
-                'displayName': 'Daily Unique Plays',
-                'visible': true,
-                'description': 'Number of unique plays since beginning of time period',
-                'color': '#8b85d0'
-            },
-            {
-                'field': 'monthly_uniq_plays',
-                'displayName': 'Monthly Unique Plays',
-                'visible': false,
-                'description': 'Number of unique plays plays since beginning of time period',
-                'color': '#5bccf6'
-            },
-            {
-                'field': 'weekly_uniq_plays',
-                'displayName': 'Weekly Unique Plays',
-                'visible': false,
-                'description': 'Number of unique plays plays since beginning of time period',
-                'color': '#e25f5c'
-            },
-            {
-                'field': 'playthrough_25',
-                'displayName': 'Playthrough > 25%',
-                'visible': false,
-                'description': 'Number of plays to 25% since beginning of time period',
-                'color': '#8b85d0'
-            },
-            {
-                'field': 'playthrough_50',
-                'displayName': 'Playthrough > 50%',
-                'visible': false,
-                'description': 'Number of plays to 50% since beginning of time period',
-                'color': '#4becd3'
-            },
-            {
-                'field': 'playthrough_75',
-                'displayName': 'Playthrough > 75%',
-                'visible': false,
-                'description': 'Number of plays to 75% since beginning of time period',
-                'color': '#ffec4a'
-            },
-            {
-                'field': 'playthrough_100',
-                'displayName': 'Playthrough > 100%',
-                'visible': false,
-                'description': 'Number of plays to 100% since beginning of time period',
-                'color': '#f38bef'
-            }
-        ];
-
-        Stats = {
-            getOne: function (id, ignoreCache) {
-                var url = apiUrl + '';
-                return DataService.request({url: url});
-            },
-            getAll: function (id, ignoreCache) {
-                var url = apiUrl + '';
-                return DataService.request({url: url});
-            },
-            query: function (id, ignoreCache) {
-                var url = apiUrl + '';
-                return DataService.request({url: url});
-            },
-            getFields: function () {
-                return fields;
-            }
-        };
-
-        return Stats;
-
-    }]);
-
-    app.factory('AnalyticsFields', function () {
-        return [
-            {
-                'field': 'plays',
-                'displayName': 'Total Plays',
-                'description': 'Number of plays since beginning of time period',
-                'visible': true,
-                'color': '#7cd26f'
-            },
-            {
-                'field': 'daily_uniq_plays',
-                'displayName': 'Daily Unique Plays',
-                'visible': true,
-                'description': 'Number of unique plays since beginning of time period',
-                'color': '#8b85d0'
-            },
-            {
-                'field': 'monthly_uniq_plays',
-                'displayName': 'Monthly Unique Plays',
-                'visible': false,
-                'description': 'Number of unique plays plays since beginning of time period',
-                'color': '#5bccf6'
-            },
-            {
-                'field': 'weekly_uniq_plays',
-                'displayName': 'Weekly Unique Plays',
-                'visible': false,
-                'description': 'Number of unique plays plays since beginning of time period',
-                'color': '#e25f5c'
-            },
-            {
-                'field': 'playthrough_25',
-                'displayName': 'Playthrough > 25%',
-                'visible': false,
-                'description': 'Number of plays to 25% since beginning of time period',
-                'color': '#8b85d0'
-            },
-            {
-                'field': 'playthrough_50',
-                'displayName': 'Playthrough > 50%',
-                'visible': false,
-                'description': 'Number of plays to 50% since beginning of time period',
-                'color': '#4becd3'
-            },
-            {
-                'field': 'playthrough_75',
-                'displayName': 'Playthrough > 75%',
-                'visible': false,
-                'description': 'Number of plays to 75% since beginning of time period',
-                'color': '#ffec4a'
-            },
-            {
-                'field': 'playthrough_100',
-                'displayName': 'Playthrough > 100%',
-                'visible': false,
-                'description': 'Number of plays to 100% since beginning of time period',
-                'color': '#f38bef'
-            }
-        ];
-    });
-
-    app.factory('OverviewService', ['DataService', function (DataService) {
-
-        return {
-            get: function (videoId, fromDate, toDate) {
-
-                var url = _.template('/static/api/stats.json', {id: videoId });
-                var params = { start: fromDate, end: toDate };
-                return DataService.request({
-                    url: url,
-                    params: params
-                }).then(function (data) {
-                    return data.overview;
-                });
-
-            }
-        };
-
-    }]);
-
-    app.factory('PerformanceService', ['DataService', function (DataService) {
-
-        return {
-            get: function (videoId, fromDate, toDate) {
-
-                var url = _.template('/api/video/${ id }/analytics/performance', {id: videoId });
-                var formatdate = function (date) {
-                    return moment(date).format('YYYY-MM-DD');
-                };
-
-//                var url = _.template('/static/api/performance.json', {id: videoId });
-                var params = {start: formatdate(fromDate), end: formatdate(toDate), breakdown_by: 'day' };
-                return DataService.request({
-                    url: url,
-                    params: params
-                }).then(function (data) {
-                    return data.metrics;
-                });
-
-            }
-        };
-
-    }]);
-
-    app.factory('GeographicService', ['DataService', function (DataService) {
-
-        return {
-            get: function (videoId, selectedRegion, fromDate, toDate) {
-
-//                var url = _.template('/api/video/${ id }/analytics/performance', {id: videoId });
-                var url = _.template('/api/video/${ id }/analytics/country${ selectedRegionId }', {id: videoId, selectedRegionId: selectedRegion.name.match(/world/i) ? '' : '/' + selectedRegion.regionId });
-                var formatdate = function (date) {
-                    return moment(date).format('YYYY-MM-DD');
-                };
-
-                var params = {start: formatdate(fromDate), end: formatdate(toDate), breakdown_by: 'day' };
-                return DataService.request({url: url, params: params}).then(function (data) {
-                    return data.metrics;
-                });
-
-            },
-            getMap: function (selectedRegion) {
-
-                var url = _.template('/static/api/maps/${ selectedRegion }.json', {selectedRegion: selectedRegion.name.toLowerCase() });
-                return DataService.request({url: url});
-
-            }
-        };
-    }]);
-    app.factory('EngagementService', ['DataService', function (DataService) {
-
-        return {
-            get: function (videoId, selectedRegion, fromDate, toDate) {
-
-                var url = '/static/api/stats.json';
-//                var url = _.template('/static/api/video/${ id }/analytics/country${ selectedRegionId }', {id: videoId, selectedRegionId: selectedRegion.name.match(/world/i) ? '' : '/' + selectedRegion.regionId });
-                var formatdate = function (date) {
-                    return moment(date).format('YYYY-MM-DD');
-                };
-
-                var params = {start: formatdate(fromDate), end: formatdate(toDate), breakdown_by: 'day' };
-                return DataService.request({url: url, params: params}).then(function (data) {
-                    return data.engagement.results[0].metrics;
-                });
-
-            }
-        };
-
-    }]);
-
-
     /*
     * Methods for interacting with the Video web services
     */
@@ -447,7 +235,6 @@
         */
         Video.getCategories = function () {
             var url = '/api/categories';
-            console.log('DataService about to be called on:', url);
             return DataService.request({url: url});
         };
 
@@ -466,7 +253,6 @@
         * Ask the web service for the preview images for a specific video
         */
         Video.getPreviewImages = function (id) {
-            console.log('get preview images called on video id', id);
             var url = '/api/video/' + id + '/preview_images';
             return DataService.request({ url: url, method: 'GET'});
         };
@@ -525,7 +311,6 @@
         * Get a specific video from the web service
         */
         Video.get = function(id) {
-            console.log('video GET called');
             var url = '/api/video/' + id + '';
             return DataService.request({ url: url, method: 'GET'});
         };
@@ -546,9 +331,14 @@
             return deferred.promise;
         };
 
-
+        /*
+        * Initialise the service
+        */
         Video.getAll();
 
+        /*
+        * Expose the methods to the service
+        */
         return {
             getCategories: Video.getCategories,
             getUploadArgs: Video.getUploadArgs,
@@ -558,6 +348,51 @@
             update: Video.update,
             get: Video.get,
             getAll: Video.getAll
+        };
+    }]);
+
+    /*
+    * Methods for interacting with the Tag web services
+    */
+    app.factory('TagService', 
+        ['DataService', 'VideoService', '$rootScope', 'AuthService', '$q', 
+        function (DataService, VideoService, $rootScope, AuthService, $q) {
+
+        var Tag = {},
+            Tags = {};
+
+        /*
+        * Make a GET request to the web service for all of the tags
+        */
+        Tag.getTags = function() {
+            var deferred = new $q.defer();
+                AuthService.getSessionId().then(function(response){
+                    DataService.request({url: '/api/account/' + response + '/tags'}).then(function(response){
+                        console.log('tags retrieved', response);
+                        $rootScope.Tags = response.tag.items;
+                    });
+                });
+            return deferred.promise;
+        };
+
+        Tag.createTag = function(data){
+          var deferred = new $q.defer();
+                AuthService.getSessionId().then(function(response){
+                    deferred.resolve(DataService.request({url: '/api/account/' + response + '/tags', method: 'POST', data: data}));
+                });
+            return deferred.promise;  
+        };
+
+        /*
+        * Initialise the service
+        */
+        Tag.getTags();
+
+        /*
+        * Expose the methods to the service
+        */
+        return {
+            getTags: Tag.getTags
         };
     }]);
 
@@ -608,18 +443,28 @@
             return DataService.request({url: url, method: 'PATCH', data: data });
         };
 
+        /*
+        * Send a PATCH request with an updated cover image
+        */
         Account.updateCoverImage = function(data) {
             return DataService.uploadImage( ('/api/account/' + ID), 'profile_cover', data);
         };
 
+        /*
+        * Send a PATCH request with an updated avatar image
+        */
         Account.updateAvatar = function(data) {
             return DataService.uploadImage( ('/api/account/' + ID), 'avatar', data);
         };
 
-        Account.getUser().then(function(response){
-            console.log('Account Service initialised');
-        });
+        /*
+        * Initialise the service
+        */
+        Account.getUser();
 
+        /*
+        * Expose the methods to the service
+        */
         return {
             getUser: Account.getUser,
             updateUser: Account.updateUser,
@@ -752,7 +597,6 @@
             getSessionId: Auth.getSessionId,
             redirect: Auth.redirect
         }
-
     }]);
 
     /*
@@ -827,70 +671,6 @@
 
     }]);
 
-    // app.factory('DataService', ['$http', '$q', '$location', 'AuthService', 'ErrorService', function ($http, $q, $location, AuthService, ErrorService) {
-
-    //     var Data;
-
-    //     function request(options) {
-
-    //         var deferred;
-    //         var sessionUrl = AuthService.getSession();
-    //         var defaultOptions = {
-    //             method: 'GET'
-    //         };
-
-    //         options = _.extend(defaultOptions, options);
-
-    //         if (AuthService.isLoggedIn()) {
-    //             // We are logged in - make the actual request
-    //             deferred = $http(options).then(function (response) {
-    //                 return response.data;
-    //             });
-    //         } else if (sessionUrl) {
-    //             deferred = AuthService.retrieveSession(sessionUrl).then(function (sessionData) {
-    //                 AuthService.setSession(sessionData);
-    //                 return $http(options).then(function (response) {
-    //                     return response.data;
-    //                 });
-    //             }, function (error) {
-    //                 return $q.reject(error);
-    //             });
-    //         } else {
-    //             // No idea who this person is...
-    //             deferred = $q.reject(new ErrorService.AuthError('no_session'));
-    //         }
-
-    //         deferred.catch(function (response) {
-    //             if (typeof response === 'object') {
-    //                 if (response instanceof ErrorService.AuthError) {
-    //                     AuthService.logout();
-    //                     $location.url('/login');
-    //                 } else if ('status' in response && (response.status === 401)) {
-    //                     return AuthService.retrieveSession(sessionUrl).then(function (sessionData) {
-    //                         AuthService.setSession(sessionData);
-    //                         return $http(options).then(function (response) {
-    //                             return response.data;
-    //                         });
-    //                     }, function (error) {
-    //                         $location.url('/login');
-    //                     });
-    //                 }
-    //             }
-    //             return arguments;
-    //         });
-
-    //         return deferred;
-    //     }
-
-    //     Data = {
-    //         request: request
-    //     };
-
-    //     return Data;
-
-    // }]);
-
-
     app.factory('ErrorService', function () {
 
         function AuthError() {
@@ -908,111 +688,7 @@
         return {
             AuthError: AuthError
         }
-
     });
-
-
-    // app.factory('AuthService', 
-    //     ['$http', 'localStorageService', 'ErrorService', '$timeout', '$q', '$interval', 
-    //     function ($http, localStorageService, ErrorService, $timeout, $q, $interval) {
-    //     var currentSession = null,
-    //         checkInterval;
-
-    //     var AuthService = {
-
-    //         // Checks local storage for session and returns it
-    //         getSession: function () {
-    //             return localStorageService.get('session_url');
-    //         },
-
-    //         // Sets the session info
-    //         setSession: function (sessionData) {
-    //             localStorageService.add('session_url', sessionData.href);
-    //             currentSession = sessionData;
-    //             currentSession.id = sessionData.href.match(/api\/account\/(\d+)/)[1];
-    //             return currentSession;
-    //         },
-
-    //         // Attempts to retrieve session info from server
-    //         retrieveSession: function (session_url) {
-    //             return $http({
-    //                 method: 'GET',
-    //                 url: session_url,
-    //                 withCredentials: true
-    //             }).then(function (data) {
-    //                 return data.data;
-    //             });
-    //         },
-
-    //         isLoggedIn: function () {
-    //             return AuthService.getSession() != null;
-    //         },
-
-    //         login: function (username, password) {
-    //             return $http({
-    //                 method: 'post',
-    //                 url: '/api/login',
-    //                 data: {
-    //                     'username': username,
-    //                     'password': password
-    //                 }
-    //             }).success(function (data) {
-    //                 return AuthService.setSession(data.account);
-    //             }).error(function () {
-    //                 // debugger;
-    //             });
-    //         },
-
-    //         logout: function () {
-    //             // Maybe a request here? probably....
-    //             var deferred = $q.defer;
-    //             currentSession = null;
-    //             localStorageService.remove('session_url');
-    //             deferred.resolve();
-    //             return deferred.promise;
-    //         },
-
-    //         getUser: function () {
-
-    //             var deferred = new $q.defer();
-
-    //             // if ( currentSession === null ) {
-    //             //     var deferred = new $q.defer();
-
-    //             //     $timeout(function(){
-    //             //         checkInterval = $interval(function(){
-    //             //             console.log('interval firing', currentSession);
-    //             //             if ( currentSession !== null ) {
-    //             //                 $interval.cancel(checkInterval);
-    //             //                 deferred.resolve(currentSession);
-    //             //             }
-    //             //         }, 200 );
-    //             //     });
-
-    //             //     return deferred.promise;
-    //             // } else {
-
-    //             // }
-
-    //             $timeout(function() {
-    //                 deferred.resolve(currentSession);
-    //             });
-
-    //             return deferred.promise;
-
-    //         }, 
-    //         getUserId: function() {
-    //             if ( currentSession === null ) {
-    //                 $timeout(function(){
-    //                     return currentSession.id;
-    //                 }, 6000);
-    //             } else {
-    //                 return currentSession.id;
-    //             }
-    //         }
-    //     };
-    //     return AuthService;
-    // }]);
 
     app.factory('FlashService', [ '$timeout', function ($timeout) {
 
@@ -1286,6 +962,6 @@
         }
 
         return Enum;
-    })
+    });
 
-})(window, document, window.angular, 'RomeoApp', 'services');
+})(window, document, window.angular, 'RomeoApp', 'stats-services');

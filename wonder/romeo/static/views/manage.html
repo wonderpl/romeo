@@ -6,7 +6,7 @@
 			<div id="manage-top-left">
 				<h2>All Videos &raquo; <span class="highlighted">{{ currentFilter.name }}</span></h2>
 			</div>
-			<div id="manage-top-right">
+			<div id="manage-top-right" class="icon-search">
 				<input type="text" id="manage-search-videos" placeholder="Search" />
 			</div>
 			<div class="clear"></div>
@@ -23,6 +23,7 @@
 				<h3>Collections not visible in app</h3>
 				<ul>
 					<li><a>Add a new collection</a></li>
+					<li ng-repeat="tag in Tags"></li>
 				</ul>
 				<h3>Collections visible in app</h3>
 				<ul>
