@@ -23,13 +23,15 @@ Content-Type: application/json
     "id": 4,
     "href": "/api/tag/4",
     "label": "test",
-    "description": "desc"
+    "description": "desc",
+    "public": true
    }
   ]
  }
 }
 ```
 
+Public tags are associated with Dolly channels.
 
 ### Tag create
 
@@ -41,7 +43,8 @@ Content-Type: application/json
 
 {
  "label": "This will be the collection title",
- "description": "This is a description"
+ "description": "This is a description",
+ "public": false
 }
 ```
 
@@ -49,6 +52,7 @@ Property       | Required? | Value               | Description
 :------------- | :-------- | :------------------ | :----------
 label          | yes       | string (max 256)    | The tag/collection title
 description    | no        | string (max 256)    | The description text for the tag/collection
+public         | no        | boolean             | If true then a Dolly channel is created
 
 On success, a `201` with the tag resource url will be returned:
 
@@ -362,6 +366,8 @@ Content-Type: application/json
  "id": 3
 }
 ```
+
+A video associated with public tag will be published on Dolly.
 
 The resource url for the new tag relation will be returned in a `201` response:
 
