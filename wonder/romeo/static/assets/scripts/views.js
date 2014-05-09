@@ -282,12 +282,12 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t<h3>Collections not visible in app</h3>\n" +
     "\t\t\t\t<ul>\n" +
     "\t\t\t\t\t<li ng-repeat=\"tag in Tags | filter: { public: false }\"><a href=\"/#/manage/collection/(~ tag.id ~)\">(~ tag.label ~)</a></li>\n" +
-    "\t\t\t\t\t<li><a ng-click=\"showAddNewCollectionForm(false)\">Create a new collection</a></li>\n" +
+    "\t\t\t\t\t<li><a ng-click=\"showAddNewCollectionForm(false)\" class=\"highlighted\">Create a private collection</a></li>\n" +
     "\t\t\t\t</ul>\n" +
     "\t\t\t\t<h3>Collections visible in app</h3>\n" +
     "\t\t\t\t<ul>\n" +
     "\t\t\t\t\t<li ng-repeat=\"tag in Tags | filter: { public: true }\"><a href=\"/#/manage/collection/(~ tag.id ~)\">(~ tag.label ~)</a></li>\n" +
-    "\t\t\t\t\t<li><a ng-click=\"showAddNewCollectionForm(true)\">Create a new collection</a></li>\n" +
+    "\t\t\t\t\t<li><a ng-click=\"showAddNewCollectionForm(true)\"class=\"highlighted\">Create a public collection</a></li>\n" +
     "\t\t\t\t</ul>\n" +
     "\t\t\t</div><!-- end of manage body left section -->\n" +
     "\t\t\t<div id=\"manage-right\" ng-class=\"{ loading: isEmpty(Videos) }\">\n" +
@@ -299,7 +299,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t\t\t\t<div class=\"frame\" style=\"background: black url((~ video.thumbnails.items[0].url ~)) center center no-repeat; background-size: cover;\">\n" +
     "\t\t\t\t\t\t\t\t<div class=\"actions\">\n" +
     "\t\t\t\t\t\t\t\t\t<a ng-click=\"showAddToCollectionForm(video.id)\">Add to a collection</a>\n" +
-    "\t\t\t\t\t\t\t\t\t<a href=\"/analytics/(~ video.id ~)\">Show me analytics</a>\n" +
+    "\t\t\t\t\t\t\t\t\t<a href=\"/#/analytics/(~ video.id ~)\">Show me analytics</a>\n" +
     "\t\t\t\t\t\t\t\t</div>\n" +
     "\t\t\t\t\t\t\t</div>\n" +
     "\t\t\t\t\t\t</li>\n" +

@@ -9,6 +9,9 @@
     var app = ng.module(ns + '.' + m /* module name */,
         [ns + '.services'] /* module dependencies */);
 
+    /*
+    * Used on the upload page in conjunction with the contenteditable pre tags
+    */
     app.directive('plPlaceholder', ['$timeout', function ($timeout) {
         var i = d.createElement('input'),
             support = ('placeholder' in i);
@@ -36,6 +39,9 @@
         };
     }]);
 
+    /*
+    * Used on the upload page for Medium-style editable fields that grow in height
+    */
     app.directive('plContentEditablePlaceholder', ['$timeout', function($timeout){
         return {
             restrict: 'A',
@@ -77,6 +83,9 @@
         }
     }]);
 
+    /*
+    * A way of disabling input fields via a class of 'disabled' - used to avoid browser conflicts with the disabled attribute
+    */
     app.directive('plDisabled', [function(){
         return {
             restrict: 'C',
@@ -88,6 +97,9 @@
         }
     }]);    
 
+    /*
+    * Used on the manage page for registering drag events
+    */
     app.directive('plDraggable', ['DragDropService', function(DragDropService){
         return {
             restrict: 'A',
@@ -108,6 +120,9 @@
         }
     }]);
 
+    /*
+    * Used on the manage page for registering drop events
+    */
     app.directive('plDroppable', ['DragDropService', function(DragDropService){
         return {
             restict: 'A',
@@ -136,6 +151,9 @@
         }
     }]);
 
+    /*
+    * Used on the old manage prototype for showing which collections the videos were in
+    */
     app.directive('plTooltip', ['$tooltip', function($tooltip){
         return {
             restrict: 'A',
@@ -152,16 +170,9 @@
         }
     }]);
 
-    app.directive('plProgressButton', [function(){
-        return {
-            restrict: 'A',
-            link: function(scope, elem, attrs){
-                    
-
-            }
-        }
-    }]);    
-
+    /*
+    * Directive that automatically focusses on an input field when it is linked
+    */
     app.directive('plFocusField', ['$timeout', function($timeout){
         return {
             restrict: 'A',
@@ -342,10 +353,6 @@
                     e.preventDefault();
                     var dt = e.dataTransfer,
                         file = dt.files[0];
-                        console.log(scope.reader);
-                    // scope.reader.readAsDataURL(file);
-                    // console.log(scope.reader);
-                    // scope.$emit('fileDropped');
                 });
 
             }
@@ -376,13 +383,5 @@
             template: '<div class="pl-loader loading"></div>'
         };
     });
-
-    // app.directive('directiveTemplate', ['$rootScope', '$timeout', function($rootScope, $timeout){
-    //     return {
-    //         restrict: 'E',
-    //         link: function(scope, elem, attrs) {
-    //         }
-    //     };
-    // }]);
 
 })(window, document, window.angular, 'RomeoApp', 'directives');

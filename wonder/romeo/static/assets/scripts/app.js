@@ -66,6 +66,11 @@
             resolve: authChecks
         });
 
+        $routeProvider.when('/analytics/:videoID', {
+            templateUrl: 'analytics.html',
+            resolve: authChecks
+        });
+
         // Video upload
         $routeProvider.when('/upload/', {
             templateUrl: 'upload.html',

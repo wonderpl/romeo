@@ -1,21 +1,17 @@
 {
-  "name": "brioche",
-  "version": "0.0.0",
-  "description": "brioche =======",
+  "name": "Romeo",
+  "version": "0.0.1",
+  "description": "Wonder PL's online video platform",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/darve/brioche.git"
+    "url": "https://github.com/rockpack/romeo.git"
   },
   "author": "",
-  "license": "BSD-2-Clause",
-  "bugs": {
-    "url": "https://github.com/darve/brioche/issues"
-  },
-  "homepage": "https://github.com/darve/brioche",
+  "homepage": "https://github.com/rockpack/romeo.git",
   "dependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-uglify": "~0.2.2",

@@ -23,12 +23,12 @@
 				<h3>Collections not visible in app</h3>
 				<ul>
 					<li ng-repeat="tag in Tags | filter: { public: false }"><a href="/#/manage/collection/{{ tag.id }}">{{ tag.label }}</a></li>
-					<li><a ng-click="showAddNewCollectionForm(false)">Create a new collection</a></li>
+					<li><a ng-click="showAddNewCollectionForm(false)" class="highlighted">Create a private collection</a></li>
 				</ul>
 				<h3>Collections visible in app</h3>
 				<ul>
 					<li ng-repeat="tag in Tags | filter: { public: true }"><a href="/#/manage/collection/{{ tag.id }}">{{ tag.label }}</a></li>
-					<li><a ng-click="showAddNewCollectionForm(true)">Create a new collection</a></li>
+					<li><a ng-click="showAddNewCollectionForm(true)"class="highlighted">Create a public collection</a></li>
 				</ul>
 			</div><!-- end of manage body left section -->
 			<div id="manage-right" ng-class="{ loading: isEmpty(Videos) }">
@@ -40,7 +40,7 @@
 							<div class="frame" style="background: black url((~ video.thumbnails.items[0].url ~)) center center no-repeat; background-size: cover;">
 								<div class="actions">
 									<a ng-click="showAddToCollectionForm(video.id)">Add to a collection</a>
-									<a href="/analytics/{{ video.id }}">Show me analytics</a>
+									<a href="/#/analytics/{{ video.id }}">Show me analytics</a>
 								</div>
 							</div>
 						</li>

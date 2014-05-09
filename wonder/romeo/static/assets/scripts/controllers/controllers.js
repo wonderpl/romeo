@@ -25,18 +25,7 @@
         $scope.wrapper = ng.element(d.getElementById('wrapper'));
         $scope.html = ng.element(d.querySelector('html'));
         $scope.body = ng.element(d.body);
-
         $scope.currentRoute = $location;
-        // $scope.isLoggedIn = AuthService.isLoggedIn();
-
-        // if ($scope.isLoggedIn) {
-        //     if (!($scope.account = AuthService.getUser())) {
-        //         AuthService.retrieveSession(AuthService.getSession()).then(function (sessionData) {
-        //             $scope.account = sessionData;
-        //             AuthService.setSession(sessionData);
-        //         });
-        //     }
-        // }
 
         $rootScope.isUnique = function (arr, string) {
             if (arr.length === 0) {
@@ -101,15 +90,13 @@
             $scope.body.removeClass('aside');
 
             if ( !$rootScope.isEmpty($rootScope.Videos) ) {
-                $rootScope.broadcast('get videos');
+                $rootScope.$broadcast('get videos');
             }
 
             if ( !$rootScope.isEmpty($rootScope.Tags) ) {
-                $rootScope.broadcast('get tags');
+                $rootScope.$broadcast('get tags');
             }
         });
-        // $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl){
-        // });
 
         /*
         * Used in templating for logic based on the current route
@@ -574,7 +561,7 @@
         */
         TagService.getTags().then(function(response){
             if ( 'filter' in $routeParams ) {
-                $scope.changeFilter([$routeParams['filter']]).then(function(response) {
+                $scope.initialiseFilter([$routeParams['filter']]).then(function(response) {
                     $scope.currentFilter = response;
                 });
             }
@@ -585,7 +572,7 @@
         /*
         * Function to change the filter
         */
-        $scope.changeFilter = function(filter) {
+        $scope.initialiseFilter = function(filter) {
             
             var deferred = new $q.defer();
             var newFilter = {};
@@ -600,6 +587,13 @@
                 });
             }
             return deferred.promise;
+        };
+
+        /*
+        * Change the filter
+        */
+        $scope.changeFilter = function(filter) {
+           // $scope.currentFilter = 'filter' in $routeParams ? $timeout(function(){$scope.changeFilter([$routeParams['filter']])}) : $scope.filters["none"]; 
         };
 
         /*
@@ -635,7 +629,9 @@
         */
         $scope.submitAddToCollectionForm = function(data) {
             $modal.hide();
-            console.log(data);
+            VideoService.addToCollection(data.id, data.chosenTag.id).then(function(response){
+                console.log('SUCCESS');
+            });
         };
 
         /*

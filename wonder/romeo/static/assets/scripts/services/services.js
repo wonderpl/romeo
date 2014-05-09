@@ -73,8 +73,13 @@
     /*
     * Service used for creating modal pop-ups
     */
-    app.factory('$modal', ['$rootScope', '$compile', '$sanitize', '$templateCache', function ($rootScope, $compile, $sanitize, $templateCache) {
+    app.factory('$modal', 
+        ['$rootScope', '$compile', '$sanitize', '$templateCache', 
+        function ($rootScope, $compile, $sanitize, $templateCache) {
 
+        /*
+        * Create some elements and add some classes / ID's to them
+        */
         var modal = {},
             el = d.createElement('div'),
             $el,
@@ -339,6 +344,14 @@
             return DataService.request({ url: url, method: 'POST', data: { id: tag } });
         };
 
+        Video.getLoadedVideos = function() {
+            var deferred = new $q.defer();
+
+            
+
+            return deferred.promise;
+        };
+
         /*
         * Initialise the service
         */
@@ -355,7 +368,8 @@
             create: Video.create,
             update: Video.update,
             get: Video.get,
-            getAll: Video.getAll
+            getAll: Video.getAll,
+            addToCollection: Video.addToCollection
         };
     }]);
 

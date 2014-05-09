@@ -4,7 +4,7 @@
 
 The app is setup to use <b>Grunt</b> as it's task runner, which is responsible for compiling and minifying the angular templates, compiling the SCSS (compass), linting the javascript and also for running any unit tests that are specified.
 
-To setup your front-end workflow, first check out the project and get all of the back-end hoopla up and running.  Then you will need to navigate to the root of the project in your terminal and run <code>npm install</code>. If you don't have Node installed, go and install it and run that command again.  As I described above, you will need Grunt installed, which you can do by running <code>npm install -g grunt-cli</code>.  Now <em>assuming everything has gone brilliantly</em>, you can run <code>grunt watch</code> to start make Grunt listen for changes to your source template and scss files.
+To setup your front-end workflow, first check out the project and get all of the back-end hoopla up and running.  Then you will need to navigate to the root of the project in your terminal and run <code>npm install</code>. If you don't have Node installed, go and install it and run that command again.  As I described above, you will need Grunt installed, which you can do by running <code>npm install -g grunt-cli</code>.  In order for grunt to compile the SCSS, you will also need to ensure that you have Compass installed.  To do this, simply run <code>gem system -update</code>, followed by <code>gem install compass</code> (possibly requiring sudo). Now <em>assuming everything has gone brilliantly</em>, you can run <code>grunt watch</code> to start make Grunt listen for changes to your source template and scss files.
 
 ### App architecture
 
@@ -44,6 +44,15 @@ All of the app script files follow a convention of wrapping everything in a clos
 	// CODE <br/>
 })(window, document, window.angular, 'RomeoApp', 'stats-services');
 </code>
+
+### Routing
+
+Currently there are only a few pages that make up the app:
+
+- <code>/login</code> - the main entry-point for the site ( AuthService will redirect users back here if it cannot find a session url in their local storage ).
+- <code>/upload</code> - where users can create and upload new videos for the Romeo platform.
+- <code>/manage/{filter}/{id}</code>
+- <code>/analytics/{type}/{id}</code>
 
 ### Services
 
