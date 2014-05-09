@@ -344,11 +344,11 @@
             return DataService.request({ url: url, method: 'POST', data: { id: tag } });
         };
 
-        Video.getLoadedVideos = function() {
+        Video.getOne = function(id) {
             var deferred = new $q.defer();
-
-            
-
+            DataService.request({ url: '/api/video/' + id + '', method: 'GET'}).then(function(response){
+                deferred.resolve(response);
+            });
             return deferred.promise;
         };
 
@@ -369,6 +369,7 @@
             update: Video.update,
             get: Video.get,
             getAll: Video.getAll,
+            getOne: Video.getOne,
             addToCollection: Video.addToCollection
         };
     }]);

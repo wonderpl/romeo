@@ -659,14 +659,14 @@
         * Initialise the video service
         */
         $scope.$on('get videos', function(){
-            VideoService.getVideos();
+            VideoService.getAll();
         });
 
         /*
         * Initalise the tag service
         */
         $scope.$on('get tags', function(){
-            TagService.getTags();
+            TagService.getAll();
         });
 
     }]);
@@ -1218,9 +1218,10 @@
         function getVideoData(videoID) {
             analytics.state = States.LOADING;
             return VideoService.getOne(videoID).then(function (videoData) {
+                console.log(videoData);
                 analytics.state = States.COMPLETE;
                 //TODO This needs correcting...
-                return videoData.videos[videoID];
+                return videoData;
             }, function () {
                 analytics.state = States.ERROR;
             });
@@ -1276,6 +1277,7 @@
             analytics.section = Sections[$routeParams.type.toUpperCase()];
             console.log($scope.isSection(analytics.Sections.OVERVIEW));
         });
+
     }]);
 
     app.controller('VideoController', 

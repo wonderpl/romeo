@@ -87,6 +87,8 @@ As I described above, whenever want to make a request to the actual web services
 
 ##### MainController
 
+The main controller for the app - contains a lot of core listeners for things like route changing etc.
+
 ##### ManageController
 
 ##### AccountController

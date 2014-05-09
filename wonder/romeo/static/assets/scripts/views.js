@@ -299,7 +299,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t\t\t\t<div class=\"frame\" style=\"background: black url((~ video.thumbnails.items[0].url ~)) center center no-repeat; background-size: cover;\">\n" +
     "\t\t\t\t\t\t\t\t<div class=\"actions\">\n" +
     "\t\t\t\t\t\t\t\t\t<a ng-click=\"showAddToCollectionForm(video.id)\">Add to a collection</a>\n" +
-    "\t\t\t\t\t\t\t\t\t<a href=\"/#/analytics/(~ video.id ~)\">Show me analytics</a>\n" +
+    "\t\t\t\t\t\t\t\t\t<a href=\"/#/analytics/(~ video.id ~)/overview\">Show me analytics</a>\n" +
     "\t\t\t\t\t\t\t\t</div>\n" +
     "\t\t\t\t\t\t\t</div>\n" +
     "\t\t\t\t\t\t</li>\n" +
