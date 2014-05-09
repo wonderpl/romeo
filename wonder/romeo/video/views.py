@@ -192,6 +192,36 @@ class AccountVideosResource(Resource):
             return dict(error='invalid_request', form_errors=form.errors), 400
 
 
+@api_resource('/v/<int:video_id>')
+class PublicVideoResource(Resource):
+
+    # disable login_required
+    decorators = []
+
+    def get(self, video_id):
+        """Public service that returns video data in the format expected by dolly embed."""
+        video = Video.query.filter_by(deleted=False, id=video_id).first_or_404()
+        return dict(
+            id=video.id,
+            title=video.title,
+            public=video.public,
+            status=video.status,
+            category=video.category,
+            player_logo_url=video.player_logo,
+            video=dict(
+                source='ooyala',
+                source_id=video.external_id,
+                source_username=video.account.name,
+                source_date_uploaded=video.date_added.isoformat(),
+                thumbnail_url=video.thumbnails[0].url,
+                duration=video.duration,
+                description=video.description,
+                link_url=video.link_url,
+                link_title=video.link_title,
+            ),
+        )
+
+
 def _video_item(video, full=False):
     fields = ('id', 'href', 'status', 'date_added', 'date_updated', 'title')
     if full:

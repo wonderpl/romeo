@@ -7,6 +7,7 @@ DATABASE_PASSWORD = _decrypt('5\xe8X\x04\x9cc\x86Da\x8f')
 DATABASE_URL = 'postgresql://romeo:%s@db1/romeo' % DATABASE_PASSWORD
 
 SESSION_COOKIE_SECURE = True
+ENABLE_BACKGROUND_SQS = True
 
 DOLLY_WS_BASE = 'http://api.wonderpl.com/ws/'
 DOLLY_WS_SECURE_BASE = 'https://secure.wonderpl.com/ws/'
