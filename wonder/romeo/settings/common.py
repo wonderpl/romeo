@@ -47,8 +47,7 @@ MEDIA_S3_BUCKET = 'media.dev.wonderpl.com'
 MEDIA_BASE_URL = 'http://media.dev.wonderpl.com'
 
 SQS_REGION = 'eu-west-1'
-SQS_DEFAULT_VISIBILITY_TIMEOUT = 600
-SQS_BACKGROUND_VISIBILITY_TIMEOUT = 1200
+SQS_QUEUE_NAME_PREFIX = 'romeo-'
 
 # Ooyala
 OOYALA_API_KEY = '4za3UxOvGxUX76P98NO8TKv4aX2V.j9gKk'

@@ -1,5 +1,7 @@
 import os
+import sys
 import time
+import signal
 from functools import wraps
 from flask import g, current_app
 from boto.sqs import connect_to_region
@@ -7,29 +9,27 @@ from boto.sqs.jsonmessage import JSONMessage
 from wonder.romeo import create_app
 
 
+def hup_handler(sighup, frame):
+    global _hup_received
+    _hup_received = True
+_hup_received = False
+
+
 class SqsProcessor(object):
 
     queue_name = None
-    sqs_visibility_timeout = None
+    visibility_timeout = None
     message_class = JSONMessage
 
     # _queue is a class property shared between all instances
     _queue = None
 
-    def __init__(self):
-        name = self.__class__.__name__.upper()[:-12]
-        self.queue_name = current_app.config['SQS_%s_QUEUE_NAME'] % name
-        vt_pat = 'SQS_%s_VISIBILITY_TIMEOUT'
-        try:
-            self.sqs_visibility_timeout = current_app.config[vt_pat % name]
-        except KeyError:
-            self.sqs_visibility_timeout = current_app.config[vt_pat % 'DEFAULT']
-
     @classmethod
     def getqueue(cls):
         if not cls._queue:
             conn = connect_to_region(current_app.config['SQS_REGION'])
-            cls._queue = conn.get_queue(cls.queue_name)
+            name_prefix = current_app.config['SQS_QUEUE_NAME_PREFIX']
+            cls._queue = conn.get_queue(name_prefix + cls.queue_name)
             if not cls._queue:
                 raise Exception('Unable to access queue: %s' % cls.queue_name)
             cls._queue.set_message_class(cls.message_class)
@@ -43,7 +43,7 @@ class SqsProcessor(object):
         pass
 
     def poll(self):
-        message = self.getqueue().read(self.sqs_visibility_timeout)
+        message = self.getqueue().read(self.visibility_timeout)
         if not message:
             return
         if self.process_message(message.get_body()) is not False:
@@ -51,14 +51,19 @@ class SqsProcessor(object):
             message.delete()
 
     def run(self):
-        self.app = create_app()
+        app = current_app or create_app()
+
+        # Catch HUP from uwsgi
+        signal.signal(signal.SIGHUP, hup_handler)
 
         while True:
-            if os.path.exists('/tmp/sqs-%s.lock' % self.queue_name):
+            if os.path.exists('/tmp/romeo-sqs-%s.lock' % self.queue_name):
                 time.sleep(10)
             else:
-                with current_app.app_context():
+                with app.app_context():
                     self.poll()
+            if _hup_received:
+                sys.exit()
 
 
 def _run_call(message):
@@ -92,6 +97,9 @@ def init_app(app):
 
 
 class BackgroundSqsProcessor(SqsProcessor):
+
+    queue_name = 'background'
+    visibility_timeout = 3600   # big enough for video upload
 
     def process_message(self, message):
         return _run_call(message)
