@@ -376,6 +376,7 @@
             var deferred = new $q.defer();
                 AuthService.getSessionId().then(function(response){
                     DataService.request({url: '/api/account/' + response + '/tags'}).then(function(response){
+                        console.log('tags', response.tag.items);
                         $rootScope.Tags = response.tag.items;
                         Tags = response.tag.items;
                         deferred.resolve(response);

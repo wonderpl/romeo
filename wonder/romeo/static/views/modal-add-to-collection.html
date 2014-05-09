@@ -1,13 +1,13 @@
 <h2>Add videos to a collection</h2>
 <div class="modal-content">
-	<form name"editCollectionForm" ng-submit="submitAddToCollectionForm(data)">
+	<form name"addToCollectionForm" ng-submit="submitAddToCollectionForm(data)">
 		<div class="row">
 			<label>Select a collection:</label>
-			<select class="actions" ng-options="collection.label for collection in data.collections" ng-model="data.selectedAction" pl-toolbar-dropdown></select>
+			<select class="actions" ng-options="tag.label for tag in data.tags" ng-model="data.chosenTag" pl-toolbar-dropdown></select>
 			<!-- <input type="text" ng-model="data.name" pl-focus-field/> -->
 		</div>
 		<div class="row">
-			<input type="submit" value="Add to {{ data.selectedAction.title }}" />
+			<input type="submit" value="Add to collection" />
 		</div>	
 		<div class="clear"></div>
 	</form>

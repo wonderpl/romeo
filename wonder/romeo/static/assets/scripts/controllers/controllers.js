@@ -99,6 +99,14 @@
             $scope.wrapper.removeClass('aside');
             $scope.html.removeClass('aside');
             $scope.body.removeClass('aside');
+
+            if ( !$rootScope.isEmpty($rootScope.Videos) ) {
+                $rootScope.broadcast('get videos');
+            }
+
+            if ( !$rootScope.isEmpty($rootScope.Tags) ) {
+                $rootScope.broadcast('get tags');
+            }
         });
         // $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl){
         // });
@@ -597,76 +605,72 @@
         /*
         * Shows the 'add new collection modal'
         */
-        $scope.showAddNewCollectionForm = function() {
-            $modal.load('modal-new-collection.html', true, $scope, { label: "", description: "" });
+        $scope.showAddNewCollectionForm = function(pub) {
+            $modal.load('modal-new-collection.html', true, $scope, { label: "", description: "", public: pub });
         };
 
         /*
         * Submits the 'add new collection' form and makes a request to the web services.
         */
         $scope.submitAddNewCollectionForm = function(data) {
-            console.log(data);
             $modal.hide();
             TagService.createTag({
                 label: data.label,
-                description: data.description
+                description: data.description,
+                public: data.public
             }).then(function(response){
-                console.log('tag created successfully');
                 TagService.getTags();
             });
+        };
+
+        /*
+        * Show add to collection form
+        */
+        $scope.showAddToCollectionForm = function(id) {
+            $modal.load('modal-add-to-collection.html', true, $scope, { id: id, chosenTag: undefined, tags: $rootScope.Tags });
+        };
+
+        /*
+        * Submits the 'add to a collection' form and makes a request to the web services
+        */
+        $scope.submitAddToCollectionForm = function(data) {
+            $modal.hide();
+            console.log(data);
         };
 
         /*
         * Listen for the dragStarted event
         */
         $scope.$on('dragStarted', function (e, index) {
-            $timeout(function () {
-                $scope.$apply(function () {
-                    // If the selected items list is empty
-                    if ($scope.selectedItems.length === 0) {
-                        $scope.dragItem = index;
-                        DragDropService.setTags([$scope.videos[index].title]);
-                    } else {
-                        // Not in the list
-                        if ($rootScope.isUnique($scope.selectedItems, index)) {
-                            $timeout(function () {
-                                $scope.$apply(function () {
-                                    $scope.selectedItems = [];
-                                    $scope.dragItem = index;
-                                    DragDropService.setTags([$scope.videos[index].title]);
-                                    $scope.$broadcast('deselectAll');
-                                });
-                            });
-                            // In the list
-                        } else {
-                            $scope.dragItem = undefined;
-                        }
-                    }
-                });
-            });
+            console.log('dragStarted event caught by controller');
         });
 
         /*
         * Listen for the dragDropped event
         */
         $scope.$on('dragDropped', function (e, index) {
-            $timeout(function () {
-                $scope.$apply(function () {
-                    $scope.selectedAction = index;
-                    $scope.addToCollection();
-                });
-            });
+            console.log('dragDropped event caught by controller');
         });
 
         /*
         * Listen for the dragCancelled event
         */
         $scope.$on('dragCancelled', function (e, index) {
-            $timeout(function () {
-                $scope.$apply(function () {
-                    $scope.dragItem = undefined;
-                });
-            });
+            console.log('dragCancelled event caught by controller');
+        });
+
+        /*
+        * Initialise the video service
+        */
+        $scope.$on('get videos', function(){
+            VideoService.getVideos();
+        });
+
+        /*
+        * Initalise the tag service
+        */
+        $scope.$on('get tags', function(){
+            TagService.getTags();
         });
 
     }]);

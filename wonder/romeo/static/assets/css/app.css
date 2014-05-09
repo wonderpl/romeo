@@ -4999,14 +4999,37 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
 /* line 132, ../../scss/partials/romeo/_manage.scss */
 #manage-right #manage-search-results li .frame {
   display: block;
+  position: relative;
   width: 100%;
   background: black;
 }
-/* line 137, ../../scss/partials/romeo/_manage.scss */
+/* line 138, ../../scss/partials/romeo/_manage.scss */
 #manage-right #manage-search-results li .frame:before {
   display: block;
   content: '';
   padding-top: 56.25%;
+}
+/* line 144, ../../scss/partials/romeo/_manage.scss */
+#manage-right #manage-search-results li .frame .actions {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 65%;
+  height: 35%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+/* line 153, ../../scss/partials/romeo/_manage.scss */
+#manage-right #manage-search-results li .frame .actions a {
+  color: white;
+  display: block;
+  text-decoration: none;
+  padding: 4px 8px;
+  font-size: 13px;
+}
+/* line 160, ../../scss/partials/romeo/_manage.scss */
+#manage-right #manage-search-results li .frame .actions a:hover, #manage-right #manage-search-results li .frame .actions a:focus, #manage-right #manage-search-results li .frame .actions a:active {
+  color: #59ad62;
 }
 
 /* 	Tablet styles

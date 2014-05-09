@@ -281,21 +281,27 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t</ul>\n" +
     "\t\t\t\t<h3>Collections not visible in app</h3>\n" +
     "\t\t\t\t<ul>\n" +
-    "\t\t\t\t\t<li ng-repeat=\"tag in Tags\"><a href=\"/#/manage/collection/(~ tag.id ~)\">(~ tag.label ~)</a></li>\n" +
-    "\t\t\t\t\t<li><a ng-click=\"showAddNewCollectionForm()\">Create a new collection</a></li>\n" +
+    "\t\t\t\t\t<li ng-repeat=\"tag in Tags | filter: { public: false }\"><a href=\"/#/manage/collection/(~ tag.id ~)\">(~ tag.label ~)</a></li>\n" +
+    "\t\t\t\t\t<li><a ng-click=\"showAddNewCollectionForm(false)\">Create a new collection</a></li>\n" +
     "\t\t\t\t</ul>\n" +
     "\t\t\t\t<h3>Collections visible in app</h3>\n" +
     "\t\t\t\t<ul>\n" +
-    "\t\t\t\t\t<li><a ng-click=\"showAddNewCollectionForm()\">Create a new collection</a></li>\n" +
+    "\t\t\t\t\t<li ng-repeat=\"tag in Tags | filter: { public: true }\"><a href=\"/#/manage/collection/(~ tag.id ~)\">(~ tag.label ~)</a></li>\n" +
+    "\t\t\t\t\t<li><a ng-click=\"showAddNewCollectionForm(true)\">Create a new collection</a></li>\n" +
     "\t\t\t\t</ul>\n" +
     "\t\t\t</div><!-- end of manage body left section -->\n" +
     "\t\t\t<div id=\"manage-right\" ng-class=\"{ loading: isEmpty(Videos) }\">\n" +
     "\t\t\t\t<div id=\"manage-toolbar\"></div>\n" +
     "\t\t\t\t<div id=\"manage-search-results\">\n" +
     "\t\t\t\t\t<ul>\n" +
-    "\t\t\t\t\t\t<li ng-repeat=\"video in Videos | filter: { title: searchText }\">\n" +
+    "\t\t\t\t\t\t<li ng-repeat=\"video in Videos | filter: { title: searchText }\" pl-draggable draggable=\"true\">\n" +
     "\t\t\t\t\t\t\t<a class=\"title\">(~ video.title | elipsis:20 ~)</a>\n" +
-    "\t\t\t\t\t\t\t<div class=\"frame\" style=\"background: black url((~ video.thumbnails.items[0].url ~)) center center no-repeat; background-size: cover;\"></div>\n" +
+    "\t\t\t\t\t\t\t<div class=\"frame\" style=\"background: black url((~ video.thumbnails.items[0].url ~)) center center no-repeat; background-size: cover;\">\n" +
+    "\t\t\t\t\t\t\t\t<div class=\"actions\">\n" +
+    "\t\t\t\t\t\t\t\t\t<a ng-click=\"showAddToCollectionForm(video.id)\">Add to a collection</a>\n" +
+    "\t\t\t\t\t\t\t\t\t<a href=\"/analytics/(~ video.id ~)\">Show me analytics</a>\n" +
+    "\t\t\t\t\t\t\t\t</div>\n" +
+    "\t\t\t\t\t\t\t</div>\n" +
     "\t\t\t\t\t\t</li>\n" +
     "\t\t\t\t\t</ul>\n" +
     "\t\t\t\t</div>\n" +
@@ -311,14 +317,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('modal-add-to-collection.html',
     "<h2>Add videos to a collection</h2>\n" +
     "<div class=\"modal-content\">\n" +
-    "\t<form name\"editCollectionForm\" ng-submit=\"submitAddToCollectionForm(data)\">\n" +
+    "\t<form name\"addToCollectionForm\" ng-submit=\"submitAddToCollectionForm(data)\">\n" +
     "\t\t<div class=\"row\">\n" +
     "\t\t\t<label>Select a collection:</label>\n" +
-    "\t\t\t<select class=\"actions\" ng-options=\"collection.label for collection in data.collections\" ng-model=\"data.selectedAction\" pl-toolbar-dropdown></select>\n" +
+    "\t\t\t<select class=\"actions\" ng-options=\"tag.label for tag in data.tags\" ng-model=\"data.chosenTag\" pl-toolbar-dropdown></select>\n" +
     "\t\t\t<!-- <input type=\"text\" ng-model=\"data.name\" pl-focus-field/> -->\n" +
     "\t\t</div>\n" +
     "\t\t<div class=\"row\">\n" +
-    "\t\t\t<input type=\"submit\" value=\"Add to (~ data.selectedAction.title ~)\" />\n" +
+    "\t\t\t<input type=\"submit\" value=\"Add to collection\" />\n" +
     "\t\t</div>\t\n" +
     "\t\t<div class=\"clear\"></div>\n" +
     "\t</form>\n" +

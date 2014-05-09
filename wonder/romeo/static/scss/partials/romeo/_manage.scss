@@ -131,6 +131,7 @@
 
 			.frame {
 				display: block;
+				position: relative;
 				width: 100%;
 				background: black;
 
@@ -138,6 +139,28 @@
 					display: block;
 					content: '';
 					padding-top: 56.25%;
+				}
+
+				.actions {
+					display: block;
+					position: absolute;
+					left: 0;
+					top: 65%;
+					height: 35%;
+					width: 100%;
+					background: rgba(0,0,0,0.5);
+
+					a {
+						color: white;
+						display: block;
+						text-decoration: none;
+						padding: 4px 8px;
+						font-size: 13px;
+
+						&:hover, &:focus, &:active {
+							color: $wp-green;
+						}
+					}
 				}
 			}
 		}
