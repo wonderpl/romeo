@@ -14,13 +14,13 @@ Angular template files:
 
 Angular application scripts:
 
-- <code>/wonder/romeo/static/scripts/</code>
+- <code>/wonder/romeo/static/assets/scripts/</code>
 	- <code>app.js</code>
-	- <code>/controllers/controllers.js</code>
-	- <code>/services/services.js</code>
-	- <code>/services/stats-services.js</code>
-	- <code>/directives/directives.js</code>
-	- <code>/filters/filters.js</code>
+	- <code>controllers/controllers.js</code>
+	- <code>services/services.js</code>
+	- <code>services/stats-services.js</code>
+	- <code>directives/directives.js</code>
+	- <code>filters/filters.js</code>
 
 SCSS (compass) source files:
 
@@ -32,7 +32,7 @@ Asset files (scripts, images, fonts etc):
 
 Main flask layout template (ignore base.html):
 
-- <code>/wonder/romeo/templates/layout.html/</code>
+- <code>/wonder/romeo/templates/layout.html</code>
 
 App index page:
 
@@ -50,6 +50,7 @@ All of the app script files follow a convention of wrapping everything in a clos
 Currently there are only a few pages that make up the app:
 
 - <code>/login</code> - the main entry-point for the site ( AuthService will redirect users back here if it cannot find a session url in their local storage ).
+- <code>/account</code> - for managing profile data.
 - <code>/upload</code> - where users can create and upload new videos for the Romeo platform.
 - <code>/manage/{filter}/{id}</code> - where users can manage their videos and organise them into collections
 - <code>/analytics/{type}/{id}</code> - where users can view the analytics data on their uploaded video content
