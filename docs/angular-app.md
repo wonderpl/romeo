@@ -8,19 +8,20 @@ To setup your front-end workflow, first check out the project and get all of the
 
 ### App architecture
 
+
 Angular template files:
 
 - <code>/wonder/romeo/static/views/</code>
 
 Angular application scripts:
 
-- <code>/wonder/romeo/static/assets/scripts/</code>
+- <code>/wonder/romeo/static/scripts/</code>
 	- <code>app.js</code>
-	- <code>controllers/controllers.js</code>
-	- <code>services/services.js</code>
-	- <code>services/stats-services.js</code>
-	- <code>directives/directives.js</code>
-	- <code>filters/filters.js</code>
+	- <code>/controllers/controllers.js</code>
+	- <code>/services/services.js</code>
+	- <code>/services/stats-services.js</code>
+	- <code>/directives/directives.js</code>
+	- <code>/filters/filters.js</code>
 
 SCSS (compass) source files:
 
@@ -32,7 +33,7 @@ Asset files (scripts, images, fonts etc):
 
 Main flask layout template (ignore base.html):
 
-- <code>/wonder/romeo/templates/layout.html</code>
+- <code>/wonder/romeo/templates/layout.html/</code>
 
 App index page:
 
@@ -50,7 +51,6 @@ All of the app script files follow a convention of wrapping everything in a clos
 Currently there are only a few pages that make up the app:
 
 - <code>/login</code> - the main entry-point for the site ( AuthService will redirect users back here if it cannot find a session url in their local storage ).
-- <code>/account</code> - for managing profile data.
 - <code>/upload</code> - where users can create and upload new videos for the Romeo platform.
 - <code>/manage/{filter}/{id}</code> - where users can manage their videos and organise them into collections
 - <code>/analytics/{type}/{id}</code> - where users can view the analytics data on their uploaded video content
@@ -92,7 +92,19 @@ The main controller for the app - contains a lot of core listeners for things li
 
 ##### ManageController
 
+This controller deals with manage videos and tags, so it includes the VideoService and TagService as dependencies.  Currently not fully implemented and only allows the creation of new tags, and allows users to add videos to collections. The missing features are as follows:
+
+- Cannot properly filter the videos
+- Cannot delete collections
+- Cannot change the status of the collections ( public / private ).
+
 ##### AccountController
+
+This page has two states controlled via a scope variable 'isEditable', representing whether the fields or images are editable. The functionality behind the editable fields is built around the plAutoSave directives, which broadcast from the rootscope at appropriate points when the data has changed (either on blur, or on a setInterval when it is focused).
+
+When the controller initialises, it instantiates the AccountService controller, which makes a request for the user data and adds it to the rootscope.
+
+Every time there is an 'autosave', or an image is chosen, it makes a request to the web service.  If the request is successful it updates the user object on the rootscope which means the ui updates.
 
 ##### UploadController
 
@@ -103,5 +115,6 @@ The core features of this page are implemented i.e. adding uploading video files
 - This page has a few clear states, i.e. empty, file chosen, uploading, processing, thumbnail chosen and finished.
 - In order to create a video record via the web services, it needs to have a title.  Therefore, if someone goes onto the page, adds a description, a category and even starts uploading a file before they set the title, the controller is going to cache everything the user has entered but not make an actual post request until they've entered a title.
 
+===
 
-### Directives
+If you have any questions or anything isn't clear, you can reach me on [dave@darve.co.uk](mailto:dave@darve.co.uk)

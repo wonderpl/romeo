@@ -184,6 +184,9 @@
         }
     }]);
 
+    /*
+    * Deprecated
+    */
     app.directive('uploadFileInput', ['$timeout', '$rootScope', function($timeout, $rootScope){
         return {
             restrict: 'A',
