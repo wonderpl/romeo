@@ -207,6 +207,7 @@ class PublicVideoResource(Resource):
             public=video.public,
             status=video.status,
             category=video.category,
+            player_logo_url=video.player_logo,
             video=dict(
                 source='ooyala',
                 source_id=video.external_id,
