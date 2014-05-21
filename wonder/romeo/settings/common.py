@@ -48,6 +48,7 @@ MEDIA_BASE_URL = 'http://media.dev.wonderpl.com'
 
 SQS_REGION = 'eu-west-1'
 SQS_QUEUE_NAME_PREFIX = 'romeo-'
+SQS_DEFAULT_DELAY_SECONDS = 10
 
 # Ooyala
 OOYALA_API_KEY = '4za3UxOvGxUX76P98NO8TKv4aX2V.j9gKk'

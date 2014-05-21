@@ -37,6 +37,8 @@ class SqsProcessor(object):
 
     @classmethod
     def write_message(cls, message, delay_seconds=None):
+        if delay_seconds is None:
+            delay_seconds = current_app.config.get('SQS_DEFAULT_DELAY_SECONDS')
         cls.getqueue().write(cls.message_class(body=message), delay_seconds)
 
     def process_message(self, message):
