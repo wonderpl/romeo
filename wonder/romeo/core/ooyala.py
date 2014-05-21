@@ -36,7 +36,10 @@ def ooyala_request(*resource, **kwargs):
     params['signature'] = _generate_signature(method, path, params, kwargs.get('data', ''))
     response = requests.request(method, urljoin(BASE_URL, path), params=params, **kwargs)
     response.raise_for_status()
-    return response.json()
+    try:
+        return response.json()
+    except ValueError:
+        return response.content
 
 
 def get_video_data(id):
@@ -69,7 +72,7 @@ def create_asset(s3path, metadata):
     assetid = response['embed_code']
 
     # set label and metadata
-    labelname = metadata.pop('label', None)
+    labelname = str(metadata.pop('label', None))
     if labelname:
         idmap = dict((l['name'], l['id']) for l in ooyala_request('labels')['items'])
         if labelname in idmap:
