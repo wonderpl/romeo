@@ -222,8 +222,7 @@
         return {
             get: function (videoId, selectedRegion, fromDate, toDate) {
 
-                var url = '/static/api/stats.json';
-                // var url = _.template('/static/api/video/${ id }/analytics/country${ selectedRegionId }', {id: videoId, selectedRegionId: selectedRegion.name.match(/world/i) ? '' : '/' + selectedRegion.regionId });
+                var url = _.template('/api/video/${ id }/analytics/engagement', {id: videoId });
                 var formatdate = function (date) {
                     return moment(date).format('YYYY-MM-DD');
                 };

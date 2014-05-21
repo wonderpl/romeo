@@ -146,10 +146,6 @@ def videos_engagement(resource_id, start, end=None, limit=500, page_token=None):
 
 
 def get_resource_id_from_video(video_id):
-    # Wonder pl tour video
-    return 'BkYXAzbDrwONuDpU3yHx8T-CLHna-_5N'
-
-    # TODO: remove the line above which short circuits this
     return Video.query.filter(
         Video.account_id == current_user.account.id,
         Video.id == video_id
