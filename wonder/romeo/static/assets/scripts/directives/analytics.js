@@ -440,10 +440,11 @@
             },
             controller: function ($scope) {
 
-                var frame = $scope.video_iframe = document.getElementById('engagement-video-iframe').contentWindow;
+                $scope.embedSrc = '/embed/' + $scope.analytics.video.videoID;
+                //var frame = $scope.video_iframe = document.getElementById('engagement-video-iframe').contentWindow;
 
                 // Get the data we need
-                EngagementService.get($scope.analytics.video.videoID).then(function (data) {
+                EngagementService.get($scope.analytics.video.videoID, $scope.analytics.dateFrom, $scope.analytics.dateTo).then(function (data) {
 
                     var width = 500;
                     var height = 300;

@@ -220,7 +220,7 @@
 
     app.factory('EngagementService', ['DataService', function (DataService) {
         return {
-            get: function (videoId, selectedRegion, fromDate, toDate) {
+            get: function (videoId, fromDate, toDate) {
 
                 var url = _.template('/api/video/${ id }/analytics/engagement', {id: videoId });
                 var formatdate = function (date) {
