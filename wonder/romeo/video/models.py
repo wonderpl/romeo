@@ -194,7 +194,7 @@ class VideoWorkflowEvent(db.Model):
 
     @classmethod
     def create(cls, type, value=None):
-        user_id = session.get('user_id')
+        user_id = session.get('user_id') if session else None
         return cls(event_type=type, event_value=value, user_id=user_id)
 
 
