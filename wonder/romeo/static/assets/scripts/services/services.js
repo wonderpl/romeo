@@ -41,10 +41,11 @@
             ];
 
             var time = ('' + date_str).replace(/-/g,"/").replace(/[TZ]/g," "),
-                dt = new Date,
+                dt = new Date(),
                 seconds = ((dt - new Date(time) + (dt.getTimezoneOffset() * 60000)) / 1000),
                 token = ' Ago',
                 i = 0,
+                j = 0,
                 format;
 
             if (seconds < 0) {
@@ -52,7 +53,8 @@
                 token = '';
             }
 
-            while (format = time_formats[i++]) {
+            for (i = 0, j = time_formats.length; i < j; i++) {
+                format = time_formats[i];
                 if (seconds < format[0]) {
                     if (format.length == 2) {
                         return format[1] + (i > 1 ? token : ''); // Conditional so we don't return Just Now Ago
@@ -61,6 +63,18 @@
                     }
                 }
             }
+
+            //original
+
+            // while (format = time_formats[i++]) {
+            //     if (seconds < format[0]) {
+            //         if (format.length == 2) {
+            //             return format[1] + (i > 1 ? token : ''); // Conditional so we don't return Just Now Ago
+            //         } else {
+            //             return Math.round(seconds / format[2]) + ' ' + format[1] + (i > 1 ? token : '');
+            //         }
+            //     }
+            // }
 
             // overflow for centuries
             if(seconds > 4730400000)
@@ -73,8 +87,8 @@
     /*
     * Service used for creating modal pop-ups
     */
-    app.factory('$modal', 
-        ['$rootScope', '$compile', '$sanitize', '$templateCache', 
+    app.factory('$modal',
+        ['$rootScope', '$compile', '$sanitize', '$templateCache',
         function ($rootScope, $compile, $sanitize, $templateCache) {
 
         /*
@@ -140,7 +154,7 @@
                 var $scp = ng.extend(scope.$new(), {
                     data: ng.extend({}, obj)
                 });
-                compiledTemplate = $compile($sanitize(template))($scp);                
+                compiledTemplate = $compile($sanitize(template))($scp);
             } else {
                 compiledTemplate = $compile($sanitize(template))(scope);
             }
@@ -228,8 +242,8 @@
     /*
     * Methods for interacting with the Video web services
     */
-    app.factory('VideoService', 
-        ['DataService', 'localStorageService', '$rootScope', 'AuthService', '$q', 
+    app.factory('VideoService',
+        ['DataService', 'localStorageService', '$rootScope', 'AuthService', '$q',
         function (DataService, localStorageService, $rootScope, AuthService, $q) {
 
         var Video = {},
@@ -377,8 +391,8 @@
     /*
     * Methods for interacting with the Tag web services
     */
-    app.factory('TagService', 
-        ['DataService', 'VideoService', '$rootScope', 'AuthService', '$q', '$timeout', 
+    app.factory('TagService',
+        ['DataService', 'VideoService', '$rootScope', 'AuthService', '$q', '$timeout',
         function (DataService, VideoService, $rootScope, AuthService, $q, $timeout) {
 
         var Tag = {},
@@ -405,7 +419,7 @@
                 AuthService.getSessionId().then(function(response){
                     deferred.resolve(DataService.request({url: '/api/account/' + response + '/tags', method: 'POST', data: data}));
                 });
-            return deferred.promise;  
+            return deferred.promise;
         };
 
         /*
@@ -420,7 +434,7 @@
                     if ( value.id == id ) {
                         deferred.resolve(value.label);
                     }
-                }); 
+                });
             });
 
             return deferred.promise;
@@ -444,8 +458,8 @@
     /*
     * Methods for interacting with the Account web services
     */
-    app.factory('AccountService', 
-        ['DataService', 'localStorageService', '$rootScope', 'AuthService', '$q', '$timeout', 
+    app.factory('AccountService',
+        ['DataService', 'localStorageService', '$rootScope', 'AuthService', '$q', '$timeout',
         function (DataService, localStorageService, $rootScope, AuthService, $q, $timeout) {
 
         var Account = {},
@@ -457,7 +471,7 @@
         */
         Account.getUser = function() {
             var deferred = new $q.defer();
-            
+
             if ( ID === null ) {
                 AuthService.getSessionId().then(function(response){
                     ID = response;
@@ -522,7 +536,7 @@
     /*
     * Methods for logging in and out, and for accessing credentials used by the other services
     */
-    app.factory('AuthService', 
+    app.factory('AuthService',
         ['$rootScope', '$http', 'localStorageService', 'ErrorService', '$timeout', '$q', '$interval', '$location',
         function ($rootScope, $http, localStorageService, ErrorService, $timeout, $q, $interval, $location) {
 
@@ -557,7 +571,7 @@
         };
 
         /*
-        * Returns a PROMISE.  Checks if the user is logged in.  
+        * Returns a PROMISE.  Checks if the user is logged in.
         * First we check if the user has a session url in local storage
         * Second we check if we get a valid response when we try and communicated
         */
@@ -579,7 +593,7 @@
                         });
                     }, function(){
                         deferred.reject('not logged in');
-                    });    
+                    });
                 }
             });
             return deferred.promise;
@@ -641,13 +655,13 @@
             getSession: Auth.getSession,
             getSessionId: Auth.getSessionId,
             redirect: Auth.redirect
-        }
+        };
     }]);
 
     /*
     * This service does the heavy lifting of actually making requests to the web services.
     */
-    app.factory('DataService', 
+    app.factory('DataService',
         ['$http', '$q', '$location', 'AuthService', 'ErrorService', '$timeout',
         function ($http, $q, $location, AuthService, ErrorService, $timeout) {
 
@@ -660,7 +674,7 @@
             var deferred = new $q.defer();
 
             AuthService.loginCheck().then(function(){
-                
+
                 $http(options).then(function(response){
                     deferred.resolve(response.data);
                 });
@@ -725,14 +739,14 @@
             this.stack = tmp.stack;
             this.message = tmp.message;
 
-            return this
+            return this;
         }
 
         AuthError.prototype = Object.create(Error);
 
         return {
             AuthError: AuthError
-        }
+        };
     });
 
     app.factory('FlashService', [ '$timeout', function ($timeout) {
@@ -774,7 +788,7 @@
             flash: function (msg, type) {
                 return new Flash(msg, type);
             }
-        }
+        };
     }]);
 
     app.factory('DragDropService', [ 'animLoop', '$rootScope', function (animLoop, $rootScope) {

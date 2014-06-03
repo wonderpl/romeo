@@ -1,4 +1,4 @@
-/* line 17, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 17, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -20,45 +20,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 22, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 24, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 26, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 28, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 30, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 103, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 32, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 116, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block;
 }
@@ -1898,7 +1898,7 @@ header a.avatar {
   -ms-border-radius: 50px;
   -o-border-radius: 50px;
   border-radius: 50px;
-  background: transparent url('/static/assets/img/avatar.png') center center no-repeat;
+  background: transparent url('/wonder/romeo/static/assets/img/avatar.png?1401701477') center center no-repeat;
   background-size: 100% auto;
 }
 /* line 56, ../../scss/partials/_global.scss */
@@ -1909,7 +1909,7 @@ header #wonder {
   top: 32px;
   width: 160px;
   height: 32px;
-  background: transparent url('/static/assets/img/header-logo.png') center center no-repeat;
+  background: transparent url('/wonder/romeo/static/assets/img/header-logo.png?1401701477') center center no-repeat;
   background-size: 100% auto;
 }
 /* line 66, ../../scss/partials/_global.scss */
@@ -2075,7 +2075,7 @@ a.big-button:hover, a.big-button:focus, a.big-button:active {
 
 /* line 191, ../../scss/partials/_global.scss */
 .loading {
-  background: transparent url('/static/assets/img/loading.gif') center center no-repeat;
+  background: transparent url('/wonder/romeo/static/assets/img/loading.gif?1401701477') center center no-repeat;
   background-size: 40px auto;
 }
 
@@ -3735,7 +3735,7 @@ video, canvas {
   margin: auto;
   width: 75px;
   height: 75px;
-  background: transparent url('/static/assets/img/account-upload-placeholder.png') center center no-repeat;
+  background: transparent url('/wonder/romeo/static/assets/img/account-upload-placeholder.png?1401701477') center center no-repeat;
   background-size: 100% auto;
 }
 /* line 151, ../../scss/partials/romeo/_account.scss */
@@ -3797,7 +3797,7 @@ video, canvas {
   margin: auto;
   width: 75px;
   height: 75px;
-  background: transparent url('/static/assets/img/account-upload-placeholder.png') center center no-repeat;
+  background: transparent url('/wonder/romeo/static/assets/img/account-upload-placeholder.png?1401701477') center center no-repeat;
   background-size: 100% auto;
 }
 /* line 198, ../../scss/partials/romeo/_account.scss */
@@ -3939,7 +3939,7 @@ video, canvas {
   position: absolute;
   left: 0;
   top: 0;
-  background: transparent url('/static/assets/img/spinner.gif') center center no-repeat;
+  background: transparent url('/wonder/romeo/static/assets/img/spinner.gif?1401701477') center center no-repeat;
   background-size: 60px auto;
 }
 
@@ -4396,7 +4396,7 @@ video, canvas {
   width: 64px;
   height: 64px;
   margin: auto;
-  background: transparent url('/static/assets/img/spinner.gif') center center no-repeat;
+  background: transparent url('/wonder/romeo/static/assets/img/spinner.gif?1401701477') center center no-repeat;
   background-size: 100% auto;
 }
 /* line 393, ../../scss/partials/romeo/_upload.scss */
@@ -4523,7 +4523,7 @@ video, canvas {
   top: 0;
   width: 100%;
   height: 100%;
-  background: transparent url('/static/assets/img/test-image-1.jpg') center bottom no-repeat;
+  background: transparent url('/wonder/romeo/static/assets/img/test-image-1.jpg?1401701477') center bottom no-repeat;
   background-size: cover;
   pointer-events: none;
   -webkit-transition: all 0.2s ease-out;
@@ -4606,7 +4606,7 @@ video, canvas {
   -moz-transition: width 10s linear;
   -o-transition: width 10s linear;
   transition: width 10s linear;
-  background: #2ecc71 url('/static/assets/img/progress.gif') left top repeat;
+  background: #2ecc71 url('/wonder/romeo/static/assets/img/progress.gif?1401701477') left top repeat;
 }
 /* line 587, ../../scss/partials/romeo/_upload.scss */
 #upload-progress-wrapper .bar.complete {
@@ -4967,7 +4967,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
 }
 /* line 103, ../../scss/partials/romeo/_manage.scss */
 #manage-right.loading {
-  background: transparent url('/static/assets/img/loading.gif') center center no-repeat;
+  background: transparent url('/wonder/romeo/static/assets/img/loading.gif?1401701477') center center no-repeat;
 }
 /* line 107, ../../scss/partials/romeo/_manage.scss */
 #manage-right #manage-toolbar {
@@ -5152,6 +5152,165 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   right: 24%;
 }
 
+/*!
+========== COMPONENTS
+*/
+/* line 6, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback {
+  max-width: 600px;
+  margin: 40px auto;
+}
+
+/* line 11, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback__form {
+  text-align: right;
+}
+
+/* line 15, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback__input {
+  text-align: left;
+}
+
+/* line 19, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback__comments {
+  margin: 20px 0;
+}
+
+/* line 23, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback__comment {
+  margin-bottom: 20px;
+  position: relative;
+  padding-left: 20px;
+}
+
+/* line 29, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback__comment--active {
+  border-left: solid 5px #27ae60;
+  padding-left: 15px;
+}
+
+/* line 34, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback__reply-link {
+  visibility: hidden;
+  float: right;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* line 41, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback__comment:hover .video-feedback__reply-link {
+  visibility: visible;
+}
+
+/* line 45, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback__reply-form {
+  transition: all 0.4s ease-in;
+  display: block;
+  max-height: 0;
+  opacity: 0;
+  margin: 0 0 0 80px;
+  text-align: right;
+  overflow: hidden;
+}
+
+/* line 55, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback__reply-form--active {
+  max-height: 300px;
+  opacity: 1;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+/* line 62, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback__reply-text {
+  text-align: left;
+}
+
+/* line 70, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback__reply-cancel {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* line 75, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback__comment-message {
+  display: inline-block;
+  width: 80%;
+  vertical-align: top;
+  margin-bottom: 10px;
+}
+
+/* line 82, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback__comment-time {
+  display: inline-block;
+  width: 40px;
+  font-size: small;
+}
+
+/* line 88, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback__comment-author {
+  margin-left: 45px;
+  color: #999999;
+  font-style: italic;
+  font-size: small;
+  text-transform: lowercase;
+  font-variant: small-caps;
+}
+
+/* line 97, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback__comment-date {
+  color: #cccccc;
+  font-style: italic;
+  font-size: small;
+  text-transform: lowercase;
+}
+
+/* line 104, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback__comment-author:after {
+  content: ',';
+}
+
+/* line 108, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback__comment-replies {
+  margin-top: 20px;
+  margin-left: 80px;
+}
+
+/* line 113, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback__comment-reply {
+  margin-bottom: 10px;
+  font-size: small;
+  color: #666666;
+}
+
+/* line 119, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback__reply-message {
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* line 124, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback__reply-author {
+  color: #999999;
+  font-style: italic;
+  font-size: small;
+  text-transform: lowercase;
+  font-variant: small-caps;
+}
+
+/* line 132, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback__reply-date {
+  color: #cccccc;
+  font-style: italic;
+  font-size: small;
+  text-transform: lowercase;
+}
+
+/* line 139, ../../scss/components/videoFeedback/_video-feedback.scss */
+.video-feedback__reply-author:after {
+  content: ',';
+}
+
 @media screen and (max-width: 480px) {
   /* 	Mobile styles
   /* ======================================= */
@@ -5169,12 +5328,12 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   /* ======================================= */
 }
 /* ========================
-     _                                        
- ___| |__   __ _ _ __ ___   ___   ___ ___ ___ 
+     _
+ ___| |__   __ _ _ __ ___   ___   ___ ___ ___
 / __| '_ \ / _` | '_ ` _ \ / _ \ / __/ __/ __|
 \__ \ | | | (_| | | | | | |  __/| (__\__ \__ \
 |___/_| |_|\__,_|_| |_| |_|\___(_)___|___/___/
-                                              
+
 /* ======================== */
 /* 	Shameful styles
 /* ======================================= */

@@ -1,4 +1,4 @@
-<div id="page-account" class="section" ng-controller="AccountController">
+<div id="page-account" class="section" ng-controller="AccountCtrl">
 
     <div id="edit-profile-cover-image" style="background-image: url((~ User.profile_cover ~));">
         <div class="edit-background" ng-class="{ show: isEditable }"></div>
@@ -14,7 +14,7 @@
         </div>
         <a ng-click="toggleEditable()" ng-class="{ active: isEditable }" class="wp-button" id="toggle-editable-button">(~ isEditable ? "Stop Editing" : "Edit Profile" ~)</a>
     </div>
-    
+
     <!-- <div class="background" style="background-image: url((~ User.profile_cover ~));">
         <div ng-if="isEditable" class="edit-text"><input id="profile-picker" type="file" class="hidden-input"/></div>
     </div> -->
@@ -26,7 +26,7 @@
         </div>
     </div> -->
     <!-- <div ng-if="isLoggedIn" class="edit-icons">
-        
+
     </div> -->
     <div class="inner" id="edit-profile-details">
         <div class="row">

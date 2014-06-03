@@ -17,7 +17,7 @@
             'angularFileUpload'] /* module dependencies */);
 
     app.config(['$routeProvider', '$interpolateProvider', '$httpProvider', function( $routeProvider, $interpolateProvider, $httpProvider, $location ){
-        
+
         var sessionUrl;
         var authChecks = {
             loggedin: function(ErrorService, AuthService, $q) {

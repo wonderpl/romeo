@@ -30,20 +30,20 @@
     app.filter('collectionFilter', function() {
         return function( items, collection ) {
 
-        }
+        };
     });
 
     app.filter('elipsis', function(){
         return function(str, len) {
             var newstr = str.substring(0,len);
-            
+
             if ( newstr.charAt(newstr.length-1) === ' ' ) {
                 newstr.substring(0,newstr.length-1);
             }
 
             return newstr + '...';
         };
-    })
+    });
 
     app.filter('wholeNumber', function() {
         return function(num) {
@@ -56,11 +56,11 @@
             var date = new Date((time || "").replace(/-/g,"/").replace(/[TZ]/g," ")),
                 diff = (((new Date()).getTime() - date.getTime()) / 1000),
                 day_diff = Math.floor(diff / 86400);
-                    
+
             if ( isNaN(day_diff) || day_diff < 0 || day_diff >= 31 )
                 return;
-                    
-            return day_diff == 0 && (
+
+            return day_diff === 0 && (
                     diff < 60 && "just now" ||
                     diff < 120 && "1 minute ago" ||
                     diff < 3600 && Math.floor( diff / 60 ) + " minutes ago" ||
@@ -69,7 +69,7 @@
                 day_diff == 1 && "Yesterday" ||
                 day_diff < 7 && day_diff + " days ago" ||
                 day_diff < 31 && Math.ceil( day_diff / 7 ) + " weeks ago";
-        }
+        };
     });
 
     app.filter('videoSearchFilter', function() {
@@ -116,15 +116,15 @@
                 //                 collectionmatched = true;
                 //             }
                 //         });
-                //     } 
+                //     }
 
                 //     if ( collectionmatched === true ) {
                 //         console.log( 'collectionmatched === true' );
                 //         if ( typeof value2 === "string" ) {
                 //             if ( value2.toLowerCase().indexOf(searchterm) !== (-1) ) {
                 //                 searchmatched = true;
-                //             }    
-                //         }    
+                //             }
+                //         }
                 //     }
 
                 // });
@@ -135,7 +135,7 @@
                 }
             });
             return result;
-        }
+        };
     });
 
     app.filter('formatDate', function () {

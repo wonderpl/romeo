@@ -6,10 +6,11 @@
    </ul>
 </div>
  -->
-<div id="page-video-single" class="section" ng-controller="VideoController">
+<div id="page-video-single" class="section" ng-controller="VideoCtrl">
+
 	<div class="inner">
 		<h1>{{ video.title }}</h1>
-		
+
 		<div class="inner half-width left">
 			<h3>Edit your video details</h3>
 			<form action="#">
@@ -53,7 +54,7 @@
 					<div class="row">
 						<input type="text" placeholder="Width" class="dimension" /><input type="text" placeholder="Height" class="dimension height" />
 						<span class="padding top">
-							<input type="checkbox" class="inline-block margin-right" /><label class="inline-block">Maintain aspect-ratio?</label>	
+							<input type="checkbox" class="inline-block margin-right" /><label class="inline-block">Maintain aspect-ratio?</label>
 						</span>
 					</div>
 				</form>
@@ -68,4 +69,7 @@
 			</ul>
 		</div>
 	</div>
+
+  <section video-comments></section>
+
 </div>

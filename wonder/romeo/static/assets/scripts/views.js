@@ -1,7 +1,7 @@
 angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   'use strict';
 
   $templateCache.put('account.html',
-    "<div id=\"page-account\" class=\"section\" ng-controller=\"AccountController\">\n" +
+    "<div id=\"page-account\" class=\"section\" ng-controller=\"AccountCtrl\">\n" +
     "\n" +
     "    <div id=\"edit-profile-cover-image\" style=\"background-image: url((~ User.profile_cover ~));\">\n" +
     "        <div class=\"edit-background\" ng-class=\"{ show: isEditable }\"></div>\n" +
@@ -17,7 +17,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        </div>\n" +
     "        <a ng-click=\"toggleEditable()\" ng-class=\"{ active: isEditable }\" class=\"wp-button\" id=\"toggle-editable-button\">(~ isEditable ? \"Stop Editing\" : \"Edit Profile\" ~)</a>\n" +
     "    </div>\n" +
-    "    \n" +
+    "\n" +
     "    <!-- <div class=\"background\" style=\"background-image: url((~ User.profile_cover ~));\">\n" +
     "        <div ng-if=\"isEditable\" class=\"edit-text\"><input id=\"profile-picker\" type=\"file\" class=\"hidden-input\"/></div>\n" +
     "    </div> -->\n" +
@@ -29,7 +29,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        </div>\n" +
     "    </div> -->\n" +
     "    <!-- <div ng-if=\"isLoggedIn\" class=\"edit-icons\">\n" +
-    "        \n" +
+    "\n" +
     "    </div> -->\n" +
     "    <div class=\"inner\" id=\"edit-profile-details\">\n" +
     "        <div class=\"row\">\n" +
@@ -65,7 +65,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </ul>\n" +
     "</div>\n" +
     " -->\n" +
-    "<div id=\"page-stats\" class=\"section\" ng-controller=\"AnalyticsController\">\n" +
+    "<div id=\"page-stats\" class=\"section\" ng-controller=\"AnalyticsCtrl\">\n" +
     "\n" +
     "    <div class=\"inner\" ng-if=\"analytics.state === analytics.States.COMPLETE\">\n" +
     "\n" +
@@ -136,7 +136,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  </ul>\n" +
     "</div>\n" +
     "\n" +
-    "<div id=\"page-dashboard\" class=\"section\" ng-controller=\"DashboardController\">\n" +
+    "<div id=\"page-dashboard\" class=\"section\" ng-controller=\"DashboardCtrl\">\n" +
     "\t<div class=\"inner\">\n" +
     "\t\t<h1>Welcome to Romeo</h1>\n" +
     "\t\t<!-- <h2>What would you like to do?</h2> -->\n" +
@@ -157,7 +157,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </ul>\n" +
     "</div> -->\n" +
     "\n" +
-    "<div id=\"page-collections\" class=\"section\" ng-controller=\"LibraryController\">\n" +
+    "<div id=\"page-collections\" class=\"section\" ng-controller=\"LibraryCtrl\">\n" +
     "    <div class=\"inner\">\n" +
     "    \t<h1>Manage your videos &amp; collections</h1>\n" +
     "\t\t<div id=\"top-right-links\">\n" +
@@ -174,10 +174,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t<h2 ng-show=\"selectedItems.length == 0\">Videos</h2>\n" +
     "\t\t\t\t<div id=\"selection-status\" ng-class=\"{ show: selectedItems.length > 0 }\">\n" +
     "\t\t\t\t\t<span>(~ selectedItems.length ~) video<span ng-show=\"selectedItems.length > 1\">s</span> selected: <a ng-click=\"showAddToCollectionForm($event)\">Add to a collection</a><!-- / <a ng-click=\"showRemoveFromCollectionForm($event)\">Remove from a collection</a>--></span>\n" +
-    "\t\t\t\t</div>\t\t\t\t\n" +
+    "\t\t\t\t</div>\n" +
     "\t\t\t\t<div class=\"clear\"></div>\n" +
     "\t\t\t</div>\n" +
-    "\t\t\t\n" +
+    "\n" +
     "\t\t\t<div id=\"collection-filter\" ng-class=\"{ show: filter.collection != null }\">\n" +
     "\t\t\t\t<span>Showing videos from the collection \"(~ collections[filter.collection].label ~)\" ( <a ng-click=\"clearFilter($event, 'collection')\">clear filter</a> )</span>\n" +
     "\t\t\t</div>\n" +
@@ -221,7 +221,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('loading.html',
     "\n" +
     "\n" +
-    "<div id=\"page-loading\" class=\"page section\" ng-controller=\"LoadingController\">\n" +
+    "<div id=\"page-loading\" class=\"page section\" ng-controller=\"LoadingCtrl\">\n" +
     "\t<div class=\"inner\">\n" +
     "\t\t<h1>One moment please...</h1>\n" +
     "\t</div>\n" +
@@ -232,7 +232,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('login.html',
     "\n" +
     "\n" +
-    "<div id=\"page-login\" class=\"page section\" ng-controller=\"LoginController\" autocomplete=\"off\">\n" +
+    "<div id=\"page-login\" class=\"page section\" ng-controller=\"LoginCtrl\" autocomplete=\"off\">\n" +
     "\t<div class=\"inner\">\n" +
     "\t\t<h1>Login</h1>\n" +
     "\t\t<form ng-submit=\"login()\">\n" +
@@ -257,8 +257,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('manage.html',
-    "<div id=\"page-manage\" class=\"section\" ng-controller=\"ManageController\">\n" +
-    "    \n" +
+    "<div id=\"page-manage\" class=\"section\" ng-controller=\"ManageCtrl\">\n" +
+    "\n" +
     "    <div class=\"inner\">\n" +
     "\n" +
     "\t\t<div id=\"manage-top\">\n" +
@@ -509,7 +509,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('upload.html',
     "\n" +
-    "<div id=\"page-upload\" class=\"section\" ng-controller=\"UploadController\">\n" +
+    "<div id=\"page-upload\" class=\"section\" ng-controller=\"UploadCtrl\">\n" +
     "\t<div class=\"inner\">\n" +
     "\t\t<quick-share></quick-share>\n" +
     "\t\t<div class=\"inner centered\">\n" +
@@ -532,7 +532,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t\t</div>\n" +
     "\n" +
     "\t\t\t\t\t<div class=\"dialogs\">\n" +
-    "\t\t\t\t\t\t\n" +
+    "\n" +
     "\t\t\t\t\t\t<span ng-show=\"file.state == 'empty'\" class=\"empty-upper f-sans\">Drag &amp; drop your video here</span>\n" +
     "\t\t\t\t\t\t<span ng-show=\"file.state == 'empty'\" class=\"empty-icon icon-drag\"></span>\n" +
     "\t\t\t\t\t\t<span ng-show=\"file.state == 'empty'\" class=\"empty-lower f-sans\">or choose a video from your computer</span>\n" +
@@ -542,7 +542,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t\t\t<div ng-show=\"file.state == 'chosen'\" class=\"confirm-label f-serif\">Is \"(~ file.name ~)\" correct?</div>\n" +
     "\t\t\t\t\t\t<a ng-show=\"file.state == 'chosen'\" class=\"confirm-cancel\">Choose a different file</a><!--\n" +
     "\t\t\t\t\t\t--><a ng-show=\"file.state == 'chosen'\" class=\"confirm-proceed\" ng-click=\"startUpload()\">Upload</a>\n" +
-    "\t\t\t\t\t\t\n" +
+    "\n" +
     "\t\t\t\t\t\t<div ng-show=\"file.state == 'uploading'\" class=\"progress-bar\">\n" +
     "\t\t\t\t\t\t\t<div class=\"inner-wrapper\">\n" +
     "\t\t\t\t\t\t\t\t<div class=\"inner\" style=\"width: (~ file.upload.progress ~)%;\"></div>\n" +
@@ -568,7 +568,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t\t\t<div id=\"click-to-more-link\" class=\"icon-hyperlink click-to-more-row \">\n" +
     "\t\t\t\t\t\t\t<input type=\"text\" ng-model=\"clickToMore.link\" placeholder=\"http://google.com/\">\n" +
     "\t\t\t\t\t\t</div>\n" +
-    "\t\t\t\t\t\t\n" +
+    "\n" +
     "\t\t\t\t\t</div>\n" +
     "\t\t\t\t</div>\n" +
     "\n" +
@@ -583,15 +583,15 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t<div class=\"row\">\n" +
     "\t\t\t\t\t<h2>Customise your embedded player by adding your logo</h2>\n" +
     "\t\t\t\t</div>\n" +
-    "\t\t\t\t\n" +
+    "\n" +
     "\t\t\t\t<div id=\"wonderplayer\" class=\"web-lite-player\" style=\"background: black url((~ chosenPreviewImage ~)) center center no-repeat; background-size: cover;\">\n" +
     "\t\t\t\t\t<div id=\"wonder-wrapper\">\n" +
-    "\t\t\t\t\t\t<div id=\"wonder-loader\" class=\"youtube f-sans f-uppercase\"><span></span></div> \n" +
+    "\t\t\t\t\t\t<div id=\"wonder-loader\" class=\"youtube f-sans f-uppercase\"><span></span></div>\n" +
     "\t\t\t\t\t\t<img class=\"yt-play-button\" src=\"data:image/png;base64,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\"/>\n" +
     "\n" +
-    "\t\t\t\t\t\t<div id=\"wonder-controls\"> \n" +
-    "\t\t\t\t\t\t    <a class=\"play wonder-play player-icon-play\"></a> \n" +
-    "\t\t\t\t\t\t    <a class=\"pause wonder-pause player-icon-pause hidden\"></a> \n" +
+    "\t\t\t\t\t\t<div id=\"wonder-controls\">\n" +
+    "\t\t\t\t\t\t    <a class=\"play wonder-play player-icon-play\"></a>\n" +
+    "\t\t\t\t\t\t    <a class=\"pause wonder-pause player-icon-pause hidden\"></a>\n" +
     "\t\t\t\t\t\t    <a class=\"volume wonder-volume vol-3\">\n" +
     "\t\t\t\t\t\t        <img class=\"vol-1\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAoCAYAAABq13MpAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGBJREFUeNrs17EJgFAMBND/HcZacC+ntLJyo5gRxEYO3sGVgVeEQGZVjbQsIzDQ0NDQ0NDQ0NDQ0Jnoq7unodfukbge55eh+eNju3XvNLTrAQ0NDQ0NDQ0NDQ39Lo8AAwCo8wyaUULIQwAAAABJRU5ErkJggg==\" />\n" +
     "\t\t\t\t\t\t        <img class=\"vol-2\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAoCAYAAABq13MpAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAATNJREFUeNrsmLFKA0EQhnOaQlKo4APEwkIQsRILX8BO0iZV0BfIS1ilsbC2UcFW0EJs1CdQLKxTBCs9bEzwcP2OXGBykOOu2lmYHz7YKRa+O2Z3joucc7XQslALMCZt0iZt0iZt0vPyBCewXnlnOsY9EbtJfqEPjbJ7I4/fHjGsiPoFDuBDc3tcwo+od+AWGprbI6UJz242Z5rbY5oleID9rE5gG941X3kjaItWqcNRCPf0AK5FfRjKcLkT642iA6lJeijWEayFIJ1/s0kI0rti/V00ZLRIL0JX1I/pCNEu3csO3zQXmidiSgcSMRHfoF60x6fsFlzlRvgY9jSP8S9YFfUfHMO55q+819wDtMoI+5a+h084hU24KbvRZ3sswzijUiL7a2rSJm3SJm3SJk3+BRgA8LFe4j8YonoAAAAASUVORK5CYII=\" />\n" +
@@ -634,9 +634,99 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "\t\t\t</form>\n" +
     "\t\t</div>\n" +
-    "\t\t\n" +
+    "\n" +
     "\t</div>\n" +
     "</div>"
+  );
+
+
+  $templateCache.put('video-comments.html',
+    "<section class=\"video-feedback\">\n" +
+    "\n" +
+    "  <section class=\"video-feedback__form\">\n" +
+    "    <textarea class=\"video-feedback__input js-feeback-input\"></textarea>\n" +
+    "    <button class=\"video-feedback__button\" ng-click=\"addComment\">submit</button>\n" +
+    "  </section>\n" +
+    "\n" +
+    "  <!-- https://www.brainyquote.com/quotes/topics/topic_inspirational.html -->\n" +
+    "  <section class=\"video-feedback__comments\">\n" +
+    "    <ul class=\"video-feedback__comments-list\">\n" +
+    "      <li class=\"video-feedback__comment video-feedback__comment--active\" data-id=\"12\" data-time=\"30\">\n" +
+    "        <a href=\"#\" class=\"video-feedback__comment-time js-comment-time-link\">0:30</a>\n" +
+    "        <span class=\"video-feedback__comment-message\">It is during our darkest moments that we must focus to see the light.</span>\n" +
+    "        <span class=\"video-feedback__comment-author\">Aristotle Onassis</span>\n" +
+    "        <span class=\"video-feedback__comment-date\">A fortnight ago</span>\n" +
+    "        <a class=\"video-feedback__reply-link\" ng-click=\"showReply(12)\">reply</a>\n" +
+    "        <section class=\"video-feedback__reply-form js-reply-form-12\">\n" +
+    "          <textarea class=\"video-feedback__reply-text\"></textarea>\n" +
+    "          <a class=\"video-feedback__reply-cancel\" ng-click=\"hideReply(12)\">cancel</a>\n" +
+    "          <button class=\"video-feedback__reply-submit\">submit</button>\n" +
+    "        </section>\n" +
+    "        <ul class=\"video-feedback__comment-replies\">\n" +
+    "          <li class=\"video-feedback__comment-reply\" data-id=\"27\">\n" +
+    "            <span class=\"video-feedback__reply-message\">The best and most beautiful things in the world cannot be seen or even touched - they must be felt with the heart.</span>\n" +
+    "            <span class=\"video-feedback__reply-author\">Helen Keller</span>\n" +
+    "            <span class=\"video-feedback__reply-date\">Over a week ago</span>\n" +
+    "          </li>\n" +
+    "          <li class=\"video-feedback__comment-reply\" data-id=\"29\">\n" +
+    "            <span class=\"video-feedback__reply-message\">We can't help everyone, but everyone can help someone.</span>\n" +
+    "            <span class=\"video-feedback__reply-author\">Ronald Reagan</span>\n" +
+    "            <span class=\"video-feedback__reply-date\">Yesterday</span>\n" +
+    "          </li>\n" +
+    "        </ul>\n" +
+    "      </li>\n" +
+    "      <li class=\"video-feedback__comment\" data-id=\"38\" data-time=\"105\">\n" +
+    "        <a href=\"#\" class=\"video-feedback__comment-time js-comment-time-link\">1:45</a>\n" +
+    "        <span class=\"video-feedback__comment-message\">What we need is more people who specialize in the impossible.</span>\n" +
+    "        <span class=\"video-feedback__comment-author\">Theodore Roethke</span>\n" +
+    "        <span class=\"video-feedback__comment-date\">Just now</span>\n" +
+    "        <a class=\"video-feedback__reply-link\" ng-click=\"showReply(38)\">reply</a>\n" +
+    "        <section class=\"video-feedback__reply-form js-reply-form-38\">\n" +
+    "          <textarea class=\"video-feedback__reply-text\"></textarea>\n" +
+    "          <a class=\"video-feedback__reply-cancel\" ng-click=\"hideReply(38)\">cancel</a>\n" +
+    "          <button class=\"video-feedback__reply-submit\">submit</button>\n" +
+    "        </section>\n" +
+    "        <ul class=\"video-feedback__comment-replies\"></ul>\n" +
+    "      </li>\n" +
+    "      <li class=\"video-feedback__comment\" data-id=\"31\" data-time=\"550\">\n" +
+    "        <a href=\"#\" class=\"video-feedback__comment-time js-comment-time-link\">9:10</a>\n" +
+    "        <span class=\"video-feedback__comment-message\">Learning how to be still, to really be still and let life happen - that stillness becomes a radiance.</span>\n" +
+    "        <span class=\"video-feedback__comment-author\">Morgan Freeman</span>\n" +
+    "        <span class=\"video-feedback__comment-date\">Half an hour ago</span>\n" +
+    "        <a class=\"video-feedback__reply-link\" ng-click=\"showReply(31)\">reply</a>\n" +
+    "        <section class=\"video-feedback__reply-form js-reply-form-31\">\n" +
+    "          <textarea class=\"video-feedback__reply-text\"></textarea>\n" +
+    "          <a class=\"video-feedback__reply-cancel\" ng-click=\"hideReply(31)\">cancel</a>\n" +
+    "          <button class=\"video-feedback__reply-submit\">submit</button>\n" +
+    "        </section>\n" +
+    "        <ul class=\"video-feedback__comment-replies\"></ul>\n" +
+    "      </li>\n" +
+    "\n" +
+    "\n" +
+    "      <li class=\"video-feedback__comment video-feedback__comment--active\" data-id=\"(~ comment.id ~)\" data-time=\"(~ comment.time ~)\" ng-repeat=\"comment in comments\">\n" +
+    "        <a href=\"#\" class=\"video-feedback__comment-time js-comment-time-link\">(~ comment.prettyVideoTime ~)</a>\n" +
+    "        <span class=\"video-feedback__comment-message\">(~ comment.text ~)</span>\n" +
+    "        <span class=\"video-feedback__comment-author\">(~ comment.author ~)</span>\n" +
+    "        <span class=\"video-feedback__comment-date\">(~ comment.prettyTimestamp ~)</span>\n" +
+    "        <a class=\"video-feedback__reply-link\" ng-click=\"showReply((~ comment.id ~))\">reply</a>\n" +
+    "        <section class=\"video-feedback__reply-form js-reply-form-(~ comment.id ~)\">\n" +
+    "          <textarea class=\"video-feedback__reply-text\"></textarea>\n" +
+    "          <a class=\"video-feedback__reply-cancel\" ng-click=\"hideReply((~ comment.id ~))\">cancel</a>\n" +
+    "          <button class=\"video-feedback__reply-submit\">submit</button>\n" +
+    "        </section>\n" +
+    "        <ul class=\"video-feedback__comment-replies\">\n" +
+    "          <li class=\"video-feedback__comment-reply\" data-id=\"(~ reply.id ~)\" ng-repeat=\"reply in comment.replies\">\n" +
+    "            <span class=\"video-feedback__reply-message\">(~ reply.text ~)</span>\n" +
+    "            <span class=\"video-feedback__reply-author\">(~ reply.author ~)</span>\n" +
+    "            <span class=\"video-feedback__reply-date\">(~ reply.prettyTimestamp ~)</span>\n" +
+    "          </li>\n" +
+    "        </ul>\n" +
+    "      </li>\n" +
+    "\n" +
+    "\n" +
+    "    </ul>\n" +
+    "  </section>\n" +
+    "</section>"
   );
 
 
@@ -677,10 +767,11 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "   </ul>\n" +
     "</div>\n" +
     " -->\n" +
-    "<div id=\"page-video-single\" class=\"section\" ng-controller=\"VideoController\">\n" +
+    "<div id=\"page-video-single\" class=\"section\" ng-controller=\"VideoCtrl\">\n" +
+    "\n" +
     "\t<div class=\"inner\">\n" +
     "\t\t<h1>(~ video.title ~)</h1>\n" +
-    "\t\t\n" +
+    "\n" +
     "\t\t<div class=\"inner half-width left\">\n" +
     "\t\t\t<h3>Edit your video details</h3>\n" +
     "\t\t\t<form action=\"#\">\n" +
@@ -724,7 +815,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t\t\t<div class=\"row\">\n" +
     "\t\t\t\t\t\t<input type=\"text\" placeholder=\"Width\" class=\"dimension\" /><input type=\"text\" placeholder=\"Height\" class=\"dimension height\" />\n" +
     "\t\t\t\t\t\t<span class=\"padding top\">\n" +
-    "\t\t\t\t\t\t\t<input type=\"checkbox\" class=\"inline-block margin-right\" /><label class=\"inline-block\">Maintain aspect-ratio?</label>\t\n" +
+    "\t\t\t\t\t\t\t<input type=\"checkbox\" class=\"inline-block margin-right\" /><label class=\"inline-block\">Maintain aspect-ratio?</label>\n" +
     "\t\t\t\t\t\t</span>\n" +
     "\t\t\t\t\t</div>\n" +
     "\t\t\t\t</form>\n" +
@@ -739,6 +830,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t</ul>\n" +
     "\t\t</div>\n" +
     "\t</div>\n" +
+    "\n" +
+    "  <section video-comments></section>\n" +
+    "\n" +
     "</div>"
   );
 } ]);
