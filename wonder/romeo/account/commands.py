@@ -24,3 +24,14 @@ def createuser(account, username, password='changeme'):
     account.dolly_user = dollydata['user_id']
     account.dolly_token = dollydata['access_token']
     db.session.commit()
+
+
+@manager.command
+def reset_dolly_tokens():
+    try:
+        from rockpack.mainsite.core.token import create_access_token
+    except ImportError:
+        create_access_token = lambda u, c, a: 'xxx'
+    for account in Account.query.all():
+        account.dolly_token = create_access_token(account.dolly_user, '', 0)
+    db.session.commit()
