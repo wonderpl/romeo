@@ -32,7 +32,7 @@ class SiteMap(object):
     def render(self):
         xml = '\r'.join("<url>\r\n" + self.tag_items(item) + "</url>\r\n" for item in self.items)
         return """<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 {}</urlset>""".format(xml)
 
 
