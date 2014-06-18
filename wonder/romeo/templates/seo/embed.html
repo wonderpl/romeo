@@ -1,0 +1,20 @@
+{% block content %}
+<div class="container">
+    <h1>Some video</h1>
+    <textarea cols="160" rows="10" wrap="off">
+        THIS EMBED IS HARDCODED TO THIS ONE VIDEO - STOP DOING THIS NOW!
+<iframe src="http://wonderpl.com/embed/{{ video.id }}" width="100%" height="100%" scrolling="no" class="wonder-iframe" frameborder="0">
+    <noframes>
+        <div itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
+            <span itemprop="name">{{ video.title }}</span>
+            <meta itemprop="duration" content="T{{ video.duration}}SS" />
+            <meta itemprop="thumbnailUrl" content="{{ video.thumbnails.0.url }}" />
+            <meta itemprop="embedUrl" content="http://player.ooyala.com/v3/{{ video.external_id }}" />
+            <meta itemprop="uploadDate" content="{{ video.date_added }}" />
+            <span itemprop="description">{{ video.description }}</span>
+        </div>
+    </noframes>
+</iframe>
+    </textarea>
+</div>
+{% endblock %}

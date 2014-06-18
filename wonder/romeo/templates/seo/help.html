@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>I Can Haz Sitemapz?</h1>
+
+    <h2>Robots.txt file setup</h2>
+
+    <p>Search engines crawl your content via the <code>robot.txt</code> in the root of your website.</p>
+    <p>Below are steps to get your WonderPl hosted video content accessible to the world through SERPs.</p>
+
+    <h3>Embed some video</h3>
+
+    <p>On your website, embed a video by pasting the <a href="/seo/embed/">embed code here</a> in to the page on your blog or website.</p>
+
+    <h3>Add a url to click-to-more</h3>
+
+    <p>On the video details screen (here) in the <code>click-to-more</code> field, add in the url of the page that the video will be embedded in.</p>
+
+    <h3>Update your robots.txt file</h3>
+
+    <p>Add the line: <code>Sitemap: http://wonderpl.com/seo/sitemaps/&lt;account-id&gt;.xml</code> to the end of your <code>robots.txt</code> file (replacing &lt;account-id&gt; with your account id - OBVS!) and any new pages which are referenced in your videos will be crawled.</p>
+
+    <p><img src="http://jwithers183.files.wordpress.com/2012/11/haha_business.jpg"/></p>
+
+</div>
+{% endblock %}

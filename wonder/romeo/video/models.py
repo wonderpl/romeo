@@ -198,4 +198,14 @@ class VideoWorkflowEvent(db.Model):
         return cls(event_type=type, event_value=value, user_id=user_id)
 
 
+class VideoSeoEmbed(db.Model):
+    __tablename__ = 'video_seo_embed'
+
+    id = Column(Integer, primary_key=True)
+    video_id = Column('video', ForeignKey(Video.id), nullable=False)
+    link_url = Column(String(2048))
+    title = Column(String(256), nullable=False)
+    description = Column(String(256))
+
+
 event.listen(Video, 'before_insert', genid())

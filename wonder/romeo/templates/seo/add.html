@@ -1,0 +1,26 @@
+{% block content %}
+<div class="container">
+
+    <h2></h2>
+    <form method="POST" action=".">
+        Title <input type="text" name="title"/><br/>
+        Description <textarea rows="8" cols="40" name="description"></textarea><br/>
+        Url <input type="text" name="link_url" id="link_url"/><br/>
+        Video <input type="text" name="video" id="video"/><br/>
+        <input type="submit" value="add"/>
+    </form>
+
+    <p style="color:#cc0000">{{ errors }}</p>
+
+    <h2>Embedded videos</h2>
+    {% for embed in embeds %}
+    <p>{{ embed.id }} - {{ embed.video.title }} <a href=".?delete={{ embed.id }}">delete</a></p>
+    {% endfor %}
+
+    <h2>All videos</h2>
+    {% for video in videos %}
+    <p>{{ video.title }} <a href="#" onClick='document.getElementById("video").value="{{ video.id }}";'>add</a></p>
+    {% endfor %}
+
+</div>
+{% endblock %}
