@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, current_app as app
+from flask import Blueprint, render_template, request, make_response, current_app as app
 from wonder.romeo import db
 from wonder.romeo.video.models import Video, VideoSeoEmbed
 
@@ -13,10 +13,9 @@ class SiteMap(object):
     def tag_items(self, items, prefix=None, size=0):
         tabs = "\t" * (size + 1)
         wrapped = []
-        tag_prefix = '{}:'.format(prefix) if prefix else ''
         for item, value in items.iteritems():
-            open_tag = "<{0}{1}>".format(tag_prefix, item)
-            close_tag = "</{0}{1}>".format(tag_prefix, item)
+            open_tag = "<{}>".format(item)
+            close_tag = "</{}>".format(item)
 
             if isinstance(value, dict):
                 wrapped.append(tabs + open_tag + "\r\n")
@@ -52,14 +51,16 @@ def sitemap(account_id):
                 'loc': embed.link_url,
                 'lastmod': video.date_updated,
                 'changefreq': 'monthly',
-                'video': {
-                    'title': embed.title,  # Required
-                    'thumbnail': video.thumbnails[0].url if video.thumbnails else '',  # Required
-                    'description': embed.description,  # Required
-                    'player_loc': video.link_url,
-                    'duration': video.duration
+                'video:video': {
+                    'video:title': embed.title,  # Required
+                    'video:thumbnail': video.thumbnails[0].url if video.thumbnails else '',  # Required
+                    'video:description': embed.description,  # Required
+                    'video:player_loc': "http://dev.wonderpl.com/embed/{}".format(video.id),
+                    'video:duration': video.duration
                 }})
-    return sitemap.render()
+    resp = make_response(sitemap.render())
+    resp.headers['Content-Type'] = 'application/xml'
+    return resp
 
 
 @seoapp.route('/seo/sitemaps/add/', methods=('GET', 'POST',))
@@ -110,7 +111,7 @@ def sitemap_add():
 
 @seoapp.route('/seo/sitemaps/')
 def sitemap_help():
-    return render_template('seo/help.html')
+    return render_template('seo/help.html', headers={'Content-Type': 'application/xml'})
 
 
 @seoapp.route('/seo/embed/')
