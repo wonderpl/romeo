@@ -46,6 +46,14 @@ MEDIA_S3_BUCKET = 'media.dev.wonderpl.com'
 
 MEDIA_BASE_URL = 'http://media.dev.wonderpl.com'
 
+COVER_THUMBNAIL_SIZES = (
+    (96, 54),
+    (320, 180),
+    (640, 360),
+    (1280, 720),
+    (1920, 1080),
+)
+
 SQS_REGION = 'eu-west-1'
 SQS_QUEUE_NAME_PREFIX = 'romeo-'
 SQS_DEFAULT_DELAY_SECONDS = 10

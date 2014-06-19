@@ -1,15 +1,17 @@
 from itertools import chain
+from cStringIO import StringIO
+from urlparse import urlparse
 from PIL import Image
 import wtforms
-from flask import request
+from flask import current_app, request
 from flask.ext.wtf import Form
 from wonder.romeo import db
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.dolly import get_categories
-from wonder.romeo.core.ooyala import create_asset
-from wonder.romeo.core.s3 import upload_file, media_bucket
+from wonder.romeo.core.ooyala import create_asset, ooyala_request
+from wonder.romeo.core.s3 import upload_file, download_file, media_bucket
 from wonder.romeo.core.sqs import background_on_sqs
-from .models import VideoTag, Video
+from .models import Video, VideoTag, VideoThumbnail
 
 
 class BaseForm(Form):
@@ -59,6 +61,7 @@ class VideoForm(BaseForm):
     category = wtforms.SelectField(validators=[wtforms.validators.Optional()])
     filename = wtforms.StringField()
     player_logo = wtforms.FileField()
+    cover_image = wtforms.FileField()
     link_url = wtforms.StringField(validators=[wtforms.validators.Optional(), wtforms.validators.URL()])
     link_title = wtforms.StringField()
 
@@ -78,6 +81,12 @@ class VideoForm(BaseForm):
             video.status = 'processing'
             event = 'uploaded'
 
+        if self.cover_image and self.cover_image.data:
+            video.thumbnails = [
+                VideoThumbnail.from_cover_image(self.cover_image.data, self.account_id)
+            ]
+            create_cover_thumbnails(video.id)
+
         video.record_workflow_event(event)
 
         return video
@@ -95,21 +104,31 @@ class VideoForm(BaseForm):
         if field.data:
             field.data = field.data.rsplit('/')[-1]
 
+    def validate_cover_image(self, field):
+        if field.data:
+            assert self.obj
+            self._upload_image(field, 'cover')
+
     def validate_player_logo(self, field):
         if field.data:
-            try:
-                image = Image.open(field.data)
-                content_type = Image.MIME[image.format]
-            except Exception as e:
-                raise wtforms.ValidationError(e.message)
-
-            stream = field.data.stream
-            stream.seek(0)
-
-            field.data = Video.get_random_filename()
-            upload_file(media_bucket, Video.get_player_logo_filepath(field.data),
-                        stream, content_type)
+            self._upload_image(field, 'logo')
             # TODO: save thumbnails
+
+    def _upload_image(self, field, imagetype):
+        try:
+            image = Image.open(field.data)
+            content_type = Image.MIME[image.format]
+        except Exception as e:
+            raise wtforms.ValidationError(e.message)
+
+        stream = field.data.stream
+        stream.seek(0)
+
+        field.data = Video.get_random_filename()
+        filepath = Video.get_image_filepath(field.data, imagetype, self.account_id)
+        upload_file(media_bucket, filepath, stream, content_type)
+
+        return field
 
 
 @background_on_sqs
@@ -119,6 +138,36 @@ def create_asset_in_background(video_id):
     metadata = dict(name=video.title, label=video.account_id, path=video.filepath)
     video.external_id = create_asset(video.filepath, metadata)
     video.record_workflow_event('ooyala asset created')
+
+
+@background_on_sqs
+@commit_on_success
+def create_cover_thumbnails(video_id):
+    def _thumbnail(size, dim):
+        return VideoThumbnail.from_cover_image(cover_filename, video.account_id, size, dim)
+
+    video = Video.query.get(video_id)
+    assert video.external_id
+    cover_filepath = urlparse(video.thumbnails[0].url).path
+    cover_filename = cover_filepath.rsplit('/', 1)[-1]
+
+    imgdata = download_file(media_bucket, cover_filepath)
+    image = Image.open(StringIO(imgdata))
+    content_type = Image.MIME[image.format]
+    video.thumbnails = [_thumbnail(None, image.size)]
+
+    for size in current_app.config['COVER_THUMBNAIL_SIZES']:
+        if size < image.size:
+            buf = StringIO()
+            timage = image.copy()
+            timage.thumbnail(size, Image.ANTIALIAS)
+            timage.save(buf, image.format)
+            thumbnail = _thumbnail(str(size[0]), timage.size)
+            upload_file(media_bucket, urlparse(thumbnail.url).path, buf, content_type)
+            video.thumbnails.append(thumbnail)
+
+    ooyala_request('assets', video.external_id,
+                   'preview_image_files', method='post', data=imgdata)
 
 
 class VideoLocaleForm(Form):

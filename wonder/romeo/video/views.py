@@ -53,7 +53,8 @@ def ooyala_callback():
             video.status = 'ready'
         video.record_workflow_event('processing complete')
         video.duration = data['duration'] / 1000
-        video.thumbnails = [VideoThumbnail(**t) for t in data['thumbnails']]
+        if not video.thumbnails:
+            video.thumbnails = [VideoThumbnail(**t) for t in data['thumbnails']]
 
     # TODO: Add tag, send notification
     return '', 204

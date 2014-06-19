@@ -32,6 +32,10 @@ def upload_file(bucket, path, data, content_type=None, public=True, long_cache_a
     return key.set_contents_from_file(data, policy=policy, headers=headers)
 
 
+def download_file(bucket, path):
+    return bucket.new_key(path).get_contents_as_string()
+
+
 s3connection = LocalProxy(_get_connection)
 video_bucket = LocalProxy(lambda: _get_bucket(current_app.config['VIDEO_S3_BUCKET']))
 media_bucket = LocalProxy(lambda: _get_bucket(current_app.config['MEDIA_S3_BUCKET']))

@@ -32,8 +32,17 @@ def _handle_error(code, error, template=None):
 
 @api_resource(None)
 class BaseResource(Resource):
+
+    decorators = []
+
     def get(self):
-        return dict(
-            user=dict(href=url_for('api.user', user_id=current_user.id)),
-            account=dict(href=url_for('api.account', account_id=current_user.account_id)),
-        )
+        if current_user.is_authenticated():
+            return dict(
+                auth_status='logged_in',
+                user=dict(href=url_for('api.user', user_id=current_user.id)),
+                account=dict(href=url_for('api.account', account_id=current_user.account_id)),
+            )
+        else:
+            return dict(
+                auth_status='logged_out'
+            )

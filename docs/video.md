@@ -268,7 +268,7 @@ Content-Type: application/json
 }
 ```
 
-To update the `player_logo` use a multipart body with the image data.
+To update the `cover_image` or `player_logo` use a multipart body with the image data.
 
 ```http
 PATCH /api/video/<video_id> HTTP/1.1
@@ -296,6 +296,11 @@ HTTP/1.1 204 NO CONTENT
 
 ### Video thumbnails
 
+To set thumbnails from a custom image `PATCH` the video record with image
+content for the `cover_image` property. The video thumbnails will be updated
+using this image.
+
+Alternatively you can select one of the preview images as the thumbnail source.
 To get a list of images extracted from the key frames of a video:
 
 ```http

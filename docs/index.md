@@ -68,7 +68,7 @@ Cookie: session=xxx
 If the session cookie is not present the api will return a `401` response.
 
 ```http
-HTTP/1.0 401 UNAUTHORIZED
+HTTP/1.1 401 UNAUTHORIZED
 Content-Type: application/json
 
 {
@@ -80,10 +80,43 @@ If the token in the session cookie has expired or been invalidated then a `401` 
 also be returned.
 
 ```http
-HTTP/1.0 401 UNAUTHORIZED
+HTTP/1.1 401 UNAUTHORIZED
 Content-Type: application/json
 
 {
  "error": "expired_token"
+}
+```
+
+Make a request to `/api` to check the current authentication status.
+
+```http
+GET /api HTTP/1.1
+Cookie: session=xxx
+```
+
+If the token in the session cookie is valid then the `auth_status` will be `logged_in`.
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+ "auth_status": "logged_in",
+ "account": {
+  "href": "/api/account/14511293"
+ },
+ "user": {
+  "href": "/api/user/98686185"
+ }
+}
+```
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+ "auth_status": "logged_out"
 }
 ```
