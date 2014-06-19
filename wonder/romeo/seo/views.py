@@ -1,6 +1,10 @@
-from flask import Blueprint, render_template, request, make_response, current_app as app
+from flask import Blueprint, render_template, make_response, abort
 from wonder.romeo import db
+from wonder.romeo.account.views import dolly_account_view
+from wonder.romeo.core.db import commit_on_success
+from wonder.romeo.core.rest import Resource, api_resource
 from wonder.romeo.video.models import Video, VideoSeoEmbed
+from .forms import VideoSeoEmbedForm
 
 
 seoapp = Blueprint('seo', __name__)
@@ -41,7 +45,9 @@ def sitemap(account_id):
     # TODO: filter on account
     videos = VideoSeoEmbed.query.join(
         Video,
-        Video.id == VideoSeoEmbed.video_id).with_entities(Video, VideoSeoEmbed)
+        (Video.id == VideoSeoEmbed.video_id) &
+        (Video.account_id == account_id)
+    ).with_entities(Video, VideoSeoEmbed)
 
     sitemap = SiteMap()
 
@@ -52,9 +58,9 @@ def sitemap(account_id):
                 'lastmod': video.date_updated,
                 'changefreq': 'monthly',
                 'video:video': {
-                    'video:title': embed.title,  # Required
+                    'video:title': video.title,  # Required
                     'video:thumbnail': video.thumbnails[0].url if video.thumbnails else '',  # Required
-                    'video:description': embed.description,  # Required
+                    'video:description': video.description if video.description else embed.description,  # Required
                     'video:player_loc': "http://dev.wonderpl.com/embed/{}".format(video.id),
                     'video:duration': video.duration
                 }})
@@ -63,50 +69,66 @@ def sitemap(account_id):
     return resp
 
 
-@seoapp.route('/seo/sitemaps/add/', methods=('GET', 'POST',))
-def sitemap_add():
-    ctx = {}
-    if request.method == 'POST':
-        for i in ('video', 'title', 'description', 'link_url'):
-            if not request.form.get(i, '').strip():
-                ctx['errors'] = 'Missing {}'.format(i)
-                break
+@api_resource('/seo/account/<int:account_id>/sitemaps')
+class SiteMaps(Resource):
+
+    @commit_on_success
+    @dolly_account_view
+    def post(self, account, dollyuser):
+        form = VideoSeoEmbedForm(csrf_enabled=False)
+        if form.validate():
+            db.session.add(
+                VideoSeoEmbed(
+                    video_id=form.video_id.data,
+                    link_url=form.link_url.data,
+                    title=form.title.data,
+                    description=form.description.data))
+            return None, 201
         else:
-            try:
-                db.session.add(
-                    VideoSeoEmbed(
-                        video_id=request.form.get('video'),
-                        link_url=request.form.get('link_url'),
-                        title=request.form.get('title'),
-                        description=request.form.get('description')
-                    ))
-                db.session.commit()
-            except Exception, e:
-                ctx['errors'] = str(e)
-                app.logger.error(e)
-    elif request.args.get('delete'):
-        db.session.delete(VideoSeoEmbed.query.get(request.args.get('delete')))
-        db.session.commit()
+            return dict(error='invalid_request',
+                        form_errors=form.errors), 400
 
-    video_list = Video.query.outerjoin(
-        VideoSeoEmbed,
-        VideoSeoEmbed.video_id == Video.id
-    ).with_entities(
-        Video, VideoSeoEmbed)
+    @dolly_account_view
+    def get(self, account, dollyuser):
+        embed_list = VideoSeoEmbed.query.join(
+            Video,
+            (Video.id == VideoSeoEmbed.video_id) &
+            (Video.account_id == account.id)
+        ).with_entities(
+            Video, VideoSeoEmbed)
 
-    videos = []
-    embeds = []
+        embeds = []
 
-    for video, embed in video_list:
-        videos.append(video)
-        if embed:
-            embed.video = video
-            embeds.append(embed)
+        for video, embed in embed_list:
+            embeds.append({
+                'id': embed.id,
+                'link_url': embed.link_url,
+                'title': video.title,
+                'description': video.description if video.description else embed.description
+            })
 
-    ctx.update({'videos': videos})
-    ctx.update({'embeds': embeds})
+        return dict(embeds=embeds, total=embed_list.count())
 
-    return render_template('seo/add.html', **ctx)
+
+@api_resource('/seo/account/<int:account_id>/sitemaps/<int:item>')
+class SiteMapItem(Resource):
+
+    @commit_on_success
+    def delete(self, account_id, item):
+        embed, video = VideoSeoEmbed.query.filter(
+            VideoSeoEmbed.id == item
+        ).join(
+            Video,
+            (Video.id == VideoSeoEmbed.video_id) &
+            (Video.account_id == account_id)
+        ).with_entities(VideoSeoEmbed, Video).first_or_404()
+
+        if video.account_id == account_id:
+            db.session.delete(embed)
+        else:
+            abort(403)
+
+        return None, 204
 
 
 @seoapp.route('/seo/sitemaps/')
