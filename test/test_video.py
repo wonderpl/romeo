@@ -35,7 +35,7 @@ class VideoEditTestCase(unittest.TestCase):
         formdata = dict(cover_image=(genimg((800, 450), 'jpeg'), 'img.jpg'))
         video = Video.query.first()
         patches = {f: DEFAULT for f in ('ooyala_request', 'download_file', 'upload_file')}
-        with patch.multiple('wonder.romeo.video.forms', patches) as patched:
+        with patch.multiple('wonder.romeo.video.forms', **patches) as patched:
             with client_for_account(video.account_id) as client:
                 r = client.patch('/api/video/%d' % video.id,
                                  content_type='multipart/form-data', data=formdata)
