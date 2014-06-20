@@ -1,9 +1,6 @@
-angular.module('RomeoApp.controllers').controller('VideoCtrl', ['$scope', function($scope) {
+angular.module('RomeoApp.controllers')
+  .controller('VideoCtrl', [function() {
 
-    'use strict';
-
-    $scope.video = {};
-
-    var template, tmpl;
+  'use strict';
 
 }]);

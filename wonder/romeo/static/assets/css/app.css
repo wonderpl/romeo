@@ -5155,41 +5155,41 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
 /*!
 ========== COMPONENTS
 */
-/* line 6, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 6, ../../scss/components/video/_video-feedback.scss */
 .video-feedback {
   max-width: 600px;
   margin: 40px auto;
 }
 
-/* line 11, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 11, ../../scss/components/video/_video-feedback.scss */
 .video-feedback__form {
   text-align: right;
 }
 
-/* line 15, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 15, ../../scss/components/video/_video-feedback.scss */
 .video-feedback__input {
   text-align: left;
 }
 
-/* line 19, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 19, ../../scss/components/video/_video-feedback.scss */
 .video-feedback__comments {
   margin: 20px 0;
 }
 
-/* line 23, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 23, ../../scss/components/video/_video-feedback.scss */
 .video-feedback__comment {
   margin-bottom: 20px;
   position: relative;
   padding-left: 20px;
 }
 
-/* line 29, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 29, ../../scss/components/video/_video-feedback.scss */
 .video-feedback__comment--active {
   border-left: solid 5px #27ae60;
   padding-left: 15px;
 }
 
-/* line 34, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 34, ../../scss/components/video/_video-feedback.scss */
 .video-feedback__reply-link {
   visibility: hidden;
   float: right;
@@ -5197,12 +5197,12 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   text-decoration: underline;
 }
 
-/* line 41, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 41, ../../scss/components/video/_video-feedback.scss */
 .video-feedback__comment:hover .video-feedback__reply-link {
   visibility: visible;
 }
 
-/* line 45, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 45, ../../scss/components/video/_video-feedback.scss */
 .video-feedback__reply-form {
   transition: all 0.4s ease-in;
   display: block;
@@ -5213,7 +5213,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   overflow: hidden;
 }
 
-/* line 55, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 55, ../../scss/components/video/_video-feedback.scss */
 .video-feedback__reply-form--active {
   max-height: 300px;
   opacity: 1;
@@ -5221,18 +5221,18 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   margin-bottom: 40px;
 }
 
-/* line 62, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 62, ../../scss/components/video/_video-feedback.scss */
 .video-feedback__reply-text {
   text-align: left;
 }
 
-/* line 70, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 70, ../../scss/components/video/_video-feedback.scss */
 .video-feedback__reply-cancel {
   cursor: pointer;
   text-decoration: underline;
 }
 
-/* line 75, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 75, ../../scss/components/video/_video-feedback.scss */
 .video-feedback__comment-message {
   display: inline-block;
   width: 80%;
@@ -5240,14 +5240,14 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   margin-bottom: 10px;
 }
 
-/* line 82, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 82, ../../scss/components/video/_video-feedback.scss */
 .video-feedback__comment-time {
   display: inline-block;
   width: 40px;
   font-size: small;
 }
 
-/* line 88, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 88, ../../scss/components/video/_video-feedback.scss */
 .video-feedback__comment-author {
   margin-left: 45px;
   color: #999999;
@@ -5257,7 +5257,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   font-variant: small-caps;
 }
 
-/* line 97, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 97, ../../scss/components/video/_video-feedback.scss */
 .video-feedback__comment-date {
   color: #cccccc;
   font-style: italic;
@@ -5265,31 +5265,31 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   text-transform: lowercase;
 }
 
-/* line 104, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 104, ../../scss/components/video/_video-feedback.scss */
 .video-feedback__comment-author:after {
   content: ',';
 }
 
-/* line 108, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 108, ../../scss/components/video/_video-feedback.scss */
 .video-feedback__comment-replies {
   margin-top: 20px;
   margin-left: 80px;
 }
 
-/* line 113, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 113, ../../scss/components/video/_video-feedback.scss */
 .video-feedback__comment-reply {
   margin-bottom: 10px;
   font-size: small;
   color: #666666;
 }
 
-/* line 119, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 119, ../../scss/components/video/_video-feedback.scss */
 .video-feedback__reply-message {
   display: block;
   margin-bottom: 10px;
 }
 
-/* line 124, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 124, ../../scss/components/video/_video-feedback.scss */
 .video-feedback__reply-author {
   color: #999999;
   font-style: italic;
@@ -5298,7 +5298,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   font-variant: small-caps;
 }
 
-/* line 132, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 132, ../../scss/components/video/_video-feedback.scss */
 .video-feedback__reply-date {
   color: #cccccc;
   font-style: italic;
@@ -5306,9 +5306,25 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
   text-transform: lowercase;
 }
 
-/* line 139, ../../scss/components/videoFeedback/_video-feedback.scss */
+/* line 139, ../../scss/components/video/_video-feedback.scss */
 .video-feedback__reply-author:after {
   content: ',';
+}
+
+/* line 1, ../../scss/components/video/_video-player.scss */
+.video-player {
+  max-width: 600px;
+  margin: 0 auto 40px;
+  height: 350px;
+  position: relative;
+  margin-top: 600px;
+}
+
+/* line 10, ../../scss/components/video/_video-player.scss */
+.video-player__frame {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 @media screen and (max-width: 480px) {

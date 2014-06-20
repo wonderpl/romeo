@@ -708,10 +708,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        <span class=\"video-feedback__comment-message\">(~ comment.text ~)</span>\n" +
     "        <span class=\"video-feedback__comment-author\">(~ comment.author ~)</span>\n" +
     "        <span class=\"video-feedback__comment-date\">(~ comment.prettyTimestamp ~)</span>\n" +
-    "        <a class=\"video-feedback__reply-link\" ng-click=\"showReply((~ comment.id ~))\">reply</a>\n" +
+    "        <a class=\"video-feedback__reply-link\" ng-click=\"showReply(comment.id)\">reply</a>\n" +
     "        <section class=\"video-feedback__reply-form js-reply-form-(~ comment.id ~)\">\n" +
     "          <textarea class=\"video-feedback__reply-text\"></textarea>\n" +
-    "          <a class=\"video-feedback__reply-cancel\" ng-click=\"hideReply((~ comment.id ~))\">cancel</a>\n" +
+    "          <a class=\"video-feedback__reply-cancel\" ng-click=\"hideReply(comment.id)\">cancel</a>\n" +
     "          <button class=\"video-feedback__reply-submit\">submit</button>\n" +
     "        </section>\n" +
     "        <ul class=\"video-feedback__comment-replies\">\n" +
@@ -758,15 +758,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('video-player.html',
+    "<section class=\"video-player\">\n" +
+    "  <iframe class=\"video-player__frame\" src=\"(~ url ~)\"  width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen></iframe>\n" +
+    "</section>"
+  );
+
+
   $templateCache.put('video.html',
-    "<!-- <div class=\"section\">\n" +
-    "  <ul id=\"breadcrumb\" class=\"inner\">\n" +
-    "    <li class=\"home\"><a href=\"/#/\" class=\"icon-home\"></a></li>\n" +
-    "    <li><span class=\"divider\">/</span> <a href=\"/#/library\">Library</a></li>\n" +
-    "    <li><span class=\"divider\">/</span> <span>(~ $rootScope.pagetitle ~)</span></li>\n" +
-    "   </ul>\n" +
-    "</div>\n" +
-    " -->\n" +
     "<div id=\"page-video-single\" class=\"section\" ng-controller=\"VideoCtrl\">\n" +
     "\n" +
     "\t<div class=\"inner\">\n" +
@@ -800,7 +799,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t</div><!--\n" +
     "\t\t--><div class=\"inner half-width right\" style=\"padding-top: 57px;\">\n" +
     "\t\t\t<div class=\"wonder-embed\">\n" +
-    "\t\t\t\t<iframe src=\"http://wonderpl.com/embed/viwAdAYl4is9rfPwmRE39MXA/\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen></iframe>\n" +
+    "\t\t\t\t<iframe src=\"//wonderpl.com/embed/viwAdAYl4is9rfPwmRE39MXA/\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen></iframe>\n" +
     "\t\t\t</div>\n" +
     "\t\t\t<div id=\"customize-player\">\n" +
     "\t\t\t\t<form action=\"\">\n" +
@@ -830,6 +829,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t</ul>\n" +
     "\t\t</div>\n" +
     "\t</div>\n" +
+    "\n" +
+    "  <video-player url=\"http://wonderpl.com/embed/viwAdAYl4is9rfPwmRE39MXA/\"></video-player>\n" +
     "\n" +
     "  <section video-comments></section>\n" +
     "\n" +

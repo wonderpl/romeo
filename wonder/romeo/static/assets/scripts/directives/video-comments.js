@@ -22,6 +22,7 @@ angular.module('RomeoApp.directives')
 
   return {
     restict : 'AE',
+    replace: true,
     template : $templateCache.get('video-comments.html'),
     link : function(scope, elem, attrs) {
 
@@ -53,12 +54,12 @@ angular.module('RomeoApp.directives')
       scope.showReply = function (id) {
         var form = angular.element(elem[0].querySelector('.js-reply-form-' + id));
         form.addClass('video-feedback__reply-form--active');
-      }
+      };
 
       scope.hideReply = function (id) {
         var form = angular.element(elem[0].querySelector('.js-reply-form-' + id));
         form.removeClass('video-feedback__reply-form--active');
-      }
+      };
     }
   };
 }]);

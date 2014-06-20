@@ -65,10 +65,10 @@
         <span class="video-feedback__comment-message">{{ comment.text }}</span>
         <span class="video-feedback__comment-author">{{ comment.author }}</span>
         <span class="video-feedback__comment-date">{{ comment.prettyTimestamp }}</span>
-        <a class="video-feedback__reply-link" ng-click="showReply({{ comment.id }})">reply</a>
+        <a class="video-feedback__reply-link" ng-click="showReply(comment.id)">reply</a>
         <section class="video-feedback__reply-form js-reply-form-{{ comment.id }}">
           <textarea class="video-feedback__reply-text"></textarea>
-          <a class="video-feedback__reply-cancel" ng-click="hideReply({{ comment.id }})">cancel</a>
+          <a class="video-feedback__reply-cancel" ng-click="hideReply(comment.id)">cancel</a>
           <button class="video-feedback__reply-submit">submit</button>
         </section>
         <ul class="video-feedback__comment-replies">
