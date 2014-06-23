@@ -5313,7 +5313,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
 
 /* line 1, ../../scss/components/video/_video-player.scss */
 .video-player {
-  max-width: 600px;
+  max-width: 300px;
   margin: 0 auto 40px;
   height: 350px;
   position: relative;

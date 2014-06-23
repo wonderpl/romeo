@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="0">
+  <filter id="ColourFilter" color-interpolation-filters="sRGB">
+    <feComponentTransfer>
+      <feFuncR class="brightness red" type="linear" slope="1"/>
+      <feFuncG class="brightness green" type="linear" slope="1"/>
+      <feFuncB class="brightness blue" type="linear" slope="1"/>
+    </feComponentTransfer>
+  </filter>
+</svg>

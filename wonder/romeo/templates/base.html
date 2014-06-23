@@ -83,7 +83,6 @@
 
     {% block bottomjs %}
     {% assets filters="rjsmin", output="gen/base.%(version)s.js",
-      "assets-old/vendor/jquery.js",
       "assets-old/vendor/bootstrap/js/bootstrap.js"
      %}
     <script src="{{ ASSET_URL }}"></script>

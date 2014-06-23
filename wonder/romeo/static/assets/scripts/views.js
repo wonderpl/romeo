@@ -799,7 +799,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t</div><!--\n" +
     "\t\t--><div class=\"inner half-width right\" style=\"padding-top: 57px;\">\n" +
     "\t\t\t<div class=\"wonder-embed\">\n" +
-    "\t\t\t\t<iframe src=\"//wonderpl.com/embed/viwAdAYl4is9rfPwmRE39MXA/\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen></iframe>\n" +
+    "\t\t\t\t<iframe class=\"video-player__frame\" src=\"//localhost:5000/embed/viwAdAYl4is9rfPwmRE39MXA/\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen></iframe>\n" +
     "\t\t\t</div>\n" +
     "\t\t\t<div id=\"customize-player\">\n" +
     "\t\t\t\t<form action=\"\">\n" +
@@ -829,6 +829,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t\t</ul>\n" +
     "\t\t</div>\n" +
     "\t</div>\n" +
+    "\n" +
+    "  <input ng-model=\"color\" />\n" +
+    "\n" +
+    "  <input color-picker ng-model=\"color\" />\n" +
     "\n" +
     "  <video-player url=\"http://wonderpl.com/embed/viwAdAYl4is9rfPwmRE39MXA/\"></video-player>\n" +
     "\n" +

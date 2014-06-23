@@ -12,6 +12,7 @@
     {% assets filters="cssmin", output="gen/app.%(version)s.css",
       "assets/vendor/css/nv.d3.min.css",
       "assets/vendor/css/ng-grid.min.css",
+      "assets/vendor/css/spectrum.css",
       "assets/css/app.css"
     %}
     <link rel="stylesheet" href="{{ ASSET_URL }}"/>
@@ -19,6 +20,7 @@
 
 </head>
 <body ng-app="{% block appName %}RomeoApp{% endblock %}" ng-controller="MainCtrl" class="page-(~ getCurrentRoute() ~)">
+
     <div id="wrapper">
     {% block content %}
     {% endblock %}
@@ -32,6 +34,7 @@
 
     {% block vendorjs %}
         {% assets filters="rjsmin", output="gen/vendor.%(version)s.js",
+            "assets/vendor/js/jquery.js",
             "assets/vendor/js/d3.js",
             "assets/vendor/js/nv.d3.js",
             "assets/vendor/js/topojson.js",
@@ -43,7 +46,8 @@
             "assets/vendor/js/ng-tags.js",
             "assets/vendor/js/angular-file-upload/angular-file-upload-shim.min.js",
             "assets/vendor/js/angular-file-upload/angular-file-upload.min.js",
-            "assets/vendor/js/moment.js"
+            "assets/vendor/js/moment.js",
+            "assets/vendor/js/spectrum.js"
         %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
     {% endblock %}
 
@@ -76,6 +80,7 @@
             "assets/scripts/directives/directives.js",
             "assets/scripts/directives/auto-save-field.js",
             "assets/scripts/directives/checkbox.js",
+            "assets/scripts/directives/color-picker.js",
             "assets/scripts/directives/content-editable-placeholder.js",
             "assets/scripts/directives/disable-new-lines.js",
             "assets/scripts/directives/disabled.js",

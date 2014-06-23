@@ -31,7 +31,7 @@
 		</div><!--
 		--><div class="inner half-width right" style="padding-top: 57px;">
 			<div class="wonder-embed">
-				<iframe src="//wonderpl.com/embed/viwAdAYl4is9rfPwmRE39MXA/" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+				<iframe class="video-player__frame" src="//localhost:5000/embed/viwAdAYl4is9rfPwmRE39MXA/" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
 			</div>
 			<div id="customize-player">
 				<form action="">
@@ -61,6 +61,10 @@
 			</ul>
 		</div>
 	</div>
+
+  <input ng-model="color" />
+
+  <input color-picker ng-model="color" />
 
   <video-player url="http://wonderpl.com/embed/viwAdAYl4is9rfPwmRE39MXA/"></video-player>
 
