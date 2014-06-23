@@ -647,8 +647,23 @@
             $location.path('/login');
         };
 
+        /*
+        * Login collaborators for commenting on videos
+        */
+        Auth.loginAsCollaborator = function (token) {
+          console.log('loginAsCollaborator()');
+            var deferred = new $q.defer();
+            Auth.getSession().then(function(response){
+                deferred.resolve(response.match(/api\/account\/(\d+)/)[1]);
+            }, function(response){
+                deferred.reject('not logged in');
+            });
+            return deferred.promise;
+        };
+
         return {
             login: Auth.login,
+            loginAsCollaborator: Auth.loginAsCollaborator,
             isLoggedIn: Auth.isLoggedIn,
             loginCheck: Auth.loginCheck,
             setSession: Auth.setSession,
