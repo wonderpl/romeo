@@ -1,5 +1,7 @@
 from functools import wraps
-from flask import Blueprint, request, render_template, url_for, redirect, jsonify, abort
+from itsdangerous import URLSafeSerializer, BadSignature
+from flask import (Blueprint, current_app, request, render_template, url_for,
+                   session, redirect, jsonify, abort)
 from flask.ext.login import login_user, logout_user, fresh_login_required, current_user
 from flask.ext.restful.reqparse import RequestParser
 from wonder.romeo.core.rest import Resource, api_resource
@@ -61,6 +63,26 @@ def settings():
     return render_template('account/settings.html',
                            dollyuser=dollyuser,
                            change_password_form=change_password_form)
+
+
+@api_resource('/validate_token')
+class TokenValidatorResource(Resource):
+
+    decorators = []
+
+    def post(self):
+        serializer = URLSafeSerializer(current_app.secret_key)
+        data = request.json or request.form
+        try:
+            token = serializer.loads(data['token'])
+        except BadSignature:
+            return dict(error='invalid_request'), 400
+
+        if type(token) is dict and 'collaborator' in token:
+            session['collaborator_ids'] = list(
+                set([token['collaborator']] + session.get('collaborator_ids', [])))
+
+        return None, 204
 
 
 @api_resource('/login')

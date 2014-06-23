@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, CHAR, event
 from sqlalchemy.orm import relationship
 from werkzeug.routing import RequestRedirect
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask import url_for, flash
+from flask import url_for, flash, session
 from flask.ext.login import UserMixin
 from wonder.romeo import db, login_manager
 from wonder.romeo.core.db import genid
@@ -44,7 +44,22 @@ class AccountUser(db.Model):
         return check_password_hash(self.password_hash, password)
 
 
-class UserProxy(UserMixin):
+class CollaborationMixin(object):
+
+    def has_collaborator_permission(self, video_id, permission):
+        if session.get('collaborator_ids'):
+            from wonder.romeo.video.models import VideoCollaborator
+            collaborator = VideoCollaborator.query.filter(
+                VideoCollaborator.video_id == video_id,
+                VideoCollaborator.id.in_(session['collaborator_ids']),
+            ).first()
+            if collaborator:
+                return permission is True or getattr(collaborator, 'can_' + permission)
+
+        return False
+
+
+class UserProxy(UserMixin, CollaborationMixin):
     """Proxy User instance so that login_required doesn't unnecessarily hit the db."""
     __slots__ = ('id', '_user')
 
@@ -68,6 +83,10 @@ class UserProxy(UserMixin):
         return getattr(self.user, name)
 
 
+class CollaborationUser(UserMixin, CollaborationMixin):
+    account_id = None
+
+
 @login_manager.user_loader
 def load_user(userid):
     try:
@@ -76,6 +95,12 @@ def load_user(userid):
         return
     else:
         return UserProxy(userid)
+
+
+@login_manager.request_loader
+def load_user_or_collaborator(request):
+    if 'collaborator_ids' in session:
+        return CollaborationUser()
 
 
 event.listen(Account, 'before_insert', genid())

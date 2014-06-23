@@ -2,7 +2,7 @@ from PIL import Image
 from cStringIO import StringIO
 from fixture import DataSet, SQLAlchemyFixture, NamedDataStyle
 from flask import current_app
-from wonder.romeo import db
+from wonder.romeo import db, cache
 from wonder.romeo.account import models as account_models
 from wonder.romeo.video import models as video_models
 
@@ -48,3 +48,5 @@ def loaddata():
         fixture.data(*datasets).setup()
 
     db.session.commit()
+
+    cache.set('dolly_categories', [dict(id=1, name='Food', sub_categories=[])])

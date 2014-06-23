@@ -9,8 +9,8 @@ from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.s3 import s3connection, video_bucket
 from wonder.romeo.core.ooyala import ooyala_request, get_video_data
 from wonder.romeo.account.views import dolly_account_view, get_dollyuser
-from .models import Video, VideoTag, VideoTagVideo, VideoThumbnail
-from .forms import VideoTagForm, VideoForm
+from .models import Video, VideoTag, VideoTagVideo, VideoThumbnail, VideoCollaborator
+from .forms import VideoTagForm, VideoForm, VideoCollaboratorForm
 
 
 videoapp = Blueprint('video', __name__)
@@ -87,7 +87,7 @@ class AccountTagsResource(Resource):
     @dolly_account_view
     @commit_on_success
     def post(self, account, dollyuser):
-        form = VideoTagForm(account_id=account.id, csrf_enabled=False)
+        form = VideoTagForm(account_id=account.id)
         if not form.validate():
             return dict(error='invalid_request', form_errors=form.errors), 400
 
@@ -131,7 +131,7 @@ class TagResource(Resource):
     @commit_on_success
     @tag_view
     def put(self, tag):
-        form = VideoTagForm(obj=tag, csrf_enabled=False)
+        form = VideoTagForm(obj=tag)
         if not form.validate():
             return dict(error='invalid_request', form_errors=form.errors), 400
 
@@ -181,7 +181,7 @@ class AccountVideosResource(Resource):
     @commit_on_success
     @dolly_account_view
     def post(self, account, dollyuser):
-        form = VideoForm(account_id=account.id, csrf_enabled=False)
+        form = VideoForm(account_id=account.id)
         if not form.category.data:
             delattr(form, 'category')
 
@@ -252,27 +252,35 @@ def _video_item(video, full=False):
     return data
 
 
-def video_view(f):
-    @wraps(f)
-    def decorator(self, video_id):
-        video = Video.query.filter_by(deleted=False, id=video_id).first_or_404()
-        if video.account_id == current_user.account_id:
-            return f(self, video)
-        else:
-            abort(403)
+def video_view(with_collaborator_permission=None):
+    def _valid_collaborator_permissions(user, video_id):
+        return (with_collaborator_permission and
+                user.has_collaborator_permission(video_id, with_collaborator_permission))
+
+    def decorator(f):
+        @wraps(f)
+        def wrapper(self, video_id):
+            video = Video.query.filter_by(deleted=False, id=video_id).first_or_404()
+            if (_valid_collaborator_permissions(current_user, video_id) or
+                    video.account_id == current_user.account_id):
+                return f(self, video)
+            else:
+                abort(403)
+        return wrapper
     return decorator
 
 
 @api_resource('/video/<int:video_id>')
 class VideoResource(Resource):
-    @video_view
+
+    @video_view(with_collaborator_permission=True)
     def get(self, video):
         return _video_item(video, full=True)
 
     @commit_on_success
-    @video_view
+    @video_view()
     def patch(self, video):
-        form = VideoForm(obj=video, csrf_enabled=False)
+        form = VideoForm(obj=video)
         # Exclude form fields that weren't specified in the request
         for field in form.data:
             if field not in (request.json or request.form or request.files):
@@ -285,7 +293,7 @@ class VideoResource(Resource):
             return dict(error='invalid_request', form_errors=form.errors), 400
 
     @commit_on_success
-    @video_view
+    @video_view()
     def delete(self, video):
         video.deleted = True
         return None, 204
@@ -294,7 +302,7 @@ class VideoResource(Resource):
 @api_resource('/video/<int:video_id>/preview_images')
 class VideoPreviewImagesResource(Resource):
 
-    @video_view
+    @video_view()
     def get(self, video):
         items = ooyala_request('assets', video.external_id, 'generated_preview_images')
         return dict(image=dict(items=items))
@@ -307,7 +315,7 @@ class VideoPrimaryPreviewImageResource(Resource):
     preview_image_parser.add_argument('time', type=int, required=True)
 
     @commit_on_success
-    @video_view
+    @video_view()
     def put(self, video):
         args = self.preview_image_parser.parse_args()
         thumbnails = ooyala_request(
@@ -319,18 +327,29 @@ class VideoPrimaryPreviewImageResource(Resource):
         return dict(image=dict(items=thumbnails['sizes']))
 
 
+@api_resource('/video/<int:video_id>/download_url')
+class VideoDownloadUrlResource(Resource):
+
+    @video_view(with_collaborator_permission='download')
+    def get(self, video):
+        expires = 600
+        key = video_bucket.get_key(video.filepath)
+        url = key.generate_url(expires, force_http=True)
+        return dict(url=url, expires=expires), 302, {'Location': url}
+
+
 @api_resource('/video/<int:video_id>/tags')
 class VideoTagsResource(Resource):
 
     tag_parser = RequestParser()
     tag_parser.add_argument('id', type=int)
 
-    @video_view
+    @video_view()
     def get(self, video):
         return dict(tag=dict(items=map(_tag_item, video.tags)))
 
     @commit_on_success
-    @video_view
+    @video_view()
     def post(self, video):
         args = self.tag_parser.parse_args()
         tag_id = args['id']
@@ -369,3 +388,42 @@ class VideoTagVideoResource(Resource):
         db.session.delete(tag_relation)
 
         return None, 204
+
+
+def _collaborator_item(collaborator):
+    return dict(
+        name=collaborator.name,
+        email=collaborator.email,
+        permissions=filter(None, [f if getattr(collaborator, f) else None
+                                  for f in dir(collaborator) if f.startswith('can_')])
+    )
+
+
+@api_resource('/video/<int:video_id>/collaborators')
+class VideoCollaboratorsResource(Resource):
+
+    @video_view()
+    def get(self, video):
+        query = VideoCollaborator.query.filter_by(video_id=video.id)
+        return map(_collaborator_item, query.all())
+
+    @commit_on_success
+    @video_view()
+    def post(self, video):
+        form = VideoCollaboratorForm(video_id=video.id)
+        if not form.validate():
+            return dict(error='invalid_request', form_errors=form.errors), 400
+
+        form.obj = VideoCollaborator.query.filter_by(
+            video_id=video.id, email=form.email.data).first()
+        form.save()
+        return None, 204
+
+
+@api_resource('/video/<int:video_id>/comments')
+class VideoCommentsResource(Resource):
+
+    @video_view(with_collaborator_permission='comment')
+    def get(self, video):
+        items = []
+        return dict(comment=dict(items=items, total=len(items)))

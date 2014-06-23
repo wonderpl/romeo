@@ -358,6 +358,26 @@ Content-Type: application/json
 }
 ```
 
+### Video download url
+
+Request the download url sub-resource to get a signed redirect url to access the original
+video source file.
+
+```http
+GET /api/video/<video_id>/download_url HTTP/1.1
+```
+
+```http
+HTTP/1.1 302 FOUND
+Location: http://s3.amazonaws.com/video/file?Signature=xxx&Expires=1403615607
+Content-Type: application/json
+
+{
+ "url": "http://s3.amazonaws.com/video/file?Signature=xxx&Expires=1403615607",
+ "expires": 600
+}
+```
+
 ### Video tags
 
 To associate a tag with a video (add a video to a collection), `POST` the tag id to the video
@@ -416,3 +436,46 @@ DELETE /api/video/<video_id>/tags/<tag_id> HTTP/1.1
 ```http
 HTTP/1.1 204 NO CONTENT
 ```
+
+### Video Collaborators
+
+To invite an external user to view, download, or comment on a video `POST`
+to the collaborators sub-resource.
+
+```http
+POST /api/video/<video_id>/collaborators HTTP/1.1
+Content-Type: application/json
+
+{
+ "email": "paulegan@rockpack.com",
+ "name": "Paul Egan",
+ "can_comment": true,
+ "can_download": false
+}
+```
+
+On success a `204` will be returned and a `400` on error.
+
+```http
+HTTP/1.1 204 NO CONTENT
+```
+
+```http
+HTTP/1.1 400 BAD REQUEST
+Content-Type: application/json
+
+{
+ "error": "invalid_request",
+ "form_errors": {
+  "email": ["Invalid email address."]
+ }
+}
+```
+
+Collaborators can access the following resources:
+
+Resource                             | With Permission
+:----------------------------------- | :-------------
+`/api/video/<video_id>`              | any
+`/api/video/<video_id>/comments`     | `can_comment`
+`/api/video/<video_id>/download_url` | `can_download`

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% macro video_url() %}
+{{ url_for('root.home') }}#/video/{{ video.id }}?token={{ collaborator.token }}
+{% endmacro %}
+
+{% if can_comment %}
+{% set action = "comment on" %}
+{% elif can_download %}
+{% set action = "download" %}
+{% else %}
+{% set action = "view" %}
+{% endif%}
+
+{% block title %}You have been invited to {{ action }} a video on Wonder PL{% endblock %}
+
+{% block body %}
+<table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateBody">
+  <tr>
+    <td valign="top" class="bodyContent">
+      <h3>Hi {{ collaborator.name }}</h3>
+      You have been invited by {{ sender.username }} to {{ action }}
+      <a href="{{ video_url() }}">"{{ video.title }}"</a>.
+    </td>
+  </tr>
+  <tr>
+    <td class="bodyContent" style="padding-top:0; padding-bottom:0;">
+      <a href="{{ video_url() }}">
+        <img src="{{ video.thumbnail }}" style="max-width:560px;" id="bodyImage" />
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="bodyContent">
+      Link: <a href="{{ video_url() }}">{{ video_url() }}</a>
+    </td>
+  </tr>
+</table>
+{% endblock %}

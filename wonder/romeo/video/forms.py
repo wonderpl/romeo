@@ -4,22 +4,34 @@ from urlparse import urlparse
 from PIL import Image
 import wtforms
 from flask import current_app, request
+from flask.ext.login import current_user
 from flask.ext.wtf import Form
 from wonder.romeo import db
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.dolly import get_categories
 from wonder.romeo.core.ooyala import create_asset, ooyala_request
+from wonder.romeo.core.email import send_email, email_template_env
 from wonder.romeo.core.s3 import upload_file, download_file, media_bucket
 from wonder.romeo.core.sqs import background_on_sqs
-from .models import Video, VideoTag, VideoThumbnail
+from wonder.romeo.account.models import AccountUser
+from .models import Video, VideoTag, VideoThumbnail, VideoCollaborator
+
+
+def _json_bool(form, field):
+    field.data = bool(field.raw_data[0]) if field.raw_data else False
 
 
 class BaseForm(Form):
 
     def __init__(self, account_id=None, *args, **kwargs):
+        kwargs.setdefault('csrf_enabled', False)
         super(BaseForm, self).__init__(*args, **kwargs)
         self.obj = kwargs.get('obj')
-        self.account_id = account_id or self.obj.account_id
+        self.account_id = account_id or getattr(self.obj, 'account_id', None)
+
+    def populate_obj(self, obj):
+        super(BaseForm, self).populate_obj(obj)
+        obj.account_id = self.account_id
 
     def save(self):
         if self.obj:
@@ -28,7 +40,6 @@ class BaseForm(Form):
         else:
             obj = self.model()
             self.populate_obj(obj)
-            obj.account_id = self.account_id
             db.session.add(obj)
             db.session.flush()  # Ensure we get the id before commit
         return obj
@@ -39,7 +50,7 @@ class VideoTagForm(BaseForm):
 
     label = wtforms.StringField(validators=[wtforms.validators.Required()])
     description = wtforms.StringField()
-    public = wtforms.BooleanField()
+    public = wtforms.BooleanField(validators=[_json_bool])
 
     def validate_label(self, field):
         if field.data:
@@ -48,9 +59,6 @@ class VideoTagForm(BaseForm):
                 query = query.filter(VideoTag.id != self.obj.id)
             if query.count():
                 raise wtforms.ValidationError('Tag already exists')
-
-    def validate_public(self, field):
-        field.data = bool(field.raw_data[0]) if field.raw_data else False
 
 
 class VideoForm(BaseForm):
@@ -175,3 +183,52 @@ class VideoLocaleForm(Form):
     locale_link_url = wtforms.StringField()
     locale_link_title = wtforms.StringField()
     locale_description = wtforms.StringField()
+
+
+class VideoCollaboratorForm(BaseForm):
+    model = VideoCollaborator
+
+    email = wtforms.StringField(validators=[wtforms.validators.Required(), wtforms.validators.Email()])
+    name = wtforms.StringField(validators=[wtforms.validators.Required()])
+    can_download = wtforms.BooleanField(validators=[_json_bool])
+    can_comment = wtforms.BooleanField(validators=[_json_bool])
+
+    def __init__(self, video_id=None, *args, **kwargs):
+        super(VideoCollaboratorForm, self).__init__(*args, **kwargs)
+        self.video_id = video_id or self.obj.video_id
+
+    def populate_obj(self, obj):
+        super(VideoCollaboratorForm, self).populate_obj(obj)
+        obj.video_id = self.video_id
+
+    def save(self):
+        if self.obj:
+            # combine permissions with existing
+            collaborator = self.obj
+            for field, value in self.data.items():
+                if field.startswith('can_'):
+                    setattr(collaborator, field, getattr(collaborator, field) or value)
+        else:
+            collaborator = super(VideoCollaboratorForm, self).save()
+
+        send_collaborator_invite_email(collaborator.id,
+                                       current_user.id,
+                                       can_download=self.can_download.data,
+                                       can_comment=self.can_comment.data)
+
+        return collaborator
+
+
+@background_on_sqs
+def send_collaborator_invite_email(collaborator_id, sending_user_id, **kwargs):
+    collaborator = VideoCollaborator.query.get(collaborator_id)
+    sender = AccountUser.query.get(sending_user_id)
+
+    template = email_template_env.get_template('collaborator_invite.html')
+    body = template.render(
+        collaborator=collaborator,
+        sender=sender,
+        video=collaborator.video,
+        **kwargs
+    )
+    send_email(collaborator.email, body)

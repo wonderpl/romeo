@@ -1,5 +1,6 @@
 import os
 from urlparse import urljoin
+from itsdangerous import URLSafeSerializer
 from sqlalchemy import (
     Column, Integer, String, Boolean, DateTime, ForeignKey, Enum,
     PrimaryKeyConstraint, func, event)
@@ -44,6 +45,10 @@ class Video(db.Model):
     def filepath(self):
         return self.get_video_filepath(self.account_id, self.filename)
 
+    @property
+    def thumbnail(self):
+        return self.get_thumbnail_url()
+
     @classmethod
     def get_random_filename(cls):
         return os.urandom(8).encode('hex')
@@ -60,6 +65,11 @@ class Video(db.Model):
     @classmethod
     def get_image_filepath(cls, filename, imagetype, account_id, size=None, base='i'):
         return '/'.join(filter(None, (base, str(account_id), imagetype, (size or 'original'), filename)))
+
+    def get_thumbnail_url(self, size=None):
+        # TODO: use size to pick appropriate thumbnail
+        if self.thumbnails:
+            return self.thumbnails[0].url
 
     def get_player_logo_url(self, size=None):
         if self.player_logo_filename:
@@ -208,6 +218,24 @@ class VideoWorkflowEvent(db.Model):
     def create(cls, type, value=None):
         user_id = session.get('user_id') if session else None
         return cls(event_type=type, event_value=value, user_id=user_id)
+
+
+class VideoCollaborator(db.Model):
+    __tablename__ = 'video_collaborator'
+
+    id = Column(Integer, primary_key=True)
+    video_id = Column('video', ForeignKey(Video.id), nullable=False)
+    can_download = Column(Boolean(), nullable=False, server_default='false', default=False)
+    can_comment = Column(Boolean(), nullable=False, server_default='false', default=False)
+    email = Column(String(1024), nullable=False)
+    name = Column(String(1024))
+
+    video = relationship(Video, backref='collaborators')
+
+    @property
+    def token(self):
+        serializer = URLSafeSerializer(current_app.secret_key)
+        return serializer.dumps(dict(collaborator=self.id))
 
 
 class VideoSeoEmbed(db.Model):

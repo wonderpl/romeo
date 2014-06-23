@@ -1,3 +1,4 @@
+import re
 import unittest
 from mock import patch, DEFAULT
 from flask import current_app, json
@@ -56,3 +57,35 @@ class VideoEditTestCase(unittest.TestCase):
         widths = [t.width for t in video.thumbnails]
         for w in (800,) + zip(*current_app.config['COVER_THUMBNAIL_SIZES'])[0][:3]:
             self.assertIn(w, widths)
+
+
+class VideoCollaboratorTestCase(unittest.TestCase):
+
+    def test_invite_collaborator(self):
+        video = Video.query.first()
+        recipient = 'noreply@wonderpl.com'
+
+        with patch('wonder.romeo.video.forms.send_email') as send_email:
+            with client_for_account(video.account_id) as client:
+                jsondata = json.dumps(dict(email=recipient, name='test'))
+                r = client.post('/api/video/%d/collaborators' % video.id,
+                                content_type='application/json', data=jsondata)
+                self.assertEquals(r.status_code, 204)
+
+            self.assertEqual(send_email.call_args[0][0], recipient)
+            self.assertIn('/video/%d' % video.id, send_email.call_args[0][1])
+
+            token = re.search('token=([\w.-]+)', send_email.call_args[0][1]).group(1)
+
+        # Check that collaborator can access video with token
+        with current_app.test_client() as client:
+            r = client.post('/api/validate_token', data=dict(token=token))
+            self.assertEquals(r.status_code, 204)
+
+            r = client.get('/api/video/%d' % video.id)
+            self.assertEquals(r.status_code, 200)
+
+        # Same request for anonymous should fail
+        with current_app.test_client() as client:
+            r = client.get('/api/video/%d' % video.id)
+            self.assertEquals(r.status_code, 401)

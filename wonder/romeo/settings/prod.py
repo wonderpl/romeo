@@ -12,6 +12,8 @@ ENABLE_BACKGROUND_SQS = True
 DOLLY_WS_BASE = 'http://api.wonderpl.com/ws/'
 DOLLY_WS_SECURE_BASE = 'https://secure.wonderpl.com/ws/'
 
+DEFAULT_EMAIL_SOURCE = 'Wonder PL <noreply@wonderpl.com>'
+
 # AWS
 VIDEO_S3_BUCKET = 'video.us.wonderpl.com'
 MEDIA_S3_BUCKET = 'media.us.wonderpl.com'

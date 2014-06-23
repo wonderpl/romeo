@@ -7,6 +7,7 @@ To log in `POST` to `/api/login` with the user's username or email and password.
 
 ```http
 POST /api/login HTTP/1.1
+Content-Type: application/json
 
 {
  "username": "paulegan@rockpack.com",
@@ -49,6 +50,37 @@ Content-Type: application/json
  "form_errors": {
   "username": [ "mismatch" ]
  }
+}
+```
+
+### Token Validation
+
+Collaborators without a username & password can be authenticated with a token.
+
+```http
+POST /api/validate_token HTTP/1.1
+Content-Type: application/json
+
+{
+ "token": "xxx"
+}
+```
+
+If the token is valid a `204` will be returned with an updated session cookie.
+
+```http
+HTTP/1.1 204 NO CONTENT
+Set-Cookie: session=XXX
+```
+
+If invalid a `400` with be returned.
+
+```http
+HTTP/1.1 400 BAD REQUEST
+Content-Type: application/json
+
+{
+ "error": "invalid_request"
 }
 ```
 
