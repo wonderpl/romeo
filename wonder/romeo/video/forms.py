@@ -224,6 +224,12 @@ def send_collaborator_invite_email(collaborator_id, sending_user_id, **kwargs):
     collaborator = VideoCollaborator.query.get(collaborator_id)
     sender = AccountUser.query.get(sending_user_id)
 
+    # if the video isn't ready yet, wait 5 mins and try again
+    if collaborator.video.status not in ('ready', 'published'):
+        kwargs['_delay_seconds'] = 300
+        send_collaborator_invite_email(collaborator_id, sending_user_id, **kwargs)
+        return
+
     template = email_template_env.get_template('collaborator_invite.html')
     body = template.render(
         collaborator=collaborator,
@@ -232,3 +238,15 @@ def send_collaborator_invite_email(collaborator_id, sending_user_id, **kwargs):
         **kwargs
     )
     send_email(collaborator.email, body)
+
+
+@background_on_sqs
+def send_processed_email(recipient, video_id, error=None):
+    video = Video.query.get(video_id)
+
+    template = email_template_env.get_template('video_processed.html')
+    body = template.render(
+        video=video,
+        error=error
+    )
+    send_email(recipient, body)

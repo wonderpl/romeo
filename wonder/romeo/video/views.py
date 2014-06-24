@@ -11,7 +11,7 @@ from wonder.romeo.core.ooyala import ooyala_request, get_video_data
 from wonder.romeo.account.views import dolly_account_view, get_dollyuser
 from .models import (Video, VideoTag, VideoTagVideo, VideoThumbnail,
                      VideoPlayerParameter, VideoCollaborator)
-from .forms import VideoTagForm, VideoForm, VideoCollaboratorForm
+from .forms import VideoTagForm, VideoForm, VideoCollaboratorForm, send_processed_email
 
 
 videoapp = Blueprint('video', __name__)
@@ -44,12 +44,13 @@ def ooyala_callback():
         raise
 
     if data['upload_status'].get('status') == 'failed':
-        reason = data['upload_status'].get('failure_reason') or 'unknown reason'
+        failure_reason = data['upload_status'].get('failure_reason') or 'unknown reason'
         video.status = 'error'
-        video.record_workflow_event('processing failed', reason)
-        current_app.logger.error('Upload failed for %s: %s', video.id, reason)
+        video.record_workflow_event('processing failed', failure_reason)
+        current_app.logger.error('Upload failed for %s: %s', video.id, failure_reason)
     else:
         assert data['status'] == 'live'
+        failure_reason = None
         if video.status == 'processing':
             video.status = 'ready'
         video.record_workflow_event('processing complete')
@@ -57,7 +58,8 @@ def ooyala_callback():
         if not video.thumbnails:
             video.thumbnails = [VideoThumbnail(**t) for t in data['thumbnails']]
 
-    # TODO: Add tag, send notification
+    send_processed_email(current_user.username, video.id, error=failure_reason)
+
     return '', 204
 
 

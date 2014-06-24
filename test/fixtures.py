@@ -34,6 +34,7 @@ class VideoData(DataSet):
         account_id = 1
         title = 'Video 1'
         external_id = 'xx'
+        status = 'ready'
 
 
 def loaddata():

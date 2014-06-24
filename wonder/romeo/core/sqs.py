@@ -110,6 +110,7 @@ class BackgroundSqsProcessor(SqsProcessor):
 def background_on_sqs(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
+        delay_seconds = kwargs.pop('_delay_seconds', None)
         call = dict(
             module=func.__module__,
             function=func.__name__,
@@ -117,7 +118,7 @@ def background_on_sqs(func):
             kwargs=kwargs,
         )
         if current_app.config.get('ENABLE_BACKGROUND_SQS'):
-            BackgroundSqsProcessor.write_message(call)
+            BackgroundSqsProcessor.write_message(call, delay_seconds=delay_seconds)
         else:
             # put the call on the request context for _run_later
             if '_background_on_sqs' not in g:
