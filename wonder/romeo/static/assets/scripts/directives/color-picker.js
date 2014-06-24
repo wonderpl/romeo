@@ -12,8 +12,8 @@ angular.module('RomeoApp.directives', []).directive('colorPicker', function () {
     var frame = document.getElementsByClassName('video-player__frame')[0].contentDocument;
     var $frame = $(frame);
 
-    var $play = $frame.find('.player-icon-play');
-    $play.addClass('filtered');
+    var $filteredControls = $frame.find('.wonder-play, .wonder-pause, .wonder-volume, .wonder-logo, .wonder-fullscreen, .scrubber-handle');
+    $filteredControls.addClass('filtered');
 
     var $svg = $frame.find('#ColourSvg');
     if (!$svg.length) {

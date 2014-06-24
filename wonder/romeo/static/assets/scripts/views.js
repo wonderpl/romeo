@@ -767,16 +767,53 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('video-share.html',
+    "<section class=\"video-share\">\n" +
+    "  <ul class=\"video-share__controls\">\n" +
+    "    <li class=\"video-share__control\">\n" +
+    "      <a class=\"video-share__link video-share__link--embed\" href=\"#\">embed</a>\n" +
+    "    </li>\n" +
+    "    <li class=\"video-share__control\">\n" +
+    "      <a class=\"video-share__link video-share__link--twitter\" href=\"#\">twitter</a>\n" +
+    "    </li>\n" +
+    "    <li class=\"video-share__control\">\n" +
+    "      <a class=\"video-share__link video-share__link--facebook\" href=\"#\">facebook</a>\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
+    "</section>"
+  );
+
+
   $templateCache.put('video.html',
+    "<section class=\"video-view-control-panel\">\n" +
+    "  <ul class=\"video-view-control-panel__modes\">\n" +
+    "    <li class=\"video-view-control-panel__mode\">\n" +
+    "      <a href=\"#\" class=\"video-view-control-panel__link\">edit</a>\n" +
+    "    </li>\n" +
+    "    <li class=\"video-view-control-panel__mode\">\n" +
+    "      <a href=\"#\" class=\"video-view-control-panel__link\">review</a>\n" +
+    "    </li>\n" +
+    "    <li class=\"video-view-control-panel__mode\">\n" +
+    "      <a href=\"#\" class=\"video-view-control-panel__link\">comment</a>\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
+    "</section>\n" +
+    "\n" +
     "<section class=\"main-view video-view\" ng-controller=\"VideoCtrl\">\n" +
     "\n" +
-    "  <video-player url=\"http://wonderpl.com/embed/viwAdAYl4is9rfPwmRE39MXA/\"></video-player>\n" +
+    "  <video-player url=\"http://localhost:5000/embed/viwAdAYl4is9rfPwmRE39MXA/?chrome=test\"></video-player>\n" +
     "\n" +
     "  <input ng-model=\"color\" />\n" +
     "\n" +
     "  <input color-picker ng-model=\"color\" />\n" +
     "\n" +
-    "  <p ng-model=\"text\" medium-editor></p>\n" +
+    "  <section class=\"video-more\">\n" +
+    "    <p class=\"video-more__link\" medium-editor ng-model=\"more\"></p>\n" +
+    "  </section>\n" +
+    "\n" +
+    "  <section class=\"video-view__description\" medium-editor ng-model=\"text\"></section>\n" +
+    "\n" +
+    "  <video-share></video-share>\n" +
     "\n" +
     "  <section video-comments></section>\n" +
     "\n" +

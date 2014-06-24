@@ -1,0 +1,26 @@
+.video-share {
+  width: 100%;
+  padding: 24px 0;
+  text-align: center;
+}
+
+.video-share__controls {
+  margin: 0 auto;
+  border: solid 1px $green;
+  border-radius: 24px;
+  display: inline-block;
+}
+
+.video-share__control {
+  display: inline-block;
+  border-left: solid 1px $green;
+}
+
+.video-share__control:first-child {
+  border: 0 none;
+}
+
+.video-share__link {
+  display: block;
+  padding: 10px;
+}

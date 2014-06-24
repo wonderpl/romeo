@@ -1,0 +1,36 @@
+.video-view {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.video-more {
+  text-align: center;
+  padding: 24px 0;
+}
+
+.video-more__link {
+  border: solid 1px $green;
+  border-radius: 24px;
+  display: inline-block;
+  padding: 10px;
+}
+
+.video-more__link a {
+  color: $green;
+}
+
+.video-view-control-panel {
+  text-align: right;
+  padding: 24px;
+  border-top: solid 1px #efefef;
+  border-bottom: solid 1px #efefef;
+}
+
+.video-view-control-panel__modes {
+
+}
+
+.video-view-control-panel__mode {
+  display: inline-block;
+}

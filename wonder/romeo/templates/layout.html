@@ -23,10 +23,8 @@
 </head>
 <body ng-app="{% block appName %}RomeoApp{% endblock %}" ng-controller="MainCtrl" class="page-(~ getCurrentRoute() ~)">
 
-    <div id="wrapper">
     {% block content %}
     {% endblock %}
-    </div>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
@@ -101,6 +99,7 @@
             "assets/scripts/directives/upload-file-input.js",
             "assets/scripts/directives/video-comments.js",
             "assets/scripts/directives/video-player.js",
+            "assets/scripts/directives/video-share.js",
             "assets/vendor/js/angular-medium-editor.js"
         %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
     {% endblock %}

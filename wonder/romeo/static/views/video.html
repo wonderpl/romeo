@@ -1,12 +1,32 @@
+<section class="video-view-control-panel">
+  <ul class="video-view-control-panel__modes">
+    <li class="video-view-control-panel__mode">
+      <a href="#" class="video-view-control-panel__link">edit</a>
+    </li>
+    <li class="video-view-control-panel__mode">
+      <a href="#" class="video-view-control-panel__link">review</a>
+    </li>
+    <li class="video-view-control-panel__mode">
+      <a href="#" class="video-view-control-panel__link">comment</a>
+    </li>
+  </ul>
+</section>
+
 <section class="main-view video-view" ng-controller="VideoCtrl">
 
-  <video-player url="http://wonderpl.com/embed/viwAdAYl4is9rfPwmRE39MXA/"></video-player>
+  <video-player url="http://localhost:5000/embed/viwAdAYl4is9rfPwmRE39MXA/?chrome=test"></video-player>
 
   <input ng-model="color" />
 
   <input color-picker ng-model="color" />
 
-  <p ng-model="text" medium-editor></p>
+  <section class="video-more">
+    <p class="video-more__link" medium-editor ng-model="more"></p>
+  </section>
+
+  <section class="video-view__description" medium-editor ng-model="text"></section>
+
+  <video-share></video-share>
 
   <section video-comments></section>
 
