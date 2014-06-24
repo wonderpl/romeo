@@ -89,3 +89,22 @@ class VideoCollaboratorTestCase(unittest.TestCase):
         with current_app.test_client() as client:
             r = client.get('/api/video/%d' % video.id)
             self.assertEquals(r.status_code, 401)
+
+
+class VideoPlayerParametersTestCase(unittest.TestCase):
+
+    def test_player_parameters(self):
+        video = Video.query.first()
+        params = dict(color='00ff00', show_logo='true')
+
+        with client_for_account(video.account_id) as client:
+            r = client.put('/api/video/%d/player_parameters' % video.id,
+                           content_type='application/json', data=json.dumps(params))
+            self.assertEquals(r.status_code, 204)
+
+        with current_app.test_client() as client:
+            r = client.get('/api/v/%d' % video.id)
+            self.assertEquals(r.status_code, 200)
+            videodata = json.loads(r.data)['video']
+            self.assertItemsEqual(videodata['source_player_parameters'].items(),
+                                  params.items())

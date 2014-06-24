@@ -9,7 +9,8 @@ from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.s3 import s3connection, video_bucket
 from wonder.romeo.core.ooyala import ooyala_request, get_video_data
 from wonder.romeo.account.views import dolly_account_view, get_dollyuser
-from .models import Video, VideoTag, VideoTagVideo, VideoThumbnail, VideoCollaborator
+from .models import (Video, VideoTag, VideoTagVideo, VideoThumbnail,
+                     VideoPlayerParameter, VideoCollaborator)
 from .forms import VideoTagForm, VideoForm, VideoCollaboratorForm
 
 
@@ -214,7 +215,8 @@ class PublicVideoResource(Resource):
                 source_id=video.external_id,
                 source_username=video.account.name,
                 source_date_uploaded=video.date_added.isoformat(),
-                thumbnail_url=video.thumbnails[0].url,
+                source_player_parameters=video.player_parameters,
+                thumbnail_url=video.thumbnail,
                 duration=video.duration,
                 description=video.description,
                 link_url=video.link_url,
@@ -336,6 +338,31 @@ class VideoDownloadUrlResource(Resource):
         key = video_bucket.get_key(video.filepath)
         url = key.generate_url(expires, force_http=True)
         return dict(url=url, expires=expires), 302, {'Location': url}
+
+
+@api_resource('/video/<int:video_id>/player_parameters')
+class VideoPlayerParametersResource(Resource):
+
+    @video_view()
+    def get(self, video):
+        return video.player_parameters
+
+    @commit_on_success
+    @video_view()
+    def put(self, video):
+        try:
+            params = dict(request.json or request.form).items()
+        except ValueError:
+            return dict(error='invalid_request'), 400
+        VideoPlayerParameter.query.filter_by(video_id=video.id).delete()
+        for name, value in params:
+            try:
+                video._player_parameters.append(
+                    VideoPlayerParameter(name=str(name), value=str(value))
+                )
+            except IOError:
+                return dict(error='invalid_request'), 400
+        return None, 204
 
 
 @api_resource('/video/<int:video_id>/tags')

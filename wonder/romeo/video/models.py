@@ -49,6 +49,11 @@ class Video(db.Model):
     def thumbnail(self):
         return self.get_thumbnail_url()
 
+    @property
+    def player_parameters(self):
+        params = VideoPlayerParameter.query.filter_by(video_id=self.id)
+        return dict(params.values('name', 'value'))
+
     @classmethod
     def get_random_filename(cls):
         return os.urandom(8).encode('hex')
@@ -138,6 +143,17 @@ class VideoLocaleMeta(db.Model):
     description = Column(String(256))
 
     video = relationship(Video, backref='locale_meta')
+
+
+class VideoPlayerParameter(db.Model):
+    __tablename__ = 'video_player_parameter'
+
+    id = Column(Integer, primary_key=True)
+    video_id = Column('video', ForeignKey(Video.id), nullable=False)
+    name = Column(String(1024), nullable=False)
+    value = Column(String(1024), nullable=False)
+
+    video = relationship(Video, backref='_player_parameters')
 
 
 class VideoTag(db.Model):

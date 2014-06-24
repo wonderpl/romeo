@@ -358,6 +358,27 @@ Content-Type: application/json
 }
 ```
 
+### Video player parameters
+
+Set player parameters for a video with a `PUT` to the parameters sub-resource:
+
+```http
+PUT /api/video/<video_id>/player_parameters HTTP/1.1
+Content-Type: application/json
+
+{
+ "setting1": "value1",
+ "setting2": "value2"
+}
+```
+
+```http
+HTTP/1.1 204 NO CONTENT
+```
+
+> :warning: All values will be converted to strings. Any existing parameters will be replaced.
+
+
 ### Video download url
 
 Request the download url sub-resource to get a signed redirect url to access the original
