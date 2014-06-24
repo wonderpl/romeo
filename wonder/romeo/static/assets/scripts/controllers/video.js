@@ -9,6 +9,20 @@ angular.module('RomeoApp.controllers')
 
   $scope.color='#f00';
 
+  $scope.text = 'primary secondary tertiary';
+
+  $scope.$watch(
+     // This is the listener function
+     function() { return $scope.text; },
+     // This is the change handler
+     function(newValue, oldValue) {
+       if ( newValue !== oldValue ) {
+        console.log($scope.text);
+       }
+     }
+   );
+
+
   AuthService.loginAsCollaborator(query.token).then(function(data){
     if (data.authenticatedAsOwner) {
 

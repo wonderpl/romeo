@@ -1,0 +1,8 @@
+
+@mixin as-tablet() {
+  @media only screen and (min-width: 30em) { @content; }
+}
+
+@mixin as-desktop() {
+  @media only screen and (min-width: 60em) { @content; }
+}

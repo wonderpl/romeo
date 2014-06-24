@@ -13,6 +13,8 @@
       "assets/vendor/css/nv.d3.min.css",
       "assets/vendor/css/ng-grid.min.css",
       "assets/vendor/css/spectrum.css",
+      "assets/vendor/css/medium-editor.css",
+      "assets/vendor/css/medium-editor-default.css",
       "assets/css/app.css"
     %}
     <link rel="stylesheet" href="{{ ASSET_URL }}"/>
@@ -47,7 +49,8 @@
             "assets/vendor/js/angular-file-upload/angular-file-upload-shim.min.js",
             "assets/vendor/js/angular-file-upload/angular-file-upload.min.js",
             "assets/vendor/js/moment.js",
-            "assets/vendor/js/spectrum.js"
+            "assets/vendor/js/spectrum.js",
+            "assets/vendor/js/medium-editor.js"
         %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
     {% endblock %}
 
@@ -97,7 +100,8 @@
             "assets/scripts/directives/upload-dropzone.js",
             "assets/scripts/directives/upload-file-input.js",
             "assets/scripts/directives/video-comments.js",
-            "assets/scripts/directives/video-player.js"
+            "assets/scripts/directives/video-player.js",
+            "assets/vendor/js/angular-medium-editor.js"
         %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
     {% endblock %}
 

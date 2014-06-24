@@ -760,84 +760,98 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('video-player.html',
     "<section class=\"video-player\">\n" +
-    "  <iframe class=\"video-player__frame\" src=\"(~ url ~)\"  width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen></iframe>\n" +
+    "  <div class=\"video-player__iframe-container\">\n" +
+    "    <iframe class=\"video-player__frame\" src=\"(~ url ~)\"  width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen></iframe>\n" +
+    "  </div>\n" +
     "</section>"
   );
 
 
   $templateCache.put('video.html',
-    "<div id=\"page-video-single\" class=\"section\" ng-controller=\"VideoCtrl\">\n" +
+    "<section class=\"main-view video-view\" ng-controller=\"VideoCtrl\">\n" +
     "\n" +
-    "\t<div class=\"inner\">\n" +
-    "\t\t<h1>(~ video.title ~)</h1>\n" +
-    "\n" +
-    "\t\t<div class=\"inner half-width left\">\n" +
-    "\t\t\t<h3>Edit your video details</h3>\n" +
-    "\t\t\t<form action=\"#\">\n" +
-    "\t\t\t\t<div class=\"row\">\n" +
-    "\t\t\t\t\t<label>Video Title</label>\n" +
-    "\t\t\t\t\t<input type=\"text\" ng-model=\"video.title\" />\n" +
-    "\t\t\t\t</div>\n" +
-    "\t\t\t\t<div class=\"row\">\n" +
-    "\t\t\t\t\t<label>Video Description</label>\n" +
-    "\t\t\t\t\t<textarea name=\"\" id=\"\" ng-model=\"video.description\"></textarea>\n" +
-    "\t\t\t\t</div>\n" +
-    "\t\t\t\t<div class=\"row half-width left\"><label>Mood</label><input type=\"text\" placeholder=\"Intrigued\" /></div><!--\n" +
-    "\t\t\t\t--><div class=\"row half-width\"><label>Click to more link</label><input type=\"text\" placeholder=\"www.google.com\"/></div>\n" +
-    "\t\t\t\t<!-- <div class=\"row\"><label>Video</label><input type=\"text\" /></div> -->\n" +
-    "\t\t\t\t<div class=\"row half-width left\">\n" +
-    "\t\t\t\t\t<label>Video Thumbnail</label>\n" +
-    "\t\t\t\t\t<div class=\"thumbnail-picker\">\n" +
-    "\t\t\t\t\t\t<span class=\"icon-pictures\"></span>\n" +
-    "\t\t\t\t\t</div>\n" +
-    "\t\t\t\t</div><!--\n" +
-    "\t\t\t\t--><div class=\"row half-width\">\n" +
-    "\t\t\t\t\t<label>Meta data</label><input class=\"margin-bottom\" type=\"text\"/>\n" +
-    "\t\t\t\t\t<label>Content data</label><input type=\"text\"/>\n" +
-    "\t\t\t\t</div>\n" +
-    "\t\t\t</form>\n" +
-    "\t\t</div><!--\n" +
-    "\t\t--><div class=\"inner half-width right\" style=\"padding-top: 57px;\">\n" +
-    "\t\t\t<div class=\"wonder-embed\">\n" +
-    "\t\t\t\t<iframe class=\"video-player__frame\" src=\"//localhost:5000/embed/viwAdAYl4is9rfPwmRE39MXA/\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen></iframe>\n" +
-    "\t\t\t</div>\n" +
-    "\t\t\t<div id=\"customize-player\">\n" +
-    "\t\t\t\t<form action=\"\">\n" +
-    "\t\t\t\t\t<div class=\"row\">\n" +
-    "\t\t\t\t\t\t<label>Embed Link</label>\n" +
-    "\t\t\t\t\t\t<!-- <input type=\"text\" value=\"wonderpl.com/embed/vieasdasdads\"> -->\n" +
-    "\n" +
-    "\t\t\t\t\t\t<!-- <iframe src=\"//player.vimeo.com/video/88737187?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=c9ff23\" width=\"443\" height=\"197\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href=\"http://vimeo.com/88737187\">Made in Tohoku</a> from <a href=\"http://vimeo.com/theinouebrothers\">The Inoue Brothers</a> on <a href=\"https://vimeo.com\">Vimeo</a>.</p> -->\n" +
-    "\n" +
-    "\t\t\t\t\t\t<input type=\"text\" value=\"<iframe src=&quot;(( embedurl ))&quot; width=&quot;100%&quot; height=&quot;100%&quot; frameborder=&quot;0&quot; allowfullscreen></iframe>\" />\n" +
-    "\t\t\t\t\t</div>\n" +
-    "\t\t\t\t\t<div class=\"row\">\n" +
-    "\t\t\t\t\t\t<input type=\"text\" placeholder=\"Width\" class=\"dimension\" /><input type=\"text\" placeholder=\"Height\" class=\"dimension height\" />\n" +
-    "\t\t\t\t\t\t<span class=\"padding top\">\n" +
-    "\t\t\t\t\t\t\t<input type=\"checkbox\" class=\"inline-block margin-right\" /><label class=\"inline-block\">Maintain aspect-ratio?</label>\n" +
-    "\t\t\t\t\t\t</span>\n" +
-    "\t\t\t\t\t</div>\n" +
-    "\t\t\t\t</form>\n" +
-    "\t\t\t</div>\n" +
-    "\t\t</div>\n" +
-    "\n" +
-    "\t\t<div id=\"top-right-links\">\n" +
-    "\t\t\t<ul>\n" +
-    "\t\t\t\t<!-- <li><a href=\"#\"></a></li> -->\n" +
-    "\t\t\t\t<!-- <li><a href=\"/#/tools/(~ video.id ~)\"><span class=\"icon-tools\"></span>Monetization Tools</a></li> -->\n" +
-    "\t\t\t\t<li><a href=\"/#/analytics/(~ video.id ~)\"><span class=\"icon-graph\"></span>View Analytics</a></li>\n" +
-    "\t\t\t</ul>\n" +
-    "\t\t</div>\n" +
-    "\t</div>\n" +
+    "  <video-player url=\"http://wonderpl.com/embed/viwAdAYl4is9rfPwmRE39MXA/\"></video-player>\n" +
     "\n" +
     "  <input ng-model=\"color\" />\n" +
     "\n" +
     "  <input color-picker ng-model=\"color\" />\n" +
     "\n" +
-    "  <video-player url=\"http://wonderpl.com/embed/viwAdAYl4is9rfPwmRE39MXA/\"></video-player>\n" +
+    "  <p ng-model=\"text\" medium-editor></p>\n" +
     "\n" +
     "  <section video-comments></section>\n" +
     "\n" +
-    "</div>"
+    "</section>\n" +
+    "\n" +
+    "<div id=\"page-video-single\" class=\"section\" ng-controller=\"VideoCtrl\">\n" +
+    "\n" +
+    "  <div class=\"inner\">\n" +
+    "    <h1>(~ video.title ~)</h1>\n" +
+    "\n" +
+    "    <div class=\"inner half-width left\">\n" +
+    "      <h3>Edit your video details</h3>\n" +
+    "      <form action=\"#\">\n" +
+    "        <div class=\"row\">\n" +
+    "          <label>Video Title</label>\n" +
+    "          <input type=\"text\" ng-model=\"video.title\" />\n" +
+    "        </div>\n" +
+    "        <div class=\"row\">\n" +
+    "          <label>Video Description</label>\n" +
+    "          <textarea name=\"\" id=\"\" ng-model=\"video.description\"></textarea>\n" +
+    "        </div>\n" +
+    "        <div class=\"row half-width left\"><label>Mood</label><input type=\"text\" placeholder=\"Intrigued\" /></div><!--\n" +
+    "        --><div class=\"row half-width\"><label>Click to more link</label><input type=\"text\" placeholder=\"www.google.com\"/></div>\n" +
+    "        <!-- <div class=\"row\"><label>Video</label><input type=\"text\" /></div> -->\n" +
+    "        <div class=\"row half-width left\">\n" +
+    "          <label>Video Thumbnail</label>\n" +
+    "          <div class=\"thumbnail-picker\">\n" +
+    "            <span class=\"icon-pictures\"></span>\n" +
+    "          </div>\n" +
+    "        </div><!--\n" +
+    "        --><div class=\"row half-width\">\n" +
+    "          <label>Meta data</label><input class=\"margin-bottom\" type=\"text\"/>\n" +
+    "          <label>Content data</label><input type=\"text\"/>\n" +
+    "        </div>\n" +
+    "      </form>\n" +
+    "    </div><!--\n" +
+    "    --><div class=\"inner half-width right\" style=\"padding-top: 57px;\">\n" +
+    "      <div class=\"wonder-embed\">\n" +
+    "        <iframe class=\"video-player__frame\" src=\"//localhost:5000/embed/viwAdAYl4is9rfPwmRE39MXA/\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen></iframe>\n" +
+    "      </div>\n" +
+    "      <div id=\"customize-player\">\n" +
+    "        <form action=\"\">\n" +
+    "          <div class=\"row\">\n" +
+    "            <label>Embed Link</label>\n" +
+    "            <!-- <input type=\"text\" value=\"wonderpl.com/embed/vieasdasdads\"> -->\n" +
+    "\n" +
+    "            <!-- <iframe src=\"//player.vimeo.com/video/88737187?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=c9ff23\" width=\"443\" height=\"197\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href=\"http://vimeo.com/88737187\">Made in Tohoku</a> from <a href=\"http://vimeo.com/theinouebrothers\">The Inoue Brothers</a> on <a href=\"https://vimeo.com\">Vimeo</a>.</p> -->\n" +
+    "\n" +
+    "            <input type=\"text\" value=\"<iframe src=&quot;(( embedurl ))&quot; width=&quot;100%&quot; height=&quot;100%&quot; frameborder=&quot;0&quot; allowfullscreen></iframe>\" />\n" +
+    "          </div>\n" +
+    "          <div class=\"row\">\n" +
+    "            <input type=\"text\" placeholder=\"Width\" class=\"dimension\" /><input type=\"text\" placeholder=\"Height\" class=\"dimension height\" />\n" +
+    "            <span class=\"padding top\">\n" +
+    "              <input type=\"checkbox\" class=\"inline-block margin-right\" /><label class=\"inline-block\">Maintain aspect-ratio?</label>\n" +
+    "            </span>\n" +
+    "          </div>\n" +
+    "        </form>\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div id=\"top-right-links\">\n" +
+    "      <ul>\n" +
+    "        <!-- <li><a href=\"#\"></a></li> -->\n" +
+    "        <!-- <li><a href=\"/#/tools/(~ video.id ~)\"><span class=\"icon-tools\"></span>Monetization Tools</a></li> -->\n" +
+    "        <li><a href=\"/#/analytics/(~ video.id ~)\"><span class=\"icon-graph\"></span>View Analytics</a></li>\n" +
+    "      </ul>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "\n" +
+    "</div>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n"
   );
 } ]);

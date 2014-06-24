@@ -5153,6 +5153,14 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
 }
 
 /*!
+========== BASE
+*/
+/* line 1, ../../scss/base/project/_globals.scss */
+.main-view {
+  margin-top: 50px;
+}
+
+/*!
 ========== COMPONENTS
 */
 /* line 6, ../../scss/components/video/_video-feedback.scss */
@@ -5313,18 +5321,16 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
 
 /* line 1, ../../scss/components/video/_video-player.scss */
 .video-player {
-  max-width: 300px;
+  width: 100%;
+  max-width: 960px;
+  max-height: 720px;
   margin: 0 auto 40px;
-  height: 350px;
-  position: relative;
-  margin-top: 600px;
 }
 
-/* line 10, ../../scss/components/video/_video-player.scss */
-.video-player__frame {
-  position: absolute;
-  top: 0;
-  left: 0;
+/* line 8, ../../scss/components/video/_video-player.scss */
+.video-player__iframe-container {
+  padding-bottom: 56.25%;
+  height: 0;
 }
 
 @media screen and (max-width: 480px) {

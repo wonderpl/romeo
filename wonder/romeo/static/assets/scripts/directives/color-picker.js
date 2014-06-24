@@ -50,7 +50,6 @@ angular.module('RomeoApp.directives', []).directive('colorPicker', function () {
         scope.$apply(function () {
           ngModel.$setViewValue(color.toHexString());
         });
-        var color = elem.spectrum('get');
         var rgb = color.toRgb();
         shimChangesToIFrame();
         updateColours(rgb);
