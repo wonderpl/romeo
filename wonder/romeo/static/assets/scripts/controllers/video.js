@@ -1,5 +1,5 @@
 angular.module('RomeoApp.controllers')
-  .controller('VideoCtrl', ['$scope', '$location', 'AuthService', function($scope, $location, AuthService) {
+  .controller('VideoCtrl', ['$rootScope', '$scope', '$location', 'AuthService', function($rootScope, $scope, $location, AuthService) {
 
   'use strict';
 
@@ -26,26 +26,44 @@ angular.module('RomeoApp.controllers')
      }
    );
 
+  var isEdit;
+
+  var isReview;
+
+  var isComments;
+
+  $scope.isEdit = false;
+
+  $scope.isReview = false;
+
+  $scope.isComments = true
+
 
   AuthService.loginAsCollaborator(query.token).then(function(data){
     if (data.authenticatedAsOwner) {
 
-      // show everything
+      // show comments
 
-    } else if (data.authenticatedAsUserWithAccess) {
+      // allow edit/review/comments
 
-      // show video with comments
+      $rootScope.isOwner = true;
 
     } else if (data.authenticatedAsCollaborator) {
 
-      // show video with comments
+      // show comments
+
+      // allow review/comments
+
+      $rootScope.isCollaborator = true;
 
     } else {
 
       // redirect to 400 not authenticated
     }
   }, function(err){
+
     console.log(err);
+
   });
 
 }]);
