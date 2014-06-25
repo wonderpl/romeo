@@ -56,6 +56,15 @@
             templateUrl: 'video.html'
         });
 
+
+
+        // TEST
+        $routeProvider.when('/prototype/:videoID', {
+            templateUrl: 'prototype.html'
+        });
+
+
+
         // Analytics
         // Types can be
         // - /geographic/

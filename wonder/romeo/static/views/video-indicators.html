@@ -1,0 +1,10 @@
+<section class="video-indicators">
+  <div class="video-indicators__scrubber" ng-model="scrubber" style="left: {{ progress }}%"></div>
+  <ul class="video-indicators__comment-indicators">
+    <li class="video-indicators__comment-indicator" ng-repeat="comment in comments" style="left: {{ comment.position }};" ng-mouseover="commentHover(comment.mark)" ng-class="{ 'video-indicators__comment--hover' : comment.isHover }">
+      <a data-id="{{ comment.id }}" class="video-indicators__comment-link" ng-click="seek(comment.mark)"></a>
+    </li>
+  </ul>
+<a ng-click="playVideo()">play</a>
+<a ng-click="pauseVideo()">pause</a>
+</section>

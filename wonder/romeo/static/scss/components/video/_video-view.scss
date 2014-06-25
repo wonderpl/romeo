@@ -34,3 +34,20 @@
 .video-view-control-panel__mode {
   display: inline-block;
 }
+
+.video-view__comments {
+  display: none;
+}
+
+.video-view__comments--active {
+  display: block;
+}
+
+.video-view__edit {
+  display: none;
+  position: relative;
+}
+
+.video-view__edit--active {
+  display: block;
+}

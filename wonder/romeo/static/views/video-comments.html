@@ -2,69 +2,18 @@
 
   <section class="video-feedback__form">
     <textarea class="video-feedback__input js-feeback-input"></textarea>
-    <button class="video-feedback__button" ng-click="addComment">submit</button>
+    <button class="video-feedback__button" ng-click="addComment()">submit</button>
   </section>
 
   <!-- https://www.brainyquote.com/quotes/topics/topic_inspirational.html -->
   <section class="video-feedback__comments">
     <ul class="video-feedback__comments-list">
-      <li class="video-feedback__comment video-feedback__comment--active" data-id="12" data-time="30">
-        <a href="#" class="video-feedback__comment-time js-comment-time-link">0:30</a>
-        <span class="video-feedback__comment-message">It is during our darkest moments that we must focus to see the light.</span>
-        <span class="video-feedback__comment-author">Aristotle Onassis</span>
-        <span class="video-feedback__comment-date">A fortnight ago</span>
-        <a class="video-feedback__reply-link" ng-click="showReply(12)">reply</a>
-        <section class="video-feedback__reply-form js-reply-form-12">
-          <textarea class="video-feedback__reply-text"></textarea>
-          <a class="video-feedback__reply-cancel" ng-click="hideReply(12)">cancel</a>
-          <button class="video-feedback__reply-submit">submit</button>
-        </section>
-        <ul class="video-feedback__comment-replies">
-          <li class="video-feedback__comment-reply" data-id="27">
-            <span class="video-feedback__reply-message">The best and most beautiful things in the world cannot be seen or even touched - they must be felt with the heart.</span>
-            <span class="video-feedback__reply-author">Helen Keller</span>
-            <span class="video-feedback__reply-date">Over a week ago</span>
-          </li>
-          <li class="video-feedback__comment-reply" data-id="29">
-            <span class="video-feedback__reply-message">We can't help everyone, but everyone can help someone.</span>
-            <span class="video-feedback__reply-author">Ronald Reagan</span>
-            <span class="video-feedback__reply-date">Yesterday</span>
-          </li>
-        </ul>
-      </li>
-      <li class="video-feedback__comment" data-id="38" data-time="105">
-        <a href="#" class="video-feedback__comment-time js-comment-time-link">1:45</a>
-        <span class="video-feedback__comment-message">What we need is more people who specialize in the impossible.</span>
-        <span class="video-feedback__comment-author">Theodore Roethke</span>
-        <span class="video-feedback__comment-date">Just now</span>
-        <a class="video-feedback__reply-link" ng-click="showReply(38)">reply</a>
-        <section class="video-feedback__reply-form js-reply-form-38">
-          <textarea class="video-feedback__reply-text"></textarea>
-          <a class="video-feedback__reply-cancel" ng-click="hideReply(38)">cancel</a>
-          <button class="video-feedback__reply-submit">submit</button>
-        </section>
-        <ul class="video-feedback__comment-replies"></ul>
-      </li>
-      <li class="video-feedback__comment" data-id="31" data-time="550">
-        <a href="#" class="video-feedback__comment-time js-comment-time-link">9:10</a>
-        <span class="video-feedback__comment-message">Learning how to be still, to really be still and let life happen - that stillness becomes a radiance.</span>
-        <span class="video-feedback__comment-author">Morgan Freeman</span>
-        <span class="video-feedback__comment-date">Half an hour ago</span>
-        <a class="video-feedback__reply-link" ng-click="showReply(31)">reply</a>
-        <section class="video-feedback__reply-form js-reply-form-31">
-          <textarea class="video-feedback__reply-text"></textarea>
-          <a class="video-feedback__reply-cancel" ng-click="hideReply(31)">cancel</a>
-          <button class="video-feedback__reply-submit">submit</button>
-        </section>
-        <ul class="video-feedback__comment-replies"></ul>
-      </li>
 
-
-      <li class="video-feedback__comment video-feedback__comment--active" data-id="{{ comment.id }}" data-time="{{ comment.time }}" ng-repeat="comment in comments">
-        <a href="#" class="video-feedback__comment-time js-comment-time-link">{{ comment.prettyVideoTime }}</a>
-        <span class="video-feedback__comment-message">{{ comment.text }}</span>
-        <span class="video-feedback__comment-author">{{ comment.author }}</span>
-        <span class="video-feedback__comment-date">{{ comment.prettyTimestamp }}</span>
+      <li class="video-feedback__comment" ng-class="{ 'video-feedback__comment--hover' : comment.isHover, 'video-feedback__comment--active' : comment.isActive }"  data-id="{{ comment.id }}" data-mark="{{ comment.mark }}" ng-repeat="comment in comments | orderBy: 'mark'" ng-click="commentHover(comment.mark)">
+        <a class="video-feedback__comment-time js-comment-time-link"  ng-click="seek(comment.mark)">{{ comment.mark }}</a>
+        <span class="video-feedback__comment-message">{{ comment.comment }}</span>
+        <span class="video-feedback__comment-author">{{ comment.name }}</span>
+        <span class="video-feedback__comment-date">{{ comment.posted }}</span>
         <a class="video-feedback__reply-link" ng-click="showReply(comment.id)">reply</a>
         <section class="video-feedback__reply-form js-reply-form-{{ comment.id }}">
           <textarea class="video-feedback__reply-text"></textarea>

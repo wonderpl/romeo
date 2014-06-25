@@ -483,6 +483,90 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('prototype.html',
+    "\n" +
+    "<upload-progress></upload-progress>\n" +
+    "\n" +
+    "<h1>PROTOTYPE</h1>\n" +
+    "\n" +
+    "<section class=\"main-view video-view\" ng-controller=\"PrototypeCtrl\">\n" +
+    "\n" +
+    "  <nav>\n" +
+    "    <ul>\n" +
+    "      <li>\n" +
+    "        <a ng-click=\"displaySection('edit')\">edit</a>\n" +
+    "      </li>\n" +
+    "      <li>\n" +
+    "        <a ng-click=\"displaySection('comments')\">comments</a>\n" +
+    "      </li>\n" +
+    "      <li>\n" +
+    "        <a href=\"/#/manage\">manage</a>\n" +
+    "      </li>\n" +
+    "      <li>\n" +
+    "        <a href=\"/#/upload\">upload</a>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </nav>\n" +
+    "\n" +
+    "\n" +
+    "  <section class=\"video-view__edit\" ng-class=\"{ 'video-view__edit--active' : isEdit }\">\n" +
+    "\n" +
+    "    <div ng-hide=\"hasVideo\">\n" +
+    "\n" +
+    "      <video-upload></video-upload>\n" +
+    "\n" +
+    "      <video-thumbnail data-background=\"http://ak.c.ooyala.com/l0dWJnbjpLZ5hwo3aVaBFqpVICC63Wo3/3Gduepif0T1UGY8H4xMDoxOjBhOzV3Va\"></video-thumbnail>\n" +
+    "\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div ng-show=\"hasVideo\">\n" +
+    "\n" +
+    "      <video-player url=\"http://localhost:5001/embed/viwAdAYl4is9rfPwmRE39MXA/?controls=1\"></video-player>\n" +
+    "\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <input ng-model=\"color\" />\n" +
+    "    <input color-picker ng-model=\"color\" />\n" +
+    "\n" +
+    "    <section class=\"video-more\">\n" +
+    "      <p class=\"video-more__link\" medium-editor ng-model=\"more\"></p>\n" +
+    "    </section>\n" +
+    "\n" +
+    "    <section class=\"video-view__description\" medium-editor ng-model=\"text\"></section>\n" +
+    "\n" +
+    "    <video-share></video-share>\n" +
+    "\n" +
+    "  </section>\n" +
+    "\n" +
+    "  <section class=\"video-view__comments\" ng-class=\"{ 'video-view__comments--active' : isComments }\">\n" +
+    "\n" +
+    "    <video-player url=\"http://localhost:5001/embed/viwAdAYl4is9rfPwmRE39MXA/?controls=1\"></video-player>\n" +
+    "\n" +
+    "    <video-indicators></video-indicators>\n" +
+    "\n" +
+    "    <video-comments></video-comments>\n" +
+    "\n" +
+    "  </section>\n" +
+    "\n" +
+    "</section>\n" +
+    "\n" +
+    "</div>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n"
+  );
+
+
+  $templateCache.put('upload-progress.html',
+    "<section class=\"upload-progress\">\n" +
+    "  <h2>upload progress</h2>\n" +
+    "</section>"
+  );
+
+
   $templateCache.put('upload-quick-share-reecipients.html',
     ""
   );
@@ -640,74 +724,31 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('video-color-picker.html',
+    "<section class=\"color-picker\">\n" +
+    "  <input ng-model=\"color\" />\n" +
+    "  <input color-picker ng-model=\"color\" />\n" +
+    "</section>"
+  );
+
+
   $templateCache.put('video-comments.html',
     "<section class=\"video-feedback\">\n" +
     "\n" +
     "  <section class=\"video-feedback__form\">\n" +
     "    <textarea class=\"video-feedback__input js-feeback-input\"></textarea>\n" +
-    "    <button class=\"video-feedback__button\" ng-click=\"addComment\">submit</button>\n" +
+    "    <button class=\"video-feedback__button\" ng-click=\"addComment()\">submit</button>\n" +
     "  </section>\n" +
     "\n" +
     "  <!-- https://www.brainyquote.com/quotes/topics/topic_inspirational.html -->\n" +
     "  <section class=\"video-feedback__comments\">\n" +
     "    <ul class=\"video-feedback__comments-list\">\n" +
-    "      <li class=\"video-feedback__comment video-feedback__comment--active\" data-id=\"12\" data-time=\"30\">\n" +
-    "        <a href=\"#\" class=\"video-feedback__comment-time js-comment-time-link\">0:30</a>\n" +
-    "        <span class=\"video-feedback__comment-message\">It is during our darkest moments that we must focus to see the light.</span>\n" +
-    "        <span class=\"video-feedback__comment-author\">Aristotle Onassis</span>\n" +
-    "        <span class=\"video-feedback__comment-date\">A fortnight ago</span>\n" +
-    "        <a class=\"video-feedback__reply-link\" ng-click=\"showReply(12)\">reply</a>\n" +
-    "        <section class=\"video-feedback__reply-form js-reply-form-12\">\n" +
-    "          <textarea class=\"video-feedback__reply-text\"></textarea>\n" +
-    "          <a class=\"video-feedback__reply-cancel\" ng-click=\"hideReply(12)\">cancel</a>\n" +
-    "          <button class=\"video-feedback__reply-submit\">submit</button>\n" +
-    "        </section>\n" +
-    "        <ul class=\"video-feedback__comment-replies\">\n" +
-    "          <li class=\"video-feedback__comment-reply\" data-id=\"27\">\n" +
-    "            <span class=\"video-feedback__reply-message\">The best and most beautiful things in the world cannot be seen or even touched - they must be felt with the heart.</span>\n" +
-    "            <span class=\"video-feedback__reply-author\">Helen Keller</span>\n" +
-    "            <span class=\"video-feedback__reply-date\">Over a week ago</span>\n" +
-    "          </li>\n" +
-    "          <li class=\"video-feedback__comment-reply\" data-id=\"29\">\n" +
-    "            <span class=\"video-feedback__reply-message\">We can't help everyone, but everyone can help someone.</span>\n" +
-    "            <span class=\"video-feedback__reply-author\">Ronald Reagan</span>\n" +
-    "            <span class=\"video-feedback__reply-date\">Yesterday</span>\n" +
-    "          </li>\n" +
-    "        </ul>\n" +
-    "      </li>\n" +
-    "      <li class=\"video-feedback__comment\" data-id=\"38\" data-time=\"105\">\n" +
-    "        <a href=\"#\" class=\"video-feedback__comment-time js-comment-time-link\">1:45</a>\n" +
-    "        <span class=\"video-feedback__comment-message\">What we need is more people who specialize in the impossible.</span>\n" +
-    "        <span class=\"video-feedback__comment-author\">Theodore Roethke</span>\n" +
-    "        <span class=\"video-feedback__comment-date\">Just now</span>\n" +
-    "        <a class=\"video-feedback__reply-link\" ng-click=\"showReply(38)\">reply</a>\n" +
-    "        <section class=\"video-feedback__reply-form js-reply-form-38\">\n" +
-    "          <textarea class=\"video-feedback__reply-text\"></textarea>\n" +
-    "          <a class=\"video-feedback__reply-cancel\" ng-click=\"hideReply(38)\">cancel</a>\n" +
-    "          <button class=\"video-feedback__reply-submit\">submit</button>\n" +
-    "        </section>\n" +
-    "        <ul class=\"video-feedback__comment-replies\"></ul>\n" +
-    "      </li>\n" +
-    "      <li class=\"video-feedback__comment\" data-id=\"31\" data-time=\"550\">\n" +
-    "        <a href=\"#\" class=\"video-feedback__comment-time js-comment-time-link\">9:10</a>\n" +
-    "        <span class=\"video-feedback__comment-message\">Learning how to be still, to really be still and let life happen - that stillness becomes a radiance.</span>\n" +
-    "        <span class=\"video-feedback__comment-author\">Morgan Freeman</span>\n" +
-    "        <span class=\"video-feedback__comment-date\">Half an hour ago</span>\n" +
-    "        <a class=\"video-feedback__reply-link\" ng-click=\"showReply(31)\">reply</a>\n" +
-    "        <section class=\"video-feedback__reply-form js-reply-form-31\">\n" +
-    "          <textarea class=\"video-feedback__reply-text\"></textarea>\n" +
-    "          <a class=\"video-feedback__reply-cancel\" ng-click=\"hideReply(31)\">cancel</a>\n" +
-    "          <button class=\"video-feedback__reply-submit\">submit</button>\n" +
-    "        </section>\n" +
-    "        <ul class=\"video-feedback__comment-replies\"></ul>\n" +
-    "      </li>\n" +
     "\n" +
-    "\n" +
-    "      <li class=\"video-feedback__comment video-feedback__comment--active\" data-id=\"(~ comment.id ~)\" data-time=\"(~ comment.time ~)\" ng-repeat=\"comment in comments\">\n" +
-    "        <a href=\"#\" class=\"video-feedback__comment-time js-comment-time-link\">(~ comment.prettyVideoTime ~)</a>\n" +
-    "        <span class=\"video-feedback__comment-message\">(~ comment.text ~)</span>\n" +
-    "        <span class=\"video-feedback__comment-author\">(~ comment.author ~)</span>\n" +
-    "        <span class=\"video-feedback__comment-date\">(~ comment.prettyTimestamp ~)</span>\n" +
+    "      <li class=\"video-feedback__comment\" ng-class=\"{ 'video-feedback__comment--hover' : comment.isHover, 'video-feedback__comment--active' : comment.isActive }\"  data-id=\"(~ comment.id ~)\" data-mark=\"(~ comment.mark ~)\" ng-repeat=\"comment in comments | orderBy: 'mark'\" ng-click=\"commentHover(comment.mark)\">\n" +
+    "        <a class=\"video-feedback__comment-time js-comment-time-link\"  ng-click=\"seek(comment.mark)\">(~ comment.mark ~)</a>\n" +
+    "        <span class=\"video-feedback__comment-message\">(~ comment.comment ~)</span>\n" +
+    "        <span class=\"video-feedback__comment-author\">(~ comment.name ~)</span>\n" +
+    "        <span class=\"video-feedback__comment-date\">(~ comment.posted ~)</span>\n" +
     "        <a class=\"video-feedback__reply-link\" ng-click=\"showReply(comment.id)\">reply</a>\n" +
     "        <section class=\"video-feedback__reply-form js-reply-form-(~ comment.id ~)\">\n" +
     "          <textarea class=\"video-feedback__reply-text\"></textarea>\n" +
@@ -726,6 +767,20 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    </ul>\n" +
     "  </section>\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('video-indicators.html',
+    "<section class=\"video-indicators\">\n" +
+    "  <div class=\"video-indicators__scrubber\" ng-model=\"scrubber\" style=\"left: (~ progress ~)%\"></div>\n" +
+    "  <ul class=\"video-indicators__comment-indicators\">\n" +
+    "    <li class=\"video-indicators__comment-indicator\" ng-repeat=\"comment in comments\" style=\"left: (~ comment.position ~);\" ng-mouseover=\"commentHover(comment.mark)\" ng-class=\"{ 'video-indicators__comment--hover' : comment.isHover }\">\n" +
+    "      <a data-id=\"(~ comment.id ~)\" class=\"video-indicators__comment-link\" ng-click=\"seek(comment.mark)\"></a>\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
+    "<a ng-click=\"playVideo()\">play</a>\n" +
+    "<a ng-click=\"pauseVideo()\">pause</a>\n" +
     "</section>"
   );
 
@@ -758,6 +813,23 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('video-navigation.html',
+    "<section class=\"video-view-control-panel\">\n" +
+    "  <ul class=\"video-view-control-panel__modes\">\n" +
+    "    <li class=\"video-view-control-panel__mode\">\n" +
+    "      <a class=\"video-view-control-panel__link\" ng-click=\"displaySection(edit)\">edit</a>\n" +
+    "    </li>\n" +
+    "    <li class=\"video-view-control-panel__mode\">\n" +
+    "      <a class=\"video-view-control-panel__link\" ng-click=\"displaySection(review)\">review</a>\n" +
+    "    </li>\n" +
+    "    <li class=\"video-view-control-panel__mode\">\n" +
+    "      <a class=\"video-view-control-panel__link\" ng-click=\"displaySection(comments)\">comment</a>\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
+    "</section>"
+  );
+
+
   $templateCache.put('video-player.html',
     "<section class=\"video-player\">\n" +
     "  <div class=\"video-player__iframe-container\">\n" +
@@ -784,106 +856,84 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
-  $templateCache.put('video.html',
-    "<section class=\"video-view-control-panel\">\n" +
-    "  <ul class=\"video-view-control-panel__modes\">\n" +
-    "    <li class=\"video-view-control-panel__mode\">\n" +
-    "      <a href=\"#\" class=\"video-view-control-panel__link\">edit</a>\n" +
-    "    </li>\n" +
-    "    <li class=\"video-view-control-panel__mode\">\n" +
-    "      <a href=\"#\" class=\"video-view-control-panel__link\">review</a>\n" +
-    "    </li>\n" +
-    "    <li class=\"video-view-control-panel__mode\">\n" +
-    "      <a href=\"#\" class=\"video-view-control-panel__link\">comment</a>\n" +
-    "    </li>\n" +
-    "  </ul>\n" +
-    "</section>\n" +
+  $templateCache.put('video-thumbnail.html',
+    "<section class=\"video-thumbnail\">\n" +
     "\n" +
-    "<section class=\"main-view video-view\" ng-controller=\"VideoCtrl\">\n" +
+    "  <a class=\"video-thumbnail__option video-thumbnail__option--select\" ng-class=\"{ 'video-thumbnail__option--hide' : isSelect }\" ng-click=\"selectThumbnail()\">select generated</a>\n" +
     "\n" +
-    "  <video-player url=\"http://localhost:5000/embed/viwAdAYl4is9rfPwmRE39MXA/?controls=1\"></video-player>\n" +
+    "  <a class=\"video-thumbnail__option video-thumbnail__option--upload\" ng-class=\"{ 'video-thumbnail__option--hide' : isSelect }\">upload</a>\n" +
     "\n" +
-    "  <input ng-model=\"color\" />\n" +
-    "  <input color-picker ng-model=\"color\" />\n" +
+    "  <section class=\"video-thumbnail__selector\" style=\"background-image: url('(~ background ~)');\" ng-class=\"{ 'video-thumbnail__selector--active' : isSelect }\">\n" +
     "\n" +
-    "  <section class=\"video-more\">\n" +
-    "    <p class=\"video-more__link\" medium-editor ng-model=\"more\"></p>\n" +
+    "    <section class=\"video-thumbnail__select-controls\">\n" +
+    "      <a ng-click=\"previousBackground()\">previous</a>\n" +
+    "      <span>(1/2)</span>\n" +
+    "      <a ng-click=\"nextBackground()\">next</a>\n" +
+    "\n" +
+    "      <a class=\"video-thumbnail__select-link\" ng-click=\"setBackground()\">select</a>\n" +
+    "    </section>\n" +
+    "\n" +
     "  </section>\n" +
     "\n" +
-    "  <section class=\"video-view__description\" medium-editor ng-model=\"text\"></section>\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('video-upload.html',
+    "<section class=\"video-upload\" ng-show=\"!isUploading\">\n" +
     "\n" +
-    "  <video-share></video-share>\n" +
+    "  <h2>video upload</h2>\n" +
     "\n" +
-    "  <section video-comments></section>\n" +
-    "\n" +
-    "</section>\n" +
-    "\n" +
-    "<div id=\"page-video-single\" class=\"section\" ng-controller=\"VideoCtrl\">\n" +
-    "\n" +
-    "  <div class=\"inner\">\n" +
-    "    <h1>(~ video.title ~)</h1>\n" +
-    "\n" +
-    "    <div class=\"inner half-width left\">\n" +
-    "      <h3>Edit your video details</h3>\n" +
-    "      <form action=\"#\">\n" +
-    "        <div class=\"row\">\n" +
-    "          <label>Video Title</label>\n" +
-    "          <input type=\"text\" ng-model=\"video.title\" />\n" +
-    "        </div>\n" +
-    "        <div class=\"row\">\n" +
-    "          <label>Video Description</label>\n" +
-    "          <textarea name=\"\" id=\"\" ng-model=\"video.description\"></textarea>\n" +
-    "        </div>\n" +
-    "        <div class=\"row half-width left\"><label>Mood</label><input type=\"text\" placeholder=\"Intrigued\" /></div><!--\n" +
-    "        --><div class=\"row half-width\"><label>Click to more link</label><input type=\"text\" placeholder=\"www.google.com\"/></div>\n" +
-    "        <!-- <div class=\"row\"><label>Video</label><input type=\"text\" /></div> -->\n" +
-    "        <div class=\"row half-width left\">\n" +
-    "          <label>Video Thumbnail</label>\n" +
-    "          <div class=\"thumbnail-picker\">\n" +
-    "            <span class=\"icon-pictures\"></span>\n" +
-    "          </div>\n" +
-    "        </div><!--\n" +
-    "        --><div class=\"row half-width\">\n" +
-    "          <label>Meta data</label><input class=\"margin-bottom\" type=\"text\"/>\n" +
-    "          <label>Content data</label><input type=\"text\"/>\n" +
-    "        </div>\n" +
-    "      </form>\n" +
-    "    </div><!--\n" +
-    "    --><div class=\"inner half-width right\" style=\"padding-top: 57px;\">\n" +
-    "      <div class=\"wonder-embed\">\n" +
-    "        <iframe class=\"video-player__frame\" src=\"//localhost:5000/embed/viwAdAYl4is9rfPwmRE39MXA/\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen></iframe>\n" +
-    "      </div>\n" +
-    "      <div id=\"customize-player\">\n" +
-    "        <form action=\"\">\n" +
-    "          <div class=\"row\">\n" +
-    "            <label>Embed Link</label>\n" +
-    "            <!-- <input type=\"text\" value=\"wonderpl.com/embed/vieasdasdads\"> -->\n" +
-    "\n" +
-    "            <!-- <iframe src=\"//player.vimeo.com/video/88737187?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=c9ff23\" width=\"443\" height=\"197\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href=\"http://vimeo.com/88737187\">Made in Tohoku</a> from <a href=\"http://vimeo.com/theinouebrothers\">The Inoue Brothers</a> on <a href=\"https://vimeo.com\">Vimeo</a>.</p> -->\n" +
-    "\n" +
-    "            <input type=\"text\" value=\"<iframe src=&quot;(( embedurl ))&quot; width=&quot;100%&quot; height=&quot;100%&quot; frameborder=&quot;0&quot; allowfullscreen></iframe>\" />\n" +
-    "          </div>\n" +
-    "          <div class=\"row\">\n" +
-    "            <input type=\"text\" placeholder=\"Width\" class=\"dimension\" /><input type=\"text\" placeholder=\"Height\" class=\"dimension height\" />\n" +
-    "            <span class=\"padding top\">\n" +
-    "              <input type=\"checkbox\" class=\"inline-block margin-right\" /><label class=\"inline-block\">Maintain aspect-ratio?</label>\n" +
-    "            </span>\n" +
-    "          </div>\n" +
-    "        </form>\n" +
-    "      </div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <div id=\"top-right-links\">\n" +
-    "      <ul>\n" +
-    "        <!-- <li><a href=\"#\"></a></li> -->\n" +
-    "        <!-- <li><a href=\"/#/tools/(~ video.id ~)\"><span class=\"icon-tools\"></span>Monetization Tools</a></li> -->\n" +
-    "        <li><a href=\"/#/analytics/(~ video.id ~)\"><span class=\"icon-graph\"></span>View Analytics</a></li>\n" +
-    "      </ul>\n" +
-    "    </div>\n" +
+    "  <div class=\"video-upload__dropzone\" ng-file-drop=\"onFileSelect($files)\" ng-file-drag-over-class=\"optional-css-class\" ng-show=\"dropSupported\">\n" +
+    "    <p>Drag &amp; drop your video here</p>\n" +
+    "    <p>or choose a video from your desktop</p>\n" +
+    "    <input type=\"file\" ng-file-select=\"onFileSelect($files)\" />\n" +
     "  </div>\n" +
     "\n" +
-    "</div>\n" +
+    "  <div ng-file-drop-available=\"dropSupported=true\" ng-show=\"!dropSupported\">HTML5 Drop File is not supported!</div>\n" +
     "\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('video.html',
+    "\n" +
+    "<div ng-controller=\"VideoCtrl\">\n" +
+    "\n" +
+    "  <video-navigation></video-navigation>\n" +
+    "\n" +
+    "  <section class=\"main-view video-view\">\n" +
+    "\n" +
+    "    <h2 class=\"video-view__title\" medium-editor ng-model=\"title\"></h2>\n" +
+    "\n" +
+    "    <video-player ng-show=\"hasVideo\" url=\"http://localhost:5001/embed/viwAdAYl4is9rfPwmRE39MXA/?controls=1\"></video-player>\n" +
+    "\n" +
+    "    <video-upload ng-hide=\"hasVideo\"></video-upload>\n" +
+    "\n" +
+    "    <video-thumbnail ng-show=\"hasSelectedVideo && !hasVideo\" data-background=\"http://ak.c.ooyala.com/l0dWJnbjpLZ5hwo3aVaBFqpVICC63Wo3/3Gduepif0T1UGY8H4xMDoxOjBhOzV3Va\"></video-thumbnail>\n" +
+    "\n" +
+    "    <video-color-picker ng=\"hasVideo\"></video-color-picker>\n" +
+    "\n" +
+    "\n" +
+    "    <!-- swap this for same-style link as on other page -->\n" +
+    "    <section class=\"video-more\">\n" +
+    "      <p class=\"video-more__link\" medium-editor ng-model=\"more\"></p>\n" +
+    "    </section>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "    <section class=\"video-view__description\" medium-editor ng-model=\"text\"></section>\n" +
+    "\n" +
+    "    <video-share></video-share>\n" +
+    "\n" +
+    "    <video-indicators ng-show=\"hasVideo\"></video-indicators>\n" +
+    "\n" +
+    "    <video-comments ng-show=\"hasVideo\"></video-comments>\n" +
+    "\n" +
+    "  </section>\n" +
+    "\n" +
+    "</div>\n" +
     "\n" +
     "\n" +
     "\n" +

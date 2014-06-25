@@ -7,7 +7,7 @@ angular.module('RomeoApp.directives', []).directive('colorPicker', function () {
   function shimChangesToIFrame () {
 
     var svg = '<svg xmlns="http://www.w3.org/2000/svg" style="height: 0; width: 0;" id="ColourSvg"><filter id="ColourFilter" color-interpolation-filters="sRGB"><feComponentTransfer><feFuncR class="brightness red" type="linear" slope="1"/><feFuncG class="brightness green" type="linear" slope="1"/><feFuncB class="brightness blue" type="linear" slope="1"/></feComponentTransfer></filter></svg>';
-    var style = '<style id="ColourStyle">.filtered { -webkit-filter : url("#ColourFilter"); }</style>';
+    var style = '<style id="ColourStyle">.filtered { -webkit-filter : url("#ColourFilter"); -webkit-transform: translate3d(0px,0px,0px); -webkit-backface-visibility: hidden; -webkit-perspective: 1000; }</style>';
 
     var frame = document.getElementsByClassName('video-player__frame')[0].contentDocument;
     var $frame = $(frame);

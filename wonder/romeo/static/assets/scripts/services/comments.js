@@ -31,9 +31,9 @@ angular.module('RomeoApp.services', []).factory('CommentsService',
     return deferred.promise;
   }
 
-  return({
+  return ({
     addComment  : addComment,
-    getComments : getComments,
+    getComments : getComments
   });
 
 }]);

@@ -1,0 +1,19 @@
+<section class="video-thumbnail">
+
+  <a class="video-thumbnail__option video-thumbnail__option--select" ng-class="{ 'video-thumbnail__option--hide' : isSelect }" ng-click="selectThumbnail()">select generated</a>
+
+  <a class="video-thumbnail__option video-thumbnail__option--upload" ng-class="{ 'video-thumbnail__option--hide' : isSelect }">upload</a>
+
+  <section class="video-thumbnail__selector" style="background-image: url('{{ background }}');" ng-class="{ 'video-thumbnail__selector--active' : isSelect }">
+
+    <section class="video-thumbnail__select-controls">
+      <a ng-click="previousBackground()">previous</a>
+      <span>(1/2)</span>
+      <a ng-click="nextBackground()">next</a>
+
+      <a class="video-thumbnail__select-link" ng-click="setBackground()">select</a>
+    </section>
+
+  </section>
+
+</section>
