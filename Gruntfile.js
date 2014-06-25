@@ -69,7 +69,7 @@ module.exports = function (grunt) {
         /* ============== */
         concat: {
             options: {
-                separator: ';'
+                separator: '\n'
             },
             dist: {
                 src: 'wonder/romeo/static/assets/scripts/**/*.js',

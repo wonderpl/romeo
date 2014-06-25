@@ -36,7 +36,7 @@ angular.module('RomeoApp.controllers')
 
   $scope.isReview = false;
 
-  $scope.isComments = true
+  $scope.isComments = true;
 
 
   AuthService.loginAsCollaborator(query.token).then(function(data){

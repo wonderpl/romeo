@@ -801,7 +801,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "<section class=\"main-view video-view\" ng-controller=\"VideoCtrl\">\n" +
     "\n" +
-    "  <video-player url=\"http://localhost:5000/embed/viwAdAYl4is9rfPwmRE39MXA/?chrome=test\"></video-player>\n" +
+    "  <video-player url=\"http://localhost:5000/embed/viwAdAYl4is9rfPwmRE39MXA/?controls=1\"></video-player>\n" +
     "\n" +
     "  <input ng-model=\"color\" />\n" +
     "  <input color-picker ng-model=\"color\" />\n" +
