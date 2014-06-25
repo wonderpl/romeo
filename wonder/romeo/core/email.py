@@ -31,7 +31,12 @@ def _get_template_env():
         assets_url = 'https:' + assets_url
     config['EMAIL_ASSETS_URL'] = assets_url
 
-    env = Environment(loader=PackageLoader('wonder.romeo', config['EMAIL_TEMPLATE_PATH']))
+    options = dict(trim_blocks=True)
+
+    env = Environment(
+        loader=PackageLoader('wonder.romeo', config['EMAIL_TEMPLATE_PATH']),
+        **options
+    )
     env.globals.update(config=config, url_for=url_for)
 
     return env

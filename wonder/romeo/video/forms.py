@@ -2,6 +2,7 @@ from itertools import chain
 from cStringIO import StringIO
 from urlparse import urlparse
 from PIL import Image
+from sqlalchemy import null
 import wtforms
 from flask import current_app, request
 from flask.ext.login import current_user
@@ -14,7 +15,7 @@ from wonder.romeo.core.email import send_email, email_template_env
 from wonder.romeo.core.s3 import upload_file, download_file, media_bucket
 from wonder.romeo.core.sqs import background_on_sqs
 from wonder.romeo.account.models import AccountUser
-from .models import Video, VideoTag, VideoThumbnail, VideoCollaborator
+from .models import Video, VideoTag, VideoThumbnail, VideoComment, VideoCollaborator
 
 
 def _json_bool(form, field):
@@ -250,3 +251,62 @@ def send_processed_email(recipient, video_id, error=None):
         error=error
     )
     send_email(recipient, body)
+
+
+@background_on_sqs
+@commit_on_success
+def send_comment_notifications(video_id, user_type, user_id):
+    comments = VideoComment.query.filter_by(
+        video_id=video_id, user_type=user_type, user_id=user_id, notification_sent=False
+    ).all()
+
+    if not comments:
+        return
+
+    if user_type == 'collaborator':
+        sender = VideoCollaborator.query.filter_by(id=user_id).value('name')
+    else:
+        account_user = AccountUser.query.get(user_id)
+        sender = account_user.display_name or account_user.username
+
+    video = Video.query.get(video_id)
+    template = email_template_env.get_template('comment_notification.html')
+
+    collabs = VideoCollaborator.query.filter_by(video_id=video_id, can_comment=True)
+    recipients = [(c.email, c.name, c.token) for c in collabs]
+    account_users = AccountUser.query.filter_by(account_id=video.account_id)
+    recipients.extend(account_users.values('username', 'display_name', null()))
+
+    for email, username, token in recipients:
+        body = template.render(
+            sender=sender,
+            video=video,
+            comments=comments,
+            email=email,
+            username=username or email,
+            token=token,
+        )
+        send_email(email, body)
+
+    VideoComment.query.filter(
+        VideoComment.id.in_([c.id for c in comments])
+    ).update(dict(notification_sent=True), synchronize_session=False)
+
+
+class VideoCommentForm(BaseForm):
+    model = VideoComment
+
+    comment = wtforms.StringField(validators=[wtforms.validators.Required()])
+    timestamp = wtforms.IntegerField()
+
+    def __init__(self, video_id, user_type, user_id, *args, **kwargs):
+        super(VideoCommentForm, self).__init__(*args, **kwargs)
+        self.video_id = video_id
+        self.user_type = user_type
+        self.user_id = user_id
+
+    def populate_obj(self, obj):
+        super(VideoCommentForm, self).populate_obj(obj)
+        obj.video_id = self.video_id
+        obj.user_type = self.user_type
+        obj.user_id = self.user_id

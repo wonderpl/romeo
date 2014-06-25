@@ -9,9 +9,11 @@ from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.s3 import s3connection, video_bucket
 from wonder.romeo.core.ooyala import ooyala_request, get_video_data
 from wonder.romeo.account.views import dolly_account_view, get_dollyuser
+from wonder.romeo.account.models import AccountUser
 from .models import (Video, VideoTag, VideoTagVideo, VideoThumbnail,
-                     VideoPlayerParameter, VideoCollaborator)
-from .forms import VideoTagForm, VideoForm, VideoCollaboratorForm, send_processed_email
+                     VideoPlayerParameter, VideoComment, VideoCollaborator)
+from .forms import (VideoTagForm, VideoForm, VideoCommentForm, VideoCollaboratorForm,
+                    send_processed_email, send_comment_notifications)
 
 
 videoapp = Blueprint('video', __name__)
@@ -434,7 +436,8 @@ class VideoCollaboratorsResource(Resource):
     @video_view()
     def get(self, video):
         query = VideoCollaborator.query.filter_by(video_id=video.id)
-        return map(_collaborator_item, query.all())
+        items = map(_collaborator_item, query.all())
+        return dict(collaborator=dict(items=items, total=len(items)))
 
     @commit_on_success
     @video_view()
@@ -449,10 +452,61 @@ class VideoCollaboratorsResource(Resource):
         return None, 204
 
 
+def video_comment_view(f):
+    @wraps(f)
+    def decorator(self, video):
+        collaborator = current_user.get_collaborator(video.id)
+        if collaborator:
+            user_type, user_id = 'collaborator', collaborator.id
+        else:
+            user_type, user_id = 'account_user', current_user.id
+        return f(self, video, user_type, user_id)
+    return video_view(with_collaborator_permission='comment')(decorator)
+
+
 @api_resource('/video/<int:video_id>/comments')
 class VideoCommentsResource(Resource):
 
-    @video_view(with_collaborator_permission='comment')
-    def get(self, video):
-        items = []
+    @video_comment_view
+    def get(self, video, user_type, user_id):
+        comments = VideoComment.comments_for_video(video.id)
+        items = [
+            dict(
+                id=comment.id,
+                href=comment.href,
+                comment=comment.comment,
+                timestamp=comment.timestamp,
+                datetime=comment.date_added.isoformat(),
+                username=username or email,
+                email=email,
+            )
+            for comment, username, email in comments
+        ]
         return dict(comment=dict(items=items, total=len(items)))
+
+    @commit_on_success
+    @video_comment_view
+    def post(self, video, user_type, user_id):
+        form = VideoCommentForm(video.id, user_type, user_id)
+        if not form.validate():
+            return dict(error='invalid_request', form_errors=form.errors), 400
+
+        comment = form.save()
+
+        return dict(id=comment.id, href=comment.href), 201, {'Location': comment.href}
+
+
+@api_resource('/video/<int:video_id>/comments/notification')
+class VideoCommentsNotificationResource(Resource):
+
+    @video_comment_view
+    def post(self, video, user_type, user_id):
+        send_comment_notifications(video.id, user_type, user_id)
+        return None, 204
+
+
+@api_resource('/comment/<int:comment_id>')
+class VideoCommentResource(Resource):
+
+    def get(self, video_id, comment_id):
+        pass

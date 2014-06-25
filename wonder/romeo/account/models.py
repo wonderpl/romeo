@@ -25,6 +25,7 @@ class AccountUser(db.Model):
     username = Column(String(128), unique=True, nullable=False)
     password_hash = Column(String(128), nullable=False)
     active = Column(Boolean, nullable=False, default=True, server_default='true')
+    display_name = Column(String(256))
 
     account = relationship(Account, backref='users')
 
@@ -46,17 +47,19 @@ class AccountUser(db.Model):
 
 class CollaborationMixin(object):
 
-    def has_collaborator_permission(self, video_id, permission):
+    def get_collaborator(self, video_id, permission=True):
         if session.get('collaborator_ids'):
             from wonder.romeo.video.models import VideoCollaborator
             collaborator = VideoCollaborator.query.filter(
                 VideoCollaborator.video_id == video_id,
                 VideoCollaborator.id.in_(session['collaborator_ids']),
             ).first()
-            if collaborator:
-                return permission is True or getattr(collaborator, 'can_' + permission)
+            if collaborator and (permission is True or
+                                 getattr(collaborator, 'can_' + permission)):
+                return collaborator
 
-        return False
+    def has_collaborator_permission(self, video_id, permission):
+        return bool(self.get_collaborator(video_id, permission))
 
 
 class UserProxy(UserMixin, CollaborationMixin):

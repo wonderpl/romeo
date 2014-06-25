@@ -14,6 +14,7 @@ from wonder.romeo.account.models import Account, AccountUser
 
 
 VIDEO_STATUS = 'uploading', 'processing', 'error', 'ready', 'published'
+USER_TYPE = 'account_user', 'collaborator'
 
 
 class Video(db.Model):
@@ -234,6 +235,50 @@ class VideoWorkflowEvent(db.Model):
     def create(cls, type, value=None):
         user_id = session.get('user_id') if session else None
         return cls(event_type=type, event_value=value, user_id=user_id)
+
+
+class VideoComment(db.Model):
+    __tablename__ = 'video_comment'
+
+    id = Column(Integer, primary_key=True)
+    video_id = Column('video', ForeignKey(Video.id), nullable=False)
+    date_added = Column(DateTime(), nullable=False, default=func.now())
+    user_type = Column(Enum(*USER_TYPE, name='user_type'), nullable=False)
+    user_id = Column(Integer, nullable=False)
+    comment = Column(String(1024), nullable=False)
+    timestamp = Column(Integer)
+    notification_sent = Column(Boolean(), nullable=False, server_default='false', default=False)
+
+    @property
+    def href(self):
+        return url_for('api.videocomment', comment_id=self.id)
+
+    @classmethod
+    def comments_for_video(cls, video_id):
+        """Return comments for a video with commenter name & email."""
+        video_comments = cls.query.filter_by(video_id=video_id)
+
+        account_comments = video_comments.join(
+            AccountUser,
+            (VideoComment.user_type == 'account_user') &
+            (VideoComment.user_id == AccountUser.id)
+        ).with_entities(
+            VideoComment,
+            AccountUser.display_name.label('name'),
+            AccountUser.username.label('email')
+        )
+
+        collab_comments = video_comments.join(
+            VideoCollaborator,
+            (VideoComment.user_type == 'collaborator') &
+            (VideoComment.user_id == VideoCollaborator.id)
+        ).with_entities(
+            VideoComment,
+            VideoCollaborator.name,
+            VideoCollaborator.email
+        )
+
+        return account_comments.union_all(collab_comments).order_by(VideoComment.date_added)
 
 
 class VideoCollaborator(db.Model):

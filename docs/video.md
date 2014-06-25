@@ -458,6 +458,84 @@ DELETE /api/video/<video_id>/tags/<tag_id> HTTP/1.1
 HTTP/1.1 204 NO CONTENT
 ```
 
+### Video Comments
+
+Requesting the comments video sub-resource returns a list of comment records.
+
+```http
+GET /api/video/<video_id>/comments HTTP/1.1
+```
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+ "comment": {
+  "total": 1,
+  "items": [
+   {
+    "id": 123,
+    "href": "/api/comment/123",
+    "datetime": "2014-06-25T18:38:36.311699",
+    "comment": "This is a comment",
+    "timestamp": 60,
+    "username": "Paul Egan",
+    "email": "paulegan@rockpack.com"
+   }
+  ]
+ }
+}
+```
+
+To add a comment to a video `POST` to the comments sub-resource.
+
+```http
+POST /api/video/<video_id>/comments HTTP/1.1
+Content-Type: application/json
+
+{
+ "comment": "This is a comment",
+ "timestamp": 60
+}
+```
+
+On success a `201` will be returned and a `400` on error.
+
+```http
+HTTP/1.1 201 CREATED
+Location: /api/comment/2
+Content-Type: application/json
+
+{
+ "id": 2,
+ "href": "/api/comment/2"
+}
+```
+
+```http
+HTTP/1.1 400 BAD REQUEST
+Content-Type: application/json
+
+{
+ "error": "invalid_request",
+ "form_errors": {
+  "comment": ["This field is required."]
+ }
+}
+```
+
+To notify all users about new comments `POST` to the notification sub-resource
+with an empty body.
+
+```http
+POST /api/video/<video_id>/comments/notification HTTP/1.1
+```
+
+```http
+HTTP/1.1 204 NO CONTENT
+```
+
 ### Video Collaborators
 
 To invite an external user to view, download, or comment on a video `POST`

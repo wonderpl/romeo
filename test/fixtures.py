@@ -7,6 +7,14 @@ from wonder.romeo.account import models as account_models
 from wonder.romeo.video import models as video_models
 
 
+dbfixture = SQLAlchemyFixture(
+    session=db.session,
+    # get models from both account and video:
+    env=dict(account_models.__dict__.items() + video_models.__dict__.items()),
+    style=NamedDataStyle()
+)
+
+
 def genimg(size=(1, 1), format='png'):
     buf = StringIO()
     Image.new('RGB', size).save(buf, format)
@@ -38,15 +46,10 @@ class VideoData(DataSet):
 
 
 def loaddata():
-    modelmap = {}
-    for models in account_models, video_models:
-        modelmap.update(models.__dict__)
-
     datasets = [d for d in globals().values() if type(d) is type(DataSet) and d is not DataSet]
 
-    fixture = SQLAlchemyFixture(session=db.session, env=modelmap, style=NamedDataStyle())
     with current_app.app_context():
-        fixture.data(*datasets).setup()
+        dbfixture.data(*datasets).setup()
 
     db.session.commit()
 
