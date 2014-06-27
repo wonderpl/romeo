@@ -53,7 +53,7 @@ def sitemap(account_id):
                 'changefreq': 'monthly',
                 'video:video': {
                     'video:title': embed.title,  # Required
-                    'video:thumbnail': video.thumbnails[0].url if video.thumbnails else '',  # Required
+                    'video:thumbnail_loc': video.thumbnails[0].url if video.thumbnails else '',  # Required
                     'video:description': embed.description,  # Required
                     'video:player_loc': "http://dev.wonderpl.com/embed/{}".format(video.id),
                     'video:duration': video.duration
