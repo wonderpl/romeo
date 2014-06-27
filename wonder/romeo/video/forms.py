@@ -9,7 +9,7 @@ from flask.ext.login import current_user
 from flask.ext.wtf import Form
 from wonder.romeo import db
 from wonder.romeo.core.db import commit_on_success
-from wonder.romeo.core.dolly import get_categories
+from wonder.romeo.core.dolly import get_categories, push_video_data
 from wonder.romeo.core.ooyala import create_asset, ooyala_request
 from wonder.romeo.core.email import send_email, email_template_env
 from wonder.romeo.core.s3 import upload_file, download_file, media_bucket
@@ -86,7 +86,7 @@ class VideoForm(BaseForm):
         event = 'updated' if self.obj else 'created'
 
         if self.filename and self.filename.data:
-            create_asset_in_background(video.id)
+            create_ooyala_asset(video.id)
             video.status = 'processing'
             event = 'uploaded'
 
@@ -97,6 +97,9 @@ class VideoForm(BaseForm):
             create_cover_thumbnails(video.id)
 
         video.record_workflow_event(event)
+
+        if video.status == 'published':
+            publish_video_changes(video.id)
 
         return video
 
@@ -142,11 +145,17 @@ class VideoForm(BaseForm):
 
 @background_on_sqs
 @commit_on_success
-def create_asset_in_background(video_id):
+def create_ooyala_asset(video_id):
     video = Video.query.get(video_id)
     metadata = dict(name=video.title, label=video.account_id, path=video.filepath)
     video.external_id = create_asset(video.filepath, metadata)
     video.record_workflow_event('ooyala asset created')
+
+
+@background_on_sqs
+def publish_video_changes(video_id):
+    video = Video.query.get(video_id)
+    push_video_data(video)
 
 
 @background_on_sqs
@@ -242,7 +251,7 @@ def send_collaborator_invite_email(collaborator_id, sending_user_id, **kwargs):
 
 
 @background_on_sqs
-def send_processed_email(recipient, video_id, error=None):
+def send_processed_email(video_id, error=None):
     video = Video.query.get(video_id)
 
     template = email_template_env.get_template('video_processed.html')
@@ -250,7 +259,10 @@ def send_processed_email(recipient, video_id, error=None):
         video=video,
         error=error
     )
-    send_email(recipient, body)
+
+    users = AccountUser.query.filter_by(account_id=video.account_id)
+    for recipient, name in users.values('username', 'display_name'):
+        send_email(recipient, body)
 
 
 @background_on_sqs

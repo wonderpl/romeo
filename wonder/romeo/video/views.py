@@ -9,7 +9,6 @@ from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.s3 import s3connection, video_bucket
 from wonder.romeo.core.ooyala import ooyala_request, get_video_data
 from wonder.romeo.account.views import dolly_account_view, get_dollyuser
-from wonder.romeo.account.models import AccountUser
 from .models import (Video, VideoTag, VideoTagVideo, VideoThumbnail,
                      VideoPlayerParameter, VideoComment, VideoCollaborator)
 from .forms import (VideoTagForm, VideoForm, VideoCommentForm, VideoCollaboratorForm,
@@ -60,7 +59,7 @@ def ooyala_callback():
         if not video.thumbnails:
             video.thumbnails = [VideoThumbnail(**t) for t in data['thumbnails']]
 
-    send_processed_email(current_user.username, video.id, error=failure_reason)
+    send_processed_email(video.id, error=failure_reason)
 
     return '', 204
 
@@ -207,26 +206,7 @@ class PublicVideoResource(Resource):
     def get(self, video_id):
         """Public service that returns video data in the format expected by dolly embed."""
         video = Video.query.filter_by(deleted=False, id=video_id).first_or_404()
-        return dict(
-            id=video.id,
-            title=video.title,
-            public=video.public,
-            status=video.status,
-            category=video.category,
-            player_logo_url=video.player_logo,
-            video=dict(
-                source='ooyala',
-                source_id=video.external_id,
-                source_username=video.account.name,
-                source_date_uploaded=video.date_added.isoformat(),
-                source_player_parameters=video.player_parameters,
-                thumbnail_url=video.thumbnail,
-                duration=video.duration,
-                description=video.description,
-                link_url=video.link_url,
-                link_title=video.link_title,
-            ),
-        )
+        return video.get_dolly_data()
 
 
 def _video_item(video, full=False):
@@ -301,6 +281,12 @@ class VideoResource(Resource):
     @commit_on_success
     @video_view()
     def delete(self, video):
+        # remove the video from published collections
+        for tag in video.tags:
+            if tag.dolly_channel:
+                get_dollyuser(current_user.account).remove_video(
+                    tag.dolly_channel, dict(source_id=video.external_id))
+
         video.deleted = True
         return None, 204
 
@@ -395,6 +381,7 @@ class VideoTagsResource(Resource):
         if tag.dolly_channel and video.external_id:
             videodata = dict(source_id=video.external_id)
             get_dollyuser(current_user.account).publish_video(tag.dolly_channel, videodata)
+            video.status = 'published'
 
         video_tag_video = VideoTagVideo(video_id=video.id, tag_id=tag.id)
         db.session.add(video_tag_video)

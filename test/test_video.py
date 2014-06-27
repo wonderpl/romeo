@@ -5,9 +5,145 @@ from fixture import DataTestCase
 from flask import current_app, json
 from wonder.romeo import db
 from wonder.romeo.account.models import AccountUser
-from wonder.romeo.video.models import Video, VideoComment
+from wonder.romeo.video.models import Video, VideoLocaleMeta, VideoComment
 from .helpers import client_for_account, client_for_user, client_for_collaborator
 from .fixtures import dbfixture, DataSet, genimg
+
+
+class VideoWorkflowTestCase(DataTestCase, unittest.TestCase):
+
+    class AccountData(DataSet):
+        class account:
+            id = 1001
+            name = 'test'
+            dolly_user = 'dudu'
+
+    class AccountUserData(DataSet):
+        class user:
+            id = 1101
+            account_id = 1001
+            username = 'noreply+1101@wonderpl.com'
+            password_hash = ''
+
+    class VideoTagData(DataSet):
+        class tag:
+            account_id = 1001
+            label = 'published'
+            dolly_channel = 'ddd'
+
+    fixture = dbfixture
+    datasets = AccountData, AccountUserData, VideoTagData
+
+    def tearDown(self):
+        pass
+
+    def test_video_workflow(self):
+        account = self.data.AccountData.account
+
+        with client_for_account(account.id) as client:
+            # create new video
+            r = client.post('/api/account/%d/videos' % account.id,
+                            content_type='application/json',
+                            data=json.dumps(dict(title='test')))
+            self.assertEquals(r.status_code, 201)
+            data = json.loads(r.data)
+            self.assertEquals(data['status'], 'uploading')
+            videoid = data['id']
+            resource = data['href']
+
+            self.assertEquals(Video.query.get(videoid).title, 'test')
+
+            # update description
+            r = client.patch(resource, content_type='application/json',
+                             data=json.dumps(dict(description='desc')))
+            self.assertEquals(r.status_code, 200)
+            data = json.loads(r.data)
+            self.assertEquals(data['status'], 'uploading')
+            self.assertEquals(data['description'], 'desc')
+
+            meta = VideoLocaleMeta.query.filter_by(video_id=videoid).one()
+            self.assertEquals(meta.locale, '')
+            self.assertEquals(meta.description, 'desc')
+
+        external_id = 'EEEE'
+
+        # set uploaded file
+        with patch('wonder.romeo.core.ooyala.ooyala_request') as ooyala_request:
+            def _ooyala_request(*args, **kwargs):
+                if args == ('assets',):     # create asset
+                    return dict(embed_code=external_id)
+                elif args == ('labels',):
+                    return dict(items=[dict(id=1, name=str(account.id))])
+                elif 'uploading_urls' in args:
+                    return []
+            ooyala_request.side_effect = _ooyala_request
+            with patch('boto.connect_s3'):
+                with current_app.test_request_context():
+                    with client_for_account(account.id) as client:
+                        r = client.patch(resource, content_type='application/json',
+                                         data=json.dumps(dict(filename='xxx')))
+                        self.assertEquals(r.status_code, 200)
+                        data = json.loads(r.data)
+                        self.assertEquals(data['status'], 'processing')
+
+            ooyala_request.assert_called_with('assets', external_id, 'upload_status',
+                                              data='{"status": "uploaded"}', method='put')
+
+            self.assertEquals(Video.query.get(videoid).external_id, external_id)
+
+        # ooyala callback
+        with patch('wonder.romeo.video.views.get_video_data') as get_video_data:
+            get_video_data.side_effect = lambda i: dict(
+                status='live',
+                upload_status={},
+                duration=42000,
+                thumbnails=[dict(url='t1', width=1, height=1)]
+            )
+            with patch('wonder.romeo.video.forms.send_email') as send_email:
+                with current_app.test_client() as client:
+                    r = client.get('/_ooyala/callback', query_string=dict(embedCode=external_id))
+                    self.assertEquals(r.status_code, 204)
+                self.assertEquals(send_email.call_args[0][0],
+                                  self.data.AccountUserData.user.username)
+                self.assertIn('/video/%d' % videoid, send_email.call_args[0][1])
+
+            self.assertEquals(Video.query.get(videoid).status, 'ready')
+
+        # publish
+        with patch('wonder.romeo.core.dolly.DollyUser.publish_video') as publish_video:
+            with client_for_account(account.id) as client:
+                r = client.post(resource + '/tags',
+                                data=dict(id=self.data.VideoTagData.tag.id))
+                self.assertEquals(r.status_code, 201)
+            publish_video.assert_called_with(self.data.VideoTagData.tag.dolly_channel,
+                                             dict(source_id=external_id))
+
+            self.assertEquals(Video.query.get(videoid).status, 'published')
+
+        # update
+        with patch('wonder.romeo.core.dolly._request') as dolly_request:
+            with client_for_account(account.id) as client:
+                r = client.patch(resource, content_type='application/json',
+                                 data=json.dumps(dict(title='new title')))
+                self.assertEquals(r.status_code, 200)
+            (path, method), kwargs = dolly_request.call_args
+            self.assertEquals(path, 'pubsubhubbub/callback')
+            self.assertIn('X-Hub-Signature', kwargs['headers'])
+            data = json.loads(kwargs['data'])
+            self.assertEquals(data['id'], videoid)
+            self.assertEquals(data['video']['source_id'], external_id)
+            self.assertEquals(data['title'], 'new title')
+
+        # delete
+        with patch('wonder.romeo.core.dolly._request') as dolly_request:
+            with client_for_account(account.id) as client:
+                r = client.delete(resource)
+                self.assertEquals(r.status_code, 204)
+            (path, method), kwargs = dolly_request.call_args
+            self.assertEquals(path, '%s/channels/%s/videos/' % (
+                self.data.AccountData.account.dolly_user,
+                self.data.VideoTagData.tag.dolly_channel))
+            self.assertEquals(kwargs['jsondata'], [])
 
 
 class VideoEditTestCase(unittest.TestCase):

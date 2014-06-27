@@ -1,3 +1,5 @@
+import hashlib
+import hmac
 import requests
 from urlparse import urljoin
 from flask import current_app, json
@@ -47,6 +49,17 @@ def get_categories():
 
 def get_video_embed_content(videoid):
     return _request('/embed/%s/' % videoid).content
+
+
+def push_video_data(video):
+    data = json.dumps(video.get_dolly_data(with_thumbnails=True))
+    sig = hmac.new(current_app.config['DOLLY_PUBSUB_SECRET'], data, hashlib.sha1)
+    headers = {
+        'X-Hub-Signature': 'sha1=' + sig.hexdigest(),
+        'Content-Type': 'application/json',
+    }
+    params = dict(id=current_app.config['DOLLY_PUBSUB_ID'])
+    _request('pubsubhubbub/callback', 'post', data=data, params=params, headers=headers)
 
 
 def login(userid):

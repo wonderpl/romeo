@@ -43,6 +43,9 @@ DOLLY_WS_BASE = 'http://api.dev.wonderpl.com/ws/'
 DOLLY_WS_SECURE_BASE = 'https://secure.dev.wonderpl.com/ws/'
 DOLLY_WS_CLIENT_AUTH = 'Basic YzhmZTVmNnJvY2s4NzNkcGFjazE5UTo='
 
+DOLLY_PUBSUB_ID = 434
+DOLLY_PUBSUB_SECRET = '75f1f16ca9da5250385d0510c8e2d7cc'
+
 # AWS
 VIDEO_S3_BUCKET = 'video.dev.wonderpl.com'
 MEDIA_S3_BUCKET = 'media.dev.wonderpl.com'

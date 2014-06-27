@@ -112,6 +112,34 @@ class Video(db.Model):
     def record_workflow_event(self, type, value=None):
         self.workflow_events.append(VideoWorkflowEvent.create(type, value))
 
+    def get_dolly_data(self, with_thumbnails=False):
+        data = dict(
+            id=self.id,
+            title=self.title,
+            public=self.public,
+            status=self.status,
+            category=self.category,
+            player_logo_url=self.player_logo,
+            video=dict(
+                source='ooyala',
+                source_id=self.external_id,
+                source_username=self.account.name,
+                source_date_uploaded=self.date_added.isoformat(),
+                source_player_parameters=self.player_parameters,
+                thumbnail_url=self.thumbnail,
+                duration=self.duration,
+                description=self.description,
+                link_url=self.link_url,
+                link_title=self.link_title,
+            ),
+        )
+        if with_thumbnails:
+            data['thumbnails'] = [
+                {f: getattr(thumbnail, f) for f in ('url', 'width', 'height')}
+                for thumbnail in self.thumbnails
+            ]
+        return data
+
 
 class VideoThumbnail(db.Model):
     __tablename__ = 'video_thumbnail'
