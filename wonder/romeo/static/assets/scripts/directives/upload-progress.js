@@ -7,7 +7,10 @@ angular.module('RomeoApp.directives')
     restrict : 'E',
     replace : true,
     template : $templateCache.get('upload-progress.html'),
-    link : function (scope, elem, attrs) {
+    scope: {
+      upload : '='
+    },
+    controller : function ($scope, $element) {
 
     }
   };

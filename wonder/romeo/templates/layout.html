@@ -23,6 +23,8 @@
 </head>
 <body ng-app="{% block appName %}RomeoApp{% endblock %}" ng-controller="MainCtrl" class="page-(~ getCurrentRoute() ~)">
 
+    <upload-progress upload="upload"></upload-progress>
+
     {% block content %}
     {% endblock %}
 

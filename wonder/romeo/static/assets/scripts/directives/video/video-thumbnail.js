@@ -1,5 +1,6 @@
 angular.module('RomeoApp.directives')
-  .directive('videoThumbnail', ['$templateCache', function ($templateCache) {
+  .directive('videoThumbnail', ['$templateCache', 'VideoService', '$location', '$sce',
+  function ($templateCache, VideoService, $location, $sce) {
 
   'use strict';
 
@@ -9,32 +10,68 @@ angular.module('RomeoApp.directives')
     template : $templateCache.get('video-thumbnail.html'),
     link : function (scope, elem, attrs) {
 
-      scope.isSelect = false;
-
-      scope.background = attrs.background;
+      scope.showThumbnailSelector = false;
 
       scope.selectThumbnail = function () {
 
-        scope.isSelect = true;
+        console.log('selectThumbnail()');
+
+        console.log(scope.video);
+
+        scope.showThumbnailSelector = true;
+
+        VideoService.getPreviewImages(scope.video.id).then(function(response){
+
+          scope.previewImages = response.image.items;
+          scope.background = response.image.items[0].url;
+          scope.previewIndex = 0;
+        });
+      };
+
+      scope.uploadThumbnail = function () {
+
+        console.log('uploadThumbnail()');
+
+        console.log(scope.video);
       };
 
       scope.previousBackground = function () {
 
-        scope.background = "http://ak.c.ooyala.com/l0dWJnbjpLZ5hwo3aVaBFqpVICC63Wo3/3Gduepif0T1UGY8H4xMDoxOjBhOzV3Va";
+        var index = scope.previewIndex;
+
+        var items = scope.previewImages;
+
+        scope.previewIndex = index > 0 ? index - 1 : 0;
+
+        scope.background =  items[scope.previewIndex].url;
       };
 
       scope.nextBackground = function () {
 
-        scope.background = "http://i.ytimg.com/vi/SyYSBBE1DFw/mqdefault.jpg";
+        var index = scope.previewIndex;
+
+        var items = scope.previewImages;
+
+        var maxIndex = items.length - 1;
+
+        scope.previewIndex = index < maxIndex ? index + 1 : maxIndex;
+
+        scope.background =  items[scope.previewIndex].url;
       };
 
       scope.setBackground = function () {
 
-        //make ajax PATCH call
+        var data = {
+            time: scope.previewImages[scope.previewIndex].time
+        };
 
-        //then show video
+        VideoService.setPreviewImage(scope.video.id, data);
 
-        scope.hasVideo = true;
+        var url = '//' + $location.host() + ':' + $location.port() + '/embed/' + scope.video.id + '/?controls=1';
+
+        scope.embedUrl = $sce.trustAsResourceUrl(url);
+
+        scope.hasThumbnail = true;
       };
     }
   };

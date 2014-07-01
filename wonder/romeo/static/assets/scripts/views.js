@@ -590,6 +590,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('upload-progress.html',
     "<section class=\"upload-progress\">\n" +
     "  <h2>upload progress</h2>\n" +
+    "  <span ng-show=\"upload && upload.progress && upload.progress > 0 && upload.progress < 100\">(~ upload.progress ~)%</span>\n" +
+    "  <span>(~ upload.status ~)</span>\n" +
     "</section>"
   );
 
@@ -879,7 +881,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('video-player.html',
     "<section class=\"video-player\">\n" +
     "  <div class=\"video-player__iframe-container\">\n" +
-    "    <iframe class=\"video-player__frame\" src=\"(~ url ~)\"  width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen></iframe>\n" +
+    "    <iframe class=\"video-player__frame\" ng-src=\"(~ embedUrl ~)\"  width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen></iframe>\n" +
     "  </div>\n" +
     "</section>"
   );
@@ -905,15 +907,15 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('video-thumbnail.html',
     "<section class=\"video-thumbnail\">\n" +
     "\n" +
-    "  <a class=\"video-thumbnail__option video-thumbnail__option--select\" ng-class=\"{ 'video-thumbnail__option--hide' : isSelect }\" ng-click=\"selectThumbnail()\">select generated</a>\n" +
+    "  <a class=\"video-thumbnail__option video-thumbnail__option--select\" ng-class=\"{ 'video-thumbnail__option--disabled' : video.status !== 'ready' }\" ng-hide=\"showThumbnailSelector\" ng-click=\"(video.status !== 'ready') || selectThumbnail()\">select generated</a>\n" +
     "\n" +
-    "  <a class=\"video-thumbnail__option video-thumbnail__option--upload\" ng-class=\"{ 'video-thumbnail__option--hide' : isSelect }\">upload</a>\n" +
+    "  <a class=\"video-thumbnail__option video-thumbnail__option--upload\" ng-hide=\"showThumbnailSelector\" ng-click=\"uploadThumbnail()\">upload</a>\n" +
     "\n" +
-    "  <section class=\"video-thumbnail__selector\" style=\"background-image: url('(~ background ~)');\" ng-class=\"{ 'video-thumbnail__selector--active' : isSelect }\">\n" +
+    "  <section class=\"video-thumbnail__selector\" style=\"background-image: url('(~ background ~)');\" ng-show=\"showThumbnailSelector\">\n" +
     "\n" +
     "    <section class=\"video-thumbnail__select-controls\">\n" +
     "      <a ng-click=\"previousBackground()\">previous</a>\n" +
-    "      <span>(1/2)</span>\n" +
+    "      <span>((~ previewIndex + 1 ~)/(~ previewImages.length ~))</span>\n" +
     "      <a ng-click=\"nextBackground()\">next</a>\n" +
     "\n" +
     "      <a class=\"video-thumbnail__select-link\" ng-click=\"setBackground()\">select</a>\n" +
@@ -952,13 +954,16 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <h3 class=\"video-view__sub-title\" data-placeholder=\"Subtitle\" medium-editor ng-model=\"video.subTitle\"></h2>\n" +
     "\n" +
-    "    <video-player ng-show=\"hasVideo\" url=\"http://localhost:5001/embed/viwAdAYl4is9rfPwmRE39MXA/?controls=1\"></video-player>\n" +
     "\n" +
-    "    <video-upload ng-hide=\"hasVideo\"></video-upload>\n" +
     "\n" +
-    "    <video-thumbnail ng-show=\"hasSelectedVideo && !hasVideo\" data-background=\"http://ak.c.ooyala.com/l0dWJnbjpLZ5hwo3aVaBFqpVICC63Wo3/3Gduepif0T1UGY8H4xMDoxOjBhOzV3Va\"></video-thumbnail>\n" +
+    "    <video-player ng-show=\"hasUploaded && hasThumbnail\" embed-url=\"embedUrl\"></video-player>\n" +
     "\n" +
-    "    <video-color-picker ng-show=\"hasVideo\"></video-color-picker>\n" +
+    "    <video-upload ng-hide=\"isUploading || hasUploaded\"></video-upload>\n" +
+    "\n" +
+    "    <video-thumbnail ng-show=\"(isUploading || hasUploaded) && !hasThumbnail\"></video-thumbnail>\n" +
+    "\n" +
+    "    <video-color-picker ng-show=\"isUploading || hasUploaded\"></video-color-picker>\n" +
+    "\n" +
     "\n" +
     "\n" +
     "    <!-- swap this for same-style link as on other page -->\n" +
@@ -973,9 +978,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <video-extended-controls></video-extended-controls>\n" +
     "\n" +
-    "    <video-indicators ng-show=\"hasVideo\"></video-indicators>\n" +
+    "    <video-indicators ng-show=\"video.status === 'published'\"></video-indicators>\n" +
     "\n" +
-    "    <video-comments ng-show=\"hasVideo\"></video-comments>\n" +
+    "    <video-comments ng-show=\"video.status === 'published'\"></video-comments>\n" +
     "\n" +
     "    <a ng-click=\"cancelChanges()\">cancel</a>\n" +
     "\n" +

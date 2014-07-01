@@ -1,3 +1,5 @@
 <section class="upload-progress">
   <h2>upload progress</h2>
+  <span ng-show="upload && upload.progress && upload.progress > 0 && upload.progress < 100">{{ upload.progress }}%</span>
+  <span>{{ upload.status }}</span>
 </section>

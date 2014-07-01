@@ -1,6 +1,6 @@
 angular.module('RomeoApp.controllers').controller('MainCtrl',
-    ['$scope', '$rootScope', '$timeout', '$location', '$modal', '$element', 'localStorageService', 'AuthService',
-    function ($scope, $rootScope, $timeout, $location, $modal, $element, localStorageService, AuthService) {
+    ['$scope', '$rootScope', '$timeout', '$location', '$modal', '$element', 'localStorageService', 'AuthService', 'UploadService',
+    function ($scope, $rootScope, $timeout, $location, $modal, $element, localStorageService, AuthService, UploadService) {
 
     'use strict';
 
@@ -57,6 +57,27 @@ angular.module('RomeoApp.controllers').controller('MainCtrl',
             });
         });
     };
+
+    $scope.$on('video-upload-start', function (event) {
+      $scope.upload = {};
+      $scope.upload.status = 'uploading';
+      $scope.upload.progress = 0;
+    });
+
+    $scope.$on('video-upload-progress', function (event, data) {
+      $scope.$apply(function () {
+        $scope.upload.status = 'uploading';
+        $scope.upload.progress = data.progress;
+      });
+    });
+
+    $scope.$on('video-upload-complete', function (event) {
+      $scope.upload.status = 'processing';
+    });
+
+    $scope.$on('video-upload-success', function (event) {
+
+    });
 
     /*
     * Listen for route change errors

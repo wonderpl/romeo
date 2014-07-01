@@ -2,14 +2,15 @@
 * Methods for interacting with the Comment web services
 */
 angular.module('RomeoApp.services')
-  .factory('UploadService', ['DataService', 'AuthService', '$q', '$interval', 'VideoService',
-  function (DataService, AuthService, $q, $interval, VideoService) {
+  .factory('UploadService', ['DataService', 'AuthService', '$q', '$timeout', 'VideoService', '$rootScope',
+  function (DataService, AuthService, $q, $timeout, VideoService, $rootScope) {
 
   'use strict';
 
   function getParametersSuccess (id, file, response) {
 
     console.log('getParametersSuccess()');
+    console.log(id);
     console.log(file);
     console.log(response);
 
@@ -57,9 +58,22 @@ angular.module('RomeoApp.services')
         data: formData,
         processData: false,
         mimeType: 'multipart/form-data',
-        contentType: false
-        //xhr: $scope.uploadProgress
+        contentType: false,
+        xhr: uploadProgress
     });
+  }
+
+  function uploadProgress () {
+    var xhr = $.ajaxSettings.xhr();
+    xhr.upload.onprogress = onProgress;
+    return xhr;
+  }
+
+  function onProgress (e) {
+    var progress = e.lengthComputable ? Math.round(e.loaded * 100 / e.total) : 0;
+    var data = { progress: progress };
+    $rootScope.$broadcast('video-upload-progress', data);
+    console.log(progress);
   }
 
   function uploadVideoDone (data, textStatus, jqXHR) {
@@ -69,35 +83,41 @@ angular.module('RomeoApp.services')
     console.log(textStatus);
     console.log(jqXHR);
 
-    // update video with key
-    updateVideo({ filename: cachedkey }, cachedId);
+    $rootScope.$broadcast('video-upload-complete');
 
-    // poll video service with video id
-    pollVideoForReady(cachedId);
+    // update video with key
+    updateVideo({ filename: cachedkey }, cachedId).then(function () {
+      // poll video service with video id
+      pollVideoForReady(cachedId);
+    });
   }
 
-  var promise;
-
   function pollVideoForReady (id) {
-    promise = $interval(function(){
-      VideoService.get(id).then(videoOnReady);
+    $timeout(function(){
+      VideoService.get(id).then(function (response) {
+        $rootScope.$broadcast('video-upload-poll', response);
+        if (videoIsReady(response)) {
+          // broadcast completion to the world
+          $rootScope.$broadcast('video-upload-success', response);
+        } else {
+          pollVideoForReady(id);
+        }
+      });
     }, 10000);
   }
 
-  function videoOnReady (response) {
-    if (response.status === 'ready') {
-      $interval.cancel(promise);
-      // broadcast completion to the world
-    }
+  function videoIsReady (response) {
+    return (response.status === 'ready');
   }
 
   function updateVideo (data, id) {
-
+    console.log('updateVideo()');
+    console.log(data);
+    console.log(id);
     return VideoService.update(id, data);
   }
 
   function uploadVideoFail (jqXHR, textStatus, errorThrown) {
-
     console.log('uploadVideoSuccess()');
     console.log(jqXHR);
     console.log(textStatus);
@@ -105,7 +125,6 @@ angular.module('RomeoApp.services')
   }
 
   function getParametersFail (response) {
-
     console.log('getParametersFail()');
     console.log(response);
   }
@@ -120,15 +139,13 @@ angular.module('RomeoApp.services')
   }
 
   return({
-    uploadVideo : function (id, file) {
-
+    uploadVideo : function (file, id) {
+      console.log('uploadVideo()');
+      console.log(file);
+      console.log(id);
+      $rootScope.$broadcast('video-upload-start');
       return getUploadParameters()
         .then(getParametersSuccess.bind(this, id, file), getParametersFail);
-    },
-    uploadVideos : function (files) {
-
-      // maybe one day ...
-      this.uploadVideo(files[0]);
     }
   });
 

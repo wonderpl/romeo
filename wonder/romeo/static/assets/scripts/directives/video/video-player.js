@@ -4,12 +4,11 @@ angular.module('RomeoApp.directives')
   'use strict';
 
   return {
-    restrict : 'AE',
+    restrict : 'E',
     replace : true,
     template : $templateCache.get('video-player.html'),
-    link : function (scope, elem, attrs) {
-
-      scope.url = $sce.trustAsResourceUrl(elem.attr('url'));
+    scope : {
+      'embedUrl' : '='
     }
   };
 }]);
