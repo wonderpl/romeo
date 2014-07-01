@@ -1,3 +1,5 @@
+from urllib import urlencode
+from hashlib import md5
 from functools import wraps
 from flask import Blueprint, current_app, request, render_template, abort, url_for, json
 from flask.ext.login import current_user, login_required
@@ -408,12 +410,20 @@ class VideoTagVideoResource(Resource):
         return None, 204
 
 
+def _gravatar_url(email):
+    base = current_app.config['GRAVATAR_BASE_URL']
+    hash = md5(email.lower()).hexdigest()
+    query = urlencode(dict(d='mm', s=current_app.config['GRAVATAR_SIZE']))
+    return base + hash + '?' + query
+
+
 def _collaborator_item(collaborator):
     return dict(
         name=collaborator.name,
         email=collaborator.email,
         permissions=filter(None, [f if getattr(collaborator, f) else None
-                                  for f in dir(collaborator) if f.startswith('can_')])
+                                  for f in dir(collaborator) if f.startswith('can_')]),
+        avatar_url=_gravatar_url(collaborator.email),
     )
 
 
@@ -465,7 +475,7 @@ class VideoCommentsResource(Resource):
                 timestamp=comment.timestamp,
                 datetime=comment.date_added.isoformat(),
                 username=username or email,
-                email=email,
+                avatar_url=_gravatar_url(email),
             )
             for comment, username, email in comments
         ]

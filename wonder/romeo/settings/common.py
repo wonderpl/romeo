@@ -60,6 +60,9 @@ COVER_THUMBNAIL_SIZES = (
     (1920, 1080),
 )
 
+GRAVATAR_BASE_URL = "http://www.gravatar.com/avatar/"
+GRAVATAR_SIZE = 48
+
 SQS_REGION = 'eu-west-1'
 SQS_QUEUE_NAME_PREFIX = 'romeo-'
 SQS_DEFAULT_DELAY_SECONDS = 10

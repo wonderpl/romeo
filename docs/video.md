@@ -481,7 +481,7 @@ Content-Type: application/json
     "comment": "This is a comment",
     "timestamp": 60,
     "username": "Paul Egan",
-    "email": "paulegan@rockpack.com"
+    "avatar_url": "http://path/to/small/avatar/img.png"
    }
   ]
  }
