@@ -173,6 +173,7 @@ angular.module('RomeoApp.controllers').controller('UploadCtrl',
     */
     $scope.uploadSuccess = function(response) {
 
+        // update video properties in scope
         $timeout(function() {
             $scope.$apply(function(){
                 $scope.video.filename = $scope.uploadPath;
@@ -180,9 +181,10 @@ angular.module('RomeoApp.controllers').controller('UploadCtrl',
             });
         });
 
+        // update filename for current video in scope
         $scope.updateVideo({ filename: $scope.uploadPath }).then(function() {
 
-
+            // loop until scope file state is 'complete'
             $scope.processingInterval = setInterval(function(){
 
                 if ( $scope.video.id !== null ) {
@@ -191,6 +193,7 @@ angular.module('RomeoApp.controllers').controller('UploadCtrl',
                         if ( response.status === 'ready' ) {
                             clearInterval($scope.processingInterval);
 
+                            // get preview images for video in scope
                             VideoService.getPreviewImages($scope.video.id).then(function(response){
                                 $timeout(function() {
                                     $scope.$apply(function() {

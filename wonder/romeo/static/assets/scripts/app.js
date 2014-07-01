@@ -52,14 +52,19 @@
         });
 
         // Videos
-        $routeProvider.when('/video/:videoID', {
+        $routeProvider.when('/video', {
+            templateUrl: 'video.html'
+        });
+
+        // Videos
+        $routeProvider.when('/video/:id', {
             templateUrl: 'video.html'
         });
 
 
 
         // TEST
-        $routeProvider.when('/prototype/:videoID', {
+        $routeProvider.when('/prototype/:id', {
             templateUrl: 'prototype.html'
         });
 

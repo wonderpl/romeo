@@ -57,6 +57,15 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('add-collaborator.html',
+    "<section class=\"add-collaborator\">\n" +
+    "\n" +
+    "  <h3>Add collaborator</h3>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
   $templateCache.put('analytics.html',
     "<!-- <div class=\"section\">\n" +
     "    <ul id=\"breadcrumb\" class=\"inner\">\n" +
@@ -125,6 +134,24 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    </div>\n" +
     "</div>\n"
+  );
+
+
+  $templateCache.put('category-add-video.html',
+    "<section class=\"category-add-video\">\n" +
+    "\n" +
+    "  <h3>Add video to category</h3>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('collection-add-video.html',
+    "<section class=\"collection-add-video\">\n" +
+    "\n" +
+    "  <h3>Add video to collection</h3>\n" +
+    "\n" +
+    "</section>"
   );
 
 
@@ -771,6 +798,25 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('video-extended-controls.html',
+    "<section class=\"video-extended-controls\">\n" +
+    "\n" +
+    "  <section class=\"video-extended-controls__section\">\n" +
+    "    <category-add-video></category-add-video>\n" +
+    "  </section>\n" +
+    "\n" +
+    "  <section class=\"video-extended-controls__section\">\n" +
+    "    <collection-add-video></collection-add-video>\n" +
+    "  </section>\n" +
+    "\n" +
+    "  <section class=\"video-extended-controls__section\">\n" +
+    "    <add-collaborator></add-collaborator>\n" +
+    "  </section>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
   $templateCache.put('video-indicators.html',
     "<section class=\"video-indicators\">\n" +
     "  <div class=\"video-indicators__scrubber\" ng-model=\"scrubber\" style=\"left: (~ progress ~)%\"></div>\n" +
@@ -814,7 +860,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('video-navigation.html',
-    "<section class=\"video-view-control-panel\">\n" +
+    "<section class=\"video-view-control-panel\" ng-show=\"video.status=='published'\">\n" +
     "  <ul class=\"video-view-control-panel__modes\">\n" +
     "    <li class=\"video-view-control-panel__mode\">\n" +
     "      <a class=\"video-view-control-panel__link\" ng-click=\"displaySection(edit)\">edit</a>\n" +
@@ -882,8 +928,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('video-upload.html',
     "<section class=\"video-upload\" ng-show=\"!isUploading\">\n" +
     "\n" +
-    "  <h2>video upload</h2>\n" +
-    "\n" +
     "  <div class=\"video-upload__dropzone\" ng-file-drop=\"onFileSelect($files)\" ng-file-drag-over-class=\"optional-css-class\" ng-show=\"dropSupported\">\n" +
     "    <p>Drag &amp; drop your video here</p>\n" +
     "    <p>or choose a video from your desktop</p>\n" +
@@ -904,7 +948,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <section class=\"main-view video-view\">\n" +
     "\n" +
-    "    <h2 class=\"video-view__title\" medium-editor ng-model=\"title\"></h2>\n" +
+    "    <h2 class=\"video-view__title\" data-placeholder=\"Untitled Video\" medium-editor ng-model=\"video.title\"></h2>\n" +
+    "\n" +
+    "    <h3 class=\"video-view__sub-title\" data-placeholder=\"Subtitle\" medium-editor ng-model=\"video.subTitle\"></h2>\n" +
     "\n" +
     "    <video-player ng-show=\"hasVideo\" url=\"http://localhost:5001/embed/viwAdAYl4is9rfPwmRE39MXA/?controls=1\"></video-player>\n" +
     "\n" +
@@ -912,7 +958,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <video-thumbnail ng-show=\"hasSelectedVideo && !hasVideo\" data-background=\"http://ak.c.ooyala.com/l0dWJnbjpLZ5hwo3aVaBFqpVICC63Wo3/3Gduepif0T1UGY8H4xMDoxOjBhOzV3Va\"></video-thumbnail>\n" +
     "\n" +
-    "    <video-color-picker ng=\"hasVideo\"></video-color-picker>\n" +
+    "    <video-color-picker ng-show=\"hasVideo\"></video-color-picker>\n" +
     "\n" +
     "\n" +
     "    <!-- swap this for same-style link as on other page -->\n" +
@@ -921,15 +967,19 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </section>\n" +
     "\n" +
     "\n" +
-    "\n" +
-    "\n" +
-    "    <section class=\"video-view__description\" medium-editor ng-model=\"text\"></section>\n" +
+    "    <section class=\"video-view__description\" data-placeholder=\"Additional content including but not limited to: recipes, ingredients, lyrics, stories, etc.\" medium-editor ng-model=\"text\"></section>\n" +
     "\n" +
     "    <video-share></video-share>\n" +
+    "\n" +
+    "    <video-extended-controls></video-extended-controls>\n" +
     "\n" +
     "    <video-indicators ng-show=\"hasVideo\"></video-indicators>\n" +
     "\n" +
     "    <video-comments ng-show=\"hasVideo\"></video-comments>\n" +
+    "\n" +
+    "    <a ng-click=\"cancelChanges()\">cancel</a>\n" +
+    "\n" +
+    "    <a ng-click=\"saveChanges()\">save changes</a>\n" +
     "\n" +
     "  </section>\n" +
     "\n" +

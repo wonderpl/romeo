@@ -5,7 +5,9 @@
 
   <section class="main-view video-view">
 
-    <h2 class="video-view__title" medium-editor ng-model="title"></h2>
+    <h2 class="video-view__title" data-placeholder="Untitled Video" medium-editor ng-model="video.title"></h2>
+
+    <h3 class="video-view__sub-title" data-placeholder="Subtitle" medium-editor ng-model="video.subTitle"></h2>
 
     <video-player ng-show="hasVideo" url="http://localhost:5001/embed/viwAdAYl4is9rfPwmRE39MXA/?controls=1"></video-player>
 
@@ -13,7 +15,7 @@
 
     <video-thumbnail ng-show="hasSelectedVideo && !hasVideo" data-background="http://ak.c.ooyala.com/l0dWJnbjpLZ5hwo3aVaBFqpVICC63Wo3/3Gduepif0T1UGY8H4xMDoxOjBhOzV3Va"></video-thumbnail>
 
-    <video-color-picker ng="hasVideo"></video-color-picker>
+    <video-color-picker ng-show="hasVideo"></video-color-picker>
 
 
     <!-- swap this for same-style link as on other page -->
@@ -22,15 +24,19 @@
     </section>
 
 
-
-
-    <section class="video-view__description" medium-editor ng-model="text"></section>
+    <section class="video-view__description" data-placeholder="Additional content including but not limited to: recipes, ingredients, lyrics, stories, etc." medium-editor ng-model="text"></section>
 
     <video-share></video-share>
+
+    <video-extended-controls></video-extended-controls>
 
     <video-indicators ng-show="hasVideo"></video-indicators>
 
     <video-comments ng-show="hasVideo"></video-comments>
+
+    <a ng-click="cancelChanges()">cancel</a>
+
+    <a ng-click="saveChanges()">save changes</a>
 
   </section>
 

@@ -5414,7 +5414,6 @@ body {
   width: 960px;
   height: 540px;
   border: 2px dashed #b4b2bc;
-  border-radius: 10px;
 }
 
 /* line 1, ../../scss/components/video/_video-thumbnail.scss */
@@ -5491,6 +5490,16 @@ body {
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.5);
   width: 100%;
+}
+
+/* line 1, ../../scss/components/video/_video-extended-controls.scss */
+.video-extended-controls {
+  border-top: solid 1px #999999;
+}
+
+/* line 6, ../../scss/components/video/_video-extended-controls.scss */
+.video-extended-controls__section {
+  border-bottom: solid 1px #999999;
 }
 
 @media screen and (max-width: 480px) {
