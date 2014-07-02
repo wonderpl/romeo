@@ -66,6 +66,7 @@ class VideoForm(BaseForm):
     model = Video
 
     title = wtforms.StringField(validators=[wtforms.validators.Required()])
+    strapline = wtforms.StringField()
     description = wtforms.StringField()
     category = wtforms.SelectField(validators=[wtforms.validators.Optional()])
     filename = wtforms.StringField()

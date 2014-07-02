@@ -214,7 +214,7 @@ class PublicVideoResource(Resource):
 def _video_item(video, full=False):
     fields = ('id', 'href', 'status', 'date_added', 'date_updated', 'title')
     if full:
-        fields += ('description', 'category', 'link_url', 'link_title', 'duration')
+        fields += ('strapline', 'description', 'category', 'link_url', 'link_title', 'duration')
     data = {f: getattr(video, f) for f in fields}
 
     # Convert dates to strings:

@@ -2,7 +2,7 @@ import os
 from urlparse import urljoin
 from itsdangerous import URLSafeSerializer
 from sqlalchemy import (
-    Column, Integer, String, Boolean, DateTime, ForeignKey, Enum,
+    Column, Integer, String, Text, Boolean, DateTime, ForeignKey, Enum,
     PrimaryKeyConstraint, func, event)
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.orm.exc import NoResultFound
@@ -105,6 +105,7 @@ class Video(db.Model):
             lambda self, value: setattr(self.default_locale_meta, property, value),
         )
 
+    strapline = property(*_default_locale_meta_property('strapline'))
     description = property(*_default_locale_meta_property('description'))
     link_url = property(*_default_locale_meta_property('link_url'))
     link_title = property(*_default_locale_meta_property('link_title'))
@@ -169,7 +170,8 @@ class VideoLocaleMeta(db.Model):
     link_url = Column(String(2048))
     link_title = Column(String(1024))
     title = Column(String(256))
-    description = Column(String(256))
+    strapline = Column(String(1024))
+    description = Column(Text)
 
     video = relationship(Video, backref='locale_meta')
 
@@ -179,7 +181,7 @@ class VideoPlayerParameter(db.Model):
 
     id = Column(Integer, primary_key=True)
     video_id = Column('video', ForeignKey(Video.id), nullable=False)
-    name = Column(String(1024), nullable=False)
+    name = Column(String(32), nullable=False)
     value = Column(String(1024), nullable=False)
 
     video = relationship(Video, backref='_player_parameters')
