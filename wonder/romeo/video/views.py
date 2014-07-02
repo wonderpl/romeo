@@ -315,9 +315,10 @@ class VideoPrimaryPreviewImageResource(Resource):
         thumbnails = ooyala_request(
             'assets', video.external_id, 'primary_preview_image',
             data=json.dumps(dict(type='generated', time=args['time'])), method='put')
-        for t in thumbnails['sizes']:
-            del t['time']
-        video.thumbnails = [VideoThumbnail(**t) for t in thumbnails['sizes']]
+        video.thumbnails = [
+            VideoThumbnail(url=t['url'], width=t['width'], height=t['height'])
+            for t in thumbnails['sizes']
+        ]
         return dict(image=dict(items=thumbnails['sizes']))
 
 
