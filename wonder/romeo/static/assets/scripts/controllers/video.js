@@ -1,22 +1,36 @@
 angular.module('fileUpload', [ 'angularFileUpload' ]);
 
 angular.module('RomeoApp.controllers')
-  .controller('VideoCtrl', ['$rootScope', '$scope', '$location', 'AuthService', '$upload', 'UploadService', '$routeParams', 'VideoService',
-  function($rootScope, $scope, $location, AuthService, $upload, UploadService, $routeParams, VideoService) {
+  .controller('VideoCtrl', ['$rootScope', '$scope', '$location', 'AuthService', '$upload', 'UploadService', '$routeParams', 'VideoService', '$sce',
+  function($rootScope, $scope, $location, AuthService, $upload, UploadService, $routeParams, VideoService, $sce) {
 
   'use strict';
+
+  initialiseNewScope();
 
   if ($routeParams.id) {
 
     // load video
+
+    VideoService.get($routeParams.id).then(function (data) {
+
+      angular.extend($scope.video, data);
+
+      var url = '//' + $location.host() + ':' + $location.port() + '/embed/' + $scope.video.id + '/?controls=1';
+      $scope.embedUrl = $sce.trustAsResourceUrl(url);
+
+      if ($scope.video.duration) {
+        $scope.hasThumbnail = true;
+        $scope.hasUploaded = true;
+      }
+
+    });
 
   } else {
 
     //'uploading', 'processing', 'error', 'ready', 'published'
 
     // can't create video until title is added
-
-    initialiseNewScope();
 
     var data = { title : $scope.video.title };
 

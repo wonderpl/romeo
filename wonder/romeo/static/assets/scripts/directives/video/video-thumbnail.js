@@ -67,8 +67,8 @@ angular.module('RomeoApp.directives')
 
         VideoService.setPreviewImage(scope.video.id, data);
 
+        // move this out somewhere
         var url = '//' + $location.host() + ':' + $location.port() + '/embed/' + scope.video.id + '/?controls=1';
-
         scope.embedUrl = $sce.trustAsResourceUrl(url);
 
         scope.hasThumbnail = true;
