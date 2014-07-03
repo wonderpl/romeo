@@ -53,13 +53,13 @@ angular.module('RomeoApp.services')
 
     // use data service ?
     return $.ajax({
-        url: uploadParameters.action,
-        type: 'post',
-        data: formData,
-        processData: false,
-        mimeType: 'multipart/form-data',
-        contentType: false,
-        xhr: uploadProgress
+      url: uploadParameters.action,
+      type: 'post',
+      data: formData,
+      processData: false,
+      mimeType: 'multipart/form-data',
+      contentType: false,
+      xhr: uploadProgress
     });
   }
 

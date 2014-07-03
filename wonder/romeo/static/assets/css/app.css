@@ -4986,6 +4986,40 @@ a.button__primary:hover {
 /*!
 ========== SPECIFICS
 */
+/* line 1, ../../scss/specifics/video/_video-edit.scss */
+.video-edit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  min-height: 100%;
+  width: 100%;
+}
+
+/* line 10, ../../scss/specifics/video/_video-edit.scss */
+.video-edit__zone {
+  border: dashed 1px red;
+  width: 100%;
+}
+
+/* line 15, ../../scss/specifics/video/_video-edit.scss */
+.video-edit__preview {
+  height: 500px;
+}
+
+/* line 19, ../../scss/specifics/video/_video-edit.scss */
+.video-edit__player-controls {
+  height: 40px;
+}
+
+/* line 23, ../../scss/specifics/video/_video-edit.scss */
+.color-picker {
+  position: absolute;
+  bottom: 50px;
+  right: 20px;
+  display: inline-block;
+}
+
 /* line 1, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback {
   max-width: 600px;

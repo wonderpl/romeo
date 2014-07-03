@@ -2,7 +2,7 @@
 
   <a class="video-thumbnail__option video-thumbnail__option--select" ng-class="{ 'video-thumbnail__option--disabled' : video.status !== 'ready' }" ng-hide="showThumbnailSelector" ng-click="(video.status !== 'ready') || selectThumbnail()">select generated</a>
 
-  <a class="video-thumbnail__option video-thumbnail__option--upload" ng-hide="showThumbnailSelector" ng-click="uploadThumbnail()">upload</a>
+  <section class="video-thumbnail__option video-thumbnail__option--upload" ng-hide="showThumbnailSelector" ng-file-drop="onPreviewImageSelect($files)" ng-file-select="onPreviewImageSelect($files)">upload</section>
 
   <section class="video-thumbnail__selector" style="background-image: url('{{ background }}');" ng-show="showThumbnailSelector">
 

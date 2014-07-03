@@ -58,7 +58,8 @@ angular.module('RomeoApp.directives', []).directive('colorPicker', function () {
       elem.spectrum({
         change: spectrumOnChange,
         move: spectrumOnChange,
-        showButtons: false
+        showButtons: false,
+        flat: true
       });
 
       ngModel.$render = function () {

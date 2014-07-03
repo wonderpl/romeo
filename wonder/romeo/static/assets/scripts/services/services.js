@@ -342,7 +342,6 @@
             AuthService.getSessionId().then(function(response){
                 DataService.request({ url: '/api/account/' + response + '/videos', method: 'GET'}).then(function(response){
                     // $rootScope.$broadcast('videos updated', response);
-                    console.log(response.video.items);
                     Videos = response.video.items;
                     $rootScope.Videos = response.video.items;
                 });

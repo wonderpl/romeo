@@ -792,7 +792,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('video-color-picker.html',
     "<section class=\"color-picker\">\n" +
-    "  <input ng-model=\"color\" />\n" +
     "  <input color-picker ng-model=\"color\" />\n" +
     "</section>"
   );
@@ -833,6 +832,17 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    </ul>\n" +
     "  </section>\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('video-edit.html',
+    "<section class=\"video-edit\">\n" +
+    "\n" +
+    "<section class=\"video-edit__zone video-edit__preview\" ng-click=\"updatePreview()\"></section>\n" +
+    "\n" +
+    "<section class=\"video-edit__zone video-edit__player-controls\" ng-click=\"showColorPicker = !showColorPicker\"></section>\n" +
+    "\n" +
     "</section>"
   );
 
@@ -963,7 +973,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <a class=\"video-thumbnail__option video-thumbnail__option--select\" ng-class=\"{ 'video-thumbnail__option--disabled' : video.status !== 'ready' }\" ng-hide=\"showThumbnailSelector\" ng-click=\"(video.status !== 'ready') || selectThumbnail()\">select generated</a>\n" +
     "\n" +
-    "  <a class=\"video-thumbnail__option video-thumbnail__option--upload\" ng-hide=\"showThumbnailSelector\" ng-click=\"uploadThumbnail()\">upload</a>\n" +
+    "  <section class=\"video-thumbnail__option video-thumbnail__option--upload\" ng-hide=\"showThumbnailSelector\" ng-file-drop=\"onPreviewImageSelect($files)\" ng-file-select=\"onPreviewImageSelect($files)\">upload</section>\n" +
     "\n" +
     "  <section class=\"video-thumbnail__selector\" style=\"background-image: url('(~ background ~)');\" ng-show=\"showThumbnailSelector\">\n" +
     "\n" +
@@ -1008,16 +1018,24 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <h3 class=\"video-view__sub-title\" data-placeholder=\"Subtitle\" medium-editor ng-model=\"video.subTitle\"></h2>\n" +
     "\n" +
-    "    <video-player ng-show=\"hasUploaded && hasThumbnail\" embed-url=\"embedUrl\"></video-player>\n" +
+    "    <div style=\"position: relative;\">\n" +
     "\n" +
-    "    <video-upload ng-hide=\"isUploading || hasUploaded\"></video-upload>\n" +
+    "      <video-player ng-show=\"hasUploaded && hasThumbnail\" embed-url=\"embedUrl\"></video-player>\n" +
     "\n" +
-    "    <video-thumbnail ng-show=\"(isUploading || hasUploaded) && !hasThumbnail\"></video-thumbnail>\n" +
+    "      <video-edit></video-edit>\n" +
     "\n" +
-    "    <video-color-picker ng-show=\"isUploading || hasUploaded\"></video-color-picker>\n" +
+    "      <video-color-picker ng-show=\"showColorPicker\"></video-color-picker>\n" +
+    "\n" +
+    "      <video-thumbnail ng-show=\"(video.status === 'processing' || isUploading || hasUploaded) && !hasThumbnail\"></video-thumbnail>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <video-upload ng-hide=\"video.status === 'processing' || isUploading || hasUploaded\"></video-upload>\n" +
+    "\n" +
+    "\n" +
     "\n" +
     "\n" +
     "    <video-more-link text=\"link_title\" url=\"link_url\"></video-more-link>\n" +
+    "\n" +
     "\n" +
     "\n" +
     "    <section class=\"video-view__description\" data-placeholder=\"Additional content including but not limited to: recipes, ingredients, lyrics, stories, etc.\" medium-editor ng-model=\"text\"></section>\n" +

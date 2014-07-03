@@ -9,16 +9,24 @@
 
     <h3 class="video-view__sub-title" data-placeholder="Subtitle" medium-editor ng-model="video.subTitle"></h2>
 
-    <video-player ng-show="hasUploaded && hasThumbnail" embed-url="embedUrl"></video-player>
+    <div style="position: relative;">
 
-    <video-upload ng-hide="isUploading || hasUploaded"></video-upload>
+      <video-player ng-show="hasUploaded && hasThumbnail" embed-url="embedUrl"></video-player>
 
-    <video-thumbnail ng-show="(isUploading || hasUploaded) && !hasThumbnail"></video-thumbnail>
+      <video-edit></video-edit>
 
-    <video-color-picker ng-show="isUploading || hasUploaded"></video-color-picker>
+      <video-color-picker ng-show="showColorPicker"></video-color-picker>
+
+      <video-thumbnail ng-show="(video.status === 'processing' || isUploading || hasUploaded) && !hasThumbnail"></video-thumbnail>
+    </div>
+
+    <video-upload ng-hide="video.status === 'processing' || isUploading || hasUploaded"></video-upload>
+
+
 
 
     <video-more-link text="link_title" url="link_url"></video-more-link>
+
 
 
     <section class="video-view__description" data-placeholder="Additional content including but not limited to: recipes, ingredients, lyrics, stories, etc." medium-editor ng-model="text"></section>

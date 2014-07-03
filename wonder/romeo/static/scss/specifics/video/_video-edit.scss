@@ -1,0 +1,28 @@
+.video-edit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  min-height: 100%;
+  width: 100%;
+}
+
+.video-edit__zone {
+  border: dashed 1px red;
+  width: 100%;
+}
+
+.video-edit__preview {
+  height: 500px;
+}
+
+.video-edit__player-controls {
+  height: 40px;
+}
+
+.color-picker {
+  position: absolute;
+  bottom: 50px;
+  right: 20px;
+  display: inline-block;
+}

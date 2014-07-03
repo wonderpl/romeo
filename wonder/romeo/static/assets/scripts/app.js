@@ -53,12 +53,14 @@
 
         // Videos
         $routeProvider.when('/video', {
-            templateUrl: 'video.html'
+            templateUrl: 'video.html',
+            resolve: authChecks
         });
 
         // Videos
         $routeProvider.when('/video/:id', {
-            templateUrl: 'video.html'
+            templateUrl: 'video.html',
+            resolve: authChecks
         });
 
 

@@ -41,6 +41,11 @@ angular.module('RomeoApp.controllers')
     $scope.hasUploaded = false;
   }
 
+  $scope.onPreviewImageSelect = function (files) {
+
+    console.log(files);
+  };
+
   $scope.onFileSelect = function(files) {
 
     $scope.video.title = $scope.video.title || files[0].name;
@@ -48,7 +53,6 @@ angular.module('RomeoApp.controllers')
     var data = { title : $scope.video.title };
 
     VideoService.create(data).then(function (data) {
-      //update url with id
       persistVideoData(data);
       UploadService.uploadVideo(files[0], data.id);
     });
