@@ -159,23 +159,6 @@
   }
 }
 
-a.big-button {
-  display: block;
-  font-size: 48px;
-  color: #fff;
-  margin: 12px auto;
-  background: $flat-green-4;
-  padding: 16px;
-  text-decoration: none;
-  @include border-radius(5px);
-  @include transition( all .1s ease-out );
-  width: 470px;
-
-  &:hover, &:focus, &:active {
-    background: $flat-orange-1;
-  }
-}
-
 .center-divide {
   display: block;
   position: absolute;
@@ -1194,23 +1177,6 @@ video, canvas {
     display: block;
     padding: 8px;
     text-align: center;
-  }
-
-  button {
-    background: white;
-    @include inline-block;
-    padding: 10px 14px;
-    margin: 0 12px;
-    border: 1px solid #37A54B;
-    color: #37A54B;
-    @include border-radius( 50px );
-    cursor: pointer;
-    text-decoration: none;
-    @include transition( all .1s ease-out );
-
-    &:hover, &:focus, &:active {
-      outline: none;
-    }
   }
 
 }

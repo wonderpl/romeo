@@ -60,7 +60,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('add-collaborator.html',
     "<section class=\"add-collaborator\">\n" +
     "\n" +
-    "  <h3>Add collaborator</h3>\n" +
+    "  <h4>Add collaborator</h4>\n" +
     "\n" +
     "</section>"
   );
@@ -140,7 +140,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('category-add-video.html',
     "<section class=\"category-add-video\">\n" +
     "\n" +
-    "  <h3>Add video to category</h3>\n" +
+    "  <h4>Add video to category</h4>\n" +
     "\n" +
     "</section>"
   );
@@ -149,7 +149,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('collection-add-video.html',
     "<section class=\"collection-add-video\">\n" +
     "\n" +
-    "  <h3>Add video to collection</h3>\n" +
+    "  <h4>Add video to collection</h4>\n" +
     "\n" +
     "</section>"
   );
@@ -510,6 +510,44 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('page-header.html',
+    "<header class=\"page-header\">\n" +
+    "  <h1 class=\"page-header__logo\">\n" +
+    "    <a class=\"page-header__logo-link hide-text\" href=\"/#/\">WonderPl</a>\n" +
+    "  </h1>\n" +
+    "    <!-- <a href=\"/#/library\" class=\"manage wp-button\">Manage</a> -->\n" +
+    "    <!-- <a href=\"/#/\" id=\"wonder\"></a> -->\n" +
+    "    <!-- <span ng-if=\"isLoggedIn\"> -->\n" +
+    "        <!--<a class=\"delete wp-button\">Delete</a>-->\n" +
+    "        <!-- <a class=\"save-draft wp-button\" ng-click=\"save()\">Save Draft</a> -->\n" +
+    "        <!--<a class=\"quick-share wp-button\" ng-click=\"toggleQuickShare()\">Quick Share</a>-->\n" +
+    "        <!--<a class=\"publish wp-button\">Publish</a>-->\n" +
+    "        <!-- <a class=\"save-upload wp-button call-to-action\" ng-click=\"save()\" ng-show=\"isCurrentPage('/upload')\">Save</a> -->\n" +
+    "        <!-- <a href=\"/#/manage\" class=\"manage wp-button\">Manage</a> -->\n" +
+    "        <!-- <a href=\"/#/upload\" class=\"upload wp-button\">Upload</a> -->\n" +
+    "        <!-- <a href=\"/#/account\" class=\"avatar\" style=\"background-image: url((~ User.avatar ~));\"></a> -->\n" +
+    "    <!-- </span> -->\n" +
+    "    <!-- <span ng-if=\"!isLoggedIn\"> -->\n" +
+    "        <!-- <a class=\"login wp-button\">Login</a> -->\n" +
+    "    <!-- </span> -->\n" +
+    "\n" +
+    "  <upload-progress upload=\"upload\" ng-if=\"isLoggedIn\"></upload-progress>\n" +
+    "\n" +
+    "  <nav class=\"page-header__navigation\" ng-if=\"isLoggedIn\">\n" +
+    "    <ul class=\"page-header__navigation-list\">\n" +
+    "      <li class=\"page-header__navigation-item\"><a class=\"page-header__navigation-link page-header__link\" href=\"/#/manage\">manage</a></li>\n" +
+    "      <li class=\"page-header__navigation-item\"><a class=\"page-header__navigation-link page-header__link\" href=\"/#/upload\">upload</a></li>\n" +
+    "    </ul>\n" +
+    "  </nav>\n" +
+    "\n" +
+    "  <section class=\"page-header__current-user\" ng-if=\"isLoggedIn\">\n" +
+    "    <a href=\"/#/account\" class=\"page-header__link page-header__profile-link\" style=\"background-image: url((~ User.avatar ~));\">(~ User.display_name ~)</a>\n" +
+    "  </section>\n" +
+    "\n" +
+    "</header>"
+  );
+
+
   $templateCache.put('prototype.html',
     "\n" +
     "<upload-progress></upload-progress>\n" +
@@ -589,7 +627,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('upload-progress.html',
     "<section class=\"upload-progress\">\n" +
-    "  <h2>upload progress</h2>\n" +
     "  <span ng-show=\"upload && upload.progress && upload.progress > 0 && upload.progress < 100\">(~ upload.progress ~)%</span>\n" +
     "  <span>(~ upload.status ~)</span>\n" +
     "</section>"
@@ -864,7 +901,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('video-more-link.html',
     "<section class=\"video-more\">\n" +
     "\n" +
-    "  <a class=\"video-more__link\" ng-click=\"(showMoreLinkConfigPanel = !showMoreLinkConfigPanel)\">(~ text ? text : 'Add a link&hellip;' ~)</a>\n" +
+    "  <a class=\"video-more__link button button__primary\" ng-click=\"(showMoreLinkConfigPanel = !showMoreLinkConfigPanel)\">(~ text ? text : 'Add a link&hellip;' ~)</a>\n" +
     "\n" +
     "  <section class=\"video-more__form\" ng-show=\"showMoreLinkConfigPanel\">\n" +
     "\n" +
@@ -970,8 +1007,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <h2 class=\"video-view__title\" data-placeholder=\"Untitled Video\" medium-editor ng-model=\"video.title\"></h2>\n" +
     "\n" +
     "    <h3 class=\"video-view__sub-title\" data-placeholder=\"Subtitle\" medium-editor ng-model=\"video.subTitle\"></h2>\n" +
-    "\n" +
-    "\n" +
     "\n" +
     "    <video-player ng-show=\"hasUploaded && hasThumbnail\" embed-url=\"embedUrl\"></video-player>\n" +
     "\n" +

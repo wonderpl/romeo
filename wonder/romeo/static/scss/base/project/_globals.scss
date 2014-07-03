@@ -12,6 +12,25 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.main-view {
-  margin-top: 50px;
+.container {
+  max-width: $containerWidth + px;
+  margin: 0 auto;
+}
+
+a,
+a:hover,
+a:visited {
+ text-decoration: none;
+}
+
+h2 {
+  margin: 0 0 1em;
+  font-size: 3em;
+  line-height: 1.5;
+}
+
+h3 {
+  margin: 0 0 1em;
+  font-size: 2.375em;
+  line-height: 1.5;
 }

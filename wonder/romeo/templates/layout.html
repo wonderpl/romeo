@@ -23,10 +23,10 @@
 </head>
 <body ng-app="{% block appName %}RomeoApp{% endblock %}" ng-controller="MainCtrl" class="page-(~ getCurrentRoute() ~)">
 
-    <upload-progress upload="upload"></upload-progress>
-
+  <div class="container">
     {% block content %}
     {% endblock %}
+  </div>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
@@ -122,6 +122,8 @@
             "assets/scripts/directives/add-collaborator.js",
 
             "assets/scripts/directives/upload-progress.js",
+
+            "assets/scripts/directives/page-header.js",
 
 
             "assets/vendor/js/angular-medium-editor.js"

@@ -1,6 +1,6 @@
 angular.module('RomeoApp.controllers').controller('MainCtrl',
-    ['$scope', '$rootScope', '$timeout', '$location', '$modal', '$element', 'localStorageService', 'AuthService', 'UploadService',
-    function ($scope, $rootScope, $timeout, $location, $modal, $element, localStorageService, AuthService, UploadService) {
+    ['$scope', '$rootScope', '$timeout', '$location', '$modal', '$element', 'localStorageService', 'AuthService', 'UploadService', 'AccountService',
+    function ($scope, $rootScope, $timeout, $location, $modal, $element, localStorageService, AuthService, UploadService, AccountService) {
 
     'use strict';
 

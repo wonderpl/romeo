@@ -1,0 +1,34 @@
+<header class="page-header">
+  <h1 class="page-header__logo">
+    <a class="page-header__logo-link hide-text" href="/#/">WonderPl</a>
+  </h1>
+    <!-- <a href="/#/library" class="manage wp-button">Manage</a> -->
+    <!-- <a href="/#/" id="wonder"></a> -->
+    <!-- <span ng-if="isLoggedIn"> -->
+        <!--<a class="delete wp-button">Delete</a>-->
+        <!-- <a class="save-draft wp-button" ng-click="save()">Save Draft</a> -->
+        <!--<a class="quick-share wp-button" ng-click="toggleQuickShare()">Quick Share</a>-->
+        <!--<a class="publish wp-button">Publish</a>-->
+        <!-- <a class="save-upload wp-button call-to-action" ng-click="save()" ng-show="isCurrentPage('/upload')">Save</a> -->
+        <!-- <a href="/#/manage" class="manage wp-button">Manage</a> -->
+        <!-- <a href="/#/upload" class="upload wp-button">Upload</a> -->
+        <!-- <a href="/#/account" class="avatar" style="background-image: url((~ User.avatar ~));"></a> -->
+    <!-- </span> -->
+    <!-- <span ng-if="!isLoggedIn"> -->
+        <!-- <a class="login wp-button">Login</a> -->
+    <!-- </span> -->
+
+  <upload-progress upload="upload" ng-if="isLoggedIn"></upload-progress>
+
+  <nav class="page-header__navigation" ng-if="isLoggedIn">
+    <ul class="page-header__navigation-list">
+      <li class="page-header__navigation-item"><a class="page-header__navigation-link page-header__link" href="/#/manage">manage</a></li>
+      <li class="page-header__navigation-item"><a class="page-header__navigation-link page-header__link" href="/#/upload">upload</a></li>
+    </ul>
+  </nav>
+
+  <section class="page-header__current-user" ng-if="isLoggedIn">
+    <a href="/#/account" class="page-header__link page-header__profile-link" style="background-image: url((~ User.avatar ~));">(~ User.display_name ~)</a>
+  </section>
+
+</header>
