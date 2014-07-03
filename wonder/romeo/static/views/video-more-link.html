@@ -1,0 +1,13 @@
+<section class="video-more">
+
+  <a class="video-more__link" ng-click="(showMoreLinkConfigPanel = !showMoreLinkConfigPanel)">{{ text ? text : 'Add a link&hellip;' }}</a>
+
+  <section class="video-more__form" ng-show="showMoreLinkConfigPanel">
+
+    <input ng-model="text" placeholder="Create a custom button..." />
+
+    <input ng-model="url" placeholder="http://google.com/" />
+
+  </section>
+
+</section>

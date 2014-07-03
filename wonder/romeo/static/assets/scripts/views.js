@@ -861,6 +861,23 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('video-more-link.html',
+    "<section class=\"video-more\">\n" +
+    "\n" +
+    "  <a class=\"video-more__link\" ng-click=\"(showMoreLinkConfigPanel = !showMoreLinkConfigPanel)\">(~ text ? text : 'Add a link&hellip;' ~)</a>\n" +
+    "\n" +
+    "  <section class=\"video-more__form\" ng-show=\"showMoreLinkConfigPanel\">\n" +
+    "\n" +
+    "    <input ng-model=\"text\" placeholder=\"Create a custom button...\" />\n" +
+    "\n" +
+    "    <input ng-model=\"url\" placeholder=\"http://google.com/\" />\n" +
+    "\n" +
+    "  </section>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
   $templateCache.put('video-navigation.html',
     "<section class=\"video-view-control-panel\" ng-show=\"video.status=='published'\">\n" +
     "  <ul class=\"video-view-control-panel__modes\">\n" +
@@ -965,11 +982,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <video-color-picker ng-show=\"isUploading || hasUploaded\"></video-color-picker>\n" +
     "\n" +
     "\n" +
-    "\n" +
-    "    <!-- swap this for same-style link as on other page -->\n" +
-    "    <section class=\"video-more\">\n" +
-    "      <p class=\"video-more__link\" medium-editor ng-model=\"more\"></p>\n" +
-    "    </section>\n" +
+    "    <video-more-link text=\"link_title\" url=\"link_url\"></video-more-link>\n" +
     "\n" +
     "\n" +
     "    <section class=\"video-view__description\" data-placeholder=\"Additional content including but not limited to: recipes, ingredients, lyrics, stories, etc.\" medium-editor ng-model=\"text\"></section>\n" +
