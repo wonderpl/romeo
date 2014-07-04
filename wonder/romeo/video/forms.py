@@ -12,7 +12,7 @@ from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.dolly import get_categories, push_video_data
 from wonder.romeo.core.ooyala import create_asset, ooyala_request
 from wonder.romeo.core.email import send_email, email_template_env
-from wonder.romeo.core.s3 import upload_file, download_file, media_bucket
+from wonder.romeo.core.s3 import upload_file, download_file, media_bucket, video_bucket
 from wonder.romeo.core.sqs import background_on_sqs
 from wonder.romeo.account.models import AccountUser
 from .models import Video, VideoTag, VideoThumbnail, VideoComment, VideoCollaborator
@@ -113,9 +113,11 @@ class VideoForm(BaseForm):
             field.data = None
 
     def validate_filename(self, field):
-        # TODO: Check account id?
         if field.data:
             field.data = field.data.rsplit('/')[-1]
+            filepath = Video.get_video_filepath(self.account_id, field.data)
+            if not video_bucket.get_key(filepath):
+                raise wtforms.ValidationError('%s not found.' % filepath)
 
     def validate_cover_image(self, field):
         if field.data:
