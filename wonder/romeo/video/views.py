@@ -1,7 +1,7 @@
 from urllib import urlencode
 from hashlib import md5
 from functools import wraps
-from flask import Blueprint, current_app, request, render_template, abort, url_for, json
+from flask import Blueprint, current_app, request, Response, render_template, abort, url_for, json
 from flask.ext.login import current_user, login_required
 from flask.ext.restful.reqparse import RequestParser
 from wonder.romeo import db
@@ -69,7 +69,9 @@ def ooyala_callback():
 @videoapp.route('/embed/<videoid>/')
 @videoapp.route('/embed/<videoid>')
 def video_embed(videoid):
-    return get_video_embed_content(videoid)
+    response = Response(get_video_embed_content(videoid))
+    response.cache_control.no_cache = True
+    return response
 
 
 @api_resource('/categories')
