@@ -10,7 +10,10 @@ angular.module('RomeoApp.directives')
     link : function (scope, elem, attrs) {
 
       scope.updatePreview = function () {
-
+        scope.showPreviewSelector = true;
+        scope.invertPreviewSelector = true;
+        scope.showVideoEdit = false;
+        scope.showColorPicker = false;
       };
     }
   };

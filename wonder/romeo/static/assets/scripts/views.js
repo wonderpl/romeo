@@ -911,7 +911,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('video-more-link.html',
     "<section class=\"video-more\">\n" +
     "\n" +
-    "  <a class=\"video-more__link button button__primary\" ng-click=\"(showMoreLinkConfigPanel = !showMoreLinkConfigPanel)\">(~ text ? text : 'Add a link&hellip;' ~)</a>\n" +
+    "  <a class=\"video-more__link button\" ng-click=\"(showMoreLinkConfigPanel = !showMoreLinkConfigPanel)\">(~ text ? text : 'Add a link (optional) &hellip;' ~)</a>\n" +
     "\n" +
     "  <section class=\"video-more__form\" ng-show=\"showMoreLinkConfigPanel\">\n" +
     "\n" +
@@ -969,20 +969,36 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('video-thumbnail.html',
-    "<section class=\"video-thumbnail\">\n" +
+    "<section class=\"video-preview\" ng-class=\"{ 'video-preview--invert' : invertPreviewSelector }\">\n" +
     "\n" +
-    "  <a class=\"video-thumbnail__option video-thumbnail__option--select\" ng-class=\"{ 'video-thumbnail__option--disabled' : video.status !== 'ready' }\" ng-hide=\"showThumbnailSelector\" ng-click=\"(video.status !== 'ready') || selectThumbnail()\">select generated</a>\n" +
+    "  <a class=\"video-thumbnail__option video-thumbnail__option--select\" ng-class=\"{ 'video-thumbnail__option--disabled' : video.status !== 'ready' }\" ng-hide=\"showThumbnailSelector\" ng-click=\"(video.status !== 'ready') || selectThumbnail()\">Pick a generated thumbnail</a>\n" +
     "\n" +
-    "  <section class=\"video-thumbnail__option video-thumbnail__option--upload\" ng-hide=\"showThumbnailSelector\" ng-file-drop=\"onPreviewImageSelect($files)\" ng-file-select=\"onPreviewImageSelect($files)\">upload</section>\n" +
+    "  <section class=\"video-thumbnail__option video-thumbnail__option--upload\" ng-hide=\"showThumbnailSelector\" ng-file-drop=\"onPreviewImageSelect($files)\" ng-file-select=\"onPreviewImageSelect($files)\">\n" +
+    "    <p>Choose your own thumbnail</p>\n" +
+    "    <input type=\"file\" ng-file-select=\"onPreviewImageSelect($files)\" />\n" +
+    "    <div ng-file-drop-available=\"dropSupported=true\" ng-show=\"!dropSupported\">HTML5 Drop File is not supported!</div>\n" +
+    "  </section>\n" +
     "\n" +
-    "  <section class=\"video-thumbnail__selector\" style=\"background-image: url('(~ background ~)');\" ng-show=\"showThumbnailSelector\">\n" +
+    "  <section class=\"video-thumbnail__option video-preview__option--cancel\" ng-hide=\"showThumbnailSelector || !videoHasLoaded\" ng-click=\"closePreviewSelector()\">\n" +
+    "    <p>Cancel</p>\n" +
+    "  </section>\n" +
+    "\n" +
+    "  <section class=\"video-thumbnail__selector\" ng-show=\"showThumbnailSelector\">\n" +
+    "    <a class=\"video-preview__close-link\" ng-click=\"closePreviewSelector()\">×</a>\n" +
+    "    <section class=\"video-preview__images-container\">\n" +
+    "      <ul class=\"video-preview__available-images\">\n" +
+    "        <li class=\"video-preview__available-image-container\" ng-repeat=\"preview in previewImages\">\n" +
+    "          <img class=\"video-preview__available-image\" src=\"(~ preview.url ~)\" />\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "    </section>\n" +
     "\n" +
     "    <section class=\"video-thumbnail__select-controls\">\n" +
-    "      <a ng-click=\"previousBackground()\">previous</a>\n" +
-    "      <span>((~ previewIndex + 1 ~)/(~ previewImages.length ~))</span>\n" +
-    "      <a ng-click=\"nextBackground()\">next</a>\n" +
+    "      <a class=\"video-preview__select-control video-preview__previous-image-link inline-space-fix\" ng-click=\"previousBackground()\">&lt;</a>\n" +
+    "      <span class=\"video-preview__select-control video-preview__preview-index inline-space-fix\">(~ previewIndex + 1 ~)/(~ previewImages.length ~)</span>\n" +
+    "      <a class=\"video-preview__select-control video-preview__next-image-link inline-space-fix\" ng-click=\"nextBackground()\">&gt;</a>\n" +
     "\n" +
-    "      <a class=\"video-thumbnail__select-link\" ng-click=\"setBackground()\">select</a>\n" +
+    "      <a class=\"video-thumbnail__select-link button button--primary button--wide\" ng-click=\"setBackground()\">Ok</a>\n" +
     "    </section>\n" +
     "\n" +
     "  </section>\n" +
@@ -992,10 +1008,11 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('video-upload.html',
-    "<section class=\"video-upload\" ng-show=\"!isUploading\">\n" +
+    "<section class=\"video-upload\">\n" +
     "\n" +
     "  <div class=\"video-upload__dropzone\" ng-file-drop=\"onFileSelect($files)\" ng-file-drag-over-class=\"optional-css-class\" ng-show=\"dropSupported\">\n" +
     "    <p>Drag &amp; drop your video here</p>\n" +
+    "    <img src=\"/static/assets/img/add-video.png\" />\n" +
     "    <p>or choose a video from your desktop</p>\n" +
     "    <input type=\"file\" ng-file-select=\"onFileSelect($files)\" />\n" +
     "  </div>\n" +
@@ -1018,18 +1035,20 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <h3 class=\"video-view__sub-title\" data-placeholder=\"Subtitle\" medium-editor ng-model=\"video.subTitle\"></h2>\n" +
     "\n" +
-    "    <div style=\"position: relative;\">\n" +
+    "    <div class=\"video-view__container\">\n" +
     "\n" +
-    "      <video-player ng-show=\"hasUploaded && hasThumbnail\" embed-url=\"embedUrl\"></video-player>\n" +
+    "      <video-upload ng-show=\"showUpload\"></video-upload>\n" +
     "\n" +
-    "      <video-edit></video-edit>\n" +
+    "      <video-player ng-show=\"hasProcessed\" embed-url=\"embedUrl\"></video-player>\n" +
+    "\n" +
+    "      <video-edit ng-show=\"showVideoEdit\"></video-edit>\n" +
     "\n" +
     "      <video-color-picker ng-show=\"showColorPicker\"></video-color-picker>\n" +
     "\n" +
-    "      <video-thumbnail ng-show=\"(video.status === 'processing' || isUploading || hasUploaded) && !hasThumbnail\"></video-thumbnail>\n" +
+    "      <video-thumbnail ng-show=\"showPreviewSelector\"></video-thumbnail>\n" +
+    "\n" +
     "    </div>\n" +
     "\n" +
-    "    <video-upload ng-hide=\"video.status === 'processing' || isUploading || hasUploaded\"></video-upload>\n" +
     "\n" +
     "\n" +
     "\n" +

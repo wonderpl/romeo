@@ -8,16 +8,22 @@
 }
 
 .video-edit__zone {
-  border: dashed 1px red;
+  border: solid 6px transparent;
   width: 100%;
+  cursor: pointer;
+}
+
+.video-edit__zone:hover {
+  border-color: $darkGreen;
 }
 
 .video-edit__preview {
-  height: 500px;
+  height: 503px;
 }
 
 .video-edit__player-controls {
   height: 40px;
+  margin-top: -1px;
 }
 
 .color-picker {

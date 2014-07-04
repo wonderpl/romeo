@@ -20,12 +20,21 @@ angular.module('RomeoApp.directives')
 
         scope.showThumbnailSelector = true;
 
-        VideoService.getPreviewImages(scope.video.id).then(function(response){
+        scope.previewIndex = 0;
+        scope.previewImages = scope.video.thumbnails.items;
 
-          scope.previewImages = response.image.items;
-          scope.background = response.image.items[0].url;
-          scope.previewIndex = 0;
-        });
+        if (!scope.previewImages.length) {
+
+          VideoService.getPreviewImages(scope.video.id).then(function(response){
+
+            scope.previewImages = response.image.items;
+            scope.background = response.image.items[0].url;
+          });
+
+        } else {
+
+          scope.background = scope.previewImages[0].url;
+        }
       };
 
       scope.uploadThumbnail = function () {
@@ -42,8 +51,6 @@ angular.module('RomeoApp.directives')
         var items = scope.previewImages;
 
         scope.previewIndex = index > 0 ? index - 1 : 0;
-
-        scope.background =  items[scope.previewIndex].url;
       };
 
       scope.nextBackground = function () {
@@ -55,8 +62,6 @@ angular.module('RomeoApp.directives')
         var maxIndex = items.length - 1;
 
         scope.previewIndex = index < maxIndex ? index + 1 : maxIndex;
-
-        scope.background =  items[scope.previewIndex].url;
       };
 
       scope.setBackground = function () {
@@ -65,13 +70,14 @@ angular.module('RomeoApp.directives')
             time: scope.previewImages[scope.previewIndex].time
         };
 
-        VideoService.setPreviewImage(scope.video.id, data);
-
-        // move this out somewhere
-        var url = '//' + $location.host() + ':' + $location.port() + '/embed/' + scope.video.id + '/?controls=1';
-        scope.embedUrl = $sce.trustAsResourceUrl(url);
-
-        scope.hasThumbnail = true;
+        VideoService.setPreviewImage(scope.video.id, data).then(function() {
+          scope.showPreviewSelector = false;
+          scope.showThumbnailSelector = false;
+          scope.showVideoEdit = true;
+          // move this out somewhere
+          var url = '//' + $location.host() + ':' + $location.port() + '/embed/' + scope.video.id + '/?controls=1';
+          scope.embedUrl = $sce.trustAsResourceUrl(url);
+        });
       };
     }
   };

@@ -15,13 +15,12 @@ angular.module('RomeoApp.controllers')
     VideoService.get($routeParams.id).then(function (data) {
 
       angular.extend($scope.video, data);
-
-      var url = '//' + $location.host() + ':' + $location.port() + '/embed/' + $scope.video.id + '/?controls=1';
-      $scope.embedUrl = $sce.trustAsResourceUrl(url);
+      $scope.loadVideo($scope.video.id);
 
       if ($scope.video.duration) {
-        $scope.hasThumbnail = true;
-        $scope.hasUploaded = true;
+        $scope.hasProcessed = true;
+        $scope.showVideoEdit = true;
+        $scope.showUpload = false;
       }
     });
   }
@@ -34,16 +33,22 @@ angular.module('RomeoApp.controllers')
   }
 
   function initialiseNewScope () {
-    $scope.video = {};
-
+    $scope.video = $scope.video || {};
+    $scope.showUpload = true;
     $scope.isUploading = false;
-    $scope.hasThumbnail = false;
-    $scope.hasUploaded = false;
+    $scope.hasProcessed = false;
+    $scope.videoHasLoaded = false;
   }
 
   $scope.onPreviewImageSelect = function (files) {
 
-    console.log(files);
+    VideoService.saveCustomPreview($scope.video.id, files[0]).then(function(data){
+        console.log(data);
+        angular.extend($scope.video, data);
+        $scope.loadVideo($scope.video.id);
+        $scope.showPreviewSelector = false;
+        $scope.showVideoEdit = true;
+    });
   };
 
   $scope.onFileSelect = function(files) {
@@ -57,7 +62,20 @@ angular.module('RomeoApp.controllers')
       UploadService.uploadVideo(files[0], data.id);
     });
 
+    $scope.showPreviewSelector = true;
+    $scope.showUpload = false;
     $scope.isUploading = true;
+  };
+
+  $scope.closePreviewSelector = function () {
+
+    $scope.showPreviewSelector = false;
+    $scope.showThumbnailSelector = false;
+    $scope.showVideoEdit = true;
+
+    if (!$scope.videoHasLoaded && $scope.hasProcessed) {
+      $scope.loadVideo($scope.video.id);
+    }
   };
 
   $scope.$on('video-upload-complete', videoUploadOnComplete);
@@ -66,6 +84,7 @@ angular.module('RomeoApp.controllers')
     // manaual ajax request doesn't return video object to extend what we have in scope
     console.log('videoUploadOnComplete()');
     $scope.video.status = 'processing';
+    $scope.isUploading = false;
   }
 
   $scope.$on('video-upload-poll', videoUploadOnPoll);
@@ -75,6 +94,14 @@ angular.module('RomeoApp.controllers')
     console.log(data);
     angular.extend($scope.video, data);
   }
+
+  $scope.loadVideo = function (id) {
+
+    var url = '//' + $location.host() + ':' + $location.port() + '/embed/' + id + '/?controls=1';
+    $scope.embedUrl = $sce.trustAsResourceUrl(url);
+
+    $scope.videoHasLoaded = true;
+  };
 
   $scope.$on('video-upload-success', videoUploadOnSuccess);
 
@@ -86,7 +113,12 @@ angular.module('RomeoApp.controllers')
 
     angular.extend($scope.video, data);
 
-    $scope.hasUploaded = true;
+    // $scope.loadVideo(data.id);
+
+    // $scope.showPreviewSelector = false;
+    // $scope.showVideoEdit = true;
+
+    $scope.hasProcessed = true;
   }
 
   $scope.$on('video-upload-start', videoUploadOnStart);

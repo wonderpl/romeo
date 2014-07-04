@@ -326,6 +326,26 @@
             return deferred.promise;
         };
 
+        Video.saveCustomPreview = function (id, file) {
+
+            var deferred = new $q.defer(),
+                formData = new FormData();
+
+            formData.append('cover_image', file);
+            $.ajax({
+                url: '/api/video/' + id,
+                type: 'PATCH',
+                data: formData,
+                processData: false,
+                mimeType: 'multipart/form-data',
+                contentType: false
+            }).done(function (response) {
+                return deferred.resolve(response);
+            });
+
+            return deferred.promise;
+        };
+
         /*
         * Get a specific video from the web service
         */
@@ -383,7 +403,8 @@
             get: Video.get,
             getAll: Video.getAll,
             getOne: Video.getOne,
-            addToCollection: Video.addToCollection
+            addToCollection: Video.addToCollection,
+            saveCustomPreview: Video.saveCustomPreview
         };
     }]);
 

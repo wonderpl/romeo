@@ -1,17 +1,33 @@
-<section class="video-thumbnail">
+<section class="video-preview" ng-class="{ 'video-preview--invert' : invertPreviewSelector }">
 
-  <a class="video-thumbnail__option video-thumbnail__option--select" ng-class="{ 'video-thumbnail__option--disabled' : video.status !== 'ready' }" ng-hide="showThumbnailSelector" ng-click="(video.status !== 'ready') || selectThumbnail()">select generated</a>
+  <a class="video-thumbnail__option video-thumbnail__option--select" ng-class="{ 'video-thumbnail__option--disabled' : video.status !== 'ready' }" ng-hide="showThumbnailSelector" ng-click="(video.status !== 'ready') || selectThumbnail()">Pick a generated thumbnail</a>
 
-  <section class="video-thumbnail__option video-thumbnail__option--upload" ng-hide="showThumbnailSelector" ng-file-drop="onPreviewImageSelect($files)" ng-file-select="onPreviewImageSelect($files)">upload</section>
+  <section class="video-thumbnail__option video-thumbnail__option--upload" ng-hide="showThumbnailSelector" ng-file-drop="onPreviewImageSelect($files)" ng-file-select="onPreviewImageSelect($files)">
+    <p>Choose your own thumbnail</p>
+    <input type="file" ng-file-select="onPreviewImageSelect($files)" />
+    <div ng-file-drop-available="dropSupported=true" ng-show="!dropSupported">HTML5 Drop File is not supported!</div>
+  </section>
 
-  <section class="video-thumbnail__selector" style="background-image: url('{{ background }}');" ng-show="showThumbnailSelector">
+  <section class="video-thumbnail__option video-preview__option--cancel" ng-hide="showThumbnailSelector || !videoHasLoaded" ng-click="closePreviewSelector()">
+    <p>Cancel</p>
+  </section>
+
+  <section class="video-thumbnail__selector" ng-show="showThumbnailSelector">
+    <a class="video-preview__close-link" ng-click="closePreviewSelector()">×</a>
+    <section class="video-preview__images-container">
+      <ul class="video-preview__available-images">
+        <li class="video-preview__available-image-container" ng-repeat="preview in previewImages">
+          <img class="video-preview__available-image" src="{{ preview.url }}" />
+        </li>
+      </ul>
+    </section>
 
     <section class="video-thumbnail__select-controls">
-      <a ng-click="previousBackground()">previous</a>
-      <span>({{ previewIndex + 1 }}/{{ previewImages.length }})</span>
-      <a ng-click="nextBackground()">next</a>
+      <a class="video-preview__select-control video-preview__previous-image-link inline-space-fix" ng-click="previousBackground()">&lt;</a>
+      <span class="video-preview__select-control video-preview__preview-index inline-space-fix">{{ previewIndex + 1 }}/{{ previewImages.length }}</span>
+      <a class="video-preview__select-control video-preview__next-image-link inline-space-fix" ng-click="nextBackground()">&gt;</a>
 
-      <a class="video-thumbnail__select-link" ng-click="setBackground()">select</a>
+      <a class="video-thumbnail__select-link button button--primary button--wide" ng-click="setBackground()">Ok</a>
     </section>
 
   </section>

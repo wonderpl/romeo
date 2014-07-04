@@ -9,18 +9,20 @@
 
     <h3 class="video-view__sub-title" data-placeholder="Subtitle" medium-editor ng-model="video.subTitle"></h2>
 
-    <div style="position: relative;">
+    <div class="video-view__container">
 
-      <video-player ng-show="hasUploaded && hasThumbnail" embed-url="embedUrl"></video-player>
+      <video-upload ng-show="showUpload"></video-upload>
 
-      <video-edit></video-edit>
+      <video-player ng-show="hasProcessed" embed-url="embedUrl"></video-player>
+
+      <video-edit ng-show="showVideoEdit"></video-edit>
 
       <video-color-picker ng-show="showColorPicker"></video-color-picker>
 
-      <video-thumbnail ng-show="(video.status === 'processing' || isUploading || hasUploaded) && !hasThumbnail"></video-thumbnail>
+      <video-thumbnail ng-show="showPreviewSelector"></video-thumbnail>
+
     </div>
 
-    <video-upload ng-hide="video.status === 'processing' || isUploading || hasUploaded"></video-upload>
 
 
 
