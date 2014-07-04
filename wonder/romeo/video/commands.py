@@ -6,6 +6,7 @@ from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core import dolly, ooyala
 from wonder.romeo.account.models import Account, AccountUser
 from .models import Video, VideoThumbnail, VideoTag, VideoTagVideo
+from .forms import send_processed_email
 
 
 def _dolly_token(userid):
@@ -65,7 +66,7 @@ def _create_tag_record(channel, account):
     dollyuser = dolly.DollyUser(account.dolly_user, account.dolly_token)
     try:
         channeldata = dollyuser.get_channel(channel)
-    except Exception as e:
+    except Exception:
         current_app.logger.error('Unable to get channel data: %s', channel)
         return None, False
     tag = VideoTag(
@@ -143,3 +144,46 @@ def import_videos_from_ooyala():
             next_page_token = parse_qs(response['next_page'])['page_token'][0]
         else:
             break
+
+
+def update_video_status(video, data, send_email=True):
+    if data['upload_status'].get('status') == 'failed':
+        failure_reason = data['upload_status'].get('failure_reason') or 'unknown reason'
+        video.status = 'error'
+        video.record_workflow_event('processing failed', failure_reason)
+        current_app.logger.error('Upload failed for %s: %s', video.id, failure_reason)
+    else:
+        assert data['status'] == 'live'
+        failure_reason = None
+        if video.status == 'processing':
+            video.status = 'ready'
+        video.record_workflow_event('processing complete')
+        video.duration = data['duration'] / 1000
+        if not video.thumbnails:
+            video.thumbnails = [VideoThumbnail(**t) for t in data['thumbnails']]
+
+    if send_email:
+        send_processed_email(video.id, error=failure_reason)
+
+
+@manager.option('-v', '--videoid')
+@manager.option('-e', '--set-error')
+@commit_on_success
+def mark_video_processed(videoid, set_error=False):
+    video = Video.query.get(videoid)
+    if set_error:
+        data = dict(upload_status={
+            'status': 'failed',
+            'failure_reason': set_error
+        })
+    else:
+        data = dict(
+            upload_status={'status': 'live'},
+            status='live',
+            duration=60,
+            thumbnails=[
+                {'url': 'http://placehold.it/%dx%d' % (w, h), 'width': w, 'height': h}
+                for w, h in reversed(current_app.config['COVER_THUMBNAIL_SIZES'])
+            ]
+        )
+    update_video_status(video, data, send_email=False)

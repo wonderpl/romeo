@@ -78,10 +78,26 @@ def _register_api_views(app):
         import_string(view)
 
 
+def _install_monkeypatches(app):
+    mock_ooyala_assetid = app.config.get('MOCK_OOYALA_ASSETID')
+    if mock_ooyala_assetid:
+        def _ooyala_request(*args, **kwargs):
+            if args == ('assets',):     # create asset
+                return dict(embed_code=mock_ooyala_assetid)
+            elif args == ('labels',):
+                return dict(id=1) if 'data' in kwargs else dict(items=[])
+            elif 'uploading_urls' in args:
+                return []
+        for modname in 'core.ooyala', 'video.views', 'video.forms':
+            module = __import__('wonder.romeo.%s' % modname, fromlist=True)
+            module.ooyala_request = _ooyala_request
+
+
 def create_app(wsgi=False):
     app = Flask(__name__)
     _configure(app)
     _setup_logging(app)
+    _install_monkeypatches(app)
     _init_db(app)
     _load_extensions(app, wsgi=wsgi)
     _register_middleware(app)

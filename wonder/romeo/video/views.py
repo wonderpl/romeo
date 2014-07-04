@@ -14,7 +14,8 @@ from wonder.romeo.account.views import dolly_account_view, get_dollyuser
 from .models import (Video, VideoTag, VideoTagVideo, VideoThumbnail,
                      VideoPlayerParameter, VideoComment, VideoCollaborator)
 from .forms import (VideoTagForm, VideoForm, VideoCommentForm, VideoCollaboratorForm,
-                    send_processed_email, send_comment_notifications)
+                    send_comment_notifications)
+from .commands import update_video_status
 
 
 videoapp = Blueprint('video', __name__)
@@ -45,23 +46,8 @@ def ooyala_callback():
         if hasattr(e, 'response') and e.response.status_code == 404:
             abort(404)
         raise
-
-    if data['upload_status'].get('status') == 'failed':
-        failure_reason = data['upload_status'].get('failure_reason') or 'unknown reason'
-        video.status = 'error'
-        video.record_workflow_event('processing failed', failure_reason)
-        current_app.logger.error('Upload failed for %s: %s', video.id, failure_reason)
     else:
-        assert data['status'] == 'live'
-        failure_reason = None
-        if video.status == 'processing':
-            video.status = 'ready'
-        video.record_workflow_event('processing complete')
-        video.duration = data['duration'] / 1000
-        if not video.thumbnails:
-            video.thumbnails = [VideoThumbnail(**t) for t in data['thumbnails']]
-
-    send_processed_email(video.id, error=failure_reason)
+        update_video_status(video, data)
 
     return '', 204
 
