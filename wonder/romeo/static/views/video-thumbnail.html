@@ -15,17 +15,17 @@
   <section class="video-thumbnail__selector" ng-show="showThumbnailSelector">
     <a class="video-preview__close-link" ng-click="closePreviewSelector()">×</a>
     <section class="video-preview__images-container">
-      <ul class="video-preview__available-images">
-        <li class="video-preview__available-image-container" ng-repeat="preview in previewImages">
-          <img class="video-preview__available-image" src="{{ preview.url }}" />
+      <ul class="video-preview__available-images js-preview-images" ng-style="indexOffset">
+        <li class="video-preview__available-image-container {{ $index }}" ng-class="{ 'video-preview__available-image-container--active' : previewIndex === $index }" ng-repeat="preview in previewImages">
+          <img class="video-preview__available-image" ng-class="{ 'video-preview__available-image--active' : previewIndex === $index }" src="{{ preview.url }}" ng-click="updateIndex($index)" />
         </li>
       </ul>
     </section>
 
     <section class="video-thumbnail__select-controls">
-      <a class="video-preview__select-control video-preview__previous-image-link inline-space-fix" ng-click="previousBackground()">&lt;</a>
+      <a class="video-preview__select-control video-preview__previous-image-link inline-space-fix" ng-click="previewIndex = previewIndex - 1">&lt;</a>
       <span class="video-preview__select-control video-preview__preview-index inline-space-fix">{{ previewIndex + 1 }}/{{ previewImages.length }}</span>
-      <a class="video-preview__select-control video-preview__next-image-link inline-space-fix" ng-click="nextBackground()">&gt;</a>
+      <a class="video-preview__select-control video-preview__next-image-link inline-space-fix" ng-click="previewIndex = previewIndex + 1">&gt;</a>
 
       <a class="video-thumbnail__select-link button button--primary button--wide" ng-click="setBackground()">Ok</a>
     </section>

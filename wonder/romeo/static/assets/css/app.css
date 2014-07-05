@@ -4958,6 +4958,18 @@ h3 {
   margin-right: -4px;
 }
 
+/* line 1, ../../scss/base/utils/_helpers.scss */
+.no-selection, .video-preview__previous-image-link, .video-preview__next-image-link {
+  -webkit-user-select: none;
+  /* webkit (safari, chrome) browsers */
+  -moz-user-select: none;
+  /* mozilla browsers */
+  -khtml-user-select: none;
+  /* webkit (konqueror) browsers */
+  -ms-user-select: none;
+  /* IE10+ */
+}
+
 /*!
 ========== COMPONENTS
 */
@@ -5479,24 +5491,25 @@ h3 {
   border: solid 1px #999999;
   padding: 1em;
   color: #999999;
-  cursor: pointer;
 }
 
-/* line 101, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 100, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__previous-image-link {
   border-top-left-radius: 50%;
   border-bottom-left-radius: 50%;
   border-right: none;
+  cursor: pointer;
 }
 
-/* line 107, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 108, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__next-image-link {
   border-top-right-radius: 50%;
   border-bottom-right-radius: 50%;
   border-left: none;
+  cursor: pointer;
 }
 
-/* line 117, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 120, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__close-link {
   position: absolute;
   top: 10px;
@@ -5513,36 +5526,49 @@ h3 {
   transition: border-color 0.3s ease-in-out;
 }
 
-/* line 133, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 136, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__close-link:hover {
   cursor: pointer;
   border-color: #70797b;
 }
 
-/* line 138, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 141, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__available-images {
   width: 400%;
   text-align: left;
-  margin-left: -200px;
+  transition: margin-left 0.4s ease-in-out;
+  margin-left: 253px;
 }
 
-/* line 144, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 148, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__images-container {
   width: 960px;
   overflow: hidden;
   display: block;
   margin-top: 90px;
+  padding: 0.5em 0;
+  background: black;
+  background: rgba(0, 0, 0, 0.4);
 }
 
-/* line 151, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 158, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__available-image-container {
   display: inline-block;
   margin-right: 10px;
+  background: black;
 }
 
-/* line 156, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 168, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__available-image {
   height: 250px;
+  opacity: 0.4;
+  float: left;
+  cursor: pointer;
+}
+
+/* line 175, ../../scss/specifics/video/_video-thumbnail.scss */
+.video-preview__available-image--active {
+  opacity: 1;
 }
 
 /* line 1, ../../scss/specifics/video/_video-extended-controls.scss */

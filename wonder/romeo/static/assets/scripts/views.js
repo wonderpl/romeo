@@ -986,17 +986,17 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <section class=\"video-thumbnail__selector\" ng-show=\"showThumbnailSelector\">\n" +
     "    <a class=\"video-preview__close-link\" ng-click=\"closePreviewSelector()\">×</a>\n" +
     "    <section class=\"video-preview__images-container\">\n" +
-    "      <ul class=\"video-preview__available-images\">\n" +
-    "        <li class=\"video-preview__available-image-container\" ng-repeat=\"preview in previewImages\">\n" +
-    "          <img class=\"video-preview__available-image\" src=\"(~ preview.url ~)\" />\n" +
+    "      <ul class=\"video-preview__available-images js-preview-images\" ng-style=\"indexOffset\">\n" +
+    "        <li class=\"video-preview__available-image-container (~ $index ~)\" ng-class=\"{ 'video-preview__available-image-container--active' : previewIndex === $index }\" ng-repeat=\"preview in previewImages\">\n" +
+    "          <img class=\"video-preview__available-image\" ng-class=\"{ 'video-preview__available-image--active' : previewIndex === $index }\" src=\"(~ preview.url ~)\" ng-click=\"updateIndex($index)\" />\n" +
     "        </li>\n" +
     "      </ul>\n" +
     "    </section>\n" +
     "\n" +
     "    <section class=\"video-thumbnail__select-controls\">\n" +
-    "      <a class=\"video-preview__select-control video-preview__previous-image-link inline-space-fix\" ng-click=\"previousBackground()\">&lt;</a>\n" +
+    "      <a class=\"video-preview__select-control video-preview__previous-image-link inline-space-fix\" ng-click=\"previewIndex = previewIndex - 1\">&lt;</a>\n" +
     "      <span class=\"video-preview__select-control video-preview__preview-index inline-space-fix\">(~ previewIndex + 1 ~)/(~ previewImages.length ~)</span>\n" +
-    "      <a class=\"video-preview__select-control video-preview__next-image-link inline-space-fix\" ng-click=\"nextBackground()\">&gt;</a>\n" +
+    "      <a class=\"video-preview__select-control video-preview__next-image-link inline-space-fix\" ng-click=\"previewIndex = previewIndex + 1\">&gt;</a>\n" +
     "\n" +
     "      <a class=\"video-thumbnail__select-link button button--primary button--wide\" ng-click=\"setBackground()\">Ok</a>\n" +
     "    </section>\n" +
