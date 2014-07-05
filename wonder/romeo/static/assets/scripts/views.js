@@ -1031,7 +1031,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <section class=\"main-view video-view\">\n" +
     "\n" +
-    "    <h2 class=\"video-view__title\" data-placeholder=\"Untitled Video\" medium-editor ng-model=\"video.title\"></h2>\n" +
+    "    <h2 class=\"video-view__title\" data-placeholder=\"(~ titlePlaceholder ~)\" medium-editor ng-model=\"video.title\"></h2>\n" +
     "\n" +
     "    <h3 class=\"video-view__sub-title\" data-placeholder=\"Subtitle\" medium-editor ng-model=\"video.subTitle\"></h2>\n" +
     "\n" +
@@ -1067,9 +1067,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <video-comments ng-show=\"video.status === 'published'\"></video-comments>\n" +
     "\n" +
-    "    <a ng-click=\"cancelChanges()\">cancel</a>\n" +
-    "\n" +
-    "    <a ng-click=\"saveChanges()\">save changes</a>\n" +
+    "    <div class=\"video-view__save-controls\">\n" +
+    "      <a ng-click=\"cancel()\" class=\"button\">cancel</a>\n" +
+    "      <a ng-click=\"save()\" class=\"button button--primary\">save changes</a>\n" +
+    "    </div>\n" +
     "\n" +
     "  </section>\n" +
     "\n" +

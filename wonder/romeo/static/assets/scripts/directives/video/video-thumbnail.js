@@ -75,19 +75,25 @@ angular.module('RomeoApp.directives')
         var data = {
             time: scope.previewImages[scope.previewIndex].time
         };
+
         console.log(scope.previewImages);
         console.log(scope.previewImages[scope.previewIndex]);
-        return;
+
+        onSetPreviewImage();
 
         // VideoService.setPreviewImage(scope.video.id, data).then(function() {
-        //   scope.showPreviewSelector = false;
-        //   scope.showThumbnailSelector = false;
-        //   scope.showVideoEdit = true;
-        //   // move this out somewhere
-        //   var url = '//' + $location.host() + ':' + $location.port() + '/embed/' + scope.video.id + '/?controls=1';
-        //   scope.embedUrl = $sce.trustAsResourceUrl(url);
+          // onSetPreviewImage
         // });
       };
+
+      function onSetPreviewImage () {
+        scope.showPreviewSelector = false;
+        scope.showThumbnailSelector = false;
+        scope.showVideoEdit = true;
+        // move this out somewhere
+        var url = '//' + $location.host() + ':' + $location.port() + '/embed/' + scope.video.id + '/?controls=1';
+        scope.embedUrl = $sce.trustAsResourceUrl(url);
+      }
     }
   };
 }]);

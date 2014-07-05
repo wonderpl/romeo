@@ -5,7 +5,7 @@
 
   <section class="main-view video-view">
 
-    <h2 class="video-view__title" data-placeholder="Untitled Video" medium-editor ng-model="video.title"></h2>
+    <h2 class="video-view__title" data-placeholder="{{ titlePlaceholder }}" medium-editor ng-model="video.title"></h2>
 
     <h3 class="video-view__sub-title" data-placeholder="Subtitle" medium-editor ng-model="video.subTitle"></h2>
 
@@ -41,9 +41,10 @@
 
     <video-comments ng-show="video.status === 'published'"></video-comments>
 
-    <a ng-click="cancelChanges()">cancel</a>
-
-    <a ng-click="saveChanges()">save changes</a>
+    <div class="video-view__save-controls">
+      <a ng-click="cancel()" class="button">cancel</a>
+      <a ng-click="save()" class="button button--primary">save changes</a>
+    </div>
 
   </section>
 

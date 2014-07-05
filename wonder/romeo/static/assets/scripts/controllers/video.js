@@ -6,6 +6,10 @@ angular.module('RomeoApp.controllers')
 
   'use strict';
 
+  // hack
+  // https://github.com/thijsw/angular-medium-editor/pull/6
+  var titlePlaceholderHack = 'Untitled Video';
+
   initialiseNewScope();
 
   if ($routeParams.id) {
@@ -38,6 +42,8 @@ angular.module('RomeoApp.controllers')
     $scope.isUploading = false;
     $scope.hasProcessed = false;
     $scope.videoHasLoaded = false;
+
+    $scope.titlePlaceholder = titlePlaceholderHack;
   }
 
   $scope.onPreviewImageSelect = function (files) {
@@ -54,6 +60,7 @@ angular.module('RomeoApp.controllers')
   $scope.onFileSelect = function(files) {
 
     $scope.video.title = $scope.video.title || files[0].name;
+    $scope.titlePlaceholder = '';
 
     var data = { title : $scope.video.title };
 
@@ -101,6 +108,24 @@ angular.module('RomeoApp.controllers')
     $scope.embedUrl = $sce.trustAsResourceUrl(url);
 
     $scope.videoHasLoaded = true;
+
+    $scope.titlePlaceholder = '';
+
+    // fill out rest of page details
+  };
+
+  $scope.save = function () {
+
+    VideoService.update($scope.video.id, $scope.video).then(function () {
+      console.log('saved');
+    });
+  };
+
+  $scope.cancel = function () {
+
+    VideoService.get($scope.id).then(function (data) {
+      angular.extend($scope.video, data);
+    });
   };
 
   $scope.$on('video-upload-success', videoUploadOnSuccess);
