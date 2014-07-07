@@ -54,15 +54,10 @@ angular.module('RomeoApp.directives')
         console.log(scope.video);
         scope.showThumbnailSelector = true;
         scope.previewIndex = 0;
-        scope.previewImages = scope.video.thumbnails.items;
-        if (!scope.previewImages.length) {
-          VideoService.getPreviewImages(scope.video.id).then(function(response){
-            scope.previewImages = response.image.items;
-            scope.background = response.image.items[0].url;
-          });
-        } else {
-          scope.background = scope.previewImages[0].url;
-        }
+        VideoService.getPreviewImages(scope.video.id).then(function(response){
+          console.log(response);
+          scope.previewImages = response.image.items;
+        });
       };
 
       scope.uploadThumbnail = function () {
@@ -79,20 +74,16 @@ angular.module('RomeoApp.directives')
         console.log(scope.previewImages);
         console.log(scope.previewImages[scope.previewIndex]);
 
-        onSetPreviewImage();
-
-        // VideoService.setPreviewImage(scope.video.id, data).then(function() {
-          // onSetPreviewImage
-        // });
+        VideoService.setPreviewImage(scope.video.id, data).then(function() {
+          onSetPreviewImage();
+        });
       };
 
       function onSetPreviewImage () {
         scope.showPreviewSelector = false;
         scope.showThumbnailSelector = false;
         scope.showVideoEdit = true;
-        // move this out somewhere
-        var url = '//' + $location.host() + ':' + $location.port() + '/embed/' + scope.video.id + '/?controls=1';
-        scope.embedUrl = $sce.trustAsResourceUrl(url);
+        scope.loadVideo(scope.video.id);
       }
     }
   };

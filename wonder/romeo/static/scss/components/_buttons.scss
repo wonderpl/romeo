@@ -25,3 +25,24 @@
   padding-left: 2em;
   padding-right: 2em;
 }
+
+.button__component {
+  @extend .no-selection;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.button__component--left {
+  border-top-left-radius: 24px;
+  border-bottom-left-radius: 24px;
+  border-right-color: transparent;
+}
+
+.button__component--right {
+  border-top-right-radius: 24px;
+  border-bottom-right-radius: 24px;
+  border-left-color: transparent;
+}
+
+
+

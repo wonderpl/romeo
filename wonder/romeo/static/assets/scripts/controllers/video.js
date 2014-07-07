@@ -1,8 +1,8 @@
 angular.module('fileUpload', [ 'angularFileUpload' ]);
 
 angular.module('RomeoApp.controllers')
-  .controller('VideoCtrl', ['$rootScope', '$scope', '$location', 'AuthService', '$upload', 'UploadService', '$routeParams', 'VideoService', '$sce',
-  function($rootScope, $scope, $location, AuthService, $upload, UploadService, $routeParams, VideoService, $sce) {
+  .controller('VideoCtrl', ['$rootScope', '$scope', '$location', 'AuthService', '$upload', 'UploadService', '$routeParams', 'VideoService', '$sce', '$document',
+  function($rootScope, $scope, $location, AuthService, $upload, UploadService, $routeParams, VideoService, $sce, $document) {
 
   'use strict';
 
@@ -42,11 +42,16 @@ angular.module('RomeoApp.controllers')
     $scope.isUploading = false;
     $scope.hasProcessed = false;
     $scope.videoHasLoaded = false;
+    $scope.embedUrl = '';
 
     $scope.titlePlaceholder = titlePlaceholderHack;
   }
 
   $scope.onPreviewImageSelect = function (files) {
+
+    console.log('onPreviewImageSelect()');
+
+    console.log(files);
 
     VideoService.saveCustomPreview($scope.video.id, files[0]).then(function(data){
         console.log(data);
@@ -104,6 +109,8 @@ angular.module('RomeoApp.controllers')
 
   $scope.loadVideo = function (id) {
 
+    console.log('loadVideo()');
+
     var url = '//' + $location.host() + ':' + $location.port() + '/embed/' + id + '/?controls=1';
     $scope.embedUrl = $sce.trustAsResourceUrl(url);
 
@@ -113,6 +120,14 @@ angular.module('RomeoApp.controllers')
 
     // fill out rest of page details
   };
+
+  $scope.$watch(
+    function() { return $scope.embedUrl; },
+    function(newValue, oldValue) {
+      if ((newValue !== '') && (oldValue !== '')) {
+        $('#VideoPlayerIFrame').attr('src', $('#VideoPlayerIFrame').attr('src'))
+      }
+    });
 
   $scope.save = function () {
 
@@ -137,6 +152,14 @@ angular.module('RomeoApp.controllers')
     console.log(data);
 
     angular.extend($scope.video, data);
+
+    // var url = '#/video/' + $scope.video.id;
+
+    // console.log(url);
+
+    // history.pushState(null, null, url);
+
+    // window.location = url;
 
     // $scope.loadVideo(data.id);
 

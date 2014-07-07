@@ -945,7 +945,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('video-player.html',
     "<section class=\"video-player\">\n" +
     "  <div class=\"video-player__iframe-container\">\n" +
-    "    <iframe class=\"video-player__frame\" ng-src=\"(~ embedUrl ~)\"  width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen></iframe>\n" +
+    "    <iframe id=\"VideoPlayerIFrame\" class=\"video-player__frame\" ng-src=\"(~ embedUrl ~)\"  width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen></iframe>\n" +
     "  </div>\n" +
     "</section>"
   );
@@ -954,16 +954,22 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('video-share.html',
     "<section class=\"video-share\">\n" +
     "  <ul class=\"video-share__controls\">\n" +
-    "    <li class=\"video-share__control\">\n" +
-    "      <a class=\"video-share__link video-share__link--embed\" href=\"#\">embed</a>\n" +
+    "    <li class=\"video-share__control inline-space-fix\">\n" +
+    "      <a class=\"hide-text video-share__link video-share__link--embed button button__component button__component--left\" ng-click=\"showEmbedCode = !showEmbedCode\">embed</a>\n" +
+    "    </li>\n" +
+    "    <li class=\"video-share__control inline-space-fix\">\n" +
+    "      <a class=\"hide-text video-share__link video-share__link--twitter button button__component\" ng-click=\"twitterShare()\">twitter</a>\n" +
     "    </li>\n" +
     "    <li class=\"video-share__control\">\n" +
-    "      <a class=\"video-share__link video-share__link--twitter\" href=\"#\">twitter</a>\n" +
-    "    </li>\n" +
-    "    <li class=\"video-share__control\">\n" +
-    "      <a class=\"video-share__link video-share__link--facebook\" href=\"#\">facebook</a>\n" +
+    "      <a class=\"hide-text video-share__link video-share__link--facebook button button__component button__component--right\" ng-click=\"facebookShare()\">facebook</a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
+    "  <section class=\"video-share__embed-code-container\" ng-show=\"showEmbedCode\">\n" +
+    "  <label class=\"video-share__embed-code-label\">Show embed code:\n" +
+    "    <input class=\"video-share__embed-code-field\" text=\"<embed code goes here>\" />\n" +
+    "  </label>\n" +
+    "\n" +
+    "  </section>\n" +
     "</section>"
   );
 

@@ -76,7 +76,7 @@ angular.module('RomeoApp.controllers').controller('MainCtrl',
     });
 
     $scope.$on('video-upload-success', function (event) {
-
+      $scope.upload.status = 'upload complete';
     });
 
     /*

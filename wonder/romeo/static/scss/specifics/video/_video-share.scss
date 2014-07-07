@@ -5,22 +5,29 @@
 }
 
 .video-share__controls {
-  margin: 0 auto;
-  border: solid 1px $green;
-  border-radius: 24px;
-  display: inline-block;
 }
 
 .video-share__control {
   display: inline-block;
-  border-left: solid 1px $green;
-}
-
-.video-share__control:first-child {
-  border: 0 none;
 }
 
 .video-share__link {
-  display: block;
-  padding: 10px;
+  padding: 1em;
+  background-repeat: no-repeat;
+  background-position: center;
 }
+
+.video-share__link--embed {
+  background-image: url('/static/assets/img/video-share__icon-embed.png');
+}
+
+.video-share__link--twitter {
+  background-image: url('/static/assets/img/video-share__icon-twitter.png');
+}
+
+.video-share__link--facebook {
+  background-image: url('/static/assets/img/video-share__icon-facebook.png');
+}
+
+
+

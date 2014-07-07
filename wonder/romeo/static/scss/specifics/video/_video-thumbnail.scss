@@ -101,8 +101,8 @@
 .video-preview__previous-image-link {
   @extend .no-selection;
   border: solid 1px $lightGrey;
-  border-top-left-radius: 50%;
-  border-bottom-left-radius: 50%;
+  border-top-left-radius: 24px;
+  border-bottom-left-radius: 24px;
   cursor: pointer;
 }
 
@@ -113,8 +113,8 @@
 .video-preview__next-image-link {
   @extend .no-selection;
   border: solid 1px $lightGrey;
-  border-top-right-radius: 50%;
-  border-bottom-right-radius: 50%;
+  border-top-right-radius: 24px;
+  border-bottom-right-radius: 24px;
   cursor: pointer;
 }
 
