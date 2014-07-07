@@ -119,7 +119,21 @@
 
     }]);
 
-    app.run(['$timeout', '$rootScope', '$http', 'animLoop', '$cookies', '$location', 'ErrorService', function($timeout, $rootScope, $http, animLoop, $cookies, $location, ErrorService) {
+    app.run(['$route', '$timeout', '$rootScope', '$http', 'animLoop', '$cookies', '$location', 'ErrorService', function($route, $timeout, $rootScope, $http, animLoop, $cookies, $location, ErrorService) {
+
+      // http://joelsaupe.com/programming/angularjs-change-path-without-reloading/
+      // $location.path('/sample/' + $scope.checkinId, false);
+      var original = $location.path;
+      $location.path = function (path, reload) {
+        if (reload === false) {
+          var lastRoute = $route.current;
+          var un = $rootScope.$on('$locationChangeSuccess', function () {
+            $route.current = lastRoute;
+            un();
+          });
+        }
+        return original.apply($location, [path]);
+      };
 
         $rootScope.$on('$routeChangeError', function(evt, next, last, error) {
             console.log( error );

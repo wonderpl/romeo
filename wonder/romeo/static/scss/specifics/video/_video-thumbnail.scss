@@ -148,7 +148,8 @@
 }
 
 .video-preview__available-images {
-  width: 400%;
+  /* transition is buggy after resizing container to hold images */
+  @extend .enable-hardware-acceleration;
   text-align: left;
   transition: margin-left 0.4s ease-in-out;
   margin-left: 253px;

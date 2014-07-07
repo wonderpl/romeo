@@ -62,9 +62,14 @@ angular.module('RomeoApp.controllers')
     });
   };
 
+  function stripExtension (value) {
+
+    return value.substr(0, value.lastIndexOf('.'));
+  }
+
   $scope.onFileSelect = function(files) {
 
-    $scope.video.title = $scope.video.title || files[0].name;
+    $scope.video.title = $scope.video.title || stripExtension(files[0].name);
     $scope.titlePlaceholder = '';
 
     var data = { title : $scope.video.title };
@@ -125,7 +130,7 @@ angular.module('RomeoApp.controllers')
     function() { return $scope.embedUrl; },
     function(newValue, oldValue) {
       if ((newValue !== '') && (oldValue !== '')) {
-        $('#VideoPlayerIFrame').attr('src', $('#VideoPlayerIFrame').attr('src'))
+        $('#VideoPlayerIFrame').attr('src', $('#VideoPlayerIFrame').attr('src'));
       }
     });
 
@@ -153,18 +158,9 @@ angular.module('RomeoApp.controllers')
 
     angular.extend($scope.video, data);
 
-    // var url = '#/video/' + $scope.video.id;
+    var url = '/video/' + $scope.video.id;
 
-    // console.log(url);
-
-    // history.pushState(null, null, url);
-
-    // window.location = url;
-
-    // $scope.loadVideo(data.id);
-
-    // $scope.showPreviewSelector = false;
-    // $scope.showVideoEdit = true;
+    $location.path(url, false);
 
     $scope.hasProcessed = true;
   }
@@ -174,7 +170,6 @@ angular.module('RomeoApp.controllers')
   function videoUploadOnStart (event) {
 
     console.log('videoUploadOnStart()');
-    console.log(event);
 
     $scope.isUploading = true;
   }

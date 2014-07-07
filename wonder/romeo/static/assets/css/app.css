@@ -4975,6 +4975,14 @@ h3 {
   /* IE10+ */
 }
 
+/* line 8, ../../scss/base/utils/_helpers.scss */
+.enable-hardware-acceleration, .video-preview__available-images {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
 /*!
 ========== COMPONENTS
 */
@@ -5578,13 +5586,13 @@ h3 {
 
 /* line 150, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__available-images {
-  width: 400%;
+  /* transition is buggy after resizing container to hold images */
   text-align: left;
   transition: margin-left 0.4s ease-in-out;
   margin-left: 253px;
 }
 
-/* line 157, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 158, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__images-container {
   width: 960px;
   overflow: hidden;
@@ -5595,14 +5603,14 @@ h3 {
   background: rgba(0, 0, 0, 0.4);
 }
 
-/* line 167, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 168, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__available-image-container {
   display: inline-block;
   margin-right: 10px;
   background: black;
 }
 
-/* line 177, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 178, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__available-image {
   height: 250px;
   opacity: 0.4;
@@ -5610,7 +5618,7 @@ h3 {
   cursor: pointer;
 }
 
-/* line 184, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 185, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__available-image--active {
   opacity: 1;
 }

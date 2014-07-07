@@ -51,12 +51,18 @@ angular.module('RomeoApp.directives')
 
       scope.selectThumbnail = function () {
         console.log('selectThumbnail()');
-        console.log(scope.video);
         scope.showThumbnailSelector = true;
         scope.previewIndex = 0;
         VideoService.getPreviewImages(scope.video.id).then(function(response){
           console.log(response);
           scope.previewImages = response.image.items;
+
+          var items = scope.previewImages.length;
+
+          // resize container to items * 500
+
+
+
         });
       };
 
