@@ -1,7 +1,7 @@
 import logging
 from werkzeug.utils import import_string
 from werkzeug.contrib.fixers import ProxyFix
-from flask import Flask
+from flask import Flask, json
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.script import Manager
 from flask.ext.login import LoginManager
@@ -88,6 +88,23 @@ def _install_monkeypatches(app):
                 return dict(id=1) if 'data' in kwargs else dict(items=[])
             elif 'uploading_urls' in args:
                 return []
+            elif 'generated_preview_images' in args:
+                return [
+                    dict(
+                        url='http://lorempixel.com/1920/1080/technics/%d/' % (i + 1),
+                        width=1920, height=1080, time=i * 10
+                    )
+                    for i in range(10)
+                ]
+            elif 'primary_preview_image' in args:
+                i = json.loads(kwargs['data'])['time'] / 10
+                return dict(sizes=[
+                    dict(
+                        url='http://lorempixel.com/%d/%d/technics/%d/' % (w, h, i + 1),
+                        width=w, height=h
+                    )
+                    for w, h in reversed(app.config['COVER_THUMBNAIL_SIZES'])
+                ])
         for modname in 'core.ooyala', 'video.views', 'video.forms':
             module = __import__('wonder.romeo.%s' % modname, fromlist=True)
             module.ooyala_request = _ooyala_request
