@@ -4956,9 +4956,10 @@ h3 {
 /* line 7, ../../scss/base/project/_helpers.scss */
 .inline-space-fix {
   margin-right: -4px;
+  margin-left: -4px;
 }
 
-/* line 11, ../../scss/base/project/_helpers.scss */
+/* line 12, ../../scss/base/project/_helpers.scss */
 .no-padding {
   padding: 0;
 }
@@ -5679,10 +5680,10 @@ h3 {
   color: #70797b;
   padding: 1em;
   text-align: center;
-  margin-right: 1em;
+  margin-right: 12px;
   margin-bottom: 1em;
   cursor: pointer;
-  width: 31.5%;
+  width: 300px;
   min-width: 200px;
 }
 
@@ -5694,6 +5695,25 @@ h3 {
 /* line 23, ../../scss/specifics/video/_video-edit-categories.scss */
 .video-edit-categories__category--active {
   border-color: #c8e6ce;
+}
+
+/* line 27, ../../scss/specifics/video/_video-edit-categories.scss */
+.video-edit-categories__subcategories {
+  float: left;
+  display: inline-block;
+  transition: max-height 0.4s ease-in-out;
+  max-height: 0;
+  overflow: hidden;
+}
+
+/* line 35, ../../scss/specifics/video/_video-edit-categories.scss */
+.video-edit-categories__subcategories--active {
+  max-height: 100em;
+}
+
+/* line 39, ../../scss/specifics/video/_video-edit-categories.scss */
+.video-edit-categories__subcategory {
+  margin-right: 16px;
 }
 
 /* line 1, ../../scss/specifics/upload/_upload-progress.scss */

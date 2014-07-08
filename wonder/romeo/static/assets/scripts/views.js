@@ -150,22 +150,29 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </ul>\n" +
     "  </header>\n" +
     "\n" +
-    "  <ul class=\"video-edit-categories__categories\">\n" +
-    "    <li class=\"video-edit-categories__category\"\n" +
-    "      ng-class=\"{ 'video-edit-categories__category--active' : childCategorySelected(category.id) }\"\n" +
-    "      ng-repeat=\"category in categories | filter: videoPriority\"\n" +
+    "  <div class=\"video-edit-categories__categories\">\n" +
+    "\n" +
+    "\n" +
+    "    <div class=\"video-edit-categories__category\"\n" +
+    "      ng-class=\"{ 'video-edit-categories__category--active' : categoryActive === category.id }\"\n" +
+    "      ng-repeat-start=\"category in categories | filter: videoPriority\"\n" +
     "      ng-click=\"setCategoryActive(category.id)\">\n" +
     "      (~ category.name ~)\n" +
-    "    </li>\n" +
-    "  </ul>\n" +
+    "    </div>\n" +
     "\n" +
-    "  <ul ng-repeat=\"category in categories\" data-parent-id=\"(~ category.id ~)\" ng-show=\"categoryActive === category.id\">\n" +
-    "    <!-- (~ category.name ~) -->\n" +
-    "    <li ng-repeat=\"subcategory in category.sub_categories\"\n" +
-    "      ng-class=\"{'video-edit-categories__category--active' : selectedCategory === subcategory.id }\"\n" +
-    "      class=\"video-edit-categories__category video-edit-categories__sub-category\"\n" +
-    "      ng-click=\"selectCategory(subcategory.id)\">(~ subcategory.name ~)</li>\n" +
-    "  </ul>\n" +
+    "    <ul class=\"video-edit-categories__subcategories\"\n" +
+    "      ng-repeat-end data-parent-id=\"(~ category.id ~)\"\n" +
+    "      ng-class=\"{ 'video-edit-categories__subcategories--active' : categoryActive === category.id }\">\n" +
+    "      <!-- (~ category.name ~) -->\n" +
+    "      <li ng-repeat=\"subcategory in category.sub_categories\"\n" +
+    "        ng-class=\"{'video-edit-categories__category--active' : selectedCategory === subcategory.id }\"\n" +
+    "        class=\"video-edit-categories__category video-edit-categories__subcategory\"\n" +
+    "        ng-click=\"selectCategory(subcategory.id)\">(~ subcategory.name ~)</li>\n" +
+    "    </ul>\n" +
+    "\n" +
+    "\n" +
+    "  </div>\n" +
+    "\n" +
     "\n" +
     "  <span class=\"button button--primary\">Done</span>\n" +
     "\n" +

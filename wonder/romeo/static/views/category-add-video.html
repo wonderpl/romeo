@@ -10,22 +10,29 @@
     </ul>
   </header>
 
-  <ul class="video-edit-categories__categories">
-    <li class="video-edit-categories__category"
-      ng-class="{ 'video-edit-categories__category--active' : childCategorySelected(category.id) }"
-      ng-repeat="category in categories | filter: videoPriority"
+  <div class="video-edit-categories__categories">
+
+
+    <div class="video-edit-categories__category"
+      ng-class="{ 'video-edit-categories__category--active' : categoryActive === category.id }"
+      ng-repeat-start="category in categories | filter: videoPriority"
       ng-click="setCategoryActive(category.id)">
       {{ category.name }}
-    </li>
-  </ul>
+    </div>
 
-  <ul ng-repeat="category in categories" data-parent-id="{{ category.id }}" ng-show="categoryActive === category.id">
-    <!-- {{ category.name }} -->
-    <li ng-repeat="subcategory in category.sub_categories"
-      ng-class="{'video-edit-categories__category--active' : selectedCategory === subcategory.id }"
-      class="video-edit-categories__category video-edit-categories__sub-category"
-      ng-click="selectCategory(subcategory.id)">{{ subcategory.name }}</li>
-  </ul>
+    <ul class="video-edit-categories__subcategories"
+      ng-repeat-end data-parent-id="{{ category.id }}"
+      ng-class="{ 'video-edit-categories__subcategories--active' : categoryActive === category.id }">
+      <!-- {{ category.name }} -->
+      <li ng-repeat="subcategory in category.sub_categories"
+        ng-class="{'video-edit-categories__category--active' : selectedCategory === subcategory.id }"
+        class="video-edit-categories__category video-edit-categories__subcategory"
+        ng-click="selectCategory(subcategory.id)">{{ subcategory.name }}</li>
+    </ul>
+
+
+  </div>
+
 
   <span class="button button--primary">Done</span>
 
