@@ -10,7 +10,7 @@ from flask.ext.wtf import Form
 from wonder.romeo import db
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.dolly import get_categories, push_video_data
-from wonder.romeo.core.ooyala import create_asset, ooyala_request
+from wonder.romeo.core.ooyala import create_asset, ooyala_request, DuplicateException
 from wonder.romeo.core.email import send_email, email_template_env
 from wonder.romeo.core.s3 import upload_file, download_file, media_bucket, video_bucket
 from wonder.romeo.core.sqs import background_on_sqs
@@ -151,7 +151,14 @@ class VideoForm(BaseForm):
 def create_ooyala_asset(video_id):
     video = Video.query.get(video_id)
     metadata = dict(name=video.title, label=video.account_id, path=video.filepath)
-    video.external_id = create_asset(video.filepath, metadata)
+    try:
+        video.external_id = create_asset(video.filepath, metadata)
+    except DuplicateException as e:
+        video.external_id = e.assetid
+        from .commands import update_video_status
+        update_video_status(video, dict(
+            upload_status={'status': 'failed', 'failure_reason': e.message}))
+
     video.record_workflow_event('ooyala asset created')
 
 

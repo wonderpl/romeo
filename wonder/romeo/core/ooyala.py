@@ -12,6 +12,12 @@ from .s3 import video_bucket
 BASE_URL = 'https://api.ooyala.com'
 
 
+class DuplicateException(Exception):
+    def __init__(self, assetid):
+        self.assetid = assetid
+        self.message = 'Duplicate video content'
+
+
 def _parse_datetime(dt):
     return datetime.strptime(dt[:19], '%Y-%m-%dT%H:%M:%S')
 
@@ -92,7 +98,13 @@ def create_asset(s3path, metadata):
         response = requests.put(upload_url, buf)
         response.raise_for_status()
         assert response.status_code == 204
-    ooyala_request('assets', assetid, 'upload_status',
-                   method='put', data=json.dumps(dict(status='uploaded')))
+    try:
+        ooyala_request('assets', assetid, 'upload_status',
+                       method='put', data=json.dumps(dict(status='uploaded')))
+    except Exception as e:
+        if hasattr(e, 'response') and 'error: duplicate' in e.response.content:
+            raise DuplicateException(assetid)
+        else:
+            raise
 
     return assetid
