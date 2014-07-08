@@ -4964,7 +4964,7 @@ h3 {
 }
 
 /* line 1, ../../scss/base/utils/_helpers.scss */
-.no-selection, .button__component, .video-preview__previous-image-link, .video-preview__next-image-link {
+.no-selection, .button__component, .video-preview__previous-image-link, .video-preview__next-image-link, .video-extended-controls__indicator {
   -webkit-user-select: none;
   /* webkit (safari, chrome) browsers */
   -moz-user-select: none;
@@ -5632,6 +5632,68 @@ h3 {
 /* line 7, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__section {
   border-bottom: solid 1px #999999;
+  padding: 1em 0;
+  text-align: center;
+  position: relative;
+  transition: max-height 0.4s ease-in-out;
+  max-height: 3em;
+  overflow: hidden;
+}
+
+/* line 17, ../../scss/specifics/video/_video-extended-controls.scss */
+.video-extended-controls__section--expanded {
+  max-height: 500em;
+}
+
+/* line 21, ../../scss/specifics/video/_video-extended-controls.scss */
+.video-extended-controls__indicator {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-left: 1em;
+  cursor: pointer;
+  font-size: 2.5em;
+  line-height: 1.2em;
+  color: #b7bcbd;
+}
+
+/* line 42, ../../scss/specifics/video/_video-extended-controls.scss */
+.video-extended-controls__section-contents {
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+/* line 48, ../../scss/specifics/video/_video-extended-controls.scss */
+.video-extended-controls__section-header {
+  cursor: pointer;
+  margin-bottom: 24px;
+}
+
+/* line 5, ../../scss/specifics/video/_video-edit-categories.scss */
+.video-edit-categories__category {
+  display: inline-block;
+  transition: border-color 0.4s ease-in-out;
+  border: solid 1px #70797b;
+  color: #70797b;
+  padding: 1em;
+  text-align: center;
+  margin-right: 1em;
+  margin-bottom: 1em;
+  cursor: pointer;
+  width: 31.5%;
+  min-width: 200px;
+}
+
+/* line 19, ../../scss/specifics/video/_video-edit-categories.scss */
+.video-edit-categories__category:hover {
+  border-color: #51b364;
+}
+
+/* line 23, ../../scss/specifics/video/_video-edit-categories.scss */
+.video-edit-categories__category--active {
+  border-color: #c8e6ce;
 }
 
 /* line 1, ../../scss/specifics/upload/_upload-progress.scss */

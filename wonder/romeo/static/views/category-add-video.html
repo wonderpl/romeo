@@ -1,5 +1,32 @@
-<section class="category-add-video">
+<section class="video-edit-categories">
 
-  <h4>Add video to category</h4>
+  <header class="video-extended-controls__section-header">
+    <h4 ng-click="addCategoryShow = !addCategoryShow">Add video to category</h4>
+    <ul class="video-edit-categories__existing-categories">
+      <li class="video-edit-categories__existing-category" ng-repeat="category in videoCategories | filter: videoPriority">
+        {{ category.name }}
+        <span class="video-edit-categories__remove-category" ng-click="removeCategory(category.id)">&times;</span>
+      </li>
+    </ul>
+  </header>
+
+  <ul class="video-edit-categories__categories">
+    <li class="video-edit-categories__category"
+      ng-class="{ 'video-edit-categories__category--active' : childCategorySelected(category.id) }"
+      ng-repeat="category in categories | filter: videoPriority"
+      ng-click="setCategoryActive(category.id)">
+      {{ category.name }}
+    </li>
+  </ul>
+
+  <ul ng-repeat="category in categories" data-parent-id="{{ category.id }}" ng-show="categoryActive === category.id">
+    <!-- {{ category.name }} -->
+    <li ng-repeat="subcategory in category.sub_categories"
+      ng-class="{'video-edit-categories__category--active' : selectedCategory === subcategory.id }"
+      class="video-edit-categories__category video-edit-categories__sub-category"
+      ng-click="selectCategory(subcategory.id)">{{ subcategory.name }}</li>
+  </ul>
+
+  <span class="button button--primary">Done</span>
 
 </section>

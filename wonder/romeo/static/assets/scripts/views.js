@@ -60,7 +60,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('add-collaborator.html',
     "<section class=\"add-collaborator\">\n" +
     "\n" +
-    "  <h4>Add collaborator</h4>\n" +
+    "  <h4 class=\"video-extended-controls__section-header\" ng-click=\"addCollaboratorShow = !addCollaboratorShow\">Add collaborator</h4>\n" +
     "\n" +
     "</section>"
   );
@@ -138,9 +138,36 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('category-add-video.html',
-    "<section class=\"category-add-video\">\n" +
+    "<section class=\"video-edit-categories\">\n" +
     "\n" +
-    "  <h4>Add video to category</h4>\n" +
+    "  <header class=\"video-extended-controls__section-header\">\n" +
+    "    <h4 ng-click=\"addCategoryShow = !addCategoryShow\">Add video to category</h4>\n" +
+    "    <ul class=\"video-edit-categories__existing-categories\">\n" +
+    "      <li class=\"video-edit-categories__existing-category\" ng-repeat=\"category in videoCategories | filter: videoPriority\">\n" +
+    "        (~ category.name ~)\n" +
+    "        <span class=\"video-edit-categories__remove-category\" ng-click=\"removeCategory(category.id)\">&times;</span>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </header>\n" +
+    "\n" +
+    "  <ul class=\"video-edit-categories__categories\">\n" +
+    "    <li class=\"video-edit-categories__category\"\n" +
+    "      ng-class=\"{ 'video-edit-categories__category--active' : childCategorySelected(category.id) }\"\n" +
+    "      ng-repeat=\"category in categories | filter: videoPriority\"\n" +
+    "      ng-click=\"setCategoryActive(category.id)\">\n" +
+    "      (~ category.name ~)\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
+    "\n" +
+    "  <ul ng-repeat=\"category in categories\" data-parent-id=\"(~ category.id ~)\" ng-show=\"categoryActive === category.id\">\n" +
+    "    <!-- (~ category.name ~) -->\n" +
+    "    <li ng-repeat=\"subcategory in category.sub_categories\"\n" +
+    "      ng-class=\"{'video-edit-categories__category--active' : selectedCategory === subcategory.id }\"\n" +
+    "      class=\"video-edit-categories__category video-edit-categories__sub-category\"\n" +
+    "      ng-click=\"selectCategory(subcategory.id)\">(~ subcategory.name ~)</li>\n" +
+    "  </ul>\n" +
+    "\n" +
+    "  <span class=\"button button--primary\">Done</span>\n" +
     "\n" +
     "</section>"
   );
@@ -149,7 +176,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('collection-add-video.html',
     "<section class=\"collection-add-video\">\n" +
     "\n" +
-    "  <h4>Add video to collection</h4>\n" +
+    "  <h4 class=\"video-extended-controls__section-header\" ng-click=\"addCollectionShow = !addCollectionShow\">Add video to collection</h4>\n" +
     "\n" +
     "</section>"
   );
@@ -847,25 +874,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
-  $templateCache.put('video-extended-controls.html',
-    "<section class=\"video-extended-controls\">\n" +
-    "\n" +
-    "  <section class=\"video-extended-controls__section\">\n" +
-    "    <category-add-video></category-add-video>\n" +
-    "  </section>\n" +
-    "\n" +
-    "  <section class=\"video-extended-controls__section\">\n" +
-    "    <collection-add-video></collection-add-video>\n" +
-    "  </section>\n" +
-    "\n" +
-    "  <section class=\"video-extended-controls__section\">\n" +
-    "    <add-collaborator></add-collaborator>\n" +
-    "  </section>\n" +
-    "\n" +
-    "</section>"
-  );
-
-
   $templateCache.put('video-indicators.html',
     "<section class=\"video-indicators\">\n" +
     "  <div class=\"video-indicators__scrubber\" ng-model=\"scrubber\" style=\"left: (~ progress ~)%\"></div>\n" +
@@ -1067,7 +1075,27 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <video-share></video-share>\n" +
     "\n" +
-    "    <video-extended-controls></video-extended-controls>\n" +
+    "    <section class=\"video-extended-controls\">\n" +
+    "\n" +
+    "      <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCategoryShow }\">\n" +
+    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\" ng-click=\"addCategoryShow = !addCategoryShow\" ng-hide=\"addCategoryShow\">+</span>\n" +
+    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\" ng-click=\"addCategoryShow = !addCategoryShow\" ng-show=\"addCategoryShow\">-</span>\n" +
+    "        <category-add-video selected-category=\"video.category\" class=\"video-extended-controls__section-contents\"></category-add-video>\n" +
+    "      </section>\n" +
+    "\n" +
+    "      <section class=\"video-extended-controls__section\">\n" +
+    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\" ng-click=\"addCollectionShow = !addCollectionShow\" ng-hide=\"addCollectionShow\">+</span>\n" +
+    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\" ng-click=\"addCollectionShow = !addCollectionShow\" ng-show=\"addCollectionShow\">-</span>\n" +
+    "        <collection-add-video class=\"video-extended-controls__section-contents\"></collection-add-video>\n" +
+    "      </section>\n" +
+    "\n" +
+    "      <section class=\"video-extended-controls__section\">\n" +
+    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\" ng-click=\"addCollaboratorShow = !addCollaboratorShow\" ng-hide=\"addCollaboratorShow\">+</span>\n" +
+    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\" ng-click=\"addCollaboratorShow = !addCollaboratorShow\" ng-show=\"addCollaboratorShow\">-</span>\n" +
+    "        <add-collaborator class=\"video-extended-controls__section-contents\"></add-collaborator>\n" +
+    "      </section>\n" +
+    "\n" +
+    "    </section>\n" +
     "\n" +
     "    <video-indicators ng-show=\"video.status === 'published'\"></video-indicators>\n" +
     "\n" +

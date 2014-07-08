@@ -21,11 +21,10 @@ angular.module('RomeoApp.controllers')
       angular.extend($scope.video, data);
       $scope.loadVideo($scope.video.id);
 
-      if ($scope.video.duration) {
-        $scope.hasProcessed = true;
-        $scope.showVideoEdit = true;
-        $scope.showUpload = false;
-      }
+      $scope.hasProcessed = true;
+      $scope.showVideoEdit = true;
+      $scope.showUpload = false;
+
     });
   }
 

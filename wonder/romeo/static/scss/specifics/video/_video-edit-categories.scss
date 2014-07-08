@@ -1,0 +1,25 @@
+.video-edit-categories {
+
+}
+
+.video-edit-categories__category {
+  display: inline-block;
+  transition: border-color 0.4s ease-in-out;
+  border: solid 1px $darkGrey;
+  color: $darkGrey;
+  padding: 1em;
+  text-align: center;
+  margin-right: 1em;
+  margin-bottom: 1em;
+  cursor: pointer;
+  width: 31.5%;
+  min-width: 200px;
+}
+
+.video-edit-categories__category:hover {
+  border-color: $darkGreen;
+}
+
+.video-edit-categories__category--active {
+  border-color: $green;
+}
