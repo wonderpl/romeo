@@ -4956,10 +4956,9 @@ h3 {
 /* line 7, ../../scss/base/project/_helpers.scss */
 .inline-space-fix {
   margin-right: -4px;
-  margin-left: -4px;
 }
 
-/* line 12, ../../scss/base/project/_helpers.scss */
+/* line 11, ../../scss/base/project/_helpers.scss */
 .no-padding {
   padding: 0;
 }
@@ -5672,6 +5671,11 @@ h3 {
   margin-bottom: 24px;
 }
 
+/* line 53, ../../scss/specifics/video/_video-extended-controls.scss */
+.video-extended-controls__section-header-title {
+  display: inline-block;
+}
+
 /* line 5, ../../scss/specifics/video/_video-edit-categories.scss */
 .video-edit-categories__category {
   display: inline-block;
@@ -5714,6 +5718,21 @@ h3 {
 /* line 39, ../../scss/specifics/video/_video-edit-categories.scss */
 .video-edit-categories__subcategory {
   margin-right: 16px;
+  border-style: dashed;
+}
+
+/* line 44, ../../scss/specifics/video/_video-edit-categories.scss */
+.video-edit-categories__selected-category {
+  display: inline-block;
+  color: #999999;
+}
+
+/* line 49, ../../scss/specifics/video/_video-edit-categories.scss */
+.video-edit-categories__remove-category {
+  font-weight: 800;
+  color: red;
+  text-shadow: 0 0 2px #ee0000;
+  padding: 1em 2em 0 0;
 }
 
 /* line 1, ../../scss/specifics/upload/_upload-progress.scss */

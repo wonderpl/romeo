@@ -8,7 +8,8 @@ angular.module('RomeoApp.directives')
     replace : true,
     template : $templateCache.get('category-add-video.html'),
     scope : {
-      selectedCategory : '='
+      selectedCategory : '=',
+      showCategory : '='
     },
     link : function (scope, element, attrs) {
       VideoService.getCategories().then(function (data) {
@@ -23,32 +24,17 @@ angular.module('RomeoApp.directives')
           }
         }
         scope.categories = categories;
-        scope.selectCategory = function (id) {
+        scope.selectCategory = function (id, $event) {
           scope.selectedCategory = id;
-        };
-        scope.childCategorySelected = function (categoryId) {
-          var childCategorySelected = false;
-          var currentCategory = scope.selectedCategory;
-          var categories = scope.categories;
-          var l = categories.length;
-          while (l--) {
-            var category = categories[l];
-            var subcategories = category.sub_categories;
-            var j = subcategories.length;
-            while (j--) {
-              var subcategory = subcategories[j];
-              if (subcategory.id === currentCategory) {
-                if (category.id === categoryId) {
-                  childCategorySelected = true;
-                  return childCategorySelected;
-                }
-              }
-            }
-          }
-          return childCategorySelected;
+          scope.selectedName = $event.currentTarget.innerHTML;
         };
         scope.setCategoryActive = function (categoryId) {
           scope.categoryActive = categoryId;
+        };
+        scope.removeCategory = function (id, $event) {
+          scope.categoryActive = null;
+          scope.selectedCategory = null;
+          $event.stopPropagation();
         };
       });
     }

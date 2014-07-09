@@ -5,8 +5,8 @@
 .video-edit-categories__category {
   display: inline-block;
   transition: border-color 0.4s ease-in-out;
-  border: solid 1px $darkGrey;
-  color: $darkGrey;
+  border: solid 1px $dark-grey;
+  color: $dark-grey;
   padding: 1em;
   text-align: center;
   margin-right: 12px;
@@ -17,7 +17,7 @@
 }
 
 .video-edit-categories__category:hover {
-  border-color: $darkGreen;
+  border-color: $dark-green;
 }
 
 .video-edit-categories__category--active {
@@ -38,5 +38,17 @@
 
 .video-edit-categories__subcategory {
   margin-right: 16px;
+  border-style: dashed;
 }
 
+.video-edit-categories__selected-category {
+  display: inline-block;
+  color: $grey;
+}
+
+.video-edit-categories__remove-category {
+  font-weight: 800;
+  color: $red;
+  text-shadow: 0 0 2px $shadow-red;
+  padding: 1em 2em 0 0;
+}

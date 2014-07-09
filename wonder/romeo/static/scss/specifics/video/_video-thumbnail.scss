@@ -43,8 +43,8 @@
 }
 
 .video-thumbnail__option:hover {
-  border-color: $darkGreen;
-  color: $darkGreen;
+  border-color: $dark-green;
+  color: $dark-green;
   background-image: url('/static/assets/img/add-image-active.png');
 }
 
@@ -92,34 +92,34 @@
 }
 
 .video-preview__select-control {
-  border-top: solid 1px $lightGrey;
-  border-bottom: solid 1px $lightGrey;
+  border-top: solid 1px $light-grey;
+  border-bottom: solid 1px $light-grey;
   padding: 1em;
-  color: $lightGrey;
+  color: $light-grey;
 }
 
 .video-preview__previous-image-link {
   @extend .no-selection;
-  border: solid 1px $lightGrey;
+  border: solid 1px $light-grey;
   border-top-left-radius: 24px;
   border-bottom-left-radius: 24px;
   cursor: pointer;
 }
 
 .video-preview__previous-image-link:hover {
-  border-color: $darkGrey;
+  border-color: $dark-grey;
 }
 
 .video-preview__next-image-link {
   @extend .no-selection;
-  border: solid 1px $lightGrey;
+  border: solid 1px $light-grey;
   border-top-right-radius: 24px;
   border-bottom-right-radius: 24px;
   cursor: pointer;
 }
 
 .video-preview__next-image-link:hover {
-  border-color: $darkGrey;
+  border-color: $dark-grey;
 }
 
 .video-preview__preview-index {
@@ -130,21 +130,21 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  border: solid 1px $lightGrey;
+  border: solid 1px $light-grey;
   border-radius: 20px;
   line-height: 1em;
   text-align: center;
   width: 1em;
   height: 1em;
   display: block;
-  color: $lightGrey;
+  color: $light-grey;
   font-size: 2em;
   transition: border-color 0.3s ease-in-out;
 }
 
 .video-preview__close-link:hover {
   cursor: pointer;
-  border-color: $darkGrey;
+  border-color: $dark-grey;
 }
 
 .video-preview__available-images {

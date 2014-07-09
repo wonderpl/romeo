@@ -140,26 +140,23 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('category-add-video.html',
     "<section class=\"video-edit-categories\">\n" +
     "\n" +
-    "  <header class=\"video-extended-controls__section-header\">\n" +
-    "    <h4 ng-click=\"addCategoryShow = !addCategoryShow\">Add video to category</h4>\n" +
-    "    <ul class=\"video-edit-categories__existing-categories\">\n" +
-    "      <li class=\"video-edit-categories__existing-category\" ng-repeat=\"category in videoCategories | filter: videoPriority\">\n" +
-    "        (~ category.name ~)\n" +
-    "        <span class=\"video-edit-categories__remove-category\" ng-click=\"removeCategory(category.id)\">&times;</span>\n" +
-    "      </li>\n" +
-    "    </ul>\n" +
+    "  <header class=\"video-extended-controls__section-header\" ng-click=\"showCategory = !showCategory\">\n" +
+    "    <h4 class=\"video-extended-controls__section-header-title\">\n" +
+    "      (~ selectedCategory ? 'In Category:' : 'Add video to category' ~)\n" +
+    "    </h4>\n" +
+    "    <span ng-show=\"selectedCategory\" class=\"video-edit-categories__selected-category\">\n" +
+    "      <span ng-bind-html=\"selectedName\"></span>\n" +
+    "      <span class=\"video-edit-categories__remove-category\" ng-click=\"removeCategory(category.id, $event)\">&times;</span>\n" +
+    "    <span>\n" +
     "  </header>\n" +
     "\n" +
     "  <div class=\"video-edit-categories__categories\">\n" +
-    "\n" +
-    "\n" +
     "    <div class=\"video-edit-categories__category\"\n" +
     "      ng-class=\"{ 'video-edit-categories__category--active' : categoryActive === category.id }\"\n" +
     "      ng-repeat-start=\"category in categories | filter: videoPriority\"\n" +
     "      ng-click=\"setCategoryActive(category.id)\">\n" +
     "      (~ category.name ~)\n" +
     "    </div>\n" +
-    "\n" +
     "    <ul class=\"video-edit-categories__subcategories\"\n" +
     "      ng-repeat-end data-parent-id=\"(~ category.id ~)\"\n" +
     "      ng-class=\"{ 'video-edit-categories__subcategories--active' : categoryActive === category.id }\">\n" +
@@ -167,12 +164,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <li ng-repeat=\"subcategory in category.sub_categories\"\n" +
     "        ng-class=\"{'video-edit-categories__category--active' : selectedCategory === subcategory.id }\"\n" +
     "        class=\"video-edit-categories__category video-edit-categories__subcategory\"\n" +
-    "        ng-click=\"selectCategory(subcategory.id)\">(~ subcategory.name ~)</li>\n" +
+    "        ng-click=\"selectCategory(subcategory.id, $event)\">(~ subcategory.name ~)</li>\n" +
     "    </ul>\n" +
-    "\n" +
-    "\n" +
     "  </div>\n" +
-    "\n" +
     "\n" +
     "  <span class=\"button button--primary\">Done</span>\n" +
     "\n" +
@@ -1087,7 +1081,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCategoryShow }\">\n" +
     "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\" ng-click=\"addCategoryShow = !addCategoryShow\" ng-hide=\"addCategoryShow\">+</span>\n" +
     "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\" ng-click=\"addCategoryShow = !addCategoryShow\" ng-show=\"addCategoryShow\">-</span>\n" +
-    "        <category-add-video selected-category=\"video.category\" class=\"video-extended-controls__section-contents\"></category-add-video>\n" +
+    "        <category-add-video selected-category=\"video.category\" show-category=\"addCategoryShow\" class=\"video-extended-controls__section-contents\"></category-add-video>\n" +
     "      </section>\n" +
     "\n" +
     "      <section class=\"video-extended-controls__section\">\n" +

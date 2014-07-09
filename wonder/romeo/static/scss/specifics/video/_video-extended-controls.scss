@@ -28,7 +28,7 @@
   cursor: pointer;
   font-size: 2.5em;
   line-height: 1.2em;
-  color: $lightGrey;
+  color: $light-grey;
 }
 
 .video-extended-controls__indicator--more {
@@ -48,5 +48,9 @@
 .video-extended-controls__section-header {
   cursor: pointer;
   margin-bottom: 24px;
+}
+
+.video-extended-controls__section-header-title {
+  display: inline-block;
 }
 

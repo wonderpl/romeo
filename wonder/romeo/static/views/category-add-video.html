@@ -1,25 +1,22 @@
 <section class="video-edit-categories">
 
-  <header class="video-extended-controls__section-header">
-    <h4 ng-click="addCategoryShow = !addCategoryShow">Add video to category</h4>
-    <ul class="video-edit-categories__existing-categories">
-      <li class="video-edit-categories__existing-category" ng-repeat="category in videoCategories | filter: videoPriority">
-        {{ category.name }}
-        <span class="video-edit-categories__remove-category" ng-click="removeCategory(category.id)">&times;</span>
-      </li>
-    </ul>
+  <header class="video-extended-controls__section-header" ng-click="showCategory = !showCategory">
+    <h4 class="video-extended-controls__section-header-title">
+      {{ selectedCategory ? 'In Category:' : 'Add video to category' }}
+    </h4>
+    <span ng-show="selectedCategory" class="video-edit-categories__selected-category">
+      <span ng-bind-html="selectedName"></span>
+      <span class="video-edit-categories__remove-category" ng-click="removeCategory(category.id, $event)">&times;</span>
+    <span>
   </header>
 
   <div class="video-edit-categories__categories">
-
-
     <div class="video-edit-categories__category"
       ng-class="{ 'video-edit-categories__category--active' : categoryActive === category.id }"
       ng-repeat-start="category in categories | filter: videoPriority"
       ng-click="setCategoryActive(category.id)">
       {{ category.name }}
     </div>
-
     <ul class="video-edit-categories__subcategories"
       ng-repeat-end data-parent-id="{{ category.id }}"
       ng-class="{ 'video-edit-categories__subcategories--active' : categoryActive === category.id }">
@@ -27,12 +24,9 @@
       <li ng-repeat="subcategory in category.sub_categories"
         ng-class="{'video-edit-categories__category--active' : selectedCategory === subcategory.id }"
         class="video-edit-categories__category video-edit-categories__subcategory"
-        ng-click="selectCategory(subcategory.id)">{{ subcategory.name }}</li>
+        ng-click="selectCategory(subcategory.id, $event)">{{ subcategory.name }}</li>
     </ul>
-
-
   </div>
-
 
   <span class="button button--primary">Done</span>
 

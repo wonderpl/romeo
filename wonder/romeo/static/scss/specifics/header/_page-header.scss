@@ -1,7 +1,7 @@
 .page-header {
   position: relative;
   text-align: right;
-  border-bottom: solid 1px $lightGrey;
+  border-bottom: solid 1px $light-grey;
   margin-bottom: 2em;
   font-size: 0.8em;
   font-weight: 800;
@@ -22,7 +22,7 @@
 }
 
 .page-header__link {
-  color: $darkGrey;
+  color: $dark-grey;
 }
 
 .page-header__link:hover {
@@ -47,11 +47,11 @@
 
 .page-header__navigation-item {
   display: inline-block;
-  border-right: 1px solid $lightGrey;
+  border-right: 1px solid $light-grey;
 }
 
 .page-header__navigation-item:first-child {
-  border-left: 1px solid $lightGrey;
+  border-left: 1px solid $light-grey;
 }
 
 .page-header__navigation-link {

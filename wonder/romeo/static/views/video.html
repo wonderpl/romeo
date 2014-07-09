@@ -40,7 +40,7 @@
       <section class="video-extended-controls__section" ng-class="{ 'video-extended-controls__section--expanded' : addCategoryShow }">
         <span class="video-extended-controls__indicator video-extended-controls__indicator--more" ng-click="addCategoryShow = !addCategoryShow" ng-hide="addCategoryShow">+</span>
         <span class="video-extended-controls__indicator video-extended-controls__indicator--less" ng-click="addCategoryShow = !addCategoryShow" ng-show="addCategoryShow">-</span>
-        <category-add-video selected-category="video.category" class="video-extended-controls__section-contents"></category-add-video>
+        <category-add-video selected-category="video.category" show-category="addCategoryShow" class="video-extended-controls__section-contents"></category-add-video>
       </section>
 
       <section class="video-extended-controls__section">

@@ -1,24 +1,24 @@
 .button {
-  border: solid 1px $lightGrey;
+  border: solid 1px $light-grey;
   border-radius: 24px;
   display: inline-block;
   padding: 1em;
-  color: $lightGrey;
+  color: $light-grey;
   transition: border-color 0.3s ease-in-out;
   cursor: pointer;
 }
 
 .button:hover {
-  border-color: $darkGrey;
+  border-color: $dark-grey;
 }
 
 .button--primary {
-  color: $darkGreen;
+  color: $dark-green;
   border-color: $green;
 }
 
 .button--primary:hover {
-  border-color: $darkGreen;
+  border-color: $dark-green;
 }
 
 .button--wide {
