@@ -377,6 +377,14 @@
             return DataService.request({ url: url, method: 'POST', data: { id: tag } });
         };
 
+        /*
+        * Remove a video from a collection
+        */
+        Video.removeFromCollection = function(video, tag) {
+          var url = '/api/video/' + video + '/tags/' + tag;
+          return DataService.request({ url: url, method: 'DELETE' });
+        };
+
         Video.getOne = function(id) {
             var deferred = new $q.defer();
             DataService.request({ url: '/api/video/' + id + '', method: 'GET'}).then(function(response){
@@ -404,6 +412,7 @@
             getAll: Video.getAll,
             getOne: Video.getOne,
             addToCollection: Video.addToCollection,
+            removeFromCollection: Video.removeFromCollection,
             saveCustomPreview: Video.saveCustomPreview
         };
     }]);

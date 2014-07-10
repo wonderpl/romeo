@@ -1,5 +1,5 @@
 angular.module('RomeoApp.directives')
-  .directive('collectionAddVideo', ['$templateCache', 'VideoService', '$q', '$location', function ($templateCache, VideoService, $q, $location) {
+  .directive('collectionAddVideo', ['$templateCache', 'VideoService', '$q', '$location', 'TagService', function ($templateCache, VideoService, $q, $location, TagService) {
 
   'use strict';
 
@@ -9,101 +9,91 @@ angular.module('RomeoApp.directives')
     template : $templateCache.get('collection-add-video.html'),
     scope : {
       availableTags : '=',
-      assignedTags : '=',
-      showCollection : '='
+      video : '=',
+      showCollection : '=',
     },
     link : function (scope, elem, attrs) {
-      console.log(scope.availableTags);
+
 
 
     },
     controller : function ($scope) {
 
+      // this should be moved to controller
       function getVideo () {
         var dfd = new $q.defer();
-        $scope.video = $scope.video || {};
         if ($scope.video && $scope.video.id) {
-          dfd.resolve($scope.video);
-        } else {
-          $scope.video.title = "New Video";
-          VideoService.create($scope.video).then(function (data) {
-
+          VideoService.get($scope.video.id).then(function (data) {
             angular.extend($scope.video, data);
-
-            // this should be done with a watch
+            dfd.resolve($scope.video);
+          });
+        } else {
+          $scope.video = $scope.video || {};
+          $scope.video.title = $scope.video.title || 'New Video';
+          VideoService.create($scope.video).then(function (data) {
+            angular.extend($scope.video, data);
             var url = '/video/' + $scope.video.id;
             $location.path(url, false);
-
-            dfd.resolve(data);
+            dfd.resolve($scope.video);
           });
         }
         return dfd.promise;
       }
 
-      $scope.removeTag = function (id) {
+      $scope.removeTag = function (id, $event) {
 
-        // /api/video/<video_id>/tags/<tag_id>
-
-
+        $event.stopPropagation();
+        VideoService.removeFromCollection($scope.video.id, id).then(function () {
+          VideoService.get($scope.video.id).then(function (data) {
+            angular.extend($scope.video, data);
+          });
+        });
       };
 
       $scope.hasTag = function (tagId) {
-        $scope.assignedTags = $scope.assignedTags || [];
-        var l = $scope.assignedTags.length;
-        var tags = $scope.assignedTags;
-        var hasTag = false;
 
-        while (l--) {
-          if (tags[l].id === tagId) {
-            hasTag = true;
+        var hasTag = false;
+        if ($scope.video && $scope.video.tags && $scope.video.tags.items) {
+          var l = $scope.video.tags.items.length;
+          var tags = $scope.video.tags.items;
+          while (l--) {
+            if (tags[l].id === tagId) {
+              hasTag = true;
+            }
           }
         }
-
         return hasTag;
       };
 
       $scope.addTag = function (id, $event) {
 
-        console.log(id);
-
-        var label = $($event.currentTarget).find('.video-edit-collections__option-title').text();
-
-        getVideo().then(function (video) {
-
-          angular.extend($scope.video, video);
-
-          VideoService.addToCollection(video.id, id).then(function (data) {
-
-            // { "href": "/api/video/51668773/tags/3" }
-
-            console.log($scope.video);
-
-            console.log(data);
-
-            if (data && data.href) {
-
-              $scope.assignedTags = $scope.assignedTags || [];
-
-              $scope.assignedTags.push({
-                id    : id,
-                href  : data.href,
-                label : label
-              });
-
-              // update class
-
-            } else {
-
-              // video already has tag
-            }
-
-          }, function (response) {
-
-            console.log(response);
-
+        getVideo().then(function (data) {
+          VideoService.addToCollection($scope.video.id, id).then(function () {
+            getVideo();
           });
         });
       };
+
+      $scope.saveNewCollection = function () {
+
+        var label = $scope.collection.label;
+        var description = $scope.collection.description;
+        var isPublic = $scope.collection.scope === 'public';
+
+        var data = {
+          label : label,
+          description : description,
+          public : isPublic
+        }
+
+        TagService.createTag(data).then(function () {
+          TagService.getTags().then(function (data) {
+            $scope.availableTags = data.tag.items;
+            $scope.showCreateCollection = false;
+          });
+        });
+      };
+
     }
   };
 }]);

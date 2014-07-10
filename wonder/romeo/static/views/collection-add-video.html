@@ -5,10 +5,10 @@
       {{ assignedTags ? 'In Collection:' : 'Add video to collection' }}
     </h4>
 
-    <ul ng-show="assignedTags" class="video-edit-collections__assigned-tags">
-      <li ng-repeat="tag in assignedTags" class="video-edit-collections__assigned-tag">
+    <ul ng-show="video.tags.items.length" class="video-edit-collections__assigned-tags">
+      <li ng-repeat="tag in video.tags.items" class="video-edit-collections__assigned-tag">
         <span class="" ng-bind-html="tag.label"></span>
-        <span class="video-edit-collections__remove-tag" ng-click="removeTag(collection.id, $event)">&times;</span>
+        <span class="video-edit-collections__remove-tag" ng-click="removeTag(tag.id, $event)">&times;</span>
       </li>
     </ul>
 
@@ -16,8 +16,8 @@
 
   <section class="video-edit-collections">
 
-    <ul class="video-edit-collections__options">
-      <li class="video-edit-collections__option">
+    <ul class="video-edit-collections__options" ng-class="{ 'video-edit-collections__options--fixed' : showCreateCollection }">
+      <li class="video-edit-collections__option" ng-click="showCreateCollection = !showCreateCollection">
         <span class="video-edit-collections__option-title">Create New Collection</span>
         <span class="video-edit-collections__option-count"></span>
       </li>
@@ -26,6 +26,30 @@
         <span class="video-edit-collections__option-count">4 videos</span>
       </li>
     </ul>
+
+    <section class="video-edit-collections__create-new" ng-class="{ 'video-edit-collections__create-new--active' : showCreateCollection }">
+      <a class="video-edit-collections__close" ng-click="showCreateCollection = !showCreateCollection">&times;</a>
+      <h5 class="video-edit-collections__new-title">Create a collection</h5>
+      <section class="video-edit-collections__new-controls">
+        <input ng-model="collection.label" placeholder="Name" class="video-edit-collections__new-collection-name" />
+        <textarea ng-model="collection.description" placeholder="Collection description (optional)&hellip;" class="video-edit-collections__new-collection-description"></textarea>
+        <ul class="video-edit-collections__scope-options">
+          <li class="video-edit-collections__scope-option">
+            <label class="video-edit-collections__label">
+              <input type="radio" name="scope" ng-model="collection.scope" value="public" />
+              Public
+            </label>
+          </li>
+          <li class="video-edit-collections__scope-option">
+            <label class="video-edit-collections__label">
+              <input type="radio" name="scope" ng-model="collection.scope" value="private" />
+              Private
+            </label>
+          </li>
+        </ul>
+        <a ng-click="saveNewCollection()" class="button button--primary">Okay</a>
+      </section>
+    </section>
 
   </section>
 
