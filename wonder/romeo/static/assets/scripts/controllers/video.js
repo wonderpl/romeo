@@ -1,14 +1,19 @@
 angular.module('fileUpload', [ 'angularFileUpload' ]);
 
 angular.module('RomeoApp.controllers')
-  .controller('VideoCtrl', ['$rootScope', '$scope', '$location', 'AuthService', '$upload', 'UploadService', '$routeParams', 'VideoService', '$sce', '$document',
-  function($rootScope, $scope, $location, AuthService, $upload, UploadService, $routeParams, VideoService, $sce, $document) {
+  .controller('VideoCtrl', ['$rootScope', '$scope', '$location', 'AuthService', '$upload', 'UploadService', '$routeParams', 'VideoService', '$sce', '$document', 'TagService',
+  function($rootScope, $scope, $location, AuthService, $upload, UploadService, $routeParams, VideoService, $sce, $document, TagService) {
 
   'use strict';
 
   // hack
   // https://github.com/thijsw/angular-medium-editor/pull/6
   var titlePlaceholderHack = 'Untitled Video';
+
+  TagService.getTags().then(function (data) {
+    console.log(data);
+    $scope.tags = data.tag.items;
+  });
 
   initialiseNewScope();
 
@@ -73,10 +78,18 @@ angular.module('RomeoApp.controllers')
 
     var data = { title : $scope.video.title };
 
-    VideoService.create(data).then(function (data) {
+    // this is a cludge
+    // having to create a new video record at different points
+    if ($scope.video.id) {
       persistVideoData(data);
       UploadService.uploadVideo(files[0], data.id);
-    });
+    } else {
+      VideoService.create(data).then(function (data) {
+        persistVideoData(data);
+        UploadService.uploadVideo(files[0], data.id);
+      });
+    }
+
 
     $scope.showPreviewSelector = true;
     $scope.showUpload = false;

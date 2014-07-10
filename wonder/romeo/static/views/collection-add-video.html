@@ -1,5 +1,34 @@
 <section class="collection-add-video">
 
-  <h4 class="video-extended-controls__section-header" ng-click="addCollectionShow = !addCollectionShow">Add video to collection</h4>
+  <header class="video-extended-controls__section-header" ng-click="showCollection = !showCollection">
+    <h4 class="video-extended-controls__section-header-title" ng-click="showCollection = !showCollection">
+      {{ assignedTags ? 'In Collection:' : 'Add video to collection' }}
+    </h4>
+
+    <ul ng-show="assignedTags" class="video-edit-collections__assigned-tags">
+      <li ng-repeat="tag in assignedTags" class="video-edit-collections__assigned-tag">
+        <span class="" ng-bind-html="tag.label"></span>
+        <span class="video-edit-collections__remove-tag" ng-click="removeTag(collection.id, $event)">&times;</span>
+      </li>
+    </ul>
+
+  </header>
+
+  <section class="video-edit-collections">
+
+    <ul class="video-edit-collections__options">
+      <li class="video-edit-collections__option">
+        <span class="video-edit-collections__option-title">Create New Collection</span>
+        <span class="video-edit-collections__option-count"></span>
+      </li>
+      <li class="video-edit-collections__option" ng-class="{ 'video-edit-collections__option--selected' : hasTag(tag.id) }" ng-repeat="tag in availableTags" ng-click="addTag(tag.id, $event)">
+        <span class="video-edit-collections__option-title" ng-bind-html="tag.label"></span>
+        <span class="video-edit-collections__option-count">4 videos</span>
+      </li>
+    </ul>
+
+  </section>
+
+  <span class="button button--primary">Done</span>
 
 </section>

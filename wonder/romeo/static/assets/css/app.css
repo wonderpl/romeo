@@ -4976,7 +4976,7 @@ h3 {
 }
 
 /* line 8, ../../scss/base/utils/_helpers.scss */
-.enable-hardware-acceleration, .video-preview__available-images {
+.enable-hardware-acceleration, .video-preview__available-images, .video-extended-controls__section {
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
   -ms-transform: translate3d(0, 0, 0);
@@ -5640,12 +5640,12 @@ h3 {
   overflow: hidden;
 }
 
-/* line 17, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 18, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__section--expanded {
   max-height: 500em;
 }
 
-/* line 21, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 22, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__indicator {
   display: block;
   position: absolute;
@@ -5658,20 +5658,20 @@ h3 {
   color: #b7bcbd;
 }
 
-/* line 42, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 43, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__section-contents {
   max-width: 960px;
   margin: 0 auto;
   text-align: left;
 }
 
-/* line 48, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 49, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__section-header {
   cursor: pointer;
   margin-bottom: 24px;
 }
 
-/* line 53, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 54, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__section-header-title {
   display: inline-block;
 }
@@ -5733,6 +5733,69 @@ h3 {
   color: red;
   text-shadow: 0 0 2px #ee0000;
   padding: 1em 2em 0 0;
+}
+
+/* line 5, ../../scss/specifics/video/_video-edit-collections.scss */
+.video-edit-collections__options {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* line 10, ../../scss/specifics/video/_video-edit-collections.scss */
+.video-edit-collections__option {
+  display: inline-block;
+  width: 300px;
+  padding: 20px 0 20px 80px;
+  min-height: 80px;
+  border: solid 1px transparent;
+  margin-bottom: 5px;
+  vertical-align: top;
+}
+
+/* line 20, ../../scss/specifics/video/_video-edit-collections.scss */
+.video-edit-collections__option--selected {
+  background: #51b364;
+  color: white;
+}
+
+/* line 25, ../../scss/specifics/video/_video-edit-collections.scss */
+.video-edit-collections__option-title {
+  display: block;
+  font-weight: 800;
+}
+
+/* line 30, ../../scss/specifics/video/_video-edit-collections.scss */
+.video-edit-collections__option-count {
+  display: block;
+}
+
+/* line 34, ../../scss/specifics/video/_video-edit-collections.scss */
+.video-edit-collections__option:hover {
+  cursor: pointer;
+  border-color: #51b364;
+}
+
+/* line 39, ../../scss/specifics/video/_video-edit-collections.scss */
+.video-edit-collections__assigned-tag {
+  color: #999999;
+}
+
+/* line 47, ../../scss/specifics/video/_video-edit-collections.scss */
+.video-edit-collections__remove-tag {
+  font-weight: 800;
+  color: red;
+  text-shadow: 0 0 2px #ee0000;
+  padding: 1em 2em 0 0;
+}
+
+/* line 55, ../../scss/specifics/video/_video-edit-collections.scss */
+.video-edit-collections__assigned-tags {
+  display: inline-block;
+}
+
+/* line 59, ../../scss/specifics/video/_video-edit-collections.scss */
+.video-edit-collections__assigned-tag {
+  display: inline-block;
 }
 
 /* line 1, ../../scss/specifics/upload/_upload-progress.scss */

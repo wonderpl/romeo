@@ -43,10 +43,10 @@
         <category-add-video selected-category="video.category" show-category="addCategoryShow" class="video-extended-controls__section-contents"></category-add-video>
       </section>
 
-      <section class="video-extended-controls__section">
+      <section class="video-extended-controls__section" ng-class="{ 'video-extended-controls__section--expanded' : addCollectionShow }">
         <span class="video-extended-controls__indicator video-extended-controls__indicator--more" ng-click="addCollectionShow = !addCollectionShow" ng-hide="addCollectionShow">+</span>
         <span class="video-extended-controls__indicator video-extended-controls__indicator--less" ng-click="addCollectionShow = !addCollectionShow" ng-show="addCollectionShow">-</span>
-        <collection-add-video class="video-extended-controls__section-contents"></collection-add-video>
+        <collection-add-video available-tags="tags" show-collection="addCollectionShow" assigned-tags="video.tags.items" class="video-extended-controls__section-contents"></collection-add-video>
       </section>
 
       <section class="video-extended-controls__section">

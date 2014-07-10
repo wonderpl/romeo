@@ -147,7 +147,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <span ng-show=\"selectedCategory\" class=\"video-edit-categories__selected-category\">\n" +
     "      <span ng-bind-html=\"selectedName\"></span>\n" +
     "      <span class=\"video-edit-categories__remove-category\" ng-click=\"removeCategory(category.id, $event)\">&times;</span>\n" +
-    "    <span>\n" +
+    "    </span>\n" +
     "  </header>\n" +
     "\n" +
     "  <div class=\"video-edit-categories__categories\">\n" +
@@ -177,7 +177,36 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('collection-add-video.html',
     "<section class=\"collection-add-video\">\n" +
     "\n" +
-    "  <h4 class=\"video-extended-controls__section-header\" ng-click=\"addCollectionShow = !addCollectionShow\">Add video to collection</h4>\n" +
+    "  <header class=\"video-extended-controls__section-header\" ng-click=\"showCollection = !showCollection\">\n" +
+    "    <h4 class=\"video-extended-controls__section-header-title\" ng-click=\"showCollection = !showCollection\">\n" +
+    "      (~ assignedTags ? 'In Collection:' : 'Add video to collection' ~)\n" +
+    "    </h4>\n" +
+    "\n" +
+    "    <ul ng-show=\"assignedTags\" class=\"video-edit-collections__assigned-tags\">\n" +
+    "      <li ng-repeat=\"tag in assignedTags\" class=\"video-edit-collections__assigned-tag\">\n" +
+    "        <span class=\"\" ng-bind-html=\"tag.label\"></span>\n" +
+    "        <span class=\"video-edit-collections__remove-tag\" ng-click=\"removeTag(collection.id, $event)\">&times;</span>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "\n" +
+    "  </header>\n" +
+    "\n" +
+    "  <section class=\"video-edit-collections\">\n" +
+    "\n" +
+    "    <ul class=\"video-edit-collections__options\">\n" +
+    "      <li class=\"video-edit-collections__option\">\n" +
+    "        <span class=\"video-edit-collections__option-title\">Create New Collection</span>\n" +
+    "        <span class=\"video-edit-collections__option-count\"></span>\n" +
+    "      </li>\n" +
+    "      <li class=\"video-edit-collections__option\" ng-class=\"{ 'video-edit-collections__option--selected' : hasTag(tag.id) }\" ng-repeat=\"tag in availableTags\" ng-click=\"addTag(tag.id, $event)\">\n" +
+    "        <span class=\"video-edit-collections__option-title\" ng-bind-html=\"tag.label\"></span>\n" +
+    "        <span class=\"video-edit-collections__option-count\">4 videos</span>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "\n" +
+    "  </section>\n" +
+    "\n" +
+    "  <span class=\"button button--primary\">Done</span>\n" +
     "\n" +
     "</section>"
   );
@@ -1084,10 +1113,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        <category-add-video selected-category=\"video.category\" show-category=\"addCategoryShow\" class=\"video-extended-controls__section-contents\"></category-add-video>\n" +
     "      </section>\n" +
     "\n" +
-    "      <section class=\"video-extended-controls__section\">\n" +
+    "      <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCollectionShow }\">\n" +
     "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\" ng-click=\"addCollectionShow = !addCollectionShow\" ng-hide=\"addCollectionShow\">+</span>\n" +
     "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\" ng-click=\"addCollectionShow = !addCollectionShow\" ng-show=\"addCollectionShow\">-</span>\n" +
-    "        <collection-add-video class=\"video-extended-controls__section-contents\"></collection-add-video>\n" +
+    "        <collection-add-video available-tags=\"tags\" show-collection=\"addCollectionShow\" assigned-tags=\"video.tags.items\" class=\"video-extended-controls__section-contents\"></collection-add-video>\n" +
     "      </section>\n" +
     "\n" +
     "      <section class=\"video-extended-controls__section\">\n" +
