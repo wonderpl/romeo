@@ -1004,9 +1004,11 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('video-more-link.html',
     "<section class=\"video-more\">\n" +
     "\n" +
-    "  <a class=\"video-more__link button\" ng-click=\"(showMoreLinkConfigPanel = !showMoreLinkConfigPanel)\">(~ text ? text : 'Add a link (optional) &hellip;' ~)</a>\n" +
+    "  <a class=\"video-more__link button\" ng-click=\"(showMoreLinkConfigPanel = !showMoreLinkConfigPanel)\" ng-show=\"isEdit\">(~ text ? text : 'Add a link (optional) &hellip;' ~)</a>\n" +
     "\n" +
-    "  <section class=\"video-more__form\" ng-show=\"showMoreLinkConfigPanel\">\n" +
+    "  <a class=\"video-more__link button\" href=\"(~ url ~)\" ng-hide=\"isEdit\">(~ text ~)</a>\n" +
+    "\n" +
+    "  <section class=\"video-more__form\" ng-show=\"showMoreLinkConfigPanel && isEdit\">\n" +
     "\n" +
     "    <input ng-model=\"text\" placeholder=\"Create a custom button...\" />\n" +
     "\n" +
@@ -1130,37 +1132,34 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <section class=\"main-view video-view\">\n" +
     "\n" +
-    "    <h2 class=\"video-view__title\" data-placeholder=\"(~ titlePlaceholder ~)\" medium-editor ng-model=\"video.title\"></h2>\n" +
+    "    <h2 class=\"video-view__title\" data-placeholder=\"(~ titlePlaceholder ~)\" medium-editor ng-model=\"video.title\" ng-show=\"isEdit\"></h2>\n" +
+    "    <h3 class=\"video-view__sub-title\" data-placeholder=\"Subtitle\" medium-editor ng-model=\"video.subTitle\" ng-show=\"isEdit\"></h2>\n" +
     "\n" +
-    "    <h3 class=\"video-view__sub-title\" data-placeholder=\"Subtitle\" medium-editor ng-model=\"video.subTitle\"></h2>\n" +
+    "    <h2 class=\"video-view__title\" ng-hide=\"isEdit\">(~ video.title ~)</h2>\n" +
+    "    <h3 class=\"video-view__sub-title\" ng-hide=\"isEdit\">(~ video.subTitle ~)</h2>\n" +
     "\n" +
     "    <div class=\"video-view__container\">\n" +
     "\n" +
-    "      <video-upload ng-show=\"showUpload\"></video-upload>\n" +
+    "      <video-upload ng-show=\"showUpload && isEdit\"></video-upload>\n" +
     "\n" +
     "      <video-player ng-show=\"hasProcessed\" embed-url=\"embedUrl\"></video-player>\n" +
     "\n" +
-    "      <video-edit ng-show=\"showVideoEdit\"></video-edit>\n" +
+    "      <video-edit ng-show=\"showVideoEdit && isEdit\"></video-edit>\n" +
     "\n" +
-    "      <video-color-picker ng-show=\"showColorPicker\"></video-color-picker>\n" +
+    "      <video-color-picker ng-show=\"showColorPicker && isEdit\"></video-color-picker>\n" +
     "\n" +
-    "      <video-thumbnail ng-show=\"showPreviewSelector\"></video-thumbnail>\n" +
+    "      <video-thumbnail ng-show=\"showPreviewSelector && isEdit\"></video-thumbnail>\n" +
     "\n" +
     "    </div>\n" +
     "\n" +
+    "    <video-more-link text=\"link_title\" url=\"link_url\" is-edit=\"(~ isEdit ~)\" ng-show=\"isEdit || link_title && link_url\"></video-more-link>\n" +
     "\n" +
+    "    <section class=\"video-view__description\" data-placeholder=\"Additional content including but not limited to: recipes, ingredients, lyrics, stories, etc.\" medium-editor ng-model=\"text\" ng-show=\"isEdit\"></section>\n" +
+    "    <section class=\"video-view__description\" ng-bind=\"text\" ng-hide=\"isEdit\"></section>\n" +
     "\n" +
+    "    <video-share ng-show=\"isEdit\"></video-share>\n" +
     "\n" +
-    "\n" +
-    "    <video-more-link text=\"link_title\" url=\"link_url\"></video-more-link>\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "    <section class=\"video-view__description\" data-placeholder=\"Additional content including but not limited to: recipes, ingredients, lyrics, stories, etc.\" medium-editor ng-model=\"text\"></section>\n" +
-    "\n" +
-    "    <video-share></video-share>\n" +
-    "\n" +
-    "    <section class=\"video-extended-controls\">\n" +
+    "    <section class=\"video-extended-controls\" ng-show=\"isEdit\">\n" +
     "\n" +
     "      <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCategoryShow }\">\n" +
     "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\" ng-click=\"addCategoryShow = !addCategoryShow\" ng-hide=\"addCategoryShow\">+</span>\n" +
@@ -1182,11 +1181,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    </section>\n" +
     "\n" +
-    "    <video-indicators ng-show=\"video.status === 'published'\"></video-indicators>\n" +
+    "    <!-- <video-indicators ng-show=\"isComments && video.status === 'published'\"></video-indicators> -->\n" +
+    "    <video-indicators ng-show=\"isComments\"></video-indicators>\n" +
     "\n" +
-    "    <video-comments ng-show=\"video.status === 'published'\"></video-comments>\n" +
+    "    <!-- <video-comments ng-show=\"isComments && video.status === 'published'\"></video-comments> -->\n" +
+    "    <video-comments ng-show=\"isComments\"></video-comments>\n" +
     "\n" +
-    "    <div class=\"video-view__save-controls\">\n" +
+    "    <div class=\"video-view__save-controls\" ng-show=\"isEdit\">\n" +
     "      <a ng-click=\"cancel()\" class=\"button\">cancel</a>\n" +
     "      <a ng-click=\"save()\" class=\"button button--primary\">save changes</a>\n" +
     "    </div>\n" +

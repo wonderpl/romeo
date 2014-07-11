@@ -9,7 +9,8 @@ angular.module('RomeoApp.directives')
     template : $templateCache.get('video-more-link.html'),
     scope : {
       text : '=',
-      url : '='
+      url : '=',
+      isEdit : '@'
     }
   };
 }]);

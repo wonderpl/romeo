@@ -63,7 +63,17 @@
             resolve: authChecks
         });
 
+        // Videos
+        $routeProvider.when('/video/:id/comments', {
+            templateUrl: 'video.html',
+            resolve: authChecks
+        });
 
+        // Videos
+        $routeProvider.when('/video/:id/edit', {
+            templateUrl: 'video.html',
+            resolve: authChecks
+        });
 
         // TEST
         $routeProvider.when('/prototype/:id', {
