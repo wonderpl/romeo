@@ -1,5 +1,36 @@
 <section class="add-collaborator">
 
-  <h4 class="video-extended-controls__section-header" ng-click="addCollaboratorShow = !addCollaboratorShow">Add collaborator</h4>
+  <header class="video-extended-controls__section-header" ng-click="addCollaboratorShow = !addCollaboratorShow">
+    <h4 class="video-extended-controls__section-header-title">
+      Collaborators
+    </h4>
+  </header>
+
+  <section class="video-add-collaborators">
+
+    <label class="video-add-collaborators__label">
+      Name
+      <input class="video-add-collaborators__input" ng-model="collaborator.name" />
+    </label>
+    <label class="video-add-collaborators__label">
+      Email
+      <input class="video-add-collaborators__input" ng-model="collaborator.email" />
+    </label>
+    <label class="video-add-collaborators__label">Permissions</label>
+    <label class="video-add-collaborators__label--inline">
+      <input class="video-add-collaborators__checkbox" type="checkbox" ng-model="collaborator.can_comment" />
+      Allow to comment
+    </label>
+    <label class="video-add-collaborators__label--inline">
+      <input class="video-add-collaborators__checkbox" type="checkbox" ng-model="collaborator.can_download" />
+      Allow to download source
+    </label>
+
+  </section>
+
+  <a class="button button--primary" ng-click="add()">Send Request</a>
 
 </section>
+
+
+

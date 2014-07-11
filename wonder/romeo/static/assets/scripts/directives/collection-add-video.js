@@ -84,7 +84,7 @@ angular.module('RomeoApp.directives')
           label : label,
           description : description,
           public : isPublic
-        }
+        };
 
         TagService.createTag(data).then(function () {
           TagService.getTags().then(function (data) {

@@ -49,10 +49,10 @@
         <collection-add-video available-tags="tags" video="video" show-collection="addCollectionShow" class="video-extended-controls__section-contents"></collection-add-video>
       </section>
 
-      <section class="video-extended-controls__section">
+      <section class="video-extended-controls__section" ng-class="{ 'video-extended-controls__section--expanded' : addCollaboratorShow }">
         <span class="video-extended-controls__indicator video-extended-controls__indicator--more" ng-click="addCollaboratorShow = !addCollaboratorShow" ng-hide="addCollaboratorShow">+</span>
         <span class="video-extended-controls__indicator video-extended-controls__indicator--less" ng-click="addCollaboratorShow = !addCollaboratorShow" ng-show="addCollaboratorShow">-</span>
-        <add-collaborator class="video-extended-controls__section-contents"></add-collaborator>
+        <add-collaborator class="video-extended-controls__section-contents" video-id="{{ video.id }}"></add-collaborator>
       </section>
 
     </section>

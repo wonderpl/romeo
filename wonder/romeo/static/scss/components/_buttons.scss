@@ -26,6 +26,10 @@
   padding-right: 2em;
 }
 
+.button--right {
+  float: right;
+}
+
 .button__component {
   @extend .no-selection;
   border-radius: 0;

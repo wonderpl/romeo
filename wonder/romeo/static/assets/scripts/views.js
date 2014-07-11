@@ -60,9 +60,40 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('add-collaborator.html',
     "<section class=\"add-collaborator\">\n" +
     "\n" +
-    "  <h4 class=\"video-extended-controls__section-header\" ng-click=\"addCollaboratorShow = !addCollaboratorShow\">Add collaborator</h4>\n" +
+    "  <header class=\"video-extended-controls__section-header\" ng-click=\"addCollaboratorShow = !addCollaboratorShow\">\n" +
+    "    <h4 class=\"video-extended-controls__section-header-title\">\n" +
+    "      Collaborators\n" +
+    "    </h4>\n" +
+    "  </header>\n" +
     "\n" +
-    "</section>"
+    "  <section class=\"video-add-collaborators\">\n" +
+    "\n" +
+    "    <label class=\"video-add-collaborators__label\">\n" +
+    "      Name\n" +
+    "      <input class=\"video-add-collaborators__input\" ng-model=\"collaborator.name\" />\n" +
+    "    </label>\n" +
+    "    <label class=\"video-add-collaborators__label\">\n" +
+    "      Email\n" +
+    "      <input class=\"video-add-collaborators__input\" ng-model=\"collaborator.email\" />\n" +
+    "    </label>\n" +
+    "    <label class=\"video-add-collaborators__label\">Permissions</label>\n" +
+    "    <label class=\"video-add-collaborators__label--inline\">\n" +
+    "      <input class=\"video-add-collaborators__checkbox\" type=\"checkbox\" ng-model=\"collaborator.can_comment\" />\n" +
+    "      Allow to comment\n" +
+    "    </label>\n" +
+    "    <label class=\"video-add-collaborators__label--inline\">\n" +
+    "      <input class=\"video-add-collaborators__checkbox\" type=\"checkbox\" ng-model=\"collaborator.can_download\" />\n" +
+    "      Allow to download source\n" +
+    "    </label>\n" +
+    "\n" +
+    "  </section>\n" +
+    "\n" +
+    "  <a class=\"button button--primary\" ng-click=\"add()\">Send Request</a>\n" +
+    "\n" +
+    "</section>\n" +
+    "\n" +
+    "\n" +
+    "\n"
   );
 
 
@@ -1143,10 +1174,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        <collection-add-video available-tags=\"tags\" video=\"video\" show-collection=\"addCollectionShow\" class=\"video-extended-controls__section-contents\"></collection-add-video>\n" +
     "      </section>\n" +
     "\n" +
-    "      <section class=\"video-extended-controls__section\">\n" +
+    "      <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCollaboratorShow }\">\n" +
     "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\" ng-click=\"addCollaboratorShow = !addCollaboratorShow\" ng-hide=\"addCollaboratorShow\">+</span>\n" +
     "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\" ng-click=\"addCollaboratorShow = !addCollaboratorShow\" ng-show=\"addCollaboratorShow\">-</span>\n" +
-    "        <add-collaborator class=\"video-extended-controls__section-contents\"></add-collaborator>\n" +
+    "        <add-collaborator class=\"video-extended-controls__section-contents\" video-id=\"(~ video.id ~)\"></add-collaborator>\n" +
     "      </section>\n" +
     "\n" +
     "    </section>\n" +

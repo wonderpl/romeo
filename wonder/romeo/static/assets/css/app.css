@@ -4946,6 +4946,12 @@ h3 {
   line-height: 1.5;
 }
 
+/* line 38, ../../scss/base/project/_globals.scss */
+:focus {
+  outline-color: transparent;
+  outline-style: none;
+}
+
 /* line 1, ../../scss/base/project/_helpers.scss */
 .hide-text {
   color: transparent !important;
@@ -5020,19 +5026,24 @@ h3 {
 }
 
 /* line 29, ../../scss/components/_buttons.scss */
+.button--right {
+  float: right;
+}
+
+/* line 33, ../../scss/components/_buttons.scss */
 .button__component {
   border-radius: 0;
   cursor: pointer;
 }
 
-/* line 35, ../../scss/components/_buttons.scss */
+/* line 39, ../../scss/components/_buttons.scss */
 .button__component--left {
   border-top-left-radius: 24px;
   border-bottom-left-radius: 24px;
   border-right-color: transparent;
 }
 
-/* line 41, ../../scss/components/_buttons.scss */
+/* line 45, ../../scss/components/_buttons.scss */
 .button__component--right {
   border-top-right-radius: 24px;
   border-bottom-right-radius: 24px;
@@ -5674,6 +5685,7 @@ h3 {
 /* line 54, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__section-header-title {
   display: inline-block;
+  font-weight: 800;
 }
 
 /* line 5, ../../scss/specifics/video/_video-edit-categories.scss */
@@ -5904,6 +5916,33 @@ h3 {
   font-size: 1.2em;
   margin-right: 2em;
   color: #70797b;
+}
+
+/* line 1, ../../scss/specifics/video/_video-add-collaborators.scss */
+.video-add-collaborators {
+  margin-bottom: 2em;
+}
+
+/* line 5, ../../scss/specifics/video/_video-add-collaborators.scss */
+.video-add-collaborators__label {
+  display: block;
+  margin-bottom: 1em;
+  font-variant: small-caps;
+  text-transform: lowercase;
+}
+
+/* line 12, ../../scss/specifics/video/_video-add-collaborators.scss */
+.video-add-collaborators__label--inline {
+  display: inline;
+  margin-right: 1em;
+}
+
+/* line 17, ../../scss/specifics/video/_video-add-collaborators.scss */
+.video-add-collaborators__input {
+  display: block;
+  width: 20em;
+  font-size: 1em;
+  padding: 0.3em;
 }
 
 /* line 1, ../../scss/specifics/upload/_upload-progress.scss */
