@@ -60,7 +60,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('add-collaborator.html',
     "<section class=\"add-collaborator\">\n" +
     "\n" +
-    "  <header class=\"video-extended-controls__section-header\" ng-click=\"addCollaboratorShow = !addCollaboratorShow\">\n" +
+    "  <header class=\"video-extended-controls__section-header\" ng-click=\"showCollaborator = !showCollaborator\">\n" +
     "    <h4 class=\"video-extended-controls__section-header-title\">\n" +
     "      Collaborators\n" +
     "    </h4>\n" +
@@ -210,7 +210,15 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <header class=\"video-extended-controls__section-header\" ng-click=\"showCollection = !showCollection\">\n" +
     "    <h4 class=\"video-extended-controls__section-header-title\" ng-click=\"showCollection = !showCollection\">\n" +
-    "      (~ assignedTags ? 'In Collection:' : 'Add video to collection' ~)\n" +
+    "      <span ng-if=\"video.tags.items.length === 0\">\n" +
+    "        Add video to collection\n" +
+    "      </span>\n" +
+    "      <span ng-if=\"video.tags.items.length === 1\">\n" +
+    "        In Collection:\n" +
+    "      </span>\n" +
+    "      <span ng-if=\"video.tags.items.length > 1\">\n" +
+    "        In Collections:\n" +
+    "      </span>\n" +
     "    </h4>\n" +
     "\n" +
     "    <ul ng-show=\"video.tags.items.length\" class=\"video-edit-collections__assigned-tags\">\n" +
@@ -913,12 +921,23 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<section class=\"video-feedback\">\n" +
     "\n" +
     "  <section class=\"video-feedback__form\">\n" +
-    "    <textarea class=\"video-feedback__input js-feeback-input\"></textarea>\n" +
-    "    <button class=\"video-feedback__button\" ng-click=\"addComment()\">submit</button>\n" +
+    "    <section class=\"video-feedback__input-container\">\n" +
+    "      <textarea class=\"video-feedback__input js-feeback-input\"></textarea>\n" +
+    "    </section>\n" +
+    "    <a class=\"video-feedback__button button button--primary\" ng-click=\"addComment()\">submit</a>\n" +
     "  </section>\n" +
     "\n" +
-    "  <!-- https://www.brainyquote.com/quotes/topics/topic_inspirational.html -->\n" +
     "  <section class=\"video-feedback__comments\">\n" +
+    "\n" +
+    "    <ul class=\"video-feedback__comments-list\">\n" +
+    "      <li class=\"video-feedback__comment\" ng-repeat=\"comment in comments\" ng-bind=\"comment.comment\"></li>\n" +
+    "    </ul>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
     "    <ul class=\"video-feedback__comments-list\">\n" +
     "\n" +
     "      <li class=\"video-feedback__comment\" ng-class=\"{ 'video-feedback__comment--hover' : comment.isHover, 'video-feedback__comment--active' : comment.isActive }\"  data-id=\"(~ comment.id ~)\" data-mark=\"(~ comment.mark ~)\" ng-repeat=\"comment in comments | orderBy: 'mark'\" ng-click=\"commentHover(comment.mark)\">\n" +
@@ -1176,7 +1195,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCollaboratorShow }\">\n" +
     "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\" ng-click=\"addCollaboratorShow = !addCollaboratorShow\" ng-hide=\"addCollaboratorShow\">+</span>\n" +
     "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\" ng-click=\"addCollaboratorShow = !addCollaboratorShow\" ng-show=\"addCollaboratorShow\">-</span>\n" +
-    "        <add-collaborator class=\"video-extended-controls__section-contents\" video-id=\"(~ video.id ~)\"></add-collaborator>\n" +
+    "        <add-collaborator class=\"video-extended-controls__section-contents\" show-collaborator=\"addCollaboratorShow\"></add-collaborator>\n" +
     "      </section>\n" +
     "\n" +
     "    </section>\n" +
@@ -1185,7 +1204,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <video-indicators ng-show=\"isComments\"></video-indicators>\n" +
     "\n" +
     "    <!-- <video-comments ng-show=\"isComments && video.status === 'published'\"></video-comments> -->\n" +
-    "    <video-comments ng-show=\"isComments\"></video-comments>\n" +
+    "    <video-comments ng-show=\"video.id && isComments\" video-id=\"(~ video.id ~)\"></video-comments>\n" +
     "\n" +
     "    <div class=\"video-view__save-controls\" ng-show=\"isEdit\">\n" +
     "      <a ng-click=\"cancel()\" class=\"button\">cancel</a>\n" +

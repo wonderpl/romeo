@@ -1,12 +1,23 @@
 <section class="video-feedback">
 
   <section class="video-feedback__form">
-    <textarea class="video-feedback__input js-feeback-input"></textarea>
-    <button class="video-feedback__button" ng-click="addComment()">submit</button>
+    <section class="video-feedback__input-container">
+      <textarea class="video-feedback__input js-feeback-input"></textarea>
+    </section>
+    <a class="video-feedback__button button button--primary" ng-click="addComment()">submit</a>
   </section>
 
-  <!-- https://www.brainyquote.com/quotes/topics/topic_inspirational.html -->
   <section class="video-feedback__comments">
+
+    <ul class="video-feedback__comments-list">
+      <li class="video-feedback__comment" ng-repeat="comment in comments" ng-bind="comment.comment"></li>
+    </ul>
+
+
+
+
+
+
     <ul class="video-feedback__comments-list">
 
       <li class="video-feedback__comment" ng-class="{ 'video-feedback__comment--hover' : comment.isHover, 'video-feedback__comment--active' : comment.isActive }"  data-id="{{ comment.id }}" data-mark="{{ comment.mark }}" ng-repeat="comment in comments | orderBy: 'mark'" ng-click="commentHover(comment.mark)">

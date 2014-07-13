@@ -3,12 +3,19 @@
   margin: 40px auto;
 }
 
+.video-feedback__input-container {
+  border-bottom: solid 1px $light-grey;
+  margin-bottom: 1em;
+}
+
 .video-feedback__form {
   text-align: right;
 }
 
 .video-feedback__input {
   text-align: left;
+  border: 0 none;
+  resize: none;
 }
 
 .video-feedback__comments {

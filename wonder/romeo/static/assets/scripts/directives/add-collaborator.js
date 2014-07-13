@@ -8,7 +8,8 @@ angular.module('RomeoApp.directives')
     replace : true,
     template : $templateCache.get('add-collaborator.html'),
     scope : {
-      videoId : '@'
+      videoId : '@',
+      showCollaborator : '='
     },
     controller : function ($scope) {
 

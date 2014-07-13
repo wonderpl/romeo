@@ -49,7 +49,7 @@
       <section class="video-extended-controls__section" ng-class="{ 'video-extended-controls__section--expanded' : addCollaboratorShow }">
         <span class="video-extended-controls__indicator video-extended-controls__indicator--more" ng-click="addCollaboratorShow = !addCollaboratorShow" ng-hide="addCollaboratorShow">+</span>
         <span class="video-extended-controls__indicator video-extended-controls__indicator--less" ng-click="addCollaboratorShow = !addCollaboratorShow" ng-show="addCollaboratorShow">-</span>
-        <add-collaborator class="video-extended-controls__section-contents" video-id="{{ video.id }}"></add-collaborator>
+        <add-collaborator class="video-extended-controls__section-contents" show-collaborator="addCollaboratorShow"></add-collaborator>
       </section>
 
     </section>
@@ -58,7 +58,7 @@
     <video-indicators ng-show="isComments"></video-indicators>
 
     <!-- <video-comments ng-show="isComments && video.status === 'published'"></video-comments> -->
-    <video-comments ng-show="isComments"></video-comments>
+    <video-comments ng-show="video.id && isComments" video-id="{{ video.id }}"></video-comments>
 
     <div class="video-view__save-controls" ng-show="isEdit">
       <a ng-click="cancel()" class="button">cancel</a>

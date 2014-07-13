@@ -6,33 +6,6 @@ angular.module('RomeoApp.controllers')
 
     'use strict';
 
-    // hack
-    // https://github.com/thijsw/angular-medium-editor/pull/6
-    var titlePlaceholderHack = 'Untitled Video';
-
-    TagService.getTags().then(function (data) {
-      console.log(data);
-      $scope.tags = data.tag.items;
-    });
-
-    initialiseNewScope();
-
-    if ($routeParams.id) {
-
-      // load video
-
-      VideoService.get($routeParams.id).then(function (data) {
-
-        angular.extend($scope.video, data);
-        $scope.loadVideo($scope.video.id);
-
-        $scope.hasProcessed = true;
-        $scope.showVideoEdit = true;
-        $scope.showUpload = false;
-
-      });
-    }
-
     function persistVideoData (data) {
       console.log('persistVideoData()');
       // Object {href: "/api/video/85502346", id: 85502346, status: "uploading"}
@@ -41,14 +14,14 @@ angular.module('RomeoApp.controllers')
     }
 
     function initialiseNewScope () {
+
       $scope.video = $scope.video || {};
+      $scope.titlePlaceholder = '';
       $scope.showUpload = true;
       $scope.isUploading = false;
       $scope.hasProcessed = false;
       $scope.videoHasLoaded = false;
       $scope.embedUrl = '';
-
-      $scope.titlePlaceholder = titlePlaceholderHack;
     }
 
     $scope.onPreviewImageSelect = function (files) {
@@ -132,10 +105,6 @@ angular.module('RomeoApp.controllers')
       $scope.embedUrl = $sce.trustAsResourceUrl(url);
 
       $scope.videoHasLoaded = true;
-
-      $scope.titlePlaceholder = '';
-
-      // fill out rest of page details
     };
 
     $scope.$watch(
@@ -197,12 +166,6 @@ angular.module('RomeoApp.controllers')
 
 
 
-    var isEdit;
-
-    var isReview;
-
-    var isComments;
-
     $scope.isEdit = false;
 
     $scope.isReview = false;
@@ -231,9 +194,45 @@ angular.module('RomeoApp.controllers')
     if ($location.path().indexOf('comments') > -1) {
 
       $scope.displaySection('comments');
+
+    } else if ($location.path().indexOf('edit') > -1) {
+
+      $scope.displaySection('edit');
+
     }
 
-    if ($location.path().indexOf('edit') > -1) {
+    TagService.getTags().then(function (data) {
+      console.log(data);
+      $scope.tags = data.tag.items;
+    });
+
+    initialiseNewScope();
+
+    if ($routeParams.id) {
+
+      // load video
+
+      VideoService.get($routeParams.id).then(function (data) {
+
+        angular.extend($scope.video, data);
+
+        $scope.hasProcessed = ($scope.video.status === 'ready');
+        $scope.showUpload = ($scope.video.status === 'uploading');
+
+        if (($scope.video.status === 'ready') || ($scope.video.status === 'published')) {
+          $scope.loadVideo($scope.video.id);
+        }
+
+        $scope.showVideoEdit = (($scope.video.status === 'ready') || ($scope.video.status === 'published'));
+
+
+        // hack
+        // https://github.com/thijsw/angular-medium-editor/pull/6
+        $scope.titlePlaceholder = $scope.video.title ? '' : 'Untitled Video';
+
+      });
+
+    } else {
 
       $scope.displaySection('edit');
     }
