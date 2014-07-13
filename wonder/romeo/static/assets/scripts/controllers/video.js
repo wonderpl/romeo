@@ -55,7 +55,7 @@ angular.module('RomeoApp.controllers')
       // having to create a new video record at different points
       if ($scope.video.id) {
         persistVideoData(data);
-        UploadService.uploadVideo(files[0], data.id);
+        UploadService.uploadVideo(files[0], $scope.video.id);
       } else {
         VideoService.create(data).then(function (data) {
           persistVideoData(data);
