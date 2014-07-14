@@ -82,6 +82,8 @@ class VideoForm(BaseForm):
             chain(*(c['sub_categories'] for c in get_categories()))]
 
     def save(self):
+        if self.category and self.category.data in ('None', ''):    # XXX: Where is this coming from?
+            self.category.data = None
         video = super(VideoForm, self).save()
 
         event = 'updated' if self.obj else 'created'
