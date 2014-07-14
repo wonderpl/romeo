@@ -17,7 +17,7 @@
             'angularFileUpload'] /* module dependencies */);
 
     app.config(['$routeProvider', '$interpolateProvider', '$httpProvider', function( $routeProvider, $interpolateProvider, $httpProvider, $location ){
-        
+
         var sessionUrl;
         var authChecks = {
             loggedin: function(ErrorService, AuthService, $q) {
@@ -52,9 +52,35 @@
         });
 
         // Videos
-        $routeProvider.when('/video/:videoID', {
-            templateUrl: 'video.html'
+        $routeProvider.when('/video', {
+            templateUrl: 'video.html',
+            resolve: authChecks
         });
+
+        // Videos
+        $routeProvider.when('/video/:id', {
+            templateUrl: 'video.html',
+            resolve: authChecks
+        });
+
+        // Videos
+        $routeProvider.when('/video/:id/comments', {
+            templateUrl: 'video.html',
+            resolve: authChecks
+        });
+
+        // Videos
+        $routeProvider.when('/video/:id/edit', {
+            templateUrl: 'video.html',
+            resolve: authChecks
+        });
+
+        // TEST
+        $routeProvider.when('/prototype/:id', {
+            templateUrl: 'prototype.html'
+        });
+
+
 
         // Analytics
         // Types can be
@@ -103,7 +129,21 @@
 
     }]);
 
-    app.run(['$timeout', '$rootScope', '$http', 'animLoop', '$cookies', '$location', 'ErrorService', function($timeout, $rootScope, $http, animLoop, $cookies, $location, ErrorService) {
+    app.run(['$route', '$timeout', '$rootScope', '$http', 'animLoop', '$cookies', '$location', 'ErrorService', function($route, $timeout, $rootScope, $http, animLoop, $cookies, $location, ErrorService) {
+
+      // http://joelsaupe.com/programming/angularjs-change-path-without-reloading/
+      // $location.path('/sample/' + $scope.checkinId, false);
+      var original = $location.path;
+      $location.path = function (path, reload) {
+        if (reload === false) {
+          var lastRoute = $route.current;
+          var un = $rootScope.$on('$locationChangeSuccess', function () {
+            $route.current = lastRoute;
+            un();
+          });
+        }
+        return original.apply($location, [path]);
+      };
 
         $rootScope.$on('$routeChangeError', function(evt, next, last, error) {
             console.log( error );

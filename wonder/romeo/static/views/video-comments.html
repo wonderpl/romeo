@@ -1,0 +1,45 @@
+<section class="video-feedback">
+
+  <section
+    class="video-feedback__form"
+    ng-class="{ 'video-feedback__form--active' : inputActive }">
+    <section class="video-feedback__input-container">
+      <textarea class="video-feedback__input"
+        placeholder="Insert comment&hellip;"
+        ng-model="commentText"
+        ng-class="{ 'video-feedback__input--active' : inputActive }"
+        ng-focus="inputActive = true"
+        ng-blur="inputActive = false"
+        focus="inputActive">
+      </textarea>
+    </section>
+    <a class="video-feedback__button button button--primary"
+      ng-click="addComment()">
+      submit
+    </a>
+  </section>
+
+  <section class="video-feedback__comments">
+
+    <ul class="video-feedback__comments-list">
+      <li class="video-feedback__comment"
+        ng-class="{ 'video-feedback__comment--active' : currentTime === comment.timestamp }"
+        ng-repeat="comment in comments | orderBy:timestamp"
+        ng-mouseenter="replyActive = true"
+        ng-mouseleave="replyActive = false">
+        <span class="video-feedback__comment-name" ng-bind="comment.username"></span>
+        <span class="video-feedback__comment-time-posted" ng-bind="comment.datetime | prettyDate"></span>
+        <div class="video-feedback__comment-text">
+          <span class="video-feedback__comment-timestamp" ng-show="comment.timestamp">
+            @<a href="video-feedback__comment-timestamp" ng-bind="comment.timestamp"></a>
+          </span>
+          {{ comment.comment }}
+        </div>
+        <a class="video-feedback__reply-link"
+          ng-class="{ 'video-feedback__reply-link--active' : replyActive }"
+          ng-click="reply(comment.timestamp)">reply</a>
+      </li>
+    </ul>
+
+  </section>
+</section>

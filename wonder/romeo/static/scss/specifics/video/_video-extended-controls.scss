@@ -1,0 +1,58 @@
+.video-extended-controls {
+
+  border-top: solid 1px $grey;
+  margin-bottom: 1em;
+}
+
+.video-extended-controls__section {
+  border-bottom: solid 1px $grey;
+  padding: 1em 0;
+  text-align: center;
+  position: relative;
+  transition: max-height 0.4s ease-in-out;
+  @extend .enable-hardware-acceleration;
+  max-height: 3em;
+  overflow: hidden;
+}
+
+.video-extended-controls__section--expanded {
+  max-height: 500em;
+}
+
+.video-extended-controls__indicator {
+  @extend .no-selection;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-left: 1em;
+  cursor: pointer;
+  font-size: 2.5em;
+  line-height: 1.2em;
+  color: $light-grey;
+}
+
+.video-extended-controls__indicator--more {
+
+}
+
+.video-extended-controls__indicator--less {
+
+}
+
+.video-extended-controls__section-contents {
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.video-extended-controls__section-header {
+  cursor: pointer;
+  margin-bottom: 24px;
+}
+
+.video-extended-controls__section-header-title {
+  display: inline-block;
+  font-weight: 800;
+}
+

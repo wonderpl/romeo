@@ -1,0 +1,244 @@
+angular.module('fileUpload', [ 'angularFileUpload' ]);
+
+angular.module('RomeoApp.controllers')
+  .controller('VideoCtrl', ['$rootScope', '$scope', '$location', 'AuthService', '$upload', 'UploadService', '$routeParams', 'VideoService', '$sce', '$document', 'TagService',
+  function($rootScope, $scope, $location, AuthService, $upload, UploadService, $routeParams, VideoService, $sce, $document, TagService) {
+
+    'use strict';
+
+    function persistVideoData (data) {
+      // Object {href: "/api/video/85502346", id: 85502346, status: "uploading"}
+      angular.extend($scope.video, data);
+    }
+
+    function initialiseNewScope () {
+
+      $scope.video = $scope.video || {};
+      $scope.titlePlaceholder = '';
+      $scope.showUpload = true;
+      $scope.isUploading = false;
+      $scope.hasProcessed = false;
+      $scope.videoHasLoaded = false;
+      $scope.embedUrl = '';
+      $scope.currentTime = 0;
+    }
+
+    $scope.onPreviewImageSelect = function (files) {
+      VideoService.saveCustomPreview($scope.video.id, files[0]).then(function(data){
+          angular.extend($scope.video, data);
+          $scope.loadVideo($scope.video.id);
+          $scope.showPreviewSelector = false;
+          $scope.showVideoEdit = true;
+      });
+    };
+
+    function stripExtension (value) {
+
+      return value.substr(0, value.lastIndexOf('.'));
+    }
+
+    $scope.onFileSelect = function(files) {
+
+      $scope.video.title = $scope.video.title || stripExtension(files[0].name);
+      $scope.titlePlaceholder = '';
+
+      var data = { title : $scope.video.title };
+
+      // this is a cludge
+      // having to create a new video record at different points
+      if ($scope.video.id) {
+        persistVideoData(data);
+        UploadService.uploadVideo(files[0], $scope.video.id);
+      } else {
+        VideoService.create(data).then(function (data) {
+          persistVideoData(data);
+          UploadService.uploadVideo(files[0], data.id);
+        });
+      }
+
+
+      $scope.showPreviewSelector = true;
+      $scope.showUpload = false;
+      $scope.isUploading = true;
+    };
+
+    $scope.closePreviewSelector = function () {
+
+      $scope.showPreviewSelector = false;
+      $scope.showThumbnailSelector = false;
+      $scope.showVideoEdit = true;
+
+      if (!$scope.videoHasLoaded && $scope.hasProcessed) {
+        $scope.loadVideo($scope.video.id);
+      }
+    };
+
+    $scope.$on('video-upload-complete', videoUploadOnComplete);
+
+    function videoUploadOnComplete (event) {
+      // manaual ajax request doesn't return video object to extend what we have in scope
+      $scope.video.status = 'processing';
+      $scope.isUploading = false;
+    }
+
+    $scope.$on('video-upload-poll', videoUploadOnPoll);
+
+    function videoUploadOnPoll (event, data) {
+      angular.extend($scope.video, data);
+    }
+
+    $scope.loadVideo = function (id) {
+      var url = '//' + $location.host() + ':' + $location.port() + '/embed/' + id + '/?controls=1';
+      $scope.embedUrl = $sce.trustAsResourceUrl(url);
+
+      $scope.videoHasLoaded = true;
+    };
+
+    $scope.$watch(
+      function() { return $scope.embedUrl; },
+      function(newValue, oldValue) {
+        if ((newValue !== '') && (oldValue !== '')) {
+          $('#VideoPlayerIFrame').attr('src', $('#VideoPlayerIFrame').attr('src'));
+        }
+      });
+
+    $scope.save = function () {
+
+      VideoService.update($scope.video.id, $scope.video);
+    };
+
+    $scope.cancel = function () {
+
+      VideoService.get($scope.id).then(function (data) {
+        angular.extend($scope.video, data);
+      });
+    };
+
+    $scope.$on('video-upload-success', videoUploadOnSuccess);
+
+    function videoUploadOnSuccess (event, data) {
+
+      angular.extend($scope.video, data);
+
+      var url = '/video/' + $scope.video.id + '/edit';
+
+      $location.path(url, false);
+
+      $scope.hasProcessed = true;
+    }
+
+    $scope.$on('video-upload-start', videoUploadOnStart);
+
+    function videoUploadOnStart (event) {
+
+      $scope.isUploading = true;
+    }
+
+
+
+
+    var query = $location.search();
+
+    $scope.color='#f00';
+
+
+
+    $scope.isEdit = false;
+
+    $scope.isReview = false;
+
+    $scope.isComments = false;
+
+    $scope.displaySection = function (section) {
+
+      switch (section) {
+        case 'edit':
+          $scope.isEdit = true;
+          $scope.isReview = $scope.isComments = false;
+        break;
+        case 'comments':
+          $scope.isComments = true;
+          $scope.isReview = $scope.isEdit = false;
+        break;
+        default:
+          $scope.isReview = true;
+          $scope.isEdit = $scope.isComments = false;
+        break;
+      }
+    };
+
+    // probably a better way of doing this
+    if ($location.path().indexOf('comments') > -1) {
+
+      $scope.displaySection('comments');
+
+    } else if ($location.path().indexOf('edit') > -1) {
+
+      $scope.displaySection('edit');
+
+    }
+
+    TagService.getTags().then(function (data) {
+
+      $scope.tags = data.tag.items;
+    });
+
+    initialiseNewScope();
+
+    if ($routeParams.id) {
+
+      // load video
+
+      VideoService.get($routeParams.id).then(function (data) {
+
+        angular.extend($scope.video, data);
+
+        $scope.hasProcessed = ($scope.video.status === 'ready');
+        $scope.showUpload = ($scope.video.status === 'uploading');
+
+        if (($scope.video.status === 'ready') || ($scope.video.status === 'published')) {
+          $scope.loadVideo($scope.video.id);
+        }
+
+        $scope.showVideoEdit = (($scope.video.status === 'ready') || ($scope.video.status === 'published'));
+
+
+        // hack
+        // https://github.com/thijsw/angular-medium-editor/pull/6
+        $scope.titlePlaceholder = $scope.video.title ? '' : 'Untitled Video';
+
+      });
+
+    } else {
+
+      $scope.displaySection('edit');
+    }
+
+    AuthService.loginAsCollaborator(query.token).then(function(data){
+      if (data.authenticatedAsOwner) {
+
+        // show comments
+
+        // allow edit/review/comments
+
+        $scope.isOwner = true;
+
+      } else if (data.authenticatedAsCollaborator) {
+
+        // show comments
+
+        // allow review/comments
+
+        $scope.isCollaborator = true;
+
+      } else {
+
+        // redirect to 400 not authenticated
+      }
+    }, function(err){
+
+      console.log(err);
+
+    });
+
+}]);

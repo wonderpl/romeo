@@ -1,0 +1,22 @@
+.video-add-collaborators {
+  margin-bottom: 2em;
+}
+
+.video-add-collaborators__label {
+  display: block;
+  margin-bottom: 1em;
+  font-variant: small-caps;
+  text-transform: lowercase;
+}
+
+.video-add-collaborators__label--inline {
+  display: inline;
+  margin-right: 1em;
+}
+
+.video-add-collaborators__input {
+  display: block;
+  width: 20em;
+  font-size: 1em;
+  padding: 0.3em;
+}

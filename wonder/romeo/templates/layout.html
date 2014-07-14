@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 
     <title>{% block title %}Romeo{% endblock %}</title>
 
@@ -11,6 +12,9 @@
     {% assets filters="cssmin", output="gen/app.%(version)s.css",
       "assets/vendor/css/nv.d3.min.css",
       "assets/vendor/css/ng-grid.min.css",
+      "assets/vendor/css/spectrum.css",
+      "assets/vendor/css/medium-editor.css",
+      "assets/vendor/css/medium-editor-default.css",
       "assets/css/app.css"
     %}
     <link rel="stylesheet" href="{{ ASSET_URL }}"/>
@@ -18,24 +22,21 @@
 
 </head>
 <body ng-app="{% block appName %}RomeoApp{% endblock %}" ng-controller="MainCtrl" class="page-(~ getCurrentRoute() ~)">
-    <div id="wrapper">
+
+  <div class="container">
     {% block content %}
     {% endblock %}
-    </div>
-
-<!--     <div id="aside">
-        <ul>
-            <li><a href="/#/library/"><span class="icon-home"></span>Manage my videos</a></li>
-            <li><a href="/#/upload/"><span class="icon-upload2"></span>Upload a new video</a></li>
-            <li><a href="/#/account/"><span class="icon-user2"></span>Logged in as Dave</a></li>
-            <li><a ng-click="logOut()">Log out</a></li>
-        </ul>
-    </div> -->
+  </div>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    
+
+    <!--[if lt IE 9]>
+        <script type="text/javascript" src="aight.min.js"></script>
+    <![endif]-->
+
     {% block vendorjs %}
         {% assets filters="rjsmin", output="gen/vendor.%(version)s.js",
+            "assets/vendor/js/jquery.js",
             "assets/vendor/js/d3.js",
             "assets/vendor/js/nv.d3.js",
             "assets/vendor/js/topojson.js",
@@ -45,9 +46,11 @@
             "assets/vendor/js/angular/angular-cookies.js",
             "assets/vendor/js/angular/angular-localstorage.js",
             "assets/vendor/js/ng-tags.js",
-            "assets/vendor/js/angular-file-upload/angular-file-upload-shim.min.js", 
-            "assets/vendor/js/angular-file-upload/angular-file-upload.min.js", 
-            "assets/vendor/js/moment.js"
+            "assets/vendor/js/angular-file-upload/angular-file-upload-shim.min.js",
+            "assets/vendor/js/angular-file-upload/angular-file-upload.min.js",
+            "assets/vendor/js/moment.js",
+            "assets/vendor/js/spectrum.js",
+            "assets/vendor/js/medium-editor.js"
         %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
     {% endblock %}
 
@@ -56,10 +59,81 @@
             "assets/scripts/app.js",
             "assets/scripts/services/services.js",
             "assets/scripts/services/stats-services.js",
+            "assets/scripts/services/comments.js",
+            "assets/scripts/services/collaborators.js",
+
+            "assets/scripts/services/upload.js",
+
             "assets/scripts/controllers/controllers.js",
+            "assets/scripts/controllers/account.js",
+            "assets/scripts/controllers/analytics.js",
+            "assets/scripts/controllers/dashboard.js",
+            "assets/scripts/controllers/login.js",
+            "assets/scripts/controllers/main.js",
+            "assets/scripts/controllers/manage.js",
+            "assets/scripts/controllers/upload.js",
+            "assets/scripts/controllers/video.js",
+
+            "assets/scripts/controllers/prototype.js",
+
             "assets/scripts/filters/filters.js",
+            "assets/scripts/filters/video-priority.js",
+
+            "assets/scripts/directives/analytics/analytics.js",
+            "assets/scripts/directives/analytics/engagement-video-segment.js",
+            "assets/scripts/directives/analytics/fields-chooser.js",
+            "assets/scripts/directives/analytics/fields-key.js",
+            "assets/scripts/directives/analytics/geographic-map.js",
+            "assets/scripts/directives/analytics/overview-widget.js",
+            "assets/scripts/directives/analytics/overview.js",
+            "assets/scripts/directives/analytics/performance-chart.js",
+            "assets/scripts/directives/analytics/results-table.js",
+            "assets/scripts/directives/analytics/widget-statistic.js",
             "assets/scripts/directives/directives.js",
-            "assets/scripts/directives/analytics.js"
+            "assets/scripts/directives/auto-save-field.js",
+            "assets/scripts/directives/checkbox.js",
+            "assets/scripts/directives/color-picker.js",
+            "assets/scripts/directives/content-editable-placeholder.js",
+            "assets/scripts/directives/disable-new-lines.js",
+            "assets/scripts/directives/disabled.js",
+            "assets/scripts/directives/draggable.js",
+            "assets/scripts/directives/droppable.js",
+            "assets/scripts/directives/focus-field.js",
+
+            "assets/scripts/directives/focus.js",
+
+            "assets/scripts/directives/loader.js",
+            "assets/scripts/directives/pasteable.js",
+            "assets/scripts/directives/placeholder.js",
+            "assets/scripts/directives/quick-share-recipients.js",
+            "assets/scripts/directives/quick-share.js",
+            "assets/scripts/directives/toolbar-dropdown.js",
+            "assets/scripts/directives/tooltip.js",
+            "assets/scripts/directives/upload-dropzone.js",
+            "assets/scripts/directives/upload-file-input.js",
+
+            "assets/scripts/directives/video/video-comments.js",
+            "assets/scripts/directives/video/video-player.js",
+            "assets/scripts/directives/video/video-share.js",
+            "assets/scripts/directives/video/video-indicators.js",
+            "assets/scripts/directives/video/video-upload.js",
+            "assets/scripts/directives/video/video-thumbnail.js",
+            "assets/scripts/directives/video/video-navigation.js",
+            "assets/scripts/directives/video/video-color-picker.js",
+            "assets/scripts/directives/video/video-extended-controls.js",
+            "assets/scripts/directives/video/video-more-link.js",
+            "assets/scripts/directives/video/video-edit.js",
+
+            "assets/scripts/directives/category-add-video.js",
+            "assets/scripts/directives/collection-add-video.js",
+            "assets/scripts/directives/add-collaborator.js",
+
+            "assets/scripts/directives/upload-progress.js",
+
+            "assets/scripts/directives/page-header.js",
+
+
+            "assets/vendor/js/angular-medium-editor.js"
         %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
     {% endblock %}
 
@@ -69,28 +143,5 @@
         %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
     {% endblock %}
 
-    <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="/static/assets/vendor/js/d3.js"></script>
-    <script src="/static/assets/vendor/js/nv.d3.js"></script>
-    <script src="/static/assets/vendor/js/topojson.js"></script>
-    <script src="/static/assets/vendor/js/lodash.js"></script>
-    <script src="/static/assets/vendor/js/angular/angular.js"></script>
-    <script src="/static/assets/vendor/js/angular/angular-route.js"></script>
-    <script src="/static/assets/vendor/js/angular/angular-cookies.js"></script>
-    <script src="/static/assets/vendor/js/angular/angular-localstorage.js"></script>
-    <script src="/static/assets/vendor/js/ng-tags.js"></script>
-    <script src="/static/assets/vendor/js/angular-file-upload/angular-file-upload-shim.min.js"></script> 
-    <script src="/static/assets/vendor/js/angular-file-upload/angular-file-upload.min.js"></script> 
-    <script src="/static/assets/vendor/js/moment.js"></script>
-
-    <script src="/static/assets/scripts/app.js"></script>
-    <script src="/static/assets/scripts/services/services.js"></script>
-    <script src="/static/assets/scripts/services/stats-services.js"></script>
-    <script src="/static/assets/scripts/controllers/controllers.js"></script>
-    <script src="/static/assets/scripts/filters/filters.js"></script>
-    <script src="/static/assets/scripts/directives/directives.js"></script>
-    <script src="/static/assets/scripts/directives/analytics.js"></script>
-
-    <script src="/static/assets/scripts/views.js"></script>-->
 </body>
 </html>

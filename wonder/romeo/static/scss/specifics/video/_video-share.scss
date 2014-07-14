@@ -1,0 +1,33 @@
+.video-share {
+  width: 100%;
+  padding: 24px 0;
+  text-align: center;
+}
+
+.video-share__controls {
+}
+
+.video-share__control {
+  display: inline-block;
+}
+
+.video-share__link {
+  padding: 1em;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.video-share__link--embed {
+  background-image: url('/static/assets/img/video-share__icon-embed.png');
+}
+
+.video-share__link--twitter {
+  background-image: url('/static/assets/img/video-share__icon-twitter.png');
+}
+
+.video-share__link--facebook {
+  background-image: url('/static/assets/img/video-share__icon-facebook.png');
+}
+
+
+

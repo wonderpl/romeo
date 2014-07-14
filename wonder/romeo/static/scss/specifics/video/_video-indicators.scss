@@ -1,0 +1,41 @@
+.video-indicators {
+  border: solid 1px #efefef;
+  display: block;
+  height: 20px;
+  width: 100%;
+  position: relative;
+}
+
+.video-indicators__comment-indicators {
+  position: relative;
+}
+
+.video-indicators__comment-indicator {
+  position: absolute;
+  top: 0;
+}
+
+.video-indicators__comment--hover {
+  border: solid 1px red;
+}
+
+.video-indicators__comment-link {
+  display: block;
+  height: 20px;
+  width: 5px;
+  background-color: green;
+}
+
+.video-indicators__comment-link:hover {
+  cursor: pointer;
+}
+
+.video-indicators__scrubber {
+  position:absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 5px;
+  height: 20px;
+  background-color: #ccc;
+}

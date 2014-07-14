@@ -1,0 +1,15 @@
+<section class="video-more">
+
+  <a class="video-more__link button" ng-click="(showMoreLinkConfigPanel = !showMoreLinkConfigPanel)" ng-show="isEdit">{{ text ? text : 'Add a link (optional) &hellip;' }}</a>
+
+  <a class="video-more__link button" href="{{ url }}" ng-hide="isEdit">{{ text }}</a>
+
+  <section class="video-more__form" ng-show="showMoreLinkConfigPanel && isEdit">
+
+    <input ng-model="text" placeholder="Create a custom button..." />
+
+    <input ng-model="url" placeholder="http://google.com/" />
+
+  </section>
+
+</section>

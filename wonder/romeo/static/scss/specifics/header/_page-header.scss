@@ -1,0 +1,65 @@
+.page-header {
+  position: relative;
+  text-align: right;
+  border-bottom: solid 1px $light-grey;
+  margin-bottom: 2em;
+  font-size: 0.8em;
+  font-weight: 800;
+}
+
+.page-header__logo {
+  display: inline-block;
+  float: left;
+}
+
+.page-header__logo-link {
+  background-image: url('/static/assets/img/page-logo.png');
+  background-repeat: no-repeat;
+  display: block;
+  height: 27px;
+  width: 160px;
+  margin: 0.5em 0;
+}
+
+.page-header__link {
+  color: $dark-grey;
+}
+
+.page-header__link:hover {
+  text-decoration: underline;
+}
+
+.page-header__current-user {
+  display: inline-block;
+  height: 27px;
+  min-width: 7em;
+}
+.page-header__profile-link {
+  display: inline-block;
+  height: 27px;
+  padding-left: 30px;
+  margin-right: 1em;
+}
+
+.page-header__navigation {
+  display: inline-block;
+}
+
+.page-header__navigation-item {
+  display: inline-block;
+  border-right: 1px solid $light-grey;
+}
+
+.page-header__navigation-item:first-child {
+  border-left: 1px solid $light-grey;
+}
+
+.page-header__navigation-link {
+  padding: 1em;
+  display: block;
+}
+
+
+
+
+

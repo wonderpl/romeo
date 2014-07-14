@@ -2,97 +2,97 @@
 /*  Global styles
 /* ======================================= */
 
-* {
-  @include box-sizing( border-box );
-}
+// * {
+//   @include box-sizing( border-box );
+// }
 
-body, html {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  font-family: 'proxima-nova', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+// body, html {
+//   position: relative;
+//   width: 100%;
+//   height: 100%;
+//   font-family: 'proxima-nova', sans-serif;
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
 
-  &.aside {
-    overflow: hidden;
-  }
-}
+//   &.aside {
+//     overflow: hidden;
+//   }
+// }
 
 
 
 /*  Header
 /* ======================================= */
 
-header {
-  position: fixed;
-  z-index: 1000;
-  text-align: right;
-  display: block;
-  width: 100%;
-  padding: 26px 16px 26px 16px;
-  border-bottom: 1px solid #eee;
-  
-  a, a.wp-button {
-    font-size: 14px;
-    margin: 0 0 0 12px;
-  }
+// header {
+//   position: fixed;
+//   z-index: 1000;
+//   text-align: right;
+//   display: block;
+//   width: 100%;
+//   padding: 26px 16px 26px 16px;
+//   border-bottom: 1px solid #eee;
 
-  a.manage, a.create {
-    width: 92px;
-    text-align: center;
-    @include transition( all .4s ease-out );
-  }
+//   a, a.wp-button {
+//     font-size: 14px;
+//     margin: 0 0 0 12px;
+//   }
 
-  a.avatar {
-    @include inline-block;
-    height: 38px;
-    width: 38px;
-    @include border-radius( 50px );
-    background: transparent image-url('avatar.png') center center no-repeat;
-    background-size: 100% auto;
-  }
+//   a.manage, a.create {
+//     width: 92px;
+//     text-align: center;
+//     @include transition( all .4s ease-out );
+//   }
 
-  #wonder {
-    display: block;
-    position: fixed;
-    left: 24px;
-    top: 32px;
-    width: 160px;
-    height: 32px;
-    background: transparent image-url('header-logo.png') center center no-repeat;
-    background-size: 100% auto;
-    
-    &:hover, &:focus, &:active {
-      outline: none;
-    }
-  }
-}
+//   a.avatar {
+//     @include inline-block;
+//     height: 38px;
+//     width: 38px;
+//     @include border-radius( 50px );
+//     background: transparent image-url('avatar.png') center center no-repeat;
+//     background-size: 100% auto;
+//   }
+
+//   #wonder {
+//     display: block;
+//     position: fixed;
+//     left: 24px;
+//     top: 32px;
+//     width: 160px;
+//     height: 32px;
+//     background: transparent image-url('header-logo.png') center center no-repeat;
+//     background-size: 100% auto;
+
+//     &:hover, &:focus, &:active {
+//       outline: none;
+//     }
+//   }
+// }
 
 
 
 /*  Page specific headers
 /* ======================================= */
-.page-upload header, .page-manage header {
-  background: white;
-}
+// .page-upload header, .page-manage header {
+//   background: white;
+// }
 
 
 
 /*  Common layout styling
 /* ======================================= */
 
-#wrapper {
-  display: block;
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #fff;
-  z-index: 100;
-  @include transition( all .2s ease-out );
-}
+// #wrapper {
+//   display: block;
+//   position: relative;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background: #fff;
+//   z-index: 100;
+//   @include transition( all .2s ease-out );
+// }
 
 /*  Utility classes
 /* ======================================= */
@@ -156,23 +156,6 @@ header {
 
   &.right {
     float: right;
-  }
-}
-
-a.big-button {
-  display: block;
-  font-size: 48px;
-  color: #fff;
-  margin: 12px auto;
-  background: $flat-green-4;
-  padding: 16px;
-  text-decoration: none;
-  @include border-radius(5px);
-  @include transition( all .1s ease-out );
-  width: 470px;
-
-  &:hover, &:focus, &:active {
-    background: $flat-orange-1;
   }
 }
 
@@ -1194,23 +1177,6 @@ video, canvas {
     display: block;
     padding: 8px;
     text-align: center;
-  }
-
-  button {
-    background: white;
-    @include inline-block;
-    padding: 10px 14px;
-    margin: 0 12px;
-    border: 1px solid #37A54B;
-    color: #37A54B;
-    @include border-radius( 50px );
-    cursor: pointer;
-    text-decoration: none;
-    @include transition( all .1s ease-out );
-
-    &:hover, &:focus, &:active {
-      outline: none;
-    }
   }
 
 }

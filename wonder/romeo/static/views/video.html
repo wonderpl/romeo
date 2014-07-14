@@ -1,71 +1,75 @@
-<!-- <div class="section">
-  <ul id="breadcrumb" class="inner">
-    <li class="home"><a href="/#/" class="icon-home"></a></li>
-    <li><span class="divider">/</span> <a href="/#/library">Library</a></li>
-    <li><span class="divider">/</span> <span>{{ $rootScope.pagetitle }}</span></li>
-   </ul>
+
+<div ng-controller="VideoCtrl">
+
+  <video-navigation></video-navigation>
+
+  <section class="main-view video-view">
+
+    <h2 class="video-view__title" data-placeholder="{{ titlePlaceholder }}" medium-editor ng-model="video.title" ng-show="isEdit"></h2>
+    <h3 class="video-view__sub-title" data-placeholder="Subtitle" medium-editor ng-model="video.subTitle" ng-show="isEdit"></h2>
+
+    <h2 class="video-view__title" ng-hide="isEdit">{{ video.title }}</h2>
+    <h3 class="video-view__sub-title" ng-hide="isEdit">{{ video.subTitle }}</h2>
+
+    <div class="video-view__container">
+
+      <video-upload ng-show="showUpload && isEdit"></video-upload>
+
+      <video-player ng-show="hasProcessed" embed-url="embedUrl"></video-player>
+
+      <video-edit ng-show="showVideoEdit && isEdit"></video-edit>
+
+      <video-color-picker ng-show="showColorPicker && isEdit"></video-color-picker>
+
+      <video-thumbnail ng-show="showPreviewSelector && isEdit"></video-thumbnail>
+
+    </div>
+
+    <video-more-link text="link_title" url="link_url" is-edit="{{ isEdit }}" ng-show="isEdit || link_title && link_url"></video-more-link>
+
+    <section class="video-view__description" data-placeholder="Additional content including but not limited to: recipes, ingredients, lyrics, stories, etc." medium-editor ng-model="text" ng-show="isEdit"></section>
+    <section class="video-view__description" ng-bind="text" ng-hide="isEdit"></section>
+
+    <video-share ng-show="isEdit"></video-share>
+
+    <section class="video-extended-controls" ng-show="isEdit">
+
+      <section class="video-extended-controls__section" ng-class="{ 'video-extended-controls__section--expanded' : addCategoryShow }">
+        <span class="video-extended-controls__indicator video-extended-controls__indicator--more" ng-click="addCategoryShow = !addCategoryShow" ng-hide="addCategoryShow">+</span>
+        <span class="video-extended-controls__indicator video-extended-controls__indicator--less" ng-click="addCategoryShow = !addCategoryShow" ng-show="addCategoryShow">-</span>
+        <category-add-video selected-category="video.category" show-category="addCategoryShow" class="video-extended-controls__section-contents"></category-add-video>
+      </section>
+
+      <section class="video-extended-controls__section" ng-class="{ 'video-extended-controls__section--expanded' : addCollectionShow }">
+        <span class="video-extended-controls__indicator video-extended-controls__indicator--more" ng-click="addCollectionShow = !addCollectionShow" ng-hide="addCollectionShow">+</span>
+        <span class="video-extended-controls__indicator video-extended-controls__indicator--less" ng-click="addCollectionShow = !addCollectionShow" ng-show="addCollectionShow">-</span>
+        <collection-add-video available-tags="tags" video="video" show-collection="addCollectionShow" class="video-extended-controls__section-contents"></collection-add-video>
+      </section>
+
+      <section class="video-extended-controls__section" ng-class="{ 'video-extended-controls__section--expanded' : addCollaboratorShow }">
+        <span class="video-extended-controls__indicator video-extended-controls__indicator--more" ng-click="addCollaboratorShow = !addCollaboratorShow" ng-hide="addCollaboratorShow">+</span>
+        <span class="video-extended-controls__indicator video-extended-controls__indicator--less" ng-click="addCollaboratorShow = !addCollaboratorShow" ng-show="addCollaboratorShow">-</span>
+        <add-collaborator class="video-extended-controls__section-contents" show-collaborator="addCollaboratorShow"></add-collaborator>
+      </section>
+
+    </section>
+
+    <!-- <video-indicators ng-show="isComments && video.status === 'published'"></video-indicators> -->
+    <video-indicators ng-show="isComments"></video-indicators>
+
+    <!-- <video-comments ng-show="isComments && video.status === 'published'"></video-comments> -->
+    <video-comments ng-show="video.id && isComments" video-id="{{ video.id }}" current-time="currentTime"></video-comments>
+
+    <div class="video-view__save-controls" ng-show="isEdit">
+      <a ng-click="cancel()" class="button">cancel</a>
+      <a ng-click="save()" class="button button--primary">save changes</a>
+    </div>
+
+  </section>
+
 </div>
- -->
-<div id="page-video-single" class="section" ng-controller="VideoController">
-	<div class="inner">
-		<h1>{{ video.title }}</h1>
-		
-		<div class="inner half-width left">
-			<h3>Edit your video details</h3>
-			<form action="#">
-				<div class="row">
-					<label>Video Title</label>
-					<input type="text" ng-model="video.title" />
-				</div>
-				<div class="row">
-					<label>Video Description</label>
-					<textarea name="" id="" ng-model="video.description"></textarea>
-				</div>
-				<div class="row half-width left"><label>Mood</label><input type="text" placeholder="Intrigued" /></div><!--
-				--><div class="row half-width"><label>Click to more link</label><input type="text" placeholder="www.google.com"/></div>
-				<!-- <div class="row"><label>Video</label><input type="text" /></div> -->
-				<div class="row half-width left">
-					<label>Video Thumbnail</label>
-					<div class="thumbnail-picker">
-						<span class="icon-pictures"></span>
-					</div>
-				</div><!--
-				--><div class="row half-width">
-					<label>Meta data</label><input class="margin-bottom" type="text"/>
-					<label>Content data</label><input type="text"/>
-				</div>
-			</form>
-		</div><!--
-		--><div class="inner half-width right" style="padding-top: 57px;">
-			<div class="wonder-embed">
-				<iframe src="http://wonderpl.com/embed/viwAdAYl4is9rfPwmRE39MXA/" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
-			</div>
-			<div id="customize-player">
-				<form action="">
-					<div class="row">
-						<label>Embed Link</label>
-						<!-- <input type="text" value="wonderpl.com/embed/vieasdasdads"> -->
 
-						<!-- <iframe src="//player.vimeo.com/video/88737187?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=c9ff23" width="443" height="197" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="http://vimeo.com/88737187">Made in Tohoku</a> from <a href="http://vimeo.com/theinouebrothers">The Inoue Brothers</a> on <a href="https://vimeo.com">Vimeo</a>.</p> -->
 
-						<input type="text" value="<iframe src=&quot;(( embedurl ))&quot; width=&quot;100%&quot; height=&quot;100%&quot; frameborder=&quot;0&quot; allowfullscreen></iframe>" />
-					</div>
-					<div class="row">
-						<input type="text" placeholder="Width" class="dimension" /><input type="text" placeholder="Height" class="dimension height" />
-						<span class="padding top">
-							<input type="checkbox" class="inline-block margin-right" /><label class="inline-block">Maintain aspect-ratio?</label>	
-						</span>
-					</div>
-				</form>
-			</div>
-		</div>
 
-		<div id="top-right-links">
-			<ul>
-				<!-- <li><a href="#"></a></li> -->
-				<!-- <li><a href="/#/tools/{{ video.id }}"><span class="icon-tools"></span>Monetization Tools</a></li> -->
-				<li><a href="/#/analytics/{{ video.id }}"><span class="icon-graph"></span>View Analytics</a></li>
-			</ul>
-		</div>
-	</div>
-</div>
+
+

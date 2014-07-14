@@ -1,0 +1,12 @@
+<section class="video-upload">
+
+  <div class="video-upload__dropzone" ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="optional-css-class" ng-show="dropSupported">
+    <p>Drag &amp; drop your video here</p>
+    <img src="/static/assets/img/add-video.png" />
+    <p>or choose a video from your desktop</p>
+    <input type="file" ng-file-select="onFileSelect($files)" />
+  </div>
+
+  <div ng-file-drop-available="dropSupported=true" ng-show="!dropSupported">HTML5 Drop File is not supported!</div>
+
+</section>
