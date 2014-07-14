@@ -193,7 +193,7 @@ def mark_video_processed(videoid, set_error=False):
         data = dict(
             upload_status={'status': 'live'},
             status='live',
-            duration=60,
+            duration=55240,
             thumbnails=[
                 {'url': 'http://placehold.it/%dx%d' % (w, h), 'width': w, 'height': h}
                 for w, h in reversed(current_app.config['COVER_THUMBNAIL_SIZES'])
