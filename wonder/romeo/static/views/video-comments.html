@@ -1,46 +1,42 @@
 <section class="video-feedback">
 
-  <section class="video-feedback__form">
+  <section
+    class="video-feedback__form"
+    ng-class="{ 'video-feedback__form--active' : inputActive }">
     <section class="video-feedback__input-container">
-      <textarea class="video-feedback__input js-feeback-input"></textarea>
+      <textarea class="video-feedback__input js-feeback-input"
+        placeholder="Insert comment&hellip;"
+        ng-model="commentText"
+        ng-class="{ 'video-feedback__input--active' : inputActive }"
+        ng-focus="inputActive = true"
+        ng-blur="inputActive = false">
+      </textarea>
     </section>
-    <a class="video-feedback__button button button--primary" ng-click="addComment()">submit</a>
+    <a class="video-feedback__button button button--primary"
+      ng-click="addComment()">
+      submit
+    </a>
   </section>
 
   <section class="video-feedback__comments">
 
     <ul class="video-feedback__comments-list">
-      <li class="video-feedback__comment" ng-repeat="comment in comments" ng-bind="comment.comment"></li>
-    </ul>
-
-
-
-
-
-
-    <ul class="video-feedback__comments-list">
-
-      <li class="video-feedback__comment" ng-class="{ 'video-feedback__comment--hover' : comment.isHover, 'video-feedback__comment--active' : comment.isActive }"  data-id="{{ comment.id }}" data-mark="{{ comment.mark }}" ng-repeat="comment in comments | orderBy: 'mark'" ng-click="commentHover(comment.mark)">
-        <a class="video-feedback__comment-time js-comment-time-link"  ng-click="seek(comment.mark)">{{ comment.mark }}</a>
-        <span class="video-feedback__comment-message">{{ comment.comment }}</span>
-        <span class="video-feedback__comment-author">{{ comment.name }}</span>
-        <span class="video-feedback__comment-date">{{ comment.posted }}</span>
-        <a class="video-feedback__reply-link" ng-click="showReply(comment.id)">reply</a>
-        <section class="video-feedback__reply-form js-reply-form-{{ comment.id }}">
-          <textarea class="video-feedback__reply-text"></textarea>
-          <a class="video-feedback__reply-cancel" ng-click="hideReply(comment.id)">cancel</a>
-          <button class="video-feedback__reply-submit">submit</button>
-        </section>
-        <ul class="video-feedback__comment-replies">
-          <li class="video-feedback__comment-reply" data-id="{{ reply.id }}" ng-repeat="reply in comment.replies">
-            <span class="video-feedback__reply-message">{{ reply.text }}</span>
-            <span class="video-feedback__reply-author">{{ reply.author }}</span>
-            <span class="video-feedback__reply-date">{{ reply.prettyTimestamp }}</span>
-          </li>
-        </ul>
+      <li class="video-feedback__comment"
+        ng-class="{ 'video-feedback__comment--active' : currentTime === comment.timestamp }"
+        ng-repeat="comment in comments | orderBy:timestamp"
+        ng-mouseenter="replyActive = true"
+        ng-mouseleave="replyActive = false">
+        <span class="video-feedback__comment-name" ng-bind="comment.username"></span>
+        <span class="video-feedback__comment-time-posted" ng-bind="comment.datetime | prettyDate"></span>
+        <div class="video-feedback__comment-text">
+          <span class="video-feedback__comment-timestamp" ng-show="comment.timestamp">
+            @<a href="video-feedback__comment-timestamp" ng-bind="comment.timestamp"></a>
+          </span>
+          {{ comment.comment }}
+        </div>
+        <a class="video-feedback__reply-link" ng-class="{ 'video-feedback__reply-link--active' : replyActive }">reply</a>
       </li>
-
-
     </ul>
+
   </section>
 </section>

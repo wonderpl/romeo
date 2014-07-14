@@ -210,7 +210,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <header class=\"video-extended-controls__section-header\" ng-click=\"showCollection = !showCollection\">\n" +
     "    <h4 class=\"video-extended-controls__section-header-title\" ng-click=\"showCollection = !showCollection\">\n" +
-    "      <span ng-if=\"video.tags.items.length === 0\">\n" +
+    "      <span ng-if=\"!video.tags || !video.tags.items || video.tags.items.length === 0\">\n" +
     "        Add video to collection\n" +
     "      </span>\n" +
     "      <span ng-if=\"video.tags.items.length === 1\">\n" +
@@ -920,48 +920,44 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('video-comments.html',
     "<section class=\"video-feedback\">\n" +
     "\n" +
-    "  <section class=\"video-feedback__form\">\n" +
+    "  <section\n" +
+    "    class=\"video-feedback__form\"\n" +
+    "    ng-class=\"{ 'video-feedback__form--active' : inputActive }\">\n" +
     "    <section class=\"video-feedback__input-container\">\n" +
-    "      <textarea class=\"video-feedback__input js-feeback-input\"></textarea>\n" +
+    "      <textarea class=\"video-feedback__input js-feeback-input\"\n" +
+    "        placeholder=\"Insert comment&hellip;\"\n" +
+    "        ng-model=\"commentText\"\n" +
+    "        ng-class=\"{ 'video-feedback__input--active' : inputActive }\"\n" +
+    "        ng-focus=\"inputActive = true\"\n" +
+    "        ng-blur=\"inputActive = false\">\n" +
+    "      </textarea>\n" +
     "    </section>\n" +
-    "    <a class=\"video-feedback__button button button--primary\" ng-click=\"addComment()\">submit</a>\n" +
+    "    <a class=\"video-feedback__button button button--primary\"\n" +
+    "      ng-click=\"addComment()\">\n" +
+    "      submit\n" +
+    "    </a>\n" +
     "  </section>\n" +
     "\n" +
     "  <section class=\"video-feedback__comments\">\n" +
     "\n" +
     "    <ul class=\"video-feedback__comments-list\">\n" +
-    "      <li class=\"video-feedback__comment\" ng-repeat=\"comment in comments\" ng-bind=\"comment.comment\"></li>\n" +
-    "    </ul>\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "    <ul class=\"video-feedback__comments-list\">\n" +
-    "\n" +
-    "      <li class=\"video-feedback__comment\" ng-class=\"{ 'video-feedback__comment--hover' : comment.isHover, 'video-feedback__comment--active' : comment.isActive }\"  data-id=\"(~ comment.id ~)\" data-mark=\"(~ comment.mark ~)\" ng-repeat=\"comment in comments | orderBy: 'mark'\" ng-click=\"commentHover(comment.mark)\">\n" +
-    "        <a class=\"video-feedback__comment-time js-comment-time-link\"  ng-click=\"seek(comment.mark)\">(~ comment.mark ~)</a>\n" +
-    "        <span class=\"video-feedback__comment-message\">(~ comment.comment ~)</span>\n" +
-    "        <span class=\"video-feedback__comment-author\">(~ comment.name ~)</span>\n" +
-    "        <span class=\"video-feedback__comment-date\">(~ comment.posted ~)</span>\n" +
-    "        <a class=\"video-feedback__reply-link\" ng-click=\"showReply(comment.id)\">reply</a>\n" +
-    "        <section class=\"video-feedback__reply-form js-reply-form-(~ comment.id ~)\">\n" +
-    "          <textarea class=\"video-feedback__reply-text\"></textarea>\n" +
-    "          <a class=\"video-feedback__reply-cancel\" ng-click=\"hideReply(comment.id)\">cancel</a>\n" +
-    "          <button class=\"video-feedback__reply-submit\">submit</button>\n" +
-    "        </section>\n" +
-    "        <ul class=\"video-feedback__comment-replies\">\n" +
-    "          <li class=\"video-feedback__comment-reply\" data-id=\"(~ reply.id ~)\" ng-repeat=\"reply in comment.replies\">\n" +
-    "            <span class=\"video-feedback__reply-message\">(~ reply.text ~)</span>\n" +
-    "            <span class=\"video-feedback__reply-author\">(~ reply.author ~)</span>\n" +
-    "            <span class=\"video-feedback__reply-date\">(~ reply.prettyTimestamp ~)</span>\n" +
-    "          </li>\n" +
-    "        </ul>\n" +
+    "      <li class=\"video-feedback__comment\"\n" +
+    "        ng-class=\"{ 'video-feedback__comment--active' : currentTime === comment.timestamp }\"\n" +
+    "        ng-repeat=\"comment in comments | orderBy:timestamp\"\n" +
+    "        ng-mouseenter=\"replyActive = true\"\n" +
+    "        ng-mouseleave=\"replyActive = false\">\n" +
+    "        <span class=\"video-feedback__comment-name\" ng-bind=\"comment.username\"></span>\n" +
+    "        <span class=\"video-feedback__comment-time-posted\" ng-bind=\"comment.datetime | prettyDate\"></span>\n" +
+    "        <div class=\"video-feedback__comment-text\">\n" +
+    "          <span class=\"video-feedback__comment-timestamp\" ng-show=\"comment.timestamp\">\n" +
+    "            @<a href=\"video-feedback__comment-timestamp\" ng-bind=\"comment.timestamp\"></a>\n" +
+    "          </span>\n" +
+    "          (~ comment.comment ~)\n" +
+    "        </div>\n" +
+    "        <a class=\"video-feedback__reply-link\" ng-class=\"{ 'video-feedback__reply-link--active' : replyActive }\">reply</a>\n" +
     "      </li>\n" +
-    "\n" +
-    "\n" +
     "    </ul>\n" +
+    "\n" +
     "  </section>\n" +
     "</section>"
   );
@@ -1204,7 +1200,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <video-indicators ng-show=\"isComments\"></video-indicators>\n" +
     "\n" +
     "    <!-- <video-comments ng-show=\"isComments && video.status === 'published'\"></video-comments> -->\n" +
-    "    <video-comments ng-show=\"video.id && isComments\" video-id=\"(~ video.id ~)\"></video-comments>\n" +
+    "    <video-comments ng-show=\"video.id && isComments\" video-id=\"(~ video.id ~)\" current-time=\"currentTime\"></video-comments>\n" +
     "\n" +
     "    <div class=\"video-view__save-controls\" ng-show=\"isEdit\">\n" +
     "      <a ng-click=\"cancel()\" class=\"button\">cancel</a>\n" +

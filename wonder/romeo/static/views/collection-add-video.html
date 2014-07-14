@@ -2,7 +2,7 @@
 
   <header class="video-extended-controls__section-header" ng-click="showCollection = !showCollection">
     <h4 class="video-extended-controls__section-header-title" ng-click="showCollection = !showCollection">
-      <span ng-if="video.tags.items.length === 0">
+      <span ng-if="!video.tags || !video.tags.items || video.tags.items.length === 0">
         Add video to collection
       </span>
       <span ng-if="video.tags.items.length === 1">

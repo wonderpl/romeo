@@ -12,8 +12,6 @@ angular.module('RomeoApp.directives')
 
       scope.$watch('videoTotalTime', function (time) {
 
-        console.log(time);
-
         var length = time/1000;
 
         var comments = scope.comments || [];
@@ -52,8 +50,6 @@ angular.module('RomeoApp.directives')
           var $el = angular.element(document.querySelectorAll('.video-feedback__comment[data-mark="' + time + '"]')[0]);
 
           var top = $el.position().top;
-
-          console.log(top);
 
           document.querySelectorAll('.video-feedback__comments')[0].scrollIntoView();
 

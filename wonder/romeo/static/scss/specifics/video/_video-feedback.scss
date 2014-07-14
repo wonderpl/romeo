@@ -10,12 +10,25 @@
 
 .video-feedback__form {
   text-align: right;
+  transition: max-height 0.4s ease-in-out;
+  max-height: 40px;
+  overflow: hidden;
+}
+
+.video-feedback__form--active {
+  max-height: 200px;
 }
 
 .video-feedback__input {
   text-align: left;
   border: 0 none;
   resize: none;
+  transition: height 0.4s ease-in-out;
+  height: 35px;
+}
+
+.video-feedback__input--active {
+  height: 100px;
 }
 
 .video-feedback__comments {
@@ -27,9 +40,10 @@
 }
 
 .video-feedback__comment {
-  margin-bottom: 20px;
+  margin-bottom: 1em;
   position: relative;
   padding-left: 20px;
+  padding-bottom: 2em;
 }
 
 .video-feedback__comment--active {
@@ -39,47 +53,6 @@
 
 .video-feedback__comment--hover {
   background-color: #ffefef;
-}
-
-.video-feedback__reply-link {
-  visibility: hidden;
-  float: right;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-.video-feedback__comment:hover .video-feedback__reply-link {
-  visibility: visible;
-}
-
-.video-feedback__reply-form {
-  transition: all 0.4s ease-in;
-  display: block;
-  max-height: 0;
-  opacity: 0;
-  margin: 0 0 0 80px;
-  text-align: right;
-  overflow: hidden;
-}
-
-.video-feedback__reply-form--active {
-  max-height: 300px;
-  opacity: 1;
-  margin-top: 20px;
-  margin-bottom: 40px;
-}
-
-.video-feedback__reply-text {
-  text-align: left;
-}
-
-.video-feedback__reply-submit {
-
-}
-
-.video-feedback__reply-cancel {
-  cursor: pointer;
-  text-decoration: underline;
 }
 
 .video-feedback__comment-message {
@@ -119,40 +92,23 @@
   content: ',';
 }
 
-.video-feedback__comment-replies {
-  margin-top: 20px;
-  margin-left: 80px;
+.video-feedback__reply-link {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  opacity: 0;
+  cursor: pointer;
+  color: $dark-green;
 }
 
-.video-feedback__comment-reply {
-  margin-bottom: 10px;
-  font-size: small;
-  color: $dark-grey;
+.video-feedback__reply-link--active {
+  opacity: 1;
 }
 
-.video-feedback__reply-message {
-  display: block;
-  margin-bottom: 10px;
+.video-feedback__reply-link:hover {
+  text-decoration: underline;
 }
 
-.video-feedback__reply-author {
-  color: $grey;
-  font-style: italic;
-  font-size: small;
-  text-transform: lowercase;
-  font-variant: small-caps;
-}
-
-.video-feedback__reply-date {
-  color: $light-grey;
-  font-style: italic;
-  font-size: small;
-  text-transform: lowercase;
-}
-
-.video-feedback__reply-author:after {
-  content: ',';
-}
 
 
 

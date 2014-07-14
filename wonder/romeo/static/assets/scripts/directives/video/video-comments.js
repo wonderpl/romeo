@@ -20,100 +20,81 @@ angular.module('RomeoApp.directives')
     return Math.round(new Date().getTime() / 1000);
   }
 
+  function createComment (data) {
+
+// {
+//     "avatar": "http://media.dev.rockpack.com/images/avatar/thumbnail_medium/kHmU0Pn5E1dVK3K68Okjgw.jpg",
+//     "description": "Life Skills Coach, powered by emotional intelligence.",
+//     "display_name": "Lynn Blades",
+//     "href": "/api/account/14511293",
+//     "name": "Lynn Blades",
+//     "profile_cover": "http://media.dev.rockpack.com/images/profile/thumbnail_medium/kNxA6OFGIiMuQOESa05nLA.jpg"
+// }
+
+    var avatar = $rootScope.User.avatar;
+    var username = $rootScope.User.display_name;
+
+    var comment = {
+      avatar_url  : avatar,
+      comment     : '',
+      datetime    : '',
+      href        : '',
+      id          : 0,
+      timestamp   : null,
+      username    : username
+    };
+
+    angular.extend(comment, data);
+
+    // avatar_url: "http://www.gravatar.com/avatar/fd8a08918818436bfa110ef2d3b97834?s=48&d=mm"
+    // comment: "xcvxzcv"
+    // datetime: "2014-07-13T15:21:12.750463"
+    // href: "/api/comment/1"
+    // id: 1
+    // timestamp: null
+    // username: "noreply@wonderpl.com"
+
+    return comment;
+  }
+
   return {
     restrict : 'E',
     replace: true,
     template : $templateCache.get('video-comments.html'),
     scope : {
-      videoId : '@'
+      videoId : '@',
+      currentTime : '='
     },
     controller : function ($scope) {
-      console.log($scope);
-      if ($scope.videoId) {
-        CommentsService.getComments($scope.videoId).then(function (data) {
-          $scope.comments = data;
+
+      $scope.$watch(
+        function() { return $scope.videoId; },
+        function(newValue, oldValue) {
+          if (newValue !== '' && newValue !== oldValue) {
+            CommentsService.getComments($scope.videoId).then(function (data) {
+              console.log(data);
+              $scope.comments = data.comment.items;
+            });
+          }
+        }
+      );
+
+      $scope.addComment = function () {
+
+        var datetime = new Date().getTime();
+
+        var commentData = {
+          comment: $scope.commentText,
+          timestamp: $scope.currentTime || 0,
+          datetime: datetime.toString()
+        };
+
+        CommentsService.addComment($scope.videoId, commentData).then(function(data) {
+          angular.extend(data, commentData);
+          var comment = createComment(data);
+          $scope.comments.push(comment);
         });
-      }
-    },
-    link : function(scope, elem, attrs) {
-
-
-
-
-
-      // var time = scope.videoCurrentTime;
-      // scope.$watch('videoCurrentTime', function(newValue, oldValue) {
-      //   var temp = Math.round(newValue);
-      //   var comments = scope.comments || [];
-      //   var l = comments.length;
-      //   while (l--) {
-      //     scope.comments[l].isActive = (temp === comments[l].mark);
-      //   }
-      // }, true);
-
-
-      // scope.$watchCollection('comments', function(newValue, oldValue) {
-
-      //   console.log(newValue);
-
-      //   console.log(oldValue);
-
-      //   if (oldValue !== newValue) {
-
-      //     var newComment = newValue[newValue.length - 1];
-
-      //     console.log(newComment.mark);
-
-      //     $timeout(function () {
-
-      //       var $el = angular.element(document.querySelectorAll('.video-feedback__comment[data-mark="' + newComment.mark + '"]')[0]);
-
-      //       var top = $el.position().top;
-
-      //       console.log(top);
-
-      //       document.querySelectorAll('.video-feedback__comments')[0].scrollIntoView();
-
-      //       angular.element(document.querySelectorAll('.video-feedback__comments')[0]).scrollTop(top);
-
-      //     }, 0);
-
-      //   }
-
-      // }, true);
-
-      // scope.addComment = function () {
-
-      //   var input = angular.element(elem[0].querySelector('.js-feeback-input'));
-      //   var timestamp = getTimeStamp();
-      //   var videoTime = Math.round(scope.videoCurrentTime); // get current time from video
-
-      //   var comment = {
-      //     name : 'user',
-      //     mark : videoTime,
-      //     posted : timestamp,
-      //     comment : input.val(),
-      //     position : (Math.round((scope.videoCurrentTime/(scope.videoTotalTime/1000)*10000))/100) + '%'
-      //   };
-
-      //   scope.comments.push(comment);
-
-      //   scope.commentHover(videoTime);
-
-      //   // CommentsService.addComment(comment).then(function (data) {
-      //   //   scope.comments.push(data.comment);
-      //   // });
-      // };
-
-      // scope.showReply = function (id) {
-      //   var form = angular.element(elem[0].querySelector('.js-reply-form-' + id));
-      //   form.addClass('video-feedback__reply-form--active');
-      // };
-
-      // scope.hideReply = function (id) {
-      //   var form = angular.element(elem[0].querySelector('.js-reply-form-' + id));
-      //   form.removeClass('video-feedback__reply-form--active');
-      // };
+      };
     }
   };
 }]);

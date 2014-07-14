@@ -32,7 +32,7 @@ angular.module('RomeoApp.directives')
           $scope.video.title = $scope.video.title || 'New Video';
           VideoService.create($scope.video).then(function (data) {
             angular.extend($scope.video, data);
-            var url = '/video/' + $scope.video.id;
+            var url = '/video/' + $scope.video.id + '/edit';
             $location.path(url, false);
             dfd.resolve($scope.video);
           });

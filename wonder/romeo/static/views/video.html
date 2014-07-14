@@ -58,7 +58,7 @@
     <video-indicators ng-show="isComments"></video-indicators>
 
     <!-- <video-comments ng-show="isComments && video.status === 'published'"></video-comments> -->
-    <video-comments ng-show="video.id && isComments" video-id="{{ video.id }}"></video-comments>
+    <video-comments ng-show="video.id && isComments" video-id="{{ video.id }}" current-time="currentTime"></video-comments>
 
     <div class="video-view__save-controls" ng-show="isEdit">
       <a ng-click="cancel()" class="button">cancel</a>

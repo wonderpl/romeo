@@ -7,9 +7,7 @@ angular.module('RomeoApp.controllers')
     'use strict';
 
     function persistVideoData (data) {
-      console.log('persistVideoData()');
       // Object {href: "/api/video/85502346", id: 85502346, status: "uploading"}
-      console.log(data);
       angular.extend($scope.video, data);
     }
 
@@ -22,16 +20,11 @@ angular.module('RomeoApp.controllers')
       $scope.hasProcessed = false;
       $scope.videoHasLoaded = false;
       $scope.embedUrl = '';
+      $scope.currentTime = 0;
     }
 
     $scope.onPreviewImageSelect = function (files) {
-
-      console.log('onPreviewImageSelect()');
-
-      console.log(files);
-
       VideoService.saveCustomPreview($scope.video.id, files[0]).then(function(data){
-          console.log(data);
           angular.extend($scope.video, data);
           $scope.loadVideo($scope.video.id);
           $scope.showPreviewSelector = false;
@@ -84,7 +77,6 @@ angular.module('RomeoApp.controllers')
 
     function videoUploadOnComplete (event) {
       // manaual ajax request doesn't return video object to extend what we have in scope
-      console.log('videoUploadOnComplete()');
       $scope.video.status = 'processing';
       $scope.isUploading = false;
     }
@@ -92,15 +84,10 @@ angular.module('RomeoApp.controllers')
     $scope.$on('video-upload-poll', videoUploadOnPoll);
 
     function videoUploadOnPoll (event, data) {
-      console.log('video-upload-poll');
-      console.log(data);
       angular.extend($scope.video, data);
     }
 
     $scope.loadVideo = function (id) {
-
-      console.log('loadVideo()');
-
       var url = '//' + $location.host() + ':' + $location.port() + '/embed/' + id + '/?controls=1';
       $scope.embedUrl = $sce.trustAsResourceUrl(url);
 
@@ -117,9 +104,7 @@ angular.module('RomeoApp.controllers')
 
     $scope.save = function () {
 
-      VideoService.update($scope.video.id, $scope.video).then(function () {
-        console.log('saved');
-      });
+      VideoService.update($scope.video.id, $scope.video);
     };
 
     $scope.cancel = function () {
@@ -133,13 +118,9 @@ angular.module('RomeoApp.controllers')
 
     function videoUploadOnSuccess (event, data) {
 
-      console.log('videoUploadOnSuccess()');
-      console.log(event);
-      console.log(data);
-
       angular.extend($scope.video, data);
 
-      var url = '/video/' + $scope.video.id;
+      var url = '/video/' + $scope.video.id + '/edit';
 
       $location.path(url, false);
 
@@ -150,8 +131,6 @@ angular.module('RomeoApp.controllers')
 
     function videoUploadOnStart (event) {
 
-      console.log('videoUploadOnStart()');
-
       $scope.isUploading = true;
     }
 
@@ -159,8 +138,6 @@ angular.module('RomeoApp.controllers')
 
 
     var query = $location.search();
-
-    console.log(query.token);
 
     $scope.color='#f00';
 
@@ -202,7 +179,7 @@ angular.module('RomeoApp.controllers')
     }
 
     TagService.getTags().then(function (data) {
-      console.log(data);
+
       $scope.tags = data.tag.items;
     });
 

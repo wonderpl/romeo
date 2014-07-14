@@ -13,7 +13,6 @@ angular.module('RomeoApp.directives')
     },
     link : function (scope, element, attrs) {
       VideoService.getCategories().then(function (data) {
-        console.log(data);
         var categories = [];
         var items = data.category.items;
         var l = items.length;
