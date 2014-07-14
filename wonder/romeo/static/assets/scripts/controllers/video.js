@@ -1,8 +1,8 @@
 angular.module('fileUpload', [ 'angularFileUpload' ]);
 
 angular.module('RomeoApp.controllers')
-  .controller('VideoCtrl', ['$rootScope', '$scope', '$location', 'AuthService', '$upload', 'UploadService', '$routeParams', 'VideoService', '$sce', '$document', 'TagService',
-  function($rootScope, $scope, $location, AuthService, $upload, UploadService, $routeParams, VideoService, $sce, $document, TagService) {
+  .controller('VideoCtrl', ['$rootScope', '$scope', '$location', 'AuthService', '$upload', 'UploadService', '$routeParams', 'VideoService', '$sce', '$document', 'TagService', 'CommentsService', '$timeout',
+  function($rootScope, $scope, $location, AuthService, $upload, UploadService, $routeParams, VideoService, $sce, $document, TagService, CommentsService, $timeout) {
 
     'use strict';
 
@@ -23,12 +23,24 @@ angular.module('RomeoApp.controllers')
       $scope.currentTime = 0;
     }
 
+    $scope.$watch(
+      function() { return $scope.video ? $scope.video.id : null; },
+      function(newValue, oldValue) {
+        if (newValue !== '' && newValue !== oldValue) {
+          CommentsService.getComments($scope.video.id).then(function (data) {
+            console.log(data);
+            $scope.comments = data.comment.items;
+          });
+        }
+      }
+    );
+
     $scope.onPreviewImageSelect = function (files) {
       VideoService.saveCustomPreview($scope.video.id, files[0]).then(function(data){
-          angular.extend($scope.video, data);
-          $scope.loadVideo($scope.video.id);
-          $scope.showPreviewSelector = false;
-          $scope.showVideoEdit = true;
+        angular.extend($scope.video, data);
+        $scope.loadVideo($scope.video.id);
+        $scope.showPreviewSelector = false;
+        $scope.showVideoEdit = true;
       });
     };
 
@@ -133,6 +145,73 @@ angular.module('RomeoApp.controllers')
 
       $scope.isUploading = true;
     }
+
+
+    $scope.$on('video-seek', videoOnSeek);
+
+    function videoOnSeek (event, seconds) {
+
+      console.log('videoOnSeek()');
+
+      console.log(seconds);
+
+      $scope.player.seek(seconds);
+    }
+
+  // this timeout is bs
+  $timeout(function () {
+    var frames = document.getElementsByClassName('video-player__frame');
+    if (frames.length) {
+      var frame = frames[0].contentWindow || frames[0].contentDocument.parentWindow;
+      var OO = frame.OO;
+      $scope.player = frame.player;
+      $scope.videoTotalTime = $scope.player.getTotalTime();
+      bindEvents(OO);
+    }
+  }, 10000);
+
+
+  $scope.videoCurrentTime = 0;
+
+  $scope.videoTotalTime = 0;
+
+  // http://support.ooyala.com/developers/documentation/concepts/xmp_securexdr_view_mbus.html
+  // http://support.ooyala.com/developers/documentation/api/player_v3_api_events.html
+  function bindEvents (OO) {
+
+    var bus = $scope.player.mb;
+
+    bus.subscribe(OO.EVENTS.PLAYBACK_READY, 'WonderUIModule', function () {
+
+      console.log('test');
+
+      $scope.videoTotalTime = $scope.player.getTotalTime();
+
+    });
+
+    bus.subscribe(OO.EVENTS.PLAYHEAD_TIME_CHANGED, 'WonderUIModule', function(eventName, currentTime) {
+
+      $scope.videoCurrentTime = currentTime;
+
+      console.log(currentTime);
+
+      // console.log(currentTime + ' (' + Math.round(progress) + '%)');
+
+      $scope.progress = (Math.round((($scope.videoCurrentTime * 1000)/$scope.videoTotalTime) * 100 * 100))/100;
+
+      $scope.$apply();
+
+    });
+
+    bus.subscribe(OO.EVENTS.SEEKED, 'WonderUIModule', function (seconds) {
+
+      $scope.player.pause();
+    });
+
+
+  }
+
+
 
 
 

@@ -4,22 +4,6 @@ angular.module('RomeoApp.directives')
 
   'use strict';
 
-  function prettifyVideoTime (seconds) {
-    var formatted = seconds.toString();
-    // 12:04:36
-    return formatted;
-  }
-
-  function prettifyTimestamp (timestamp) {
-    var prettyTimestamp = timestamp;
-    // A few days ago
-    return prettyTimestamp;
-  }
-
-  function getTimeStamp () {
-    return Math.round(new Date().getTime() / 1000);
-  }
-
   function createComment (data) {
 
 // {
@@ -63,23 +47,20 @@ angular.module('RomeoApp.directives')
     template : $templateCache.get('video-comments.html'),
     scope : {
       videoId : '@',
-      currentTime : '='
+      currentTime : '=',
+      comments : '='
     },
     controller : function ($scope) {
 
-      $scope.$watch(
-        function() { return $scope.videoId; },
-        function(newValue, oldValue) {
-          if (newValue !== '' && newValue !== oldValue) {
-            CommentsService.getComments($scope.videoId).then(function (data) {
-              console.log(data);
-              $scope.comments = data.comment.items;
-            });
-          }
-        }
-      );
+      $scope.isTimeSync = function (timestamp) {
+
+        return Math.round(timestamp) === Math.round($scope.currentTime);
+      };
 
       $scope.addComment = function () {
+
+        console.log($scope.currentTime);
+
         var datetime = new Date().getTime();
         var commentData = {
           comment: $scope.commentText,
@@ -90,6 +71,7 @@ angular.module('RomeoApp.directives')
           angular.extend(data, commentData);
           var comment = createComment(data);
           $scope.comments.push(comment);
+          $scope.commentText = '';
         });
       };
 
@@ -97,6 +79,16 @@ angular.module('RomeoApp.directives')
         $scope.currentTime = timestamp;
         $scope.inputActive = true;
       };
+
+      $scope.videoSeek = function (timestamp) {
+        $scope.$emit('video-seek', timestamp);
+      };
     }
   };
 }]);
+
+
+
+
+
+

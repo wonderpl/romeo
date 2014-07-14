@@ -54,11 +54,15 @@
 
     </section>
 
-    <!-- <video-indicators ng-show="isComments && video.status === 'published'"></video-indicators> -->
-    <video-indicators ng-show="isComments"></video-indicators>
+    <section ng-show="video.id && isComments">
 
-    <!-- <video-comments ng-show="isComments && video.status === 'published'"></video-comments> -->
-    <video-comments ng-show="video.id && isComments" video-id="{{ video.id }}" current-time="currentTime"></video-comments>
+      <!-- <video-indicators ng-show="isComments && video.status === 'published'"></video-indicators> -->
+      <video-indicators comments="comments" current-time="videoCurrentTime" total-time="videoTotalTime"></video-indicators>
+      <!-- <video-comments ng-show="isComments && video.status === 'published'"></video-comments> -->
+      <video-comments comments="comments" video-id="{{ video.id }}" current-time="videoCurrentTime"></video-comments>
+
+    </section>
+
 
     <div class="video-view__save-controls" ng-show="isEdit">
       <a ng-click="cancel()" class="button">cancel</a>

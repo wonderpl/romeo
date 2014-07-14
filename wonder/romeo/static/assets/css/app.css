@@ -5224,6 +5224,17 @@ h3 {
   text-decoration: underline;
 }
 
+/* line 112, ../../scss/specifics/video/_video-feedback.scss */
+.video-feedback__comment-timestamp-link {
+  color: #51b364;
+  cursor: pointer;
+}
+
+/* line 117, ../../scss/specifics/video/_video-feedback.scss */
+.video-feedback__comment-timestamp-link:hover {
+  text-decoration: underline;
+}
+
 /* line 1, ../../scss/specifics/video/_video-player.scss */
 .video-player {
   width: 100%;
@@ -5353,7 +5364,7 @@ h3 {
 }
 
 /* line 18, ../../scss/specifics/video/_video-indicators.scss */
-.video-indicators__comment--hover {
+.video-indicators__comment-indicator--active {
   border: solid 1px red;
 }
 

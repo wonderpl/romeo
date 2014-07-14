@@ -210,12 +210,15 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <header class=\"video-extended-controls__section-header\" ng-click=\"showCollection = !showCollection\">\n" +
     "    <h4 class=\"video-extended-controls__section-header-title\" ng-click=\"showCollection = !showCollection\">\n" +
-    "      <ng-pluralize count=\"video.tags.items.length\"\n" +
-    "        when=\"{\n" +
-    "          '0': 'Add video to collection',\n" +
-    "          '1': 'In Collection:',\n" +
-    "          'other': 'In Collections:'}\">\n" +
-    "      </ng-pluralize>\n" +
+    "      <span ng-if=\"!video || !video.tags || !video.tags.items || video.tags.items.length === 0\">\n" +
+    "        Add video to collection\n" +
+    "      </span>\n" +
+    "      <span ng-if=\"video.tags.items.length === 1\">\n" +
+    "        In Collection:\n" +
+    "      </span>\n" +
+    "      <span ng-if=\"video.tags.items.length > 1\">\n" +
+    "        In Collections:\n" +
+    "      </span>\n" +
     "    </h4>\n" +
     "\n" +
     "    <ul ng-show=\"video.tags.items.length\" class=\"video-edit-collections__assigned-tags\">\n" +
@@ -940,7 +943,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <ul class=\"video-feedback__comments-list\">\n" +
     "      <li class=\"video-feedback__comment\"\n" +
-    "        ng-class=\"{ 'video-feedback__comment--active' : currentTime === comment.timestamp }\"\n" +
+    "        ng-class=\"{ 'video-feedback__comment--active' : isTimeSync(comment.timestamp) }\"\n" +
     "        ng-repeat=\"comment in comments | orderBy:timestamp\"\n" +
     "        ng-mouseenter=\"replyActive = true\"\n" +
     "        ng-mouseleave=\"replyActive = false\">\n" +
@@ -948,13 +951,15 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        <span class=\"video-feedback__comment-time-posted\" ng-bind=\"comment.datetime | prettyDate\"></span>\n" +
     "        <div class=\"video-feedback__comment-text\">\n" +
     "          <span class=\"video-feedback__comment-timestamp\" ng-show=\"comment.timestamp\">\n" +
-    "            @<a href=\"video-feedback__comment-timestamp\" ng-bind=\"comment.timestamp\"></a>\n" +
+    "            @<a class=\"video-feedback__comment-timestamp-link\" ng-bind=\"comment.timestamp\" ng-click=\"videoSeek(comment.timestamp)\"></a>\n" +
     "          </span>\n" +
     "          (~ comment.comment ~)\n" +
     "        </div>\n" +
     "        <a class=\"video-feedback__reply-link\"\n" +
     "          ng-class=\"{ 'video-feedback__reply-link--active' : replyActive }\"\n" +
-    "          ng-click=\"reply(comment.timestamp)\">reply</a>\n" +
+    "          ng-click=\"reply(comment.timestamp)\">\n" +
+    "          reply\n" +
+    "        </a>\n" +
     "      </li>\n" +
     "    </ul>\n" +
     "\n" +
@@ -976,14 +981,15 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('video-indicators.html',
     "<section class=\"video-indicators\">\n" +
-    "  <div class=\"video-indicators__scrubber\" ng-model=\"scrubber\" style=\"left: (~ progress ~)%\"></div>\n" +
+    "  <div class=\"video-indicators__scrubber\" ng-model=\"scrubber\" style=\"left: (~ (currentTime/totalTime)*100 ~)%\"></div>\n" +
     "  <ul class=\"video-indicators__comment-indicators\">\n" +
-    "    <li class=\"video-indicators__comment-indicator\" ng-repeat=\"comment in comments\" style=\"left: (~ comment.position ~);\" ng-mouseover=\"commentHover(comment.mark)\" ng-class=\"{ 'video-indicators__comment--hover' : comment.isHover }\">\n" +
-    "      <a data-id=\"(~ comment.id ~)\" class=\"video-indicators__comment-link\" ng-click=\"seek(comment.mark)\"></a>\n" +
+    "    <li class=\"video-indicators__comment-indicator\"\n" +
+    "      ng-class=\"{ 'video-indicators__comment-indicator--active' : isTimeSync(comment.timestamp) }\"\n" +
+    "      ng-repeat=\"comment in comments\"\n" +
+    "      style=\"left: (~ (comment.timestamp/totalTime)*100 ~)%;\">\n" +
+    "      <a data-id=\"(~ comment.id ~)\" class=\"video-indicators__comment-link\" ng-click=\"seek(comment.timestamp)\"></a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
-    "<a ng-click=\"playVideo()\">play</a>\n" +
-    "<a ng-click=\"pauseVideo()\">pause</a>\n" +
     "</section>"
   );
 
@@ -1196,11 +1202,15 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    </section>\n" +
     "\n" +
-    "    <!-- <video-indicators ng-show=\"isComments && video.status === 'published'\"></video-indicators> -->\n" +
-    "    <video-indicators ng-show=\"isComments\"></video-indicators>\n" +
+    "    <section ng-show=\"video.id && isComments\">\n" +
     "\n" +
-    "    <!-- <video-comments ng-show=\"isComments && video.status === 'published'\"></video-comments> -->\n" +
-    "    <video-comments ng-show=\"video.id && isComments\" video-id=\"(~ video.id ~)\" current-time=\"currentTime\"></video-comments>\n" +
+    "      <!-- <video-indicators ng-show=\"isComments && video.status === 'published'\"></video-indicators> -->\n" +
+    "      <video-indicators comments=\"comments\" current-time=\"videoCurrentTime\" total-time=\"videoTotalTime\"></video-indicators>\n" +
+    "      <!-- <video-comments ng-show=\"isComments && video.status === 'published'\"></video-comments> -->\n" +
+    "      <video-comments comments=\"comments\" video-id=\"(~ video.id ~)\" current-time=\"videoCurrentTime\"></video-comments>\n" +
+    "\n" +
+    "    </section>\n" +
+    "\n" +
     "\n" +
     "    <div class=\"video-view__save-controls\" ng-show=\"isEdit\">\n" +
     "      <a ng-click=\"cancel()\" class=\"button\">cancel</a>\n" +
