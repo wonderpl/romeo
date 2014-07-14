@@ -210,15 +210,12 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <header class=\"video-extended-controls__section-header\" ng-click=\"showCollection = !showCollection\">\n" +
     "    <h4 class=\"video-extended-controls__section-header-title\" ng-click=\"showCollection = !showCollection\">\n" +
-    "      <span ng-if=\"!video.tags || !video.tags.items || video.tags.items.length === 0\">\n" +
-    "        Add video to collection\n" +
-    "      </span>\n" +
-    "      <span ng-if=\"video.tags.items.length === 1\">\n" +
-    "        In Collection:\n" +
-    "      </span>\n" +
-    "      <span ng-if=\"video.tags.items.length > 1\">\n" +
-    "        In Collections:\n" +
-    "      </span>\n" +
+    "      <ng-pluralize count=\"video.tags.items.length\"\n" +
+    "        when=\"{\n" +
+    "          '0': 'Add video to collection',\n" +
+    "          '1': 'In Collection:',\n" +
+    "          'other': 'In Collections:'}\">\n" +
+    "      </ng-pluralize>\n" +
     "    </h4>\n" +
     "\n" +
     "    <ul ng-show=\"video.tags.items.length\" class=\"video-edit-collections__assigned-tags\">\n" +
@@ -924,12 +921,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    class=\"video-feedback__form\"\n" +
     "    ng-class=\"{ 'video-feedback__form--active' : inputActive }\">\n" +
     "    <section class=\"video-feedback__input-container\">\n" +
-    "      <textarea class=\"video-feedback__input js-feeback-input\"\n" +
+    "      <textarea class=\"video-feedback__input\"\n" +
     "        placeholder=\"Insert comment&hellip;\"\n" +
     "        ng-model=\"commentText\"\n" +
     "        ng-class=\"{ 'video-feedback__input--active' : inputActive }\"\n" +
     "        ng-focus=\"inputActive = true\"\n" +
-    "        ng-blur=\"inputActive = false\">\n" +
+    "        ng-blur=\"inputActive = false\"\n" +
+    "        focus=\"inputActive\">\n" +
     "      </textarea>\n" +
     "    </section>\n" +
     "    <a class=\"video-feedback__button button button--primary\"\n" +
@@ -954,7 +952,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "          </span>\n" +
     "          (~ comment.comment ~)\n" +
     "        </div>\n" +
-    "        <a class=\"video-feedback__reply-link\" ng-class=\"{ 'video-feedback__reply-link--active' : replyActive }\">reply</a>\n" +
+    "        <a class=\"video-feedback__reply-link\"\n" +
+    "          ng-class=\"{ 'video-feedback__reply-link--active' : replyActive }\"\n" +
+    "          ng-click=\"reply(comment.timestamp)\">reply</a>\n" +
     "      </li>\n" +
     "    </ul>\n" +
     "\n" +

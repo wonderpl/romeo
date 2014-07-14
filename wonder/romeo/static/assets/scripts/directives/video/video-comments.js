@@ -80,20 +80,22 @@ angular.module('RomeoApp.directives')
       );
 
       $scope.addComment = function () {
-
         var datetime = new Date().getTime();
-
         var commentData = {
           comment: $scope.commentText,
           timestamp: $scope.currentTime || 0,
           datetime: datetime.toString()
         };
-
         CommentsService.addComment($scope.videoId, commentData).then(function(data) {
           angular.extend(data, commentData);
           var comment = createComment(data);
           $scope.comments.push(comment);
         });
+      };
+
+      $scope.reply = function (timestamp) {
+        $scope.currentTime = timestamp;
+        $scope.inputActive = true;
       };
     }
   };

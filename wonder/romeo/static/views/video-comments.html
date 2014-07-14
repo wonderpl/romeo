@@ -4,12 +4,13 @@
     class="video-feedback__form"
     ng-class="{ 'video-feedback__form--active' : inputActive }">
     <section class="video-feedback__input-container">
-      <textarea class="video-feedback__input js-feeback-input"
+      <textarea class="video-feedback__input"
         placeholder="Insert comment&hellip;"
         ng-model="commentText"
         ng-class="{ 'video-feedback__input--active' : inputActive }"
         ng-focus="inputActive = true"
-        ng-blur="inputActive = false">
+        ng-blur="inputActive = false"
+        focus="inputActive">
       </textarea>
     </section>
     <a class="video-feedback__button button button--primary"
@@ -34,7 +35,9 @@
           </span>
           {{ comment.comment }}
         </div>
-        <a class="video-feedback__reply-link" ng-class="{ 'video-feedback__reply-link--active' : replyActive }">reply</a>
+        <a class="video-feedback__reply-link"
+          ng-class="{ 'video-feedback__reply-link--active' : replyActive }"
+          ng-click="reply(comment.timestamp)">reply</a>
       </li>
     </ul>
 
