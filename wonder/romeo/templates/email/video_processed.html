@@ -2,7 +2,7 @@
 
 {% macro video_url() %}
 {{ url_for('root.home') }}#/video/{{ video.id }}
-{% endmacro %}
+{%- endmacro %}
 
 {% block title %}{% if error %}There was an error processing your video {% else %}Your video is ready{% endif %}{% endblock %}
 
@@ -25,6 +25,7 @@
       <a href="{{ video_url() }}">"{{ video.title }}"</a> is ready.
     </td>
   </tr>
+  {% if video.thumbnail %}
   <tr>
     <td class="bodyContent" style="padding-top:0; padding-bottom:0;">
       <a href="{{ video_url() }}">
@@ -32,6 +33,7 @@
       </a>
     </td>
   </tr>
+  {% endif %}
   <tr>
     <td valign="top" class="bodyContent">
       Link: <a href="{{ video_url() }}">{{ video_url() }}</a>

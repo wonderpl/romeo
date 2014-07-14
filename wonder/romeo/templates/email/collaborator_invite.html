@@ -2,7 +2,7 @@
 
 {% macro video_url() %}
 {{ url_for('root.home') }}#/video/{{ video.id }}?token={{ collaborator.token }}
-{% endmacro %}
+{%- endmacro %}
 
 {% if can_comment %}
 {% set action = "comment on" %}
@@ -19,7 +19,7 @@
   <tr>
     <td valign="top" class="bodyContent">
       <h3>Hi {{ collaborator.name }}</h3>
-      You have been invited by {{ sender.username }} to {{ action }}
+      You have been invited by {{ sender.name }} to {{ action }}
       <a href="{{ video_url() }}">"{{ video.title }}"</a>.
     </td>
   </tr>

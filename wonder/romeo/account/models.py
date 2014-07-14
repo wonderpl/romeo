@@ -35,6 +35,10 @@ class AccountUser(db.Model):
         if user and user.check_password(password):
             return user
 
+    @property
+    def name(self):
+        return self.display_name or self.username
+
     def is_active(self):
         return self.active
 

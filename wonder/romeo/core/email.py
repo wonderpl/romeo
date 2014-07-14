@@ -13,7 +13,8 @@ def send_email(recipient, body, subject=None, format='html'):
     if not subject:
         import HTMLParser
         subject = HTMLParser.HTMLParser().unescape(TITLE_RE.search(body).group(1))
-    return connect_ses().send_email(
+    conn = connect_ses(current_app.config.get('AWS_ACCESS_KEY'), current_app.config.get('AWS_SECRET_KEY'))
+    return conn.send_email(
         current_app.config['DEFAULT_EMAIL_SOURCE'],
         subject,
         body,

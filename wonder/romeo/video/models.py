@@ -279,6 +279,8 @@ class VideoComment(db.Model):
     timestamp = Column(Integer)
     notification_sent = Column(Boolean(), nullable=False, server_default='false', default=False)
 
+    video = relationship(Video, backref='comments')
+
     @property
     def href(self):
         return url_for('api.videocomment', comment_id=self.id)
