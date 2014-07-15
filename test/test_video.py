@@ -2,7 +2,7 @@ import re
 import unittest
 from mock import patch, DEFAULT
 from fixture import DataTestCase
-from flask import current_app, json
+from flask import current_app, json, g
 from wonder.romeo import db
 from wonder.romeo.account.models import AccountUser
 from wonder.romeo.video.models import Video, VideoLocaleMeta, VideoComment
@@ -10,7 +10,14 @@ from .helpers import client_for_account, client_for_user, client_for_collaborato
 from .fixtures import dbfixture, DataSet, genimg
 
 
-class VideoWorkflowTestCase(DataTestCase, unittest.TestCase):
+class TestCase(unittest.TestCase):
+
+    def tearDown(self):
+        # clear cached mocks from g (the s3 module in particular uses this)
+        g.__dict__ = {}
+
+
+class VideoWorkflowTestCase(DataTestCase, TestCase):
 
     class AccountData(DataSet):
         class account:
@@ -35,7 +42,7 @@ class VideoWorkflowTestCase(DataTestCase, unittest.TestCase):
     datasets = AccountData, AccountUserData, VideoTagData
 
     def tearDown(self):
-        pass
+        g.__dict__ = {}
 
     def test_video_workflow(self):
         account = self.data.AccountData.account
@@ -151,7 +158,34 @@ class VideoWorkflowTestCase(DataTestCase, unittest.TestCase):
             self.assertEquals(kwargs['jsondata'], [])
 
 
-class VideoEditTestCase(unittest.TestCase):
+class VideoMetaTestCase(TestCase):
+
+    def test_download_url(self):
+        video = Video.query.filter(Video.filename != None).first()
+        with patch('boto.connect_s3') as s3:
+            url = 'http://s3/xxx'
+            s3.return_value.get_bucket.return_value.get_key.return_value.\
+                generate_url.return_value = url
+            with client_for_account(video.account_id) as client:
+                r = client.get('/api/video/%d/download_url' % video.id)
+                self.assertEquals(r.status_code, 302)
+                self.assertEquals(r.headers['Location'], url)
+                self.assertEquals(json.loads(r.data)['url'], url)
+
+    def test_share_url(self):
+        video = Video.query.filter_by(status='published').first()
+        with patch('wonder.romeo.core.dolly.DollyUser.get_share_link') as get_share_link:
+            url = 'http://wonderpl.com/xxx'
+            get_share_link.return_value = url
+            url += '?utm_source=facebook'
+            with client_for_account(video.account_id) as client:
+                r = client.get('/api/video/%d/share_url?target=facebook' % video.id)
+                self.assertEquals(r.status_code, 302)
+                self.assertEquals(r.headers['Location'], url)
+                self.assertEquals(json.loads(r.data)['url'], url)
+
+
+class VideoEditTestCase(TestCase):
 
     def test_edit_description(self):
         description = 'xyzzy'
@@ -203,7 +237,7 @@ class VideoEditTestCase(unittest.TestCase):
             self.assertIn(w, widths)
 
 
-class VideoCommentTestCase(DataTestCase, unittest.TestCase):
+class VideoCommentTestCase(DataTestCase, TestCase):
 
     class AccountData(DataSet):
         class account:
@@ -319,7 +353,7 @@ class VideoCommentTestCase(DataTestCase, unittest.TestCase):
             self.assertFalse(send_email.called)
 
 
-class VideoCollaboratorTestCase(unittest.TestCase):
+class VideoCollaboratorTestCase(TestCase):
 
     def test_invite_collaborator(self):
         video = Video.query.first()
@@ -351,7 +385,7 @@ class VideoCollaboratorTestCase(unittest.TestCase):
             self.assertEquals(r.status_code, 401)
 
 
-class VideoPlayerParametersTestCase(unittest.TestCase):
+class VideoPlayerParametersTestCase(TestCase):
 
     def test_player_parameters(self):
         video = Video.query.first()

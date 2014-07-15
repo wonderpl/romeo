@@ -399,6 +399,43 @@ Content-Type: application/json
 }
 ```
 
+### Video share url
+
+Request the share url sub-resource to get a link for the public web page for
+a video.
+
+```http
+GET /api/video/<video_id>/share_url?target=<target> HTTP/1.1
+```
+
+Parameter | Required | Value                   | Description
+:-------- | :------- | :---------------------- | :----------
+target    | No       | `facebook` or `twitter` | Specifies the target platform for the share url
+
+The response will be a redirect to the public web page.
+
+```http
+HTTP/1.1 302 FOUND
+Location: http://wonderpl.com/s/cMCYVXg?utm_source=facebook
+Content-Type: application/json
+
+{
+ "url": "http://wonderpl.com/s/cMCYVXg?utm_source=facebook"
+}
+```
+
+This service will return a 400 if the video has not been published (i.e. added to a tag
+associated with a Dolly channel).
+
+```http
+HTTP/1.1 400 BAD REQUEST
+Content-Type: application/json
+
+{
+ "error": "invalid_request"
+}
+```
+
 ### Video tags
 
 To associate a tag with a video (add a video to a collection), `POST` the tag id to the video

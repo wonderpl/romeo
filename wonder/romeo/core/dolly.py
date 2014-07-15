@@ -119,6 +119,11 @@ class DollyUser(object):
         if response.status_code == 200:
             return response.json()
 
+    def get_channel_videos(self, channelid):
+        resource = 'channels/%s/videos' % channelid
+        response = self._user_request(resource, params=dict(size=1000)).json()
+        return response['videos']['items']
+
     def update_channel(self, channelid, channeldata):
         self._set_all_channel_data(channeldata)
         response = self._user_request('channels/%s/' % channelid, 'put', jsondata=channeldata)
@@ -136,8 +141,15 @@ class DollyUser(object):
 
     def remove_video(self, channelid, videodata):
         # need to fetch all channel videos and remove
-        resource = 'channels/%s/videos' % channelid
-        response = self._user_request(resource, params=dict(size=1000)).json()
-        videos = [v['id'] for v in response['videos']['items']
+        videos = [v['id'] for v in self.get_channel_videos(channelid)
                   if v['video']['source_id'] != videodata['source_id']]
-        self._user_request(resource, 'put', jsondata=videos)
+        self._user_request('channels/%s/videos' % channelid, 'put', jsondata=videos)
+
+    def get_share_link(self, channelid, videodata):
+        # XXX: Slow! Need to fetch whole channel to figure out the instance id
+        instanceid = next(v['id'] for v in self.get_channel_videos(channelid)
+                          if v['video']['source_id'] == videodata['source_id'])
+        objdata = dict(object_type='video_instance', object_id=instanceid)
+        response = _request('share/link/', 'post', token=self.token, jsondata=objdata)
+        if response.status_code == 201:
+            return response.json()['resource_url']

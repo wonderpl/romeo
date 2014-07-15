@@ -38,11 +38,31 @@ class AccountUserData(DataSet):
 
 class VideoData(DataSet):
     class Video1:
-        id = 1
         account_id = 1
         title = 'Video 1'
         external_id = 'xx'
+        filename = 'fffffffff'
         status = 'ready'
+
+    class Video2:
+        account_id = 1
+        title = 'Video 2'
+        external_id = 'yy'
+        filename = 'ggggggggg'
+        status = 'published'
+
+
+class VideoTagData(DataSet):
+    class VideoTag1:
+        account_id = 1
+        label = 'Collection 1'
+        dolly_channel = 'ccccc'
+
+
+class VideoTagVideoData(DataSet):
+    class VideoTagVideo1:
+        video = VideoData.Video2
+        tag = VideoTagData.VideoTag1
 
 
 def loaddata():

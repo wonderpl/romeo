@@ -321,6 +321,26 @@ class VideoDownloadUrlResource(Resource):
         return dict(url=url, expires=expires), 302, {'Location': url}
 
 
+@api_resource('/video/<int:video_id>/share_url')
+class VideoShareUrlResource(Resource):
+
+    @video_view()
+    def get(self, video):
+        videodata = dict(source_id=video.external_id)
+        try:
+            channelid = next(t.dolly_channel for t in video.tags if t.dolly_channel)
+        except StopIteration:
+            # Not published
+            return dict(error='invalid_request'), 400
+        else:
+            url = get_dollyuser(current_user.account).get_share_link(channelid, videodata)
+
+        if request.args.get('target') in ('facebook', 'twitter'):
+            url += '?utm_source=' + request.args['target']
+
+        return dict(url=url), 302, {'Location': url}
+
+
 @api_resource('/video/<int:video_id>/player_parameters')
 class VideoPlayerParametersResource(Resource):
 
