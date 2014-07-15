@@ -1,3 +1,7 @@
-<section class="color-picker">
-  <input color-picker ng-model="color" />
+<section class="video-player-config color-picker">
+  <input color-picker ng-model="color" class="video-player-config__color-input" />
+  <label class="video-player-config__hide-logo-label">
+    Hide logo
+    <input type="checkbox" ng-model="hideLogo" class="video-player-config__hide-logo-checkbox" ng-change="toggleHideLogo()" />
+  </label>
 </section>

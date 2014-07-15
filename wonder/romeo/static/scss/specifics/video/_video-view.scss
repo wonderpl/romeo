@@ -4,11 +4,6 @@
   margin-right: auto;
 }
 
-.video-more {
-  text-align: center;
-  margin-bottom: 1em;
-}
-
 .video-view-control-panel {
   text-align: right;
   padding: 24px;
@@ -51,4 +46,15 @@
 .video-view__save-controls {
   margin-bottom: 1em;
   text-align: center;
+}
+
+.video-view__description {
+  width: 600px;
+  margin: 0 auto;
+  height: 15em;
+  overflow: auto;
+}
+
+.video-view__description--edit {
+  border-bottom: solid 1px $grey;
 }

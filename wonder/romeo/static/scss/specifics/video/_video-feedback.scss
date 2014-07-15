@@ -109,9 +109,16 @@
   text-decoration: underline;
 }
 
+.video-feedback__comment-timestamp-link {
+  color: $dark-green;
+  cursor: pointer;
+}
 
+.video-feedback__comment-timestamp-link:hover {
+  text-decoration: underline;
+}
 
-
-
-
+.video-feedback__notify {
+  text-align: center;
+}
 

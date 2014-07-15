@@ -1,13 +1,12 @@
 angular.module('fileUpload', [ 'angularFileUpload' ]);
 
 angular.module('RomeoApp.controllers')
-  .controller('VideoCtrl', ['$rootScope', '$scope', '$location', 'AuthService', '$upload', 'UploadService', '$routeParams', 'VideoService', '$sce', '$document', 'TagService',
-  function($rootScope, $scope, $location, AuthService, $upload, UploadService, $routeParams, VideoService, $sce, $document, TagService) {
+  .controller('VideoCtrl', ['$rootScope', '$scope', '$location', 'AuthService', '$upload', 'UploadService', '$routeParams', 'VideoService', '$sce', '$document', 'TagService', 'CommentsService', '$timeout',
+  function($rootScope, $scope, $location, AuthService, $upload, UploadService, $routeParams, VideoService, $sce, $document, TagService, CommentsService, $timeout) {
 
     'use strict';
 
     function persistVideoData (data) {
-      // Object {href: "/api/video/85502346", id: 85502346, status: "uploading"}
       angular.extend($scope.video, data);
     }
 
@@ -15,6 +14,8 @@ angular.module('RomeoApp.controllers')
 
       $scope.video = $scope.video || {};
       $scope.titlePlaceholder = '';
+      $scope.straplinePlaceholder = '';
+      $scope.descriptionPlaceholder = '';
       $scope.showUpload = true;
       $scope.isUploading = false;
       $scope.hasProcessed = false;
@@ -23,12 +24,57 @@ angular.module('RomeoApp.controllers')
       $scope.currentTime = 0;
     }
 
+    $scope.$watch(
+      function() { return $scope.video.title; },
+      function(newValue, oldValue) {
+        if (newValue && newValue !== oldValue) {
+          $scope.titlePlaceholder = '';
+        } else {
+          $scope.titlePlaceholder = 'UntitledVideo';
+        }
+      }
+    );
+
+    $scope.$watch(
+      function() { return $scope.video.strapline; },
+      function(newValue, oldValue) {
+        if (newValue && newValue !== oldValue) {
+          $scope.straplinePlaceholder = '';
+        } else {
+          $scope.straplinePlaceholder = 'Subtitle';
+        }
+      }
+    );
+
+    $scope.$watch(
+      function() { return $scope.video.strapline; },
+      function(newValue, oldValue) {
+        if (newValue && newValue !== oldValue) {
+          $scope.descriptionPlaceholder = '';
+        } else {
+          $scope.descriptionPlaceholder = 'Additional content including but not limited to: recipes, ingredients, lyrics, stories, etc.';
+        }
+      }
+    );
+
+    $scope.$watch(
+      function() { return $scope.video ? $scope.video.id : null; },
+      function(newValue, oldValue) {
+        if (newValue !== '' && newValue !== oldValue) {
+          CommentsService.getComments($scope.video.id).then(function (data) {
+            console.log(data);
+            $scope.comments = data.comment.items;
+          });
+        }
+      }
+    );
+
     $scope.onPreviewImageSelect = function (files) {
       VideoService.saveCustomPreview($scope.video.id, files[0]).then(function(data){
-          angular.extend($scope.video, data);
-          $scope.loadVideo($scope.video.id);
-          $scope.showPreviewSelector = false;
-          $scope.showVideoEdit = true;
+        angular.extend($scope.video, data);
+        $scope.loadVideo($scope.video.id);
+        $scope.showPreviewSelector = false;
+        $scope.showVideoEdit = true;
       });
     };
 
@@ -41,6 +87,8 @@ angular.module('RomeoApp.controllers')
 
       $scope.video.title = $scope.video.title || stripExtension(files[0].name);
       $scope.titlePlaceholder = '';
+      $scope.straplinePlaceholder = '';
+      $scope.descriptionPlaceholder = '';
 
       var data = { title : $scope.video.title };
 
@@ -109,7 +157,7 @@ angular.module('RomeoApp.controllers')
 
     $scope.cancel = function () {
 
-      VideoService.get($scope.id).then(function (data) {
+      VideoService.get($scope.video.id).then(function (data) {
         angular.extend($scope.video, data);
       });
     };
@@ -133,6 +181,80 @@ angular.module('RomeoApp.controllers')
 
       $scope.isUploading = true;
     }
+
+
+    $scope.$on('video-seek', videoOnSeek);
+
+    function videoOnSeek (event, seconds) {
+
+      if ($scope.player) {
+        $scope.player.seek(seconds);
+      }
+    }
+
+  $scope.videoCurrentTime = 0;
+  $scope.videoTotalTime = 0;
+
+  function pollIFrame () {
+    $timeout(checkIFramePlayer, 1000);
+  }
+
+  function checkIFramePlayer () {
+    var frames = document.getElementsByClassName('video-player__frame');
+    if (frames.length) {
+      var frame = frames[0].contentWindow || frames[0].contentDocument.parentWindow;
+      if (frame.player) {
+        $scope.player = frame.player;
+        $scope.videoTotalTime = $scope.player.getTotalTime();
+      }
+      var OO = frame.OO;
+      if (OO && OO.ready) {
+        OO.ready(function () {
+          bindEvents(OO);
+        });
+
+      } else {
+        pollIFrame();
+      }
+
+    } else {
+      pollIFrame();
+    }
+  }
+
+  pollIFrame();
+
+
+
+  // http://support.ooyala.com/developers/documentation/concepts/xmp_securexdr_view_mbus.html
+  // http://support.ooyala.com/developers/documentation/api/player_v3_api_events.html
+  function bindEvents (OO) {
+
+    var bus = $scope.player.mb;
+
+    bus.subscribe(OO.EVENTS.PLAYBACK_READY, 'WonderUIModule', function () {
+
+      console.log('PLAYBACK_READY');
+    });
+
+    bus.subscribe(OO.EVENTS.PLAYHEAD_TIME_CHANGED, 'WonderUIModule', function(eventName, currentTime) {
+
+      $scope.videoCurrentTime = currentTime;
+
+      $scope.progress = (Math.round((($scope.videoCurrentTime * 1000)/$scope.videoTotalTime) * 100 * 100))/100;
+
+      $scope.$apply();
+
+    });
+
+    bus.subscribe(OO.EVENTS.SEEKED, 'WonderUIModule', function (seconds) {
+
+      $scope.player.pause();
+    });
+
+  }
+
+
 
 
 
@@ -201,11 +323,6 @@ angular.module('RomeoApp.controllers')
         }
 
         $scope.showVideoEdit = (($scope.video.status === 'ready') || ($scope.video.status === 'published'));
-
-
-        // hack
-        // https://github.com/thijsw/angular-medium-editor/pull/6
-        $scope.titlePlaceholder = $scope.video.title ? '' : 'Untitled Video';
 
       });
 

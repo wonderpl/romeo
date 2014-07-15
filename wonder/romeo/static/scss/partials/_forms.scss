@@ -19,14 +19,10 @@ textarea {
 	height: 100px;
 }
 
-input[type=checkbox] {
-	margin: 0 0 0 0;
-}
-
 form .row {
 	display: block;
 	margin: 0 0 16px 0;
-	
+
 	&.full-width {
 		width: 100%;
 	}
@@ -92,7 +88,7 @@ form .row {
 	.margin-right {
 		margin-right: 8px;
 	}
-	
+
 	.padding {
 		@include inline-block;
 
@@ -116,7 +112,7 @@ form .row {
 	@include transition( all .2s ease-out );
 	color: white;
 	cursor: pointer;
-	
+
 	&:before {
 		content: '';
 		display: block;
@@ -153,7 +149,7 @@ form .row {
 	input, input[type=text], button, select {
 		@include inline-block;
 		vertical-align: top;
-		padding: 5px 
+		padding: 5px
 	}
 
 	.filter {
@@ -227,7 +223,7 @@ form .row {
 // 	text-decoration: none;
 // 	font-size: 14px;
 // 	cursor: pointer;
-	
+
 // 	&:before {
 // 		padding: 0 5px 0px 7px;
 // 		font-size: 18px;

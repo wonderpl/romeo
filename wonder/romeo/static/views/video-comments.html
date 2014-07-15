@@ -23,23 +23,29 @@
 
     <ul class="video-feedback__comments-list">
       <li class="video-feedback__comment"
-        ng-class="{ 'video-feedback__comment--active' : currentTime === comment.timestamp }"
-        ng-repeat="comment in comments | orderBy:timestamp"
+        ng-class="{ 'video-feedback__comment--active' : isTimeSync(comment.timestamp) }"
+        ng-repeat="comment in comments | orderBy : 'timestamp'"
         ng-mouseenter="replyActive = true"
         ng-mouseleave="replyActive = false">
         <span class="video-feedback__comment-name" ng-bind="comment.username"></span>
         <span class="video-feedback__comment-time-posted" ng-bind="comment.datetime | prettyDate"></span>
         <div class="video-feedback__comment-text">
           <span class="video-feedback__comment-timestamp" ng-show="comment.timestamp">
-            @<a href="video-feedback__comment-timestamp" ng-bind="comment.timestamp"></a>
+            @<a class="video-feedback__comment-timestamp-link" ng-bind="comment.timestamp | time" ng-click="videoSeek(comment.timestamp)"></a>
           </span>
           {{ comment.comment }}
         </div>
         <a class="video-feedback__reply-link"
           ng-class="{ 'video-feedback__reply-link--active' : replyActive }"
-          ng-click="reply(comment.timestamp)">reply</a>
+          ng-click="reply(comment.timestamp)">
+          reply
+        </a>
       </li>
     </ul>
 
+  </section>
+
+  <section class="video-feedback__notify">
+    <a class="button button-primary" ng-click="">Notify</a>
   </section>
 </section>

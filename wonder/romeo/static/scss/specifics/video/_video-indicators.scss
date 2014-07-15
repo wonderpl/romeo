@@ -4,6 +4,7 @@
   height: 20px;
   width: 100%;
   position: relative;
+  cursor: pointer;
 }
 
 .video-indicators__comment-indicators {
@@ -15,8 +16,8 @@
   top: 0;
 }
 
-.video-indicators__comment--hover {
-  border: solid 1px red;
+.video-indicators__comment-indicator--active {
+  border: solid 1px $red;
 }
 
 .video-indicators__comment-link {

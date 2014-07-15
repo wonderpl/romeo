@@ -444,20 +444,15 @@ textarea {
 }
 
 /* line 22, ../../scss/partials/_forms.scss */
-input[type=checkbox] {
-  margin: 0 0 0 0;
-}
-
-/* line 26, ../../scss/partials/_forms.scss */
 form .row {
   display: block;
   margin: 0 0 16px 0;
 }
-/* line 30, ../../scss/partials/_forms.scss */
+/* line 26, ../../scss/partials/_forms.scss */
 form .row.full-width {
   width: 100%;
 }
-/* line 34, ../../scss/partials/_forms.scss */
+/* line 30, ../../scss/partials/_forms.scss */
 form .row.half-width {
   display: -moz-inline-stack;
   display: inline-block;
@@ -467,17 +462,17 @@ form .row.half-width {
   *display: inline;
   width: 47%;
 }
-/* line 38, ../../scss/partials/_forms.scss */
+/* line 34, ../../scss/partials/_forms.scss */
 form .row.half-width.left {
   margin-right: 6%;
 }
-/* line 43, ../../scss/partials/_forms.scss */
+/* line 39, ../../scss/partials/_forms.scss */
 form .row label {
   display: block;
   font-size: 15px;
   padding: 0 0 3px 0;
 }
-/* line 48, ../../scss/partials/_forms.scss */
+/* line 44, ../../scss/partials/_forms.scss */
 form .row label.inline-block {
   display: -moz-inline-stack;
   display: inline-block;
@@ -487,15 +482,15 @@ form .row label.inline-block {
   *display: inline;
   vertical-align: top;
 }
-/* line 53, ../../scss/partials/_forms.scss */
+/* line 49, ../../scss/partials/_forms.scss */
 form .row label span {
   font-size: 12px;
 }
-/* line 58, ../../scss/partials/_forms.scss */
+/* line 54, ../../scss/partials/_forms.scss */
 form .row input {
   display: block;
 }
-/* line 61, ../../scss/partials/_forms.scss */
+/* line 57, ../../scss/partials/_forms.scss */
 form .row input.inline-block {
   display: -moz-inline-stack;
   display: inline-block;
@@ -505,7 +500,7 @@ form .row input.inline-block {
   *display: inline;
   vertical-align: top;
 }
-/* line 67, ../../scss/partials/_forms.scss */
+/* line 63, ../../scss/partials/_forms.scss */
 form .row input[type=submit], form .row button[type=submit] {
   display: block;
   padding: 8px;
@@ -522,7 +517,7 @@ form .row input[type=submit], form .row button[type=submit] {
   cursor: pointer;
 }
 
-/* line 86, ../../scss/partials/_forms.scss */
+/* line 82, ../../scss/partials/_forms.scss */
 #customize-player .dimension {
   display: -moz-inline-stack;
   display: inline-block;
@@ -533,11 +528,11 @@ form .row input[type=submit], form .row button[type=submit] {
   width: 120px;
   margin: 0 12px 0 0;
 }
-/* line 92, ../../scss/partials/_forms.scss */
+/* line 88, ../../scss/partials/_forms.scss */
 #customize-player .margin-right {
   margin-right: 8px;
 }
-/* line 96, ../../scss/partials/_forms.scss */
+/* line 92, ../../scss/partials/_forms.scss */
 #customize-player .padding {
   display: -moz-inline-stack;
   display: inline-block;
@@ -546,20 +541,20 @@ form .row input[type=submit], form .row button[type=submit] {
   zoom: 1;
   *display: inline;
 }
-/* line 99, ../../scss/partials/_forms.scss */
+/* line 95, ../../scss/partials/_forms.scss */
 #customize-player .padding.top {
   padding-top: 2px;
 }
-/* line 102, ../../scss/partials/_forms.scss */
+/* line 98, ../../scss/partials/_forms.scss */
 #customize-player .padding .right {
   padding-right: 5px;
 }
-/* line 105, ../../scss/partials/_forms.scss */
+/* line 101, ../../scss/partials/_forms.scss */
 #customize-player .padding .left {
   padding-left: 5px;
 }
 
-/* line 111, ../../scss/partials/_forms.scss */
+/* line 107, ../../scss/partials/_forms.scss */
 .thumbnail-picker {
   display: block;
   position: relative;
@@ -572,17 +567,17 @@ form .row input[type=submit], form .row button[type=submit] {
   color: white;
   cursor: pointer;
 }
-/* line 120, ../../scss/partials/_forms.scss */
+/* line 116, ../../scss/partials/_forms.scss */
 .thumbnail-picker:before {
   content: '';
   display: block;
   padding-top: 56.25%;
 }
-/* line 126, ../../scss/partials/_forms.scss */
+/* line 122, ../../scss/partials/_forms.scss */
 .thumbnail-picker:hover, .thumbnail-picker:focus, .thumbnail-picker:active {
   background: #e74c3c;
 }
-/* line 130, ../../scss/partials/_forms.scss */
+/* line 126, ../../scss/partials/_forms.scss */
 .thumbnail-picker span {
   pointer-events: none;
   display: block;
@@ -597,7 +592,7 @@ form .row input[type=submit], form .row button[type=submit] {
   font-size: 50px;
 }
 
-/* line 145, ../../scss/partials/_forms.scss */
+/* line 141, ../../scss/partials/_forms.scss */
 .toolbar, .bottom-toolbar {
   display: block;
   width: 100%;
@@ -605,7 +600,7 @@ form .row input[type=submit], form .row button[type=submit] {
   background: #ecf0f1;
   border: 1px solid #b1c2c6;
 }
-/* line 153, ../../scss/partials/_forms.scss */
+/* line 149, ../../scss/partials/_forms.scss */
 .toolbar input, .toolbar input[type=text], .toolbar button, .toolbar select, .bottom-toolbar input, .bottom-toolbar input[type=text], .bottom-toolbar button, .bottom-toolbar select {
   display: -moz-inline-stack;
   display: inline-block;
@@ -616,20 +611,20 @@ form .row input[type=submit], form .row button[type=submit] {
   vertical-align: top;
   padding: 5px;
 }
-/* line 159, ../../scss/partials/_forms.scss */
+/* line 155, ../../scss/partials/_forms.scss */
 .toolbar .filter, .bottom-toolbar .filter {
   font-size: 13px;
   width: 200px;
   margin: 0 0 0 0;
 }
-/* line 191, ../../scss/partials/_forms.scss */
+/* line 187, ../../scss/partials/_forms.scss */
 .toolbar select, .bottom-toolbar select {
   width: 150px;
   height: 28px;
   float: right;
   margin: 0 0 0 10px;
 }
-/* line 198, ../../scss/partials/_forms.scss */
+/* line 194, ../../scss/partials/_forms.scss */
 .toolbar label, .bottom-toolbar label {
   float: right;
   font-size: 13px;
@@ -641,17 +636,17 @@ form .row input[type=submit], form .row button[type=submit] {
   *display: inline;
   padding: 9px 5px 0 0;
 }
-/* line 204, ../../scss/partials/_forms.scss */
+/* line 200, ../../scss/partials/_forms.scss */
 .toolbar label.disabled, .bottom-toolbar label.disabled {
   color: #bdc3c7;
 }
 
-/* line 274, ../../scss/partials/_forms.scss */
+/* line 270, ../../scss/partials/_forms.scss */
 a.go.disabled {
   margin-right: -50px;
 }
 
-/* line 278, ../../scss/partials/_forms.scss */
+/* line 274, ../../scss/partials/_forms.scss */
 .bottom-toolbar {
   display: block;
   position: absolute;
@@ -5050,6 +5045,35 @@ h3 {
   border-left-color: transparent;
 }
 
+/* line 51, ../../scss/components/_buttons.scss */
+.button__component--input-container {
+  padding-top: 14px;
+}
+
+/* line 1, ../../scss/components/_video-player-config.scss */
+.video-player-config {
+  padding: 1em 1em 2.5em 1em;
+  background: #999999;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* line 7, ../../scss/components/_video-player-config.scss */
+.video-player-config__hide-logo-label {
+  display: block;
+  margin: 0.5em;
+  color: white;
+  text-shadow: 0 0 10px black;
+  position: absolute;
+  z-index: 10;
+  width: 10em;
+}
+
+/* line 17, ../../scss/components/_video-player-config.scss */
+.video-player-config__hide-logo-checkbox {
+  float: left;
+  margin-right: 0.5em;
+}
+
 /*!
 ========== SPECIFICS
 */
@@ -5224,6 +5248,22 @@ h3 {
   text-decoration: underline;
 }
 
+/* line 112, ../../scss/specifics/video/_video-feedback.scss */
+.video-feedback__comment-timestamp-link {
+  color: #51b364;
+  cursor: pointer;
+}
+
+/* line 117, ../../scss/specifics/video/_video-feedback.scss */
+.video-feedback__comment-timestamp-link:hover {
+  text-decoration: underline;
+}
+
+/* line 121, ../../scss/specifics/video/_video-feedback.scss */
+.video-feedback__notify {
+  text-align: center;
+}
+
 /* line 1, ../../scss/specifics/video/_video-player.scss */
 .video-player {
   width: 100%;
@@ -5245,12 +5285,6 @@ h3 {
 }
 
 /* line 7, ../../scss/specifics/video/_video-view.scss */
-.video-more {
-  text-align: center;
-  margin-bottom: 1em;
-}
-
-/* line 12, ../../scss/specifics/video/_video-view.scss */
 .video-view-control-panel {
   text-align: right;
   padding: 24px;
@@ -5258,33 +5292,33 @@ h3 {
   border-bottom: solid 1px #efefef;
 }
 
-/* line 23, ../../scss/specifics/video/_video-view.scss */
+/* line 18, ../../scss/specifics/video/_video-view.scss */
 .video-view-control-panel__mode {
   display: inline-block;
 }
 
-/* line 27, ../../scss/specifics/video/_video-view.scss */
+/* line 22, ../../scss/specifics/video/_video-view.scss */
 .video-view__comments {
   display: none;
 }
 
-/* line 31, ../../scss/specifics/video/_video-view.scss */
+/* line 26, ../../scss/specifics/video/_video-view.scss */
 .video-view__comments--active {
   display: block;
 }
 
-/* line 35, ../../scss/specifics/video/_video-view.scss */
+/* line 30, ../../scss/specifics/video/_video-view.scss */
 .video-view__edit {
   display: none;
   position: relative;
 }
 
-/* line 40, ../../scss/specifics/video/_video-view.scss */
+/* line 35, ../../scss/specifics/video/_video-view.scss */
 .video-view__edit--active {
   display: block;
 }
 
-/* line 44, ../../scss/specifics/video/_video-view.scss */
+/* line 39, ../../scss/specifics/video/_video-view.scss */
 .video-view__container {
   position: relative;
   width: 100%;
@@ -5292,10 +5326,23 @@ h3 {
   margin-bottom: 1em;
 }
 
-/* line 51, ../../scss/specifics/video/_video-view.scss */
+/* line 46, ../../scss/specifics/video/_video-view.scss */
 .video-view__save-controls {
   margin-bottom: 1em;
   text-align: center;
+}
+
+/* line 51, ../../scss/specifics/video/_video-view.scss */
+.video-view__description {
+  width: 600px;
+  margin: 0 auto;
+  height: 15em;
+  overflow: auto;
+}
+
+/* line 58, ../../scss/specifics/video/_video-view.scss */
+.video-view__description--edit {
+  border-bottom: solid 1px #999999;
 }
 
 /* line 1, ../../scss/specifics/video/_video-share.scss */
@@ -5305,31 +5352,61 @@ h3 {
   text-align: center;
 }
 
-/* line 10, ../../scss/specifics/video/_video-share.scss */
+/* line 7, ../../scss/specifics/video/_video-share.scss */
+.video-share__controls {
+  margin-bottom: 1em;
+}
+
+/* line 11, ../../scss/specifics/video/_video-share.scss */
 .video-share__control {
   display: inline-block;
 }
 
-/* line 14, ../../scss/specifics/video/_video-share.scss */
+/* line 15, ../../scss/specifics/video/_video-share.scss */
 .video-share__link {
   padding: 1em;
   background-repeat: no-repeat;
   background-position: center;
 }
 
-/* line 20, ../../scss/specifics/video/_video-share.scss */
+/* line 21, ../../scss/specifics/video/_video-share.scss */
 .video-share__link--embed {
   background-image: url("/static/assets/img/video-share__icon-embed.png");
 }
 
-/* line 24, ../../scss/specifics/video/_video-share.scss */
+/* line 25, ../../scss/specifics/video/_video-share.scss */
 .video-share__link--twitter {
   background-image: url("/static/assets/img/video-share__icon-twitter.png");
 }
 
-/* line 28, ../../scss/specifics/video/_video-share.scss */
+/* line 29, ../../scss/specifics/video/_video-share.scss */
 .video-share__link--facebook {
   background-image: url("/static/assets/img/video-share__icon-facebook.png");
+}
+
+/* line 33, ../../scss/specifics/video/_video-share.scss */
+.video-share__embed-code-container {
+  transition: max-height 0.4s ease-in-out;
+  max-height: 0;
+  overflow: hidden;
+}
+
+/* line 39, ../../scss/specifics/video/_video-share.scss */
+.video-share__embed-code-container--active {
+  max-height: 100em;
+}
+
+/* line 43, ../../scss/specifics/video/_video-share.scss */
+.video-share__embed-code-label {
+  background: #b7bcbd;
+  padding: 1em;
+  margin-bottom: 1em;
+  display: inline-block;
+}
+
+/* line 50, ../../scss/specifics/video/_video-share.scss */
+.video-share__embed-code-field {
+  width: 40em;
 }
 
 /* line 1, ../../scss/specifics/video/_video-indicators.scss */
@@ -5339,25 +5416,26 @@ h3 {
   height: 20px;
   width: 100%;
   position: relative;
+  cursor: pointer;
 }
 
-/* line 9, ../../scss/specifics/video/_video-indicators.scss */
+/* line 10, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-indicators {
   position: relative;
 }
 
-/* line 13, ../../scss/specifics/video/_video-indicators.scss */
+/* line 14, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-indicator {
   position: absolute;
   top: 0;
 }
 
-/* line 18, ../../scss/specifics/video/_video-indicators.scss */
-.video-indicators__comment--hover {
+/* line 19, ../../scss/specifics/video/_video-indicators.scss */
+.video-indicators__comment-indicator--active {
   border: solid 1px red;
 }
 
-/* line 22, ../../scss/specifics/video/_video-indicators.scss */
+/* line 23, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-link {
   display: block;
   height: 20px;
@@ -5365,12 +5443,12 @@ h3 {
   background-color: green;
 }
 
-/* line 29, ../../scss/specifics/video/_video-indicators.scss */
+/* line 30, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-link:hover {
   cursor: pointer;
 }
 
-/* line 33, ../../scss/specifics/video/_video-indicators.scss */
+/* line 34, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__scrubber {
   position: absolute;
   top: 0;
@@ -5604,19 +5682,18 @@ h3 {
 .video-extended-controls__section {
   border-bottom: solid 1px #999999;
   padding: 1em 0;
-  text-align: center;
   position: relative;
   transition: max-height 0.4s ease-in-out;
   max-height: 3em;
   overflow: hidden;
 }
 
-/* line 18, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 17, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__section--expanded {
   max-height: 500em;
 }
 
-/* line 22, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 21, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__indicator {
   display: block;
   position: absolute;
@@ -5629,20 +5706,20 @@ h3 {
   color: #b7bcbd;
 }
 
-/* line 43, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 42, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__section-contents {
   max-width: 960px;
   margin: 0 auto;
   text-align: left;
 }
 
-/* line 49, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 48, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__section-header {
   cursor: pointer;
   margin-bottom: 24px;
 }
 
-/* line 54, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 53, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__section-header-title {
   display: inline-block;
   font-weight: 800;
@@ -5903,6 +5980,62 @@ h3 {
   width: 20em;
   font-size: 1em;
   padding: 0.3em;
+}
+
+/* line 1, ../../scss/specifics/video/_video-frame-stepper.scss */
+.video-frame-stepper {
+  display: block;
+  margin: 1em auto;
+  width: 240px;
+}
+
+/* line 7, ../../scss/specifics/video/_video-frame-stepper.scss */
+.video-frame-stepper__block {
+  display: inline-block;
+}
+
+/* line 11, ../../scss/specifics/video/_video-frame-stepper.scss */
+.video-frame-stepper__input {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 50px;
+  text-align: center;
+  font-size: 1em;
+  color: #70797b;
+}
+
+/* line 1, ../../scss/specifics/video/_video-more.scss */
+.video-more {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+/* line 6, ../../scss/specifics/video/_video-more.scss */
+.video-more__form {
+  transition: max-height 0.4s ease-in-out;
+  max-height: 0;
+  overflow: hidden;
+}
+
+/* line 12, ../../scss/specifics/video/_video-more.scss */
+.video-more__form--active {
+  max-height: 100em;
+}
+
+/* line 16, ../../scss/specifics/video/_video-more.scss */
+.video-more__controls-container {
+  display: inline-block;
+  background: #b7bcbd;
+  padding: 1em;
+  margin: 1em;
+}
+
+/* line 23, ../../scss/specifics/video/_video-more.scss */
+.video-more__input {
+  padding: 0.5em;
+  font-size: 1em;
+  width: 20em;
 }
 
 /* line 1, ../../scss/specifics/upload/_upload-progress.scss */

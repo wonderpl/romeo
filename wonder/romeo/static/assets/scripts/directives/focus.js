@@ -1,5 +1,6 @@
 // http://stackoverflow.com/a/20685237
 angular.module('RomeoApp.directives').directive('focus', ["$timeout", function ($timeout) {
+  'use strict';
   return {
     restrict: 'A',
     link: function (scope, element, attrs) {

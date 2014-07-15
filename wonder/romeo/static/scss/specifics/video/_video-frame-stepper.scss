@@ -1,0 +1,19 @@
+.video-frame-stepper {
+  display: block;
+  margin: 1em auto;
+  width: 240px;
+}
+
+.video-frame-stepper__block {
+  display: inline-block;
+}
+
+.video-frame-stepper__input {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 50px;
+  text-align: center;
+  font-size: 1em;
+  color: $dark-grey;
+}
