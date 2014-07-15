@@ -5266,12 +5266,6 @@ h3 {
 }
 
 /* line 7, ../../scss/specifics/video/_video-view.scss */
-.video-more {
-  text-align: center;
-  margin-bottom: 1em;
-}
-
-/* line 12, ../../scss/specifics/video/_video-view.scss */
 .video-view-control-panel {
   text-align: right;
   padding: 24px;
@@ -5279,33 +5273,33 @@ h3 {
   border-bottom: solid 1px #efefef;
 }
 
-/* line 23, ../../scss/specifics/video/_video-view.scss */
+/* line 18, ../../scss/specifics/video/_video-view.scss */
 .video-view-control-panel__mode {
   display: inline-block;
 }
 
-/* line 27, ../../scss/specifics/video/_video-view.scss */
+/* line 22, ../../scss/specifics/video/_video-view.scss */
 .video-view__comments {
   display: none;
 }
 
-/* line 31, ../../scss/specifics/video/_video-view.scss */
+/* line 26, ../../scss/specifics/video/_video-view.scss */
 .video-view__comments--active {
   display: block;
 }
 
-/* line 35, ../../scss/specifics/video/_video-view.scss */
+/* line 30, ../../scss/specifics/video/_video-view.scss */
 .video-view__edit {
   display: none;
   position: relative;
 }
 
-/* line 40, ../../scss/specifics/video/_video-view.scss */
+/* line 35, ../../scss/specifics/video/_video-view.scss */
 .video-view__edit--active {
   display: block;
 }
 
-/* line 44, ../../scss/specifics/video/_video-view.scss */
+/* line 39, ../../scss/specifics/video/_video-view.scss */
 .video-view__container {
   position: relative;
   width: 100%;
@@ -5313,7 +5307,7 @@ h3 {
   margin-bottom: 1em;
 }
 
-/* line 51, ../../scss/specifics/video/_video-view.scss */
+/* line 46, ../../scss/specifics/video/_video-view.scss */
 .video-view__save-controls {
   margin-bottom: 1em;
   text-align: center;
@@ -5978,6 +5972,39 @@ h3 {
   text-align: center;
   font-size: 1em;
   color: #70797b;
+}
+
+/* line 1, ../../scss/specifics/video/_video-more.scss */
+.video-more {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+/* line 6, ../../scss/specifics/video/_video-more.scss */
+.video-more__form {
+  transition: max-height 0.4s ease-in-out;
+  max-height: 0;
+  overflow: hidden;
+}
+
+/* line 12, ../../scss/specifics/video/_video-more.scss */
+.video-more__form--active {
+  max-height: 100em;
+}
+
+/* line 16, ../../scss/specifics/video/_video-more.scss */
+.video-more__controls-container {
+  display: inline-block;
+  background: #b7bcbd;
+  padding: 1em;
+  margin: 1em;
+}
+
+/* line 23, ../../scss/specifics/video/_video-more.scss */
+.video-more__input {
+  padding: 0.5em;
+  font-size: 1em;
+  width: 20em;
 }
 
 /* line 1, ../../scss/specifics/upload/_upload-progress.scss */

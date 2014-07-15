@@ -39,7 +39,7 @@ angular.module('RomeoApp.directives')
 
           ga('send', 'event', 'uiAction', 'share', 'twitter');
 
-          window.open("http://twitter.com/intent/tweet?url=" + data;
+          window.open("http://twitter.com/intent/tweet?url=" + data);
 
         });
       };

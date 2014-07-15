@@ -1056,11 +1056,15 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <a class=\"video-more__link button\" href=\"(~ url ~)\" ng-hide=\"isEdit\">(~ text ~)</a>\n" +
     "\n" +
-    "  <section class=\"video-more__form\" ng-show=\"showMoreLinkConfigPanel && isEdit\">\n" +
+    "  <section class=\"video-more__form\" ng-class=\"{ 'video-more__form--active' : showMoreLinkConfigPanel }\" ng-show=\"isEdit\">\n" +
     "\n" +
-    "    <input ng-model=\"text\" placeholder=\"Create a custom button...\" />\n" +
+    "    <section class=\"video-more__controls-container\">\n" +
     "\n" +
-    "    <input ng-model=\"url\" placeholder=\"http://google.com/\" />\n" +
+    "      <input class=\"video-more__input\" ng-model=\"text\" placeholder=\"Create a custom button...\" />\n" +
+    "\n" +
+    "      <input class=\"video-more__input\" ng-model=\"url\" placeholder=\"http://google.com/\" />\n" +
+    "\n" +
+    "    </section>\n" +
     "\n" +
     "  </section>\n" +
     "\n" +

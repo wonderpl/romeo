@@ -1,0 +1,27 @@
+.video-more {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.video-more__form {
+  transition: max-height 0.4s ease-in-out;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.video-more__form--active {
+  max-height: 100em;
+}
+
+.video-more__controls-container {
+  display: inline-block;
+  background : $light-grey;
+  padding: 1em;
+  margin: 1em;
+}
+
+.video-more__input {
+  padding: 0.5em;
+  font-size: 1em;
+  width: 20em;
+}

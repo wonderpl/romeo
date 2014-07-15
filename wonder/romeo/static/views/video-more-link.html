@@ -4,11 +4,15 @@
 
   <a class="video-more__link button" href="{{ url }}" ng-hide="isEdit">{{ text }}</a>
 
-  <section class="video-more__form" ng-show="showMoreLinkConfigPanel && isEdit">
+  <section class="video-more__form" ng-class="{ 'video-more__form--active' : showMoreLinkConfigPanel }" ng-show="isEdit">
 
-    <input ng-model="text" placeholder="Create a custom button..." />
+    <section class="video-more__controls-container">
 
-    <input ng-model="url" placeholder="http://google.com/" />
+      <input class="video-more__input" ng-model="text" placeholder="Create a custom button..." />
+
+      <input class="video-more__input" ng-model="url" placeholder="http://google.com/" />
+
+    </section>
 
   </section>
 
