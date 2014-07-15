@@ -1114,7 +1114,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <section class=\"video-share__embed-code-container\"\n" +
     "    ng-class=\"{ 'video-share__embed-code-container--active' : showEmbedCode }\">\n" +
     "  <label class=\"video-share__embed-code-label\">\n" +
-    "    <input class=\"video-share__embed-code-field\" />\n" +
+    "    <input class=\"video-share__embed-code-field\" placeholder=\"embed link\" />\n" +
     "  </label>\n" +
     "\n" +
     "  </section>\n" +
