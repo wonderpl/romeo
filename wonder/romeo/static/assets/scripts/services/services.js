@@ -249,6 +249,16 @@
         var Video = {},
             Videos = {};
 
+        Video.getEmbedCode = function (id) {
+          var url = '/api/video/' + id + '/embed_code';
+          return DataService.request({ url : url });
+        };
+
+        Video.getShareUrl = function (id, service) {
+          var url = '/api/video/' + id + '/share_url';
+          return DataService.request({ url : url, method: 'POST', data: { service : service } });
+        }
+
         /*
         * Returns a promise, which if resolves returns an array of all of the available video categories
         */
@@ -402,6 +412,8 @@
         * Expose the methods to the service
         */
         return {
+            getEmbedCode: Video.getEmbedCode,
+            getShareUrl: Video.getShareUrl,
             getCategories: Video.getCategories,
             getUploadArgs: Video.getUploadArgs,
             getPreviewImages: Video.getPreviewImages,

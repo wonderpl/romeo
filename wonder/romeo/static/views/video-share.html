@@ -10,9 +10,10 @@
       <a class="hide-text video-share__link video-share__link--facebook button button__component button__component--right" ng-click="facebookShare()">facebook</a>
     </li>
   </ul>
-  <section class="video-share__embed-code-container" ng-show="showEmbedCode">
-  <label class="video-share__embed-code-label">Show embed code:
-    <input class="video-share__embed-code-field" text="<embed code goes here>" />
+  <section class="video-share__embed-code-container"
+    ng-class="{ 'video-share__embed-code-container--active' : showEmbedCode }">
+  <label class="video-share__embed-code-label">
+    <input class="video-share__embed-code-field" />
   </label>
 
   </section>

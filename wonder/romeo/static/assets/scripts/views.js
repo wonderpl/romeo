@@ -1107,9 +1107,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <a class=\"hide-text video-share__link video-share__link--facebook button button__component button__component--right\" ng-click=\"facebookShare()\">facebook</a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
-    "  <section class=\"video-share__embed-code-container\" ng-show=\"showEmbedCode\">\n" +
-    "  <label class=\"video-share__embed-code-label\">Show embed code:\n" +
-    "    <input class=\"video-share__embed-code-field\" text=\"<embed code goes here>\" />\n" +
+    "  <section class=\"video-share__embed-code-container\"\n" +
+    "    ng-class=\"{ 'video-share__embed-code-container--active' : showEmbedCode }\">\n" +
+    "  <label class=\"video-share__embed-code-label\">\n" +
+    "    <input class=\"video-share__embed-code-field\" />\n" +
     "  </label>\n" +
     "\n" +
     "  </section>\n" +
@@ -1205,7 +1206,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <section class=\"video-view__description\" data-placeholder=\"Additional content including but not limited to: recipes, ingredients, lyrics, stories, etc.\" medium-editor ng-model=\"text\" ng-show=\"isEdit\"></section>\n" +
     "    <section class=\"video-view__description\" ng-bind=\"text\" ng-hide=\"isEdit\"></section>\n" +
     "\n" +
-    "    <video-share ng-show=\"isEdit\"></video-share>\n" +
+    "    <video-share ng-show=\"isEdit\" video=\"video\"></video-share>\n" +
     "\n" +
     "    <section class=\"video-extended-controls\" ng-show=\"isEdit\">\n" +
     "\n" +

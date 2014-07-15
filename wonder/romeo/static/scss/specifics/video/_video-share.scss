@@ -5,6 +5,7 @@
 }
 
 .video-share__controls {
+  margin-bottom: 1em;
 }
 
 .video-share__control {
@@ -29,5 +30,24 @@
   background-image: url('/static/assets/img/video-share__icon-facebook.png');
 }
 
+.video-share__embed-code-container {
+  transition: max-height 0.4s ease-in-out;
+  max-height: 0;
+  overflow: hidden;
+}
 
+.video-share__embed-code-container--active {
+  max-height: 100em;
+}
+
+.video-share__embed-code-label {
+  background: $light-grey;
+  padding: 1em;
+  margin-bottom: 1em;
+  display: inline-block;
+}
+
+.video-share__embed-code-field {
+  width: 40em;
+}
 

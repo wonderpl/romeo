@@ -30,7 +30,7 @@
     <section class="video-view__description" data-placeholder="Additional content including but not limited to: recipes, ingredients, lyrics, stories, etc." medium-editor ng-model="text" ng-show="isEdit"></section>
     <section class="video-view__description" ng-bind="text" ng-hide="isEdit"></section>
 
-    <video-share ng-show="isEdit"></video-share>
+    <video-share ng-show="isEdit" video="video"></video-share>
 
     <section class="video-extended-controls" ng-show="isEdit">
 
