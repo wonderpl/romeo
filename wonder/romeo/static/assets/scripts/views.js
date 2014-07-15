@@ -907,9 +907,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('video-color-picker.html',
-    "<section class=\"color-picker\">\n" +
-    "  <input color-picker ng-model=\"color\" />\n" +
-    "</section>"
+    "<section class=\"video-player-config color-picker\">\n" +
+    "  <input color-picker ng-model=\"color\" class=\"video-player-config__color-input\" />\n" +
+    "  <label class=\"video-player-config__hide-logo-label\">\n" +
+    "    Hide logo\n" +
+    "    <input type=\"checkbox\" ng-model=\"hideLogo\" class=\"video-player-config__hide-logo-checkbox\" ng-change=\"toggleHideLogo()\" />\n" +
+    "  </label>\n" +
+    "</section>\n"
   );
 
 

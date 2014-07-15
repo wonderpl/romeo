@@ -2,8 +2,6 @@ angular.module('RomeoApp.directives', []).directive('colorPicker', function () {
 
   'use strict';
 
-
-  // open -a Google\ Chrome --args --disable-web-security
   function shimChangesToIFrame () {
 
     var svg = '<svg xmlns="http://www.w3.org/2000/svg" style="height: 0; width: 0;" id="ColourSvg"><filter id="ColourFilter" color-interpolation-filters="sRGB"><feComponentTransfer><feFuncR class="brightness red" type="linear" slope="1"/><feFuncG class="brightness green" type="linear" slope="1"/><feFuncB class="brightness blue" type="linear" slope="1"/></feComponentTransfer></filter></svg>';
@@ -48,7 +46,7 @@ angular.module('RomeoApp.directives', []).directive('colorPicker', function () {
 
       function spectrumOnChange (color) {
         scope.$apply(function () {
-          ngModel.$setViewValue(color.toHexString());
+          ngModel.$setViewValue(color.toRgb());
         });
         var rgb = color.toRgb();
         shimChangesToIFrame();
@@ -59,7 +57,9 @@ angular.module('RomeoApp.directives', []).directive('colorPicker', function () {
         change: spectrumOnChange,
         move: spectrumOnChange,
         showButtons: false,
-        flat: true
+        flat: true,
+        showInput: true,
+        preferredFormat: 'rgb'
       });
 
       ngModel.$render = function () {

@@ -7,7 +7,6 @@ angular.module('RomeoApp.controllers')
     'use strict';
 
     function persistVideoData (data) {
-      // Object {href: "/api/video/85502346", id: 85502346, status: "uploading"}
       angular.extend($scope.video, data);
     }
 

@@ -444,20 +444,15 @@ textarea {
 }
 
 /* line 22, ../../scss/partials/_forms.scss */
-input[type=checkbox] {
-  margin: 0 0 0 0;
-}
-
-/* line 26, ../../scss/partials/_forms.scss */
 form .row {
   display: block;
   margin: 0 0 16px 0;
 }
-/* line 30, ../../scss/partials/_forms.scss */
+/* line 26, ../../scss/partials/_forms.scss */
 form .row.full-width {
   width: 100%;
 }
-/* line 34, ../../scss/partials/_forms.scss */
+/* line 30, ../../scss/partials/_forms.scss */
 form .row.half-width {
   display: -moz-inline-stack;
   display: inline-block;
@@ -467,17 +462,17 @@ form .row.half-width {
   *display: inline;
   width: 47%;
 }
-/* line 38, ../../scss/partials/_forms.scss */
+/* line 34, ../../scss/partials/_forms.scss */
 form .row.half-width.left {
   margin-right: 6%;
 }
-/* line 43, ../../scss/partials/_forms.scss */
+/* line 39, ../../scss/partials/_forms.scss */
 form .row label {
   display: block;
   font-size: 15px;
   padding: 0 0 3px 0;
 }
-/* line 48, ../../scss/partials/_forms.scss */
+/* line 44, ../../scss/partials/_forms.scss */
 form .row label.inline-block {
   display: -moz-inline-stack;
   display: inline-block;
@@ -487,15 +482,15 @@ form .row label.inline-block {
   *display: inline;
   vertical-align: top;
 }
-/* line 53, ../../scss/partials/_forms.scss */
+/* line 49, ../../scss/partials/_forms.scss */
 form .row label span {
   font-size: 12px;
 }
-/* line 58, ../../scss/partials/_forms.scss */
+/* line 54, ../../scss/partials/_forms.scss */
 form .row input {
   display: block;
 }
-/* line 61, ../../scss/partials/_forms.scss */
+/* line 57, ../../scss/partials/_forms.scss */
 form .row input.inline-block {
   display: -moz-inline-stack;
   display: inline-block;
@@ -505,7 +500,7 @@ form .row input.inline-block {
   *display: inline;
   vertical-align: top;
 }
-/* line 67, ../../scss/partials/_forms.scss */
+/* line 63, ../../scss/partials/_forms.scss */
 form .row input[type=submit], form .row button[type=submit] {
   display: block;
   padding: 8px;
@@ -522,7 +517,7 @@ form .row input[type=submit], form .row button[type=submit] {
   cursor: pointer;
 }
 
-/* line 86, ../../scss/partials/_forms.scss */
+/* line 82, ../../scss/partials/_forms.scss */
 #customize-player .dimension {
   display: -moz-inline-stack;
   display: inline-block;
@@ -533,11 +528,11 @@ form .row input[type=submit], form .row button[type=submit] {
   width: 120px;
   margin: 0 12px 0 0;
 }
-/* line 92, ../../scss/partials/_forms.scss */
+/* line 88, ../../scss/partials/_forms.scss */
 #customize-player .margin-right {
   margin-right: 8px;
 }
-/* line 96, ../../scss/partials/_forms.scss */
+/* line 92, ../../scss/partials/_forms.scss */
 #customize-player .padding {
   display: -moz-inline-stack;
   display: inline-block;
@@ -546,20 +541,20 @@ form .row input[type=submit], form .row button[type=submit] {
   zoom: 1;
   *display: inline;
 }
-/* line 99, ../../scss/partials/_forms.scss */
+/* line 95, ../../scss/partials/_forms.scss */
 #customize-player .padding.top {
   padding-top: 2px;
 }
-/* line 102, ../../scss/partials/_forms.scss */
+/* line 98, ../../scss/partials/_forms.scss */
 #customize-player .padding .right {
   padding-right: 5px;
 }
-/* line 105, ../../scss/partials/_forms.scss */
+/* line 101, ../../scss/partials/_forms.scss */
 #customize-player .padding .left {
   padding-left: 5px;
 }
 
-/* line 111, ../../scss/partials/_forms.scss */
+/* line 107, ../../scss/partials/_forms.scss */
 .thumbnail-picker {
   display: block;
   position: relative;
@@ -572,17 +567,17 @@ form .row input[type=submit], form .row button[type=submit] {
   color: white;
   cursor: pointer;
 }
-/* line 120, ../../scss/partials/_forms.scss */
+/* line 116, ../../scss/partials/_forms.scss */
 .thumbnail-picker:before {
   content: '';
   display: block;
   padding-top: 56.25%;
 }
-/* line 126, ../../scss/partials/_forms.scss */
+/* line 122, ../../scss/partials/_forms.scss */
 .thumbnail-picker:hover, .thumbnail-picker:focus, .thumbnail-picker:active {
   background: #e74c3c;
 }
-/* line 130, ../../scss/partials/_forms.scss */
+/* line 126, ../../scss/partials/_forms.scss */
 .thumbnail-picker span {
   pointer-events: none;
   display: block;
@@ -597,7 +592,7 @@ form .row input[type=submit], form .row button[type=submit] {
   font-size: 50px;
 }
 
-/* line 145, ../../scss/partials/_forms.scss */
+/* line 141, ../../scss/partials/_forms.scss */
 .toolbar, .bottom-toolbar {
   display: block;
   width: 100%;
@@ -605,7 +600,7 @@ form .row input[type=submit], form .row button[type=submit] {
   background: #ecf0f1;
   border: 1px solid #b1c2c6;
 }
-/* line 153, ../../scss/partials/_forms.scss */
+/* line 149, ../../scss/partials/_forms.scss */
 .toolbar input, .toolbar input[type=text], .toolbar button, .toolbar select, .bottom-toolbar input, .bottom-toolbar input[type=text], .bottom-toolbar button, .bottom-toolbar select {
   display: -moz-inline-stack;
   display: inline-block;
@@ -616,20 +611,20 @@ form .row input[type=submit], form .row button[type=submit] {
   vertical-align: top;
   padding: 5px;
 }
-/* line 159, ../../scss/partials/_forms.scss */
+/* line 155, ../../scss/partials/_forms.scss */
 .toolbar .filter, .bottom-toolbar .filter {
   font-size: 13px;
   width: 200px;
   margin: 0 0 0 0;
 }
-/* line 191, ../../scss/partials/_forms.scss */
+/* line 187, ../../scss/partials/_forms.scss */
 .toolbar select, .bottom-toolbar select {
   width: 150px;
   height: 28px;
   float: right;
   margin: 0 0 0 10px;
 }
-/* line 198, ../../scss/partials/_forms.scss */
+/* line 194, ../../scss/partials/_forms.scss */
 .toolbar label, .bottom-toolbar label {
   float: right;
   font-size: 13px;
@@ -641,17 +636,17 @@ form .row input[type=submit], form .row button[type=submit] {
   *display: inline;
   padding: 9px 5px 0 0;
 }
-/* line 204, ../../scss/partials/_forms.scss */
+/* line 200, ../../scss/partials/_forms.scss */
 .toolbar label.disabled, .bottom-toolbar label.disabled {
   color: #bdc3c7;
 }
 
-/* line 274, ../../scss/partials/_forms.scss */
+/* line 270, ../../scss/partials/_forms.scss */
 a.go.disabled {
   margin-right: -50px;
 }
 
-/* line 278, ../../scss/partials/_forms.scss */
+/* line 274, ../../scss/partials/_forms.scss */
 .bottom-toolbar {
   display: block;
   position: absolute;
@@ -5053,6 +5048,30 @@ h3 {
 /* line 51, ../../scss/components/_buttons.scss */
 .button__component--input-container {
   padding-top: 14px;
+}
+
+/* line 1, ../../scss/components/_video-player-config.scss */
+.video-player-config {
+  padding: 1em 1em 2.5em 1em;
+  background: #999999;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* line 7, ../../scss/components/_video-player-config.scss */
+.video-player-config__hide-logo-label {
+  display: block;
+  margin: 0.5em;
+  color: white;
+  text-shadow: 0 0 10px black;
+  position: absolute;
+  z-index: 10;
+  width: 10em;
+}
+
+/* line 17, ../../scss/components/_video-player-config.scss */
+.video-player-config__hide-logo-checkbox {
+  float: left;
+  margin-right: 0.5em;
 }
 
 /*!

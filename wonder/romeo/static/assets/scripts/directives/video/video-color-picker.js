@@ -3,6 +3,23 @@ angular.module('RomeoApp.directives')
 
   'use strict';
 
+  function shimChangesToIFrame (hideLogo) {
+
+    var frame = document.getElementsByClassName('video-player__frame')[0].contentDocument;
+    var $frame = $(frame);
+
+    var $logo = $frame.find('#wonder-controls');
+    if (hideLogo) {
+
+      $logo.addClass('no-logo');
+
+    } else {
+
+      $logo.removeClass('no-logo');
+    }
+  }
+
+
   return {
     restrict : 'E',
     replace : true,
@@ -10,12 +27,29 @@ angular.module('RomeoApp.directives')
     scope : {
       videoId : '@'
     },
+    link : function (scope, elem, attrs) {
+
+    },
     controller : function ($scope) {
+
+      $scope.toggleHideLogo = function () {
+
+        shimChangesToIFrame($scope.hideLogo);
+        saveLogoSetting($scope.hideLogo);
+      };
+
+      function saveLogoSetting (hideLogo) {
+        VideoService.setPlayerParameters($scope.videoId, {
+          hideLogo : $scope.hideLogo,
+          rgb : $scope.color
+        });
+      }
 
       function saveColor (color) {
         console.log(color);
         VideoService.setPlayerParameters($scope.videoId, {
-          rgb : color
+          hideLogo : $scope.hideLogo,
+          rgb : JSON.stringify($scope.color)
         });
       }
 
