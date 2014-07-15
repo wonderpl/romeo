@@ -46,8 +46,12 @@ def send_test_email(email_type, recipient, output=None):
         db.create_all()
         video, account = _create_test_video()
         emails = dict(
-            processed=(video_forms.send_processed_email, (video.id)),
-            invite=(video_forms.send_collaborator_invite_email, (video.collaborators[0].id, account.users[0].id)),
+            processed=(video_forms.send_processed_email,
+                       (video.id,)),
+            published=(video_forms.send_published_email,
+                       (video.id, 'ch123', 'vi123')),
+            invite=(video_forms.send_collaborator_invite_email,
+                    (video.collaborators[0].id, account.users[0].id)),
             comments=(video_forms.send_comment_notifications,
                       (video.id, video.comments[0].user_type, video.comments[0].user_id)),
         )

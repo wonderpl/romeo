@@ -42,6 +42,7 @@ DEFAULT_EMAIL_SOURCE = 'Wonder PL <noreply@dev.wonderpl.com>'
 DOLLY_WS_BASE = 'http://api.dev.wonderpl.com/ws/'
 DOLLY_WS_SECURE_BASE = 'https://secure.dev.wonderpl.com/ws/'
 DOLLY_WS_CLIENT_AUTH = 'Basic YzhmZTVmNnJvY2s4NzNkcGFjazE5UTo='
+DOLLY_WEBLITE_URL_FMT = 'http://dev.wonderpl.com/channel/{slug}/{channelid}/?video={instanceid}'
 
 DOLLY_PUBSUB_ID = 434
 DOLLY_PUBSUB_SECRET = '75f1f16ca9da5250385d0510c8e2d7cc'

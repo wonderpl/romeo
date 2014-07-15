@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% macro video_url() %}
-{{ url_for('root.home') }}#/video/{{ video.id }}?token={{ collaborator.token }}
+{{ video.web_url }}?token={{ collaborator.token }}
 {%- endmacro %}
 
 {% if can_comment %}

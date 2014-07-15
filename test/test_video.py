@@ -111,14 +111,19 @@ class VideoWorkflowTestCase(DataTestCase, unittest.TestCase):
 
         # publish
         with patch('wonder.romeo.core.dolly.DollyUser.publish_video') as publish_video:
-            with client_for_account(account.id) as client:
-                r = client.post(resource + '/tags',
-                                data=dict(id=self.data.VideoTagData.tag.id))
-                self.assertEquals(r.status_code, 201)
-            publish_video.assert_called_with(self.data.VideoTagData.tag.dolly_channel,
-                                             dict(source_id=external_id))
+            publish_video.return_value = 'vi123'
+            with patch('wonder.romeo.video.forms.send_email') as send_email:
+                with client_for_account(account.id) as client:
+                    r = client.post(resource + '/tags',
+                                    data=dict(id=self.data.VideoTagData.tag.id))
+                    self.assertEquals(r.status_code, 201)
+                publish_video.assert_called_with(self.data.VideoTagData.tag.dolly_channel,
+                                                 dict(source_id=external_id))
+                dolly_link = '/%s/?video=%s' % (
+                    self.data.VideoTagData.tag.dolly_channel, publish_video.return_value)
+                self.assertIn(dolly_link, send_email.call_args[0][1])
 
-            self.assertEquals(Video.query.get(videoid).status, 'published')
+                self.assertEquals(Video.query.get(videoid).status, 'published')
 
         # update
         with patch('wonder.romeo.core.dolly._request') as dolly_request:

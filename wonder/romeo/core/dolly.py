@@ -129,8 +129,10 @@ class DollyUser(object):
         self._user_request('channels/%s' % channelid, 'delete')
 
     def publish_video(self, channelid, videodata):
-        self._user_request('channels/%s/videos' % channelid, 'post',
-                           jsondata=(('ooyala', videodata['source_id']),))
+        response = self._user_request('channels/%s/videos' % channelid, 'post',
+                                      jsondata=(('ooyala', videodata['source_id']),))
+        if response.status_code == 201:
+            return response.json()['id']
 
     def remove_video(self, channelid, videodata):
         # need to fetch all channel videos and remove

@@ -11,6 +11,7 @@ ENABLE_BACKGROUND_SQS = True
 
 DOLLY_WS_BASE = 'http://api.wonderpl.com/ws/'
 DOLLY_WS_SECURE_BASE = 'https://secure.wonderpl.com/ws/'
+DOLLY_WEBLITE_URL_FMT = 'http://wonderpl.com/channel/{slug}/{channelid}/?video={instanceid}'
 DOLLY_PUBSUB_SECRET = _decrypt('\x15\xc4\xd6?\xe7o\x7fS\x94$\xc5<?\x83-\xaf\xac=+T\x89\x16\\C"\x8f\x07\x0f\x1f\x9d\xea\t')
 
 DEFAULT_EMAIL_SOURCE = 'Wonder PL <noreply@wonderpl.com>'

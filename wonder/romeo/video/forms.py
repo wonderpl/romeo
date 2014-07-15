@@ -278,6 +278,24 @@ def send_processed_email(video_id, error=None):
 
 
 @background_on_sqs
+def send_published_email(video_id, dolly_channel, dolly_instance):
+    video = Video.query.get(video_id)
+
+    link = current_app.config['DOLLY_WEBLITE_URL_FMT'].format(
+        slug='-', channelid=dolly_channel, instanceid=dolly_instance)
+    template = email_template_env.get_template('video_published.html')
+    body = template.render(video=video, link=link)
+
+    users = AccountUser.query.filter_by(account_id=video.account_id)
+    for recipient, name in users.values('username', 'display_name'):
+        send_email(recipient, body)
+
+    collabs = VideoCollaborator.query.filter_by(video_id=video_id)
+    for recipient, name in collabs.values('email', 'name'):
+        send_email(recipient, body)
+
+
+@background_on_sqs
 @commit_on_success
 def send_comment_notifications(video_id, user_type, user_id):
     comments = VideoComment.query.filter_by(

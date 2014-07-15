@@ -14,7 +14,7 @@ from wonder.romeo.account.views import dolly_account_view, get_dollyuser
 from .models import (Video, VideoTag, VideoTagVideo, VideoThumbnail,
                      VideoPlayerParameter, VideoComment, VideoCollaborator)
 from .forms import (VideoTagForm, VideoForm, VideoCommentForm, VideoCollaboratorForm,
-                    send_comment_notifications)
+                    send_comment_notifications, send_published_email)
 from .commands import update_video_status
 
 
@@ -371,8 +371,12 @@ class VideoTagsResource(Resource):
 
         if tag.dolly_channel and video.external_id:
             videodata = dict(source_id=video.external_id)
-            get_dollyuser(current_user.account).publish_video(tag.dolly_channel, videodata)
-            video.status = 'published'
+            instanceid = get_dollyuser(current_user.account).\
+                publish_video(tag.dolly_channel, videodata)
+            if video.status == 'ready':
+                video.status = 'published'
+                if instanceid:
+                    send_published_email(video.id, tag.dolly_channel, instanceid)
 
         video_tag_video = VideoTagVideo(video_id=video.id, tag_id=tag.id)
         db.session.add(video_tag_video)
