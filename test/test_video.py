@@ -1,6 +1,6 @@
 import re
 import unittest
-from mock import patch, DEFAULT
+from mock import patch, MagicMock, DEFAULT
 from fixture import DataTestCase
 from flask import current_app, json, g
 from wonder.romeo import db
@@ -14,7 +14,9 @@ class TestCase(unittest.TestCase):
 
     def tearDown(self):
         # clear cached mocks from g (the s3 module in particular uses this)
-        g.__dict__ = {}
+        for key, value in g.__dict__.items():
+            if isinstance(value, MagicMock):
+                delattr(g, key)
 
 
 class VideoWorkflowTestCase(DataTestCase, TestCase):
@@ -189,7 +191,7 @@ class VideoEditTestCase(TestCase):
 
     def test_edit_description(self):
         description = 'xyzzy'
-        video = Video.query.first()
+        video = Video.query.filter_by(status='ready').first()
         with client_for_account(video.account_id) as client:
             r = client.patch('/api/video/%d' % video.id,
                              data=dict(description=description))
@@ -200,7 +202,7 @@ class VideoEditTestCase(TestCase):
 
     def test_edit_player_logo(self):
         formdata = dict(player_logo=(genimg(), 'img.png'))
-        video = Video.query.filter_by(player_logo_filename=None).first()
+        video = Video.query.filter_by(status='ready').first()
         with patch('wonder.romeo.video.forms.upload_file') as upload_file:
             with client_for_account(video.account_id) as client:
                 r = client.patch('/api/video/%d' % video.id,
@@ -212,7 +214,7 @@ class VideoEditTestCase(TestCase):
 
     def test_edit_cover(self):
         formdata = dict(cover_image=(genimg((800, 450), 'jpeg'), 'img.jpg'))
-        video = Video.query.first()
+        video = Video.query.filter_by(status='ready').first()
         patches = {f: DEFAULT for f in ('ooyala_request', 'download_file', 'upload_file')}
         with patch.multiple('wonder.romeo.video.forms', **patches) as patched:
             with client_for_account(video.account_id) as client:

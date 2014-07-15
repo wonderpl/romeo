@@ -38,6 +38,7 @@ class AccountUserData(DataSet):
 
 class VideoData(DataSet):
     class Video1:
+        id = 1
         account_id = 1
         title = 'Video 1'
         external_id = 'xx'
@@ -45,6 +46,7 @@ class VideoData(DataSet):
         status = 'ready'
 
     class Video2:
+        id = 2
         account_id = 1
         title = 'Video 2'
         external_id = 'yy'
