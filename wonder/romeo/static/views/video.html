@@ -30,13 +30,14 @@
     </div>
 
     <video-more-link
-      text="link_title"
-      url="link_url"
+      text="video.link_title"
+      url="video.link_url"
       is-edit="{{ isEdit }}"
-      ng-show="isEdit || link_title && link_url">
+      ng-show="isEdit || video.link_title && video.link_url">
     </video-more-link>
 
     <section class="video-view__description"
+      ng-class="{ 'video-view__description--edit' : isEdit }"
       data-placeholder="{{ descriptionPlaceholder }}"
       medium-editor
       ng-model="video.description"
@@ -45,7 +46,7 @@
 
     <section class="video-view__description" ng-bind-html="video.description" ng-hide="isEdit"></section>
 
-    <video-share ng-show="isEdit" video="video"></video-share>
+    <video-share video="video"></video-share>
 
     <section class="video-extended-controls" ng-show="isEdit">
 

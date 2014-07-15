@@ -5313,6 +5313,19 @@ h3 {
   text-align: center;
 }
 
+/* line 51, ../../scss/specifics/video/_video-view.scss */
+.video-view__description {
+  width: 600px;
+  margin: 0 auto;
+  height: 15em;
+  overflow: auto;
+}
+
+/* line 58, ../../scss/specifics/video/_video-view.scss */
+.video-view__description--edit {
+  border-bottom: solid 1px #999999;
+}
+
 /* line 1, ../../scss/specifics/video/_video-share.scss */
 .video-share {
   width: 100%;

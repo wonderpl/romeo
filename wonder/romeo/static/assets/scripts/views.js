@@ -1206,13 +1206,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </div>\n" +
     "\n" +
     "    <video-more-link\n" +
-    "      text=\"link_title\"\n" +
-    "      url=\"link_url\"\n" +
+    "      text=\"video.link_title\"\n" +
+    "      url=\"video.link_url\"\n" +
     "      is-edit=\"(~ isEdit ~)\"\n" +
-    "      ng-show=\"isEdit || link_title && link_url\">\n" +
+    "      ng-show=\"isEdit || video.link_title && video.link_url\">\n" +
     "    </video-more-link>\n" +
     "\n" +
     "    <section class=\"video-view__description\"\n" +
+    "      ng-class=\"{ 'video-view__description--edit' : isEdit }\"\n" +
     "      data-placeholder=\"(~ descriptionPlaceholder ~)\"\n" +
     "      medium-editor\n" +
     "      ng-model=\"video.description\"\n" +
@@ -1221,7 +1222,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <section class=\"video-view__description\" ng-bind-html=\"video.description\" ng-hide=\"isEdit\"></section>\n" +
     "\n" +
-    "    <video-share ng-show=\"isEdit\" video=\"video\"></video-share>\n" +
+    "    <video-share video=\"video\"></video-share>\n" +
     "\n" +
     "    <section class=\"video-extended-controls\" ng-show=\"isEdit\">\n" +
     "\n" +

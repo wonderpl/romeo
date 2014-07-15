@@ -47,3 +47,14 @@
   margin-bottom: 1em;
   text-align: center;
 }
+
+.video-view__description {
+  width: 600px;
+  margin: 0 auto;
+  height: 15em;
+  overflow: auto;
+}
+
+.video-view__description--edit {
+  border-bottom: solid 1px $grey;
+}
