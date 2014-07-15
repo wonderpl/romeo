@@ -5,67 +5,111 @@
 
   <section class="main-view video-view">
 
-    <h2 class="video-view__title" data-placeholder="{{ titlePlaceholder }}" medium-editor ng-model="video.title" ng-show="isEdit"></h2>
-    <h3 class="video-view__sub-title" data-placeholder="Subtitle" medium-editor ng-model="video.subTitle" ng-show="isEdit"></h2>
+    <h2 class="video-view__title"
+      data-placeholder="{{ titlePlaceholder }}"
+      medium-editor
+      ng-model="video.title"
+      ng-show="isEdit">
+    </h2>
+    <h3 class="video-view__sub-title"
+      data-placeholder="{{ straplinePlaceholder }}"
+      medium-editor
+      ng-model="video.strapline"
+      ng-show="isEdit">
+    </h2>
 
-    <h2 class="video-view__title" ng-hide="isEdit">{{ video.title }}</h2>
-    <h3 class="video-view__sub-title" ng-hide="isEdit">{{ video.subTitle }}</h2>
+    <h2 class="video-view__title" ng-hide="isEdit" ng-bind-html="video.title"></h2>
+    <h3 class="video-view__sub-title" ng-hide="isEdit" ng-bind-html="video.strapline"></h2>
 
     <div class="video-view__container">
-
       <video-upload ng-show="showUpload && isEdit"></video-upload>
-
       <video-player ng-show="hasProcessed" embed-url="embedUrl"></video-player>
-
       <video-edit ng-show="showVideoEdit && isEdit"></video-edit>
-
       <video-color-picker video-id="{{ video.id }}" ng-show="showColorPicker && isEdit"></video-color-picker>
-
       <video-thumbnail ng-show="showPreviewSelector && isEdit"></video-thumbnail>
-
     </div>
 
-    <video-more-link text="link_title" url="link_url" is-edit="{{ isEdit }}" ng-show="isEdit || link_title && link_url"></video-more-link>
+    <video-more-link
+      text="link_title"
+      url="link_url"
+      is-edit="{{ isEdit }}"
+      ng-show="isEdit || link_title && link_url">
+    </video-more-link>
 
-    <section class="video-view__description" data-placeholder="Additional content including but not limited to: recipes, ingredients, lyrics, stories, etc." medium-editor ng-model="text" ng-show="isEdit"></section>
-    <section class="video-view__description" ng-bind="text" ng-hide="isEdit"></section>
+    <section class="video-view__description"
+      data-placeholder="{{ descriptionPlaceholder }}"
+      medium-editor
+      ng-model="video.description"
+      ng-show="isEdit">
+    </section>
+
+    <section class="video-view__description" ng-bind-html="video.description" ng-hide="isEdit"></section>
 
     <video-share ng-show="isEdit" video="video"></video-share>
 
     <section class="video-extended-controls" ng-show="isEdit">
 
       <section class="video-extended-controls__section" ng-class="{ 'video-extended-controls__section--expanded' : addCategoryShow }">
-        <span class="video-extended-controls__indicator video-extended-controls__indicator--more" ng-click="addCategoryShow = !addCategoryShow" ng-hide="addCategoryShow">+</span>
-        <span class="video-extended-controls__indicator video-extended-controls__indicator--less" ng-click="addCategoryShow = !addCategoryShow" ng-show="addCategoryShow">-</span>
-        <category-add-video selected-category="video.category" show-category="addCategoryShow" class="video-extended-controls__section-contents"></category-add-video>
+        <span class="video-extended-controls__indicator video-extended-controls__indicator--more"
+          ng-click="addCategoryShow = !addCategoryShow"
+          ng-hide="addCategoryShow">
+          +
+        </span>
+        <span class="video-extended-controls__indicator video-extended-controls__indicator--less"
+          ng-click="addCategoryShow = !addCategoryShow"
+          ng-show="addCategoryShow">
+          -
+        </span>
+        <category-add-video selected-category="video.category"
+          show-category="addCategoryShow"
+          class="video-extended-controls__section-contents">
+        </category-add-video>
+        <span class="button button--primary" ng-click="save(); addCategoryShow = !addCategoryShow">Done</span>
       </section>
 
-      <section class="video-extended-controls__section" ng-class="{ 'video-extended-controls__section--expanded' : addCollectionShow }">
-        <span class="video-extended-controls__indicator video-extended-controls__indicator--more" ng-click="addCollectionShow = !addCollectionShow" ng-hide="addCollectionShow">+</span>
-        <span class="video-extended-controls__indicator video-extended-controls__indicator--less" ng-click="addCollectionShow = !addCollectionShow" ng-show="addCollectionShow">-</span>
-        <collection-add-video available-tags="tags" video="video" show-collection="addCollectionShow" class="video-extended-controls__section-contents"></collection-add-video>
+      <section class="video-extended-controls__section"
+        ng-class="{ 'video-extended-controls__section--expanded' : addCollectionShow }">
+        <span class="video-extended-controls__indicator video-extended-controls__indicator--more"
+          ng-click="addCollectionShow = !addCollectionShow"
+          ng-hide="addCollectionShow">
+          +
+        </span>
+        <span class="video-extended-controls__indicator video-extended-controls__indicator--less"
+          ng-click="addCollectionShow = !addCollectionShow"
+          ng-show="addCollectionShow">
+          -
+        </span>
+        <collection-add-video available-tags="tags"
+          video="video"
+          show-collection="addCollectionShow"
+          class="video-extended-controls__section-contents">
+        </collection-add-video>
+        <span class="button button--primary" ng-click="save(); addCollectionShow = !addCollectionShow">Done</span>
       </section>
 
       <section class="video-extended-controls__section" ng-class="{ 'video-extended-controls__section--expanded' : addCollaboratorShow }">
-        <span class="video-extended-controls__indicator video-extended-controls__indicator--more" ng-click="addCollaboratorShow = !addCollaboratorShow" ng-hide="addCollaboratorShow">+</span>
-        <span class="video-extended-controls__indicator video-extended-controls__indicator--less" ng-click="addCollaboratorShow = !addCollaboratorShow" ng-show="addCollaboratorShow">-</span>
-        <add-collaborator class="video-extended-controls__section-contents" show-collaborator="addCollaboratorShow"></add-collaborator>
+        <span class="video-extended-controls__indicator video-extended-controls__indicator--more"
+          ng-click="addCollaboratorShow = !addCollaboratorShow"
+          ng-hide="addCollaboratorShow">
+          +
+        </span>
+        <span class="video-extended-controls__indicator video-extended-controls__indicator--less"
+          ng-click="addCollaboratorShow = !addCollaboratorShow"
+          ng-show="addCollaboratorShow">
+          -
+        </span>
+        <add-collaborator class="video-extended-controls__section-contents"
+          show-collaborator="addCollaboratorShow">
+        </add-collaborator>
       </section>
 
     </section>
 
-    <section ng-show="video.id && isComments">
-
-      <!-- <video-indicators ng-show="isComments && video.status === 'published'"></video-indicators> -->
+    <section ng-show="video.id && isComments"><!-- video.status === 'published'" -->
       <video-indicators comments="comments" current-time="videoCurrentTime" total-time="videoTotalTime"></video-indicators>
-
       <video-frame-stepper current-time="videoCurrentTime"></video-frame-stepper>
-
-      <!-- <video-comments ng-show="isComments && video.status === 'published'"></video-comments> -->
       <video-comments comments="comments" video-id="{{ video.id }}" current-time="videoCurrentTime"></video-comments>
-
     </section>
-
 
     <div class="video-view__save-controls" ng-show="isEdit">
       <a ng-click="cancel()" class="button">cancel</a>

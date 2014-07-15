@@ -5650,19 +5650,18 @@ h3 {
 .video-extended-controls__section {
   border-bottom: solid 1px #999999;
   padding: 1em 0;
-  text-align: center;
   position: relative;
   transition: max-height 0.4s ease-in-out;
   max-height: 3em;
   overflow: hidden;
 }
 
-/* line 18, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 17, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__section--expanded {
   max-height: 500em;
 }
 
-/* line 22, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 21, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__indicator {
   display: block;
   position: absolute;
@@ -5675,20 +5674,20 @@ h3 {
   color: #b7bcbd;
 }
 
-/* line 43, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 42, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__section-contents {
   max-width: 960px;
   margin: 0 auto;
   text-align: left;
 }
 
-/* line 49, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 48, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__section-header {
   cursor: pointer;
   margin-bottom: 24px;
 }
 
-/* line 54, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 53, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__section-header-title {
   display: inline-block;
   font-weight: 800;

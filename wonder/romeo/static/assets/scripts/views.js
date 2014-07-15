@@ -199,8 +199,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </ul>\n" +
     "  </div>\n" +
     "\n" +
-    "  <span class=\"button button--primary\">Done</span>\n" +
-    "\n" +
     "</section>"
   );
 
@@ -268,8 +266,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </section>\n" +
     "\n" +
     "  </section>\n" +
-    "\n" +
-    "  <span class=\"button button--primary\">Done</span>\n" +
     "\n" +
     "</section>"
   );
@@ -1185,67 +1181,111 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <section class=\"main-view video-view\">\n" +
     "\n" +
-    "    <h2 class=\"video-view__title\" data-placeholder=\"(~ titlePlaceholder ~)\" medium-editor ng-model=\"video.title\" ng-show=\"isEdit\"></h2>\n" +
-    "    <h3 class=\"video-view__sub-title\" data-placeholder=\"Subtitle\" medium-editor ng-model=\"video.subTitle\" ng-show=\"isEdit\"></h2>\n" +
+    "    <h2 class=\"video-view__title\"\n" +
+    "      data-placeholder=\"(~ titlePlaceholder ~)\"\n" +
+    "      medium-editor\n" +
+    "      ng-model=\"video.title\"\n" +
+    "      ng-show=\"isEdit\">\n" +
+    "    </h2>\n" +
+    "    <h3 class=\"video-view__sub-title\"\n" +
+    "      data-placeholder=\"(~ straplinePlaceholder ~)\"\n" +
+    "      medium-editor\n" +
+    "      ng-model=\"video.strapline\"\n" +
+    "      ng-show=\"isEdit\">\n" +
+    "    </h2>\n" +
     "\n" +
-    "    <h2 class=\"video-view__title\" ng-hide=\"isEdit\">(~ video.title ~)</h2>\n" +
-    "    <h3 class=\"video-view__sub-title\" ng-hide=\"isEdit\">(~ video.subTitle ~)</h2>\n" +
+    "    <h2 class=\"video-view__title\" ng-hide=\"isEdit\" ng-bind-html=\"video.title\"></h2>\n" +
+    "    <h3 class=\"video-view__sub-title\" ng-hide=\"isEdit\" ng-bind-html=\"video.strapline\"></h2>\n" +
     "\n" +
     "    <div class=\"video-view__container\">\n" +
-    "\n" +
     "      <video-upload ng-show=\"showUpload && isEdit\"></video-upload>\n" +
-    "\n" +
     "      <video-player ng-show=\"hasProcessed\" embed-url=\"embedUrl\"></video-player>\n" +
-    "\n" +
     "      <video-edit ng-show=\"showVideoEdit && isEdit\"></video-edit>\n" +
-    "\n" +
     "      <video-color-picker video-id=\"(~ video.id ~)\" ng-show=\"showColorPicker && isEdit\"></video-color-picker>\n" +
-    "\n" +
     "      <video-thumbnail ng-show=\"showPreviewSelector && isEdit\"></video-thumbnail>\n" +
-    "\n" +
     "    </div>\n" +
     "\n" +
-    "    <video-more-link text=\"link_title\" url=\"link_url\" is-edit=\"(~ isEdit ~)\" ng-show=\"isEdit || link_title && link_url\"></video-more-link>\n" +
+    "    <video-more-link\n" +
+    "      text=\"link_title\"\n" +
+    "      url=\"link_url\"\n" +
+    "      is-edit=\"(~ isEdit ~)\"\n" +
+    "      ng-show=\"isEdit || link_title && link_url\">\n" +
+    "    </video-more-link>\n" +
     "\n" +
-    "    <section class=\"video-view__description\" data-placeholder=\"Additional content including but not limited to: recipes, ingredients, lyrics, stories, etc.\" medium-editor ng-model=\"text\" ng-show=\"isEdit\"></section>\n" +
-    "    <section class=\"video-view__description\" ng-bind=\"text\" ng-hide=\"isEdit\"></section>\n" +
+    "    <section class=\"video-view__description\"\n" +
+    "      data-placeholder=\"(~ descriptionPlaceholder ~)\"\n" +
+    "      medium-editor\n" +
+    "      ng-model=\"video.description\"\n" +
+    "      ng-show=\"isEdit\">\n" +
+    "    </section>\n" +
+    "\n" +
+    "    <section class=\"video-view__description\" ng-bind-html=\"video.description\" ng-hide=\"isEdit\"></section>\n" +
     "\n" +
     "    <video-share ng-show=\"isEdit\" video=\"video\"></video-share>\n" +
     "\n" +
     "    <section class=\"video-extended-controls\" ng-show=\"isEdit\">\n" +
     "\n" +
     "      <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCategoryShow }\">\n" +
-    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\" ng-click=\"addCategoryShow = !addCategoryShow\" ng-hide=\"addCategoryShow\">+</span>\n" +
-    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\" ng-click=\"addCategoryShow = !addCategoryShow\" ng-show=\"addCategoryShow\">-</span>\n" +
-    "        <category-add-video selected-category=\"video.category\" show-category=\"addCategoryShow\" class=\"video-extended-controls__section-contents\"></category-add-video>\n" +
+    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\"\n" +
+    "          ng-click=\"addCategoryShow = !addCategoryShow\"\n" +
+    "          ng-hide=\"addCategoryShow\">\n" +
+    "          +\n" +
+    "        </span>\n" +
+    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\"\n" +
+    "          ng-click=\"addCategoryShow = !addCategoryShow\"\n" +
+    "          ng-show=\"addCategoryShow\">\n" +
+    "          -\n" +
+    "        </span>\n" +
+    "        <category-add-video selected-category=\"video.category\"\n" +
+    "          show-category=\"addCategoryShow\"\n" +
+    "          class=\"video-extended-controls__section-contents\">\n" +
+    "        </category-add-video>\n" +
+    "        <span class=\"button button--primary\" ng-click=\"save(); addCategoryShow = !addCategoryShow\">Done</span>\n" +
     "      </section>\n" +
     "\n" +
-    "      <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCollectionShow }\">\n" +
-    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\" ng-click=\"addCollectionShow = !addCollectionShow\" ng-hide=\"addCollectionShow\">+</span>\n" +
-    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\" ng-click=\"addCollectionShow = !addCollectionShow\" ng-show=\"addCollectionShow\">-</span>\n" +
-    "        <collection-add-video available-tags=\"tags\" video=\"video\" show-collection=\"addCollectionShow\" class=\"video-extended-controls__section-contents\"></collection-add-video>\n" +
+    "      <section class=\"video-extended-controls__section\"\n" +
+    "        ng-class=\"{ 'video-extended-controls__section--expanded' : addCollectionShow }\">\n" +
+    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\"\n" +
+    "          ng-click=\"addCollectionShow = !addCollectionShow\"\n" +
+    "          ng-hide=\"addCollectionShow\">\n" +
+    "          +\n" +
+    "        </span>\n" +
+    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\"\n" +
+    "          ng-click=\"addCollectionShow = !addCollectionShow\"\n" +
+    "          ng-show=\"addCollectionShow\">\n" +
+    "          -\n" +
+    "        </span>\n" +
+    "        <collection-add-video available-tags=\"tags\"\n" +
+    "          video=\"video\"\n" +
+    "          show-collection=\"addCollectionShow\"\n" +
+    "          class=\"video-extended-controls__section-contents\">\n" +
+    "        </collection-add-video>\n" +
+    "        <span class=\"button button--primary\" ng-click=\"save(); addCollectionShow = !addCollectionShow\">Done</span>\n" +
     "      </section>\n" +
     "\n" +
     "      <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCollaboratorShow }\">\n" +
-    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\" ng-click=\"addCollaboratorShow = !addCollaboratorShow\" ng-hide=\"addCollaboratorShow\">+</span>\n" +
-    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\" ng-click=\"addCollaboratorShow = !addCollaboratorShow\" ng-show=\"addCollaboratorShow\">-</span>\n" +
-    "        <add-collaborator class=\"video-extended-controls__section-contents\" show-collaborator=\"addCollaboratorShow\"></add-collaborator>\n" +
+    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\"\n" +
+    "          ng-click=\"addCollaboratorShow = !addCollaboratorShow\"\n" +
+    "          ng-hide=\"addCollaboratorShow\">\n" +
+    "          +\n" +
+    "        </span>\n" +
+    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\"\n" +
+    "          ng-click=\"addCollaboratorShow = !addCollaboratorShow\"\n" +
+    "          ng-show=\"addCollaboratorShow\">\n" +
+    "          -\n" +
+    "        </span>\n" +
+    "        <add-collaborator class=\"video-extended-controls__section-contents\"\n" +
+    "          show-collaborator=\"addCollaboratorShow\">\n" +
+    "        </add-collaborator>\n" +
     "      </section>\n" +
     "\n" +
     "    </section>\n" +
     "\n" +
-    "    <section ng-show=\"video.id && isComments\">\n" +
-    "\n" +
-    "      <!-- <video-indicators ng-show=\"isComments && video.status === 'published'\"></video-indicators> -->\n" +
+    "    <section ng-show=\"video.id && isComments\"><!-- video.status === 'published'\" -->\n" +
     "      <video-indicators comments=\"comments\" current-time=\"videoCurrentTime\" total-time=\"videoTotalTime\"></video-indicators>\n" +
-    "\n" +
     "      <video-frame-stepper current-time=\"videoCurrentTime\"></video-frame-stepper>\n" +
-    "\n" +
-    "      <!-- <video-comments ng-show=\"isComments && video.status === 'published'\"></video-comments> -->\n" +
     "      <video-comments comments=\"comments\" video-id=\"(~ video.id ~)\" current-time=\"videoCurrentTime\"></video-comments>\n" +
-    "\n" +
     "    </section>\n" +
-    "\n" +
     "\n" +
     "    <div class=\"video-view__save-controls\" ng-show=\"isEdit\">\n" +
     "      <a ng-click=\"cancel()\" class=\"button\">cancel</a>\n" +

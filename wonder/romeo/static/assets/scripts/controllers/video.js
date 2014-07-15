@@ -15,6 +15,8 @@ angular.module('RomeoApp.controllers')
 
       $scope.video = $scope.video || {};
       $scope.titlePlaceholder = '';
+      $scope.straplinePlaceholder = '';
+      $scope.descriptionPlaceholder = '';
       $scope.showUpload = true;
       $scope.isUploading = false;
       $scope.hasProcessed = false;
@@ -22,6 +24,39 @@ angular.module('RomeoApp.controllers')
       $scope.embedUrl = '';
       $scope.currentTime = 0;
     }
+
+    $scope.$watch(
+      function() { return $scope.video.title; },
+      function(newValue, oldValue) {
+        if (newValue && newValue !== oldValue) {
+          $scope.titlePlaceholder = '';
+        } else {
+          $scope.titlePlaceholder = 'UntitledVideo';
+        }
+      }
+    );
+
+    $scope.$watch(
+      function() { return $scope.video.strapline; },
+      function(newValue, oldValue) {
+        if (newValue && newValue !== oldValue) {
+          $scope.straplinePlaceholder = '';
+        } else {
+          $scope.straplinePlaceholder = 'Subtitle';
+        }
+      }
+    );
+
+    $scope.$watch(
+      function() { return $scope.video.strapline; },
+      function(newValue, oldValue) {
+        if (newValue && newValue !== oldValue) {
+          $scope.descriptionPlaceholder = '';
+        } else {
+          $scope.descriptionPlaceholder = 'Additional content including but not limited to: recipes, ingredients, lyrics, stories, etc.';
+        }
+      }
+    );
 
     $scope.$watch(
       function() { return $scope.video ? $scope.video.id : null; },
@@ -53,6 +88,8 @@ angular.module('RomeoApp.controllers')
 
       $scope.video.title = $scope.video.title || stripExtension(files[0].name);
       $scope.titlePlaceholder = '';
+      $scope.straplinePlaceholder = '';
+      $scope.descriptionPlaceholder = '';
 
       var data = { title : $scope.video.title };
 
@@ -287,11 +324,6 @@ angular.module('RomeoApp.controllers')
         }
 
         $scope.showVideoEdit = (($scope.video.status === 'ready') || ($scope.video.status === 'published'));
-
-
-        // hack
-        // https://github.com/thijsw/angular-medium-editor/pull/6
-        $scope.titlePlaceholder = $scope.video.title ? '' : 'Untitled Video';
 
       });
 
