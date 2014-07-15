@@ -33,7 +33,7 @@
       text="video.link_title"
       url="video.link_url"
       is-edit="{{ isEdit }}"
-      ng-show="isEdit || video.link_title && video.link_url">
+      ng-show="(isEdit || video.link_title && video.link_url) && !isComments">
     </video-more-link>
 
     <section class="video-view__description"
@@ -44,9 +44,9 @@
       ng-show="isEdit">
     </section>
 
-    <section class="video-view__description" ng-bind-html="video.description" ng-hide="isEdit"></section>
+    <section class="video-view__description" ng-bind-html="video.description" ng-hide="isComments || isEdit"></section>
 
-    <video-share video="video"></video-share>
+    <video-share video="video" ng-hide="isComments"></video-share>
 
     <section class="video-extended-controls" ng-show="isEdit">
 
