@@ -261,8 +261,6 @@ angular.module('RomeoApp.controllers')
 
     var query = $location.search();
 
-    $scope.color='#f00';
-
 
 
     $scope.isEdit = false;
@@ -323,6 +321,13 @@ angular.module('RomeoApp.controllers')
         }
 
         $scope.showVideoEdit = (($scope.video.status === 'ready') || ($scope.video.status === 'published'));
+
+        VideoService.getPlayerParameters($scope.video.id).then(function (data) {
+
+          $scope.playerParameters = {};
+          $scope.playerParameters.rgb = JSON.parse(data.rgb);
+          $scope.playerParameters.hideLogo = data.hideLogo === 'True' ? true : false;
+        });
 
       });
 

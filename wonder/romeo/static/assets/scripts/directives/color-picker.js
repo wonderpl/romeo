@@ -44,6 +44,15 @@ angular.module('RomeoApp.directives', []).directive('colorPicker', function () {
     require: '?ngModel',
     link: function (scope, elem, attrs, ngModel) {
 
+      scope.$watch(
+      function() { return scope.color; },
+      function(newValue, oldValue) {
+        if (newValue && (newValue !== oldValue)) {
+          console.log(newValue);
+          updateColours(newValue);
+        }
+      });
+
       function spectrumOnChange (color) {
         scope.$apply(function () {
           ngModel.$setViewValue(color.toRgb());
@@ -59,7 +68,8 @@ angular.module('RomeoApp.directives', []).directive('colorPicker', function () {
         showButtons: false,
         flat: true,
         showInput: true,
-        preferredFormat: 'rgb'
+        preferredFormat: 'rgb',
+        color: scope.color
       });
 
       ngModel.$render = function () {

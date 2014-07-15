@@ -1205,7 +1205,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <video-upload ng-show=\"showUpload && isEdit\"></video-upload>\n" +
     "      <video-player ng-show=\"hasProcessed\" embed-url=\"embedUrl\"></video-player>\n" +
     "      <video-edit ng-show=\"showVideoEdit && isEdit\"></video-edit>\n" +
-    "      <video-color-picker video-id=\"(~ video.id ~)\" ng-show=\"showColorPicker && isEdit\"></video-color-picker>\n" +
+    "      <video-color-picker player-parameters=\"playerParameters\" video-id=\"(~ video.id ~)\" ng-show=\"showColorPicker && isEdit\"></video-color-picker>\n" +
     "      <video-thumbnail ng-show=\"showPreviewSelector && isEdit\"></video-thumbnail>\n" +
     "    </div>\n" +
     "\n" +
