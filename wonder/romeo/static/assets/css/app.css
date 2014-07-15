@@ -5050,6 +5050,11 @@ h3 {
   border-left-color: transparent;
 }
 
+/* line 51, ../../scss/components/_buttons.scss */
+.button__component--input-container {
+  padding-top: 14px;
+}
+
 /*!
 ========== SPECIFICS
 */
@@ -5235,6 +5240,11 @@ h3 {
   text-decoration: underline;
 }
 
+/* line 121, ../../scss/specifics/video/_video-feedback.scss */
+.video-feedback__notify {
+  text-align: center;
+}
+
 /* line 1, ../../scss/specifics/video/_video-player.scss */
 .video-player {
   width: 100%;
@@ -5350,25 +5360,26 @@ h3 {
   height: 20px;
   width: 100%;
   position: relative;
+  cursor: pointer;
 }
 
-/* line 9, ../../scss/specifics/video/_video-indicators.scss */
+/* line 10, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-indicators {
   position: relative;
 }
 
-/* line 13, ../../scss/specifics/video/_video-indicators.scss */
+/* line 14, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-indicator {
   position: absolute;
   top: 0;
 }
 
-/* line 18, ../../scss/specifics/video/_video-indicators.scss */
+/* line 19, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-indicator--active {
   border: solid 1px red;
 }
 
-/* line 22, ../../scss/specifics/video/_video-indicators.scss */
+/* line 23, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-link {
   display: block;
   height: 20px;
@@ -5376,12 +5387,12 @@ h3 {
   background-color: green;
 }
 
-/* line 29, ../../scss/specifics/video/_video-indicators.scss */
+/* line 30, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-link:hover {
   cursor: pointer;
 }
 
-/* line 33, ../../scss/specifics/video/_video-indicators.scss */
+/* line 34, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__scrubber {
   position: absolute;
   top: 0;
@@ -5914,6 +5925,29 @@ h3 {
   width: 20em;
   font-size: 1em;
   padding: 0.3em;
+}
+
+/* line 1, ../../scss/specifics/video/_video-frame-stepper.scss */
+.video-frame-stepper {
+  display: block;
+  margin: 1em auto;
+  width: 240px;
+}
+
+/* line 7, ../../scss/specifics/video/_video-frame-stepper.scss */
+.video-frame-stepper__block {
+  display: inline-block;
+}
+
+/* line 11, ../../scss/specifics/video/_video-frame-stepper.scss */
+.video-frame-stepper__input {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 50px;
+  text-align: center;
+  font-size: 1em;
+  color: #70797b;
 }
 
 /* line 1, ../../scss/specifics/upload/_upload-progress.scss */

@@ -58,6 +58,9 @@
 
       <!-- <video-indicators ng-show="isComments && video.status === 'published'"></video-indicators> -->
       <video-indicators comments="comments" current-time="videoCurrentTime" total-time="videoTotalTime"></video-indicators>
+
+      <video-frame-stepper current-time="videoCurrentTime"></video-frame-stepper>
+
       <!-- <video-comments ng-show="isComments && video.status === 'published'"></video-comments> -->
       <video-comments comments="comments" video-id="{{ video.id }}" current-time="videoCurrentTime"></video-comments>
 

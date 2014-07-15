@@ -53,13 +53,16 @@ angular.module('RomeoApp.directives')
     controller : function ($scope) {
 
       $scope.isTimeSync = function (timestamp) {
-
-        return Math.round(timestamp) === Math.round($scope.currentTime);
+        var isTimeSync;
+        if (!timestamp) {
+          isTimeSync = false;
+        } else {
+          isTimeSync = Math.round(timestamp) === Math.round($scope.currentTime);
+        }
+        return isTimeSync;
       };
 
       $scope.addComment = function () {
-
-        console.log($scope.currentTime);
 
         var datetime = new Date().getTime();
         var commentData = {
@@ -78,10 +81,15 @@ angular.module('RomeoApp.directives')
       $scope.reply = function (timestamp) {
         $scope.currentTime = timestamp;
         $scope.inputActive = true;
+        $scope.videoSeek(timestamp);
       };
 
       $scope.videoSeek = function (timestamp) {
         $scope.$emit('video-seek', timestamp);
+      };
+
+      $scope.notify = function () {
+        CommentsService.notify($scope.videoId);
       };
     }
   };

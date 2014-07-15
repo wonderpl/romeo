@@ -151,29 +151,56 @@ angular.module('RomeoApp.controllers')
 
     function videoOnSeek (event, seconds) {
 
-      console.log('videoOnSeek()');
-
-      console.log(seconds);
-
-      $scope.player.seek(seconds);
+      if ($scope.player) {
+        $scope.player.seek(seconds);
+      }
     }
 
   // this timeout is bs
-  $timeout(function () {
+  // $timeout(function () {
+  //   var frames = document.getElementsByClassName('video-player__frame');
+  //   if (frames.length) {
+  //     var frame = frames[0].contentWindow || frames[0].contentDocument.parentWindow;
+  //     var OO = frame.OO;
+  //     $scope.player = frame.player;
+  //     $scope.videoTotalTime = $scope.player.getTotalTime();
+  //     bindEvents(OO);
+  //   }
+  // }, 10000);
+
+  $scope.videoCurrentTime = 0;
+  $scope.videoTotalTime = 0;
+
+  function pollIFrame () {
+    $timeout(checkIFramePlayer, 1000);
+  }
+
+  function checkIFramePlayer () {
     var frames = document.getElementsByClassName('video-player__frame');
     if (frames.length) {
       var frame = frames[0].contentWindow || frames[0].contentDocument.parentWindow;
+      if (frame.player) {
+        $scope.player = frame.player;
+        $scope.videoTotalTime = $scope.player.getTotalTime();
+      }
       var OO = frame.OO;
-      $scope.player = frame.player;
-      $scope.videoTotalTime = $scope.player.getTotalTime();
-      bindEvents(OO);
+      if (OO && OO.ready) {
+        OO.ready(function () {
+          bindEvents(OO);
+        });
+
+      } else {
+        pollIFrame();
+      }
+
+    } else {
+      pollIFrame();
     }
-  }, 10000);
+  }
+
+  pollIFrame();
 
 
-  $scope.videoCurrentTime = 0;
-
-  $scope.videoTotalTime = 0;
 
   // http://support.ooyala.com/developers/documentation/concepts/xmp_securexdr_view_mbus.html
   // http://support.ooyala.com/developers/documentation/api/player_v3_api_events.html
@@ -183,19 +210,12 @@ angular.module('RomeoApp.controllers')
 
     bus.subscribe(OO.EVENTS.PLAYBACK_READY, 'WonderUIModule', function () {
 
-      console.log('test');
-
-      $scope.videoTotalTime = $scope.player.getTotalTime();
-
+      console.log('PLAYBACK_READY');
     });
 
     bus.subscribe(OO.EVENTS.PLAYHEAD_TIME_CHANGED, 'WonderUIModule', function(eventName, currentTime) {
 
       $scope.videoCurrentTime = currentTime;
-
-      console.log(currentTime);
-
-      // console.log(currentTime + ' (' + Math.round(progress) + '%)');
 
       $scope.progress = (Math.round((($scope.videoCurrentTime * 1000)/$scope.videoTotalTime) * 100 * 100))/100;
 
@@ -207,7 +227,6 @@ angular.module('RomeoApp.controllers')
 
       $scope.player.pause();
     });
-
 
   }
 
