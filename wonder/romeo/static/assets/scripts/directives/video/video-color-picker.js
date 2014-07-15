@@ -1,5 +1,5 @@
 angular.module('RomeoApp.directives')
-  .directive('videoColorPicker', ['$templateCache', function ($templateCache) {
+  .directive('videoColorPicker', ['$templateCache', 'VideoService', '$timeout', function ($templateCache, VideoService, $timeout) {
 
   'use strict';
 
@@ -7,8 +7,29 @@ angular.module('RomeoApp.directives')
     restrict : 'E',
     replace : true,
     template : $templateCache.get('video-color-picker.html'),
-    link : function (scope, elem, attrs) {
+    scope : {
+      videoId : '@'
+    },
+    controller : function ($scope) {
 
+      function saveColor (color) {
+        console.log(color);
+        VideoService.setPlayerParameters($scope.videoId, {
+          rgb : color
+        });
+      }
+
+      var promise;
+
+      $scope.$watch(
+        function() { return $scope.color; },
+        function(newValue, oldValue) {
+          if (newValue && newValue !== oldValue) {
+            $timeout.cancel(promise);
+            promise = $timeout(function () { saveColor(newValue) }, 1000);
+          }
+        }
+      );
     }
   };
 }]);

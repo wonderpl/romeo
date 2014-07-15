@@ -19,7 +19,7 @@
 
       <video-edit ng-show="showVideoEdit && isEdit"></video-edit>
 
-      <video-color-picker ng-show="showColorPicker && isEdit"></video-color-picker>
+      <video-color-picker video-id="{{ video.id }}" ng-show="showColorPicker && isEdit"></video-color-picker>
 
       <video-thumbnail ng-show="showPreviewSelector && isEdit"></video-thumbnail>
 

@@ -249,6 +249,11 @@
         var Video = {},
             Videos = {};
 
+        Video.setPlayerParameters = function (id, data) {
+          var url = '/api/video/' + id + '/player_parameters';
+          return DataService.request({ url: url, method: 'PUT', data: data });
+        }
+
         Video.getEmbedCode = function (id) {
           var url = '/api/video/' + id + '/embed_code';
           return DataService.request({ url : url });
@@ -412,6 +417,7 @@
         * Expose the methods to the service
         */
         return {
+            setPlayerParameters: Video.setPlayerParameters,
             getEmbedCode: Video.getEmbedCode,
             getShareUrl: Video.getShareUrl,
             getCategories: Video.getCategories,

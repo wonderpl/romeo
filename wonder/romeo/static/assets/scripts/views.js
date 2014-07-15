@@ -1199,7 +1199,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "      <video-edit ng-show=\"showVideoEdit && isEdit\"></video-edit>\n" +
     "\n" +
-    "      <video-color-picker ng-show=\"showColorPicker && isEdit\"></video-color-picker>\n" +
+    "      <video-color-picker video-id=\"(~ video.id ~)\" ng-show=\"showColorPicker && isEdit\"></video-color-picker>\n" +
     "\n" +
     "      <video-thumbnail ng-show=\"showPreviewSelector && isEdit\"></video-thumbnail>\n" +
     "\n" +

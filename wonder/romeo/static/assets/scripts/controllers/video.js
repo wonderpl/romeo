@@ -121,7 +121,7 @@ angular.module('RomeoApp.controllers')
 
     $scope.cancel = function () {
 
-      VideoService.get($scope.id).then(function (data) {
+      VideoService.get($scope.video.id).then(function (data) {
         angular.extend($scope.video, data);
       });
     };
@@ -155,18 +155,6 @@ angular.module('RomeoApp.controllers')
         $scope.player.seek(seconds);
       }
     }
-
-  // this timeout is bs
-  // $timeout(function () {
-  //   var frames = document.getElementsByClassName('video-player__frame');
-  //   if (frames.length) {
-  //     var frame = frames[0].contentWindow || frames[0].contentDocument.parentWindow;
-  //     var OO = frame.OO;
-  //     $scope.player = frame.player;
-  //     $scope.videoTotalTime = $scope.player.getTotalTime();
-  //     bindEvents(OO);
-  //   }
-  // }, 10000);
 
   $scope.videoCurrentTime = 0;
   $scope.videoTotalTime = 0;
