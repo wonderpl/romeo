@@ -62,7 +62,6 @@ angular.module('RomeoApp.controllers')
       function(newValue, oldValue) {
         if (newValue !== '' && newValue !== oldValue) {
           CommentsService.getComments($scope.video.id).then(function (data) {
-            console.log(data);
             $scope.comments = data.comment.items;
           });
         }
@@ -188,6 +187,8 @@ angular.module('RomeoApp.controllers')
     function videoOnSeek (event, seconds) {
 
       if ($scope.player) {
+        var state = $scope.player.getState();
+        console.log(state);
         $scope.player.seek(seconds);
       }
     }

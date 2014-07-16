@@ -657,7 +657,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  </nav>\n" +
     "\n" +
     "  <section class=\"page-header__current-user\" ng-if=\"isLoggedIn\">\n" +
-    "    <a href=\"/#/account\" class=\"page-header__link page-header__profile-link\" style=\"background-image: url((~ User.avatar ~));\">(~ User.display_name ~)</a>\n" +
+    "    <a href=\"/#/account\" class=\"page-header__link page-header__profile-link  hide-text\" style=\"background-image: url((~ User.avatar ~));\">(~ User.display_name ~)</a>\n" +
     "  </section>\n" +
     "\n" +
     "</header>"
@@ -1142,7 +1142,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <section class=\"video-preview__images-container\">\n" +
     "      <ul class=\"video-preview__available-images js-preview-images\" style=\"width: (~ previewImages.length * 500 ~)px\" ng-style=\"indexOffset\">\n" +
     "        <li class=\"video-preview__available-image-container (~ $index ~)\" ng-class=\"{ 'video-preview__available-image-container--active' : previewIndex === $index }\" ng-repeat=\"preview in previewImages\">\n" +
-    "          <img class=\"video-preview__available-image\" ng-class=\"{ 'video-preview__available-image--active' : previewIndex === $index }\" src=\"(~ preview.url ~)\" ng-click=\"updateIndex($index)\" />\n" +
+    "          <img class=\"video-preview__available-image\" ng-class=\"{ 'video-preview__available-image--active' : previewIndex === $index }\" ng-src=\"preview.url\" ng-click=\"updateIndex($index)\" />\n" +
     "        </li>\n" +
     "      </ul>\n" +
     "    </section>\n" +

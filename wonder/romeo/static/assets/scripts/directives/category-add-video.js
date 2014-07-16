@@ -24,7 +24,7 @@ angular.module('RomeoApp.directives')
       );
 
       function getCategoryById (id) {
-        var categories = scope.categories;
+        var categories = scope.categories || [];
         var category = null;
         var l = categories.length;
         while (l-- && !category) {

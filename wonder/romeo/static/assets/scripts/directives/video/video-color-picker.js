@@ -47,7 +47,6 @@ angular.module('RomeoApp.directives')
       }
 
       function saveColor (color) {
-        console.log(color);
         VideoService.setPlayerParameters($scope.videoId, {
           hideLogo : $scope.hideLogo,
           rgb : JSON.stringify($scope.color)
@@ -61,7 +60,7 @@ angular.module('RomeoApp.directives')
         function(newValue, oldValue) {
           if (newValue && newValue !== oldValue) {
             $timeout.cancel(promise);
-            promise = $timeout(function () { saveColor(newValue) }, 1000);
+            promise = $timeout(function () { saveColor(newValue); }, 1000);
           }
         }
       );

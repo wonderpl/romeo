@@ -17,7 +17,7 @@
     <section class="video-preview__images-container">
       <ul class="video-preview__available-images js-preview-images" style="width: {{ previewImages.length * 500 }}px" ng-style="indexOffset">
         <li class="video-preview__available-image-container {{ $index }}" ng-class="{ 'video-preview__available-image-container--active' : previewIndex === $index }" ng-repeat="preview in previewImages">
-          <img class="video-preview__available-image" ng-class="{ 'video-preview__available-image--active' : previewIndex === $index }" src="{{ preview.url }}" ng-click="updateIndex($index)" />
+          <img class="video-preview__available-image" ng-class="{ 'video-preview__available-image--active' : previewIndex === $index }" ng-src="preview.url" ng-click="updateIndex($index)" />
         </li>
       </ul>
     </section>
