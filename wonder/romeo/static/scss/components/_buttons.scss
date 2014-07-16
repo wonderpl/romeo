@@ -30,6 +30,15 @@
   float: right;
 }
 
+.button--small {
+  padding: 0.5em;
+}
+
+.button--disabled {
+  border-color: $light-grey;
+  color: $light-grey;
+}
+
 .button__component {
   @extend .no-selection;
   border-radius: 0;

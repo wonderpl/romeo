@@ -106,10 +106,6 @@ angular.module('RomeoApp.directives')
       $scope.videoSeek = function (timestamp) {
         $scope.$emit('video-seek', timestamp);
       };
-
-      $scope.notify = function () {
-        CommentsService.notify($scope.videoId);
-      };
     }
   };
 }]);

@@ -1,0 +1,25 @@
+<section class="video-collaborators">
+
+  <header class="video-collaborators__header">
+    <h4 class="video-collaborators__title">collaborators</h4>
+    <a class="button button--primary button--small video-collaborators__notify"
+      ng-click="notify(videoId)"
+      ng-class="{ 'button--disabled' : notified }">Notify All</a>
+  </header>
+
+  <ul class="video-collaborators__collaborators">
+    <li class="video-collaborators__collaborator" ng-repeat="collaborator in collaborators">
+      <span class="video-collaborators__collaborator-image" style="background-image: url('{{ collaborator.avatar }}');"></span>
+      <span class="video-collaborators__collaborator-name" ng-bind="collaborator.name"></span>
+    </li>
+    <li class="video-collaborators__collaborator">
+      <span class="video-collaborators__collaborator-image" style="background-image: url('http://media.dev.wonderpl.com/images/avatar/thumbnail_medium/kHmU0Pn5E1dVK3K68Okjgw.jpg');"></span>
+      <span class="video-collaborators__collaborator-name">Tom Aitkens</span>
+    </li>
+    <li class="video-collaborators__collaborator">
+      <span class="video-collaborators__collaborator-image" style="background-image: url('http://media.dev.wonderpl.com/images/avatar/thumbnail_medium/kHmU0Pn5E1dVK3K68Okjgw.jpg');"></span>
+      <span class="video-collaborators__collaborator-name">Tom Aitkens 2</span>
+    </li>
+  </ul>
+
+</section>

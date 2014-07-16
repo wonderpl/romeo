@@ -4947,6 +4947,12 @@ textarea {
   padding: 0;
 }
 
+/* line 15, ../../scss/base/project/_helpers.scss */
+.clear-float-container {
+  overflow: auto;
+  width: 100%;
+}
+
 /* line 1, ../../scss/base/utils/_helpers.scss */
 .no-selection, .button__component, .video-preview__previous-image-link, .video-preview__next-image-link, .video-extended-controls__indicator {
   -webkit-user-select: none;
@@ -5009,12 +5015,23 @@ textarea {
 }
 
 /* line 33, ../../scss/components/_buttons.scss */
+.button--small {
+  padding: 0.5em;
+}
+
+/* line 37, ../../scss/components/_buttons.scss */
+.button--disabled {
+  border-color: #b7bcbd;
+  color: #b7bcbd;
+}
+
+/* line 42, ../../scss/components/_buttons.scss */
 .button__component {
   border-radius: 0;
   cursor: pointer;
 }
 
-/* line 39, ../../scss/components/_buttons.scss */
+/* line 48, ../../scss/components/_buttons.scss */
 .button__component--left {
   border-top-left-radius: 24px;
   border-bottom-left-radius: 24px;
@@ -5022,7 +5039,7 @@ textarea {
   font-weight: bold;
 }
 
-/* line 46, ../../scss/components/_buttons.scss */
+/* line 55, ../../scss/components/_buttons.scss */
 .button__component--right {
   border-top-right-radius: 24px;
   border-bottom-right-radius: 24px;
@@ -5030,7 +5047,7 @@ textarea {
   font-weight: bold;
 }
 
-/* line 53, ../../scss/components/_buttons.scss */
+/* line 62, ../../scss/components/_buttons.scss */
 .button__component--input-container {
   padding-top: 14px;
 }
@@ -5385,23 +5402,34 @@ textarea {
 /* line 22, ../../scss/specifics/video/_video-view.scss */
 .video-view__comments {
   position: relative;
-  max-width: 75%;
-  text-align: ceter;
+  text-align: center;
+}
+
+/* line 27, ../../scss/specifics/video/_video-view.scss */
+.video-view__comments-section--left {
+  float: left;
+  width: 71%;
   margin-left: 48px;
 }
 
-/* line 29, ../../scss/specifics/video/_video-view.scss */
+/* line 33, ../../scss/specifics/video/_video-view.scss */
+.video-view__comments-section--right {
+  float: right;
+  width: 21%;
+}
+
+/* line 38, ../../scss/specifics/video/_video-view.scss */
 .video-view__edit {
   display: none;
   position: relative;
 }
 
-/* line 34, ../../scss/specifics/video/_video-view.scss */
+/* line 43, ../../scss/specifics/video/_video-view.scss */
 .video-view__edit--active {
   display: block;
 }
 
-/* line 38, ../../scss/specifics/video/_video-view.scss */
+/* line 47, ../../scss/specifics/video/_video-view.scss */
 .video-view__container {
   position: relative;
   width: 100%;
@@ -5409,13 +5437,13 @@ textarea {
   margin-bottom: 1em;
 }
 
-/* line 45, ../../scss/specifics/video/_video-view.scss */
+/* line 54, ../../scss/specifics/video/_video-view.scss */
 .video-view__save-controls {
   margin-bottom: 1em;
   text-align: center;
 }
 
-/* line 50, ../../scss/specifics/video/_video-view.scss */
+/* line 59, ../../scss/specifics/video/_video-view.scss */
 .video-view__description {
   width: 600px;
   margin: 0 auto;
@@ -5423,7 +5451,7 @@ textarea {
   overflow: auto;
 }
 
-/* line 57, ../../scss/specifics/video/_video-view.scss */
+/* line 66, ../../scss/specifics/video/_video-view.scss */
 .video-view__description--edit {
   border-bottom: solid 1px #999999;
 }
@@ -6136,6 +6164,42 @@ textarea {
   padding: 0.5em;
   font-size: 1em;
   width: 20em;
+}
+
+/* line 5, ../../scss/specifics/video/_video-collaborators.scss */
+.video-collaborators__header {
+  padding-bottom: 1em;
+}
+
+/* line 9, ../../scss/specifics/video/_video-collaborators.scss */
+.video-collaborators__collaborator {
+  text-align: left;
+  margin-bottom: 0.5em;
+}
+
+/* line 14, ../../scss/specifics/video/_video-collaborators.scss */
+.video-collaborators__title {
+  font-variant: small-caps;
+  color: #999999;
+  float: left;
+  margin-top: 0.5em;
+}
+
+/* line 21, ../../scss/specifics/video/_video-collaborators.scss */
+.video-collaborators__collaborator-image {
+  height: 33px;
+  width: 33px;
+  display: inline-block;
+  border-radius: 50%;
+  background-size: contain;
+  vertical-align: middle;
+}
+
+/* line 30, ../../scss/specifics/video/_video-collaborators.scss */
+.video-collaborators__collaborator-name {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.5em;
 }
 
 /* line 1, ../../scss/specifics/upload/_upload-progress.scss */

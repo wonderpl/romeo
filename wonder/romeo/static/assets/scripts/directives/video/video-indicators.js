@@ -15,10 +15,10 @@ angular.module('RomeoApp.directives')
     },
     controller : function ($scope) {
 
-      $scope.$watch('totalTime', function() {
-
-        $scope.totalTimeInSeconds = $scope.totalTime/1000;
-
+      $scope.$watch('totalTime', function(newValue, oldValue) {
+        if (newValue && newValue !== oldValue) {
+          $scope.totalTimeInSeconds = $scope.totalTime/1000;
+        }
       });
 
       $scope.isTimeSync = function (timestamp) {
@@ -37,9 +37,6 @@ angular.module('RomeoApp.directives')
         var left = e.pageX - position.left;
         var width = $(e.currentTarget).width();
         var percentage = left/width;
-
-        console.log(percentage);
-
         var time = $scope.totalTimeInSeconds * percentage;
 
         $scope.seek(time);

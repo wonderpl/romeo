@@ -21,8 +21,19 @@ angular.module('RomeoApp.services').factory('CollaboratorsService',
     return deferred.promise;
   }
 
+  function getCollaborators (videoId) {
+    var deferred = new $q.defer();
+    AuthService.getSessionId().then(function(response){
+      deferred.resolve(DataService.request({
+        url: '/api/video/' + videoId + '/collaborators'
+      }));
+    });
+    return deferred.promise;
+  }
+
   return ({
-    addCollaborator : addCollaborator
+    addCollaborator : addCollaborator,
+    getCollaborators : getCollaborators
   });
 
 }]);
