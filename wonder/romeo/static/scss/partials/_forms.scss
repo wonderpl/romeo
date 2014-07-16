@@ -2,23 +2,6 @@
 /*  Form styling
 /* ======================================= */
 
-input[type=text], input[type=email], input[type=phone], input[type=password], select, textarea {
-	border: 1px solid $flat-gray-2;
-	outline: none;
-	padding: 8px 5px;
-	width: 100%;
-	font-size: 13px;
-	@include border-radius( 4px );
-
-	&.margin-bottom {
-		margin-bottom: 20px;
-	}
-}
-
-textarea {
-	height: 100px;
-}
-
 form .row {
 	display: block;
 	margin: 0 0 16px 0;

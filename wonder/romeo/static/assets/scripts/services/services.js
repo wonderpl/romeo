@@ -252,12 +252,12 @@
         Video.getPlayerParameters = function (id) {
           var url = '/api/video/' + id + '/player_parameters';
           return DataService.request({ url: url });
-        }
+        };
 
         Video.setPlayerParameters = function (id, data) {
           var url = '/api/video/' + id + '/player_parameters';
           return DataService.request({ url: url, method: 'PUT', data: data });
-        }
+        };
 
         Video.getEmbedCode = function (id) {
           var url = '/api/video/' + id + '/embed_code';
@@ -267,7 +267,7 @@
         Video.getShareUrl = function (id, service) {
           var url = '/api/video/' + id + '/share_url';
           return DataService.request({ url : url, method: 'POST', data: { service : service } });
-        }
+        };
 
         /*
         * Returns a promise, which if resolves returns an array of all of the available video categories

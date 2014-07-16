@@ -48,7 +48,6 @@ angular.module('RomeoApp.directives', []).directive('colorPicker', function () {
       function() { return scope.color; },
       function(newValue, oldValue) {
         if (newValue && (newValue !== oldValue)) {
-          console.log(newValue);
           updateColours(newValue);
         }
       });

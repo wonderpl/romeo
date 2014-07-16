@@ -2,12 +2,15 @@
   <div class="video-indicators__scrubber" ng-model="scrubber" style="left: {{ (currentTime/totalTimeInSeconds)*100 }}%"></div>
   <ul class="video-indicators__comment-indicators">
     <li class="video-indicators__comment-indicator"
-      ng-class="{ 'video-indicators__comment-indicator--active' : isTimeSync(comment.timestamp) }"
       ng-repeat="comment in comments"
       data-timestamp="{{ comment.timestamp }}"
-      data-totalTimeInSeconds="{{ totalTimeInSeconds }}"
+      data-total-time-in-seconds="{{ totalTimeInSeconds }}"
       style="left: {{ (comment.timestamp/totalTimeInSeconds)*100 }}%;">
-      <a data-id="{{ comment.id }}" class="video-indicators__comment-link" ng-click="seek(comment.timestamp)"></a>
+      <a data-id="{{ comment.id }}"
+        ng-class="{ 'video-indicators__comment-link--active' : isTimeSync(comment.timestamp) }"
+        class="video-indicators__comment-link"
+        ng-click="seek(comment.timestamp)">
+      </a>
     </li>
   </ul>
 </section>

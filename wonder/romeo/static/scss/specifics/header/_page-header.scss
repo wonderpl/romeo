@@ -31,14 +31,17 @@
 
 .page-header__current-user {
   display: inline-block;
-  height: 27px;
-  min-width: 7em;
+  vertical-align: middle;
+  padding: 0 1em;
 }
 .page-header__profile-link {
-  display: inline-block;
-  height: 27px;
-  padding-left: 30px;
-  margin-right: 1em;
+  display: block;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 33px;
+  width: 33px;
+  border-radius: 50%;
+  background-size: contain;
 }
 
 .page-header__navigation {

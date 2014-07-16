@@ -52,6 +52,19 @@ angular.module('RomeoApp.directives')
     },
     controller : function ($scope) {
 
+      $scope.isOwner = true;
+
+      $scope.$watch(
+        function() { return $rootScope.User; },
+        function(newValue, oldValue) {
+          if (newValue && newValue !== oldValue) {
+            console.log(newValue);
+            $scope.test = newValue;
+          }
+        }
+      );
+
+
       $scope.isTimeSync = function (timestamp) {
         var isTimeSync;
         if (!timestamp) {
@@ -60,6 +73,12 @@ angular.module('RomeoApp.directives')
           isTimeSync = Math.round(timestamp) === Math.round($scope.currentTime);
         }
         return isTimeSync;
+      };
+
+      $scope.resolve = function (id) {
+
+        console.log('resolve()');
+        console.log(id);
       };
 
       $scope.addComment = function () {
@@ -86,10 +105,6 @@ angular.module('RomeoApp.directives')
 
       $scope.videoSeek = function (timestamp) {
         $scope.$emit('video-seek', timestamp);
-      };
-
-      $scope.notify = function () {
-        CommentsService.notify($scope.videoId);
       };
     }
   };
