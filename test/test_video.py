@@ -336,6 +336,15 @@ class VideoCommentTestCase(DataTestCase, TestCase):
             self.assertEqual(comments[0]['comment'], comment['comment'])
             self.assertEqual(comments[0]['username'], user.username)
 
+    def test_resolve_comment(self):
+        video = self.data.VideoData.video
+        comment = self.data.VideoCommentData.comment3
+        with client_for_account(video.account_id) as client:
+            r = client.patch('/api/video/%d/comments/%d' % (video.id, comment.id),
+                             content_type='application/json', data=json.dumps(dict(resolved=True)))
+            self.assertEquals(r.status_code, 200)
+        self.assertTrue(VideoComment.query.get(comment.id).resolved)
+
     def test_comment_notification(self):
         # commit fixture data so it's still available for the background call
         db.session.commit()

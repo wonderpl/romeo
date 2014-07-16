@@ -284,17 +284,20 @@ class VideoComment(db.Model):
     comment = Column(String(1024), nullable=False)
     timestamp = Column(Integer)
     notification_sent = Column(Boolean(), nullable=False, server_default='false', default=False)
+    resolved = Column(Boolean(), nullable=False, server_default='false', default=False)
 
     video = relationship(Video, backref='comments')
 
     @property
     def href(self):
-        return url_for('api.videocomment', comment_id=self.id)
+        return url_for('api.videocomment', video_id=self.video_id, comment_id=self.id)
 
     @classmethod
-    def comments_for_video(cls, video_id):
+    def comments_for_video(cls, video_id, comment_ids=None):
         """Return comments for a video with commenter name & email."""
         video_comments = cls.query.filter_by(video_id=video_id)
+        if comment_ids:
+            video_comments = video_comments.filter(cls.id.in_(comment_ids))
 
         account_comments = video_comments.join(
             AccountUser,

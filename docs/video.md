@@ -550,12 +550,13 @@ Content-Type: application/json
   "items": [
    {
     "id": 123,
-    "href": "/api/comment/123",
+    "href": "/api/video/51668773/comments/123",
     "datetime": "2014-06-25T18:38:36.311699",
     "comment": "This is a comment",
     "timestamp": 60,
     "username": "Paul Egan",
-    "avatar_url": "http://path/to/small/avatar/img.png"
+    "avatar_url": "http://path/to/small/avatar/img.png",
+    "resolved": false
    }
   ]
  }
@@ -578,12 +579,12 @@ On success a `201` will be returned and a `400` on error.
 
 ```http
 HTTP/1.1 201 CREATED
-Location: /api/comment/2
+Location: /api/video/51668773/comments/2
 Content-Type: application/json
 
 {
  "id": 2,
- "href": "/api/comment/2"
+ "href": "/api/video/51668773/comments/2"
 }
 ```
 
@@ -608,6 +609,17 @@ POST /api/video/<video_id>/comments/notification HTTP/1.1
 
 ```http
 HTTP/1.1 204 NO CONTENT
+```
+
+To mark a comment as resolved `PATCH` the comment to update the value.
+
+```http
+PATCH /api/video/<video_id>/comments/<comment_id> HTTP/1.1
+Content-Type: application/json
+
+{
+ "resolved": true
+}
 ```
 
 ### Video Collaborators

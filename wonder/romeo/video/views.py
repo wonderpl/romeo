@@ -235,11 +235,11 @@ def video_view(with_collaborator_permission=None):
 
     def decorator(f):
         @wraps(f)
-        def wrapper(self, video_id):
+        def wrapper(self, video_id, *args, **kwargs):
             video = Video.query.filter_by(deleted=False, id=video_id).first_or_404()
             if (_valid_collaborator_permissions(current_user, video_id) or
                     video.account_id == current_user.account_id):
-                return f(self, video)
+                return f(self, video, *args, **kwargs)
             else:
                 abort(403)
         return wrapper
@@ -486,14 +486,27 @@ class VideoCollaboratorsResource(Resource):
 
 def video_comment_view(f):
     @wraps(f)
-    def decorator(self, video):
+    def decorator(self, video, *args, **kwargs):
         collaborator = current_user.get_collaborator(video.id)
         if collaborator:
             user_type, user_id = 'collaborator', collaborator.id
         else:
             user_type, user_id = 'account_user', current_user.id
-        return f(self, video, user_type, user_id)
+        return f(self, video, user_type, user_id, *args, **kwargs)
     return video_view(with_collaborator_permission='comment')(decorator)
+
+
+def _comment_item(comment, username, email):
+    return dict(
+        id=comment.id,
+        href=comment.href,
+        comment=comment.comment,
+        timestamp=comment.timestamp,
+        datetime=comment.date_added.isoformat(),
+        username=username or email,
+        avatar_url=_gravatar_url(email),
+        resolved=comment.resolved,
+    )
 
 
 @api_resource('/video/<int:video_id>/comments')
@@ -501,19 +514,7 @@ class VideoCommentsResource(Resource):
 
     @video_comment_view
     def get(self, video, user_type, user_id):
-        comments = VideoComment.comments_for_video(video.id)
-        items = [
-            dict(
-                id=comment.id,
-                href=comment.href,
-                comment=comment.comment,
-                timestamp=comment.timestamp,
-                datetime=comment.date_added.isoformat(),
-                username=username or email,
-                avatar_url=_gravatar_url(email),
-            )
-            for comment, username, email in comments
-        ]
+        items = [_comment_item(*c) for c in VideoComment.comments_for_video(video.id)]
         return dict(comment=dict(items=items, total=len(items)))
 
     @commit_on_success
@@ -537,8 +538,28 @@ class VideoCommentsNotificationResource(Resource):
         return None, 204
 
 
-@api_resource('/comment/<int:comment_id>')
+@api_resource('/video/<int:video_id>/comments/<int:comment_id>')
 class VideoCommentResource(Resource):
 
-    def get(self, video_id, comment_id):
-        pass
+    comment_parser = RequestParser()
+    comment_parser.add_argument('resolved', type=bool)
+
+    @video_comment_view
+    def get(self, video, user_type, user_id, comment_id):
+        try:
+            comment = VideoComment.comments_for_video(video.id, [comment_id])[0]
+        except IndexError:
+            abort(404)
+        else:
+            return _comment_item(*comment)
+
+    @commit_on_success
+    @video_comment_view
+    def patch(self, video, user_type, user_id, comment_id):
+        if user_type != 'account_user':
+            return dict(error='forbidden'), 403
+        comment = VideoComment.query.filter_by(id=comment_id).first_or_404()
+        args = self.comment_parser.parse_args()
+        if args.resolved is not None:
+            comment.resolved = args.resolved
+        return _comment_item(*VideoComment.comments_for_video(video.id, [comment_id])[0])
