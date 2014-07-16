@@ -5407,6 +5407,8 @@ h3 {
 /* line 50, ../../scss/specifics/video/_video-share.scss */
 .video-share__embed-code-field {
   width: 40em;
+  padding: 0.5em;
+  font-size: 1em;
 }
 
 /* line 1, ../../scss/specifics/video/_video-indicators.scss */

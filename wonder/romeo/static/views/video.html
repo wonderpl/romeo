@@ -25,7 +25,7 @@
       <video-upload ng-show="showUpload && isEdit"></video-upload>
       <video-player ng-show="hasProcessed" embed-url="embedUrl"></video-player>
       <video-edit ng-show="showVideoEdit && isEdit"></video-edit>
-      <video-color-picker video-id="{{ video.id }}" ng-show="showColorPicker && isEdit"></video-color-picker>
+      <video-color-picker player-parameters="playerParameters" video-id="{{ video.id }}" ng-show="showColorPicker && isEdit"></video-color-picker>
       <video-thumbnail ng-show="showPreviewSelector && isEdit"></video-thumbnail>
     </div>
 
@@ -33,7 +33,7 @@
       text="video.link_title"
       url="video.link_url"
       is-edit="{{ isEdit }}"
-      ng-show="isEdit || video.link_title && video.link_url">
+      ng-show="(isEdit || video.link_title && video.link_url) && !isComments">
     </video-more-link>
 
     <section class="video-view__description"
@@ -44,9 +44,9 @@
       ng-show="isEdit">
     </section>
 
-    <section class="video-view__description" ng-bind-html="video.description" ng-hide="isEdit"></section>
+    <section class="video-view__description" ng-bind-html="video.description" ng-hide="isComments || isEdit"></section>
 
-    <video-share video="video"></video-share>
+    <video-share video="video" ng-hide="isComments"></video-share>
 
     <section class="video-extended-controls" ng-show="isEdit">
 

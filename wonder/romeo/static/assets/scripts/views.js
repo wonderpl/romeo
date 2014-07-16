@@ -1114,7 +1114,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <section class=\"video-share__embed-code-container\"\n" +
     "    ng-class=\"{ 'video-share__embed-code-container--active' : showEmbedCode }\">\n" +
     "  <label class=\"video-share__embed-code-label\">\n" +
-    "    <input class=\"video-share__embed-code-field\" />\n" +
+    "    <input class=\"video-share__embed-code-field\" placeholder=\"embed link\" />\n" +
     "  </label>\n" +
     "\n" +
     "  </section>\n" +
@@ -1205,7 +1205,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <video-upload ng-show=\"showUpload && isEdit\"></video-upload>\n" +
     "      <video-player ng-show=\"hasProcessed\" embed-url=\"embedUrl\"></video-player>\n" +
     "      <video-edit ng-show=\"showVideoEdit && isEdit\"></video-edit>\n" +
-    "      <video-color-picker video-id=\"(~ video.id ~)\" ng-show=\"showColorPicker && isEdit\"></video-color-picker>\n" +
+    "      <video-color-picker player-parameters=\"playerParameters\" video-id=\"(~ video.id ~)\" ng-show=\"showColorPicker && isEdit\"></video-color-picker>\n" +
     "      <video-thumbnail ng-show=\"showPreviewSelector && isEdit\"></video-thumbnail>\n" +
     "    </div>\n" +
     "\n" +
@@ -1213,7 +1213,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      text=\"video.link_title\"\n" +
     "      url=\"video.link_url\"\n" +
     "      is-edit=\"(~ isEdit ~)\"\n" +
-    "      ng-show=\"isEdit || video.link_title && video.link_url\">\n" +
+    "      ng-show=\"(isEdit || video.link_title && video.link_url) && !isComments\">\n" +
     "    </video-more-link>\n" +
     "\n" +
     "    <section class=\"video-view__description\"\n" +
@@ -1224,9 +1224,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      ng-show=\"isEdit\">\n" +
     "    </section>\n" +
     "\n" +
-    "    <section class=\"video-view__description\" ng-bind-html=\"video.description\" ng-hide=\"isEdit\"></section>\n" +
+    "    <section class=\"video-view__description\" ng-bind-html=\"video.description\" ng-hide=\"isComments || isEdit\"></section>\n" +
     "\n" +
-    "    <video-share video=\"video\"></video-share>\n" +
+    "    <video-share video=\"video\" ng-hide=\"isComments\"></video-share>\n" +
     "\n" +
     "    <section class=\"video-extended-controls\" ng-show=\"isEdit\">\n" +
     "\n" +

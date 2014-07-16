@@ -25,6 +25,7 @@ angular.module('RomeoApp.directives')
     replace : true,
     template : $templateCache.get('video-color-picker.html'),
     scope : {
+      playerParameters : '=',
       videoId : '@'
     },
     link : function (scope, elem, attrs) {
@@ -33,7 +34,7 @@ angular.module('RomeoApp.directives')
     controller : function ($scope) {
 
       $scope.toggleHideLogo = function () {
-
+        console.log($scope.hideLogo);
         shimChangesToIFrame($scope.hideLogo);
         saveLogoSetting($scope.hideLogo);
       };
@@ -41,7 +42,7 @@ angular.module('RomeoApp.directives')
       function saveLogoSetting (hideLogo) {
         VideoService.setPlayerParameters($scope.videoId, {
           hideLogo : $scope.hideLogo,
-          rgb : $scope.color
+          rgb : JSON.stringify($scope.color)
         });
       }
 
@@ -61,6 +62,16 @@ angular.module('RomeoApp.directives')
           if (newValue && newValue !== oldValue) {
             $timeout.cancel(promise);
             promise = $timeout(function () { saveColor(newValue) }, 1000);
+          }
+        }
+      );
+
+      $scope.$watch(
+        function() { return $scope.playerParameters; },
+        function(newValue, oldValue) {
+          if (newValue && newValue !== oldValue) {
+            $scope.color = $scope.playerParameters.rgb;
+            $scope.hideLogo = $scope.playerParameters.hideLogo;
           }
         }
       );
