@@ -1,6 +1,6 @@
 .video-feedback {
-  max-width: 600px;
-  margin: 40px auto;
+  margin: 48px 0 0;
+  display: block;
 }
 
 .video-feedback__input-container {
@@ -11,12 +11,12 @@
 .video-feedback__form {
   text-align: right;
   transition: max-height 0.4s ease-in-out;
-  max-height: 40px;
+  max-height: 8em;
   overflow: hidden;
 }
 
 .video-feedback__form--active {
-  max-height: 200px;
+  max-height: 100em;
 }
 
 .video-feedback__input {
@@ -25,6 +25,8 @@
   resize: none;
   transition: height 0.4s ease-in-out;
   height: 35px;
+  font-size: 1em;
+  width: 100%;
 }
 
 .video-feedback__input--active {
@@ -33,16 +35,85 @@
 
 .video-feedback__comments {
   margin: 20px 0;
-  max-height: 300px;
   transition: all 1s ease-in-out;
   position: relative;
 }
 
 .video-feedback__comment {
-  margin-bottom: 1em;
+  transition: border-width 0.4s, padding-left 0.4s linear;
+  margin: 1em 0;
   position: relative;
-  padding-left: 20px;
-  padding-bottom: 2em;
+  padding-bottom: 24px;
+  clear: both;
+  text-align: left;
+}
+
+.video-feedback__comment-details {
+  display: block;
+  padding-top: 0.5em;
+  min-height: 0.5em;
+}
+
+.video-feedback__comment-resolved {
+  font-size: 0.8em;
+  padding: 0.5em;
+  color: $white;
+  background: $black;
+  display: inline-block;
+  transition: opacity 0.4s;
+  opacity: 0;
+}
+
+.video-feedback__comment-resolved--active {
+  opacity: 1;
+}
+
+.video-feedback__comment--resolved:after {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: $white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.6;
+}
+
+.video-feedback__comment-content {
+  margin-top: 0.5em;
+}
+
+.video-feedback__comment-timestamp {
+  display: block;
+  float: left;
+}
+
+.video-feedback__comment-profile-image {
+  display: inline-block;
+  height: 66px;
+  width: 66px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border-radius: 50%;
+  float: left;
+  margin-right: 1em;
+}
+
+.video-feedback__comment-text {
+  margin-left: 140px;
+}
+
+.video-feedback__comment-name {
+  font-weight: 800;
+  margin-right: 1em;
+}
+
+.video-feedback__comment-time-posted {
+  font-size: 0.8em;
+  color: $grey;
+  margin-right: 1em;
 }
 
 .video-feedback__comment--active {
@@ -89,6 +160,23 @@
 
 .video-feedback__comment-author:after {
   content: ',';
+}
+
+.video-feedback__resolve-link {
+  position: absolute;
+  bottom: 12px;
+  right: 4em;
+  opacity: 0;
+  cursor: pointer;
+  color: $dark-green;
+}
+
+.video-feedback__resolve-link--active {
+  opacity: 1;
+}
+
+.video-feedback__resolve-link:hover {
+  text-decoration: underline;
 }
 
 .video-feedback__reply-link {

@@ -106,7 +106,7 @@
 
     </section>
 
-    <section ng-show="video.id && isComments"><!-- video.status === 'published'" -->
+    <section class="video-view__comments" ng-show="video.id && isComments"><!-- video.status === 'published'" -->
       <video-indicators comments="comments" current-time="videoCurrentTime" total-time="videoTotalTime"></video-indicators>
       <video-frame-stepper current-time="videoCurrentTime"></video-frame-stepper>
       <video-comments comments="comments" video-id="{{ video.id }}" current-time="videoCurrentTime"></video-comments>

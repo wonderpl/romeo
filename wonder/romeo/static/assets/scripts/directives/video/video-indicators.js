@@ -33,10 +33,13 @@ angular.module('RomeoApp.directives')
 
       $scope.seekByPosition = function (e) {
 
-        var position = $(e.currentTarget).position();
+        var position = $(e.currentTarget).offset();
         var left = e.pageX - position.left;
         var width = $(e.currentTarget).width();
         var percentage = left/width;
+
+        console.log(percentage);
+
         var time = $scope.totalTimeInSeconds * percentage;
 
         $scope.seek(time);

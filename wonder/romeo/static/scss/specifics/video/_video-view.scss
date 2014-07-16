@@ -20,11 +20,10 @@
 }
 
 .video-view__comments {
-  display: none;
-}
-
-.video-view__comments--active {
-  display: block;
+  position: relative;
+  max-width: 75%;
+  text-align: ceter;
+  margin-left: 48px;
 }
 
 .video-view__edit {

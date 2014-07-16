@@ -1,17 +1,32 @@
 <section class="video-feedback">
 
   <section
-    class="video-feedback__form"
+    class="video-feedback__form video-feedback__form--active"
     ng-class="{ 'video-feedback__form--active' : inputActive }">
     <section class="video-feedback__input-container">
-      <textarea class="video-feedback__input"
-        placeholder="Insert comment&hellip;"
-        ng-model="commentText"
-        ng-class="{ 'video-feedback__input--active' : inputActive }"
-        ng-focus="inputActive = true"
-        ng-blur="inputActive = false"
-        focus="inputActive">
-      </textarea>
+
+      <div class="video-feedback__comment">
+        <a class="video-feedback__comment-profile-image" style="background-image: url('{{ test.avatar }}');"></a>
+        <div class="video-feedback__comment-details">
+          <span class="video-feedback__comment-name">{{ test.display_name }}</span>
+        </div>
+        <div class="video-feedback__comment-content">
+          <span class="video-feedback__comment-timestamp">
+            @<a class="video-feedback__comment-timestamp-link" ng-bind="(currentTime | time)"></a>
+          </span>
+          <div class="video-feedback__comment-text">
+            <textarea class="video-feedback__input"
+              placeholder="Hit the space bar to pause the video and write your comments here&hellip;"
+              ng-model="commentText"
+              ng-class="{ 'video-feedback__input--active' : inputActive }"
+              ng-focus="inputActive = true"
+              ng-blur="inputActive = false"
+              focus="inputActive">
+            </textarea>
+          </div>
+        <div>
+      </div>
+
     </section>
     <a class="video-feedback__button button button--primary"
       ng-click="addComment()">
@@ -23,22 +38,33 @@
 
     <ul class="video-feedback__comments-list">
       <li class="video-feedback__comment"
-        ng-class="{ 'video-feedback__comment--active' : isTimeSync(comment.timestamp) }"
+        ng-class="{ 'video-feedback__comment--active' : isTimeSync(comment.timestamp), 'video-feedback__comment--resolved' : comment.isResolved }"
         ng-repeat="comment in comments | orderBy : 'timestamp'"
         ng-mouseenter="replyActive = true"
         ng-mouseleave="replyActive = false">
-        <span class="video-feedback__comment-name" ng-bind="comment.username"></span>
-        <span class="video-feedback__comment-time-posted" ng-bind="comment.datetime | prettyDate"></span>
-        <div class="video-feedback__comment-text">
-          <span class="video-feedback__comment-timestamp" ng-show="comment.timestamp">
-            @<a class="video-feedback__comment-timestamp-link" ng-bind="comment.timestamp | time" ng-click="videoSeek(comment.timestamp)"></a>
-          </span>
-          {{ comment.comment }}
+        <a class="video-feedback__comment-profile-image" style="background-image: url('{{ comment.avatar_url }}');"></a>
+        <div class="video-feedback__comment-details">
+          <span class="video-feedback__comment-name" ng-bind="comment.username"></span>
+          <span class="video-feedback__comment-time-posted" ng-bind="comment.datetime | prettyDate"></span>
+          <span class="video-feedback__comment-resolved" ng-class="{ 'video-feedback__comment-resolved--active' : replyActive && comment.isResolved }">resolved</span>
         </div>
+        <div class="video-feedback__comment-content">
+          <span class="video-feedback__comment-timestamp" ng-show="comment.timestamp">
+            @<a class="video-feedback__comment-timestamp-link" ng-click="videoSeek(comment.timestamp)" ng-bind="(comment.timestamp | time)"></a>
+          </span>
+          <div class="video-feedback__comment-text">
+            {{ comment.comment }}
+          </div>
+        <div>
         <a class="video-feedback__reply-link"
           ng-class="{ 'video-feedback__reply-link--active' : replyActive }"
           ng-click="reply(comment.timestamp)">
           reply
+        </a>
+        <a class="video-feedback__resolve-link"
+          ng-class="{ 'video-feedback__resolve-link--active' : replyActive && isOwner }"
+          ng-click="resolve(comment.id)">
+          resolve
         </a>
       </li>
     </ul>

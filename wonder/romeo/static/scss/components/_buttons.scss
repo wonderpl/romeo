@@ -3,7 +3,7 @@
   border-radius: 24px;
   display: inline-block;
   padding: 1em;
-  color: $light-grey;
+  color: $grey;
   transition: border-color 0.3s ease-in-out;
   cursor: pointer;
 }
@@ -40,12 +40,14 @@
   border-top-left-radius: 24px;
   border-bottom-left-radius: 24px;
   border-right-color: transparent;
+  font-weight: bold;
 }
 
 .button__component--right {
   border-top-right-radius: 24px;
   border-bottom-right-radius: 24px;
   border-left-color: transparent;
+  font-weight: bold;
 }
 
 .button__component--input-container {
