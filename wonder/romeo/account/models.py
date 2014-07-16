@@ -26,6 +26,7 @@ class AccountUser(db.Model):
     password_hash = Column(String(128), nullable=False)
     active = Column(Boolean, nullable=False, default=True, server_default='true')
     display_name = Column(String(256))
+    avatar_url = Column(String(256))
 
     account = relationship(Account, backref='users')
 

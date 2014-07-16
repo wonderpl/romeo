@@ -624,6 +624,30 @@ Content-Type: application/json
 
 ### Video Collaborators
 
+To retrieve a list of collaborators `GET` the sub resource:
+
+```http
+GET /api/video/<video_id>/collaborators HTTP/1.1
+```
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+ "collaborator": {
+  "total": 1,
+  "items": [
+   {
+    "username": "Paul Egan",
+    "avatar_url": "http://path/to/small/avatar/img.png",
+    "permissions": ["can_comment"]
+   }
+  ]
+ }
+}
+```
+
 To invite an external user to view, download, or comment on a video `POST`
 to the collaborators sub-resource.
 

@@ -4,10 +4,11 @@ from flask import (Blueprint, current_app, request, render_template, url_for,
                    session, redirect, jsonify, abort)
 from flask.ext.login import login_user, logout_user, fresh_login_required, current_user
 from flask.ext.restful.reqparse import RequestParser
+from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.rest import Resource, api_resource
 from wonder.romeo.core.dolly import DollyUser
 from .forms import LoginForm, ChangePasswordForm
-from .models import UserProxy
+from .models import UserProxy, AccountUser
 
 
 accountapp = Blueprint('account', __name__)
@@ -115,6 +116,12 @@ class UserResource(Resource):
         )
 
 
+@commit_on_success
+def _update_users(account_id, **kwargs):
+    args_are_null = dict((k, None) for k in kwargs)
+    AccountUser.query.filter_by(account_id=account_id, **args_are_null).update(kwargs)
+
+
 @api_resource('/account/<int:account_id>')
 class AccountResource(Resource):
 
@@ -142,10 +149,15 @@ class AccountResource(Resource):
         for arg, value in args.items():
             if value:
                 try:
-                    getattr(dollyuser, arg)(value)
+                    result = getattr(dollyuser, arg)(value)
                 except Exception as e:
                     if hasattr(e, 'response'):
                         return e.response.json(), e.response.status_code
                     else:
                         raise
+                else:
+                    if arg == 'set_avatar_image':
+                        _update_users(account.id, avatar_url=result)
+                    elif arg == 'set_display_name':
+                        _update_users(account.id, display_name=value)
         return self.get(account.id)

@@ -454,8 +454,8 @@ def _gravatar_url(email):
 
 def _collaborator_item(collaborator):
     return dict(
-        name=collaborator.name,
-        email=collaborator.email,
+        username=collaborator.name,
+        #email=collaborator.email,
         permissions=filter(None, [f if getattr(collaborator, f) else None
                                   for f in dir(collaborator) if f.startswith('can_')]),
         avatar_url=_gravatar_url(collaborator.email),
@@ -469,6 +469,13 @@ class VideoCollaboratorsResource(Resource):
     def get(self, video):
         query = VideoCollaborator.query.filter_by(video_id=video.id)
         items = map(_collaborator_item, query.all())
+        items.extend(
+            dict(
+                username=user.display_name or user.username,
+                avatar_url=user.avatar_url or _gravatar_url(user.username),
+            )
+            for user in video.account.users
+        )
         return dict(collaborator=dict(items=items, total=len(items)))
 
     @commit_on_success
@@ -496,7 +503,7 @@ def video_comment_view(f):
     return video_view(with_collaborator_permission='comment')(decorator)
 
 
-def _comment_item(comment, username, email):
+def _comment_item(comment, username, email, avatar_url):
     return dict(
         id=comment.id,
         href=comment.href,
@@ -504,7 +511,7 @@ def _comment_item(comment, username, email):
         timestamp=comment.timestamp,
         datetime=comment.date_added.isoformat(),
         username=username or email,
-        avatar_url=_gravatar_url(email),
+        avatar_url=avatar_url or _gravatar_url(email),
         resolved=comment.resolved,
     )
 

@@ -3,7 +3,7 @@ from urlparse import urljoin
 from itsdangerous import URLSafeSerializer
 from sqlalchemy import (
     Column, Integer, String, Text, Boolean, DateTime, ForeignKey, Enum,
-    PrimaryKeyConstraint, func, event)
+    PrimaryKeyConstraint, func, event, null)
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.ext.associationproxy import association_proxy
@@ -306,7 +306,8 @@ class VideoComment(db.Model):
         ).with_entities(
             VideoComment,
             AccountUser.display_name.label('name'),
-            AccountUser.username.label('email')
+            AccountUser.username.label('email'),
+            AccountUser.avatar_url,
         )
 
         collab_comments = video_comments.join(
@@ -316,7 +317,8 @@ class VideoComment(db.Model):
         ).with_entities(
             VideoComment,
             VideoCollaborator.name,
-            VideoCollaborator.email
+            VideoCollaborator.email,
+            null().label('avatar_url'),
         )
 
         return account_comments.union_all(collab_comments).order_by(VideoComment.date_added)

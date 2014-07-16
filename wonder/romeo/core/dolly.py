@@ -103,10 +103,12 @@ class DollyUser(object):
         self._user_request('description', 'put', description)
 
     def set_avatar_image(self, image):
-        self._user_request('avatar', 'put', files=dict(image=image))
+        response = self._user_request('avatar', 'put', files=dict(image=image))
+        return response.json()['thumbnail_url']
 
     def set_profile_image(self, image):
-        self._user_request('profile_cover', 'put', files=dict(image=image))
+        response = self._user_request('profile_cover', 'put', files=dict(image=image))
+        return response.json()['thumbnail_url']
 
     def create_channel(self, channeldata):
         self._set_all_channel_data(channeldata)
