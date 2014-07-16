@@ -52,13 +52,14 @@ class VideoData(DataSet):
         external_id = 'yy'
         filename = 'ggggggggg'
         status = 'published'
+        dolly_instance = 'vi123'
 
 
 class VideoTagData(DataSet):
     class VideoTag1:
         account_id = 1
         label = 'Collection 1'
-        dolly_channel = 'ccccc'
+        dolly_channel = 'ch123'
 
 
 class VideoTagVideoData(DataSet):

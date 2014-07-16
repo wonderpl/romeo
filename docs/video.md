@@ -436,6 +436,43 @@ Content-Type: application/json
 }
 ```
 
+### Video embed code
+
+Request the embed code sub-resource to get the code for embedding a video in a HTML page.
+
+```http
+GET /api/video/<video_id>/embed_code?style=<style>&width=<width>&height=<height> HTTP/1.1
+```
+
+Parameter | Required | Value                   | Description
+:-------- | :------- | :---------------------- | :----------
+style     | No       | `simple` or `seo`       | The SEO embed includes additional metadata for the page.
+width     | No       | alphanumeric            | Specifies the width of the embed iframe
+height    | No       | alphanumeric            | Specifies the height of the embed iframe
+
+The response will include the HTML string:
+
+```
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+ "html": "<iframe src=\"http://wonderpl.com/embed/V\" width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen></iframe>"
+}
+```
+
+This service will return a 400 if the video has not been published (i.e. added to a tag
+associated with a Dolly channel).
+
+```http
+HTTP/1.1 400 BAD REQUEST
+Content-Type: application/json
+
+{
+ "error": "invalid_request"
+}
+```
+
 ### Video tags
 
 To associate a tag with a video (add a video to a collection), `POST` the tag id to the video

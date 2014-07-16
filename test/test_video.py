@@ -132,7 +132,9 @@ class VideoWorkflowTestCase(DataTestCase, TestCase):
                     self.data.VideoTagData.tag.dolly_channel, publish_video.return_value)
                 self.assertIn(dolly_link, send_email.call_args[0][1])
 
-                self.assertEquals(Video.query.get(videoid).status, 'published')
+                video = Video.query.get(videoid)
+                self.assertEquals(video.status, 'published')
+                self.assertEquals(video.dolly_instance, publish_video.return_value)
 
         # update
         with patch('wonder.romeo.core.dolly._request') as dolly_request:
@@ -181,10 +183,24 @@ class VideoMetaTestCase(TestCase):
             get_share_link.return_value = url
             url += '?utm_source=facebook'
             with client_for_account(video.account_id) as client:
-                r = client.get('/api/video/%d/share_url?target=facebook' % video.id)
+                r = client.get('/api/video/%d/share_url' % video.id,
+                               query_string=[('target', 'facebook')])
                 self.assertEquals(r.status_code, 302)
                 self.assertEquals(r.headers['Location'], url)
                 self.assertEquals(json.loads(r.data)['url'], url)
+
+    def test_embed_code(self):
+        video = Video.query.filter_by(status='published').first()
+        with patch('wonder.romeo.core.dolly.DollyUser.get_share_link') as get_share_link:
+            url = 'http://wonderpl.com/xxx'
+            get_share_link.return_value = url
+            url += '?utm_source=facebook'
+            with client_for_account(video.account_id) as client:
+                r = client.get('/api/video/%d/embed_code' % video.id,
+                               query_string=[('style', 'seo'), ('width', '90%')])
+                self.assertEquals(r.status_code, 200)
+                html = json.loads(r.data)['html']
+                self.assertRegexpMatches(html, '.*<iframe.*wonderpl.com.*width="90%"')
 
 
 class VideoEditTestCase(TestCase):

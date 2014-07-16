@@ -1,0 +1,12 @@
+<iframe src="{{ embed_url }}" width="{{ width }}" height="{{ height }}" frameborder="0" allowfullscreen></iframe>
+<div itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
+  <meta itemprop="name" content="{{ video.title }}" />
+  <meta itemprop="duration" content="{{ video.duration }}" />{# TODO: ISO duration like "T3M25S" #}
+  <meta itemprop="thumbnailUrl" content="{{ video.thumbnail }}" />
+  <meta itemprop="embedUrl" content="http://player.ooyala.com/player.swf?embedCode={{ video.external_id }}&keepEmbedCode=true" />
+  {% if video.description %}
+  <noscript itemprop="description">
+    {{ video.description|safe }}
+  </noscript>
+  {% endif %}
+</div>

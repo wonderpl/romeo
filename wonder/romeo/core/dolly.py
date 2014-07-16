@@ -145,10 +145,7 @@ class DollyUser(object):
                   if v['video']['source_id'] != videodata['source_id']]
         self._user_request('channels/%s/videos' % channelid, 'put', jsondata=videos)
 
-    def get_share_link(self, channelid, videodata):
-        # XXX: Slow! Need to fetch whole channel to figure out the instance id
-        instanceid = next(v['id'] for v in self.get_channel_videos(channelid)
-                          if v['video']['source_id'] == videodata['source_id'])
+    def get_share_link(self, instanceid):
         objdata = dict(object_type='video_instance', object_id=instanceid)
         response = _request('share/link/', 'post', token=self.token, jsondata=objdata)
         if response.status_code == 201:

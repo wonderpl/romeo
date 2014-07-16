@@ -326,19 +326,40 @@ class VideoShareUrlResource(Resource):
 
     @video_view()
     def get(self, video):
-        videodata = dict(source_id=video.external_id)
-        try:
-            channelid = next(t.dolly_channel for t in video.tags if t.dolly_channel)
-        except StopIteration:
+        if not video.dolly_instance:
             # Not published
             return dict(error='invalid_request'), 400
-        else:
-            url = get_dollyuser(current_user.account).get_share_link(channelid, videodata)
 
+        url = get_dollyuser(current_user.account).get_share_link(video.dolly_instance)
         if request.args.get('target') in ('facebook', 'twitter'):
             url += '?utm_source=' + request.args['target']
 
         return dict(url=url), 302, {'Location': url}
+
+
+@api_resource('/video/<int:video_id>/embed_code')
+class VideoEmbedCodeResource(Resource):
+
+    @video_view()
+    def get(self, video):
+        if not video.dolly_instance:
+            # Not published
+            return dict(error='invalid_request'), 400
+
+        dimensions = dict(width='100%', height='100%')
+        for key in dimensions.keys():
+            if request.args.get(key, '').rstrip('%').isalnum():
+                dimensions[key] = request.args[key]
+
+        if request.args.get('style') == 'seo':
+            template = 'video/embed_seo.html'
+        else:
+            template = 'video/embed_simple.html'
+
+        embed_url = current_app.config['DOLLY_EMBED_URL_FMT'].format(
+            instanceid=video.dolly_instance)
+        html = render_template(template, video=video, embed_url=embed_url, **dimensions)
+        return dict(html=html)
 
 
 @api_resource('/video/<int:video_id>/player_parameters')
@@ -395,6 +416,7 @@ class VideoTagsResource(Resource):
                 publish_video(tag.dolly_channel, videodata)
             if video.status == 'ready':
                 video.status = 'published'
+                video.dolly_instance = instanceid
                 if instanceid:
                     send_published_email(video.id, tag.dolly_channel, instanceid)
 

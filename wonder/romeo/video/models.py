@@ -33,6 +33,7 @@ class Video(db.Model):
     external_id = Column(String(32))
     category = Column(String(8))
     player_logo_filename = Column(String(128))
+    dolly_instance = Column(String(128))
 
     account = relationship(Account, backref='videos')
 
