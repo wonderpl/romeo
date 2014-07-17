@@ -955,16 +955,16 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <section class=\"video-feedback__input-container\">\n" +
     "\n" +
     "      <div class=\"video-feedback__comment\">\n" +
-    "        <a class=\"video-feedback__comment-profile-image\" style=\"background-image: url('(~ test.avatar ~)');\"></a>\n" +
+    "        <a class=\"video-feedback__comment-profile-image\" style=\"background-image: url('(~ user.avatar ~)');\"></a>\n" +
     "        <div class=\"video-feedback__comment-details\">\n" +
-    "          <span class=\"video-feedback__comment-name\">(~ test.display_name ~)</span>\n" +
+    "          <span class=\"video-feedback__comment-name\">(~ user.display_name ~)</span>\n" +
     "        </div>\n" +
     "        <div class=\"video-feedback__comment-content\">\n" +
     "          <span class=\"video-feedback__comment-timestamp\">\n" +
     "            @<a class=\"video-feedback__comment-timestamp-link\" ng-bind=\"(currentTime | time)\"></a>\n" +
     "          </span>\n" +
     "          <div class=\"video-feedback__comment-text\">\n" +
-    "            <textarea class=\"video-feedback__input\"\n" +
+    "            <textarea class=\"video-feedback__input js-video-feedback-input\"\n" +
     "              placeholder=\"Hit the space bar to pause the video and write your comments here&hellip;\"\n" +
     "              ng-model=\"commentText\"\n" +
     "              ng-class=\"{ 'video-feedback__input--active' : inputActive }\"\n" +
@@ -1348,10 +1348,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <div class=\"video-view__comments-section--left\">\n" +
     "        <video-indicators comments=\"comments\" current-time=\"videoCurrentTime\" total-time=\"videoTotalTime\"></video-indicators>\n" +
     "        <video-frame-stepper current-time=\"videoCurrentTime\"></video-frame-stepper>\n" +
-    "        <video-comments comments=\"comments\" video-id=\"(~ video.id ~)\" current-time=\"videoCurrentTime\"></video-comments>\n" +
+    "        <video-comments notified=\"notified\" comments=\"comments\" video-id=\"(~ video.id ~)\" current-time=\"videoCurrentTime\"></video-comments>\n" +
     "      </div>\n" +
     "      <div class=\"video-view__comments-section--right\">\n" +
-    "        <video-collaborators ng-show=\"video.id && isComments\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
+    "        <video-collaborators notified=\"notified\" ng-show=\"video.id && isComments\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
     "      </div>\n" +
     "    </section>\n" +
     "\n" +

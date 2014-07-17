@@ -22,6 +22,7 @@ angular.module('RomeoApp.controllers')
       $scope.videoHasLoaded = false;
       $scope.embedUrl = '';
       $scope.currentTime = 0;
+      $scope.notified = false;
     }
 
     $scope.$watch(
@@ -188,7 +189,6 @@ angular.module('RomeoApp.controllers')
 
       if ($scope.player) {
         var state = $scope.player.getState();
-        console.log(state);
         $scope.player.seek(seconds);
       }
     }
@@ -251,6 +251,12 @@ angular.module('RomeoApp.controllers')
     bus.subscribe(OO.EVENTS.SEEKED, 'WonderUIModule', function (seconds) {
 
       $scope.player.pause();
+    });
+
+    bus.subscribe(OO.EVENTS.PAUSED, 'WonderUIModule', function () {
+      console.log('OO.EVENTS.PAUSED');
+      console.log(arguments);
+      $scope.$broadcast('player-paused');
     });
 
   }

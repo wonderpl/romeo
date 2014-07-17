@@ -5023,15 +5023,21 @@ textarea {
 .button--disabled {
   border-color: #b7bcbd;
   color: #b7bcbd;
+  cursor: not-allowed;
 }
 
-/* line 42, ../../scss/components/_buttons.scss */
+/* line 43, ../../scss/components/_buttons.scss */
+.button--disabled:hover {
+  border-color: #b7bcbd;
+}
+
+/* line 47, ../../scss/components/_buttons.scss */
 .button__component {
   border-radius: 0;
   cursor: pointer;
 }
 
-/* line 48, ../../scss/components/_buttons.scss */
+/* line 53, ../../scss/components/_buttons.scss */
 .button__component--left {
   border-top-left-radius: 24px;
   border-bottom-left-radius: 24px;
@@ -5039,7 +5045,7 @@ textarea {
   font-weight: bold;
 }
 
-/* line 55, ../../scss/components/_buttons.scss */
+/* line 60, ../../scss/components/_buttons.scss */
 .button__component--right {
   border-top-right-radius: 24px;
   border-bottom-right-radius: 24px;
@@ -5047,7 +5053,7 @@ textarea {
   font-weight: bold;
 }
 
-/* line 62, ../../scss/components/_buttons.scss */
+/* line 67, ../../scss/components/_buttons.scss */
 .button__component--input-container {
   padding-top: 14px;
 }
@@ -5408,7 +5414,7 @@ textarea {
 /* line 27, ../../scss/specifics/video/_video-view.scss */
 .video-view__comments-section--left {
   float: left;
-  width: 71%;
+  width: 73%;
   margin-left: 48px;
 }
 

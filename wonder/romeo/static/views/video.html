@@ -110,10 +110,10 @@
       <div class="video-view__comments-section--left">
         <video-indicators comments="comments" current-time="videoCurrentTime" total-time="videoTotalTime"></video-indicators>
         <video-frame-stepper current-time="videoCurrentTime"></video-frame-stepper>
-        <video-comments comments="comments" video-id="{{ video.id }}" current-time="videoCurrentTime"></video-comments>
+        <video-comments notified="notified" comments="comments" video-id="{{ video.id }}" current-time="videoCurrentTime"></video-comments>
       </div>
       <div class="video-view__comments-section--right">
-        <video-collaborators ng-show="video.id && isComments" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>
+        <video-collaborators notified="notified" ng-show="video.id && isComments" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>
       </div>
     </section>
 

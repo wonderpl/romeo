@@ -48,7 +48,8 @@ angular.module('RomeoApp.directives')
     scope : {
       videoId : '@',
       currentTime : '=',
-      comments : '='
+      comments : '=',
+      notified : '='
     },
     controller : function ($scope) {
 
@@ -58,12 +59,21 @@ angular.module('RomeoApp.directives')
         function() { return $rootScope.User; },
         function(newValue, oldValue) {
           if (newValue && newValue !== oldValue) {
-            console.log(newValue);
-            $scope.test = newValue;
+            $scope.user = newValue;
           }
         }
       );
 
+      $scope.$on('player-paused', videoOnPaused);
+
+      function videoOnPaused (event, data) {
+        console.log('player-paused');
+        $timeout(function () {
+          $scope.inputActive = true;
+          // UX no-no
+          // window.scroll(0, $('.js-video-feedback-input').offset().top - 48);
+        });
+      }
 
       $scope.isTimeSync = function (timestamp) {
         var isTimeSync;
@@ -94,6 +104,7 @@ angular.module('RomeoApp.directives')
           var comment = createComment(data);
           $scope.comments.push(comment);
           $scope.commentText = '';
+          $scope.notified = false;
         });
       };
 
