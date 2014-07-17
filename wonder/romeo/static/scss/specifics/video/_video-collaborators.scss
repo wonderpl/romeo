@@ -18,6 +18,13 @@
   margin-top: 0.5em;
 }
 
+.video-collaborators__none-message {
+  font-variant: small-caps;
+  color: $grey;
+  text-align: left;
+  text-transform: lowercase;
+}
+
 .video-collaborators__collaborator-image {
   height: 33px;
   width: 33px;

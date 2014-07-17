@@ -53,6 +53,19 @@ angular.module('RomeoApp.directives')
     },
     controller : function ($scope) {
 
+      function getCommentById (id) {
+        var comment;
+        var comments = $scope.comments;
+        var l = comments.length;
+        while (l--) {
+          if (comments[l].id === id) {
+            comment = comments[l];
+            break;
+          }
+        }
+        return comment;
+      }
+
       $scope.isOwner = true;
 
       $scope.$watch(
@@ -67,7 +80,6 @@ angular.module('RomeoApp.directives')
       $scope.$on('player-paused', videoOnPaused);
 
       function videoOnPaused (event, data) {
-        console.log('player-paused');
         $timeout(function () {
           $scope.inputActive = true;
           // UX no-no
@@ -85,10 +97,13 @@ angular.module('RomeoApp.directives')
         return isTimeSync;
       };
 
-      $scope.resolve = function (id) {
-
-        console.log('resolve()');
-        console.log(id);
+      $scope.resolve = function (commentId) {
+        CommentsService.resolveComment($scope.videoId, commentId).then(function (data) {
+          var comment = getCommentById(commentId);
+          angular.extend(comment, data);
+          // API bug
+          comment.resolved = true;
+        });
       };
 
       $scope.addComment = function () {

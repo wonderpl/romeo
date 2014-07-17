@@ -63,6 +63,7 @@ angular.module('RomeoApp.controllers')
       function(newValue, oldValue) {
         if (newValue !== '' && newValue !== oldValue) {
           CommentsService.getComments($scope.video.id).then(function (data) {
+            console.log(data);
             $scope.comments = data.comment.items;
           });
         }
@@ -225,8 +226,6 @@ angular.module('RomeoApp.controllers')
 
   pollIFrame();
 
-
-
   // http://support.ooyala.com/developers/documentation/concepts/xmp_securexdr_view_mbus.html
   // http://support.ooyala.com/developers/documentation/api/player_v3_api_events.html
   function bindEvents (OO) {
@@ -254,16 +253,10 @@ angular.module('RomeoApp.controllers')
     });
 
     bus.subscribe(OO.EVENTS.PAUSED, 'WonderUIModule', function () {
-      console.log('OO.EVENTS.PAUSED');
-      console.log(arguments);
+
       $scope.$broadcast('player-paused');
     });
-
   }
-
-
-
-
 
 
     var query = $location.search();

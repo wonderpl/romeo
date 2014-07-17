@@ -40,7 +40,7 @@
 }
 
 .video-feedback__comment {
-  transition: border-width 0.4s, padding-left 0.4s linear;
+  transition: border-width 0.4s, padding-left 0.4s, opacity 0.4s linear;
   margin: 1em 0;
   position: relative;
   padding-bottom: 24px;
@@ -68,16 +68,8 @@
   opacity: 1;
 }
 
-.video-feedback__comment--resolved:after {
-  content: '';
-  display: block;
-  height: 100%;
-  width: 100%;
-  background: $white;
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0.6;
+.video-feedback__comment--resolved {
+  opacity: 0.2;
 }
 
 .video-feedback__comment-content {
@@ -103,6 +95,7 @@
 
 .video-feedback__comment-text {
   margin-left: 140px;
+  margin-bottom: 12px;
 }
 
 .video-feedback__comment-name {

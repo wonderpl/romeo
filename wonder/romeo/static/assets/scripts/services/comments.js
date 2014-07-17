@@ -42,10 +42,22 @@ angular.module('RomeoApp.services').factory('CommentsService',
     return deferred.promise;
   }
 
+  function resolveComment (videoId, commentId) {
+    var deferred = new $q.defer();
+    AuthService.getSessionId().then(function(response){
+      deferred.resolve(DataService.request({
+        url: '/api/video/' + videoId + '/comments/' + commentId,
+        method: 'PATCH',
+      }));
+    });
+    return deferred.promise;
+  }
+
   return ({
-    notify      : notify,
-    addComment  : addComment,
-    getComments : getComments
+    resolveComment  : resolveComment,
+    notify          : notify,
+    addComment      : addComment,
+    getComments     : getComments
   });
 
 }]);
