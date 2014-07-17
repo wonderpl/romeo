@@ -26,6 +26,13 @@ angular.module('RomeoApp.controllers')
     }
 
     $scope.$watch(
+      function() { return $scope.video.category; },
+      function(newValue, oldValue) {
+        $scope.video.category = $scope.video.category || '';
+      }
+    );
+
+    $scope.$watch(
       function() { return $scope.video.title; },
       function(newValue, oldValue) {
         if (newValue && newValue !== oldValue) {

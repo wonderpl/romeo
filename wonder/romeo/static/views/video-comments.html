@@ -24,14 +24,15 @@
               focus="inputActive">
             </textarea>
           </div>
-        <div>
+        </div>
       </div>
-
+      <a class="video-feedback__button button button--primary push-bottom"
+        ng-class="{ 'video-feedback__button--active' : inputActive }"
+        ng-click="addComment()">
+        submit
+      </a>
     </section>
-    <a class="video-feedback__button button button--primary"
-      ng-click="addComment()">
-      submit
-    </a>
+
   </section>
 
   <section class="video-feedback__comments">

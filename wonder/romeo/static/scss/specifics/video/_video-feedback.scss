@@ -4,15 +4,14 @@
 }
 
 .video-feedback__input-container {
-  border-bottom: solid 1px $light-grey;
-  margin-bottom: 1em;
 }
 
 .video-feedback__form {
   text-align: right;
-  transition: max-height 0.4s ease-in-out;
+  transition: max-height 0.4s linear;
   max-height: 8em;
   overflow: hidden;
+  border-bottom: solid 1px $light-grey;
 }
 
 .video-feedback__form--active {
@@ -43,7 +42,6 @@
   transition: border-width 0.4s, padding-left 0.4s, opacity 0.4s linear;
   margin: 1em 0;
   position: relative;
-  padding-bottom: 24px;
   clear: both;
   text-align: left;
 }
@@ -201,4 +199,21 @@
 .video-feedback__notify {
   text-align: center;
 }
+
+.video-feedback__button {
+
+  visibility: hidden;
+}
+
+.video-feedback__button--active {
+
+  visibility: visible;
+}
+
+
+
+
+
+
+
 

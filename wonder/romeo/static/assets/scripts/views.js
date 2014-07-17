@@ -975,14 +975,15 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "              focus=\"inputActive\">\n" +
     "            </textarea>\n" +
     "          </div>\n" +
-    "        <div>\n" +
+    "        </div>\n" +
     "      </div>\n" +
-    "\n" +
+    "      <a class=\"video-feedback__button button button--primary push-bottom\"\n" +
+    "        ng-class=\"{ 'video-feedback__button--active' : inputActive }\"\n" +
+    "        ng-click=\"addComment()\">\n" +
+    "        submit\n" +
+    "      </a>\n" +
     "    </section>\n" +
-    "    <a class=\"video-feedback__button button button--primary\"\n" +
-    "      ng-click=\"addComment()\">\n" +
-    "      submit\n" +
-    "    </a>\n" +
+    "\n" +
     "  </section>\n" +
     "\n" +
     "  <section class=\"video-feedback__comments\">\n" +
@@ -1204,8 +1205,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <a class=\"video-preview__close-link\" ng-click=\"closePreviewSelector()\">×</a>\n" +
     "    <section class=\"video-preview__images-container\">\n" +
     "      <ul class=\"video-preview__available-images js-preview-images\" style=\"width: (~ previewImages.length * 500 ~)px\" ng-style=\"indexOffset\">\n" +
-    "        <li class=\"video-preview__available-image-container (~ $index ~)\" ng-class=\"{ 'video-preview__available-image-container--active' : previewIndex === $index }\" ng-repeat=\"preview in previewImages\">\n" +
-    "          <img class=\"video-preview__available-image\" ng-class=\"{ 'video-preview__available-image--active' : previewIndex === $index }\" ng-src=\"preview.url\" ng-click=\"updateIndex($index)\" />\n" +
+    "        <li class=\"video-preview__available-image-container (~ $index ~)\"\n" +
+    "          ng-class=\"{ 'video-preview__available-image-container--active' : previewIndex === $index }\"\n" +
+    "          ng-repeat=\"preview in previewImages\">\n" +
+    "          <img class=\"video-preview__available-image\"\n" +
+    "            ng-class=\"{ 'video-preview__available-image--active' : previewIndex === $index }\"\n" +
+    "            ng-src=\"(~ preview.url ~)\"\n" +
+    "            ng-click=\"updateIndex($index)\" />\n" +
     "        </li>\n" +
     "      </ul>\n" +
     "    </section>\n" +

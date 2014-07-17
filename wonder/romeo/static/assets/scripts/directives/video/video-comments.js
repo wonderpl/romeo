@@ -71,7 +71,8 @@ angular.module('RomeoApp.directives')
       $scope.$watch(
         function() { return $rootScope.User; },
         function(newValue, oldValue) {
-          if (newValue && newValue !== oldValue) {
+          if (newValue && newValue !== oldValue && !jQuery.isEmptyObject(newValue)) {
+            console.log(newValue);
             $scope.user = newValue;
           }
         }
