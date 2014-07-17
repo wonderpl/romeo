@@ -201,16 +201,21 @@
 }
 
 .video-feedback__button {
-
-  visibility: hidden;
+  transition: opacity 0.4s linear;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .video-feedback__button--active {
 
-  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
 }
 
-
+.video-feedback__comment-controls {
+  padding-top: 1em;
+  position: relative;
+}
 
 
 

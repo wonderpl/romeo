@@ -48,6 +48,9 @@ angular.module('RomeoApp.services').factory('CommentsService',
       deferred.resolve(DataService.request({
         url: '/api/video/' + videoId + '/comments/' + commentId,
         method: 'PATCH',
+        data: {
+          resolved : true
+        }
       }));
     });
     return deferred.promise;

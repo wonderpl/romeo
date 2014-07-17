@@ -4958,6 +4958,14 @@ textarea {
   margin-bottom: 1em;
 }
 
+/* line 24, ../../scss/base/project/_helpers.scss */
+.truncate {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  overflow: hidden;
+}
+
 /* line 1, ../../scss/base/utils/_helpers.scss */
 .no-selection, .button__component, .video-preview__previous-image-link, .video-preview__next-image-link, .video-extended-controls__indicator {
   -webkit-user-select: none;
@@ -5366,12 +5374,21 @@ textarea {
 
 /* line 203, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__button {
-  visibility: hidden;
+  transition: opacity 0.4s linear;
+  opacity: 0;
+  pointer-events: none;
 }
 
-/* line 208, ../../scss/specifics/video/_video-feedback.scss */
+/* line 209, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__button--active {
-  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* line 215, ../../scss/specifics/video/_video-feedback.scss */
+.video-feedback__comment-controls {
+  padding-top: 1em;
+  position: relative;
 }
 
 /* line 1, ../../scss/specifics/video/_video-player.scss */
@@ -6227,13 +6244,20 @@ textarea {
   border-radius: 50%;
   background-size: contain;
   vertical-align: middle;
+  margin-right: 0.5em;
 }
 
-/* line 37, ../../scss/specifics/video/_video-collaborators.scss */
+/* line 38, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators__collaborator-name {
   display: inline-block;
-  vertical-align: middle;
+  margin-top: 0.5em;
   margin-right: 0.5em;
+}
+
+/* line 44, ../../scss/specifics/video/_video-collaborators.scss */
+.video-collaborators__collaborator-name-container {
+  width: 150px;
+  display: inline-block;
 }
 
 /* line 1, ../../scss/specifics/upload/_upload-progress.scss */

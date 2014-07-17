@@ -32,10 +32,21 @@
   border-radius: 50%;
   background-size: contain;
   vertical-align: middle;
+  margin-right: 0.5em;
 }
 
 .video-collaborators__collaborator-name {
   display: inline-block;
-  vertical-align: middle;
+  margin-top: 0.5em;
   margin-right: 0.5em;
 }
+
+.video-collaborators__collaborator-name-container {
+  width: 150px;
+  display: inline-block;
+}
+
+
+
+
+

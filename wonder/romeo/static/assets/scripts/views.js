@@ -920,8 +920,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <ul class=\"video-collaborators__collaborators\" ng-show=\"collaborators\">\n" +
     "    <li class=\"video-collaborators__collaborator\" ng-repeat=\"collaborator in collaborators\">\n" +
-    "      <span class=\"video-collaborators__collaborator-image\" style=\"background-image: url('(~ collaborator.avatar ~)');\"></span>\n" +
-    "      <span class=\"video-collaborators__collaborator-name\" ng-bind=\"collaborator.name\"></span>\n" +
+    "      <span class=\"video-collaborators__collaborator-image\" style=\"background-image: url('(~ collaborator.avatar_url ~)');\"></span>\n" +
+    "      <div class=\"video-collaborators__collaborator-name-container\">\n" +
+    "        <span class=\"video-collaborators__collaborator-name truncate\" ng-bind=\"collaborator.username\"></span>\n" +
+    "      </div>\n" +
     "    </li>\n" +
     "<!--     <li class=\"video-collaborators__collaborator\">\n" +
     "      <span class=\"video-collaborators__collaborator-image\" style=\"background-image: url('http://media.dev.wonderpl.com/images/avatar/thumbnail_medium/kHmU0Pn5E1dVK3K68Okjgw.jpg');\"></span>\n" +
@@ -1007,19 +1009,21 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "          <div class=\"video-feedback__comment-text\">\n" +
     "            (~ comment.comment ~)\n" +
     "          </div>\n" +
-    "        <div>\n" +
-    "        <a class=\"video-feedback__reply-link\"\n" +
-    "          ng-hide=\"comment.resolved\"\n" +
-    "          ng-class=\"{ 'video-feedback__reply-link--active' : replyActive }\"\n" +
-    "          ng-click=\"reply(comment.timestamp)\">\n" +
-    "          reply\n" +
-    "        </a>\n" +
-    "        <a class=\"video-feedback__resolve-link\"\n" +
-    "          ng-hide=\"comment.resolved\"\n" +
-    "          ng-class=\"{ 'video-feedback__resolve-link--active' : replyActive && isOwner }\"\n" +
-    "          ng-click=\"resolve(comment.id)\">\n" +
-    "          resolve\n" +
-    "        </a>\n" +
+    "        </div>\n" +
+    "        <div class=\"video-feedback__comment-controls\">\n" +
+    "          <a class=\"video-feedback__reply-link\"\n" +
+    "            ng-hide=\"comment.resolved\"\n" +
+    "            ng-class=\"{ 'video-feedback__reply-link--active' : replyActive }\"\n" +
+    "            ng-click=\"reply(comment.timestamp)\">\n" +
+    "            reply\n" +
+    "          </a>\n" +
+    "          <a class=\"video-feedback__resolve-link\"\n" +
+    "            ng-hide=\"comment.resolved\"\n" +
+    "            ng-class=\"{ 'video-feedback__resolve-link--active' : replyActive && isOwner }\"\n" +
+    "            ng-click=\"resolve(comment.id)\">\n" +
+    "            resolve\n" +
+    "          </a>\n" +
+    "        </div>\n" +
     "      </li>\n" +
     "    </ul>\n" +
     "\n" +
@@ -1358,7 +1362,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    </section>\n" +
     "\n" +
-    "    <section class=\"video-view__comments clear-float-container\" ng-show=\"video.id && isComments\"><!-- video.status === 'published'\" -->\n" +
+    "    <section class=\"video-view__comments\" ng-show=\"video.id && isComments\"><!-- video.status === 'published'\" -->\n" +
     "      <div class=\"video-view__comments-section--left\">\n" +
     "        <video-indicators comments=\"comments\" current-time=\"videoCurrentTime\" total-time=\"videoTotalTime\"></video-indicators>\n" +
     "        <video-frame-stepper current-time=\"videoCurrentTime\"></video-frame-stepper>\n" +
