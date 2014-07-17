@@ -26,7 +26,7 @@
     Hello {{ username }},
   </div><br>
   We just wanted to let you know, your video <a href="{{ video_url() }}">"{{ video.title }}"</a> has finished processing and is now ready to watch.<br><br>
-  So what's next you ask? Well you can start sharing this video with collaborators for starters or publish it for the rest of the world to see.<br><br>
+  So what's next? You can start sharing this video with the rest of the world to see.<br><br>
   {% if video.thumbnail %}
   <a href="{{ video_url() }}" border="0" class="video-thumb" style="display:block;margin:0;border:none;outline:none;">
     <img src="{{ video.thumbnail }}" border="0" alt="{{ video.title }}" width="480" height="250" class="video-img" style="display:block;width:100%;height:auto;margin:0 auto;border:none;outline:none" />
