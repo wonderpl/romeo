@@ -1164,13 +1164,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('video-share.html',
     "<section class=\"video-share\">\n" +
     "  <ul class=\"video-share__controls\">\n" +
-    "    <li class=\"video-share__control inline-space-fix\" ng-class=\"{ 'video-share__control--disabled' : !hasTags }\">\n" +
+    "    <li class=\"video-share__control inline-space-fix\" ng-class=\"{ 'video-share__control--disabled' : !hasTags || hasTags === 'false' }\">\n" +
     "      <a class=\"hide-text video-share__link video-share__link--embed button button__component button__component--left\" ng-click=\"showEmbedCode = !showEmbedCode\">embed</a>\n" +
     "    </li>\n" +
-    "    <li class=\"video-share__control inline-space-fix\" ng-class=\"{ 'video-share__control--disabled' : !hasTags }\">\n" +
+    "    <li class=\"video-share__control inline-space-fix\" ng-class=\"{ 'video-share__control--disabled' : !hasTags || hasTags === 'false' }\">\n" +
     "      <a class=\"hide-text video-share__link video-share__link--twitter button button__component\" ng-click=\"shareTwitter()\">twitter</a>\n" +
     "    </li>\n" +
-    "    <li class=\"video-share__control\" ng-class=\"{ 'video-share__control--disabled' : !hasTags }\">\n" +
+    "    <li class=\"video-share__control\" ng-class=\"{ 'video-share__control--disabled' : !hasTags || hasTags === 'false' }\">\n" +
     "      <a class=\"hide-text video-share__link video-share__link--facebook button button__component button__component--right\" ng-click=\"shareFacebook()\">facebook</a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
@@ -1251,12 +1251,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <h2 class=\"video-view__title\"\n" +
     "      data-placeholder=\"(~ titlePlaceholder ~)\"\n" +
     "      medium-editor\n" +
+    "      options=\"{ disableToolbar : true }\"\n" +
     "      ng-model=\"video.title\"\n" +
     "      ng-show=\"isEdit\">\n" +
     "    </h2>\n" +
     "    <h3 class=\"video-view__sub-title\"\n" +
     "      data-placeholder=\"(~ straplinePlaceholder ~)\"\n" +
     "      medium-editor\n" +
+    "      options=\"{ disableToolbar : true }\"\n" +
     "      ng-model=\"video.strapline\"\n" +
     "      ng-show=\"isEdit\">\n" +
     "    </h2>\n" +
@@ -1283,13 +1285,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      ng-class=\"{ 'video-view__description--edit' : isEdit }\"\n" +
     "      data-placeholder=\"(~ descriptionPlaceholder ~)\"\n" +
     "      medium-editor\n" +
+    "      options=\"{ buttons : ['bold', 'italic', 'underline', 'header1', 'header2'] }\"\n" +
     "      ng-model=\"video.description\"\n" +
     "      ng-show=\"isEdit\">\n" +
     "    </section>\n" +
     "\n" +
     "    <section class=\"video-view__description\" ng-bind-html=\"video.description\" ng-hide=\"isComments || isEdit\"></section>\n" +
     "\n" +
-    "    <video-share video=\"video\" has-tags=\"(~ video.tags.items.length > 0 ~)\" ng-hide=\"isComments\" video-id=\"(~ video.id ~)\"></video-share>\n" +
+    "    <video-share video=\"video\" has-tags=\"(~ video.tags && video.tags.items && video.tags.items.length > 0 ~)\" ng-hide=\"isComments\" video-id=\"(~ video.id ~)\"></video-share>\n" +
     "\n" +
     "    <section class=\"video-extended-controls\" ng-show=\"isEdit\">\n" +
     "\n" +

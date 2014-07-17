@@ -153,7 +153,18 @@ angular.module('RomeoApp.controllers')
 
     $scope.save = function () {
 
-      VideoService.update($scope.video.id, $scope.video);
+      if ($scope.video.id) {
+        VideoService.update($scope.video.id, $scope.video).then(function (data) {
+          angular.extend($scope.video, data);
+        });
+      } else {
+        $scope.video.title = $scope.video.title || 'Untitled Video';
+        VideoService.create($scope.video).then(function (data) {
+          angular.extend($scope.video, data);
+          var url = '/video/' + $scope.video.id + '/edit';
+          $location.path(url, false);
+        });
+      }
     };
 
     $scope.cancel = function () {
@@ -324,7 +335,7 @@ angular.module('RomeoApp.controllers')
         VideoService.getPlayerParameters($scope.video.id).then(function (data) {
 
           $scope.playerParameters = {};
-          $scope.playerParameters.rgb = JSON.parse(data.rgb);
+          $scope.playerParameters.rgb = data.rgb ? JSON.parse(data.rgb) : null;
           $scope.playerParameters.hideLogo = data.hideLogo === 'True' ? true : false;
         });
 
