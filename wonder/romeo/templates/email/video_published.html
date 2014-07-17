@@ -3,23 +3,14 @@
 {% block title %}Your video is public{% endblock %}
 
 {% block body %}
-<table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateBody">
-  <tr>
-    <td valign="top" class="bodyContent">
-      <a href="{{ link }}">"{{ video.title }}"</a> is now public.
-    </td>
-  </tr>
-  <tr>
-    <td class="bodyContent" style="padding-top:0; padding-bottom:0;">
-      <a href="{{ link }}">
-        <img src="{{ video.thumbnail }}" style="max-width:560px;" id="bodyImage" />
-      </a>
-    </td>
-  </tr>
-  <tr>
-    <td valign="top" class="bodyContent">
-      Link: <a href="{{ link }}">{{ link }}</a>
-    </td>
-  </tr>
-</table>
+<div style="font-weight:bold;font-size:28px;line-height:1.35;font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif;color:#2e2e32">
+  Hello {{ user.display_name }},
+</div>
+Congratulations.<br><br>
+The video, <a href="{{ link }}">"{{ video.title }}"</a> you collaborated on with <b>{{ sender.name }}</b> has just been published.<br><br>
+Why not share it with the World.<br><br>
+<a href="{{ link }}" border="0" class="video-thumb" style="display:block;margin:0;border:none;outline:none;">
+  <img src="{{ video.thumbnail }}" border="0" alt="{{ video.title }}" width="480" height="250" class="video-img" style="display:block;width:100%;height:auto;margin:0 auto;border:none;outline:none" />
+</a>
+<p class="btn-center" style="display:block;width:100%;text-align:center;"><a href="{{ link }}" class="btn" style="margin:0 auto;padding:10px 20px;font-weight:400;font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif;text-decoration:none;color:#fff !important;text-align:center;background-color:#51b364;border:none;border-radius:100px;cursor:pointer;" border="0">Watch &amp; share the video</a></p><br>
 {% endblock %}
