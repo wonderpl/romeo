@@ -8,7 +8,8 @@ angular.module('RomeoApp.directives')
     replace : true,
     template : $templateCache.get('video-collaborators.html'),
     scope : {
-      videoId : '@'
+      videoId : '@',
+      notified : '='
     },
     controller : function ($scope) {
 
@@ -18,7 +19,8 @@ angular.module('RomeoApp.directives')
       function(newValue, oldValue) {
         if (newValue && newValue !== oldValue) {
           CollaboratorsService.getCollaborators(newValue).then(function (data) {
-            $scope.collaborators = data.items;
+            console.log(data);
+            $scope.collaborators = data.collaborator.items;
           });
         }
       }

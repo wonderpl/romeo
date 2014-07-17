@@ -37,6 +37,11 @@
 .button--disabled {
   border-color: $light-grey;
   color: $light-grey;
+  cursor: not-allowed;
+}
+
+.button--disabled:hover {
+  border-color: $light-grey;
 }
 
 .button__component {

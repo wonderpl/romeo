@@ -35,17 +35,32 @@ angular.module('RomeoApp.services').factory('CommentsService',
     var deferred = new $q.defer();
     AuthService.getSessionId().then(function(response){
       deferred.resolve(DataService.request({
-        url: '/api/video/<video_id>/' + videoId + '/comments/notification',
+        url: '/api/video/' + videoId + '/comments/notification',
         method: 'POST',
       }));
     });
     return deferred.promise;
   }
 
+  function resolveComment (videoId, commentId) {
+    var deferred = new $q.defer();
+    AuthService.getSessionId().then(function(response){
+      deferred.resolve(DataService.request({
+        url: '/api/video/' + videoId + '/comments/' + commentId,
+        method: 'PATCH',
+        data: {
+          resolved : true
+        }
+      }));
+    });
+    return deferred.promise;
+  }
+
   return ({
-    notify      : notify,
-    addComment  : addComment,
-    getComments : getComments
+    resolveComment  : resolveComment,
+    notify          : notify,
+    addComment      : addComment,
+    getComments     : getComments
   });
 
 }]);

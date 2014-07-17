@@ -8,12 +8,14 @@
     <h2 class="video-view__title"
       data-placeholder="{{ titlePlaceholder }}"
       medium-editor
+      options="{ disableToolbar : true }"
       ng-model="video.title"
       ng-show="isEdit">
     </h2>
     <h3 class="video-view__sub-title"
       data-placeholder="{{ straplinePlaceholder }}"
       medium-editor
+      options="{ disableToolbar : true }"
       ng-model="video.strapline"
       ng-show="isEdit">
     </h2>
@@ -40,13 +42,14 @@
       ng-class="{ 'video-view__description--edit' : isEdit }"
       data-placeholder="{{ descriptionPlaceholder }}"
       medium-editor
+      options="{ buttons : ['bold', 'italic', 'underline', 'header1', 'header2'] }"
       ng-model="video.description"
       ng-show="isEdit">
     </section>
 
     <section class="video-view__description" ng-bind-html="video.description" ng-hide="isComments || isEdit"></section>
 
-    <video-share video="video" ng-hide="isComments"></video-share>
+    <video-share video="video" has-tags="{{ video.tags && video.tags.items && video.tags.items.length > 0 }}" ng-hide="isComments" video-id="{{ video.id }}"></video-share>
 
     <section class="video-extended-controls" ng-show="isEdit">
 
@@ -106,14 +109,14 @@
 
     </section>
 
-    <section class="video-view__comments clear-float-container" ng-show="video.id && isComments"><!-- video.status === 'published'" -->
+    <section class="video-view__comments" ng-show="video.id && isComments"><!-- video.status === 'published'" -->
       <div class="video-view__comments-section--left">
         <video-indicators comments="comments" current-time="videoCurrentTime" total-time="videoTotalTime"></video-indicators>
         <video-frame-stepper current-time="videoCurrentTime"></video-frame-stepper>
-        <video-comments comments="comments" video-id="{{ video.id }}" current-time="videoCurrentTime"></video-comments>
+        <video-comments notified="notified" comments="comments" video-id="{{ video.id }}" current-time="videoCurrentTime"></video-comments>
       </div>
       <div class="video-view__comments-section--right">
-        <video-collaborators ng-show="video.id && isComments" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>
+        <video-collaborators notified="notified" ng-show="video.id && isComments" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>
       </div>
     </section>
 

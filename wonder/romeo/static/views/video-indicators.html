@@ -3,11 +3,12 @@
   <ul class="video-indicators__comment-indicators">
     <li class="video-indicators__comment-indicator"
       ng-repeat="comment in comments"
+      ng-class="{ 'video-indicators__comment-indicator--resolved' : comment.resolved }"
       data-timestamp="{{ comment.timestamp }}"
       data-total-time-in-seconds="{{ totalTimeInSeconds }}"
       style="left: {{ (comment.timestamp/totalTimeInSeconds)*100 }}%;">
       <a data-id="{{ comment.id }}"
-        ng-class="{ 'video-indicators__comment-link--active' : isTimeSync(comment.timestamp) }"
+        ng-class="{ 'video-indicators__comment-link--active' : isTimeSync(comment.timestamp), 'video-indicators__comment-link--resolved' : comment.resolved }"
         class="video-indicators__comment-link"
         ng-click="seek(comment.timestamp)">
       </a>

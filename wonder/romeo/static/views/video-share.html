@@ -1,19 +1,19 @@
 <section class="video-share">
   <ul class="video-share__controls">
-    <li class="video-share__control inline-space-fix">
+    <li class="video-share__control inline-space-fix" ng-class="{ 'video-share__control--disabled' : !hasTags || hasTags === 'false' }">
       <a class="hide-text video-share__link video-share__link--embed button button__component button__component--left" ng-click="showEmbedCode = !showEmbedCode">embed</a>
     </li>
-    <li class="video-share__control inline-space-fix">
-      <a class="hide-text video-share__link video-share__link--twitter button button__component" ng-click="twitterShare()">twitter</a>
+    <li class="video-share__control inline-space-fix" ng-class="{ 'video-share__control--disabled' : !hasTags || hasTags === 'false' }">
+      <a class="hide-text video-share__link video-share__link--twitter button button__component" ng-click="shareTwitter()">twitter</a>
     </li>
-    <li class="video-share__control">
-      <a class="hide-text video-share__link video-share__link--facebook button button__component button__component--right" ng-click="facebookShare()">facebook</a>
+    <li class="video-share__control" ng-class="{ 'video-share__control--disabled' : !hasTags || hasTags === 'false' }">
+      <a class="hide-text video-share__link video-share__link--facebook button button__component button__component--right" ng-click="shareFacebook()">facebook</a>
     </li>
   </ul>
   <section class="video-share__embed-code-container"
     ng-class="{ 'video-share__embed-code-container--active' : showEmbedCode }">
   <label class="video-share__embed-code-label">
-    <input class="video-share__embed-code-field" placeholder="embed link" />
+    <input class="video-share__embed-code-field" placeholder="embed link" ng-model="embedCode" />
   </label>
 
   </section>

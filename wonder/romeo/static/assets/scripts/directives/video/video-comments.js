@@ -48,22 +48,45 @@ angular.module('RomeoApp.directives')
     scope : {
       videoId : '@',
       currentTime : '=',
-      comments : '='
+      comments : '=',
+      notified : '='
     },
     controller : function ($scope) {
+
+      function getCommentById (id) {
+        var comment;
+        var comments = $scope.comments;
+        var l = comments.length;
+        while (l--) {
+          if (comments[l].id === id) {
+            comment = comments[l];
+            break;
+          }
+        }
+        return comment;
+      }
 
       $scope.isOwner = true;
 
       $scope.$watch(
         function() { return $rootScope.User; },
         function(newValue, oldValue) {
-          if (newValue && newValue !== oldValue) {
+          if (newValue && newValue !== oldValue && !jQuery.isEmptyObject(newValue)) {
             console.log(newValue);
-            $scope.test = newValue;
+            $scope.user = newValue;
           }
         }
       );
 
+      $scope.$on('player-paused', videoOnPaused);
+
+      function videoOnPaused (event, data) {
+        $timeout(function () {
+          $scope.inputActive = true;
+          // UX no-no
+          // window.scroll(0, $('.js-video-feedback-input').offset().top - 48);
+        });
+      }
 
       $scope.isTimeSync = function (timestamp) {
         var isTimeSync;
@@ -75,10 +98,13 @@ angular.module('RomeoApp.directives')
         return isTimeSync;
       };
 
-      $scope.resolve = function (id) {
-
-        console.log('resolve()');
-        console.log(id);
+      $scope.resolve = function (commentId) {
+        CommentsService.resolveComment($scope.videoId, commentId).then(function (data) {
+          var comment = getCommentById(commentId);
+          angular.extend(comment, data);
+          // API bug
+          comment.resolved = true;
+        });
       };
 
       $scope.addComment = function () {
@@ -94,6 +120,7 @@ angular.module('RomeoApp.directives')
           var comment = createComment(data);
           $scope.comments.push(comment);
           $scope.commentText = '';
+          $scope.notified = false;
         });
       };
 

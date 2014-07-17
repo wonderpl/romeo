@@ -22,7 +22,15 @@ angular.module('RomeoApp.controllers')
       $scope.videoHasLoaded = false;
       $scope.embedUrl = '';
       $scope.currentTime = 0;
+      $scope.notified = false;
     }
+
+    $scope.$watch(
+      function() { return $scope.video.category; },
+      function(newValue, oldValue) {
+        $scope.video.category = $scope.video.category || '';
+      }
+    );
 
     $scope.$watch(
       function() { return $scope.video.title; },
@@ -47,7 +55,7 @@ angular.module('RomeoApp.controllers')
     );
 
     $scope.$watch(
-      function() { return $scope.video.strapline; },
+      function() { return $scope.video.description; },
       function(newValue, oldValue) {
         if (newValue && newValue !== oldValue) {
           $scope.descriptionPlaceholder = '';
@@ -62,6 +70,7 @@ angular.module('RomeoApp.controllers')
       function(newValue, oldValue) {
         if (newValue !== '' && newValue !== oldValue) {
           CommentsService.getComments($scope.video.id).then(function (data) {
+            console.log(data);
             $scope.comments = data.comment.items;
           });
         }
@@ -151,7 +160,18 @@ angular.module('RomeoApp.controllers')
 
     $scope.save = function () {
 
-      VideoService.update($scope.video.id, $scope.video);
+      if ($scope.video.id) {
+        VideoService.update($scope.video.id, $scope.video).then(function (data) {
+          angular.extend($scope.video, data);
+        });
+      } else {
+        $scope.video.title = $scope.video.title || 'Untitled Video';
+        VideoService.create($scope.video).then(function (data) {
+          angular.extend($scope.video, data);
+          var url = '/video/' + $scope.video.id + '/edit';
+          $location.path(url, false);
+        });
+      }
     };
 
     $scope.cancel = function () {
@@ -188,7 +208,6 @@ angular.module('RomeoApp.controllers')
 
       if ($scope.player) {
         var state = $scope.player.getState();
-        console.log(state);
         $scope.player.seek(seconds);
       }
     }
@@ -225,8 +244,6 @@ angular.module('RomeoApp.controllers')
 
   pollIFrame();
 
-
-
   // http://support.ooyala.com/developers/documentation/concepts/xmp_securexdr_view_mbus.html
   // http://support.ooyala.com/developers/documentation/api/player_v3_api_events.html
   function bindEvents (OO) {
@@ -235,7 +252,6 @@ angular.module('RomeoApp.controllers')
 
     bus.subscribe(OO.EVENTS.PLAYBACK_READY, 'WonderUIModule', function () {
 
-      console.log('PLAYBACK_READY');
     });
 
     bus.subscribe(OO.EVENTS.PLAYHEAD_TIME_CHANGED, 'WonderUIModule', function(eventName, currentTime) {
@@ -253,11 +269,11 @@ angular.module('RomeoApp.controllers')
       $scope.player.pause();
     });
 
+    bus.subscribe(OO.EVENTS.PAUSED, 'WonderUIModule', function () {
+
+      $scope.$broadcast('player-paused');
+    });
   }
-
-
-
-
 
 
     var query = $location.search();
@@ -326,7 +342,7 @@ angular.module('RomeoApp.controllers')
         VideoService.getPlayerParameters($scope.video.id).then(function (data) {
 
           $scope.playerParameters = {};
-          $scope.playerParameters.rgb = JSON.parse(data.rgb);
+          $scope.playerParameters.rgb = data.rgb ? JSON.parse(data.rgb) : null;
           $scope.playerParameters.hideLogo = data.hideLogo === 'True' ? true : false;
         });
 

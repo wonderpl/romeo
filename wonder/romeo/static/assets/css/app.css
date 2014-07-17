@@ -4953,6 +4953,19 @@ textarea {
   width: 100%;
 }
 
+/* line 20, ../../scss/base/project/_helpers.scss */
+.push-bottom {
+  margin-bottom: 1em;
+}
+
+/* line 24, ../../scss/base/project/_helpers.scss */
+.truncate {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  overflow: hidden;
+}
+
 /* line 1, ../../scss/base/utils/_helpers.scss */
 .no-selection, .button__component, .video-preview__previous-image-link, .video-preview__next-image-link, .video-extended-controls__indicator {
   -webkit-user-select: none;
@@ -5023,15 +5036,21 @@ textarea {
 .button--disabled {
   border-color: #b7bcbd;
   color: #b7bcbd;
+  cursor: not-allowed;
 }
 
-/* line 42, ../../scss/components/_buttons.scss */
+/* line 43, ../../scss/components/_buttons.scss */
+.button--disabled:hover {
+  border-color: #b7bcbd;
+}
+
+/* line 47, ../../scss/components/_buttons.scss */
 .button__component {
   border-radius: 0;
   cursor: pointer;
 }
 
-/* line 48, ../../scss/components/_buttons.scss */
+/* line 53, ../../scss/components/_buttons.scss */
 .button__component--left {
   border-top-left-radius: 24px;
   border-bottom-left-radius: 24px;
@@ -5039,7 +5058,7 @@ textarea {
   font-weight: bold;
 }
 
-/* line 55, ../../scss/components/_buttons.scss */
+/* line 60, ../../scss/components/_buttons.scss */
 .button__component--right {
   border-top-right-radius: 24px;
   border-bottom-right-radius: 24px;
@@ -5047,7 +5066,7 @@ textarea {
   font-weight: bold;
 }
 
-/* line 62, ../../scss/components/_buttons.scss */
+/* line 67, ../../scss/components/_buttons.scss */
 .button__component--input-container {
   padding-top: 14px;
 }
@@ -5126,26 +5145,21 @@ textarea {
   display: block;
 }
 
-/* line 6, ../../scss/specifics/video/_video-feedback.scss */
-.video-feedback__input-container {
-  border-bottom: solid 1px #b7bcbd;
-  margin-bottom: 1em;
-}
-
-/* line 11, ../../scss/specifics/video/_video-feedback.scss */
+/* line 9, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__form {
   text-align: right;
-  transition: max-height 0.4s ease-in-out;
+  transition: max-height 0.4s linear;
   max-height: 8em;
   overflow: hidden;
+  border-bottom: solid 1px #b7bcbd;
 }
 
-/* line 18, ../../scss/specifics/video/_video-feedback.scss */
+/* line 17, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__form--active {
   max-height: 100em;
 }
 
-/* line 22, ../../scss/specifics/video/_video-feedback.scss */
+/* line 21, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__input {
   text-align: left;
   border: 0 none;
@@ -5156,36 +5170,35 @@ textarea {
   width: 100%;
 }
 
-/* line 32, ../../scss/specifics/video/_video-feedback.scss */
+/* line 31, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__input--active {
   height: 100px;
 }
 
-/* line 36, ../../scss/specifics/video/_video-feedback.scss */
+/* line 35, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comments {
   margin: 20px 0;
   transition: all 1s ease-in-out;
   position: relative;
 }
 
-/* line 42, ../../scss/specifics/video/_video-feedback.scss */
+/* line 41, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment {
-  transition: border-width 0.4s, padding-left 0.4s linear;
+  transition: border-width 0.4s, padding-left 0.4s, opacity 0.4s linear;
   margin: 1em 0;
   position: relative;
-  padding-bottom: 24px;
   clear: both;
   text-align: left;
 }
 
-/* line 51, ../../scss/specifics/video/_video-feedback.scss */
+/* line 49, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-details {
   display: block;
   padding-top: 0.5em;
   min-height: 0.5em;
 }
 
-/* line 57, ../../scss/specifics/video/_video-feedback.scss */
+/* line 55, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-resolved {
   font-size: 0.8em;
   padding: 0.5em;
@@ -5196,36 +5209,28 @@ textarea {
   opacity: 0;
 }
 
-/* line 67, ../../scss/specifics/video/_video-feedback.scss */
+/* line 65, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-resolved--active {
   opacity: 1;
 }
 
-/* line 71, ../../scss/specifics/video/_video-feedback.scss */
-.video-feedback__comment--resolved:after {
-  content: '';
-  display: block;
-  height: 100%;
-  width: 100%;
-  background: white;
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0.6;
+/* line 69, ../../scss/specifics/video/_video-feedback.scss */
+.video-feedback__comment--resolved {
+  opacity: 0.2;
 }
 
-/* line 83, ../../scss/specifics/video/_video-feedback.scss */
+/* line 73, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-content {
   margin-top: 0.5em;
 }
 
-/* line 87, ../../scss/specifics/video/_video-feedback.scss */
+/* line 77, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-timestamp {
   display: block;
   float: left;
 }
 
-/* line 92, ../../scss/specifics/video/_video-feedback.scss */
+/* line 82, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-profile-image {
   display: inline-block;
   height: 66px;
@@ -5238,36 +5243,37 @@ textarea {
   margin-right: 1em;
 }
 
-/* line 104, ../../scss/specifics/video/_video-feedback.scss */
+/* line 94, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-text {
   margin-left: 140px;
+  margin-bottom: 12px;
 }
 
-/* line 108, ../../scss/specifics/video/_video-feedback.scss */
+/* line 99, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-name {
   font-weight: 800;
   margin-right: 1em;
 }
 
-/* line 113, ../../scss/specifics/video/_video-feedback.scss */
+/* line 104, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-time-posted {
   font-size: 0.8em;
   color: #999999;
   margin-right: 1em;
 }
 
-/* line 119, ../../scss/specifics/video/_video-feedback.scss */
+/* line 110, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment--active {
   border-left: solid 5px #c8e6ce;
   padding-left: 15px;
 }
 
-/* line 124, ../../scss/specifics/video/_video-feedback.scss */
+/* line 115, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment--hover {
   background-color: #ffefef;
 }
 
-/* line 128, ../../scss/specifics/video/_video-feedback.scss */
+/* line 119, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-message {
   display: inline-block;
   width: 80%;
@@ -5275,19 +5281,19 @@ textarea {
   margin-bottom: 10px;
 }
 
-/* line 135, ../../scss/specifics/video/_video-feedback.scss */
+/* line 126, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-time {
   display: inline-block;
   width: 40px;
   font-size: small;
 }
 
-/* line 141, ../../scss/specifics/video/_video-feedback.scss */
+/* line 132, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-time:hover {
   cursor: pointer;
 }
 
-/* line 145, ../../scss/specifics/video/_video-feedback.scss */
+/* line 136, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-author {
   margin-left: 45px;
   color: #999999;
@@ -5297,7 +5303,7 @@ textarea {
   font-variant: small-caps;
 }
 
-/* line 154, ../../scss/specifics/video/_video-feedback.scss */
+/* line 145, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-date {
   color: #b7bcbd;
   font-style: italic;
@@ -5305,12 +5311,12 @@ textarea {
   text-transform: lowercase;
 }
 
-/* line 161, ../../scss/specifics/video/_video-feedback.scss */
+/* line 152, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-author:after {
   content: ',';
 }
 
-/* line 165, ../../scss/specifics/video/_video-feedback.scss */
+/* line 156, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__resolve-link {
   position: absolute;
   bottom: 12px;
@@ -5320,17 +5326,17 @@ textarea {
   color: #51b364;
 }
 
-/* line 174, ../../scss/specifics/video/_video-feedback.scss */
+/* line 165, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__resolve-link--active {
   opacity: 1;
 }
 
-/* line 178, ../../scss/specifics/video/_video-feedback.scss */
+/* line 169, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__resolve-link:hover {
   text-decoration: underline;
 }
 
-/* line 182, ../../scss/specifics/video/_video-feedback.scss */
+/* line 173, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__reply-link {
   position: absolute;
   bottom: 12px;
@@ -5340,30 +5346,49 @@ textarea {
   color: #51b364;
 }
 
-/* line 191, ../../scss/specifics/video/_video-feedback.scss */
+/* line 182, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__reply-link--active {
   opacity: 1;
 }
 
-/* line 195, ../../scss/specifics/video/_video-feedback.scss */
+/* line 186, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__reply-link:hover {
   text-decoration: underline;
 }
 
-/* line 199, ../../scss/specifics/video/_video-feedback.scss */
+/* line 190, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-timestamp-link {
   color: #51b364;
   cursor: pointer;
 }
 
-/* line 204, ../../scss/specifics/video/_video-feedback.scss */
+/* line 195, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-timestamp-link:hover {
   text-decoration: underline;
 }
 
-/* line 208, ../../scss/specifics/video/_video-feedback.scss */
+/* line 199, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__notify {
   text-align: center;
+}
+
+/* line 203, ../../scss/specifics/video/_video-feedback.scss */
+.video-feedback__button {
+  transition: opacity 0.4s linear;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* line 209, ../../scss/specifics/video/_video-feedback.scss */
+.video-feedback__button--active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* line 215, ../../scss/specifics/video/_video-feedback.scss */
+.video-feedback__comment-controls {
+  padding-top: 1em;
+  position: relative;
 }
 
 /* line 1, ../../scss/specifics/video/_video-player.scss */
@@ -5408,7 +5433,7 @@ textarea {
 /* line 27, ../../scss/specifics/video/_video-view.scss */
 .video-view__comments-section--left {
   float: left;
-  width: 71%;
+  width: 73%;
   margin-left: 48px;
 }
 
@@ -5474,40 +5499,46 @@ textarea {
 }
 
 /* line 15, ../../scss/specifics/video/_video-share.scss */
+.video-share__control--disabled {
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+/* line 20, ../../scss/specifics/video/_video-share.scss */
 .video-share__link {
   padding: 1em;
   background-repeat: no-repeat;
   background-position: center;
 }
 
-/* line 21, ../../scss/specifics/video/_video-share.scss */
+/* line 26, ../../scss/specifics/video/_video-share.scss */
 .video-share__link--embed {
   background-image: url("/static/assets/img/video-share__icon-embed.png");
 }
 
-/* line 25, ../../scss/specifics/video/_video-share.scss */
+/* line 30, ../../scss/specifics/video/_video-share.scss */
 .video-share__link--twitter {
   background-image: url("/static/assets/img/video-share__icon-twitter.png");
 }
 
-/* line 29, ../../scss/specifics/video/_video-share.scss */
+/* line 34, ../../scss/specifics/video/_video-share.scss */
 .video-share__link--facebook {
   background-image: url("/static/assets/img/video-share__icon-facebook.png");
 }
 
-/* line 33, ../../scss/specifics/video/_video-share.scss */
+/* line 38, ../../scss/specifics/video/_video-share.scss */
 .video-share__embed-code-container {
   transition: max-height 0.4s ease-in-out;
   max-height: 0;
   overflow: hidden;
 }
 
-/* line 39, ../../scss/specifics/video/_video-share.scss */
+/* line 44, ../../scss/specifics/video/_video-share.scss */
 .video-share__embed-code-container--active {
   max-height: 100em;
 }
 
-/* line 43, ../../scss/specifics/video/_video-share.scss */
+/* line 48, ../../scss/specifics/video/_video-share.scss */
 .video-share__embed-code-label {
   background: #b7bcbd;
   padding: 1em;
@@ -5515,7 +5546,7 @@ textarea {
   display: inline-block;
 }
 
-/* line 50, ../../scss/specifics/video/_video-share.scss */
+/* line 55, ../../scss/specifics/video/_video-share.scss */
 .video-share__embed-code-field {
   width: 40em;
   padding: 0.5em;
@@ -5540,29 +5571,41 @@ textarea {
 .video-indicators__comment-indicator {
   position: absolute;
   top: 0;
+  z-index: 2;
 }
 
-/* line 18, ../../scss/specifics/video/_video-indicators.scss */
+/* line 19, ../../scss/specifics/video/_video-indicators.scss */
+.video-indicators__comment-indicator--resolved {
+  z-index: 1;
+}
+
+/* line 23, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-link {
   display: block;
   height: 12px;
   margin-bottom: 3px;
   width: 2px;
-  background-color: green;
+  background-color: #51b364;
   border: solid 1px transparent;
 }
 
-/* line 27, ../../scss/specifics/video/_video-indicators.scss */
+/* line 32, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-link--active {
   border: solid 1px red;
 }
 
-/* line 31, ../../scss/specifics/video/_video-indicators.scss */
+/* line 36, ../../scss/specifics/video/_video-indicators.scss */
+.video-indicators__comment-link--resolved {
+  background-color: #999999;
+  border: solid 1px transparent;
+}
+
+/* line 41, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-link:hover {
   cursor: pointer;
 }
 
-/* line 35, ../../scss/specifics/video/_video-indicators.scss */
+/* line 45, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__scrubber {
   transition: left 0.4s linear;
   position: absolute;
@@ -5574,7 +5617,7 @@ textarea {
   background-color: red;
 }
 
-/* line 46, ../../scss/specifics/video/_video-indicators.scss */
+/* line 56, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__scrubber:before {
   content: '';
   display: block;
@@ -6186,6 +6229,14 @@ textarea {
 }
 
 /* line 21, ../../scss/specifics/video/_video-collaborators.scss */
+.video-collaborators__none-message {
+  font-variant: small-caps;
+  color: #999999;
+  text-align: left;
+  text-transform: lowercase;
+}
+
+/* line 28, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators__collaborator-image {
   height: 33px;
   width: 33px;
@@ -6193,13 +6244,20 @@ textarea {
   border-radius: 50%;
   background-size: contain;
   vertical-align: middle;
+  margin-right: 0.5em;
 }
 
-/* line 30, ../../scss/specifics/video/_video-collaborators.scss */
+/* line 38, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators__collaborator-name {
   display: inline-block;
-  vertical-align: middle;
+  margin-top: 0.5em;
   margin-right: 0.5em;
+}
+
+/* line 44, ../../scss/specifics/video/_video-collaborators.scss */
+.video-collaborators__collaborator-name-container {
+  width: 150px;
+  display: inline-block;
 }
 
 /* line 1, ../../scss/specifics/upload/_upload-progress.scss */

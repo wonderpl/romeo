@@ -34,7 +34,6 @@ angular.module('RomeoApp.directives')
     controller : function ($scope) {
 
       $scope.toggleHideLogo = function () {
-        console.log($scope.hideLogo);
         shimChangesToIFrame($scope.hideLogo);
         saveLogoSetting($scope.hideLogo);
       };

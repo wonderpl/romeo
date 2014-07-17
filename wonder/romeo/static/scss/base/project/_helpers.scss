@@ -16,3 +16,14 @@
   overflow: auto;
   width: 100%
 }
+
+.push-bottom {
+  margin-bottom: 1em;
+}
+
+.truncate {
+white-space: nowrap;
+text-overflow: ellipsis;
+max-width: 100%;
+overflow: hidden;
+}
