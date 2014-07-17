@@ -1164,20 +1164,20 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('video-share.html',
     "<section class=\"video-share\">\n" +
     "  <ul class=\"video-share__controls\">\n" +
-    "    <li class=\"video-share__control inline-space-fix\">\n" +
+    "    <li class=\"video-share__control inline-space-fix\" ng-class=\"{ 'video-share__control--disabled' : !hasTags }\">\n" +
     "      <a class=\"hide-text video-share__link video-share__link--embed button button__component button__component--left\" ng-click=\"showEmbedCode = !showEmbedCode\">embed</a>\n" +
     "    </li>\n" +
-    "    <li class=\"video-share__control inline-space-fix\">\n" +
-    "      <a class=\"hide-text video-share__link video-share__link--twitter button button__component\" ng-click=\"twitterShare()\">twitter</a>\n" +
+    "    <li class=\"video-share__control inline-space-fix\" ng-class=\"{ 'video-share__control--disabled' : !hasTags }\">\n" +
+    "      <a class=\"hide-text video-share__link video-share__link--twitter button button__component\" ng-click=\"shareTwitter()\">twitter</a>\n" +
     "    </li>\n" +
-    "    <li class=\"video-share__control\">\n" +
-    "      <a class=\"hide-text video-share__link video-share__link--facebook button button__component button__component--right\" ng-click=\"facebookShare()\">facebook</a>\n" +
+    "    <li class=\"video-share__control\" ng-class=\"{ 'video-share__control--disabled' : !hasTags }\">\n" +
+    "      <a class=\"hide-text video-share__link video-share__link--facebook button button__component button__component--right\" ng-click=\"shareFacebook()\">facebook</a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
     "  <section class=\"video-share__embed-code-container\"\n" +
     "    ng-class=\"{ 'video-share__embed-code-container--active' : showEmbedCode }\">\n" +
     "  <label class=\"video-share__embed-code-label\">\n" +
-    "    <input class=\"video-share__embed-code-field\" placeholder=\"embed link\" />\n" +
+    "    <input class=\"video-share__embed-code-field\" placeholder=\"embed link\" ng-model=\"embedCode\" />\n" +
     "  </label>\n" +
     "\n" +
     "  </section>\n" +
@@ -1289,7 +1289,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <section class=\"video-view__description\" ng-bind-html=\"video.description\" ng-hide=\"isComments || isEdit\"></section>\n" +
     "\n" +
-    "    <video-share video=\"video\" ng-hide=\"isComments\"></video-share>\n" +
+    "    <video-share video=\"video\" has-tags=\"(~ video.tags.items.length > 0 ~)\" ng-hide=\"isComments\" video-id=\"(~ video.id ~)\"></video-share>\n" +
     "\n" +
     "    <section class=\"video-extended-controls\" ng-show=\"isEdit\">\n" +
     "\n" +

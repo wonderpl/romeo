@@ -12,6 +12,11 @@
   display: inline-block;
 }
 
+.video-share__control--disabled {
+  pointer-events: none;
+  opacity: 0.3;
+}
+
 .video-share__link {
   padding: 1em;
   background-repeat: no-repeat;

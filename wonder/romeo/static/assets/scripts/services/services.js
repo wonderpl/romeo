@@ -259,14 +259,15 @@
           return DataService.request({ url: url, method: 'PUT', data: data });
         };
 
-        Video.getEmbedCode = function (id) {
-          var url = '/api/video/' + id + '/embed_code';
+        Video.getEmbedCode = function (id, data) {
+          // /api/video/<video_id>/embed_code?style=<style>&width=<width>&height=<height>
+          var url = '/api/video/' + id + '/embed_code?style=' + data.style + '&width=' + data.height + '&height=' + data.height;
           return DataService.request({ url : url });
         };
 
         Video.getShareUrl = function (id, service) {
-          var url = '/api/video/' + id + '/share_url';
-          return DataService.request({ url : url, method: 'POST', data: { service : service } });
+          var url = '/api/video/' + id + '/share_url?target=' + service;
+          return DataService.request({ url : url });
         };
 
         /*

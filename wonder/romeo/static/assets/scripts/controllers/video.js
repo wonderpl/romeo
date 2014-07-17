@@ -48,7 +48,7 @@ angular.module('RomeoApp.controllers')
     );
 
     $scope.$watch(
-      function() { return $scope.video.strapline; },
+      function() { return $scope.video.description; },
       function(newValue, oldValue) {
         if (newValue && newValue !== oldValue) {
           $scope.descriptionPlaceholder = '';
@@ -234,7 +234,6 @@ angular.module('RomeoApp.controllers')
 
     bus.subscribe(OO.EVENTS.PLAYBACK_READY, 'WonderUIModule', function () {
 
-      console.log('PLAYBACK_READY');
     });
 
     bus.subscribe(OO.EVENTS.PLAYHEAD_TIME_CHANGED, 'WonderUIModule', function(eventName, currentTime) {
