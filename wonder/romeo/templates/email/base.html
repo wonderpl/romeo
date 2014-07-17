@@ -45,7 +45,7 @@
           <tr>
             <td class="container-padding" bgcolor="#fff" style="background-color:#fff;padding:0 24px;font-size:12px;line-height:1.5;font-family:Georgia,Cambria,'Times New Roman',Times,serif;text-align:center;color:#70797b">
               {% block footer %}
-              To ensure our emails reach your inbox please make sure to add &lt;<span style="color:#51b464 !important;text-decoration:underline">{{ config.DEFAULT_EMAIL_SOURCE|e }}</span>&gt; to your address book or safe list. You are subscribed as <span style="color:#51b464 !important;text-decoration:underline">{{ recipient or user.email }}</span>. To unsubscribe from these emails, click <a href="{{ unsubscribe_link }}" style="color:#51b464 !important;">here</a>. Your privacy is important to us, have a read of our <a href="http://wonderpl.com/privacy" style="color:#51b464 !important;">privacy policy</a>.<br><br>
+              To unsubscribe from these emails, click <a href="{{ unsubscribe_link }}" style="color:#51b464 !important;">here</a>. Your privacy is important to us, have a read of our <a href="http://wonderpl.com/privacy" style="color:#51b464 !important;">privacy policy</a>.<br><br>
               {% endblock %}
             </td>
           </tr>
