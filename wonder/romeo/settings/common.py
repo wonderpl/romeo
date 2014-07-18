@@ -65,6 +65,19 @@ COVER_THUMBNAIL_SIZES = (
 GRAVATAR_BASE_URL = "http://www.gravatar.com/avatar/"
 GRAVATAR_SIZE = 60
 
+# Map Ooyala error messages to our own:
+VIDEO_ERROR_MESSAGES = {
+    None: '',
+    'Unsupported format: Unable to read the file': '''
+        Sorry, the file you tried to upload isn't a video file that is supported by Wonder.
+        Wonder supports H264 MP4 and Quicktime (.mov) video files.
+    ''',
+    'Duplicate video content': '''
+        The video you tried to upload to Wonder has been uploaded previously,
+        and you will find it in your Collections.
+    ''',
+}
+
 SQS_REGION = 'eu-west-1'
 SQS_QUEUE_NAME_PREFIX = 'romeo-'
 SQS_DEFAULT_DELAY_SECONDS = 10

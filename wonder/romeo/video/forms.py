@@ -266,14 +266,21 @@ def send_collaborator_invite_email(collaborator_id, sending_user_id, **kwargs):
 def send_processed_email(video_id, error=None):
     video = Video.query.get(video_id)
 
-    template = email_template_env.get_template('video_processed.html')
-    body = template.render(
-        video=video,
-        error=error
-    )
+    try:
+        error_message = current_app.config['VIDEO_ERROR_MESSAGES'][error]
+    except KeyError:
+        current_app.logger.warning('Unable to map error message: %s', error)
+        error_message = None
 
+    template = email_template_env.get_template('video_processed.html')
     users = AccountUser.query.filter_by(account_id=video.account_id)
     for recipient, name in users.values('username', 'display_name'):
+        body = template.render(
+            username=name,
+            video=video,
+            error=error,
+            error_message=error_message,
+        )
         send_email(recipient, body)
 
 

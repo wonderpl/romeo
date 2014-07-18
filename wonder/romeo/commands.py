@@ -46,6 +46,8 @@ def send_test_email(email_type, recipient, output=None):
         db.create_all()
         video, account = _create_test_video()
         emails = dict(
+            processed_error=(video_forms.send_processed_email,
+                             (video.id, 'Duplicate video content')),
             processed=(video_forms.send_processed_email,
                        (video.id,)),
             published=(video_forms.send_published_email,
