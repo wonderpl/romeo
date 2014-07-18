@@ -50,7 +50,7 @@
               <span class="video-feedback__comment-resolved" ng-class="{ 'video-feedback__comment-resolved--active' : replyActive && comment.resolved }">resolved</span>
             </div>
             <div class="video-feedback__comment-content">
-              <span class="video-feedback__comment-timestamp" ng-show="comment.timestamp">
+              <span class="video-feedback__comment-timestamp" ng-show="!isNaN(comment.timestamp)">
                 @<a class="video-feedback__comment-timestamp-link" ng-click="videoSeek(comment.timestamp)" ng-bind="(comment.timestamp | time)"></a>
               </span>
               <div class="video-feedback__comment-text">

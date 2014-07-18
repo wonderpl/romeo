@@ -1003,7 +1003,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "              <span class=\"video-feedback__comment-resolved\" ng-class=\"{ 'video-feedback__comment-resolved--active' : replyActive && comment.resolved }\">resolved</span>\n" +
     "            </div>\n" +
     "            <div class=\"video-feedback__comment-content\">\n" +
-    "              <span class=\"video-feedback__comment-timestamp\" ng-show=\"comment.timestamp\">\n" +
+    "              <span class=\"video-feedback__comment-timestamp\" ng-show=\"!isNaN(comment.timestamp)\">\n" +
     "                @<a class=\"video-feedback__comment-timestamp-link\" ng-click=\"videoSeek(comment.timestamp)\" ng-bind=\"(comment.timestamp | time)\"></a>\n" +
     "              </span>\n" +
     "              <div class=\"video-feedback__comment-text\">\n" +
