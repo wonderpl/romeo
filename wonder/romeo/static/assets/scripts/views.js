@@ -193,7 +193,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      ng-class=\"{ 'video-edit-categories__subcategories--active' : categoryActive === category.id }\">\n" +
     "      <!-- (~ category.name ~) -->\n" +
     "      <li ng-repeat=\"subcategory in category.sub_categories\"\n" +
-    "        ng-class=\"{'video-edit-categories__category--active' : selectedCategory === subcategory.id }\"\n" +
+    "        ng-class=\"{'video-edit-categories__subcategory--active' : selectedCategory === subcategory.id }\"\n" +
     "        class=\"video-edit-categories__category video-edit-categories__subcategory\"\n" +
     "        ng-click=\"selectCategory(subcategory.id, $event)\">(~ subcategory.name ~)</li>\n" +
     "    </ul>\n" +

@@ -22,7 +22,7 @@
       ng-class="{ 'video-edit-categories__subcategories--active' : categoryActive === category.id }">
       <!-- {{ category.name }} -->
       <li ng-repeat="subcategory in category.sub_categories"
-        ng-class="{'video-edit-categories__category--active' : selectedCategory === subcategory.id }"
+        ng-class="{'video-edit-categories__subcategory--active' : selectedCategory === subcategory.id }"
         class="video-edit-categories__category video-edit-categories__subcategory"
         ng-click="selectCategory(subcategory.id, $event)">{{ subcategory.name }}</li>
     </ul>
