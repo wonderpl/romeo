@@ -992,24 +992,26 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <ul class=\"video-feedback__comments-list\">\n" +
     "      <li class=\"video-feedback__comment\"\n" +
-    "        ng-class=\"{ 'video-feedback__comment--active' : isTimeSync(comment.timestamp), 'video-feedback__comment--resolved' : comment.resolved }\"\n" +
+    "        ng-class=\"{ 'video-feedback__comment--active' : isTimeSync(comment.timestamp) }\"\n" +
     "        ng-repeat=\"comment in comments | orderBy : 'timestamp'\"\n" +
     "        ng-mouseenter=\"replyActive = true\"\n" +
     "        ng-mouseleave=\"replyActive = false\">\n" +
-    "        <a class=\"video-feedback__comment-profile-image\" style=\"background-image: url('(~ comment.avatar_url ~)');\"></a>\n" +
-    "        <div class=\"video-feedback__comment-details\">\n" +
-    "          <span class=\"video-feedback__comment-name\" ng-bind=\"comment.username\"></span>\n" +
-    "          <span class=\"video-feedback__comment-time-posted\" ng-bind=\"comment.datetime | prettyDate\"></span>\n" +
-    "          <span class=\"video-feedback__comment-resolved\" ng-class=\"{ 'video-feedback__comment-resolved--active' : replyActive && comment.resolved }\">resolved</span>\n" +
-    "        </div>\n" +
-    "        <div class=\"video-feedback__comment-content\">\n" +
-    "          <span class=\"video-feedback__comment-timestamp\" ng-show=\"comment.timestamp\">\n" +
-    "            @<a class=\"video-feedback__comment-timestamp-link\" ng-click=\"videoSeek(comment.timestamp)\" ng-bind=\"(comment.timestamp | time)\"></a>\n" +
-    "          </span>\n" +
-    "          <div class=\"video-feedback__comment-text\">\n" +
-    "            (~ comment.comment ~)\n" +
+    "          <div ng-class=\"{ 'video-feedback__comment--resolved' : comment.resolved }\">\n" +
+    "            <a class=\"video-feedback__comment-profile-image\" style=\"background-image: url('(~ comment.avatar_url ~)');\"></a>\n" +
+    "            <div class=\"video-feedback__comment-details\">\n" +
+    "              <span class=\"video-feedback__comment-name\" ng-bind=\"comment.username\"></span>\n" +
+    "              <span class=\"video-feedback__comment-time-posted\" ng-bind=\"comment.datetime | prettyDate\"></span>\n" +
+    "              <span class=\"video-feedback__comment-resolved\" ng-class=\"{ 'video-feedback__comment-resolved--active' : replyActive && comment.resolved }\">resolved</span>\n" +
+    "            </div>\n" +
+    "            <div class=\"video-feedback__comment-content\">\n" +
+    "              <span class=\"video-feedback__comment-timestamp\" ng-show=\"comment.timestamp\">\n" +
+    "                @<a class=\"video-feedback__comment-timestamp-link\" ng-click=\"videoSeek(comment.timestamp)\" ng-bind=\"(comment.timestamp | time)\"></a>\n" +
+    "              </span>\n" +
+    "              <div class=\"video-feedback__comment-text\">\n" +
+    "                (~ comment.comment ~)\n" +
+    "              </div>\n" +
+    "            </div>\n" +
     "          </div>\n" +
-    "        </div>\n" +
     "        <div class=\"video-feedback__comment-controls\">\n" +
     "          <a class=\"video-feedback__reply-link\"\n" +
     "            ng-hide=\"comment.resolved\"\n" +
@@ -1022,6 +1024,12 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "            ng-class=\"{ 'video-feedback__resolve-link--active' : replyActive && isOwner }\"\n" +
     "            ng-click=\"resolve(comment.id)\">\n" +
     "            resolve\n" +
+    "          </a>\n" +
+    "          <a class=\"video-feedback__resolve-link\"\n" +
+    "            ng-show=\"comment.resolved\"\n" +
+    "            ng-class=\"{ 'video-feedback__resolve-link--active' : replyActive && isOwner }\"\n" +
+    "            ng-click=\"unresolve(comment.id)\">\n" +
+    "            unresolve\n" +
     "          </a>\n" +
     "        </div>\n" +
     "      </li>\n" +

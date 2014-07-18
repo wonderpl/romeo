@@ -102,8 +102,13 @@ angular.module('RomeoApp.directives')
         CommentsService.resolveComment($scope.videoId, commentId).then(function (data) {
           var comment = getCommentById(commentId);
           angular.extend(comment, data);
-          // API bug
-          comment.resolved = true;
+        });
+      };
+
+      $scope.unresolve = function (commentId) {
+        CommentsService.unresolveComment($scope.videoId, commentId).then(function (data) {
+          var comment = getCommentById(commentId);
+          angular.extend(comment, data);
         });
       };
 
