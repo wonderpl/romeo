@@ -291,14 +291,15 @@ def send_published_email(video_id, dolly_channel, dolly_instance):
     link = current_app.config['DOLLY_WEBLITE_URL_FMT'].format(
         slug='-', channelid=dolly_channel, instanceid=dolly_instance)
     template = email_template_env.get_template('video_published.html')
-    body = template.render(video=video, link=link)
 
     users = AccountUser.query.filter_by(account_id=video.account_id)
     for recipient, name in users.values('username', 'display_name'):
+        body = template.render(video=video, link=link, username=name)
         send_email(recipient, body)
 
     collabs = VideoCollaborator.query.filter_by(video_id=video_id)
     for recipient, name in collabs.values('email', 'name'):
+        body = template.render(video=video, link=link, username=name)
         send_email(recipient, body)
 
 
