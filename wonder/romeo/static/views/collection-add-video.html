@@ -29,9 +29,17 @@
         <span class="video-edit-collections__option-title">Create New Collection</span>
         <span class="video-edit-collections__option-count"></span>
       </li>
-      <li class="video-edit-collections__option" ng-class="{ 'video-edit-collections__option--selected' : hasTag(tag.id) }" ng-repeat="tag in availableTags" ng-click="addTag(tag.id, $event)">
+      <li class="video-edit-collections__option"
+        data-videos="{{ tag.video_count }}"
+        ng-class="{ 'video-edit-collections__option--selected' : hasTag(tag.id) }"
+        ng-repeat="tag in availableTags"
+        ng-click="addTag(tag.id, $event)">
         <span class="video-edit-collections__option-title" ng-bind-html="tag.label"></span>
-        <span class="video-edit-collections__option-count">4 videos</span>
+        <ng-switch ng-show="tag.video_count" on="tag.video_count">
+          <span class="video-edit-collections__option-count" ng-switch-when="0">no videos</span>
+          <span class="video-edit-collections__option-count" ng-switch-when="1">1 video</span>
+          <span class="video-edit-collections__option-count" ng-switch-default>{{ tag.video_count }} videos</span>
+        </ng-switch>
       </li>
     </ul>
 

@@ -235,9 +235,17 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        <span class=\"video-edit-collections__option-title\">Create New Collection</span>\n" +
     "        <span class=\"video-edit-collections__option-count\"></span>\n" +
     "      </li>\n" +
-    "      <li class=\"video-edit-collections__option\" ng-class=\"{ 'video-edit-collections__option--selected' : hasTag(tag.id) }\" ng-repeat=\"tag in availableTags\" ng-click=\"addTag(tag.id, $event)\">\n" +
+    "      <li class=\"video-edit-collections__option\"\n" +
+    "        data-videos=\"(~ tag.video_count ~)\"\n" +
+    "        ng-class=\"{ 'video-edit-collections__option--selected' : hasTag(tag.id) }\"\n" +
+    "        ng-repeat=\"tag in availableTags\"\n" +
+    "        ng-click=\"addTag(tag.id, $event)\">\n" +
     "        <span class=\"video-edit-collections__option-title\" ng-bind-html=\"tag.label\"></span>\n" +
-    "        <span class=\"video-edit-collections__option-count\">4 videos</span>\n" +
+    "        <ng-switch ng-show=\"tag.video_count\" on=\"tag.video_count\">\n" +
+    "          <span class=\"video-edit-collections__option-count\" ng-switch-when=\"0\">no videos</span>\n" +
+    "          <span class=\"video-edit-collections__option-count\" ng-switch-when=\"1\">1 video</span>\n" +
+    "          <span class=\"video-edit-collections__option-count\" ng-switch-default>(~ tag.video_count ~) videos</span>\n" +
+    "        </ng-switch>\n" +
     "      </li>\n" +
     "    </ul>\n" +
     "\n" +
@@ -1268,7 +1276,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <video-navigation></video-navigation>\n" +
     "\n" +
-    "  <section class=\"main-view video-view\">\n" +
+    "  <section ng-cloak class=\"main-view video-view\">\n" +
     "\n" +
     "    <h2 class=\"video-view__title\"\n" +
     "      data-placeholder=\"(~ titlePlaceholder ~)\"\n" +
