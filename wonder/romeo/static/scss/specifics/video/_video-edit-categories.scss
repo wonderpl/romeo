@@ -4,25 +4,36 @@
 
 .video-edit-categories__category {
   display: inline-block;
-  transition: border-color 0.4s ease-in-out;
-  border: solid 1px $dark-grey;
-  color: $dark-grey;
-  padding: 1em;
-  text-align: center;
-  margin-right: 12px;
-  margin-bottom: 1em;
-  cursor: pointer;
   width: 300px;
   min-width: 200px;
+  margin-right: 12px;
+  margin-bottom: 1em;
+  padding: 1em;
+  font-weight: bold;
+  font-size: 0.875em;
+  color: $dark-grey;
+  text-align: center;
+  border: solid 2px lighten($dark-grey, 20%);
+  border-radius: 3px;
+  @include vendor(user-select, none);
+  cursor: pointer;
+  /*transition: border-color 0.4s ease-in-out;*/
 }
 
 .video-edit-categories__category:hover {
-  border-color: $dark-green;
+  border-color: $dark-grey;
 }
 
 .video-edit-categories__category--active {
-  border-color: $green;
+  color: #fff;
+  background-color: $dark-green;
+  border-color: $dark-green;
+
+  &:hover {
+    border-color: $dark-green;
+  }
 }
+
 
 .video-edit-categories__subcategories {
   float: left;
@@ -39,6 +50,19 @@
 .video-edit-categories__subcategory {
   margin-right: 16px;
   border-style: dashed;
+}
+
+.video-edit-categories__subcategory--active {
+  color: $dark-green;
+  background-color: transparent;
+  border-color: $dark-green;
+
+  /**
+   * !shame!
+   */
+  &:hover {
+    border-color: $dark-green !important;
+  }
 }
 
 .video-edit-categories__selected-category {
