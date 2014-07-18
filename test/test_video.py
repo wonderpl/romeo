@@ -44,7 +44,8 @@ class VideoWorkflowTestCase(DataTestCase, TestCase):
     datasets = AccountData, AccountUserData, VideoTagData
 
     def tearDown(self):
-        g.__dict__ = {}
+        super(VideoWorkflowTestCase, self).tearDown()
+        TestCase.tearDown(self)
 
     def test_video_workflow(self):
         account = self.data.AccountData.account
@@ -429,3 +430,66 @@ class VideoPlayerParametersTestCase(TestCase):
             videodata = json.loads(r.data)['video']
             self.assertItemsEqual(videodata['source_player_parameters'].items(),
                                   params.items())
+
+
+class VideoTagTestCase(DataTestCase, TestCase):
+
+    class AccountData(DataSet):
+        class account:
+            id = 6001
+            name = 'test'
+
+    class AccountUserData(DataSet):
+        class user:
+            account_id = 6001
+            username = 'noreply+user1@wonderpl.com'
+            password_hash = ''
+
+    class VideoData(DataSet):
+        class video1:
+            id = 6101
+            account_id = 6001
+            title = 'video #1'
+
+        class video2:
+            id = 6102
+            account_id = 6001
+            title = 'video #2'
+
+    class VideoTagData(DataSet):
+        class tag1:
+            id = 6201
+            account_id = 6001
+            label = 'tag #1'
+
+    class VideoTagVideoData(DataSet):
+        class videotagvideo1:
+            video_id = 6101
+            tag_id = 6201
+
+    fixture = dbfixture
+    datasets = AccountData, AccountUserData, VideoData, VideoTagData, VideoTagVideoData
+
+    def test_create_tag(self):
+        account_id = self.data.AccountData.account.id
+        tag = dict(label='test')
+
+        with client_for_account(account_id) as client:
+            r = client.post('/api/account/%d/tags' % account_id,
+                            content_type='application/json', data=json.dumps(tag))
+            self.assertEquals(r.status_code, 201)
+            resource = json.loads(r.data)['href']
+
+            data = json.loads(client.get(resource).data)
+            self.assertEquals(data['label'], tag['label'])
+            self.assertFalse(data['public'])
+
+    def test_list_tags(self):
+        account_id = self.data.AccountData.account.id
+
+        with client_for_account(account_id) as client:
+            r = client.get('/api/account/%d/tags' % account_id)
+            tags = json.loads(r.data)['tag']['items']
+            tag = next(t for t in tags if t['id'] == self.data.VideoTagData.tag1.id)
+            self.assertEquals(tag['label'], self.data.VideoTagData.tag1.label)
+            self.assertEquals(tag['video_count'], 1)

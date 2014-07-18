@@ -24,6 +24,7 @@ Content-Type: application/json
     "href": "/api/tag/4",
     "label": "test",
     "description": "desc",
+    "video_count": 10,
     "public": true
    }
   ]

@@ -35,7 +35,7 @@ class Video(db.Model):
     player_logo_filename = Column(String(128))
     dolly_instance = Column(String(128))
 
-    account = relationship(Account, backref='videos')
+    account = relationship(Account, backref=backref('videos', cascade='all, delete-orphan'))
 
     tags = association_proxy('tags_associations', 'tag')
 
@@ -179,7 +179,7 @@ class VideoLocaleMeta(db.Model):
     strapline = Column(String(1024))
     description = Column(Text)
 
-    video = relationship(Video, backref='locale_meta')
+    video = relationship(Video, backref=backref('locale_meta', cascade='all, delete-orphan'))
 
 
 class VideoPlayerParameter(db.Model):
@@ -190,7 +190,7 @@ class VideoPlayerParameter(db.Model):
     name = Column(String(32), nullable=False)
     value = Column(String(1024), nullable=False)
 
-    video = relationship(Video, backref='_player_parameters')
+    video = relationship(Video, backref=backref('_player_parameters', cascade='all, delete-orphan'))
 
 
 class VideoTag(db.Model):
@@ -202,7 +202,7 @@ class VideoTag(db.Model):
     description = Column(String(200), nullable=False, server_default='')
     dolly_channel = Column(String(128))
 
-    account = relationship(Account, backref='tags')
+    account = relationship(Account, backref=backref('tags', cascade='all, delete-orphan'))
 
     def __unicode__(self):
         return self.label
@@ -247,7 +247,7 @@ class VideoTagVideo(db.Model):
     tag_id = Column('tag', ForeignKey(VideoTag.id), nullable=False)
 
     video = relationship(Video, backref='tags_associations')
-    tag = relationship(VideoTag, backref='videos_associations')  # cascade='all, delete-orphan', single_parent=True)
+    tag = relationship(VideoTag, backref=backref('videos_associations', cascade='all, delete-orphan'))
 
     @property
     def href(self):
@@ -264,7 +264,7 @@ class VideoWorkflowEvent(db.Model):
     event_type = Column(String(32), nullable=False)
     event_value = Column(String(1024))
 
-    video = relationship(Video, backref='workflow_events')
+    video = relationship(Video, backref=backref('workflow_events', cascade='all, delete-orphan'))
     user = relationship(AccountUser)
 
     @classmethod
@@ -286,7 +286,7 @@ class VideoComment(db.Model):
     notification_sent = Column(Boolean(), nullable=False, server_default='false', default=False)
     resolved = Column(Boolean(), nullable=False, server_default='false', default=False)
 
-    video = relationship(Video, backref='comments')
+    video = relationship(Video, backref=backref('comments', cascade='all, delete-orphan'))
 
     @property
     def href(self):
@@ -334,7 +334,7 @@ class VideoCollaborator(db.Model):
     email = Column(String(1024), nullable=False)
     name = Column(String(1024))
 
-    video = relationship(Video, backref='collaborators')
+    video = relationship(Video, backref=backref('collaborators', cascade='all, delete-orphan'))
 
     @property
     def token(self):

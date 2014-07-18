@@ -1,6 +1,7 @@
 from urllib import urlencode
 from hashlib import md5
 from functools import wraps
+from sqlalchemy import func
 from flask import Blueprint, current_app, request, Response, render_template, abort, url_for, json
 from flask.ext.login import current_user, login_required
 from flask.ext.restful.reqparse import RequestParser
@@ -75,7 +76,19 @@ class AccountTagsResource(Resource):
 
     @dolly_account_view
     def get(self, account, dollyuser):
-        items = map(_tag_item, account.tags)
+        tags = VideoTag.query.filter_by(
+            account_id=account.id
+        ).outerjoin(
+            VideoTagVideo, (VideoTagVideo.tag_id == VideoTag.id)
+        ).outerjoin(
+            Video, (Video.id == VideoTagVideo.video_id) & (Video.deleted == False)
+        ).group_by(
+            VideoTag.id
+        ).with_entities(
+            VideoTag,
+            func.count(Video.id)
+        )
+        items = [_tag_item(*t) for t in tags]
         return dict(tag=dict(items=items, total=len(items)))
 
     @dolly_account_view
@@ -100,8 +113,11 @@ class AccountTagsResource(Resource):
         return dict(id=tag.id, href=tag.href), 201, {'Location': tag.href}
 
 
-def _tag_item(tag):
-    return dict((p, getattr(tag, p)) for p in ('id', 'href', 'label', 'description', 'public'))
+def _tag_item(tag, video_count=None):
+    data = dict((p, getattr(tag, p)) for p in ('id', 'href', 'label', 'description', 'public'))
+    if video_count:
+        data['video_count'] = video_count
+    return data
 
 
 def tag_view(f):
@@ -455,7 +471,7 @@ def _gravatar_url(email):
 def _collaborator_item(collaborator):
     return dict(
         username=collaborator.name,
-        #email=collaborator.email,
+        # email=collaborator.email,
         permissions=filter(None, [f if getattr(collaborator, f) else None
                                   for f in dir(collaborator) if f.startswith('can_')]),
         avatar_url=_gravatar_url(collaborator.email),
