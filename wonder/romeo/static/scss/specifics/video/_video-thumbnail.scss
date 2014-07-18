@@ -6,11 +6,18 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: url('/static/assets/img/video-chrome-placeholder.png') bottom left no-repeat;
   border: solid 1px $grey;
   border-bottom: 0;
   display: table;
   padding-bottom: 40px;
+}
+
+.video-preview__frame {
+  width: 960px;
+  height: 540px;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .video-preview--invert {
@@ -20,7 +27,6 @@
 }
 
 .video-thumbnail__option {
-  display: block;
   height: 93%;
   width: 50%;
   border: solid 6px transparent;
@@ -31,6 +37,8 @@
   background-repeat: no-repeat;
   cursor: pointer;
   padding-top: 130px;
+  position: relative;
+  color: $white;
 }
 
 .video-thumbnail__option--invert {
@@ -38,6 +46,11 @@
 }
 
 .video-thumbnail__option--disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+.video-preview__option--disabled {
   opacity: 0.2;
   cursor: not-allowed;
 }

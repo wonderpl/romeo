@@ -6,15 +6,6 @@ angular.module('RomeoApp.directives')
 
   function createComment (data) {
 
-// {
-//     "avatar": "http://media.dev.rockpack.com/images/avatar/thumbnail_medium/kHmU0Pn5E1dVK3K68Okjgw.jpg",
-//     "description": "Life Skills Coach, powered by emotional intelligence.",
-//     "display_name": "Lynn Blades",
-//     "href": "/api/account/14511293",
-//     "name": "Lynn Blades",
-//     "profile_cover": "http://media.dev.rockpack.com/images/profile/thumbnail_medium/kNxA6OFGIiMuQOESa05nLA.jpg"
-// }
-
     var avatar = $rootScope.User.avatar;
     var username = $rootScope.User.display_name;
 
@@ -29,14 +20,6 @@ angular.module('RomeoApp.directives')
     };
 
     angular.extend(comment, data);
-
-    // avatar_url: "http://www.gravatar.com/avatar/fd8a08918818436bfa110ef2d3b97834?s=48&d=mm"
-    // comment: "xcvxzcv"
-    // datetime: "2014-07-13T15:21:12.750463"
-    // href: "/api/comment/1"
-    // id: 1
-    // timestamp: null
-    // username: "noreply@wonderpl.com"
 
     return comment;
   }
@@ -72,7 +55,6 @@ angular.module('RomeoApp.directives')
         function() { return $rootScope.User; },
         function(newValue, oldValue) {
           if (newValue && newValue !== oldValue && !jQuery.isEmptyObject(newValue)) {
-            console.log(newValue);
             $scope.user = newValue;
           }
         }
@@ -102,8 +84,13 @@ angular.module('RomeoApp.directives')
         CommentsService.resolveComment($scope.videoId, commentId).then(function (data) {
           var comment = getCommentById(commentId);
           angular.extend(comment, data);
-          // API bug
-          comment.resolved = true;
+        });
+      };
+
+      $scope.unresolve = function (commentId) {
+        CommentsService.unresolveComment($scope.videoId, commentId).then(function (data) {
+          var comment = getCommentById(commentId);
+          angular.extend(comment, data);
         });
       };
 

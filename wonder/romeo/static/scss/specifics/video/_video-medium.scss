@@ -1,0 +1,16 @@
+.video-medium {
+  b {
+    @extend .serif;
+    font-weight: bold;
+  }
+  i {
+    @extend .serif;
+    font-style: italic;
+  }
+  p {
+    @extend .serif;
+  }
+  li {
+    @extend .serif;
+  }
+}

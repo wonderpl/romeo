@@ -56,11 +56,26 @@ angular.module('RomeoApp.services').factory('CommentsService',
     return deferred.promise;
   }
 
+  function unresolveComment (videoId, commentId) {
+    var deferred = new $q.defer();
+    AuthService.getSessionId().then(function(response){
+      deferred.resolve(DataService.request({
+        url: '/api/video/' + videoId + '/comments/' + commentId,
+        method: 'PATCH',
+        data: {
+          resolved : false
+        }
+      }));
+    });
+    return deferred.promise;
+  }
+
   return ({
-    resolveComment  : resolveComment,
-    notify          : notify,
-    addComment      : addComment,
-    getComments     : getComments
+    resolveComment    : resolveComment,
+    unresolveComment  : unresolveComment,
+    notify            : notify,
+    addComment        : addComment,
+    getComments       : getComments
   });
 
 }]);
