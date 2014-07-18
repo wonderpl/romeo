@@ -8,9 +8,13 @@
 
     <section class="video-more__controls-container">
 
-      <input class="video-more__input" ng-model="text" placeholder="Create a custom button..." />
+      <input class="video-more__input" ng-model="text" placeholder="Custom text&hellip;" />
 
-      <input class="video-more__input" ng-model="url" placeholder="http://google.com/" />
+      <input class="video-more__input" ng-model="url" placeholder="Link URL" />
+
+      <p class="video-more__hint"><strong>Hint:</strong> Drive traffic to your website by adding a link</p>
+
+      <a class="button button--primary button--small" ng-click="save()"></a>
 
     </section>
 

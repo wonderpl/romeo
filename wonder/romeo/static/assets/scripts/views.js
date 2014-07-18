@@ -207,7 +207,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<section class=\"collection-add-video\">\n" +
     "\n" +
     "  <header class=\"video-extended-controls__section-header\" ng-click=\"showCollection = !showCollection\">\n" +
-    "    <h4 class=\"video-extended-controls__section-header-title\" ng-click=\"showCollection = !showCollection\">\n" +
+    "    <h4 class=\"video-extended-controls__section-header-title\">\n" +
     "      <span ng-if=\"!video || !video.tags || !video.tags.items || video.tags.items.length === 0\">\n" +
     "        Add video to collection\n" +
     "      </span>\n" +
@@ -1153,9 +1153,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <section class=\"video-more__controls-container\">\n" +
     "\n" +
-    "      <input class=\"video-more__input\" ng-model=\"text\" placeholder=\"Create a custom button...\" />\n" +
+    "      <input class=\"video-more__input\" ng-model=\"text\" placeholder=\"Custom text&hellip;\" />\n" +
     "\n" +
-    "      <input class=\"video-more__input\" ng-model=\"url\" placeholder=\"http://google.com/\" />\n" +
+    "      <input class=\"video-more__input\" ng-model=\"url\" placeholder=\"Link URL\" />\n" +
+    "\n" +
+    "      <p class=\"video-more__hint\"><strong>Hint:</strong> Drive traffic to your website by adding a link</p>\n" +
+    "\n" +
+    "      <a class=\"button button--primary button--small\" ng-click=\"save()\"></a>\n" +
     "\n" +
     "    </section>\n" +
     "\n" +
