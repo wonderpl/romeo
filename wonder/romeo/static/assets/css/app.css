@@ -4874,6 +4874,11 @@ body {
   font-family: 'proxima-nova', sans-serif;
 }
 
+/* line 5, ../../scss/base/project/_fonts.scss */
+.serif, .video-medium b, .video-medium i, .video-medium p, .video-medium li {
+  font-family: 'freight-text-pro', serif;
+}
+
 /* line 1, ../../scss/base/project/_globals.scss */
 * {
   -webkit-box-sizing: border-box;
@@ -6317,6 +6322,15 @@ textarea {
   display: inline-block;
 }
 
+/* line 2, ../../scss/specifics/video/_video-medium.scss */
+.video-medium b {
+  font-weight: bold;
+}
+/* line 6, ../../scss/specifics/video/_video-medium.scss */
+.video-medium i {
+  font-style: italic;
+}
+
 /* line 1, ../../scss/specifics/upload/_upload-progress.scss */
 .upload-progress {
   display: inline-block;
@@ -6399,6 +6413,9 @@ textarea {
   display: block;
 }
 
+/*!
+========== VENDOR
+*/
 @media screen and (max-width: 480px) {
   /* 	Mobile styles
   /* ======================================= */

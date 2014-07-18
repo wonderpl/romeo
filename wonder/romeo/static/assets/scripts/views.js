@@ -1207,7 +1207,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <section class=\"video-share__embed-code-container\"\n" +
     "    ng-class=\"{ 'video-share__embed-code-container--active' : showEmbedCode }\">\n" +
     "  <label class=\"video-share__embed-code-label\">\n" +
-    "    <input class=\"video-share__embed-code-field\" placeholder=\"embed link\" ng-model=\"embedCode\" />\n" +
+    "    <input class=\"video-share__embed-code-field\" placeholder=\"embed link\" ng-model=\"embedCode.html\" />\n" +
     "  </label>\n" +
     "\n" +
     "  </section>\n" +
@@ -1291,14 +1291,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <h2 class=\"video-view__title\"\n" +
     "      data-placeholder=\"(~ titlePlaceholder ~)\"\n" +
     "      medium-editor\n" +
-    "      options=\"{ disableToolbar : true }\"\n" +
+    "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
     "      ng-model=\"video.title\"\n" +
     "      ng-show=\"isEdit\">\n" +
     "    </h2>\n" +
     "    <h3 class=\"video-view__sub-title\"\n" +
     "      data-placeholder=\"(~ straplinePlaceholder ~)\"\n" +
     "      medium-editor\n" +
-    "      options=\"{ disableToolbar : true }\"\n" +
+    "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
     "      ng-model=\"video.strapline\"\n" +
     "      ng-show=\"isEdit\">\n" +
     "    </h2>\n" +
@@ -1321,16 +1321,16 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      ng-show=\"(isEdit || video.link_title && video.link_url) && !isComments\">\n" +
     "    </video-more-link>\n" +
     "\n" +
-    "    <section class=\"video-view__description\"\n" +
+    "    <section class=\"video-view__description video-medium\"\n" +
     "      ng-class=\"{ 'video-view__description--edit' : isEdit }\"\n" +
     "      data-placeholder=\"(~ descriptionPlaceholder ~)\"\n" +
     "      medium-editor\n" +
-    "      options=\"{ buttons : ['bold', 'italic', 'underline', 'header1', 'header2'] }\"\n" +
+    "      options=\"{ buttons : ['bold', 'italic', 'header1', 'header2', 'unorderedlist'], firstHeader : 'h2', secondHeader : 'h3' }\"\n" +
     "      ng-model=\"video.description\"\n" +
     "      ng-show=\"isEdit\">\n" +
     "    </section>\n" +
     "\n" +
-    "    <section class=\"video-view__description\" ng-bind-html=\"video.description\" ng-hide=\"isComments || isEdit\"></section>\n" +
+    "    <section class=\"video-view__description video-medium\" ng-bind-html=\"video.description\" ng-hide=\"isComments || isEdit\"></section>\n" +
     "\n" +
     "    <video-share video=\"video\" has-tags=\"(~ video.tags && video.tags.items && video.tags.items.length > 0 ~)\" ng-hide=\"isComments\" video-id=\"(~ video.id ~)\"></video-share>\n" +
     "\n" +
