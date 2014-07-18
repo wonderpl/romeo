@@ -1,5 +1,3 @@
-from urllib import urlencode
-from hashlib import md5
 from functools import wraps
 from sqlalchemy import func
 from flask import Blueprint, current_app, request, Response, render_template, abort, url_for, json
@@ -11,6 +9,7 @@ from wonder.romeo.core.rest import Resource, api_resource
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.s3 import s3connection, video_bucket
 from wonder.romeo.core.ooyala import ooyala_request, get_video_data
+from wonder.romeo.core.util import gravatar_url
 from wonder.romeo.account.views import dolly_account_view, get_dollyuser
 from .models import (Video, VideoTag, VideoTagVideo, VideoThumbnail,
                      VideoPlayerParameter, VideoComment, VideoCollaborator)
@@ -461,20 +460,13 @@ class VideoTagVideoResource(Resource):
         return None, 204
 
 
-def _gravatar_url(email):
-    base = current_app.config['GRAVATAR_BASE_URL']
-    hash = md5(email.lower()).hexdigest()
-    query = urlencode(dict(d='mm', s=current_app.config['GRAVATAR_SIZE']))
-    return base + hash + '?' + query
-
-
 def _collaborator_item(collaborator):
     return dict(
         username=collaborator.name,
         # email=collaborator.email,
         permissions=filter(None, [f if getattr(collaborator, f) else None
                                   for f in dir(collaborator) if f.startswith('can_')]),
-        avatar_url=_gravatar_url(collaborator.email),
+        avatar_url=gravatar_url(collaborator.email),
     )
 
 
@@ -487,8 +479,8 @@ class VideoCollaboratorsResource(Resource):
         items = map(_collaborator_item, query.all())
         items.extend(
             dict(
-                username=user.display_name or user.username,
-                avatar_url=user.avatar_url or _gravatar_url(user.username),
+                username=user.name,
+                avatar_url=user.avatar_url or gravatar_url(user.email),
             )
             for user in video.account.users
         )
@@ -527,7 +519,7 @@ def _comment_item(comment, username, email, avatar_url):
         timestamp=comment.timestamp,
         datetime=comment.date_added.isoformat(),
         username=username or email,
-        avatar_url=avatar_url or _gravatar_url(email),
+        avatar_url=avatar_url or gravatar_url(email),
         resolved=comment.resolved,
     )
 

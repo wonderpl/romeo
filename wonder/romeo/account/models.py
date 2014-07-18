@@ -40,6 +40,10 @@ class AccountUser(db.Model):
     def name(self):
         return self.display_name or self.username
 
+    @property
+    def email(self):
+        return self.username
+
     def is_active(self):
         return self.active
 

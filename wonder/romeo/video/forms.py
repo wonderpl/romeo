@@ -14,6 +14,7 @@ from wonder.romeo.core.ooyala import create_asset, ooyala_request, DuplicateExce
 from wonder.romeo.core.email import send_email, email_template_env
 from wonder.romeo.core.s3 import upload_file, download_file, media_bucket, video_bucket
 from wonder.romeo.core.sqs import background_on_sqs
+from wonder.romeo.core.util import gravatar_url
 from wonder.romeo.account.models import AccountUser
 from .models import Video, VideoTag, VideoThumbnail, VideoComment, VideoCollaborator
 
@@ -314,10 +315,9 @@ def send_comment_notifications(video_id, user_type, user_id):
         return
 
     if user_type == 'collaborator':
-        sender = VideoCollaborator.query.filter_by(id=user_id).value('name')
+        sender = VideoCollaborator.query.get(user_id)
     else:
-        account_user = AccountUser.query.get(user_id)
-        sender = account_user.display_name or account_user.username
+        sender = AccountUser.query.get(user_id)
 
     video = Video.query.get(video_id)
     template = email_template_env.get_template('comment_notification.html')
@@ -335,6 +335,7 @@ def send_comment_notifications(video_id, user_type, user_id):
             email=email,
             username=username or email,
             token=token,
+            gravatar_url=gravatar_url,
         )
         send_email(email, body)
 
