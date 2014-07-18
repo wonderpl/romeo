@@ -57,7 +57,11 @@
           <tr>
             <td class="container-padding" bgcolor="#fff" style="background-color:#fff;padding:0 24px;font-size:12px;line-height:1.5;font-family:Georgia,Cambria,'Times New Roman',Times,serif;text-align:center;color:#70797b">
               {% block footer %}
-              To unsubscribe from these emails, click <a href="{{ unsubscribe_link }}" style="color:#51b464 !important;">here</a>. Your privacy is important to us, have a read of our <a href="http://wonderpl.com/privacy" style="color:#51b464 !important;">privacy policy</a>.<br><br>
+              You have received this email because you are a registered user of Wonder or because an existing user has invited you.
+              {% if unsubscribe_link %}
+              To unsubscribe from these emails, click <a href="{{ unsubscribe_link }}" style="color:#51b464 !important;">here</a>.
+              {% endif %}
+              Your privacy is important to us, have a read of our <a href="http://wonderpl.com/privacy" style="color:#51b464 !important;">privacy policy</a>.<br><br>
               {% endblock %}
             </td>
           </tr>

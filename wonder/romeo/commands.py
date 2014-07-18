@@ -30,15 +30,19 @@ def send_test_email(email_type, recipient, output=None):
 
     def _create_test_video():
         video = Video(title='test', status='ready')
-        video.thumbnails = [VideoThumbnail(url='http://lorempixel.com/640/360/technics/2/', width=640, height=360)]
+        video.thumbnails = [VideoThumbnail(url='http://lorempixel.com/640/360/technics/2/',
+                                           width=640, height=360)]
         video.collaborators = [VideoCollaborator(email=recipient, name='Vidkun Quisling')]
         account = Account(name='test')
-        account.users = [AccountUser(username=recipient, password_hash='', display_name='Maynard Cohen')]
+        account.users = [AccountUser(username=recipient, password_hash='',
+                                     display_name='Maynard Cohen',
+                                     avatar_url='http://lorempixel.com/60/60/people/9/')]
         account.videos = [video]
         db.session.add(account)
         db.session.flush()
         video.comments = [VideoComment(comment='I like this!', timestamp=10,
-                                       user_type='collaborator', user_id=video.collaborators[0].id)]
+                                       user_type='collaborator',
+                                       user_id=video.collaborators[0].id)]
         db.session.commit()
         return video, account
 
