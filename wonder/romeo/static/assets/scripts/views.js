@@ -980,7 +980,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        </div>\n" +
     "      </div>\n" +
     "      <a class=\"video-feedback__button button button--primary push-bottom\"\n" +
-    "        ng-class=\"{ 'video-feedback__button--active' : inputActive }\"\n" +
     "        ng-click=\"addComment()\">\n" +
     "        submit\n" +
     "      </a>\n" +
@@ -1201,6 +1200,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('video-thumbnail.html',
     "<section class=\"video-preview\" ng-class=\"{ 'video-preview--invert' : invertPreviewSelector }\">\n" +
     "\n" +
+    "  <iframe ng-hide=\"videoHasLoaded\" class=\"video-preview__frame\" src=\"http://wonderpl.com/embed/88888888/?controls=1\"></iframe>\n" +
+    "\n" +
     "  <a class=\"video-thumbnail__option video-thumbnail__option--select\" ng-class=\"{ 'video-thumbnail__option--disabled' : video.status !== 'ready' }\" ng-hide=\"showThumbnailSelector\" ng-click=\"(video.status !== 'ready') || selectThumbnail()\">Pick a generated thumbnail</a>\n" +
     "\n" +
     "  <section class=\"video-thumbnail__option video-thumbnail__option--upload\" ng-hide=\"showThumbnailSelector\" ng-file-drop=\"onPreviewImageSelect($files)\" ng-file-select=\"onPreviewImageSelect($files)\">\n" +
@@ -1209,8 +1210,11 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <div ng-file-drop-available=\"dropSupported=true\" ng-show=\"!dropSupported\">HTML5 Drop File is not supported!</div>\n" +
     "  </section>\n" +
     "\n" +
-    "  <section class=\"video-thumbnail__option video-preview__option--cancel\" ng-hide=\"showThumbnailSelector || !videoHasLoaded\" ng-click=\"closePreviewSelector()\">\n" +
-    "    <p>Cancel</p>\n" +
+    "  <section class=\"video-thumbnail__option video-preview__option--cancel\"\n" +
+    "    ng-hide=\"showThumbnailSelector\"\n" +
+    "    ng-class=\"{ 'video-preview__option--disabled' : !videoHasLoaded }\"\n" +
+    "    ng-click=\"!videoHasLoaded || closePreviewSelector()\">\n" +
+    "    <p ng-hide=\"!videoHasLoaded\">Cancel</p>\n" +
     "  </section>\n" +
     "\n" +
     "  <section class=\"video-thumbnail__selector\" ng-show=\"showThumbnailSelector\">\n" +

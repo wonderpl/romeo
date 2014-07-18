@@ -1,5 +1,7 @@
 <section class="video-preview" ng-class="{ 'video-preview--invert' : invertPreviewSelector }">
 
+  <iframe ng-hide="videoHasLoaded" class="video-preview__frame" src="http://wonderpl.com/embed/88888888/?controls=1"></iframe>
+
   <a class="video-thumbnail__option video-thumbnail__option--select" ng-class="{ 'video-thumbnail__option--disabled' : video.status !== 'ready' }" ng-hide="showThumbnailSelector" ng-click="(video.status !== 'ready') || selectThumbnail()">Pick a generated thumbnail</a>
 
   <section class="video-thumbnail__option video-thumbnail__option--upload" ng-hide="showThumbnailSelector" ng-file-drop="onPreviewImageSelect($files)" ng-file-select="onPreviewImageSelect($files)">
@@ -8,8 +10,11 @@
     <div ng-file-drop-available="dropSupported=true" ng-show="!dropSupported">HTML5 Drop File is not supported!</div>
   </section>
 
-  <section class="video-thumbnail__option video-preview__option--cancel" ng-hide="showThumbnailSelector || !videoHasLoaded" ng-click="closePreviewSelector()">
-    <p>Cancel</p>
+  <section class="video-thumbnail__option video-preview__option--cancel"
+    ng-hide="showThumbnailSelector"
+    ng-class="{ 'video-preview__option--disabled' : !videoHasLoaded }"
+    ng-click="!videoHasLoaded || closePreviewSelector()">
+    <p ng-hide="!videoHasLoaded">Cancel</p>
   </section>
 
   <section class="video-thumbnail__selector" ng-show="showThumbnailSelector">
