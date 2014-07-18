@@ -36,6 +36,7 @@
   margin: 20px 0;
   transition: all 1s ease-in-out;
   position: relative;
+  text-align: left;
 }
 
 .video-feedback__comment {
@@ -208,6 +209,20 @@
   padding-top: 1em;
   position: relative;
 }
+
+.video-feedback__comments-filters {
+  @include vendor(appearance, none);
+  font-size: 1em;
+  padding-left: 1em;
+  padding-right: 2em;
+}
+
+.video-feedback__comments-filter-label {
+  font-variant: small-caps;
+  color: $grey;
+  text-transform: lowercase;
+}
+
 
 
 

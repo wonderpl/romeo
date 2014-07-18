@@ -36,10 +36,20 @@
 
   <section class="video-feedback__comments">
 
+    <div class="video-feedback__comments-filter">
+      <label>
+        <span class="video-feedback__comments-filter-label">View:</span>
+        <select class="video-feedback__comments-filters button button--small" ng-model="filterResolved">
+          <option class="video-feedback__comments-filter" value="" selected="selected">All</option>
+          <option class="video-feedback__comments-filter" value="false">Unresolved</option>
+        </select>
+      </label>
+    </div>
+
     <ul class="video-feedback__comments-list">
       <li class="video-feedback__comment"
         ng-class="{ 'video-feedback__comment--active' : isTimeSync(comment.timestamp) }"
-        ng-repeat="comment in comments | orderBy : 'timestamp'"
+        ng-repeat="comment in comments | orderBy : 'timestamp' | filter: { resolved : filterResolved }"
         ng-mouseenter="replyActive = true"
         ng-mouseleave="replyActive = false">
           <div ng-class="{ 'video-feedback__comment--resolved' : comment.resolved }">

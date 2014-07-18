@@ -997,10 +997,20 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <section class=\"video-feedback__comments\">\n" +
     "\n" +
+    "    <div class=\"video-feedback__comments-filter\">\n" +
+    "      <label>\n" +
+    "        <span class=\"video-feedback__comments-filter-label\">View:</span>\n" +
+    "        <select class=\"video-feedback__comments-filters button button--small\" ng-model=\"filterResolved\">\n" +
+    "          <option class=\"video-feedback__comments-filter\" value=\"\" selected=\"selected\">All</option>\n" +
+    "          <option class=\"video-feedback__comments-filter\" value=\"false\">Unresolved</option>\n" +
+    "        </select>\n" +
+    "      </label>\n" +
+    "    </div>\n" +
+    "\n" +
     "    <ul class=\"video-feedback__comments-list\">\n" +
     "      <li class=\"video-feedback__comment\"\n" +
     "        ng-class=\"{ 'video-feedback__comment--active' : isTimeSync(comment.timestamp) }\"\n" +
-    "        ng-repeat=\"comment in comments | orderBy : 'timestamp'\"\n" +
+    "        ng-repeat=\"comment in comments | orderBy : 'timestamp' | filter: { resolved : filterResolved }\"\n" +
     "        ng-mouseenter=\"replyActive = true\"\n" +
     "        ng-mouseleave=\"replyActive = false\">\n" +
     "          <div ng-class=\"{ 'video-feedback__comment--resolved' : comment.resolved }\">\n" +
