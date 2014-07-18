@@ -15,25 +15,15 @@
 {% block title %}You have been invited to {{ action }} a video on Wonder PL{% endblock %}
 
 {% block body %}
-<table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateBody">
-  <tr>
-    <td valign="top" class="bodyContent">
-      <h3>Hi {{ collaborator.name }}</h3>
-      You have been invited by {{ sender.name }} to {{ action }}
-      <a href="{{ video_url() }}">"{{ video.title }}"</a>.
-    </td>
-  </tr>
-  <tr>
-    <td class="bodyContent" style="padding-top:0; padding-bottom:0;">
-      <a href="{{ video_url() }}">
-        <img src="{{ video.thumbnail }}" style="max-width:560px;" id="bodyImage" />
-      </a>
-    </td>
-  </tr>
-  <tr>
-    <td valign="top" class="bodyContent">
-      Link: <a href="{{ video_url() }}">{{ video_url() }}</a>
-    </td>
-  </tr>
-</table>
+<div style="width:100%;overflow:hidden;text-align:center;">
+  <img src="http://placehold.it/66x66" alt="{{ sender }}" width="66" height="66" style="display:block;max-width:none;width:66px;height:auto;margin:0 auto;border-radius:100%;"/>
+</div><br>
+<div style="font-weight:bold;font-size:28px;line-height:1.35;font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif;color:#2e2e32">
+  Hello {{ collaborator.name }},
+</div><br>
+<b>{{ sender.name }}</b> has sent you an invitation to {{ action }} their video, <a href="{{ video_url() }}">"{{ video.title }}"</a>. on Wonder PL.<br><br>
+<a href="{{ video_url() }}" border="0" class="video-thumb" style="display:block;margin:0;border:none;outline:none;">
+  <img src="{{ video.thumbnail }}" border="0" alt="{{ video.title }}" width="480" height="250" class="video-img" style="display:block;width:100%;height:auto;margin:0 auto;border:none;outline:none;" />
+</a><br>
+<p class="btn-center" style="display:block;width:100%;text-align:center;"><a href="{{ video_url() }}" class="btn" style="margin:0 auto;padding:10px 20px;font-weight:400;font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif;text-decoration:none;color:#fff !important;text-align:center;background-color:#51b364;border:none;border-radius:100px;cursor:pointer;" border="0">{{ action.capitalize() }} Video</a></p><br>
 {% endblock %}

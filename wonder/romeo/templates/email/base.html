@@ -5,8 +5,20 @@
   <meta name="viewport" content="initial-scale=1.0">
   <meta name="format-detection" content="telephone=no">
   <title>{% block title %}{% endblock %}</title>
-  <style>
-
+  <style type="text/css">
+    .ReadMsgBody{width:100%;background-color:#fff}
+    .ExternalClass{width:100%;background-color:#fff}
+    .ExternalClass,.ExternalClass p,.ExternalClass span,.ExternalClass font,.ExternalClass td,.ExternalClass div{line-height:100%}
+    body{-webkit-text-size-adjust:none; -ms-text-size-adjust:none}
+    body{margin:0; padding:0}
+    a:link{color:#51B464}
+    a:visited{color:#63CD77}
+    a:hover{color:#429D53}
+    table{border-spacing:0}
+    table td{border-collapse:collapse}
+    .yshortcuts a{border-bottom:none !important}
+    @media screen and (max-width: 600px){table[class="container"]{width:95% !important}}
+    @media screen and (max-width: 480px){td[class="container-padding"]{padding-left:12px !important;padding-right:12px !important}}
   </style>
   <!--[if IEMobile 7]>
   <style>
@@ -29,7 +41,7 @@
             <td class="container-padding" bgcolor="#fff" style="background-color:#fff;padding:0 24px;font-size:16px;line-height:1.5;font-family:Georgia,Times,'Times New Roman',serif;color:#70797b">
               {% block header %}
               <br>
-              <img src="{{ config.EMAIL_ASSETS_URL }}/assets/img/header-logo.png" alt="Wonder PL" width="160" height="27" style="display:block;max-width:100%;height:auto;margin:0 auto;border:none;outline:none" border="0">
+              <img src="{{ config.EMAIL_ASSETS_URL }}/assets/img/page-logo@2x.png" alt="Wonder PL" width="160" height="27" style="display:block;max-width:100%;height:auto;margin:0 auto;border:none;outline:none" border="0">
               <br>
               <hr style="height:0;margin:0;border:0 solid #d2dadf;border-bottom-width:1px">
               <br>
