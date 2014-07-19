@@ -230,8 +230,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <section class=\"video-edit-collections\">\n" +
     "\n" +
-    "    <ul class=\"video-edit-collections__options\" ng-class=\"{ 'video-edit-collections__options--fixed' : showCreateCollection }\">\n" +
-    "      <li class=\"video-edit-collections__option\" ng-click=\"showCreateCollection = !showCreateCollection\">\n" +
+    "    <ul class=\"video-edit-collections__options\">\n" +
+    "      <li class=\"video-edit-collections__option\" ng-click=\"showCreateCollection()\">\n" +
     "        <span class=\"video-edit-collections__option-title\">Create New Collection</span>\n" +
     "        <span class=\"video-edit-collections__option-count\"></span>\n" +
     "      </li>\n" +
@@ -252,30 +252,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "          </span>\n" +
     "      </li>\n" +
     "    </ul>\n" +
-    "\n" +
-    "    <section class=\"video-edit-collections__create-new\" ng-class=\"{ 'video-edit-collections__create-new--active' : showCreateCollection }\">\n" +
-    "      <a class=\"video-edit-collections__close\" ng-click=\"showCreateCollection = !showCreateCollection\">&times;</a>\n" +
-    "      <h5 class=\"video-edit-collections__new-title\">Create a collection</h5>\n" +
-    "      <section class=\"video-edit-collections__new-controls\">\n" +
-    "        <input ng-model=\"collection.label\" placeholder=\"Name\" class=\"video-edit-collections__new-collection-name\" />\n" +
-    "        <textarea ng-model=\"collection.description\" placeholder=\"Collection description (optional)&hellip;\" class=\"video-edit-collections__new-collection-description\"></textarea>\n" +
-    "        <ul class=\"video-edit-collections__scope-options\">\n" +
-    "          <li class=\"video-edit-collections__scope-option\">\n" +
-    "            <label class=\"video-edit-collections__label\">\n" +
-    "              <input type=\"radio\" name=\"scope\" ng-model=\"collection.scope\" value=\"public\" />\n" +
-    "              Public\n" +
-    "            </label>\n" +
-    "          </li>\n" +
-    "          <li class=\"video-edit-collections__scope-option\">\n" +
-    "            <label class=\"video-edit-collections__label\">\n" +
-    "              <input type=\"radio\" name=\"scope\" ng-model=\"collection.scope\" value=\"private\" />\n" +
-    "              Private\n" +
-    "            </label>\n" +
-    "          </li>\n" +
-    "        </ul>\n" +
-    "        <a ng-click=\"saveNewCollection()\" class=\"button button--primary\">Okay</a>\n" +
-    "      </section>\n" +
-    "    </section>\n" +
     "\n" +
     "  </section>\n" +
     "\n" +
@@ -543,6 +519,33 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t</form>\n" +
     "\t<a class=\"icon-cross close-modal\" ng-click=\"closeModal()\"></a>\n" +
     "</div>"
+  );
+
+
+  $templateCache.put('modal-create-new-collection.html',
+    "<section class=\"video-new-collection\">\n" +
+    "  <a class=\"video-new-collection__close\" ng-click=\"close()\">&times;</a>\n" +
+    "  <h5 class=\"video-new-collection__new-title\">Create a collection</h5>\n" +
+    "  <section class=\"video-new-collection__new-controls\">\n" +
+    "    <input ng-model=\"collection.label\" placeholder=\"Name\" class=\"video-new-collection__new-collection-name\" />\n" +
+    "    <textarea ng-model=\"collection.description\" placeholder=\"Collection description (optional)&hellip;\" class=\"video-new-collection__new-collection-description\"></textarea>\n" +
+    "    <ul class=\"video-new-collection__scope-options\">\n" +
+    "      <li class=\"video-new-collection__scope-option\">\n" +
+    "        <label class=\"video-new-collection__label\">\n" +
+    "          <input type=\"radio\" name=\"scope\" ng-model=\"collection.scope\" value=\"public\" />\n" +
+    "          Public\n" +
+    "        </label>\n" +
+    "      </li>\n" +
+    "      <li class=\"video-new-collection__scope-option\">\n" +
+    "        <label class=\"video-new-collection__label\">\n" +
+    "          <input type=\"radio\" name=\"scope\" ng-model=\"collection.scope\" value=\"private\" />\n" +
+    "          Private\n" +
+    "        </label>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "    <a ng-click=\"saveNewCollection()\" class=\"button button--primary\">Okay</a>\n" +
+    "  </section>\n" +
+    "</section>"
   );
 
 

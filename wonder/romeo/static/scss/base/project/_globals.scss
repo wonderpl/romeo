@@ -46,17 +46,12 @@ textarea {
 }
 
 
-::-webkit-input-placeholder {
-  color: $light-grey;
-}
-:-moz-placeholder { /* Firefox 18- */
-  color: $light-grey;
-}
-::-moz-placeholder {  /* Firefox 19+ */
-  color: $light-grey;
-}
+::-webkit-input-placeholder,
+:-moz-placeholder,            /* Firefox 18- */
+::-moz-placeholder,           /* Firefox 19+ */
 :-ms-input-placeholder {
   color: $light-grey;
+  font-size: 1em;
 }
 
 strong {

@@ -1,0 +1,23 @@
+<section class="video-new-collection">
+  <a class="video-new-collection__close" ng-click="close()">&times;</a>
+  <h5 class="video-new-collection__new-title">Create a collection</h5>
+  <section class="video-new-collection__new-controls">
+    <input ng-model="collection.label" placeholder="Name" class="video-new-collection__new-collection-name" />
+    <textarea ng-model="collection.description" placeholder="Collection description (optional)&hellip;" class="video-new-collection__new-collection-description"></textarea>
+    <ul class="video-new-collection__scope-options">
+      <li class="video-new-collection__scope-option">
+        <label class="video-new-collection__label">
+          <input type="radio" name="scope" ng-model="collection.scope" value="public" />
+          Public
+        </label>
+      </li>
+      <li class="video-new-collection__scope-option">
+        <label class="video-new-collection__label">
+          <input type="radio" name="scope" ng-model="collection.scope" value="private" />
+          Private
+        </label>
+      </li>
+    </ul>
+    <a ng-click="saveNewCollection()" class="button button--primary">Okay</a>
+  </section>
+</section>
