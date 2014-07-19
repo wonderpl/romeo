@@ -7,6 +7,7 @@ angular.module('RomeoApp.controllers')
     'use strict';
 
     function persistVideoData (data) {
+      console.log('persistVideoData()');
       angular.extend($scope.video, data);
     }
 
@@ -140,7 +141,11 @@ angular.module('RomeoApp.controllers')
     $scope.$on('video-upload-poll', videoUploadOnPoll);
 
     function videoUploadOnPoll (event, data) {
-      angular.extend($scope.video, data);
+
+      //overwriting values which have not yet been saved
+      // angular.extend($scope.video, data);
+
+      $scope.video.status = data.status;
     }
 
     $scope.loadVideo = function (id) {
@@ -157,6 +162,10 @@ angular.module('RomeoApp.controllers')
           $('#VideoPlayerIFrame').attr('src', $('#VideoPlayerIFrame').attr('src'));
         }
       });
+
+    $rootScope.$on('video-save', function () {
+      $scope.save();
+    });
 
     $scope.save = function () {
 
@@ -185,7 +194,8 @@ angular.module('RomeoApp.controllers')
 
     function videoUploadOnSuccess (event, data) {
 
-      angular.extend($scope.video, data);
+      //overwriting values which have not yet been saved
+      //angular.extend($scope.video, data);
 
       var url = '/video/' + $scope.video.id + '/edit';
 

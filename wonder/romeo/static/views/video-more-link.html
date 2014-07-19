@@ -8,13 +8,39 @@
 
     <section class="video-more__controls-container">
 
-      <input class="video-more__input" ng-model="text" placeholder="Custom text&hellip;" />
+      <form name="videoMoreLink">
 
-      <input class="video-more__input" ng-model="url" placeholder="Link URL" />
+        <label class="video-more__label video-more__label--text">
+          <input class="video-more__input video-more__input--short"
+            name="linkText"
+            ng-model="text"
+            placeholder="Custom text&hellip;"
+            required
+            ng-maxlength="30" />
+          <span class="video-more__character-count"
+            ng-bind="remaining"></span>
+        </label>
 
-      <p class="video-more__hint"><strong>Hint:</strong> Drive traffic to your website by adding a link</p>
+        <span class="video-more__error" ng-show="videoMoreLink.linkText.$error.required">Enter text</span>
+        <span class="video-more__error" ng-show="videoMoreLink.linkText.$error.maxlength">Too many characters</span>
 
-      <a class="button button--primary button--small" ng-click="save()"></a>
+        <label class="video-more__label video-more__label--link">
+          <input class="video-more__input"
+            name="linkUrl"
+            ng-model="url"
+            required
+            ng-pattern=/^http:\/\/.*/
+            placeholder="Link URL" />
+        </label>
+
+        <span class="video-more__error" ng-show="videoMoreLink.linkUrl.$error.pattern">Incorrect format: http://&hellip;</span>
+        <span class="video-more__error" ng-show="videoMoreLink.linkUrl.$error.required">Enter URL</span>
+
+        <p class="video-more__hint"><strong>Hint:</strong> Drive traffic to your website by adding a link</p>
+
+        <a class="button button--primary" ng-click="save()">Okay</a>
+
+      </form>
 
     </section>
 

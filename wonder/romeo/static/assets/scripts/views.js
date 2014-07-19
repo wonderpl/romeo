@@ -242,10 +242,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        ng-click=\"addTag(tag.id, $event)\">\n" +
     "        <span class=\"video-edit-collections__option-title\" ng-bind-html=\"tag.label\"></span>\n" +
     "        <ng-switch ng-show=\"tag.video_count\" on=\"tag.video_count\">\n" +
-    "          <span class=\"video-edit-collections__option-count\" ng-switch-when=\"0\">no videos</span>\n" +
-    "          <span class=\"video-edit-collections__option-count\" ng-switch-when=\"1\">1 video</span>\n" +
-    "          <span class=\"video-edit-collections__option-count\" ng-switch-default>(~ tag.video_count ~) videos</span>\n" +
-    "        </ng-switch>\n" +
+    "          <span class=\"video-edit-collections__option-count\">\n" +
+    "            <ng-pluralize count=\"tag.video_count\"\n" +
+    "              when=\"{\n" +
+    "                '0'     : 'no videos',\n" +
+    "                '1'     : '1 video',\n" +
+    "                'other' : '(~ tag.video_count ~) videos'}\">\n" +
+    "            </ng-pluralize>\n" +
+    "          </span>\n" +
     "      </li>\n" +
     "    </ul>\n" +
     "\n" +
@@ -1153,13 +1157,39 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <section class=\"video-more__controls-container\">\n" +
     "\n" +
-    "      <input class=\"video-more__input\" ng-model=\"text\" placeholder=\"Custom text&hellip;\" />\n" +
+    "      <form name=\"videoMoreLink\">\n" +
     "\n" +
-    "      <input class=\"video-more__input\" ng-model=\"url\" placeholder=\"Link URL\" />\n" +
+    "        <label class=\"video-more__label video-more__label--text\">\n" +
+    "          <input class=\"video-more__input video-more__input--short\"\n" +
+    "            name=\"linkText\"\n" +
+    "            ng-model=\"text\"\n" +
+    "            placeholder=\"Custom text&hellip;\"\n" +
+    "            required\n" +
+    "            ng-maxlength=\"30\" />\n" +
+    "          <span class=\"video-more__character-count\"\n" +
+    "            ng-bind=\"remaining\"></span>\n" +
+    "        </label>\n" +
     "\n" +
-    "      <p class=\"video-more__hint\"><strong>Hint:</strong> Drive traffic to your website by adding a link</p>\n" +
+    "        <span class=\"video-more__error\" ng-show=\"videoMoreLink.linkText.$error.required\">Enter text</span>\n" +
+    "        <span class=\"video-more__error\" ng-show=\"videoMoreLink.linkText.$error.maxlength\">Too many characters</span>\n" +
     "\n" +
-    "      <a class=\"button button--primary button--small\" ng-click=\"save()\"></a>\n" +
+    "        <label class=\"video-more__label video-more__label--link\">\n" +
+    "          <input class=\"video-more__input\"\n" +
+    "            name=\"linkUrl\"\n" +
+    "            ng-model=\"url\"\n" +
+    "            required\n" +
+    "            ng-pattern=/^http:\\/\\/.*/\n" +
+    "            placeholder=\"Link URL\" />\n" +
+    "        </label>\n" +
+    "\n" +
+    "        <span class=\"video-more__error\" ng-show=\"videoMoreLink.linkUrl.$error.pattern\">Incorrect format: http://&hellip;</span>\n" +
+    "        <span class=\"video-more__error\" ng-show=\"videoMoreLink.linkUrl.$error.required\">Enter URL</span>\n" +
+    "\n" +
+    "        <p class=\"video-more__hint\"><strong>Hint:</strong> Drive traffic to your website by adding a link</p>\n" +
+    "\n" +
+    "        <a class=\"button button--primary\" ng-click=\"save()\">Okay</a>\n" +
+    "\n" +
+    "      </form>\n" +
     "\n" +
     "    </section>\n" +
     "\n" +

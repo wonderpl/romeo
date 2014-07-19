@@ -44,3 +44,23 @@ textarea {
   margin: 0;
   padding: 0;
 }
+
+
+::-webkit-input-placeholder {
+  color: $light-grey;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: $light-grey;
+}
+::-moz-placeholder {  /* Firefox 19+ */
+  color: $light-grey;
+}
+:-ms-input-placeholder {
+  color: $light-grey;
+}
+
+strong {
+  font-weight: 800;
+}
+
+

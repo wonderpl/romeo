@@ -4935,6 +4935,33 @@ textarea {
   padding: 0;
 }
 
+/* line 49, ../../scss/base/project/_globals.scss */
+::-webkit-input-placeholder {
+  color: #b7bcbd;
+}
+
+/* line 52, ../../scss/base/project/_globals.scss */
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: #b7bcbd;
+}
+
+/* line 55, ../../scss/base/project/_globals.scss */
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #b7bcbd;
+}
+
+/* line 58, ../../scss/base/project/_globals.scss */
+:-ms-input-placeholder {
+  color: #b7bcbd;
+}
+
+/* line 62, ../../scss/base/project/_globals.scss */
+strong {
+  font-weight: 800;
+}
+
 /* line 1, ../../scss/base/project/_helpers.scss */
 .hide-text {
   color: transparent !important;
@@ -5005,7 +5032,7 @@ textarea {
   border: solid 1px #b7bcbd;
   border-radius: 24px;
   display: inline-block;
-  padding: 1em;
+  padding: 0.5em 1em;
   color: #999999;
   transition: border-color 0.3s ease-in-out;
   cursor: pointer;
@@ -5525,7 +5552,7 @@ textarea {
 
 /* line 20, ../../scss/specifics/video/_video-share.scss */
 .video-share__link {
-  padding: 1em;
+  padding: 0.5em;
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -6242,33 +6269,95 @@ textarea {
 .video-more {
   text-align: center;
   margin-bottom: 1em;
+  position: relative;
+  z-index: 1;
 }
 
-/* line 6, ../../scss/specifics/video/_video-more.scss */
+/* line 8, ../../scss/specifics/video/_video-more.scss */
 .video-more__form {
-  transition: max-height 0.4s ease-in-out;
-  max-height: 0;
-  overflow: hidden;
+  display: none;
+  position: absolute;
+  top: 50px;
+  left: 340px;
+  width: 280px;
+  background: white;
+  box-shadow: 0 0 1em #999999;
 }
 
-/* line 12, ../../scss/specifics/video/_video-more.scss */
+/* line 18, ../../scss/specifics/video/_video-more.scss */
+.video-more__form:before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 15px 15px 15px;
+  border-color: transparent transparent white transparent;
+  position: absolute;
+  top: -10px;
+  left: 45%;
+}
+
+/* line 31, ../../scss/specifics/video/_video-more.scss */
 .video-more__form--active {
-  max-height: 100em;
-}
-
-/* line 16, ../../scss/specifics/video/_video-more.scss */
-.video-more__controls-container {
   display: inline-block;
-  background: #b7bcbd;
-  padding: 1em;
-  margin: 1em;
 }
 
-/* line 23, ../../scss/specifics/video/_video-more.scss */
+/* line 35, ../../scss/specifics/video/_video-more.scss */
+.video-more__controls-container {
+  background: white;
+  padding: 0.5em 0 0.5em 1em;
+}
+
+/* line 40, ../../scss/specifics/video/_video-more.scss */
 .video-more__input {
   padding: 0.5em;
   font-size: 1em;
-  width: 20em;
+  border: none 0;
+}
+
+/* line 46, ../../scss/specifics/video/_video-more.scss */
+.video-more__label {
+  background-repeat: no-repeat;
+  background-position: center left;
+  display: block;
+  padding-left: 1em;
+  border-bottom: solid 1px #b7bcbd;
+  text-align: left;
+  margin-bottom: 12px;
+}
+
+/* line 56, ../../scss/specifics/video/_video-more.scss */
+.video-more__label--text {
+  background-image: url("/static/assets/img/video-more__icon-type.png");
+}
+
+/* line 60, ../../scss/specifics/video/_video-more.scss */
+.video-more__label--link {
+  background-image: url("/static/assets/img/video-more__icon-globe.png");
+}
+
+/* line 64, ../../scss/specifics/video/_video-more.scss */
+.video-more__hint {
+  margin-bottom: 1em;
+  text-align: left;
+  margin-right: 1em;
+}
+
+/* line 70, ../../scss/specifics/video/_video-more.scss */
+.video-more__character-count {
+  float: right;
+  font-weight: 800;
+  padding: 0.5em;
+}
+
+/* line 76, ../../scss/specifics/video/_video-more.scss */
+.video-more__error {
+  display: block;
+  text-align: left;
+  margin: 0.5em 0;
+  color: red;
+  font-weight: 800;
 }
 
 /* line 5, ../../scss/specifics/video/_video-collaborators.scss */

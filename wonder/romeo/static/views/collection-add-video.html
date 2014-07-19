@@ -36,10 +36,14 @@
         ng-click="addTag(tag.id, $event)">
         <span class="video-edit-collections__option-title" ng-bind-html="tag.label"></span>
         <ng-switch ng-show="tag.video_count" on="tag.video_count">
-          <span class="video-edit-collections__option-count" ng-switch-when="0">no videos</span>
-          <span class="video-edit-collections__option-count" ng-switch-when="1">1 video</span>
-          <span class="video-edit-collections__option-count" ng-switch-default>{{ tag.video_count }} videos</span>
-        </ng-switch>
+          <span class="video-edit-collections__option-count">
+            <ng-pluralize count="tag.video_count"
+              when="{
+                '0'     : 'no videos',
+                '1'     : '1 video',
+                'other' : '{{ tag.video_count }} videos'}">
+            </ng-pluralize>
+          </span>
       </li>
     </ul>
 
