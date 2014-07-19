@@ -5024,59 +5024,61 @@ strong {
   transition: border-color 0.3s ease-in-out;
   cursor: pointer;
   background: white;
+  font-family: proxima-nova, sans-serif;
+  font-size: 1em;
 }
 
-/* line 12, ../../scss/components/_buttons.scss */
+/* line 14, ../../scss/components/_buttons.scss */
 .button:hover {
   border-color: #70797b;
 }
 
-/* line 16, ../../scss/components/_buttons.scss */
+/* line 18, ../../scss/components/_buttons.scss */
 .button--primary {
   color: #51b364;
   border-color: #c8e6ce;
 }
 
-/* line 21, ../../scss/components/_buttons.scss */
+/* line 23, ../../scss/components/_buttons.scss */
 .button--primary:hover {
   border-color: #51b364;
 }
 
-/* line 25, ../../scss/components/_buttons.scss */
+/* line 27, ../../scss/components/_buttons.scss */
 .button--wide {
   padding-left: 2em;
   padding-right: 2em;
 }
 
-/* line 30, ../../scss/components/_buttons.scss */
+/* line 32, ../../scss/components/_buttons.scss */
 .button--right {
   float: right;
 }
 
-/* line 34, ../../scss/components/_buttons.scss */
+/* line 36, ../../scss/components/_buttons.scss */
 .button--small {
   padding: 0.5em;
 }
 
-/* line 38, ../../scss/components/_buttons.scss */
+/* line 40, ../../scss/components/_buttons.scss */
 .button--disabled {
   border-color: #b7bcbd;
   color: #b7bcbd;
   cursor: not-allowed;
 }
 
-/* line 44, ../../scss/components/_buttons.scss */
+/* line 46, ../../scss/components/_buttons.scss */
 .button--disabled:hover {
   border-color: #b7bcbd;
 }
 
-/* line 48, ../../scss/components/_buttons.scss */
+/* line 50, ../../scss/components/_buttons.scss */
 .button__component {
   border-radius: 0;
   cursor: pointer;
 }
 
-/* line 54, ../../scss/components/_buttons.scss */
+/* line 56, ../../scss/components/_buttons.scss */
 .button__component--left {
   border-top-left-radius: 24px;
   border-bottom-left-radius: 24px;
@@ -5084,7 +5086,7 @@ strong {
   font-weight: bold;
 }
 
-/* line 61, ../../scss/components/_buttons.scss */
+/* line 63, ../../scss/components/_buttons.scss */
 .button__component--right {
   border-top-right-radius: 24px;
   border-bottom-right-radius: 24px;
@@ -5092,7 +5094,7 @@ strong {
   font-weight: bold;
 }
 
-/* line 68, ../../scss/components/_buttons.scss */
+/* line 70, ../../scss/components/_buttons.scss */
 .button__component--input-container {
   padding-top: 14px;
 }

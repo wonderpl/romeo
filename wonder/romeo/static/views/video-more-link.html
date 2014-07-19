@@ -8,7 +8,7 @@
 
     <section class="video-more__controls-container">
 
-      <form name="videoMoreLink">
+      <form name="videoMoreLink" ng-submit="videoMoreLink.$valid && save(); isSubmitted = true">
 
         <label class="video-more__label video-more__label--text">
           <input class="video-more__input video-more__input--short"
@@ -21,8 +21,8 @@
             ng-bind="remaining"></span>
         </label>
 
-        <span class="video-more__error" ng-show="videoMoreLink.linkText.$error.required">Enter text</span>
-        <span class="video-more__error" ng-show="videoMoreLink.linkText.$error.maxlength">Too many characters</span>
+        <span class="video-more__error" ng-show="isSubmitted && videoMoreLink.linkText.$error.required">Enter text</span>
+        <span class="video-more__error" ng-show="isSubmitted && videoMoreLink.linkText.$error.maxlength">Too many characters</span>
 
         <label class="video-more__label video-more__label--link">
           <input class="video-more__input"
@@ -33,12 +33,12 @@
             placeholder="Link URL" />
         </label>
 
-        <span class="video-more__error" ng-show="videoMoreLink.linkUrl.$error.pattern">Incorrect format: http://&hellip;</span>
-        <span class="video-more__error" ng-show="videoMoreLink.linkUrl.$error.required">Enter URL</span>
+        <span class="video-more__error" ng-show="isSubmitted && videoMoreLink.linkUrl.$error.pattern">Incorrect format: http://&hellip;</span>
+        <span class="video-more__error" ng-show="isSubmitted && videoMoreLink.linkUrl.$error.required">Enter URL</span>
 
         <p class="video-more__hint"><strong>Hint:</strong> Drive traffic to your website by adding a link</p>
 
-        <a class="button button--primary" ng-click="save()">Okay</a>
+        <input class="button button--primary" type="submit" value="Okay" />
 
       </form>
 
