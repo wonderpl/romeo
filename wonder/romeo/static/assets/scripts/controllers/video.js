@@ -183,6 +183,10 @@ angular.module('RomeoApp.controllers')
       }
     };
 
+    $rootScope.$on('video-cancel', function () {
+      $scope.save();
+    });
+
     $scope.cancel = function () {
 
       VideoService.get($scope.video.id).then(function (data) {
@@ -289,6 +293,9 @@ angular.module('RomeoApp.controllers')
     var query = $location.search();
 
 
+    $rootScope.$on('display-section', function (event, section) {
+      $scope.displaySection(section);
+    });
 
     $scope.isEdit = false;
 
@@ -297,6 +304,14 @@ angular.module('RomeoApp.controllers')
     $scope.isComments = false;
 
     $scope.displaySection = function (section) {
+
+      console.log(section);
+
+      if ($scope.video && $scope.video.id) {
+        var url = '/video/' + $scope.video.id + '/' + section;
+        console.log(url);
+        $location.path(url, false);
+      }
 
       switch (section) {
         case 'edit':

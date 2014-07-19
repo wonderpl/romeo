@@ -1203,16 +1203,22 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('video-navigation.html',
-    "<section class=\"video-view-control-panel\" ng-show=\"video.status=='published'\">\n" +
+    "<section class=\"video-view-control-panel\">\n" +
     "  <ul class=\"video-view-control-panel__modes\">\n" +
-    "    <li class=\"video-view-control-panel__mode\">\n" +
-    "      <a class=\"video-view-control-panel__link\" ng-click=\"displaySection(edit)\">edit</a>\n" +
+    "    <li class=\"video-view-control-panel__mode\" ng-show=\"isEdit\">\n" +
+    "      <a class=\"video-view-control-panel__link button button--primary\" ng-click=\"save()\">save</a>\n" +
+    "    </li>\n" +
+    "    <li class=\"video-view-control-panel__mode\" ng-show=\"isEdit\">\n" +
+    "      <a class=\"video-view-control-panel__link button\" ng-click=\"cancel\">cancel</a>\n" +
+    "    </li>\n" +
+    "    <li class=\"video-view-control-panel__mode\"> <!-- ng-show=\"video.status=='published'\" -->\n" +
+    "      <a class=\"video-view-control-panel__link button button--primary\" ng-click=\"displaySection('edit')\">edit</a>\n" +
     "    </li>\n" +
     "    <li class=\"video-view-control-panel__mode\">\n" +
-    "      <a class=\"video-view-control-panel__link\" ng-click=\"displaySection(review)\">review</a>\n" +
+    "      <a class=\"video-view-control-panel__link button button--primary\" ng-click=\"displaySection('')\">review</a>\n" +
     "    </li>\n" +
     "    <li class=\"video-view-control-panel__mode\">\n" +
-    "      <a class=\"video-view-control-panel__link\" ng-click=\"displaySection(comments)\">comment</a>\n" +
+    "      <a class=\"video-view-control-panel__link button button--primary\" ng-click=\"displaySection('comments')\">comment</a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
     "</section>"
@@ -1321,7 +1327,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "<div ng-controller=\"VideoCtrl\">\n" +
     "\n" +
-    "  <video-navigation></video-navigation>\n" +
+    "  <div class=\"video-view__nav-placeholder\">\n" +
+    "    <video-navigation is-edit=\"isEdit\"></video-navigation>\n" +
+    "  </div>\n" +
     "\n" +
     "  <section ng-cloak class=\"main-view video-view\">\n" +
     "\n" +

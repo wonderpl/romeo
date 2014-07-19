@@ -1,7 +1,9 @@
 
 <div ng-controller="VideoCtrl">
 
-  <video-navigation></video-navigation>
+  <div class="video-view__nav-placeholder">
+    <video-navigation is-edit="isEdit"></video-navigation>
+  </div>
 
   <section ng-cloak class="main-view video-view">
 

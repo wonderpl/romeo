@@ -97,7 +97,7 @@ angular.module('RomeoApp.directives')
 
       $scope.close = function () {
         $modal.hide();
-      }
+      };
 
       $scope.showCreateCollection = function () {
         $modal.load('modal-create-new-collection.html', true, $scope, {});
