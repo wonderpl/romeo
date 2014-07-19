@@ -19,7 +19,6 @@ angular.module('RomeoApp.directives')
       function(newValue, oldValue) {
         if (newValue && newValue !== oldValue) {
           CollaboratorsService.getCollaborators(newValue).then(function (data) {
-            console.log(data);
             $scope.collaborators = data.collaborator.items;
           });
         }

@@ -7,6 +7,7 @@ angular.module('RomeoApp.controllers')
     'use strict';
 
     function persistVideoData (data) {
+      console.log('persistVideoData()');
       angular.extend($scope.video, data);
     }
 
@@ -140,7 +141,11 @@ angular.module('RomeoApp.controllers')
     $scope.$on('video-upload-poll', videoUploadOnPoll);
 
     function videoUploadOnPoll (event, data) {
-      angular.extend($scope.video, data);
+
+      //overwriting values which have not yet been saved
+      // angular.extend($scope.video, data);
+
+      $scope.video.status = data.status;
     }
 
     $scope.loadVideo = function (id) {
@@ -158,6 +163,10 @@ angular.module('RomeoApp.controllers')
         }
       });
 
+    $rootScope.$on('video-save', function () {
+      $scope.save();
+    });
+
     $scope.save = function () {
 
       if ($scope.video.id) {
@@ -174,6 +183,10 @@ angular.module('RomeoApp.controllers')
       }
     };
 
+    $rootScope.$on('video-cancel', function () {
+      $scope.save();
+    });
+
     $scope.cancel = function () {
 
       VideoService.get($scope.video.id).then(function (data) {
@@ -185,7 +198,8 @@ angular.module('RomeoApp.controllers')
 
     function videoUploadOnSuccess (event, data) {
 
-      angular.extend($scope.video, data);
+      //overwriting values which have not yet been saved
+      //angular.extend($scope.video, data);
 
       var url = '/video/' + $scope.video.id + '/edit';
 
@@ -279,6 +293,9 @@ angular.module('RomeoApp.controllers')
     var query = $location.search();
 
 
+    $rootScope.$on('display-section', function (event, section) {
+      $scope.displaySection(section);
+    });
 
     $scope.isEdit = false;
 
@@ -287,6 +304,14 @@ angular.module('RomeoApp.controllers')
     $scope.isComments = false;
 
     $scope.displaySection = function (section) {
+
+      console.log(section);
+
+      if ($scope.video && $scope.video.id) {
+        var url = '/video/' + $scope.video.id + '/' + section;
+        console.log(url);
+        $location.path(url, false);
+      }
 
       switch (section) {
         case 'edit':

@@ -230,8 +230,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <section class=\"video-edit-collections\">\n" +
     "\n" +
-    "    <ul class=\"video-edit-collections__options\" ng-class=\"{ 'video-edit-collections__options--fixed' : showCreateCollection }\">\n" +
-    "      <li class=\"video-edit-collections__option\" ng-click=\"showCreateCollection = !showCreateCollection\">\n" +
+    "    <ul class=\"video-edit-collections__options\">\n" +
+    "      <li class=\"video-edit-collections__option\" ng-click=\"showCreateCollection()\">\n" +
     "        <span class=\"video-edit-collections__option-title\">Create New Collection</span>\n" +
     "        <span class=\"video-edit-collections__option-count\"></span>\n" +
     "      </li>\n" +
@@ -242,36 +242,16 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        ng-click=\"addTag(tag.id, $event)\">\n" +
     "        <span class=\"video-edit-collections__option-title\" ng-bind-html=\"tag.label\"></span>\n" +
     "        <ng-switch ng-show=\"tag.video_count\" on=\"tag.video_count\">\n" +
-    "          <span class=\"video-edit-collections__option-count\" ng-switch-when=\"0\">no videos</span>\n" +
-    "          <span class=\"video-edit-collections__option-count\" ng-switch-when=\"1\">1 video</span>\n" +
-    "          <span class=\"video-edit-collections__option-count\" ng-switch-default>(~ tag.video_count ~) videos</span>\n" +
-    "        </ng-switch>\n" +
+    "          <span class=\"video-edit-collections__option-count\">\n" +
+    "            <ng-pluralize count=\"tag.video_count\"\n" +
+    "              when=\"{\n" +
+    "                '0'     : 'no videos',\n" +
+    "                '1'     : '1 video',\n" +
+    "                'other' : '(~ tag.video_count ~) videos'}\">\n" +
+    "            </ng-pluralize>\n" +
+    "          </span>\n" +
     "      </li>\n" +
     "    </ul>\n" +
-    "\n" +
-    "    <section class=\"video-edit-collections__create-new\" ng-class=\"{ 'video-edit-collections__create-new--active' : showCreateCollection }\">\n" +
-    "      <a class=\"video-edit-collections__close\" ng-click=\"showCreateCollection = !showCreateCollection\">&times;</a>\n" +
-    "      <h5 class=\"video-edit-collections__new-title\">Create a collection</h5>\n" +
-    "      <section class=\"video-edit-collections__new-controls\">\n" +
-    "        <input ng-model=\"collection.label\" placeholder=\"Name\" class=\"video-edit-collections__new-collection-name\" />\n" +
-    "        <textarea ng-model=\"collection.description\" placeholder=\"Collection description (optional)&hellip;\" class=\"video-edit-collections__new-collection-description\"></textarea>\n" +
-    "        <ul class=\"video-edit-collections__scope-options\">\n" +
-    "          <li class=\"video-edit-collections__scope-option\">\n" +
-    "            <label class=\"video-edit-collections__label\">\n" +
-    "              <input type=\"radio\" name=\"scope\" ng-model=\"collection.scope\" value=\"public\" />\n" +
-    "              Public\n" +
-    "            </label>\n" +
-    "          </li>\n" +
-    "          <li class=\"video-edit-collections__scope-option\">\n" +
-    "            <label class=\"video-edit-collections__label\">\n" +
-    "              <input type=\"radio\" name=\"scope\" ng-model=\"collection.scope\" value=\"private\" />\n" +
-    "              Private\n" +
-    "            </label>\n" +
-    "          </li>\n" +
-    "        </ul>\n" +
-    "        <a ng-click=\"saveNewCollection()\" class=\"button button--primary\">Okay</a>\n" +
-    "      </section>\n" +
-    "    </section>\n" +
     "\n" +
     "  </section>\n" +
     "\n" +
@@ -539,6 +519,33 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t</form>\n" +
     "\t<a class=\"icon-cross close-modal\" ng-click=\"closeModal()\"></a>\n" +
     "</div>"
+  );
+
+
+  $templateCache.put('modal-create-new-collection.html',
+    "<section class=\"video-new-collection\">\n" +
+    "  <a class=\"video-new-collection__close\" ng-click=\"close()\">&times;</a>\n" +
+    "  <h5 class=\"video-new-collection__new-title\">Create a collection</h5>\n" +
+    "  <section class=\"video-new-collection__new-controls\">\n" +
+    "    <input ng-model=\"collection.label\" placeholder=\"Name\" class=\"video-new-collection__new-collection-name\" />\n" +
+    "    <textarea ng-model=\"collection.description\" placeholder=\"Collection description (optional)&hellip;\" class=\"video-new-collection__new-collection-description\"></textarea>\n" +
+    "    <ul class=\"video-new-collection__scope-options\">\n" +
+    "      <li class=\"video-new-collection__scope-option\">\n" +
+    "        <label class=\"video-new-collection__label\">\n" +
+    "          <input type=\"radio\" name=\"scope\" ng-model=\"collection.scope\" value=\"public\" />\n" +
+    "          Public\n" +
+    "        </label>\n" +
+    "      </li>\n" +
+    "      <li class=\"video-new-collection__scope-option\">\n" +
+    "        <label class=\"video-new-collection__label\">\n" +
+    "          <input type=\"radio\" name=\"scope\" ng-model=\"collection.scope\" value=\"private\" />\n" +
+    "          Private\n" +
+    "        </label>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "    <a ng-click=\"saveNewCollection()\" class=\"button button--primary\">Okay</a>\n" +
+    "  </section>\n" +
+    "</section>"
   );
 
 
@@ -1153,13 +1160,39 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <section class=\"video-more__controls-container\">\n" +
     "\n" +
-    "      <input class=\"video-more__input\" ng-model=\"text\" placeholder=\"Custom text&hellip;\" />\n" +
+    "      <form name=\"videoMoreLink\" ng-submit=\"videoMoreLink.$valid && save(); isSubmitted = true\">\n" +
     "\n" +
-    "      <input class=\"video-more__input\" ng-model=\"url\" placeholder=\"Link URL\" />\n" +
+    "        <label class=\"video-more__label video-more__label--text\">\n" +
+    "          <input class=\"video-more__input video-more__input--short\"\n" +
+    "            name=\"linkText\"\n" +
+    "            ng-model=\"text\"\n" +
+    "            placeholder=\"Custom text&hellip;\"\n" +
+    "            required\n" +
+    "            ng-maxlength=\"30\" />\n" +
+    "          <span class=\"video-more__character-count\"\n" +
+    "            ng-bind=\"remaining\"></span>\n" +
+    "        </label>\n" +
     "\n" +
-    "      <p class=\"video-more__hint\"><strong>Hint:</strong> Drive traffic to your website by adding a link</p>\n" +
+    "        <span class=\"video-more__error\" ng-show=\"isSubmitted && videoMoreLink.linkText.$error.required\">Enter text</span>\n" +
+    "        <span class=\"video-more__error\" ng-show=\"isSubmitted && videoMoreLink.linkText.$error.maxlength\">Too many characters</span>\n" +
     "\n" +
-    "      <a class=\"button button--primary button--small\" ng-click=\"save()\"></a>\n" +
+    "        <label class=\"video-more__label video-more__label--link\">\n" +
+    "          <input class=\"video-more__input\"\n" +
+    "            name=\"linkUrl\"\n" +
+    "            ng-model=\"url\"\n" +
+    "            required\n" +
+    "            ng-pattern=/^http:\\/\\/.*/\n" +
+    "            placeholder=\"Link URL\" />\n" +
+    "        </label>\n" +
+    "\n" +
+    "        <span class=\"video-more__error\" ng-show=\"isSubmitted && videoMoreLink.linkUrl.$error.pattern\">Incorrect format: http://&hellip;</span>\n" +
+    "        <span class=\"video-more__error\" ng-show=\"isSubmitted && videoMoreLink.linkUrl.$error.required\">Enter URL</span>\n" +
+    "\n" +
+    "        <p class=\"video-more__hint\"><strong>Hint:</strong> Drive traffic to your website by adding a link</p>\n" +
+    "\n" +
+    "        <input class=\"button button--primary\" type=\"submit\" value=\"Okay\" />\n" +
+    "\n" +
+    "      </form>\n" +
     "\n" +
     "    </section>\n" +
     "\n" +
@@ -1170,16 +1203,22 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('video-navigation.html',
-    "<section class=\"video-view-control-panel\" ng-show=\"video.status=='published'\">\n" +
+    "<section class=\"video-view-control-panel\">\n" +
     "  <ul class=\"video-view-control-panel__modes\">\n" +
-    "    <li class=\"video-view-control-panel__mode\">\n" +
-    "      <a class=\"video-view-control-panel__link\" ng-click=\"displaySection(edit)\">edit</a>\n" +
+    "    <li class=\"video-view-control-panel__mode\" ng-show=\"isEdit\">\n" +
+    "      <a class=\"video-view-control-panel__link button button--primary\" ng-click=\"save()\">save</a>\n" +
+    "    </li>\n" +
+    "    <li class=\"video-view-control-panel__mode\" ng-show=\"isEdit\">\n" +
+    "      <a class=\"video-view-control-panel__link button\" ng-click=\"cancel\">cancel</a>\n" +
+    "    </li>\n" +
+    "    <li class=\"video-view-control-panel__mode\"> <!-- ng-show=\"video.status=='published'\" -->\n" +
+    "      <a class=\"video-view-control-panel__link button button--primary\" ng-click=\"displaySection('edit')\">edit</a>\n" +
     "    </li>\n" +
     "    <li class=\"video-view-control-panel__mode\">\n" +
-    "      <a class=\"video-view-control-panel__link\" ng-click=\"displaySection(review)\">review</a>\n" +
+    "      <a class=\"video-view-control-panel__link button button--primary\" ng-click=\"displaySection('')\">review</a>\n" +
     "    </li>\n" +
     "    <li class=\"video-view-control-panel__mode\">\n" +
-    "      <a class=\"video-view-control-panel__link\" ng-click=\"displaySection(comments)\">comment</a>\n" +
+    "      <a class=\"video-view-control-panel__link button button--primary\" ng-click=\"displaySection('comments')\">comment</a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
     "</section>"
@@ -1288,7 +1327,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "<div ng-controller=\"VideoCtrl\">\n" +
     "\n" +
-    "  <video-navigation></video-navigation>\n" +
+    "  <div class=\"video-view__nav-placeholder\">\n" +
+    "    <video-navigation is-edit=\"isEdit\"></video-navigation>\n" +
+    "  </div>\n" +
     "\n" +
     "  <section ng-cloak class=\"main-view video-view\">\n" +
     "\n" +

@@ -1,5 +1,6 @@
 angular.module('RomeoApp.directives')
-  .directive('collectionAddVideo', ['$templateCache', 'VideoService', '$q', '$location', 'TagService', function ($templateCache, VideoService, $q, $location, TagService) {
+  .directive('collectionAddVideo', ['$templateCache', 'VideoService', '$q', '$location', 'TagService', '$modal',
+  function ($templateCache, VideoService, $q, $location, TagService, $modal) {
 
   'use strict';
 
@@ -89,11 +90,18 @@ angular.module('RomeoApp.directives')
         TagService.createTag(data).then(function () {
           TagService.getTags().then(function (data) {
             $scope.availableTags = data.tag.items;
-            $scope.showCreateCollection = false;
+            $modal.hide();
           });
         });
       };
 
+      $scope.close = function () {
+        $modal.hide();
+      };
+
+      $scope.showCreateCollection = function () {
+        $modal.load('modal-create-new-collection.html', true, $scope, {});
+      };
     }
   };
 }]);

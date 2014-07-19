@@ -1,5 +1,5 @@
 angular.module('RomeoApp.directives')
-  .directive('videoMoreLink', ['$templateCache', function ($templateCache) {
+  .directive('videoMoreLink', ['$templateCache', '$rootScope', function ($templateCache, $rootScope) {
 
   'use strict';
 
@@ -11,6 +11,26 @@ angular.module('RomeoApp.directives')
       text : '=',
       url : '=',
       isEdit : '@'
+    },
+    controller : function ($scope) {
+
+      $scope.remaining = 30;
+      var maxLength = 30;
+
+      $scope.$watch('text', function (newValue, oldValue) {
+        if (newValue !== oldValue) {
+          var newLength = newValue && newValue.length ? newValue.length : 0;
+          $scope.remaining = maxLength - newLength;
+          if ($scope.remaining < 0) {
+            $scope.text = oldValue;
+          }
+        }
+      });
+
+      $scope.save = function () {
+        $rootScope.$emit('video-save');
+        $scope.showMoreLinkConfigPanel = false;
+      };
     }
   };
 }]);

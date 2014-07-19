@@ -2,11 +2,13 @@
   border: solid 1px $light-grey;
   border-radius: 24px;
   display: inline-block;
-  padding: 1em;
+  padding: 0.5em 1em;
   color: $grey;
   transition: border-color 0.3s ease-in-out;
   cursor: pointer;
   background: $white;
+  font-family: proxima-nova, sans-serif;
+  font-size: 1em;
 }
 
 .button:hover {
@@ -66,7 +68,7 @@
 }
 
 .button__component--input-container {
-  padding-top: 14px;
+  padding-top: 6px;
 }
 
 

@@ -1,12 +1,12 @@
 .video-view {
-  max-width: 960px;
+  width: 960px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .video-view-control-panel {
   text-align: right;
-  padding: 24px;
+  padding: 0.5em 0;
   border-top: solid 1px #efefef;
   border-bottom: solid 1px #efefef;
 }
@@ -59,10 +59,32 @@
 .video-view__description {
   width: 600px;
   margin: 0 auto;
-  height: 15em;
   overflow: auto;
+  max-height: 15em;
 }
 
 .video-view__description--edit {
   border-bottom: solid 1px $grey;
+  height: 15em;
+}
+
+.video-view__nav-placeholder {
+  display: block;
+  height: 52px;
+}
+
+.video-view-control-panel {
+  background: $white;
+  z-index: 10;
+}
+
+.video-view-control-panel--sticky {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  margin-left: -480px;
+  width: 960px;
+-webkit-box-shadow: 0 4px 4px -4px $grey;
+   -moz-box-shadow: 0 4px 4px -4px $grey;
+        box-shadow: 0 4px 4px -4px $grey;
 }

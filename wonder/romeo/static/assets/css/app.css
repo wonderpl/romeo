@@ -4935,6 +4935,20 @@ textarea {
   padding: 0;
 }
 
+/* line 52, ../../scss/base/project/_globals.scss */
+::-webkit-input-placeholder,
+:-moz-placeholder,
+::-moz-placeholder,
+:-ms-input-placeholder {
+  color: #b7bcbd;
+  font-size: 1em;
+}
+
+/* line 57, ../../scss/base/project/_globals.scss */
+strong {
+  font-weight: 800;
+}
+
 /* line 1, ../../scss/base/project/_helpers.scss */
 .hide-text {
   color: transparent !important;
@@ -5005,64 +5019,66 @@ textarea {
   border: solid 1px #b7bcbd;
   border-radius: 24px;
   display: inline-block;
-  padding: 1em;
+  padding: 0.5em 1em;
   color: #999999;
   transition: border-color 0.3s ease-in-out;
   cursor: pointer;
   background: white;
+  font-family: proxima-nova, sans-serif;
+  font-size: 1em;
 }
 
-/* line 12, ../../scss/components/_buttons.scss */
+/* line 14, ../../scss/components/_buttons.scss */
 .button:hover {
   border-color: #70797b;
 }
 
-/* line 16, ../../scss/components/_buttons.scss */
+/* line 18, ../../scss/components/_buttons.scss */
 .button--primary {
   color: #51b364;
   border-color: #c8e6ce;
 }
 
-/* line 21, ../../scss/components/_buttons.scss */
+/* line 23, ../../scss/components/_buttons.scss */
 .button--primary:hover {
   border-color: #51b364;
 }
 
-/* line 25, ../../scss/components/_buttons.scss */
+/* line 27, ../../scss/components/_buttons.scss */
 .button--wide {
   padding-left: 2em;
   padding-right: 2em;
 }
 
-/* line 30, ../../scss/components/_buttons.scss */
+/* line 32, ../../scss/components/_buttons.scss */
 .button--right {
   float: right;
 }
 
-/* line 34, ../../scss/components/_buttons.scss */
+/* line 36, ../../scss/components/_buttons.scss */
 .button--small {
   padding: 0.5em;
 }
 
-/* line 38, ../../scss/components/_buttons.scss */
+/* line 40, ../../scss/components/_buttons.scss */
 .button--disabled {
   border-color: #b7bcbd;
   color: #b7bcbd;
   cursor: not-allowed;
 }
 
-/* line 44, ../../scss/components/_buttons.scss */
+/* line 46, ../../scss/components/_buttons.scss */
 .button--disabled:hover {
   border-color: #b7bcbd;
 }
 
-/* line 48, ../../scss/components/_buttons.scss */
+/* line 50, ../../scss/components/_buttons.scss */
 .button__component {
   border-radius: 0;
   cursor: pointer;
 }
 
-/* line 54, ../../scss/components/_buttons.scss */
+/* line 56, ../../scss/components/_buttons.scss */
 .button__component--left {
   border-top-left-radius: 24px;
   border-bottom-left-radius: 24px;
@@ -5070,7 +5086,7 @@ textarea {
   font-weight: bold;
 }
 
-/* line 61, ../../scss/components/_buttons.scss */
+/* line 63, ../../scss/components/_buttons.scss */
 .button__component--right {
   border-top-right-radius: 24px;
   border-bottom-right-radius: 24px;
@@ -5078,9 +5094,9 @@ textarea {
   font-weight: bold;
 }
 
-/* line 68, ../../scss/components/_buttons.scss */
+/* line 70, ../../scss/components/_buttons.scss */
 .button__component--input-container {
-  padding-top: 14px;
+  padding-top: 6px;
 }
 
 /* line 1, ../../scss/components/_video-player-config.scss */
@@ -5425,7 +5441,7 @@ textarea {
 
 /* line 1, ../../scss/specifics/video/_video-view.scss */
 .video-view {
-  max-width: 960px;
+  width: 960px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -5433,7 +5449,7 @@ textarea {
 /* line 7, ../../scss/specifics/video/_video-view.scss */
 .video-view-control-panel {
   text-align: right;
-  padding: 24px;
+  padding: 0.5em 0;
   border-top: solid 1px #efefef;
   border-bottom: solid 1px #efefef;
 }
@@ -5491,13 +5507,38 @@ textarea {
 .video-view__description {
   width: 600px;
   margin: 0 auto;
-  height: 15em;
   overflow: auto;
+  max-height: 15em;
 }
 
 /* line 66, ../../scss/specifics/video/_video-view.scss */
 .video-view__description--edit {
   border-bottom: solid 1px #999999;
+  height: 15em;
+}
+
+/* line 71, ../../scss/specifics/video/_video-view.scss */
+.video-view__nav-placeholder {
+  display: block;
+  height: 52px;
+}
+
+/* line 76, ../../scss/specifics/video/_video-view.scss */
+.video-view-control-panel {
+  background: white;
+  z-index: 10;
+}
+
+/* line 81, ../../scss/specifics/video/_video-view.scss */
+.video-view-control-panel--sticky {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  margin-left: -480px;
+  width: 960px;
+  -webkit-box-shadow: 0 4px 4px -4px #999999;
+  -moz-box-shadow: 0 4px 4px -4px #999999;
+  box-shadow: 0 4px 4px -4px #999999;
 }
 
 /* line 1, ../../scss/specifics/video/_video-share.scss */
@@ -5525,7 +5566,7 @@ textarea {
 
 /* line 20, ../../scss/specifics/video/_video-share.scss */
 .video-share__link {
-  padding: 1em;
+  padding: 0.5em;
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -6030,11 +6071,6 @@ textarea {
 }
 
 /* line 11, ../../scss/specifics/video/_video-edit-collections.scss */
-.video-edit-collections__options--fixed {
-  position: fixed;
-}
-
-/* line 15, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option {
   display: inline-block;
   width: 300px;
@@ -6046,24 +6082,24 @@ textarea {
   background: url("/static/assets/img/video-collection__tag.png") 10px 0 no-repeat transparent;
 }
 
-/* line 26, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 22, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option--selected {
   background: url("/static/assets/img/video-collection__tag--selected.png") 10px 0 no-repeat #51b364;
   color: white;
 }
 
-/* line 31, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 27, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option-title {
   display: block;
   font-weight: 800;
 }
 
-/* line 36, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 32, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option-count {
   display: block;
 }
 
-/* line 40, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 36, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option:hover {
   cursor: pointer;
   border-color: #51b364;
@@ -6071,12 +6107,12 @@ textarea {
   color: black;
 }
 
-/* line 47, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 43, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__assigned-tag {
   color: #999999;
 }
 
-/* line 55, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 51, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__remove-tag {
   font-weight: 800;
   color: red;
@@ -6084,49 +6120,30 @@ textarea {
   padding: 1em 2em 0 0;
 }
 
-/* line 63, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 59, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__assigned-tags {
   display: inline-block;
 }
 
-/* line 67, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 63, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__assigned-tag {
   display: inline-block;
 }
 
-/* line 71, ../../scss/specifics/video/_video-edit-collections.scss */
-.video-edit-collections__create-new {
+/* line 1, ../../scss/specifics/video/_video-new-collection.scss */
+.video-new-collection {
   max-width: 700px;
   margin: 0 auto;
   border: solid 1px #51b364;
   transition: max-height 0.4s, opacity 0.4s ease-in-out;
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
   position: relative;
   padding-bottom: 1em;
   background: white;
+  font-size: 1em;
 }
 
-/* line 84, ../../scss/specifics/video/_video-edit-collections.scss */
-.video-edit-collections__create-new--active {
-  max-height: 100em;
-  opacity: 1;
-  overflow: visible;
-}
-
-/* line 90, ../../scss/specifics/video/_video-edit-collections.scss */
-.video-edit-collections__scope-options {
-  margin-bottom: 24px;
-}
-
-/* line 94, ../../scss/specifics/video/_video-edit-collections.scss */
-.video-edit-collections__scope-option {
-  display: inline-block;
-}
-
-/* line 98, ../../scss/specifics/video/_video-edit-collections.scss */
-.video-edit-collections__close {
+/* line 12, ../../scss/specifics/video/_video-new-collection.scss */
+.video-new-collection__close {
   position: absolute;
   top: 0.5em;
   right: 0.5em;
@@ -6143,24 +6160,24 @@ textarea {
   cursor: pointer;
 }
 
-/* line 115, ../../scss/specifics/video/_video-edit-collections.scss */
-.video-edit-collections__new-title {
-  font-size: 1.5em;
+/* line 29, ../../scss/specifics/video/_video-new-collection.scss */
+.video-new-collection__new-title {
+  font-size: 1em;
   border-bottom: solid 1px #999999;
   color: #70797b;
   padding: 12px;
 }
 
-/* line 122, ../../scss/specifics/video/_video-edit-collections.scss */
-.video-edit-collections__new-controls {
+/* line 36, ../../scss/specifics/video/_video-new-collection.scss */
+.video-new-collection__new-controls {
   padding-left: 140px;
   background: url("/static/assets/img/video-collection__tag.png") 20px 10px no-repeat;
 }
 
-/* line 127, ../../scss/specifics/video/_video-edit-collections.scss */
-.video-edit-collections__new-collection-name {
-  font-size: 1.5em;
-  margin-top: 1em;
+/* line 41, ../../scss/specifics/video/_video-new-collection.scss */
+.video-new-collection__new-collection-name {
+  font-size: 1em;
+  margin: 1em 0;
   border: none;
   border-bottom: solid 1px #b7bcbd;
   display: block;
@@ -6168,9 +6185,9 @@ textarea {
   width: 100%;
 }
 
-/* line 137, ../../scss/specifics/video/_video-edit-collections.scss */
-.video-edit-collections__new-collection-description {
-  font-size: 1.5em;
+/* line 51, ../../scss/specifics/video/_video-new-collection.scss */
+.video-new-collection__new-collection-description {
+  font-size: 1em;
   border: none;
   border-bottom: solid 1px #b7bcbd;
   display: block;
@@ -6181,8 +6198,18 @@ textarea {
   border-radius: 0;
 }
 
-/* line 149, ../../scss/specifics/video/_video-edit-collections.scss */
-.video-edit-collections__label {
+/* line 63, ../../scss/specifics/video/_video-new-collection.scss */
+.video-new-collection__scope-options {
+  margin-bottom: 24px;
+}
+
+/* line 67, ../../scss/specifics/video/_video-new-collection.scss */
+.video-new-collection__scope-option {
+  display: inline-block;
+}
+
+/* line 71, ../../scss/specifics/video/_video-new-collection.scss */
+.video-new-collection__label {
   font-size: 1.2em;
   margin-right: 2em;
   color: #70797b;
@@ -6242,33 +6269,95 @@ textarea {
 .video-more {
   text-align: center;
   margin-bottom: 1em;
+  position: relative;
+  z-index: 1;
 }
 
-/* line 6, ../../scss/specifics/video/_video-more.scss */
+/* line 8, ../../scss/specifics/video/_video-more.scss */
 .video-more__form {
-  transition: max-height 0.4s ease-in-out;
-  max-height: 0;
-  overflow: hidden;
+  display: none;
+  position: absolute;
+  top: 50px;
+  left: 340px;
+  width: 280px;
+  background: white;
+  box-shadow: 0 0 1em #999999;
 }
 
-/* line 12, ../../scss/specifics/video/_video-more.scss */
+/* line 18, ../../scss/specifics/video/_video-more.scss */
+.video-more__form:before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 15px 15px 15px;
+  border-color: transparent transparent white transparent;
+  position: absolute;
+  top: -10px;
+  left: 45%;
+}
+
+/* line 31, ../../scss/specifics/video/_video-more.scss */
 .video-more__form--active {
-  max-height: 100em;
-}
-
-/* line 16, ../../scss/specifics/video/_video-more.scss */
-.video-more__controls-container {
   display: inline-block;
-  background: #b7bcbd;
-  padding: 1em;
-  margin: 1em;
 }
 
-/* line 23, ../../scss/specifics/video/_video-more.scss */
+/* line 35, ../../scss/specifics/video/_video-more.scss */
+.video-more__controls-container {
+  background: white;
+  padding: 0.5em 0 0.5em 1em;
+}
+
+/* line 40, ../../scss/specifics/video/_video-more.scss */
 .video-more__input {
   padding: 0.5em;
   font-size: 1em;
-  width: 20em;
+  border: none 0;
+}
+
+/* line 46, ../../scss/specifics/video/_video-more.scss */
+.video-more__label {
+  background-repeat: no-repeat;
+  background-position: center left;
+  display: block;
+  padding-left: 1em;
+  border-bottom: solid 1px #b7bcbd;
+  text-align: left;
+  margin-bottom: 12px;
+}
+
+/* line 56, ../../scss/specifics/video/_video-more.scss */
+.video-more__label--text {
+  background-image: url("/static/assets/img/video-more__icon-type.png");
+}
+
+/* line 60, ../../scss/specifics/video/_video-more.scss */
+.video-more__label--link {
+  background-image: url("/static/assets/img/video-more__icon-globe.png");
+}
+
+/* line 64, ../../scss/specifics/video/_video-more.scss */
+.video-more__hint {
+  margin-bottom: 1em;
+  text-align: left;
+  margin-right: 1em;
+}
+
+/* line 70, ../../scss/specifics/video/_video-more.scss */
+.video-more__character-count {
+  float: right;
+  font-weight: 800;
+  padding: 0.5em;
+}
+
+/* line 76, ../../scss/specifics/video/_video-more.scss */
+.video-more__error {
+  display: block;
+  text-align: left;
+  margin: 0.5em 0;
+  color: red;
+  font-weight: 800;
 }
 
 /* line 5, ../../scss/specifics/video/_video-collaborators.scss */
@@ -6342,18 +6431,17 @@ textarea {
   position: relative;
   text-align: right;
   border-bottom: solid 1px #b7bcbd;
-  margin-bottom: 2em;
   font-size: 0.8em;
   font-weight: 800;
 }
 
-/* line 10, ../../scss/specifics/header/_page-header.scss */
+/* line 9, ../../scss/specifics/header/_page-header.scss */
 .page-header__logo {
   display: inline-block;
   float: left;
 }
 
-/* line 15, ../../scss/specifics/header/_page-header.scss */
+/* line 14, ../../scss/specifics/header/_page-header.scss */
 .page-header__logo-link {
   background-image: url("/static/assets/img/page-logo.png");
   background-repeat: no-repeat;
@@ -6363,24 +6451,24 @@ textarea {
   margin: 0.5em 0;
 }
 
-/* line 24, ../../scss/specifics/header/_page-header.scss */
+/* line 23, ../../scss/specifics/header/_page-header.scss */
 .page-header__link {
   color: #70797b;
 }
 
-/* line 28, ../../scss/specifics/header/_page-header.scss */
+/* line 27, ../../scss/specifics/header/_page-header.scss */
 .page-header__link:hover {
   text-decoration: underline;
 }
 
-/* line 32, ../../scss/specifics/header/_page-header.scss */
+/* line 31, ../../scss/specifics/header/_page-header.scss */
 .page-header__current-user {
   display: inline-block;
   vertical-align: middle;
   padding: 0 1em;
 }
 
-/* line 37, ../../scss/specifics/header/_page-header.scss */
+/* line 36, ../../scss/specifics/header/_page-header.scss */
 .page-header__profile-link {
   display: block;
   background-repeat: no-repeat;
@@ -6391,23 +6479,23 @@ textarea {
   background-size: contain;
 }
 
-/* line 47, ../../scss/specifics/header/_page-header.scss */
+/* line 46, ../../scss/specifics/header/_page-header.scss */
 .page-header__navigation {
   display: inline-block;
 }
 
-/* line 51, ../../scss/specifics/header/_page-header.scss */
+/* line 50, ../../scss/specifics/header/_page-header.scss */
 .page-header__navigation-item {
   display: inline-block;
   border-right: 1px solid #b7bcbd;
 }
 
-/* line 56, ../../scss/specifics/header/_page-header.scss */
+/* line 55, ../../scss/specifics/header/_page-header.scss */
 .page-header__navigation-item:first-child {
   border-left: 1px solid #b7bcbd;
 }
 
-/* line 60, ../../scss/specifics/header/_page-header.scss */
+/* line 59, ../../scss/specifics/header/_page-header.scss */
 .page-header__navigation-link {
   padding: 1em;
   display: block;
