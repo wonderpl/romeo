@@ -280,6 +280,188 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('analytics-engagement-video-segment.html',
+    "<style>\n" +
+    "\n" +
+    "    body {\n" +
+    "        font: 10px sans-serif;\n" +
+    "        margin: 0;\n" +
+    "    }\n" +
+    "\n" +
+    "    path.line {\n" +
+    "        fill: none;\n" +
+    "        stroke: #666;\n" +
+    "        stroke-width: 1.5px;\n" +
+    "    }\n" +
+    "\n" +
+    "    path.area {\n" +
+    "        fill: #e7e7e7;\n" +
+    "        @import(user-select): none;\n" +
+    "    }\n" +
+    "\n" +
+    "    path.progress-area {\n" +
+    "        fill: #e73c33;\n" +
+    "    }\n" +
+    "\n" +
+    "    .axis {\n" +
+    "        shape-rendering: crispEdges;\n" +
+    "    }\n" +
+    "\n" +
+    "    .x.axis line {\n" +
+    "        stroke: #fff;\n" +
+    "    }\n" +
+    "\n" +
+    "    .x.axis .minor {\n" +
+    "        stroke-opacity: .5;\n" +
+    "    }\n" +
+    "\n" +
+    "    .x.axis path {\n" +
+    "        display: none;\n" +
+    "    }\n" +
+    "\n" +
+    "    .y.axis line, .y.axis path {\n" +
+    "        fill: none;\n" +
+    "        stroke: #000;\n" +
+    "    }\n" +
+    "\n" +
+    "</style>\n" +
+    "\n" +
+    "<div>\n" +
+    "    <iframe id=\"engagement-video-iframe\" src=\"(~ embedSrc ~)\" width=\"300\" height=\"300\" frameborder=\"0\" allowfullscreen></iframe>\n" +
+    "    <svg id=\"engagement-video-segment-chart\"></svg>\n" +
+    "</div>\n"
+  );
+
+
+  $templateCache.put('analytics-fields-chooser.html',
+    "<h3>Select up to (~ analytics.maxFields ~) fields:</h3>\n" +
+    "<ul id=\"analytics-fields-selection\">\n" +
+    "    <li class=\"analytics-fields-selection-item\" ng-repeat=\"field in analytics.fields\"\n" +
+    "        ng-class=\"{ disabled: getFields({visible: true}).length > 4 && !field.visible }\">\n" +
+    "        <div class=\"selection-title\" style=\"border-bottom-color: (~ field.color ~)\">\n" +
+    "            <input type=\"checkbox\" ng-model=\"field.visible\"\n" +
+    "                   ng-disabled=\"getFields({visible: true}).length > 4 && !field.visible\" ng-change=\"notifyChange()\"/>\n" +
+    "            <span>(~ field.displayName ~)</span>\n" +
+    "        </div>\n" +
+    "        <div class=\"selection-description\">(~ field.description ~)</div>\n" +
+    "    </li>\n" +
+    "</ul>\n"
+  );
+
+
+  $templateCache.put('analytics-fields-key.html',
+    "<ul id=\"analytics-fields-key\">\n" +
+    "    <li class=\"analytics-fields-key-item\" ng-repeat=\"field in analytics.fields | filter: { visible: true }\">\n" +
+    "        <span class=\"key-color\" style=\"background-color: (~field.color~)\"></span>\n" +
+    "        <span class=\"key-title\">(~ field.displayName ~)</span>\n" +
+    "    </li>\n" +
+    "    <li id=\"edit-icon\">\n" +
+    "        <span>Fields <span style=\"color: (~ (getFields({visible: true}).length < analytics.maxFields) ? 'green' : 'red' ~);\">((~ getFields({visible: true}).length ~))</span>:</span>\n" +
+    "        <span class=\"icon-edit\" ng-click=\"flip()\"></span>\n" +
+    "    </li>\n" +
+    "\n" +
+    "</ul>\n"
+  );
+
+
+  $templateCache.put('analytics-geographic.html',
+    "<div>\n" +
+    "    <div class=\"analytics-panel analytics-panel-top\">\n" +
+    "        <svg id=\"geographic-map\"></svg>\n" +
+    "        <div id=\"geographic-region-chooser\">\n" +
+    "            <span>Region:</span>\n" +
+    "            <select id=\"\" ng-model=\"selectedRegion\" ng-options=\"region as region.name for (name, region) in zoomRegions\" ng-change=\"zoomToRegion(selectedRegion)\">\n" +
+    "                <option value=\"\">Select Region</option>\n" +
+    "            </select>\n" +
+    "        </div>\n" +
+    "        <div id=\"geographic-map-data\">\n" +
+    "            <h4>Region: (~ selectedRegion.name ~)</h4>\n" +
+    "\n" +
+    "            (~ areaData.geo.name ~)\n" +
+    "\n" +
+    "            <div ng-repeat=\"field in analytics.fields | filter: { visible: true }\" class=\"key-row\">\n" +
+    "                <input class=\"key-checkbox\" type=\"radio\" name=\"key-chooser\" ng-value=\"field\" ng-model=\"analytics.selectedMapField\"/>\n" +
+    "                <span class=\"key-color\" style=\"background-color: (~field.color~)\"></span><span class=\"key-title\">(~ field.displayName ~)</span>&nbsp;<span\n" +
+    "                    class=\"key-value\">(~ areaData.video[field.field] ~)</span>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n"
+  );
+
+
+  $templateCache.put('analytics-overview.html',
+    "<div id=\"analytics-overview\">\n" +
+    "    <div id=\"widget-container\" class=\"center\">\n" +
+    "        <pl-analytics-overview-widget id=\"analytics-widget-performance\" data=\"overview.data.performance\" href=\"/#/analytics/(~ video.videoID ~)/performance\"></pl-analytics-overview-widget>\n" +
+    "        <pl-analytics-overview-widget id=\"analytics-widget-geographic\" data=\"overview.data.geographic\" href=\"/#/analytics/(~ video.videoID ~)/geographic\"></pl-analytics-overview-widget>\n" +
+    "        <pl-analytics-overview-widget id=\"analytics-widget-engagement\" data=\"overview.data.engagement\" href=\"/#/analytics/(~ video.videoID ~)/engagement\"></pl-analytics-overview-widget>\n" +
+    "    </div>\n" +
+    "</div>\n"
+  );
+
+
+  $templateCache.put('analytics-performance.html',
+    "<div>\n" +
+    "    <div class=\"analytics-panel analytics-panel-top\">\n" +
+    "        <svg id=\"performance-chart\"></svg>\n" +
+    "    </div>\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('analytics-results-table.html',
+    "<table id=\"analytics-results-table\">\n" +
+    "    <thead>\n" +
+    "        <th><span class=\"results-table-column-header\">(~ analytics.results.keyDisplayName ~)</span></th>\n" +
+    "        <th class=\"results-table-column-header\" ng-repeat=\"field in analytics.fields | filter: { visible: true }\">(~ field.displayName ~)</th>\n" +
+    "    </thead>\n" +
+    "    <tbody>\n" +
+    "        <tr ng-repeat=\"result in analytics.results.results\">\n" +
+    "            <td>(~ result[analytics.results.key] ~)</td>\n" +
+    "            <td ng-repeat=\"field in analytics.fields | filter: { visible: true }\">(~ result[field.field] ~)</td>\n" +
+    "        </tr>\n" +
+    "    </tbody>\n" +
+    "</table>\n"
+  );
+
+
+  $templateCache.put('analytics-widget-statistic.html',
+    "<div class=\"analytics-widget-statistic\">\n" +
+    "    <span class=\"analytics-widget-statistic-datum\">(~ datum.amount ~)</span>\n" +
+    "    <span class=\"analytics-widget-statistic-title\">(~ datum.title ~)</span>\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('analytics-widget.html',
+    "<a class=\"analytics-widget\">\n" +
+    "        <div class=\"analytics-widget-top\">\n" +
+    "            <pl-analytics-widget-statistic class=\"statistic\" datum=\"viewModel.primary\"></pl-analytics-widget-statistic>\n" +
+    "        </div>\n" +
+    "        <div class=\"analytics-widget-bottom\">\n" +
+    "            <pl-analytics-widget-statistic class=\"statistic\" ng-repeat=\"datum in viewModel.secondary\" datum=\"datum\"></pl-analytics-widget-statistic>\n" +
+    "        </div>\n" +
+    "\n" +
+    "</a>"
+  );
+
+
+  $templateCache.put('upload-quick-share.html',
+    "\n" +
+    "<div id=\"quick-share\" class=\"f-serif;\">\n" +
+    "\t<form ng-submit=\"submitQuickShareForm\">\n" +
+    "\t\t<div id=\"quick-share-recipients\"></div>\n" +
+    "\t\t<div id=\"quick-share-body\">\n" +
+    "\t\t\t<div class=\"message\"></div>\n" +
+    "\t\t\t<div class=\"link\"></div>\n" +
+    "\t\t\t<div class=\"controls\"></div>\n" +
+    "\t\t</div>\n" +
+    "\t</form>\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('library.html',
     "<!-- <div class=\"section\">\n" +
     "    <ul id=\"breadcrumb\" class=\"inner\">\n" +
@@ -1079,6 +1261,67 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('video-extended-controls.html',
+    "<section class=\"video-extended-controls\" ng-show=\"isEdit\">\n" +
+    "\n" +
+    "  <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCategoryShow }\">\n" +
+    "    <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\"\n" +
+    "      ng-click=\"addCategoryShow = !addCategoryShow\"\n" +
+    "      ng-hide=\"addCategoryShow\">\n" +
+    "      +\n" +
+    "    </span>\n" +
+    "    <span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\"\n" +
+    "      ng-click=\"addCategoryShow = !addCategoryShow\"\n" +
+    "      ng-show=\"addCategoryShow\">\n" +
+    "      -\n" +
+    "    </span>\n" +
+    "    <category-add-video selected-category=\"video.category\"\n" +
+    "      show-category=\"addCategoryShow\"\n" +
+    "      class=\"video-extended-controls__section-contents\">\n" +
+    "    </category-add-video>\n" +
+    "    <span class=\"button button--primary\" ng-click=\"save(); addCategoryShow = !addCategoryShow\">Done</span>\n" +
+    "  </section>\n" +
+    "\n" +
+    "  <section class=\"video-extended-controls__section\"\n" +
+    "    ng-class=\"{ 'video-extended-controls__section--expanded' : addCollectionShow }\">\n" +
+    "    <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\"\n" +
+    "      ng-click=\"addCollectionShow = !addCollectionShow\"\n" +
+    "      ng-hide=\"addCollectionShow\">\n" +
+    "      +\n" +
+    "    </span>\n" +
+    "    <span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\"\n" +
+    "      ng-click=\"addCollectionShow = !addCollectionShow\"\n" +
+    "      ng-show=\"addCollectionShow\">\n" +
+    "      -\n" +
+    "    </span>\n" +
+    "    <collection-add-video available-tags=\"tags\"\n" +
+    "      video=\"video\"\n" +
+    "      show-collection=\"addCollectionShow\"\n" +
+    "      class=\"video-extended-controls__section-contents\">\n" +
+    "    </collection-add-video>\n" +
+    "    <span class=\"button button--primary\" ng-click=\"save(); addCollectionShow = !addCollectionShow\">Done</span>\n" +
+    "  </section>\n" +
+    "\n" +
+    "  <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCollaboratorShow }\">\n" +
+    "    <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\"\n" +
+    "      ng-click=\"addCollaboratorShow = !addCollaboratorShow\"\n" +
+    "      ng-hide=\"addCollaboratorShow\">\n" +
+    "      +\n" +
+    "    </span>\n" +
+    "    <span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\"\n" +
+    "      ng-click=\"addCollaboratorShow = !addCollaboratorShow\"\n" +
+    "      ng-show=\"addCollaboratorShow\">\n" +
+    "      -\n" +
+    "    </span>\n" +
+    "    <add-collaborator class=\"video-extended-controls__section-contents\"\n" +
+    "      show-collaborator=\"addCollaboratorShow\">\n" +
+    "    </add-collaborator>\n" +
+    "  </section>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
   $templateCache.put('video-frame-stepper.html',
     "<section class=\"video-frame-stepper\">\n" +
     "\n" +
@@ -1379,63 +1622,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <video-share video=\"video\" has-tags=\"(~ video.tags && video.tags.items && video.tags.items.length > 0 ~)\" ng-hide=\"isComments\" video-id=\"(~ video.id ~)\"></video-share>\n" +
     "\n" +
-    "    <section class=\"video-extended-controls\" ng-show=\"isEdit\">\n" +
-    "\n" +
-    "      <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCategoryShow }\">\n" +
-    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\"\n" +
-    "          ng-click=\"addCategoryShow = !addCategoryShow\"\n" +
-    "          ng-hide=\"addCategoryShow\">\n" +
-    "          +\n" +
-    "        </span>\n" +
-    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\"\n" +
-    "          ng-click=\"addCategoryShow = !addCategoryShow\"\n" +
-    "          ng-show=\"addCategoryShow\">\n" +
-    "          -\n" +
-    "        </span>\n" +
-    "        <category-add-video selected-category=\"video.category\"\n" +
-    "          show-category=\"addCategoryShow\"\n" +
-    "          class=\"video-extended-controls__section-contents\">\n" +
-    "        </category-add-video>\n" +
-    "        <span class=\"button button--primary\" ng-click=\"save(); addCategoryShow = !addCategoryShow\">Done</span>\n" +
-    "      </section>\n" +
-    "\n" +
-    "      <section class=\"video-extended-controls__section\"\n" +
-    "        ng-class=\"{ 'video-extended-controls__section--expanded' : addCollectionShow }\">\n" +
-    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\"\n" +
-    "          ng-click=\"addCollectionShow = !addCollectionShow\"\n" +
-    "          ng-hide=\"addCollectionShow\">\n" +
-    "          +\n" +
-    "        </span>\n" +
-    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\"\n" +
-    "          ng-click=\"addCollectionShow = !addCollectionShow\"\n" +
-    "          ng-show=\"addCollectionShow\">\n" +
-    "          -\n" +
-    "        </span>\n" +
-    "        <collection-add-video available-tags=\"tags\"\n" +
-    "          video=\"video\"\n" +
-    "          show-collection=\"addCollectionShow\"\n" +
-    "          class=\"video-extended-controls__section-contents\">\n" +
-    "        </collection-add-video>\n" +
-    "        <span class=\"button button--primary\" ng-click=\"save(); addCollectionShow = !addCollectionShow\">Done</span>\n" +
-    "      </section>\n" +
-    "\n" +
-    "      <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCollaboratorShow }\">\n" +
-    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\"\n" +
-    "          ng-click=\"addCollaboratorShow = !addCollaboratorShow\"\n" +
-    "          ng-hide=\"addCollaboratorShow\">\n" +
-    "          +\n" +
-    "        </span>\n" +
-    "        <span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\"\n" +
-    "          ng-click=\"addCollaboratorShow = !addCollaboratorShow\"\n" +
-    "          ng-show=\"addCollaboratorShow\">\n" +
-    "          -\n" +
-    "        </span>\n" +
-    "        <add-collaborator class=\"video-extended-controls__section-contents\"\n" +
-    "          show-collaborator=\"addCollaboratorShow\">\n" +
-    "        </add-collaborator>\n" +
-    "      </section>\n" +
-    "\n" +
-    "    </section>\n" +
+    "    <video-extended-controls></video-extended-controls>\n" +
     "\n" +
     "    <section class=\"video-view__comments\" ng-show=\"video.id && isComments\"><!-- video.status === 'published'\" -->\n" +
     "      <div class=\"video-view__comments-section--left\">\n" +

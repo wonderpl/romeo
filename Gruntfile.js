@@ -173,7 +173,7 @@ module.exports = function (grunt) {
             },
             RomeoApp: {
                 module: 'RomeoApp',
-                src: 'wonder/romeo/static/views/*.html',
+                src: 'wonder/romeo/static/views/**/*.html',
                 dest: 'wonder/romeo/static/assets/scripts/views.js'
             }
         },
