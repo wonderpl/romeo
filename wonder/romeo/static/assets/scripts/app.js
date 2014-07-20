@@ -75,12 +75,6 @@
             resolve: authChecks
         });
 
-        // TEST
-        $routeProvider.when('/prototype/:id', {
-            templateUrl: 'prototype.html'
-        });
-
-
 
         // Analytics
         // Types can be
@@ -121,7 +115,7 @@
             templateUrl: 'login.html'
         });
 
-        $routeProvider.otherwise({redirectTo: '/upload'});
+        $routeProvider.otherwise({redirectTo: '/manage'});
 
         $httpProvider.defaults.headers.patch = {
             'Content-Type': 'application/json;charset=utf-8'
