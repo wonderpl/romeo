@@ -1,13 +1,21 @@
+import os
 import logging
+from glob import glob
 from werkzeug.utils import import_string
 from werkzeug.contrib.fixers import ProxyFix
 from flask import Flask, json
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.script import Manager
+from flask.ext.script.commands import Server
 from flask.ext.login import LoginManager
 from flask.ext.cache import Cache
 from flask.ext.assets import Environment, ManageAssets
 from flask.ext.restful import Api
+
+
+def _reloader_extra_files():
+    from wonder.romeo import settings
+    return glob(os.path.join(os.path.dirname(settings.__file__), '*.py'))
 
 
 def _configure(app):
@@ -131,3 +139,4 @@ assetenv = Environment()
 cache = Cache()
 manager = Manager(create_app, with_default_commands=True)
 manager.add_command('assets', ManageAssets(assetenv))
+manager.add_command('runserver', Server(extra_files=_reloader_extra_files()))
