@@ -10,22 +10,40 @@
   @extend .sans-serif;
   font-size: 32px;
   line-height: 39px;
+  color: $black;
 }
 
 .medium-font {
   @extend .sans-serif;
   font-size: 24px;
   line-height: 36px;
+  color: $black;
 }
 
 .regular-font {
   @extend .serif;
   font-size: 20px;
   line-height: 29px;
+  color: $black;
+}
+
+.regular-font--sans {
+  @extend .sans-serif;
+  font-size: 20px;
+  line-height: 29px;
+  color: $black;
+}
+
+.small-font {
+  @extend .sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  color: $black;
 }
 
 .quote-font {
   @extend .sans-serif;
   font-size: 32px;
   line-height: 39px;
+  color: $black;
 }

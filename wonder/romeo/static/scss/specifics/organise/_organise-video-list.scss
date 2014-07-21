@@ -1,0 +1,46 @@
+.organise-video-list {
+  max-width: 100%;
+}
+
+.organise-video-list__display-controls {
+  text-align: right;
+  margin-bottom: 12px;
+}
+
+.organise-video-list__video {
+  display: inline-block;
+  border: solid 1px $grey;
+  width: 32%;
+  min-width: 200px;
+  margin-right: 8px;
+  margin-bottom: 12px;
+}
+
+.organise-video-list__video--last {
+  margin-right: 0;
+}
+
+.organise-video__controls-container {
+  display: block;
+  height: 0;
+  padding-bottom: 56.25%;
+  background-color: $dark-grey;
+  position: relative;
+}
+
+.organise-video__control {
+  transition: opacity 0.4s linear;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: $black;
+  opacity: 0;
+}
+
+.organise-video__control:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}

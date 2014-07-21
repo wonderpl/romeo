@@ -823,6 +823,177 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('organise-collection.html',
+    "<section class=\"organise-collection\">\n" +
+    "\n" +
+    "  <h3 class=\"organise-collection__title\">\n" +
+    "    Cook-a-longs\n" +
+    "    <span class=\"organise-collection__visibility organise-collection__visibility--private\">private</span>\n" +
+    "  </h3>\n" +
+    "\n" +
+    "  <p class=\"organise-collection__description\">\n" +
+    "    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea labore, ratione culpa. Nihil iste rerum totam neque placeat! Voluptate repudiandae sit facere harum sapiente quod, libero consequuntur perspiciatis perferendis, soluta.\n" +
+    "  </p>\n" +
+    "\n" +
+    "  <a class=\"button organise-collection__edit\">Edit</a>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('organise-navigation.html',
+    "<section class=\"organise-navigation\">\n" +
+    "\n" +
+    "  <ul class=\"organise-navigation__nav-items organise-navigation__nav--core\">\n" +
+    "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--title\">\n" +
+    "      Manage\n" +
+    "    </li>\n" +
+    "    <li class=\"organise-navigation__nav-item\">\n" +
+    "      <a class=\"organise-navigation__link\">All videos</a>\n" +
+    "    </li>\n" +
+    "    <li class=\"organise-navigation__nav-item\">\n" +
+    "      <a class=\"organise-navigation__link\">Recently added videos</a>\n" +
+    "    </li>\n" +
+    "    <li class=\"organise-navigation__nav-item\">\n" +
+    "      <a class=\"organise-navigation__link\">Shared videos</a>\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
+    "\n" +
+    "  <ul class=\"organise-navigation__nav-items organise-navigation__nav--private\">\n" +
+    "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--title\">\n" +
+    "      Collections not visible in app\n" +
+    "    </li>\n" +
+    "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--collection\"\n" +
+    "      ng-repeat=\"tag in tags | filter : { public : true }\">\n" +
+    "      <a class=\"organise-navigation__link\"\n" +
+    "        ng-bind=\"tag.label\"\n" +
+    "        ng-click=\"loadCollection(tag.id)\">\n" +
+    "      </a>\n" +
+    "    </li>\n" +
+    "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--new\">\n" +
+    "      <a class=\"organise-navigation__link\">Add a new private collection</a>\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
+    "\n" +
+    "  <ul class=\"organise-navigation__nav-items organise-navigation__nav--public\">\n" +
+    "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--title\">\n" +
+    "      Collections visible in app\n" +
+    "    </li>\n" +
+    "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--collection\"\n" +
+    "      ng-repeat=\"tag in tags | filter : { public : false }\">\n" +
+    "      <a class=\"organise-navigation__link\"\n" +
+    "        ng-bind=\"tag.label\"\n" +
+    "        ng-click=\"loadCollection(tag.id)\">\n" +
+    "      </a>\n" +
+    "    </li>\n" +
+    "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--new\">\n" +
+    "      <a class=\"organise-navigation__link organise-navigation__link--new\">Add a new public collection</a>\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('organise-video-list.html',
+    "<section class=\"organise-video-list\">\n" +
+    "\n" +
+    "  <div class=\"organise-video-list__display-controls\">\n" +
+    "\n" +
+    "    <label class=\"organise-video-list__label\">\n" +
+    "      Sort:\n" +
+    "      <select class=\"organise-video-list__sort\">\n" +
+    "        <option>Newest</option>\n" +
+    "        <option>Oldest</option>\n" +
+    "        <option>Comments</option>\n" +
+    "        <option>Longest</option>\n" +
+    "      </select>\n" +
+    "    </label>\n" +
+    "\n" +
+    "    <label class=\"organise-video-list__label\">\n" +
+    "      View:\n" +
+    "      <input type=\"radio\" name=\"view-layout\" value=\"grid\" selected=\"selected\" />\n" +
+    "      <input type=\"radio\" name=\"view-layout\" value=\"list\" />\n" +
+    "    </label>\n" +
+    "\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <ul class=\"organise-video-list__videos\">\n" +
+    "\n" +
+    "    <li class=\"organise-video-list__video\"\n" +
+    "      ng-repeat=\"video in videos\"\n" +
+    "      ng-class=\"{ organise-video-list__video--last : $index%3==0 }\">\n" +
+    "      <organise-video></organise-video>\n" +
+    "    </li>\n" +
+    "\n" +
+    "    <li class=\"organise-video-list__video\">\n" +
+    "      <organise-video></organise-video>\n" +
+    "    </li>\n" +
+    "\n" +
+    "    <li class=\"organise-video-list__video\">\n" +
+    "      <organise-video></organise-video>\n" +
+    "    </li>\n" +
+    "\n" +
+    "    <li class=\"organise-video-list__video organise-video-list__video--last\">\n" +
+    "      <organise-video></organise-video>\n" +
+    "    </li>\n" +
+    "\n" +
+    "    <li class=\"organise-video-list__video\">\n" +
+    "      <organise-video></organise-video>\n" +
+    "    </li>\n" +
+    "\n" +
+    "  </ul>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('organise-video.html',
+    "<section class=\"organise-video\">\n" +
+    "\n" +
+    "  <span class=\"organise-video__title\">Tom Aitkens - Eggs Benedict</span>\n" +
+    "\n" +
+    "  <section class=\"organise-video__controls-container\">\n" +
+    "    <ul class=\"organise-video__controls\">\n" +
+    "      <li class=\"organise-video__control\">\n" +
+    "        <a class=\"organise-video__link organise-video__link--edit\"></a>\n" +
+    "      </li>\n" +
+    "      <li class=\"organise-video__control\">\n" +
+    "        <a class=\"organise-video__link organise-video__link--stats\"></a>\n" +
+    "      </li>\n" +
+    "      <li class=\"organise-video__control\">\n" +
+    "        <a class=\"organise-video__link organise-video__link--share\"></a>\n" +
+    "      </li>\n" +
+    "      <li class=\"organise-video__control\">\n" +
+    "        <a class=\"organise-video__link organise-video__link--add-remove\"></a>\n" +
+    "      </li>\n" +
+    "      <li class=\"organise-video__control\">\n" +
+    "        <a class=\"organise-video__link organise-video__link--delete\"></a>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </section>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('organise.html',
+    "<section class=\"organise\" ng-controller=\"OrganiseCtrl\">\n" +
+    "\n" +
+    "  <organise-navigation tags=\"tags\"></organise-navigation>\n" +
+    "\n" +
+    "  <div class=\"organise__main\">\n" +
+    "\n" +
+    "    <organise-collection></organise-collection>\n" +
+    "\n" +
+    "    <organise-video-list></organise-video-list>\n" +
+    "\n" +
+    "  </div>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
   $templateCache.put('page-header.html',
     "<header class=\"page-header\">\n" +
     "  <h1 class=\"page-header__logo\">\n" +

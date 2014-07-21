@@ -57,11 +57,11 @@
     {% block appjs %}
         {% assets filters="rjsmin", output="gen/app.%(version)s.js",
             "assets/scripts/app.js",
+
             "assets/scripts/services/services.js",
             "assets/scripts/services/stats-services.js",
             "assets/scripts/services/comments.js",
             "assets/scripts/services/collaborators.js",
-
             "assets/scripts/services/upload.js",
 
             "assets/scripts/controllers/controllers.js",
@@ -73,8 +73,7 @@
             "assets/scripts/controllers/manage.js",
             "assets/scripts/controllers/upload.js",
             "assets/scripts/controllers/video.js",
-
-            "assets/scripts/controllers/prototype.js",
+            "assets/scripts/controllers/organise.js",
 
             "assets/scripts/filters/filters.js",
             "assets/scripts/filters/video-priority.js",
@@ -114,6 +113,7 @@
             "assets/scripts/directives/upload-file-input.js",
 
             "assets/scripts/directives/video/*",
+            "assets/scripts/directives/organise/*",
 
             "assets/scripts/directives/category-add-video.js",
             "assets/scripts/directives/collection-add-video.js",

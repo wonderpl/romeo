@@ -210,9 +210,11 @@ angular.module('RomeoApp.controllers')
       if ($scope.video.id) {
         VideoService.get($scope.video.id).then(function (data) {
           angular.extend($scope.video, data);
+          $scope.displaySection();
         });
+      } else {
+        $location.path('/manage');
       }
-      $location.path('/manage');
     };
 
     $scope.$on('video-upload-success', videoUploadOnSuccess);
