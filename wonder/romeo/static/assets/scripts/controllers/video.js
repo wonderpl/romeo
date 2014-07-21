@@ -14,9 +14,9 @@ angular.module('RomeoApp.controllers')
     function initialiseNewScope () {
 
       $scope.video = $scope.video || {};
-      $scope.titlePlaceholder = '';
-      $scope.straplinePlaceholder = '';
-      $scope.descriptionPlaceholder = '';
+      $scope.titlePlaceholder = 'Untitled Video';
+      $scope.straplinePlaceholder = 'Subtitle';
+      $scope.descriptionPlaceholder = 'Additional content including but not limited to: recipes, ingredients, lyrics, stories, etc.';
       $scope.showUpload = true;
       $scope.isUploading = false;
       $scope.hasProcessed = false;
@@ -24,6 +24,16 @@ angular.module('RomeoApp.controllers')
       $scope.embedUrl = '';
       $scope.currentTime = 0;
       $scope.notified = false;
+    }
+
+    /*
+     * Trim trailing and leading spaces
+     * Should probably be kept somewhere else
+     * http://stackoverflow.com/questions/10032024/how-to-remove-leading-and-trailing-white-spaces-from-a-given-html-string
+     *
+     */
+    function trim (str) {
+      return str ? str.replace(/^[ ]+|[ ]+$/g,'') : str;
     }
 
     $scope.$watch(
@@ -36,10 +46,13 @@ angular.module('RomeoApp.controllers')
     $scope.$watch(
       function() { return $scope.video.title; },
       function(newValue, oldValue) {
-        if (newValue && newValue !== oldValue) {
-          $scope.titlePlaceholder = '';
-        } else {
-          $scope.titlePlaceholder = 'UntitledVideo';
+        if (newValue !== oldValue) {
+          $scope.titlePlaceholder = 'Untitled Video';
+          if (trim(newValue)) {
+            $timeout(function() {
+              $scope.titlePlaceholder = '';
+            });
+          }
         }
       }
     );
@@ -47,10 +60,13 @@ angular.module('RomeoApp.controllers')
     $scope.$watch(
       function() { return $scope.video.strapline; },
       function(newValue, oldValue) {
-        if (newValue && newValue !== oldValue) {
-          $scope.straplinePlaceholder = '';
-        } else {
+        if (newValue !== oldValue) {
           $scope.straplinePlaceholder = 'Subtitle';
+          if (trim(newValue)) {
+            $timeout(function() {
+              $scope.straplinePlaceholder = '';
+            });
+          }
         }
       }
     );
@@ -58,10 +74,13 @@ angular.module('RomeoApp.controllers')
     $scope.$watch(
       function() { return $scope.video.description; },
       function(newValue, oldValue) {
-        if (newValue && newValue !== oldValue) {
-          $scope.descriptionPlaceholder = '';
-        } else {
+        if (newValue !== oldValue) {
           $scope.descriptionPlaceholder = 'Additional content including but not limited to: recipes, ingredients, lyrics, stories, etc.';
+          if (trim(newValue)) {
+            $timeout(function() {
+              $scope.descriptionPlaceholder = '';
+            });
+          }
         }
       }
     );
@@ -96,8 +115,6 @@ angular.module('RomeoApp.controllers')
 
       $scope.video.title = $scope.video.title || stripExtension(files[0].name);
       $scope.titlePlaceholder = '';
-      $scope.straplinePlaceholder = '';
-      $scope.descriptionPlaceholder = '';
 
       var data = { title : $scope.video.title };
 
@@ -172,6 +189,7 @@ angular.module('RomeoApp.controllers')
       if ($scope.video.id) {
         VideoService.update($scope.video.id, $scope.video).then(function (data) {
           angular.extend($scope.video, data);
+          $scope.displaySection();
         });
       } else {
         $scope.video.title = $scope.video.title || 'Untitled Video';
@@ -184,14 +202,19 @@ angular.module('RomeoApp.controllers')
     };
 
     $rootScope.$on('video-cancel', function () {
-      $scope.save();
+      $scope.cancel();
     });
 
     $scope.cancel = function () {
 
-      VideoService.get($scope.video.id).then(function (data) {
-        angular.extend($scope.video, data);
-      });
+      if ($scope.video.id) {
+        VideoService.get($scope.video.id).then(function (data) {
+          angular.extend($scope.video, data);
+          $scope.displaySection();
+        });
+      } else {
+        $location.path('/manage');
+      }
     };
 
     $scope.$on('video-upload-success', videoUploadOnSuccess);
@@ -305,7 +328,7 @@ angular.module('RomeoApp.controllers')
 
     $scope.displaySection = function (section) {
 
-      console.log(section);
+      section = section || '';
 
       if ($scope.video && $scope.video.id) {
         var url = '/video/' + $scope.video.id + '/' + section;

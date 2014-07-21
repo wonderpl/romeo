@@ -44,16 +44,25 @@
       ng-class="{ 'video-view__description--edit' : isEdit }"
       data-placeholder="{{ descriptionPlaceholder }}"
       medium-editor
-      options="{ buttons : ['bold', 'italic', 'header1', 'header2', 'unorderedlist'], firstHeader : 'h2', secondHeader : 'h3' }"
+      options="{ buttons : ['bold', 'italic', 'header1', 'header2', 'unorderedlist', 'quote'], firstHeader : 'h2', secondHeader : 'h3' }"
       ng-model="video.description"
       ng-show="isEdit">
     </section>
 
-    <section class="video-view__description video-medium" ng-bind-html="video.description" ng-hide="isComments || isEdit"></section>
+    <section
+      class="video-view__description video-medium"
+      ng-bind-html="video.description"
+      ng-hide="isComments || isEdit">
+    </section>
 
-    <video-share video="video" has-tags="{{ video.tags && video.tags.items && video.tags.items.length > 0 }}" ng-hide="isComments" video-id="{{ video.id }}"></video-share>
+    <video-share
+      video="video"
+      has-tags="{{ video.tags && video.tags.items && video.tags.items.length > 0 }}"
+      ng-hide="isComments"
+      video-id="{{ video.id }}">
+    </video-share>
 
-    <video-extended-controls></video-extended-controls>
+    <video-extended-controls ng-show="isEdit"></video-extended-controls>
 
     <section class="video-view__comments" ng-show="video.id && isComments"><!-- video.status === 'published'" -->
       <div class="video-view__comments-section--left">

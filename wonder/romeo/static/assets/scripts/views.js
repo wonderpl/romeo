@@ -823,6 +823,177 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('organise-collection.html',
+    "<section class=\"organise-collection\">\n" +
+    "\n" +
+    "  <h3 class=\"organise-collection__title\">\n" +
+    "    Cook-a-longs\n" +
+    "    <span class=\"organise-collection__visibility organise-collection__visibility--private\">private</span>\n" +
+    "  </h3>\n" +
+    "\n" +
+    "  <p class=\"organise-collection__description\">\n" +
+    "    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea labore, ratione culpa. Nihil iste rerum totam neque placeat! Voluptate repudiandae sit facere harum sapiente quod, libero consequuntur perspiciatis perferendis, soluta.\n" +
+    "  </p>\n" +
+    "\n" +
+    "  <a class=\"button organise-collection__edit\">Edit</a>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('organise-navigation.html',
+    "<section class=\"organise-navigation\">\n" +
+    "\n" +
+    "  <ul class=\"organise-navigation__nav-items organise-navigation__nav--core\">\n" +
+    "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--title\">\n" +
+    "      Manage\n" +
+    "    </li>\n" +
+    "    <li class=\"organise-navigation__nav-item\">\n" +
+    "      <a class=\"organise-navigation__link\">All videos</a>\n" +
+    "    </li>\n" +
+    "    <li class=\"organise-navigation__nav-item\">\n" +
+    "      <a class=\"organise-navigation__link\">Recently added videos</a>\n" +
+    "    </li>\n" +
+    "    <li class=\"organise-navigation__nav-item\">\n" +
+    "      <a class=\"organise-navigation__link\">Shared videos</a>\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
+    "\n" +
+    "  <ul class=\"organise-navigation__nav-items organise-navigation__nav--private\">\n" +
+    "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--title\">\n" +
+    "      Collections not visible in app\n" +
+    "    </li>\n" +
+    "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--collection\"\n" +
+    "      ng-repeat=\"tag in tags | filter : { public : true }\">\n" +
+    "      <a class=\"organise-navigation__link\"\n" +
+    "        ng-bind=\"tag.label\"\n" +
+    "        ng-click=\"loadCollection(tag.id)\">\n" +
+    "      </a>\n" +
+    "    </li>\n" +
+    "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--new\">\n" +
+    "      <a class=\"organise-navigation__link\">Add a new private collection</a>\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
+    "\n" +
+    "  <ul class=\"organise-navigation__nav-items organise-navigation__nav--public\">\n" +
+    "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--title\">\n" +
+    "      Collections visible in app\n" +
+    "    </li>\n" +
+    "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--collection\"\n" +
+    "      ng-repeat=\"tag in tags | filter : { public : false }\">\n" +
+    "      <a class=\"organise-navigation__link\"\n" +
+    "        ng-bind=\"tag.label\"\n" +
+    "        ng-click=\"loadCollection(tag.id)\">\n" +
+    "      </a>\n" +
+    "    </li>\n" +
+    "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--new\">\n" +
+    "      <a class=\"organise-navigation__link organise-navigation__link--new\">Add a new public collection</a>\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('organise-video-list.html',
+    "<section class=\"organise-video-list\">\n" +
+    "\n" +
+    "  <div class=\"organise-video-list__display-controls\">\n" +
+    "\n" +
+    "    <label class=\"organise-video-list__label\">\n" +
+    "      Sort:\n" +
+    "      <select class=\"organise-video-list__sort\">\n" +
+    "        <option>Newest</option>\n" +
+    "        <option>Oldest</option>\n" +
+    "        <option>Comments</option>\n" +
+    "        <option>Longest</option>\n" +
+    "      </select>\n" +
+    "    </label>\n" +
+    "\n" +
+    "    <label class=\"organise-video-list__label\">\n" +
+    "      View:\n" +
+    "      <input type=\"radio\" name=\"view-layout\" value=\"grid\" selected=\"selected\" />\n" +
+    "      <input type=\"radio\" name=\"view-layout\" value=\"list\" />\n" +
+    "    </label>\n" +
+    "\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <ul class=\"organise-video-list__videos\">\n" +
+    "\n" +
+    "    <li class=\"organise-video-list__video\"\n" +
+    "      ng-repeat=\"video in videos\"\n" +
+    "      ng-class=\"{ organise-video-list__video--last : $index%3==0 }\">\n" +
+    "      <organise-video></organise-video>\n" +
+    "    </li>\n" +
+    "\n" +
+    "    <li class=\"organise-video-list__video\">\n" +
+    "      <organise-video></organise-video>\n" +
+    "    </li>\n" +
+    "\n" +
+    "    <li class=\"organise-video-list__video\">\n" +
+    "      <organise-video></organise-video>\n" +
+    "    </li>\n" +
+    "\n" +
+    "    <li class=\"organise-video-list__video organise-video-list__video--last\">\n" +
+    "      <organise-video></organise-video>\n" +
+    "    </li>\n" +
+    "\n" +
+    "    <li class=\"organise-video-list__video\">\n" +
+    "      <organise-video></organise-video>\n" +
+    "    </li>\n" +
+    "\n" +
+    "  </ul>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('organise-video.html',
+    "<section class=\"organise-video\">\n" +
+    "\n" +
+    "  <span class=\"organise-video__title\">Tom Aitkens - Eggs Benedict</span>\n" +
+    "\n" +
+    "  <section class=\"organise-video__controls-container\">\n" +
+    "    <ul class=\"organise-video__controls\">\n" +
+    "      <li class=\"organise-video__control\">\n" +
+    "        <a class=\"organise-video__link organise-video__link--edit\"></a>\n" +
+    "      </li>\n" +
+    "      <li class=\"organise-video__control\">\n" +
+    "        <a class=\"organise-video__link organise-video__link--stats\"></a>\n" +
+    "      </li>\n" +
+    "      <li class=\"organise-video__control\">\n" +
+    "        <a class=\"organise-video__link organise-video__link--share\"></a>\n" +
+    "      </li>\n" +
+    "      <li class=\"organise-video__control\">\n" +
+    "        <a class=\"organise-video__link organise-video__link--add-remove\"></a>\n" +
+    "      </li>\n" +
+    "      <li class=\"organise-video__control\">\n" +
+    "        <a class=\"organise-video__link organise-video__link--delete\"></a>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </section>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('organise.html',
+    "<section class=\"organise\" ng-controller=\"OrganiseCtrl\">\n" +
+    "\n" +
+    "  <organise-navigation tags=\"tags\"></organise-navigation>\n" +
+    "\n" +
+    "  <div class=\"organise__main\">\n" +
+    "\n" +
+    "    <organise-collection></organise-collection>\n" +
+    "\n" +
+    "    <organise-video-list></organise-video-list>\n" +
+    "\n" +
+    "  </div>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
   $templateCache.put('page-header.html',
     "<header class=\"page-header\">\n" +
     "  <h1 class=\"page-header__logo\">\n" +
@@ -849,7 +1020,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <nav class=\"page-header__navigation\" ng-if=\"isLoggedIn\">\n" +
     "    <ul class=\"page-header__navigation-list\">\n" +
     "      <li class=\"page-header__navigation-item\"><a class=\"page-header__navigation-link page-header__link\" href=\"/#/manage\">manage</a></li>\n" +
-    "      <li class=\"page-header__navigation-item\"><a class=\"page-header__navigation-link page-header__link\" href=\"/#/upload\">upload</a></li>\n" +
+    "      <li class=\"page-header__navigation-item\"><a class=\"page-header__navigation-link page-header__link\" href=\"/#/video\">upload</a></li>\n" +
     "    </ul>\n" +
     "  </nav>\n" +
     "\n" +
@@ -858,83 +1029,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  </section>\n" +
     "\n" +
     "</header>"
-  );
-
-
-  $templateCache.put('prototype.html',
-    "\n" +
-    "<upload-progress></upload-progress>\n" +
-    "\n" +
-    "<h1>PROTOTYPE</h1>\n" +
-    "\n" +
-    "<section class=\"main-view video-view\" ng-controller=\"PrototypeCtrl\">\n" +
-    "\n" +
-    "  <nav>\n" +
-    "    <ul>\n" +
-    "      <li>\n" +
-    "        <a ng-click=\"displaySection('edit')\">edit</a>\n" +
-    "      </li>\n" +
-    "      <li>\n" +
-    "        <a ng-click=\"displaySection('comments')\">comments</a>\n" +
-    "      </li>\n" +
-    "      <li>\n" +
-    "        <a href=\"/#/manage\">manage</a>\n" +
-    "      </li>\n" +
-    "      <li>\n" +
-    "        <a href=\"/#/upload\">upload</a>\n" +
-    "      </li>\n" +
-    "    </ul>\n" +
-    "  </nav>\n" +
-    "\n" +
-    "\n" +
-    "  <section class=\"video-view__edit\" ng-class=\"{ 'video-view__edit--active' : isEdit }\">\n" +
-    "\n" +
-    "    <div ng-hide=\"hasVideo\">\n" +
-    "\n" +
-    "      <video-upload></video-upload>\n" +
-    "\n" +
-    "      <video-thumbnail data-background=\"http://ak.c.ooyala.com/l0dWJnbjpLZ5hwo3aVaBFqpVICC63Wo3/3Gduepif0T1UGY8H4xMDoxOjBhOzV3Va\"></video-thumbnail>\n" +
-    "\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <div ng-show=\"hasVideo\">\n" +
-    "\n" +
-    "      <video-player url=\"http://localhost:5001/embed/viwAdAYl4is9rfPwmRE39MXA/?controls=1\"></video-player>\n" +
-    "\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <input ng-model=\"color\" />\n" +
-    "    <input color-picker ng-model=\"color\" />\n" +
-    "\n" +
-    "    <section class=\"video-more\">\n" +
-    "      <p class=\"video-more__link\" medium-editor ng-model=\"more\"></p>\n" +
-    "    </section>\n" +
-    "\n" +
-    "    <section class=\"video-view__description\" medium-editor ng-model=\"text\"></section>\n" +
-    "\n" +
-    "    <video-share></video-share>\n" +
-    "\n" +
-    "  </section>\n" +
-    "\n" +
-    "  <section class=\"video-view__comments\" ng-class=\"{ 'video-view__comments--active' : isComments }\">\n" +
-    "\n" +
-    "    <video-player url=\"http://localhost:5001/embed/viwAdAYl4is9rfPwmRE39MXA/?controls=1\"></video-player>\n" +
-    "\n" +
-    "    <video-indicators></video-indicators>\n" +
-    "\n" +
-    "    <video-comments></video-comments>\n" +
-    "\n" +
-    "  </section>\n" +
-    "\n" +
-    "</section>\n" +
-    "\n" +
-    "</div>\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n"
   );
 
 
@@ -1262,7 +1356,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('video-extended-controls.html',
-    "<section class=\"video-extended-controls\" ng-show=\"isEdit\">\n" +
+    "<section class=\"video-extended-controls\">\n" +
     "\n" +
     "  <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCategoryShow }\">\n" +
     "    <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\"\n" +
@@ -1452,15 +1546,15 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <a class=\"video-view-control-panel__link button button--primary\" ng-click=\"save()\">save</a>\n" +
     "    </li>\n" +
     "    <li class=\"video-view-control-panel__mode\" ng-show=\"isEdit\">\n" +
-    "      <a class=\"video-view-control-panel__link button\" ng-click=\"cancel\">cancel</a>\n" +
+    "      <a class=\"video-view-control-panel__link button\" ng-click=\"cancel()\">cancel</a>\n" +
     "    </li>\n" +
-    "    <li class=\"video-view-control-panel__mode\"> <!-- ng-show=\"video.status=='published'\" -->\n" +
+    "    <li class=\"video-view-control-panel__mode\" ng-hide=\"isEdit\"> <!-- ng-show=\"video.status=='published'\" -->\n" +
     "      <a class=\"video-view-control-panel__link button button--primary\" ng-click=\"displaySection('edit')\">edit</a>\n" +
     "    </li>\n" +
-    "    <li class=\"video-view-control-panel__mode\">\n" +
+    "    <li class=\"video-view-control-panel__mode\" ng-hide=\"isEdit\">\n" +
     "      <a class=\"video-view-control-panel__link button button--primary\" ng-click=\"displaySection('')\">review</a>\n" +
     "    </li>\n" +
-    "    <li class=\"video-view-control-panel__mode\">\n" +
+    "    <li class=\"video-view-control-panel__mode\" ng-hide=\"isEdit\">\n" +
     "      <a class=\"video-view-control-panel__link button button--primary\" ng-click=\"displaySection('comments')\">comment</a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
@@ -1504,7 +1598,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('video-thumbnail.html',
     "<section class=\"video-preview\" ng-class=\"{ 'video-preview--invert' : invertPreviewSelector }\">\n" +
     "\n" +
-    "  <iframe ng-hide=\"videoHasLoaded\" class=\"video-preview__frame\" src=\"http://wonderpl.com/embed/88888888/?controls=1\"></iframe>\n" +
+    "  <iframe ng-hide=\"videoHasLoaded\" class=\"video-preview__frame\" src=\"/embed/88888888/?controls=1\"></iframe>\n" +
     "\n" +
     "  <a class=\"video-thumbnail__option video-thumbnail__option--select\" ng-class=\"{ 'video-thumbnail__option--disabled' : video.status !== 'ready' }\" ng-hide=\"showThumbnailSelector\" ng-click=\"(video.status !== 'ready') || selectThumbnail()\">Pick a generated thumbnail</a>\n" +
     "\n" +
@@ -1613,16 +1707,25 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      ng-class=\"{ 'video-view__description--edit' : isEdit }\"\n" +
     "      data-placeholder=\"(~ descriptionPlaceholder ~)\"\n" +
     "      medium-editor\n" +
-    "      options=\"{ buttons : ['bold', 'italic', 'header1', 'header2', 'unorderedlist'], firstHeader : 'h2', secondHeader : 'h3' }\"\n" +
+    "      options=\"{ buttons : ['bold', 'italic', 'header1', 'header2', 'unorderedlist', 'quote'], firstHeader : 'h2', secondHeader : 'h3' }\"\n" +
     "      ng-model=\"video.description\"\n" +
     "      ng-show=\"isEdit\">\n" +
     "    </section>\n" +
     "\n" +
-    "    <section class=\"video-view__description video-medium\" ng-bind-html=\"video.description\" ng-hide=\"isComments || isEdit\"></section>\n" +
+    "    <section\n" +
+    "      class=\"video-view__description video-medium\"\n" +
+    "      ng-bind-html=\"video.description\"\n" +
+    "      ng-hide=\"isComments || isEdit\">\n" +
+    "    </section>\n" +
     "\n" +
-    "    <video-share video=\"video\" has-tags=\"(~ video.tags && video.tags.items && video.tags.items.length > 0 ~)\" ng-hide=\"isComments\" video-id=\"(~ video.id ~)\"></video-share>\n" +
+    "    <video-share\n" +
+    "      video=\"video\"\n" +
+    "      has-tags=\"(~ video.tags && video.tags.items && video.tags.items.length > 0 ~)\"\n" +
+    "      ng-hide=\"isComments\"\n" +
+    "      video-id=\"(~ video.id ~)\">\n" +
+    "    </video-share>\n" +
     "\n" +
-    "    <video-extended-controls></video-extended-controls>\n" +
+    "    <video-extended-controls ng-show=\"isEdit\"></video-extended-controls>\n" +
     "\n" +
     "    <section class=\"video-view__comments\" ng-show=\"video.id && isComments\"><!-- video.status === 'published'\" -->\n" +
     "      <div class=\"video-view__comments-section--left\">\n" +

@@ -4,15 +4,15 @@
       <a class="video-view-control-panel__link button button--primary" ng-click="save()">save</a>
     </li>
     <li class="video-view-control-panel__mode" ng-show="isEdit">
-      <a class="video-view-control-panel__link button" ng-click="cancel">cancel</a>
+      <a class="video-view-control-panel__link button" ng-click="cancel()">cancel</a>
     </li>
-    <li class="video-view-control-panel__mode"> <!-- ng-show="video.status=='published'" -->
+    <li class="video-view-control-panel__mode" ng-hide="isEdit"> <!-- ng-show="video.status=='published'" -->
       <a class="video-view-control-panel__link button button--primary" ng-click="displaySection('edit')">edit</a>
     </li>
-    <li class="video-view-control-panel__mode">
+    <li class="video-view-control-panel__mode" ng-hide="isEdit">
       <a class="video-view-control-panel__link button button--primary" ng-click="displaySection('')">review</a>
     </li>
-    <li class="video-view-control-panel__mode">
+    <li class="video-view-control-panel__mode" ng-hide="isEdit">
       <a class="video-view-control-panel__link button button--primary" ng-click="displaySection('comments')">comment</a>
     </li>
   </ul>

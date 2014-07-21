@@ -1,0 +1,49 @@
+<section class="organise-video-list">
+
+  <div class="organise-video-list__display-controls">
+
+    <label class="organise-video-list__label">
+      Sort:
+      <select class="organise-video-list__sort">
+        <option>Newest</option>
+        <option>Oldest</option>
+        <option>Comments</option>
+        <option>Longest</option>
+      </select>
+    </label>
+
+    <label class="organise-video-list__label">
+      View:
+      <input type="radio" name="view-layout" value="grid" selected="selected" />
+      <input type="radio" name="view-layout" value="list" />
+    </label>
+
+  </div>
+
+  <ul class="organise-video-list__videos">
+
+    <li class="organise-video-list__video"
+      ng-repeat="video in videos"
+      ng-class="{ organise-video-list__video--last : $index%3==0 }">
+      <organise-video></organise-video>
+    </li>
+
+    <li class="organise-video-list__video">
+      <organise-video></organise-video>
+    </li>
+
+    <li class="organise-video-list__video">
+      <organise-video></organise-video>
+    </li>
+
+    <li class="organise-video-list__video organise-video-list__video--last">
+      <organise-video></organise-video>
+    </li>
+
+    <li class="organise-video-list__video">
+      <organise-video></organise-video>
+    </li>
+
+  </ul>
+
+</section>

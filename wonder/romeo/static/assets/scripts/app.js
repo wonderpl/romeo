@@ -21,7 +21,6 @@
         var sessionUrl;
         var authChecks = {
             loggedin: function(ErrorService, AuthService, $q) {
-                console.log('logged in authcheck');
                 return AuthService.loginCheck();
             }
         };
@@ -48,6 +47,16 @@
 
         $routeProvider.when('/manage', {
             templateUrl: 'manage.html',
+            resolve: authChecks
+        });
+
+        $routeProvider.when('/organise', {
+            templateUrl: 'organise.html',
+            resolve: authChecks
+        });
+
+        $routeProvider.when('/organise/:id', {
+            templateUrl: 'organise.html',
             resolve: authChecks
         });
 
