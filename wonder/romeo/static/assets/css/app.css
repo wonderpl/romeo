@@ -4869,62 +4869,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
 /*!
 ========== BASE
 */
-/* line 1, ../../scss/base/project/_fonts.quotes.scss */
-q {
-  quotes: "\2018" "\2019" "\201C" "\201D";
-}
-/* line 4, ../../scss/base/project/_fonts.quotes.scss */
-q:before {
-  content: "\2018";
-  content: open-quote;
-}
-/* line 8, ../../scss/base/project/_fonts.quotes.scss */
-q:after {
-  content: "\2019";
-  content: close-quote;
-}
-/* line 12, ../../scss/base/project/_fonts.quotes.scss */
-q q:before {
-  content: "\201C";
-  content: open-quote;
-}
-/* line 16, ../../scss/base/project/_fonts.quotes.scss */
-q q:after {
-  content: "\201D";
-  content: close-quote;
-}
-
-/* line 22, ../../scss/base/project/_fonts.quotes.scss */
-blockquote {
-  quotes: "\201C" "\201D";
-}
-/* line 29, ../../scss/base/project/_fonts.quotes.scss */
-blockquote p:before {
-  content: "\201C";
-  content: open-quote;
-}
-/* line 33, ../../scss/base/project/_fonts.quotes.scss */
-blockquote p:after {
-  content: "";
-  content: no-close-quote;
-}
-/* line 37, ../../scss/base/project/_fonts.quotes.scss */
-blockquote p:last-of-type:after {
-  content: "\201D";
-  content: close-quote;
-}
-/* line 41, ../../scss/base/project/_fonts.quotes.scss */
-blockquote q:before {
-  content: "\2018";
-  content: open-quote;
-}
-/* line 45, ../../scss/base/project/_fonts.quotes.scss */
-blockquote q:after {
-  content: "\2019";
-  content: close-quote;
-}
-
-/* line 51, ../../scss/base/project/_fonts.quotes.scss */
+/* line 2, ../../scss/base/project/_fonts.quotes.scss */
 blockquote {
   /**
    * .4em is roughly equal to the width of the opening “ that we wish to hang.
@@ -4932,30 +4877,28 @@ blockquote {
   text-indent: -0.41em;
   font-weight: 300;
   text-align: center;
+  margin-bottom: 24px;
+  quotes: "\201C" "\201D";
 }
-/* line 59, ../../scss/base/project/_fonts.quotes.scss */
-blockquote p:last-of-type {
-  margin-bottom: 0;
+/* line 13, ../../scss/base/project/_fonts.quotes.scss */
+blockquote:before {
+  content: "\2018";
+  content: open-quote;
 }
-
-/* line 64, ../../scss/base/project/_fonts.quotes.scss */
-.source {
-  display: block;
-  text-indent: 0;
-}
-/* line 68, ../../scss/base/project/_fonts.quotes.scss */
-.source:before {
-  content: "\2014";
+/* line 17, ../../scss/base/project/_fonts.quotes.scss */
+blockquote:after {
+  content: "\2019";
+  content: close-quote;
 }
 
 /* line 3, ../../scss/base/project/_fonts.scss */
-.sans-serif, blockquote p, html,
-body {
+.sans-serif, html,
+body, .video-medium h2, .video-medium h3, .video-medium blockquote {
   font-family: 'proxima-nova', sans-serif;
 }
 
 /* line 7, ../../scss/base/project/_fonts.scss */
-.serif, .video-medium b, .video-medium i, .video-medium p, .video-medium li {
+.serif, .video-medium b, .video-medium i, .video-medium p, .video-medium ul {
   font-family: 'freight-text-pro', serif;
 }
 
@@ -5574,7 +5517,7 @@ strong {
   position: relative;
   width: 100%;
   height: 540px;
-  margin-bottom: 1em;
+  margin-bottom: 48px;
 }
 
 /* line 54, ../../scss/specifics/video/_video-view.scss */
@@ -5588,28 +5531,26 @@ strong {
   width: 600px;
   margin: 0 auto;
   overflow: auto;
-  max-height: 15em;
 }
 
-/* line 66, ../../scss/specifics/video/_video-view.scss */
+/* line 65, ../../scss/specifics/video/_video-view.scss */
 .video-view__description--edit {
   border-bottom: solid 1px #999999;
-  height: 15em;
 }
 
-/* line 71, ../../scss/specifics/video/_video-view.scss */
+/* line 69, ../../scss/specifics/video/_video-view.scss */
 .video-view__nav-placeholder {
   display: block;
   height: 52px;
 }
 
-/* line 76, ../../scss/specifics/video/_video-view.scss */
+/* line 74, ../../scss/specifics/video/_video-view.scss */
 .video-view-control-panel {
   background: white;
   z-index: 10;
 }
 
-/* line 81, ../../scss/specifics/video/_video-view.scss */
+/* line 79, ../../scss/specifics/video/_video-view.scss */
 .video-view-control-panel--sticky {
   position: fixed;
   top: 0;
@@ -6491,13 +6432,51 @@ strong {
   display: inline-block;
 }
 
-/* line 2, ../../scss/specifics/video/_video-medium.scss */
+/* line 1, ../../scss/specifics/video/_video-medium.scss */
+.video-medium {
+  color: #70797b;
+}
+/* line 5, ../../scss/specifics/video/_video-medium.scss */
+.video-medium h2 {
+  font-size: 32px;
+  line-height: 39px;
+  margin-bottom: 24px;
+}
+/* line 11, ../../scss/specifics/video/_video-medium.scss */
+.video-medium h3 {
+  font-size: 24px;
+  line-height: 36px;
+  margin-bottom: 24px;
+}
+/* line 17, ../../scss/specifics/video/_video-medium.scss */
 .video-medium b {
   font-weight: bold;
 }
-/* line 6, ../../scss/specifics/video/_video-medium.scss */
+/* line 21, ../../scss/specifics/video/_video-medium.scss */
 .video-medium i {
   font-style: italic;
+}
+/* line 25, ../../scss/specifics/video/_video-medium.scss */
+.video-medium p {
+  font-size: 20px;
+  line-height: 29px;
+  margin-bottom: 24px;
+}
+/* line 31, ../../scss/specifics/video/_video-medium.scss */
+.video-medium ul {
+  list-style: disc inside;
+  font-size: 20px;
+  line-height: 29px;
+  margin-bottom: 24px;
+}
+/* line 41, ../../scss/specifics/video/_video-medium.scss */
+.video-medium blockquote {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 80%;
+  min-width: 450px;
+  font-size: 32px;
+  line-height: 39px;
 }
 
 /* line 1, ../../scss/specifics/upload/_upload-progress.scss */

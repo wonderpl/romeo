@@ -48,7 +48,7 @@
   position: relative;
   width: 100%;
   height: 540px;
-  margin-bottom: 1em;
+  margin-bottom: 48px;
 }
 
 .video-view__save-controls {
@@ -60,12 +60,10 @@
   width: 600px;
   margin: 0 auto;
   overflow: auto;
-  max-height: 15em;
 }
 
 .video-view__description--edit {
   border-bottom: solid 1px $grey;
-  height: 15em;
 }
 
 .video-view__nav-placeholder {

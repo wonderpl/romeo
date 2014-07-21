@@ -1,4 +1,19 @@
 .video-medium {
+
+  color: $dark-grey;
+
+  h2 {
+    @extend .sans-serif;
+    font-size: 32px;
+    line-height: 39px;
+    margin-bottom: 24px;
+  }
+  h3 {
+    @extend .sans-serif;
+    font-size: 24px;
+    line-height: 36px;
+    margin-bottom: 24px;
+  }
   b {
     @extend .serif;
     font-weight: bold;
@@ -9,8 +24,27 @@
   }
   p {
     @extend .serif;
+    font-size: 20px;
+    line-height: 29px;
+    margin-bottom: 24px;
+  }
+  ul {
+    @extend .serif;
+    list-style: disc inside;
+    font-size: 20px;
+    line-height: 29px;
+    margin-bottom: 24px;
   }
   li {
-    @extend .serif;
+
+  }
+  blockquote {
+    @extend .sans-serif;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80%;
+    min-width: 450px;
+    font-size: 32px;
+    line-height: 39px;
   }
 }
