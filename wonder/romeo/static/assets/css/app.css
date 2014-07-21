@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* line 17, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -4868,13 +4869,92 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
 /*!
 ========== BASE
 */
-/* line 1, ../../scss/base/project/_fonts.scss */
-.sans-serif, html,
+/* line 1, ../../scss/base/project/_fonts.quotes.scss */
+q {
+  quotes: "\2018" "\2019" "\201C" "\201D";
+}
+/* line 4, ../../scss/base/project/_fonts.quotes.scss */
+q:before {
+  content: "\2018";
+  content: open-quote;
+}
+/* line 8, ../../scss/base/project/_fonts.quotes.scss */
+q:after {
+  content: "\2019";
+  content: close-quote;
+}
+/* line 12, ../../scss/base/project/_fonts.quotes.scss */
+q q:before {
+  content: "\201C";
+  content: open-quote;
+}
+/* line 16, ../../scss/base/project/_fonts.quotes.scss */
+q q:after {
+  content: "\201D";
+  content: close-quote;
+}
+
+/* line 22, ../../scss/base/project/_fonts.quotes.scss */
+blockquote {
+  quotes: "\201C" "\201D";
+}
+/* line 29, ../../scss/base/project/_fonts.quotes.scss */
+blockquote p:before {
+  content: "\201C";
+  content: open-quote;
+}
+/* line 33, ../../scss/base/project/_fonts.quotes.scss */
+blockquote p:after {
+  content: "";
+  content: no-close-quote;
+}
+/* line 37, ../../scss/base/project/_fonts.quotes.scss */
+blockquote p:last-of-type:after {
+  content: "\201D";
+  content: close-quote;
+}
+/* line 41, ../../scss/base/project/_fonts.quotes.scss */
+blockquote q:before {
+  content: "\2018";
+  content: open-quote;
+}
+/* line 45, ../../scss/base/project/_fonts.quotes.scss */
+blockquote q:after {
+  content: "\2019";
+  content: close-quote;
+}
+
+/* line 51, ../../scss/base/project/_fonts.quotes.scss */
+blockquote {
+  /**
+   * .4em is roughly equal to the width of the opening “ that we wish to hang.
+   */
+  text-indent: -0.41em;
+  font-weight: 300;
+  text-align: center;
+}
+/* line 59, ../../scss/base/project/_fonts.quotes.scss */
+blockquote p:last-of-type {
+  margin-bottom: 0;
+}
+
+/* line 64, ../../scss/base/project/_fonts.quotes.scss */
+.source {
+  display: block;
+  text-indent: 0;
+}
+/* line 68, ../../scss/base/project/_fonts.quotes.scss */
+.source:before {
+  content: "\2014";
+}
+
+/* line 3, ../../scss/base/project/_fonts.scss */
+.sans-serif, blockquote p, html,
 body {
   font-family: 'proxima-nova', sans-serif;
 }
 
-/* line 5, ../../scss/base/project/_fonts.scss */
+/* line 7, ../../scss/base/project/_fonts.scss */
 .serif, .video-medium b, .video-medium i, .video-medium p, .video-medium li {
   font-family: 'freight-text-pro', serif;
 }

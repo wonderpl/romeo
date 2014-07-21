@@ -849,7 +849,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <nav class=\"page-header__navigation\" ng-if=\"isLoggedIn\">\n" +
     "    <ul class=\"page-header__navigation-list\">\n" +
     "      <li class=\"page-header__navigation-item\"><a class=\"page-header__navigation-link page-header__link\" href=\"/#/manage\">manage</a></li>\n" +
-    "      <li class=\"page-header__navigation-item\"><a class=\"page-header__navigation-link page-header__link\" href=\"/#/upload\">upload</a></li>\n" +
+    "      <li class=\"page-header__navigation-item\"><a class=\"page-header__navigation-link page-header__link\" href=\"/#/video\">upload</a></li>\n" +
     "    </ul>\n" +
     "  </nav>\n" +
     "\n" +
@@ -1262,7 +1262,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('video-extended-controls.html',
-    "<section class=\"video-extended-controls\" ng-show=\"isEdit\">\n" +
+    "<section class=\"video-extended-controls\">\n" +
     "\n" +
     "  <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCategoryShow }\">\n" +
     "    <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\"\n" +
@@ -1452,15 +1452,15 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <a class=\"video-view-control-panel__link button button--primary\" ng-click=\"save()\">save</a>\n" +
     "    </li>\n" +
     "    <li class=\"video-view-control-panel__mode\" ng-show=\"isEdit\">\n" +
-    "      <a class=\"video-view-control-panel__link button\" ng-click=\"cancel\">cancel</a>\n" +
+    "      <a class=\"video-view-control-panel__link button\" ng-click=\"cancel()\">cancel</a>\n" +
     "    </li>\n" +
-    "    <li class=\"video-view-control-panel__mode\"> <!-- ng-show=\"video.status=='published'\" -->\n" +
+    "    <li class=\"video-view-control-panel__mode\" ng-hide=\"isEdit\"> <!-- ng-show=\"video.status=='published'\" -->\n" +
     "      <a class=\"video-view-control-panel__link button button--primary\" ng-click=\"displaySection('edit')\">edit</a>\n" +
     "    </li>\n" +
-    "    <li class=\"video-view-control-panel__mode\">\n" +
+    "    <li class=\"video-view-control-panel__mode\" ng-hide=\"isEdit\">\n" +
     "      <a class=\"video-view-control-panel__link button button--primary\" ng-click=\"displaySection('')\">review</a>\n" +
     "    </li>\n" +
-    "    <li class=\"video-view-control-panel__mode\">\n" +
+    "    <li class=\"video-view-control-panel__mode\" ng-hide=\"isEdit\">\n" +
     "      <a class=\"video-view-control-panel__link button button--primary\" ng-click=\"displaySection('comments')\">comment</a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
@@ -1504,7 +1504,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('video-thumbnail.html',
     "<section class=\"video-preview\" ng-class=\"{ 'video-preview--invert' : invertPreviewSelector }\">\n" +
     "\n" +
-    "  <iframe ng-hide=\"videoHasLoaded\" class=\"video-preview__frame\" src=\"http://wonderpl.com/embed/88888888/?controls=1\"></iframe>\n" +
+    "  <iframe ng-hide=\"videoHasLoaded\" class=\"video-preview__frame\" src=\"/embed/88888888/?controls=1\"></iframe>\n" +
     "\n" +
     "  <a class=\"video-thumbnail__option video-thumbnail__option--select\" ng-class=\"{ 'video-thumbnail__option--disabled' : video.status !== 'ready' }\" ng-hide=\"showThumbnailSelector\" ng-click=\"(video.status !== 'ready') || selectThumbnail()\">Pick a generated thumbnail</a>\n" +
     "\n" +
@@ -1613,16 +1613,25 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      ng-class=\"{ 'video-view__description--edit' : isEdit }\"\n" +
     "      data-placeholder=\"(~ descriptionPlaceholder ~)\"\n" +
     "      medium-editor\n" +
-    "      options=\"{ buttons : ['bold', 'italic', 'header1', 'header2', 'unorderedlist'], firstHeader : 'h2', secondHeader : 'h3' }\"\n" +
+    "      options=\"{ buttons : ['bold', 'italic', 'header1', 'header2', 'unorderedlist', 'quote'], firstHeader : 'h2', secondHeader : 'h3' }\"\n" +
     "      ng-model=\"video.description\"\n" +
     "      ng-show=\"isEdit\">\n" +
     "    </section>\n" +
     "\n" +
-    "    <section class=\"video-view__description video-medium\" ng-bind-html=\"video.description\" ng-hide=\"isComments || isEdit\"></section>\n" +
+    "    <section\n" +
+    "      class=\"video-view__description video-medium\"\n" +
+    "      ng-bind-html=\"video.description\"\n" +
+    "      ng-hide=\"isComments || isEdit\">\n" +
+    "    </section>\n" +
     "\n" +
-    "    <video-share video=\"video\" has-tags=\"(~ video.tags && video.tags.items && video.tags.items.length > 0 ~)\" ng-hide=\"isComments\" video-id=\"(~ video.id ~)\"></video-share>\n" +
+    "    <video-share\n" +
+    "      video=\"video\"\n" +
+    "      has-tags=\"(~ video.tags && video.tags.items && video.tags.items.length > 0 ~)\"\n" +
+    "      ng-hide=\"isComments\"\n" +
+    "      video-id=\"(~ video.id ~)\">\n" +
+    "    </video-share>\n" +
     "\n" +
-    "    <video-extended-controls></video-extended-controls>\n" +
+    "    <video-extended-controls ng-show=\"isEdit\"></video-extended-controls>\n" +
     "\n" +
     "    <section class=\"video-view__comments\" ng-show=\"video.id && isComments\"><!-- video.status === 'published'\" -->\n" +
     "      <div class=\"video-view__comments-section--left\">\n" +

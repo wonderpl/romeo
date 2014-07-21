@@ -1,6 +1,6 @@
 <section class="video-preview" ng-class="{ 'video-preview--invert' : invertPreviewSelector }">
 
-  <iframe ng-hide="videoHasLoaded" class="video-preview__frame" src="http://wonderpl.com/embed/88888888/?controls=1"></iframe>
+  <iframe ng-hide="videoHasLoaded" class="video-preview__frame" src="/embed/88888888/?controls=1"></iframe>
 
   <a class="video-thumbnail__option video-thumbnail__option--select" ng-class="{ 'video-thumbnail__option--disabled' : video.status !== 'ready' }" ng-hide="showThumbnailSelector" ng-click="(video.status !== 'ready') || selectThumbnail()">Pick a generated thumbnail</a>
 
