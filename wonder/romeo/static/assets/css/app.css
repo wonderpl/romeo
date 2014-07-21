@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /* line 17, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -4869,37 +4868,39 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
 /*!
 ========== BASE
 */
-/* line 2, ../../scss/base/project/_fonts.quotes.scss */
-blockquote {
-  /**
-   * .4em is roughly equal to the width of the opening “ that we wish to hang.
-   */
-  text-indent: -0.41em;
-  font-weight: 300;
-  text-align: center;
-  margin-bottom: 24px;
-  quotes: "\201C" "\201D";
-}
-/* line 13, ../../scss/base/project/_fonts.quotes.scss */
-blockquote:before {
-  content: "\2018";
-  content: open-quote;
-}
-/* line 17, ../../scss/base/project/_fonts.quotes.scss */
-blockquote:after {
-  content: "\2019";
-  content: close-quote;
-}
-
-/* line 3, ../../scss/base/project/_fonts.scss */
-.sans-serif, html,
-body, .video-medium h2, .video-medium h3, .video-medium blockquote {
+/* line 1, ../../scss/base/project/_fonts.scss */
+.sans-serif, .large-font, .video-medium h2, .medium-font, .video-medium h3, .quote-font, .video-medium blockquote, html,
+body {
   font-family: 'proxima-nova', sans-serif;
 }
 
-/* line 7, ../../scss/base/project/_fonts.scss */
-.serif, .video-medium b, .video-medium i, .video-medium p, .video-medium ul {
+/* line 5, ../../scss/base/project/_fonts.scss */
+.serif, .regular-font, .video-medium p, .video-medium ul {
   font-family: 'freight-text-pro', serif;
+}
+
+/* line 9, ../../scss/base/project/_fonts.scss */
+.large-font, .video-medium h2 {
+  font-size: 32px;
+  line-height: 39px;
+}
+
+/* line 15, ../../scss/base/project/_fonts.scss */
+.medium-font, .video-medium h3 {
+  font-size: 24px;
+  line-height: 36px;
+}
+
+/* line 21, ../../scss/base/project/_fonts.scss */
+.regular-font, .video-medium p, .video-medium ul {
+  font-size: 20px;
+  line-height: 29px;
+}
+
+/* line 27, ../../scss/base/project/_fonts.scss */
+.quote-font, .video-medium blockquote {
+  font-size: 32px;
+  line-height: 39px;
 }
 
 /* line 1, ../../scss/base/project/_globals.scss */
@@ -6438,45 +6439,48 @@ strong {
 }
 /* line 5, ../../scss/specifics/video/_video-medium.scss */
 .video-medium h2 {
-  font-size: 32px;
-  line-height: 39px;
   margin-bottom: 24px;
 }
-/* line 11, ../../scss/specifics/video/_video-medium.scss */
+/* line 9, ../../scss/specifics/video/_video-medium.scss */
 .video-medium h3 {
-  font-size: 24px;
-  line-height: 36px;
   margin-bottom: 24px;
 }
-/* line 17, ../../scss/specifics/video/_video-medium.scss */
+/* line 13, ../../scss/specifics/video/_video-medium.scss */
 .video-medium b {
   font-weight: bold;
 }
-/* line 21, ../../scss/specifics/video/_video-medium.scss */
+/* line 16, ../../scss/specifics/video/_video-medium.scss */
 .video-medium i {
   font-style: italic;
 }
-/* line 25, ../../scss/specifics/video/_video-medium.scss */
+/* line 19, ../../scss/specifics/video/_video-medium.scss */
 .video-medium p {
-  font-size: 20px;
-  line-height: 29px;
+  margin-bottom: 24px;
+}
+/* line 23, ../../scss/specifics/video/_video-medium.scss */
+.video-medium ul {
+  list-style: disc inside;
   margin-bottom: 24px;
 }
 /* line 31, ../../scss/specifics/video/_video-medium.scss */
-.video-medium ul {
-  list-style: disc inside;
-  font-size: 20px;
-  line-height: 29px;
-  margin-bottom: 24px;
-}
-/* line 41, ../../scss/specifics/video/_video-medium.scss */
 .video-medium blockquote {
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto 24px auto;
   max-width: 80%;
   min-width: 450px;
-  font-size: 32px;
-  line-height: 39px;
+  text-indent: -0.41em;
+  font-weight: 300;
+  text-align: center;
+  quotes: "\201C" "\201D";
+}
+/* line 43, ../../scss/specifics/video/_video-medium.scss */
+.video-medium blockquote:before {
+  content: "\2018";
+  content: open-quote;
+}
+/* line 48, ../../scss/specifics/video/_video-medium.scss */
+.video-medium blockquote:after {
+  content: "\2019";
+  content: close-quote;
 }
 
 /* line 1, ../../scss/specifics/upload/_upload-progress.scss */

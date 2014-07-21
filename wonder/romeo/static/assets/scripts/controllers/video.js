@@ -189,6 +189,7 @@ angular.module('RomeoApp.controllers')
       if ($scope.video.id) {
         VideoService.update($scope.video.id, $scope.video).then(function (data) {
           angular.extend($scope.video, data);
+          $scope.displaySection();
         });
       } else {
         $scope.video.title = $scope.video.title || 'Untitled Video';
@@ -325,7 +326,7 @@ angular.module('RomeoApp.controllers')
 
     $scope.displaySection = function (section) {
 
-      console.log(section);
+      section = section || '';
 
       if ($scope.video && $scope.video.id) {
         var url = '/video/' + $scope.video.id + '/' + section;

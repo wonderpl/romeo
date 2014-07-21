@@ -3,48 +3,52 @@
   color: $dark-grey;
 
   h2 {
-    @extend .sans-serif;
-    font-size: 32px;
-    line-height: 39px;
+    @extend .large-font;
     margin-bottom: 24px;
   }
   h3 {
-    @extend .sans-serif;
-    font-size: 24px;
-    line-height: 36px;
+    @extend .medium-font;
     margin-bottom: 24px;
   }
   b {
-    @extend .serif;
     font-weight: bold;
   }
   i {
-    @extend .serif;
     font-style: italic;
   }
   p {
-    @extend .serif;
-    font-size: 20px;
-    line-height: 29px;
+    @extend .regular-font;
     margin-bottom: 24px;
   }
   ul {
-    @extend .serif;
+    @extend .regular-font;
     list-style: disc inside;
-    font-size: 20px;
-    line-height: 29px;
     margin-bottom: 24px;
   }
   li {
 
   }
   blockquote {
-    @extend .sans-serif;
-    margin-left: auto;
-    margin-right: auto;
+
+    @extend .quote-font;
+    margin: 0 auto 24px auto;
     max-width: 80%;
     min-width: 450px;
-    font-size: 32px;
-    line-height: 39px;
+    text-indent: -0.41em;
+    font-weight: 300;
+    text-align: center;
+
+    quotes: "#{$open-quote}" "#{$close-quote}";
+
+    &:before {
+      content: "\2018";
+      content: open-quote;
+    }
+
+    &:after {
+      content: "\2019";
+      content: close-quote;
+    }
+
   }
 }

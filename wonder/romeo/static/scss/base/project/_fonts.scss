@@ -1,9 +1,31 @@
-@import "_fonts.quotes.scss";
-
 .sans-serif {
   font-family: 'proxima-nova', sans-serif;
 }
 
 .serif {
   font-family: 'freight-text-pro', serif;
+}
+
+.large-font {
+  @extend .sans-serif;
+  font-size: 32px;
+  line-height: 39px;
+}
+
+.medium-font {
+  @extend .sans-serif;
+  font-size: 24px;
+  line-height: 36px;
+}
+
+.regular-font {
+  @extend .serif;
+  font-size: 20px;
+  line-height: 29px;
+}
+
+.quote-font {
+  @extend .sans-serif;
+  font-size: 32px;
+  line-height: 39px;
 }
