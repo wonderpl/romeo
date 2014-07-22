@@ -79,7 +79,122 @@
 }
 
 
+/**
+ * _objects.button.scss
+ */
+.btn {
+  display: inline-block;
+  overflow: visible;
+  vertical-align: middle;
+  margin: 0;
+  padding: $half-spacing-unit $base-spacing-unit;
+  font: inherit;
+  font-weight: 400;
+  font-size: 0.875em;
+  font-family: $heading-font-family;
+  text-align: center;
+  color: $swatch-four;
+  border: 1px solid rgba($swatch-four, 0.5);
+  border-radius: 100px;
+  cursor: pointer;
+  @include vendor(transition, border-color 0.3s ease-in-out);
 
+  &,
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    text-decoration: none;
+    color: $swatch-four;
+  }
 
+  &:hover { border-color: rgba($swatch-four, 0.8); }
 
+  & > * { pointer-events: none; }
+}
 
+.btn--small { padding: ($half-spacing-unit / 2) $half-spacing-unit; }
+.btn--large { padding: $base-spacing-unit  ($base-spacing-unit * 2); }
+
+.btn--full {
+  width: 100%;
+  padding-right: 0;
+  padding-left:  0;
+}
+
+.btn--round { border-radius: 3px !important; }
+.btn--pill {
+  padding: $half-spacing-unit ($half-spacing-unit + ($half-spacing-unit / 2 ));
+  border-radius: 40px !important;
+}
+.btn--blob {
+  border-radius: 100%;
+}
+
+.btn--disabled {
+  
+  &,
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    opacity: 0.3;
+    border: 1px solid rgba($swatch-four, 0.8);
+    cursor: not-allowed;
+  }
+}
+
+.btn-center {
+  display: block;
+  width: 100%;
+  text-align: center;
+
+  > .btn {
+    margin-right: auto;
+    margin-left:  auto;
+  }
+}
+
+.btn-group {
+  margin-bottom: $base-spacing-unit;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  
+  > .btn + .btn {
+    margin-left: -0.375em;
+  }
+  
+  > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+    border-top-right-radius:    0;
+    border-bottom-right-radius: 0;
+  }
+  > .btn:last-child:not(:first-child),
+  > .dropdown-toggle:not(:first-child) {
+    border-top-left-radius:    0;
+    border-bottom-left-radius: 0;
+  }
+  > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+    border-radius: 0;
+  }
+}
+
+.btn--utility {
+  padding: 8px 16px;
+  font-variant: small-caps;
+  font-weight: 600;
+  font-size: 0.75em;
+  text-transform: lowercase;
+  letter-spacing: 0.1em;
+  background-color: lighten($swatch-two,20%);
+  border: none;
+
+  & > .icon { color: $swatch-three; }
+}
+.btn--utility--active {
+  background-color: $watch-five;
+
+  &,
+  &:hover,
+  & > .icon { color: $swatch-one; }
+}

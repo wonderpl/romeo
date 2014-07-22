@@ -458,7 +458,7 @@ h1.collections-page {
     }
 
     .pl-checkbox {
-      @include icon;
+      //@include icon;
       color: #fff;
       cursor: pointer;
       display: block;
@@ -602,7 +602,7 @@ h1.collections-page {
     }
 
     .pl-checkbox {
-      @include icon;
+      //@include icon;
       float: right;
       color: $flat-blue-4;
       cursor: pointer;

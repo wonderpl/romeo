@@ -1,19 +1,34 @@
 <section class="video-view-control-panel">
   <ul class="video-view-control-panel__modes">
     <li class="video-view-control-panel__mode" ng-show="isEdit">
-      <a class="video-view-control-panel__link button button--primary" ng-click="save()">save</a>
+      <a class="btn  btn--utility  icon-text" ng-click="save()">
+        <i class="icon  icon--check  icon-text__icon"></i>
+        Save Changes
+      </a>
     </li>
     <li class="video-view-control-panel__mode" ng-show="isEdit">
-      <a class="video-view-control-panel__link button" ng-click="cancel()">cancel</a>
+      <a class="btn  btn--utility  icon-text" ng-click="cancel()">
+        <i class="icon  icon--cross  icon-text__icon"></i>
+        Cancel
+      </a>
     </li>
     <li class="video-view-control-panel__mode" ng-hide="isEdit"> <!-- ng-show="video.status=='published'" -->
-      <a class="video-view-control-panel__link button button--primary" ng-click="displaySection('edit')">edit</a>
+      <a class="btn  btn--utility  icon-text" ng-click="displaySection('edit')">
+        <i class="icon  icon--edit  icon-text__icon"></i>
+        Edit Video
+      </a>
     </li>
     <li class="video-view-control-panel__mode" ng-hide="isEdit">
-      <a class="video-view-control-panel__link button button--primary" ng-click="displaySection('')">review</a>
+      <a class="btn  btn--utility  icon-text" ng-click="displaySection('')">
+        <i class="icon  icon--eye  icon-text__icon"></i>
+        Review
+      </a>
     </li>
     <li class="video-view-control-panel__mode" ng-hide="isEdit">
-      <a class="video-view-control-panel__link button button--primary" ng-click="displaySection('comments')">comment</a>
+      <a class="btn  btn--utility  icon-text" ng-click="displaySection('comments')">
+        <i class="icon  icon--speech-bubble  icon-text__icon"></i>
+        Comments
+      </a>
     </li>
   </ul>
 </section>
