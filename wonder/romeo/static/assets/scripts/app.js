@@ -16,7 +16,8 @@
             'ngCookies',
             'angularFileUpload'] /* module dependencies */);
 
-    app.config(['$routeProvider', '$interpolateProvider', '$httpProvider', function( $routeProvider, $interpolateProvider, $httpProvider, $location ){
+    app.config(['$routeProvider', '$interpolateProvider', '$httpProvider',
+      function( $routeProvider, $interpolateProvider, $httpProvider ){
 
         var sessionUrl;
         var authChecks = {
@@ -29,32 +30,13 @@
         $interpolateProvider.startSymbol('(~');
         $interpolateProvider.endSymbol('~)');
 
-        // Manage
-        $routeProvider.when('/manage', {
-            templateUrl: 'manage.html',
-            resolve: authChecks
-        });
-
-        $routeProvider.when('/manage/:filter/:id', {
-            templateUrl: 'manage.html',
-            resolve: authChecks
-        });
-
-        $routeProvider.when('/manage/:filter', {
-            templateUrl: 'manage.html',
-            resolve: authChecks
-        });
-
-        $routeProvider.when('/manage', {
-            templateUrl: 'manage.html',
-            resolve: authChecks
-        });
-
+        // Organise
         $routeProvider.when('/organise', {
             templateUrl: 'organise.html',
             resolve: authChecks
         });
 
+        // Organise
         $routeProvider.when('/organise/:id', {
             templateUrl: 'organise.html',
             resolve: authChecks
@@ -84,6 +66,32 @@
             resolve: authChecks
         });
 
+
+
+
+
+/******* DEPRECATED **************************************************/
+
+        // Manage
+        $routeProvider.when('/manage', {
+            templateUrl: 'manage.html',
+            resolve: authChecks
+        });
+
+        $routeProvider.when('/manage/:filter/:id', {
+            templateUrl: 'manage.html',
+            resolve: authChecks
+        });
+
+        $routeProvider.when('/manage/:filter', {
+            templateUrl: 'manage.html',
+            resolve: authChecks
+        });
+
+        $routeProvider.when('/manage', {
+            templateUrl: 'manage.html',
+            resolve: authChecks
+        });
 
         // Analytics
         // Types can be
@@ -124,7 +132,11 @@
             templateUrl: 'login.html'
         });
 
-        $routeProvider.otherwise({redirectTo: '/manage'});
+/******* DEPRECATED **************************************************/
+
+
+
+        $routeProvider.otherwise({redirectTo: '/organise'});
 
         $httpProvider.defaults.headers.patch = {
             'Content-Type': 'application/json;charset=utf-8'
@@ -132,7 +144,8 @@
 
     }]);
 
-    app.run(['$route', '$timeout', '$rootScope', '$http', 'animLoop', '$cookies', '$location', 'ErrorService', function($route, $timeout, $rootScope, $http, animLoop, $cookies, $location, ErrorService) {
+    app.run(['$route', '$rootScope', 'animLoop', '$location', 'ErrorService',
+      function($route, $rootScope, animLoop, $location, ErrorService) {
 
       // http://joelsaupe.com/programming/angularjs-change-path-without-reloading/
       // $location.path('/sample/' + $scope.checkinId, false);

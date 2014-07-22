@@ -9,11 +9,11 @@
 
 .organise-video-list__video {
   display: inline-block;
-  border: solid 1px $grey;
-  width: 32%;
+  width: 32.5%;
   min-width: 200px;
   margin-right: 8px;
   margin-bottom: 12px;
+  vertical-align: top;
 }
 
 .organise-video-list__video--last {
@@ -28,7 +28,7 @@
   position: relative;
 }
 
-.organise-video__control {
+.organise-video__controls {
   transition: opacity 0.4s linear;
   display: block;
   position: absolute;
@@ -40,7 +40,7 @@
   opacity: 0;
 }
 
-.organise-video__control:hover {
+.organise-video__controls:hover {
   opacity: 0.6;
   cursor: pointer;
 }

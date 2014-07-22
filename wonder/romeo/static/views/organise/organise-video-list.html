@@ -24,24 +24,8 @@
 
     <li class="organise-video-list__video"
       ng-repeat="video in videos"
-      ng-class="{ organise-video-list__video--last : $index%3==0 }">
-      <organise-video></organise-video>
-    </li>
-
-    <li class="organise-video-list__video">
-      <organise-video></organise-video>
-    </li>
-
-    <li class="organise-video-list__video">
-      <organise-video></organise-video>
-    </li>
-
-    <li class="organise-video-list__video organise-video-list__video--last">
-      <organise-video></organise-video>
-    </li>
-
-    <li class="organise-video-list__video">
-      <organise-video></organise-video>
+      ng-class="{ 'organise-video-list__video--last' : ($index + 1) % 3 == 0 }">
+      <organise-video video="video"></organise-video>
     </li>
 
   </ul>

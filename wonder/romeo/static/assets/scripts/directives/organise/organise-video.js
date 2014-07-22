@@ -7,9 +7,18 @@ angular.module('RomeoApp.directives')
     restrict : 'E',
     replace : true,
     template : $templateCache.get('organise-video.html'),
-    scope : {},
+    scope : {
+      video : '='
+    },
     controller : function ($scope) {
 
+      $scope.delete = function (video) {
+        $scope.$emit('delete-video', video);
+      };
+
+      $scope.addRemove = function (video) {
+        $scope.$emit('add-remove-video', video);
+      };
     }
   };
 }]);

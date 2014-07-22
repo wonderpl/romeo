@@ -22,8 +22,32 @@
 }
 
 .truncate {
-white-space: nowrap;
-text-overflow: ellipsis;
-max-width: 100%;
-overflow: hidden;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.truncate--two {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  max-height: $base-line-height * 2;
+  white-space: normal;
+  -webkit-line-clamp: 2;
+}
+
+.truncate--three {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  max-height: $base-line-height * 3;
+  white-space: normal;
+  -webkit-line-clamp: 3;
+}
+
+.truncate--four {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  max-height: $base-line-height * 4;
+  white-space: normal;
+  webkit-line-clamp: 4;
 }

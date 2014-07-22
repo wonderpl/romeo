@@ -1,8 +1,21 @@
 .organise-video {
-
 }
 
 .organise-video__title {
+  @extend .truncate;
+  @extend .truncate--two;
   @extend .small-font;
   font-weight: 800;
+  height: 3em;
+  margin-bottom: 1em;
+  margin-left: 2px;
+}
+
+.organise-video__link {
+  display: block;
+  color: $white;
+}
+
+.organise-video__link:hover {
+  text-decoration: underline;
 }

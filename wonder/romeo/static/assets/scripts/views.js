@@ -204,9 +204,12 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('collection-add-video.html',
-    "<section class=\"collection-add-video\">\n" +
+    "<section class=\"collection-add-video\" ng-class=\"{ 'collection-add-video--modal' : isModal }\">\n" +
     "\n" +
-    "  <header class=\"video-extended-controls__section-header\" ng-click=\"showCollection = !showCollection\">\n" +
+    "  <a class=\"modal__close\" ng-show=\"isModal\" ng-click=\"close()\">&times;</a>\n" +
+    "\n" +
+    "  <header class=\"video-extended-controls__section-header\"\n" +
+    "    ng-click=\"showCollection = !showCollection\">\n" +
     "    <h4 class=\"video-extended-controls__section-header-title\">\n" +
     "      <span ng-if=\"!video || !video.tags || !video.tags.items || video.tags.items.length === 0\">\n" +
     "        Add video to collection\n" +
@@ -231,13 +234,18 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <section class=\"video-edit-collections\">\n" +
     "\n" +
     "    <ul class=\"video-edit-collections__options\">\n" +
-    "      <li class=\"video-edit-collections__option\" ng-click=\"showCreateCollection()\">\n" +
+    "      <li class=\"video-edit-collections__option\"\n" +
+    "        ng-click=\"showCreateCollection()\"\n" +
+    "        ng-class=\"{ 'video-edit-collections__option--modal' : isModal }\">\n" +
     "        <span class=\"video-edit-collections__option-title\">Create New Collection</span>\n" +
     "        <span class=\"video-edit-collections__option-count\"></span>\n" +
     "      </li>\n" +
     "      <li class=\"video-edit-collections__option\"\n" +
     "        data-videos=\"(~ tag.video_count ~)\"\n" +
-    "        ng-class=\"{ 'video-edit-collections__option--selected' : hasTag(tag.id) }\"\n" +
+    "        ng-class=\"{\n" +
+    "          'video-edit-collections__option--selected' : hasTag(tag.id),\n" +
+    "          'video-edit-collections__option--modal' : isModal\n" +
+    "        }\"\n" +
     "        ng-repeat=\"tag in availableTags\"\n" +
     "        ng-click=\"addTag(tag.id, $event)\">\n" +
     "        <span class=\"video-edit-collections__option-title\" ng-bind-html=\"tag.label\"></span>\n" +
@@ -706,7 +714,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('modal-create-new-collection.html',
     "<section class=\"video-new-collection\">\n" +
-    "  <a class=\"video-new-collection__close\" ng-click=\"close()\">&times;</a>\n" +
+    "  <a class=\"modal__close\" ng-click=\"close()\">&times;</a>\n" +
     "  <h5 class=\"video-new-collection__new-title\">Create a collection</h5>\n" +
     "  <section class=\"video-new-collection__new-controls\">\n" +
     "    <input ng-model=\"collection.label\" placeholder=\"Name\" class=\"video-new-collection__new-collection-name\" />\n" +
@@ -827,15 +835,33 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<section class=\"organise-collection\">\n" +
     "\n" +
     "  <h3 class=\"organise-collection__title\">\n" +
-    "    Cook-a-longs\n" +
-    "    <span class=\"organise-collection__visibility organise-collection__visibility--private\">private</span>\n" +
+    "    <div ng-hide=\"isEdit\">\n" +
+    "      (~ tag.label ~)\n" +
+    "      <span class=\"organise-collection__visibility organise-collection__visibility--private\">(~ tag.public ? 'public' : 'private' ~)</span>\n" +
+    "    </div>\n" +
+    "    <div medium-editor\n" +
+    "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true, placeholder : '' }\"\n" +
+    "      ng-model=\"tag.label\"\n" +
+    "      ng-show=\"isEdit\">\n" +
+    "    </div>\n" +
     "  </h3>\n" +
     "\n" +
-    "  <p class=\"organise-collection__description\">\n" +
-    "    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea labore, ratione culpa. Nihil iste rerum totam neque placeat! Voluptate repudiandae sit facere harum sapiente quod, libero consequuntur perspiciatis perferendis, soluta.\n" +
+    "  <p class=\"organise-collection__description\" ng-bind=\"tag.description\" ng-hide=\"isEdit\"></p>\n" +
+    "\n" +
+    "  <p class=\"organise-collection__description\"\n" +
+    "    medium-editor\n" +
+    "    options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true, placeholder : '' }\"\n" +
+    "    ng-model=\"tag.description\"\n" +
+    "    ng-show=\"isEdit\">\n" +
     "  </p>\n" +
     "\n" +
-    "  <a class=\"button organise-collection__edit\">Edit</a>\n" +
+    "  <a class=\"button organise-collection__button organise-collection__button--edit\" ng-hide=\"isEdit\" ng-click=\"isEdit = !isEdit\">Edit</a>\n" +
+    "\n" +
+    "  <a class=\"button button--primary organise-collection__button organise-collection__button--save\" ng-show=\"isEdit\" ng-click=\"save()\">Done</a>\n" +
+    "\n" +
+    "  <a class=\"button organise-collection__button organise-collection__button--delete\" ng-show=\"isEdit\" ng-click=\"delete()\">Delete</a>\n" +
+    "\n" +
+    "\n" +
     "\n" +
     "</section>"
   );
@@ -849,7 +875,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      Manage\n" +
     "    </li>\n" +
     "    <li class=\"organise-navigation__nav-item\">\n" +
-    "      <a class=\"organise-navigation__link\">All videos</a>\n" +
+    "      <a class=\"organise-navigation__link\" ng-click=\"showAllVideos()\">All videos</a>\n" +
     "    </li>\n" +
     "    <li class=\"organise-navigation__nav-item\">\n" +
     "      <a class=\"organise-navigation__link\">Recently added videos</a>\n" +
@@ -871,7 +897,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      </a>\n" +
     "    </li>\n" +
     "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--new\">\n" +
-    "      <a class=\"organise-navigation__link\">Add a new private collection</a>\n" +
+    "      <a class=\"organise-navigation__link organise-navigation__link--new\" ng-click=\"createPrivateCollection()\">Add a new private collection</a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
     "\n" +
@@ -887,7 +913,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      </a>\n" +
     "    </li>\n" +
     "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--new\">\n" +
-    "      <a class=\"organise-navigation__link organise-navigation__link--new\">Add a new public collection</a>\n" +
+    "      <a class=\"organise-navigation__link organise-navigation__link--new\" ng-click=\"createPublicCollection()\">Add a new public collection</a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
     "\n" +
@@ -922,24 +948,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <li class=\"organise-video-list__video\"\n" +
     "      ng-repeat=\"video in videos\"\n" +
-    "      ng-class=\"{ organise-video-list__video--last : $index%3==0 }\">\n" +
-    "      <organise-video></organise-video>\n" +
-    "    </li>\n" +
-    "\n" +
-    "    <li class=\"organise-video-list__video\">\n" +
-    "      <organise-video></organise-video>\n" +
-    "    </li>\n" +
-    "\n" +
-    "    <li class=\"organise-video-list__video\">\n" +
-    "      <organise-video></organise-video>\n" +
-    "    </li>\n" +
-    "\n" +
-    "    <li class=\"organise-video-list__video organise-video-list__video--last\">\n" +
-    "      <organise-video></organise-video>\n" +
-    "    </li>\n" +
-    "\n" +
-    "    <li class=\"organise-video-list__video\">\n" +
-    "      <organise-video></organise-video>\n" +
+    "      ng-class=\"{ 'organise-video-list__video--last' : ($index + 1) % 3 == 0 }\">\n" +
+    "      <organise-video video=\"video\"></organise-video>\n" +
     "    </li>\n" +
     "\n" +
     "  </ul>\n" +
@@ -951,24 +961,21 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('organise-video.html',
     "<section class=\"organise-video\">\n" +
     "\n" +
-    "  <span class=\"organise-video__title\">Tom Aitkens - Eggs Benedict</span>\n" +
+    "  <span class=\"organise-video__title\" ng-bind=\"video.title\"></span>\n" +
     "\n" +
     "  <section class=\"organise-video__controls-container\">\n" +
     "    <ul class=\"organise-video__controls\">\n" +
     "      <li class=\"organise-video__control\">\n" +
-    "        <a class=\"organise-video__link organise-video__link--edit\"></a>\n" +
+    "        <a class=\"organise-video__link organise-video__link--edit\" ng-href=\"#/video/(~video.id~)/edit\">edit</a>\n" +
     "      </li>\n" +
     "      <li class=\"organise-video__control\">\n" +
-    "        <a class=\"organise-video__link organise-video__link--stats\"></a>\n" +
+    "        <a class=\"organise-video__link organise-video__link--stats\">stats</a>\n" +
     "      </li>\n" +
     "      <li class=\"organise-video__control\">\n" +
-    "        <a class=\"organise-video__link organise-video__link--share\"></a>\n" +
+    "        <a class=\"organise-video__link organise-video__link--add-remove\" ng-click=\"addRemove(video)\">add/remove</a>\n" +
     "      </li>\n" +
     "      <li class=\"organise-video__control\">\n" +
-    "        <a class=\"organise-video__link organise-video__link--add-remove\"></a>\n" +
-    "      </li>\n" +
-    "      <li class=\"organise-video__control\">\n" +
-    "        <a class=\"organise-video__link organise-video__link--delete\"></a>\n" +
+    "        <a class=\"organise-video__link organise-video__link--delete\" ng-click=\"delete(video)\">delete</a>\n" +
     "      </li>\n" +
     "    </ul>\n" +
     "  </section>\n" +
@@ -984,9 +991,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <div class=\"organise__main\">\n" +
     "\n" +
-    "    <organise-collection></organise-collection>\n" +
+    "    <organise-collection ng-show=\"tag\" tag=\"tag\"></organise-collection>\n" +
     "\n" +
-    "    <organise-video-list></organise-video-list>\n" +
+    "    <organise-video-list videos=\"videos\"></organise-video-list>\n" +
     "\n" +
     "  </div>\n" +
     "\n" +
@@ -1019,7 +1026,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <nav class=\"page-header__navigation\" ng-if=\"isLoggedIn\">\n" +
     "    <ul class=\"page-header__navigation-list\">\n" +
-    "      <li class=\"page-header__navigation-item\"><a class=\"page-header__navigation-link page-header__link\" href=\"/#/manage\">manage</a></li>\n" +
+    "      <li class=\"page-header__navigation-item\"><a class=\"page-header__navigation-link page-header__link\" href=\"/#/organise\">manage</a></li>\n" +
     "      <li class=\"page-header__navigation-item\"><a class=\"page-header__navigation-link page-header__link\" href=\"/#/video\">upload</a></li>\n" +
     "    </ul>\n" +
     "  </nav>\n" +

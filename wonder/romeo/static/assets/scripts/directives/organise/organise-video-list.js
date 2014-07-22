@@ -7,7 +7,9 @@ angular.module('RomeoApp.directives')
     restrict : 'E',
     replace : true,
     template : $templateCache.get('organise-video-list.html'),
-    scope : {},
+    scope : {
+      videos : '='
+    },
     controller : function ($scope) {
 
     }

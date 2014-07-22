@@ -324,6 +324,11 @@
             return DataService.request({ url: url, method: 'PATCH', data: data });
         };
 
+        Video.delete = function (id) {
+            var url = '/api/video/' + id;
+            return DataService.request({ url: url, method: 'DELETE' });
+        };
+
         /*
         * Upload a custom logo to be used for the embedded player for this video
         */
@@ -382,9 +387,11 @@
             var deferred = new $q.defer();
             AuthService.getSessionId().then(function(response){
                 DataService.request({ url: '/api/account/' + response + '/videos', method: 'GET'}).then(function(response){
-                    // $rootScope.$broadcast('videos updated', response);
+
                     Videos = response.video.items;
                     $rootScope.Videos = response.video.items;
+
+                    deferred.resolve(response);
                 });
             });
             return deferred.promise;
@@ -414,6 +421,20 @@
             return deferred.promise;
         };
 
+        Video.hasTag = function (tagId, video) {
+          var hasTag = false;
+          if (video && video.tags && video.tags.items) {
+            var l = video.tags.items.length;
+            var tags = video.tags.items;
+            while (l--) {
+              if (tags[l].id === tagId) {
+                hasTag = true;
+              }
+            }
+          }
+          return hasTag;
+        };
+
         /*
         * Initialise the service
         */
@@ -433,12 +454,14 @@
             setPreviewImage: Video.setPreviewImage,
             create: Video.create,
             update: Video.update,
+            delete: Video.delete,
             get: Video.get,
             getAll: Video.getAll,
             getOne: Video.getOne,
             addToCollection: Video.addToCollection,
             removeFromCollection: Video.removeFromCollection,
-            saveCustomPreview: Video.saveCustomPreview
+            saveCustomPreview: Video.saveCustomPreview,
+            hasTag: Video.hasTag
         };
     }]);
 
@@ -493,18 +516,25 @@
             return deferred.promise;
         };
 
-        /*
-        * Initialise the service
-        */
-        // Tag.getTags();
+        Tag.updateTag = function (tag) {
+          var url = '/api/tag/' + tag.id;
+          return DataService.request({ url: url, method: 'PUT', data: tag });
+        };
+
+        Tag.deleteTag = function (id) {
+          var url = '/api/tag/' + id;
+          return DataService.request({ url: url, method: 'DELETE' });
+        };
 
         /*
         * Expose the methods to the service
         */
         return {
-            getTags: Tag.getTags,
-            createTag: Tag.createTag,
-            getLabel: Tag.getLabel
+            getTags   : Tag.getTags,
+            createTag : Tag.createTag,
+            getLabel  : Tag.getLabel,
+            updateTag : Tag.updateTag,
+            deleteTag : Tag.deleteTag
         };
     }]);
 

@@ -42,7 +42,6 @@ angular.module('RomeoApp.directives')
       }
 
       $scope.removeTag = function (id, $event) {
-
         $event.stopPropagation();
         VideoService.removeFromCollection($scope.video.id, id).then(function () {
           VideoService.get($scope.video.id).then(function (data) {
@@ -52,18 +51,7 @@ angular.module('RomeoApp.directives')
       };
 
       $scope.hasTag = function (tagId) {
-
-        var hasTag = false;
-        if ($scope.video && $scope.video.tags && $scope.video.tags.items) {
-          var l = $scope.video.tags.items.length;
-          var tags = $scope.video.tags.items;
-          while (l--) {
-            if (tags[l].id === tagId) {
-              hasTag = true;
-            }
-          }
-        }
-        return hasTag;
+        return VideoService.hasTag(tagId, $scope.video);
       };
 
       $scope.addTag = function (id, $event) {

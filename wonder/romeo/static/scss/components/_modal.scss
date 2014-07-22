@@ -1,0 +1,16 @@
+.modal__close {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  border: solid 2px $dark-grey;
+  border-radius: 50%;
+  color: $dark-grey;
+  font-weight: 800;
+  height: 1em;
+  width: 1em;
+  display: block;
+  text-align: center;
+  font-size: 1.5em;
+  line-height: 0.9;
+  cursor: pointer;
+}
