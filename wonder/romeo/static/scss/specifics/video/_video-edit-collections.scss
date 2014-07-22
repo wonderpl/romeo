@@ -19,6 +19,10 @@
   background: url('/static/assets/img/video-collection__tag.png') 10px 0 no-repeat transparent;
 }
 
+.video-edit-collections__option--modal {
+  width: 240px;
+}
+
 .video-edit-collections__option--selected {
   background: url('/static/assets/img/video-collection__tag--selected.png') 10px 0 no-repeat $dark-green;
   color: $white;

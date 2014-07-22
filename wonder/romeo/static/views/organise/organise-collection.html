@@ -1,14 +1,32 @@
 <section class="organise-collection">
 
   <h3 class="organise-collection__title">
-    Cook-a-longs
-    <span class="organise-collection__visibility organise-collection__visibility--private">private</span>
+    <div ng-hide="isEdit">
+      {{ tag.label }}
+      <span class="organise-collection__visibility organise-collection__visibility--private">{{ tag.public ? 'public' : 'private' }}</span>
+    </div>
+    <div medium-editor
+      options="{ disableToolbar : true, forcePlainText : true, disableReturn : true, placeholder : '' }"
+      ng-model="tag.label"
+      ng-show="isEdit">
+    </div>
   </h3>
 
-  <p class="organise-collection__description">
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea labore, ratione culpa. Nihil iste rerum totam neque placeat! Voluptate repudiandae sit facere harum sapiente quod, libero consequuntur perspiciatis perferendis, soluta.
+  <p class="organise-collection__description" ng-bind="tag.description" ng-hide="isEdit"></p>
+
+  <p class="organise-collection__description"
+    medium-editor
+    options="{ disableToolbar : true, forcePlainText : true, disableReturn : true, placeholder : '' }"
+    ng-model="tag.description"
+    ng-show="isEdit">
   </p>
 
-  <a class="button organise-collection__edit">Edit</a>
+  <a class="button organise-collection__button organise-collection__button--edit" ng-hide="isEdit" ng-click="isEdit = !isEdit">Edit</a>
+
+  <a class="button button--primary organise-collection__button organise-collection__button--save" ng-show="isEdit" ng-click="save()">Done</a>
+
+  <a class="button organise-collection__button organise-collection__button--delete" ng-show="isEdit" ng-click="delete()">Delete</a>
+
+
 
 </section>

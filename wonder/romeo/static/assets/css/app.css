@@ -5020,11 +5020,38 @@ strong {
 }
 
 /* line 24, ../../scss/base/project/_helpers.scss */
-.truncate {
-  white-space: nowrap;
-  text-overflow: ellipsis;
+.truncate, .organise-video__title {
   max-width: 100%;
   overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* line 31, ../../scss/base/project/_helpers.scss */
+.truncate--two, .organise-video__title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  max-height: 48px;
+  white-space: normal;
+  -webkit-line-clamp: 2;
+}
+
+/* line 39, ../../scss/base/project/_helpers.scss */
+.truncate--three {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  max-height: 72px;
+  white-space: normal;
+  -webkit-line-clamp: 3;
+}
+
+/* line 47, ../../scss/base/project/_helpers.scss */
+.truncate--four {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  max-height: 96px;
+  white-space: normal;
+  webkit-line-clamp: 4;
 }
 
 /* line 1, ../../scss/base/utils/_helpers.scss */
@@ -5139,6 +5166,24 @@ strong {
 /* line 70, ../../scss/components/_buttons.scss */
 .button__component--input-container {
   padding-top: 6px;
+}
+
+/* line 1, ../../scss/components/_modal.scss */
+.modal__close {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  border: solid 2px #70797b;
+  border-radius: 50%;
+  color: #70797b;
+  font-weight: 800;
+  height: 1em;
+  width: 1em;
+  display: block;
+  text-align: center;
+  font-size: 1.5em;
+  line-height: 0.9;
+  cursor: pointer;
 }
 
 /* line 1, ../../scss/components/_video-player-config.scss */
@@ -5555,21 +5600,22 @@ strong {
 /* line 65, ../../scss/specifics/video/_video-view.scss */
 .video-view__description--edit {
   border-bottom: solid 1px #999999;
+  min-height: 10em;
 }
 
-/* line 69, ../../scss/specifics/video/_video-view.scss */
+/* line 70, ../../scss/specifics/video/_video-view.scss */
 .video-view__nav-placeholder {
   display: block;
   height: 52px;
 }
 
-/* line 74, ../../scss/specifics/video/_video-view.scss */
+/* line 75, ../../scss/specifics/video/_video-view.scss */
 .video-view-control-panel {
   background: white;
   z-index: 10;
 }
 
-/* line 79, ../../scss/specifics/video/_video-view.scss */
+/* line 80, ../../scss/specifics/video/_video-view.scss */
 .video-view-control-panel--sticky {
   position: fixed;
   top: 0;
@@ -6011,6 +6057,11 @@ strong {
   font-weight: 800;
 }
 
+/* line 58, ../../scss/specifics/video/_video-extended-controls.scss */
+.collection-add-video--modal {
+  margin: 12px;
+}
+
 /* line 5, ../../scss/specifics/video/_video-edit-categories.scss */
 .video-edit-categories__category {
   display: inline-block;
@@ -6123,23 +6174,28 @@ strong {
 }
 
 /* line 22, ../../scss/specifics/video/_video-edit-collections.scss */
+.video-edit-collections__option--modal {
+  width: 240px;
+}
+
+/* line 26, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option--selected {
   background: url("/static/assets/img/video-collection__tag--selected.png") 10px 0 no-repeat #51b364;
   color: white;
 }
 
-/* line 27, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 31, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option-title {
   display: block;
   font-weight: 800;
 }
 
-/* line 32, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 36, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option-count {
   display: block;
 }
 
-/* line 36, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 40, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option:hover {
   cursor: pointer;
   border-color: #51b364;
@@ -6147,12 +6203,12 @@ strong {
   color: #2e2e32;
 }
 
-/* line 43, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 47, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__assigned-tag {
   color: #999999;
 }
 
-/* line 51, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 55, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__remove-tag {
   font-weight: 800;
   color: red;
@@ -6160,12 +6216,12 @@ strong {
   padding: 1em 2em 0 0;
 }
 
-/* line 59, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 63, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__assigned-tags {
   display: inline-block;
 }
 
-/* line 63, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 67, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__assigned-tag {
   display: inline-block;
 }
@@ -6174,7 +6230,6 @@ strong {
 .video-new-collection {
   max-width: 700px;
   margin: 0 auto;
-  border: solid 1px #51b364;
   transition: max-height 0.4s, opacity 0.4s ease-in-out;
   position: relative;
   padding-bottom: 1em;
@@ -6182,25 +6237,7 @@ strong {
   font-size: 1em;
 }
 
-/* line 12, ../../scss/specifics/video/_video-new-collection.scss */
-.video-new-collection__close {
-  position: absolute;
-  top: 0.5em;
-  right: 0.5em;
-  border: solid 2px #70797b;
-  border-radius: 50%;
-  color: #70797b;
-  font-weight: 800;
-  height: 1em;
-  width: 1em;
-  display: block;
-  text-align: center;
-  font-size: 1.5em;
-  line-height: 0.9;
-  cursor: pointer;
-}
-
-/* line 29, ../../scss/specifics/video/_video-new-collection.scss */
+/* line 11, ../../scss/specifics/video/_video-new-collection.scss */
 .video-new-collection__new-title {
   font-size: 1em;
   border-bottom: solid 1px #999999;
@@ -6208,13 +6245,13 @@ strong {
   padding: 12px;
 }
 
-/* line 36, ../../scss/specifics/video/_video-new-collection.scss */
+/* line 18, ../../scss/specifics/video/_video-new-collection.scss */
 .video-new-collection__new-controls {
   padding-left: 140px;
   background: url("/static/assets/img/video-collection__tag.png") 20px 10px no-repeat;
 }
 
-/* line 41, ../../scss/specifics/video/_video-new-collection.scss */
+/* line 23, ../../scss/specifics/video/_video-new-collection.scss */
 .video-new-collection__new-collection-name {
   font-size: 1em;
   margin: 1em 0;
@@ -6225,7 +6262,7 @@ strong {
   width: 100%;
 }
 
-/* line 51, ../../scss/specifics/video/_video-new-collection.scss */
+/* line 33, ../../scss/specifics/video/_video-new-collection.scss */
 .video-new-collection__new-collection-description {
   font-size: 1em;
   border: none;
@@ -6238,17 +6275,17 @@ strong {
   border-radius: 0;
 }
 
-/* line 63, ../../scss/specifics/video/_video-new-collection.scss */
+/* line 45, ../../scss/specifics/video/_video-new-collection.scss */
 .video-new-collection__scope-options {
   margin-bottom: 24px;
 }
 
-/* line 67, ../../scss/specifics/video/_video-new-collection.scss */
+/* line 49, ../../scss/specifics/video/_video-new-collection.scss */
 .video-new-collection__scope-option {
   display: inline-block;
 }
 
-/* line 71, ../../scss/specifics/video/_video-new-collection.scss */
+/* line 53, ../../scss/specifics/video/_video-new-collection.scss */
 .video-new-collection__label {
   font-size: 1.2em;
   margin-right: 2em;
@@ -6627,14 +6664,15 @@ strong {
 /* line 1, ../../scss/specifics/organise/_organise-collection.scss */
 .organise__main {
   max-width: 670px;
+  min-width: 400px;
   display: inline-block;
 }
 
-/* line 7, ../../scss/specifics/organise/_organise-collection.scss */
+/* line 8, ../../scss/specifics/organise/_organise-collection.scss */
 .organise-collection {
   max-width: 100%;
   vertical-align: top;
-  padding: 0 80px 12px 130px;
+  padding: 0 100px 12px 130px;
   margin-top: 24px;
   margin-bottom: 24px;
   background-image: url("/static/assets/img/video-collection__tag.png");
@@ -6642,20 +6680,35 @@ strong {
   background-position: left top;
   position: relative;
   border-bottom: solid 1px #b7bcbd;
+  min-height: 10em;
 }
 
-/* line 24, ../../scss/specifics/organise/_organise-collection.scss */
+/* line 26, ../../scss/specifics/organise/_organise-collection.scss */
 .organise-collection__visibility {
   text-transform: lowercase;
   font-variant: small-caps;
   color: #999999;
 }
 
-/* line 31, ../../scss/specifics/organise/_organise-collection.scss */
-.organise-collection__edit {
+/* line 33, ../../scss/specifics/organise/_organise-collection.scss */
+.organise-collection__button {
   position: absolute;
-  top: 0;
   right: 0;
+}
+
+/* line 38, ../../scss/specifics/organise/_organise-collection.scss */
+.organise-collection__button--edit {
+  top: 0;
+}
+
+/* line 42, ../../scss/specifics/organise/_organise-collection.scss */
+.organise-collection__button--save {
+  top: 0;
+}
+
+/* line 46, ../../scss/specifics/organise/_organise-collection.scss */
+.organise-collection__button--delete {
+  bottom: 12px;
 }
 
 /* line 1, ../../scss/specifics/organise/_organise-video-list.scss */
@@ -6672,11 +6725,11 @@ strong {
 /* line 10, ../../scss/specifics/organise/_organise-video-list.scss */
 .organise-video-list__video {
   display: inline-block;
-  border: solid 1px #999999;
-  width: 32%;
+  width: 32.5%;
   min-width: 200px;
   margin-right: 8px;
   margin-bottom: 12px;
+  vertical-align: top;
 }
 
 /* line 19, ../../scss/specifics/organise/_organise-video-list.scss */
@@ -6694,7 +6747,7 @@ strong {
 }
 
 /* line 31, ../../scss/specifics/organise/_organise-video-list.scss */
-.organise-video__control {
+.organise-video__controls {
   transition: opacity 0.4s linear;
   display: block;
   position: absolute;
@@ -6707,14 +6760,28 @@ strong {
 }
 
 /* line 43, ../../scss/specifics/organise/_organise-video-list.scss */
-.organise-video__control:hover {
+.organise-video__controls:hover {
   opacity: 0.6;
   cursor: pointer;
 }
 
-/* line 5, ../../scss/specifics/organise/_organise-video.scss */
+/* line 4, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__title {
   font-weight: 800;
+  height: 3em;
+  margin-bottom: 1em;
+  margin-left: 2px;
+}
+
+/* line 14, ../../scss/specifics/organise/_organise-video.scss */
+.organise-video__link {
+  display: block;
+  color: white;
+}
+
+/* line 19, ../../scss/specifics/organise/_organise-video.scss */
+.organise-video__link:hover {
+  text-decoration: underline;
 }
 
 /*!

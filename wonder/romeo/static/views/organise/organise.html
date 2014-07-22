@@ -4,9 +4,9 @@
 
   <div class="organise__main">
 
-    <organise-collection></organise-collection>
+    <organise-collection ng-show="tag" tag="tag"></organise-collection>
 
-    <organise-video-list></organise-video-list>
+    <organise-video-list videos="videos" tag="tag"></organise-video-list>
 
   </div>
 

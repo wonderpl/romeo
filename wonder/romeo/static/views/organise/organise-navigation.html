@@ -5,7 +5,7 @@
       Manage
     </li>
     <li class="organise-navigation__nav-item">
-      <a class="organise-navigation__link">All videos</a>
+      <a class="organise-navigation__link" ng-click="showAllVideos()">All videos</a>
     </li>
     <li class="organise-navigation__nav-item">
       <a class="organise-navigation__link">Recently added videos</a>
@@ -27,7 +27,7 @@
       </a>
     </li>
     <li class="organise-navigation__nav-item organise-navigation__nav-item--new">
-      <a class="organise-navigation__link">Add a new private collection</a>
+      <a class="organise-navigation__link organise-navigation__link--new" ng-click="createPrivateCollection()">Add a new private collection</a>
     </li>
   </ul>
 
@@ -43,7 +43,7 @@
       </a>
     </li>
     <li class="organise-navigation__nav-item organise-navigation__nav-item--new">
-      <a class="organise-navigation__link organise-navigation__link--new">Add a new public collection</a>
+      <a class="organise-navigation__link organise-navigation__link--new" ng-click="createPublicCollection()">Add a new public collection</a>
     </li>
   </ul>
 

@@ -1,13 +1,14 @@
 .organise__main {
   @extend .regular-font--sans;
   max-width: 670px;
+  min-width: 400px;
   display: inline-block;
 }
 
 .organise-collection {
   max-width: 100%;
   vertical-align: top;
-  padding: 0 80px 12px 130px;
+  padding: 0 100px 12px 130px;
   margin-top: 24px;
   margin-bottom: 24px;
   background-image: url('/static/assets/img/video-collection__tag.png');
@@ -15,6 +16,7 @@
   background-position: left top;
   position: relative;
   border-bottom: solid 1px $light-grey;
+  min-height: 10em;
 }
 
 .organise-collection__title {
@@ -28,8 +30,22 @@
   color: $grey;
 }
 
-.organise-collection__edit {
+.organise-collection__button {
   position: absolute;
-  top: 0;
   right: 0;
 }
+
+.organise-collection__button--edit {
+  top: 0;
+}
+
+.organise-collection__button--save {
+  top: 0;
+}
+
+.organise-collection__button--delete {
+  bottom: 12px;
+}
+
+
+
