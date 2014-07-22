@@ -947,7 +947,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <ul class=\"organise-video-list__videos\">\n" +
     "\n" +
     "    <li class=\"organise-video-list__video\"\n" +
-    "      ng-repeat=\"video in videos\"\n" +
+    "      ng-repeat=\"video in filteredVideos\"\n" +
     "      ng-class=\"{ 'organise-video-list__video--last' : ($index + 1) % 3 == 0 }\">\n" +
     "      <organise-video video=\"video\"></organise-video>\n" +
     "    </li>\n" +
@@ -993,7 +993,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <organise-collection ng-show=\"tag\" tag=\"tag\"></organise-collection>\n" +
     "\n" +
-    "    <organise-video-list videos=\"videos\"></organise-video-list>\n" +
+    "    <organise-video-list videos=\"videos\" tag=\"tag\"></organise-video-list>\n" +
     "\n" +
     "  </div>\n" +
     "\n" +

@@ -23,7 +23,7 @@
   <ul class="organise-video-list__videos">
 
     <li class="organise-video-list__video"
-      ng-repeat="video in videos"
+      ng-repeat="video in filteredVideos"
       ng-class="{ 'organise-video-list__video--last' : ($index + 1) % 3 == 0 }">
       <organise-video video="video"></organise-video>
     </li>

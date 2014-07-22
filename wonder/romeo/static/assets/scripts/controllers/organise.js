@@ -9,8 +9,8 @@ angular.module('RomeoApp.controllers')
     }
 
     function redirect (path) {
-      path = path || '';
-      var url = '/organise/' + path;
+      path = path ? '/' + path : '';
+      var url = '/organise' + path;
       $location.path(url, false);
     }
 
