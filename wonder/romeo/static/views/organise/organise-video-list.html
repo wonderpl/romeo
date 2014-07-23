@@ -1,33 +1,16 @@
 <section class="organise-video-list">
 
-  <div class="organise-video-list__display-controls">
-
-    <label class="organise-video-list__label">
-      Sort:
-      <select class="organise-video-list__sort">
-        <option>Newest</option>
-        <option>Oldest</option>
-        <option>Comments</option>
-        <option>Longest</option>
-      </select>
-    </label>
-
-    <label class="organise-video-list__label">
-      View:
-      <input type="radio" name="view-layout" value="grid" selected="selected" />
-      <input type="radio" name="view-layout" value="list" />
-    </label>
-
+  <div ng-hide="filteredVideos" class="organise-video-list__message">
+    <p>Great, you've made a collection, but it's empty!</p>
+    <p>Go and <a href="#/video">upload</a> a video.</p>
   </div>
 
-  <ul class="organise-video-list__videos">
-
+  <ul class="organise-video-list__videos" ng-show="filteredVideos">
     <li class="organise-video-list__video"
       ng-repeat="video in filteredVideos"
       ng-class="{ 'organise-video-list__video--last' : ($index + 1) % 3 == 0 }">
       <organise-video video="video"></organise-video>
     </li>
-
   </ul>
 
 </section>

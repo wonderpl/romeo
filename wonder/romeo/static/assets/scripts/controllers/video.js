@@ -213,7 +213,7 @@ angular.module('RomeoApp.controllers')
           $scope.displaySection();
         });
       } else {
-        $location.path('/manage');
+        $location.path('/orgabnise');
       }
     };
 

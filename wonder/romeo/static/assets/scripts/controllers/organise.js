@@ -5,22 +5,25 @@ angular.module('RomeoApp.controllers')
     'use strict';
 
     function refresh () {
-      redirect();
+      redirect('', true);
     }
 
-    function redirect (path) {
+    function redirect (path, force) {
+      $scope.isEdit = false;
       path = path ? '/' + path : '';
       var url = '/organise' + path;
-      $location.path(url, false);
+      if (force === true) {
+        $location.path(url);
+      } else {
+        $location.path(url, false);
+      }
     }
 
     VideoService.getAll().then(function (data) {
       $scope.videos = data.video.items;
-      console.log($scope.videos);
     });
 
     TagService.getTags().then(function(data){
-      console.log(data);
       $scope.tags = data.tag.items;
       if ($routeParams.id) {
         loadTag($routeParams.id);
@@ -28,7 +31,6 @@ angular.module('RomeoApp.controllers')
     });
 
     $scope.$on('show-collection', function ($event, id) {
-      console.log(id);
       redirect(id);
       loadTag(id);
     });
@@ -78,10 +80,12 @@ angular.module('RomeoApp.controllers')
         public      : isPublic
       };
 
-      TagService.createTag(data).then(function () {
+      TagService.createTag(data).then(function (tag) {
         TagService.getTags().then(function (data) {
           $scope.tags = data.tag.items;
           $scope.close();
+          redirect(tag.id);
+          loadTag(tag.id);
         });
       });
     };
@@ -126,7 +130,6 @@ angular.module('RomeoApp.controllers')
 
     function loadTag (id) {
       $scope.tag = getTagById(id);
-      console.log($scope.tag);
     }
 
 }]);

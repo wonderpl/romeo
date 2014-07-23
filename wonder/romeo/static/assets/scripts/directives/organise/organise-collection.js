@@ -8,7 +8,8 @@ angular.module('RomeoApp.directives')
     replace : true,
     template : $templateCache.get('organise-collection.html'),
     scope : {
-      tag : '='
+      tag : '=',
+      isEdit : '='
     },
     controller : function ($scope) {
 
