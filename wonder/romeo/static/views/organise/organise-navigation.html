@@ -8,10 +8,7 @@
       <a class="organise-navigation__link" ng-click="showAllVideos()">All videos</a>
     </li>
     <li class="organise-navigation__nav-item">
-      <a class="organise-navigation__link">Recently added videos</a>
-    </li>
-    <li class="organise-navigation__nav-item">
-      <a class="organise-navigation__link">Shared videos</a>
+      <a class="organise-navigation__link" ng-click="showAllVideos()">Recently added videos</a>
     </li>
   </ul>
 
@@ -20,7 +17,7 @@
       Collections not visible in app
     </li>
     <li class="organise-navigation__nav-item organise-navigation__nav-item--collection"
-      ng-repeat="tag in tags | filter : { public : true }">
+      ng-repeat="tag in tags | filter : { public : false }">
       <a class="organise-navigation__link"
         ng-bind="tag.label"
         ng-click="loadCollection(tag.id)">
@@ -36,7 +33,7 @@
       Collections visible in app
     </li>
     <li class="organise-navigation__nav-item organise-navigation__nav-item--collection"
-      ng-repeat="tag in tags | filter : { public : false }">
+      ng-repeat="tag in tags | filter : { public : true }">
       <a class="organise-navigation__link"
         ng-bind="tag.label"
         ng-click="loadCollection(tag.id)">

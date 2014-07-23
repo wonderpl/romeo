@@ -8,7 +8,8 @@ angular.module('RomeoApp.directives')
     replace : true,
     template : $templateCache.get('organise-video.html'),
     scope : {
-      video : '='
+      video : '=',
+      isList : '='
     },
     controller : function ($scope) {
 

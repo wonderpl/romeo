@@ -1,33 +1,45 @@
 <section class="organise-video-list">
 
-  <div class="organise-video-list__display-controls">
-
-    <label class="organise-video-list__label">
+  <section class="organise-video-list__list-controls">
+    <label class="organise-video-list__list-control-label">
       Sort:
-      <select class="organise-video-list__sort">
-        <option>Newest</option>
-        <option>Oldest</option>
-        <option>Comments</option>
-        <option>Longest</option>
+      <select class="organise-video-list__select button button--small"
+        ng-model="sortOption"
+        ng-init="sortOption=''">
+        <option value="">none</option>
+        <option value="date_updated">Newest</option>
       </select>
     </label>
-
-    <label class="organise-video-list__label">
+    <label class="organise-video-list__list-control-label">
       View:
-      <input type="radio" name="view-layout" value="grid" selected="selected" />
-      <input type="radio" name="view-layout" value="list" />
+      <a class="inline-space-fix button button__component button__component--left"
+        ng-class="{ 'organise-video-list__list-control--active button--active' : !isList }"
+        ng-click="isList = false">G</a>
+      <a class="button button__component button__component--right"
+        ng-class="{ 'organise-video-list__list-control--active button--active' : isList }"
+        ng-click="isList = true">L</a>
     </label>
+  </section>
 
+  <div ng-hide="filteredVideos" class="organise-video-list__message">
+    <p>Great, you've made a collection, but it's empty!</p>
+    <p>Go and <a href="#/video">upload</a> a video.</p>
   </div>
 
-  <ul class="organise-video-list__videos">
-
+  <ul class="organise-video-list__videos" ng-show="filteredVideos">
     <li class="organise-video-list__video"
-      ng-repeat="video in filteredVideos"
-      ng-class="{ 'organise-video-list__video--last' : ($index + 1) % 3 == 0 }">
-      <organise-video video="video"></organise-video>
+      ng-repeat="video in filteredVideos | orderBy: sortOption"
+      ng-class="{
+        'organise-video-list__video--last' : ($index + 1) % 3 == 0,
+        'organise-video-list__video--list' : isList
+      }">
+      <organise-video video="video" is-list="isList"></organise-video>
     </li>
-
   </ul>
 
 </section>
+
+
+
+
+

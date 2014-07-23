@@ -1,10 +1,15 @@
 .organise-video-list {
   max-width: 100%;
+  text-align: center;
 }
 
 .organise-video-list__display-controls {
   text-align: right;
   margin-bottom: 12px;
+}
+
+.organise-video-list__videos {
+  text-align: left;
 }
 
 .organise-video-list__video {
@@ -16,31 +21,35 @@
   vertical-align: top;
 }
 
+.organise-video-list__video--list {
+  display: block;
+  width: 100%;
+  border-bottom: solid 1px $light-grey;
+  padding: 12px 0;
+}
+
 .organise-video-list__video--last {
   margin-right: 0;
 }
 
-.organise-video__controls-container {
-  display: block;
-  height: 0;
-  padding-bottom: 56.25%;
-  background-color: $dark-grey;
-  position: relative;
+.organise-video-list__message {
+  display: inline-block;
+  margin: 2em auto;
+  text-align: center;
 }
 
-.organise-video__controls {
-  transition: opacity 0.4s linear;
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: $black;
-  opacity: 0;
+.organise-video-list__list-controls {
+  text-align: right;
+  margin-bottom: 24px;
 }
 
-.organise-video__controls:hover {
-  opacity: 0.6;
-  cursor: pointer;
+.organise-video-list__select {
+  @extend .small-font;
+  @include vendor(appearance, none);
+  padding-left: 1em;
+  padding-right: 2em;
+}
+
+.organise-video-list__list-control-label {
+  margin: 0 24px;
 }

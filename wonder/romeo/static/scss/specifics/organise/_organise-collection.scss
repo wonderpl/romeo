@@ -1,8 +1,7 @@
 .organise__main {
-  @extend .regular-font--sans;
-  max-width: 670px;
-  min-width: 400px;
+  width: 670px;
   display: inline-block;
+  margin-top: 24px;
 }
 
 .organise-collection {
