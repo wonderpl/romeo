@@ -256,13 +256,24 @@ angular.module('RomeoApp.controllers')
     $timeout(checkIFramePlayer, 1000);
   }
 
+  // http://support.ooyala.com/developers/documentation/api/player_v3_apis.html
+  // https://www.pivotaltracker.com/story/show/75208950
+  // ooyala players getDuration() function seems to occasionally
+  // return duration in seconds instead of millseconds
+  function durationHack (duration) {
+    var isMilliseconds = (parseFloat(duration) === parseInt(duration, 10));
+    console.log('getDuration(): ', duration);
+    console.log('duration is milliseconds: ', isMilliseconds);
+    return isMilliseconds ? duration : duration*1000;
+  }
+
   function checkIFramePlayer () {
     var frames = document.getElementsByClassName('video-player__frame');
     if (frames.length) {
       var frame = frames[0].contentWindow || frames[0].contentDocument.parentWindow;
       if (frame.player) {
         $scope.player = frame.player;
-        $scope.videoTotalTime = $scope.player.getTotalTime();
+        $scope.videoTotalTime = durationHack($scope.player.getDuration());
       }
       var OO = frame.OO;
       if (OO && OO.ready) {

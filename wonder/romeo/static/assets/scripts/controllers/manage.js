@@ -140,7 +140,7 @@ angular.module('RomeoApp.controllers').controller('ManageCtrl',
     * Initalise the tag service
     */
     $scope.$on('get tags', function(){
-        TagService.getAll();
+        //TagService.getAll();
     });
 
 }]);

@@ -13,7 +13,7 @@ angular.module('RomeoApp.controllers').controller('LoginCtrl',
                 if (params.redirect) {
                     console.log('redirect to ->' + params.redirect);
                 } else {
-                    $location.url('/manage');
+                    $location.url('/organise');
                 }
             };
 

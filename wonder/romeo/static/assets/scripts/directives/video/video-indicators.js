@@ -18,7 +18,7 @@ angular.module('RomeoApp.directives')
       $scope.totalTimeInSeconds = 0;
 
       $scope.$watch('totalTime', function(newValue, oldValue) {
-        if (newValue >= 0 && newValue !== oldValue) {
+        if (newValue >= 1 && newValue !== oldValue) {
           $scope.totalTimeInSeconds = newValue ? newValue/1000 : 0;
         }
       });

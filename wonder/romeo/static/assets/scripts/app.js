@@ -67,6 +67,11 @@
         });
 
 
+        // Account management
+        $routeProvider.when('/profile', {
+            templateUrl: 'profile.html',
+            resolve: authChecks
+        });
 
 
 

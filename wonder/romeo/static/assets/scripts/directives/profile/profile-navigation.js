@@ -1,29 +1,25 @@
 angular.module('RomeoApp.directives')
-  .directive('videoNavigation', ['$templateCache', '$rootScope', function ($templateCache, $rootScope) {
+  .directive('profileNavigation', ['$templateCache', function ($templateCache) {
 
   'use strict';
 
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('video-navigation.html'),
+    template : $templateCache.get('profile-navigation.html'),
     scope : {
       isEdit : '='
     },
     controller : function ($scope) {
 
       $scope.save = function () {
-        $rootScope.$emit('video-save');
+        $scope.$emit('profile-save');
       };
 
       $scope.cancel = function () {
-        $rootScope.$emit('video-cancel');
+        $scope.$emit('profile-cancel');
       };
 
-      $scope.displaySection = function (section) {
-        console.log(section);
-        $rootScope.$emit('display-section', section);
-      };
     },
 
     link : function (scope, elem, attr) {
