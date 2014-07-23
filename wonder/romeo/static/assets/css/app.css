@@ -4869,7 +4869,7 @@ a#category-chooser:hover, a#category-chooser:focus, a#category-chooser:active, a
 ========== BASE
 */
 /* line 1, ../../scss/base/project/_fonts.scss */
-.sans-serif, .large-font, .video-medium h2, .organise-collection__title, .medium-font, .video-medium h3, .regular-font--sans, .organise-navigation, .organise__main, .small-font, .organise-collection__visibility, .organise-video__title, .quote-font, .video-medium blockquote, html,
+.sans-serif, .large-font, .video-medium h2, .organise-collection__title, .medium-font, .video-medium h3, .regular-font--sans, .organise-navigation, .small-font, .organise-collection__visibility, .organise-video-list__select, .organise-video__title, .quote-font, .video-medium blockquote, html,
 body {
   font-family: 'proxima-nova', sans-serif;
 }
@@ -4901,14 +4901,14 @@ body {
 }
 
 /* line 30, ../../scss/base/project/_fonts.scss */
-.regular-font--sans, .organise-navigation, .organise__main {
+.regular-font--sans, .organise-navigation {
   font-size: 20px;
   line-height: 29px;
   color: #2e2e32;
 }
 
 /* line 37, ../../scss/base/project/_fonts.scss */
-.small-font, .organise-collection__visibility, .organise-video__title {
+.small-font, .organise-collection__visibility, .organise-video-list__select, .organise-video__title {
   font-size: 16px;
   line-height: 24px;
   color: #2e2e32;
@@ -5095,59 +5095,67 @@ strong {
   background: white;
   font-family: proxima-nova, sans-serif;
   font-size: 1em;
+  line-height: 16px;
 }
 
-/* line 14, ../../scss/components/_buttons.scss */
+/* line 15, ../../scss/components/_buttons.scss */
 .button:hover {
   border-color: #70797b;
 }
 
-/* line 18, ../../scss/components/_buttons.scss */
+/* line 19, ../../scss/components/_buttons.scss */
 .button--primary {
   color: #51b364;
   border-color: #c8e6ce;
 }
 
-/* line 23, ../../scss/components/_buttons.scss */
+/* line 24, ../../scss/components/_buttons.scss */
 .button--primary:hover {
   border-color: #51b364;
 }
 
-/* line 27, ../../scss/components/_buttons.scss */
+/* line 28, ../../scss/components/_buttons.scss */
 .button--wide {
   padding-left: 2em;
   padding-right: 2em;
 }
 
-/* line 32, ../../scss/components/_buttons.scss */
+/* line 33, ../../scss/components/_buttons.scss */
 .button--right {
   float: right;
 }
 
-/* line 36, ../../scss/components/_buttons.scss */
+/* line 37, ../../scss/components/_buttons.scss */
 .button--small {
   padding: 0.5em;
 }
 
-/* line 40, ../../scss/components/_buttons.scss */
+/* line 41, ../../scss/components/_buttons.scss */
+.button--active {
+  transition: background-color 0.4s ease-in-out;
+  background: #70797b;
+  color: white;
+}
+
+/* line 47, ../../scss/components/_buttons.scss */
 .button--disabled {
   border-color: #b7bcbd;
   color: #b7bcbd;
   cursor: not-allowed;
 }
 
-/* line 46, ../../scss/components/_buttons.scss */
+/* line 53, ../../scss/components/_buttons.scss */
 .button--disabled:hover {
   border-color: #b7bcbd;
 }
 
-/* line 50, ../../scss/components/_buttons.scss */
+/* line 57, ../../scss/components/_buttons.scss */
 .button__component {
   border-radius: 0;
   cursor: pointer;
 }
 
-/* line 56, ../../scss/components/_buttons.scss */
+/* line 63, ../../scss/components/_buttons.scss */
 .button__component--left {
   border-top-left-radius: 24px;
   border-bottom-left-radius: 24px;
@@ -5155,7 +5163,7 @@ strong {
   font-weight: bold;
 }
 
-/* line 63, ../../scss/components/_buttons.scss */
+/* line 70, ../../scss/components/_buttons.scss */
 .button__component--right {
   border-top-right-radius: 24px;
   border-bottom-right-radius: 24px;
@@ -5163,7 +5171,7 @@ strong {
   font-weight: bold;
 }
 
-/* line 70, ../../scss/components/_buttons.scss */
+/* line 77, ../../scss/components/_buttons.scss */
 .button__component--input-container {
   padding-top: 6px;
 }
@@ -6670,7 +6678,7 @@ strong {
   margin-top: 24px;
 }
 
-/* line 8, ../../scss/specifics/organise/_organise-collection.scss */
+/* line 7, ../../scss/specifics/organise/_organise-collection.scss */
 .organise-collection {
   max-width: 100%;
   vertical-align: top;
@@ -6685,30 +6693,30 @@ strong {
   min-height: 10em;
 }
 
-/* line 26, ../../scss/specifics/organise/_organise-collection.scss */
+/* line 25, ../../scss/specifics/organise/_organise-collection.scss */
 .organise-collection__visibility {
   text-transform: lowercase;
   font-variant: small-caps;
   color: #999999;
 }
 
-/* line 33, ../../scss/specifics/organise/_organise-collection.scss */
+/* line 32, ../../scss/specifics/organise/_organise-collection.scss */
 .organise-collection__button {
   position: absolute;
   right: 0;
 }
 
-/* line 38, ../../scss/specifics/organise/_organise-collection.scss */
+/* line 37, ../../scss/specifics/organise/_organise-collection.scss */
 .organise-collection__button--edit {
   top: 0;
 }
 
-/* line 42, ../../scss/specifics/organise/_organise-collection.scss */
+/* line 41, ../../scss/specifics/organise/_organise-collection.scss */
 .organise-collection__button--save {
   top: 0;
 }
 
-/* line 46, ../../scss/specifics/organise/_organise-collection.scss */
+/* line 45, ../../scss/specifics/organise/_organise-collection.scss */
 .organise-collection__button--delete {
   bottom: 12px;
 }
@@ -6741,66 +6749,45 @@ strong {
 }
 
 /* line 24, ../../scss/specifics/organise/_organise-video-list.scss */
+.organise-video-list__video--list {
+  display: block;
+  width: 100%;
+  border-bottom: solid 1px #b7bcbd;
+  padding: 12px 0;
+}
+
+/* line 31, ../../scss/specifics/organise/_organise-video-list.scss */
 .organise-video-list__video--last {
   margin-right: 0;
 }
 
-/* line 28, ../../scss/specifics/organise/_organise-video-list.scss */
-.organise-video__controls-container {
-  display: block;
-  height: 0;
-  padding-bottom: 56.25%;
-  background-color: #70797b;
-  position: relative;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-/* line 38, ../../scss/specifics/organise/_organise-video-list.scss */
-.organise-video__overlay {
-  position: relative;
-  transition: opacity 0.4s linear;
-  opacity: 0;
-}
-
-/* line 44, ../../scss/specifics/organise/_organise-video-list.scss */
-.organise-video__overlay:hover {
-  opacity: 1;
-}
-
-/* line 48, ../../scss/specifics/organise/_organise-video-list.scss */
-.organise-video__controls-mask {
-  transition: opacity 0.4s linear;
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: #2e2e32;
-  opacity: 0.4;
-}
-
-/* line 60, ../../scss/specifics/organise/_organise-video-list.scss */
-.organise-video__controls {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-}
-
-/* line 69, ../../scss/specifics/organise/_organise-video-list.scss */
-.organise-video__controls:hover {
-  cursor: pointer;
-}
-
-/* line 73, ../../scss/specifics/organise/_organise-video-list.scss */
+/* line 35, ../../scss/specifics/organise/_organise-video-list.scss */
 .organise-video-list__message {
   display: inline-block;
   margin: 2em auto;
   text-align: center;
+}
+
+/* line 41, ../../scss/specifics/organise/_organise-video-list.scss */
+.organise-video-list__list-controls {
+  text-align: right;
+  margin-bottom: 24px;
+}
+
+/* line 46, ../../scss/specifics/organise/_organise-video-list.scss */
+.organise-video-list__select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  padding-left: 1em;
+  padding-right: 2em;
+}
+
+/* line 53, ../../scss/specifics/organise/_organise-video-list.scss */
+.organise-video-list__list-control-label {
+  margin: 0 24px;
 }
 
 /* line 4, ../../scss/specifics/organise/_organise-video.scss */
@@ -6820,6 +6807,79 @@ strong {
 /* line 19, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__link:hover {
   text-decoration: underline;
+}
+
+/* line 23, ../../scss/specifics/organise/_organise-video.scss */
+.organise-video__controls-container {
+  display: block;
+  height: 122px;
+  background-color: #70797b;
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* line 32, ../../scss/specifics/organise/_organise-video.scss */
+.organise-video__overlay {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  transition: opacity 0.4s linear;
+  opacity: 0;
+}
+
+/* line 40, ../../scss/specifics/organise/_organise-video.scss */
+.organise-video__overlay:hover {
+  opacity: 1;
+}
+
+/* line 44, ../../scss/specifics/organise/_organise-video.scss */
+.organise-video__controls-mask {
+  transition: opacity 0.4s linear;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #2e2e32;
+  opacity: 0.6;
+}
+
+/* line 56, ../../scss/specifics/organise/_organise-video.scss */
+.organise-video__controls {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* line 65, ../../scss/specifics/organise/_organise-video.scss */
+.organise-video__controls:hover {
+  cursor: pointer;
+}
+
+/* line 69, ../../scss/specifics/organise/_organise-video.scss */
+.organise-video__inline-controls {
+  float: left;
+  margin-right: 12px;
+}
+
+/* line 76, ../../scss/specifics/organise/_organise-video.scss */
+.organise-video__inline-title {
+  font-weight: 800;
+}
+
+/* line 80, ../../scss/specifics/organise/_organise-video.scss */
+.organise-video__inline-control {
+  display: inline-block;
+}
+
+/* line 88, ../../scss/specifics/organise/_organise-video.scss */
+.organise-video__inline-link:hover {
+  cursor: pointer;
 }
 
 /*!

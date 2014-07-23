@@ -9,6 +9,7 @@
   background: $white;
   font-family: proxima-nova, sans-serif;
   font-size: 1em;
+  line-height: 16px;
 }
 
 .button:hover {
@@ -35,6 +36,12 @@
 
 .button--small {
   padding: 0.5em;
+}
+
+.button--active {
+  transition: background-color 0.4s ease-in-out;
+  background: $dark-grey;
+  color: $white;
 }
 
 .button--disabled {

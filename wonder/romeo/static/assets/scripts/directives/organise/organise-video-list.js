@@ -14,6 +14,8 @@ angular.module('RomeoApp.directives')
     },
     controller : function ($scope) {
 
+      $scope.isList = false;
+
       function filterVideosByTagId (tagId) {
         var filteredVideos = [];
         var videos = $scope.videos || [];
@@ -32,20 +34,15 @@ angular.module('RomeoApp.directives')
       }
 
       $scope.$watch('videos', function (newValue, oldValue) {
-
         if (newValue !== oldValue) {
-
           $scope.filteredVideos = $scope.tag ? filterVideosByTagId($scope.tag.id) : newValue;
         }
       });
 
       $scope.$watch('tag', function (newValue, oldValue) {
-
         if (newValue !== oldValue) {
-
           $scope.filteredVideos = newValue ? filterVideosByTagId(newValue.id) : $scope.videos;
         }
-
       });
     }
   };
