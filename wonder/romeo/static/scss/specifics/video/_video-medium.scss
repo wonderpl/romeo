@@ -2,42 +2,27 @@
 
   color: $dark-grey;
 
-  h2 {
-    @extend .large-font;
-    margin-bottom: 24px;
-  }
-  h3 {
-    @extend .medium-font;
-    margin-bottom: 24px;
-  }
-  b {
-    font-weight: bold;
-  }
-  i {
-    font-style: italic;
-  }
-  p {
-    @extend .regular-font;
-    margin-bottom: 24px;
-  }
+  h2,h3,p,ul,blockquote{ margin-bottom: $base-spacing-unit; }
+  h2 { @extend .large-font; }
+  h3 { @extend .medium-font; }
+  b { font-weight: bold; }
+  i { font-style: italic; }
+  p { @extend .regular-font; }
   ul {
     @extend .regular-font;
     list-style: disc inside;
-    margin-bottom: 24px;
-  }
-  li {
-
   }
   blockquote {
 
     @extend .quote-font;
-    margin: 0 auto 24px auto;
+    margin: 0;
+    margin-right: auto;
+    margin-left:  auto;
     max-width: 80%;
     min-width: 450px;
     text-indent: -0.41em;
     font-weight: 300;
     text-align: center;
-
     quotes: "#{$open-quote}" "#{$close-quote}";
 
     &:before {
@@ -49,6 +34,9 @@
       content: "\2019";
       content: close-quote;
     }
+  }
 
+  > :last-child {
+    margin-bottom: 0;
   }
 }
