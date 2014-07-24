@@ -1,0 +1,16 @@
+/**
+ * _object.split.scss
+ */
+.split {
+  text-align: right;
+  list-style: none;
+  margin-left: 0;
+  @extend .cf;
+
+  > .split__title {
+    text-align: left;
+    float: left;
+    clear: left;
+  }
+}
+

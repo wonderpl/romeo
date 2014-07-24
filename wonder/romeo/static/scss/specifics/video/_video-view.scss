@@ -13,6 +13,13 @@
 
 .video-view-control-panel__modes {
 
+  > li {
+
+  }
+}
+
+.video-view-control-panel__link {
+  @extend .btn--utility;
 }
 
 .video-view-control-panel__mode {
@@ -52,7 +59,7 @@
 }
 
 .video-view__save-controls {
-  margin-bottom: 1em;
+  margin-bottom: $base-spacing-unit;
   text-align: center;
 }
 

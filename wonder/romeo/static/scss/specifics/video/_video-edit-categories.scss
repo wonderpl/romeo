@@ -49,7 +49,11 @@
 
 .video-edit-categories__subcategory {
   margin-right: 16px;
-  border-style: dashed;
+  border-color: lighten($grey,30%);
+}
+
+.video-edit-categories__subcategory:hover {
+  border-color: lighten($grey,20%);
 }
 
 .video-edit-categories__subcategory--active {

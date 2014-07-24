@@ -1,16 +1,31 @@
-$containerWidth: 960;
-
-$dark-grey: #70797b;
-$grey: #999;
-$light-grey: #b7bcbd;
-$green: #c8e6ce;
-$dark-green: #51b364;
-$black: #2e2e32;
-$white: #ffffff;
-$red: #ff0000;
-$shadow-red: #ee0000;
-
 $open-quote: \201C;
 $close-quote: \201D;
 
-$base-line-height: 24px;
+$base-font-weight:          400;
+$base-font-size:            16px;
+$base-line-height:          24px;
+
+$base-font-family:          "FreightText Pro",Georgia, Cambria, 'Times New Roman', Times, serif;
+$heading-font-family:       "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+$base-spacing-unit:    $base-line-height;
+$half-spacing-unit:    $base-spacing-unit / 2;
+
+$containerWidth:       960;
+
+$cold-black:           #2e2e32;
+$dark-grey:            #70797b;
+$grey:                 #999;
+$light-grey:           #b7bcbd;
+$green:                #c8e6ce;
+$dark-green:           #51b364;
+$black:                #000000;
+$white:                #ffffff;
+$red:                  #ff0000;
+$shadow-red:           #ee0000;
+
+$swatch-one:           #fff;           //background-color
+$swatch-two:           $light-grey;    //ui-color
+$swatch-three:         $cold-black;    //type-color
+$swatch-four:          $dark-grey;     //darker-ui-color
+$watch-five:           $dark-green;    //link-color
