@@ -1,10 +1,10 @@
 <section class="profile" ng-controller="ProfileCtrl">
 
-  <profile-navigation></profile-navigation>
+  <profile-navigation is-edit="isEdit"></profile-navigation>
 
-  <profile-cover image="profile.profile_cover"></profile-cover>
+  <profile-cover image="profile.profile_cover" is-edit="isEdit"></profile-cover>
 
-  <profile-image image="profile.avatar"></profile-image>
+  <profile-image image="profile.avatar" is-edit="isEdit"></profile-image>
 
   <h2 class="profile__name"
     ng-show="isEdit"

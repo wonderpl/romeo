@@ -1,5 +1,6 @@
 angular.module('RomeoApp.directives')
-  .directive('profileCover', ['$templateCache', function ($templateCache) {
+  .directive('profileCover', ['$templateCache', 'UploadService',
+  function ($templateCache, UploadService) {
 
   'use strict';
 
@@ -8,7 +9,22 @@ angular.module('RomeoApp.directives')
     replace : true,
     template : $templateCache.get('profile-cover.html'),
     scope : {
-      image: '='
+      image: '=',
+      isEdit : '='
+    },
+    controller : function ($scope) {
+
+      $scope.onFileSelect = function(files) {
+
+        console.log(files);
+
+        // UploadService.uploadVideo(files[0]);
+      };
+
+      $scope.uploadProfileCover = function (files) {
+
+        $scope.$emit('upload-profile-cover', files[0]);
+      };
     }
   };
 }]);

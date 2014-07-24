@@ -14,4 +14,38 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-clip: padding-box;
+  position: relative;
+}
+
+.profile-image__container--edit {
+
+}
+
+.profile-image__container--edit:hover {
+  cursor: pointer;
+  border: solid 1px $dark-green;
+  opacity: 0.6;
+}
+
+.profile-image__dropzone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height : 100%;
+  width: 100%;
+  border: solid 1px $red;
+  border-radius: 50%;
+}
+
+.profile-image__dropzone:hover {
+  cursor: pointer;
+}
+
+.profile-image__dropzone--active {
+  background: $white;
+  opacity: 0.6;
+}
+
+.profile-image__upload {
+  display: none;
 }

@@ -8,7 +8,15 @@ angular.module('RomeoApp.directives')
     replace : true,
     template : $templateCache.get('profile-image.html'),
     scope: {
-      image : '='
+      image : '=',
+      isEdit : '='
+    },
+    controller : function ($scope) {
+
+      $scope.uploadProfileImage = function () {
+
+        $scope.$emit('upload-profile-image');
+      };
     }
   };
 }]);

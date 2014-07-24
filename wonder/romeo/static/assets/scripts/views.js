@@ -1071,7 +1071,19 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('profile-cover.html',
-    "<section class=\"profile-cover\" style=\"background-image:url('(~ image ~)'); background-image:url('http://i.imgur.com/rIGYmMP.jpg');\">\n" +
+    "<section class=\"profile-cover\"\n" +
+    "  ng-class=\"{ 'profile-cover--edit' : isEdit }\"\n" +
+    "  style=\"background-image:url('(~ image ~)');\">\n" +
+    "\n" +
+    "  <label class=\"profile-cover__upload-label\" for=\"profileCoverUpload\">\n" +
+    "    <div class=\"profile-cover__dropzone\"\n" +
+    "      ng-file-drop=\"uploadProfileCover($files)\"\n" +
+    "      ng-file-drag-over-class=\"profile-cover__dropzone--active\"\n" +
+    "      ng-show=\"isEdit\">\n" +
+    "    </div>\n" +
+    "  </label>\n" +
+    "\n" +
+    "  <input class=\"profile-cover__upload\" type=\"file\" id=\"profileCoverUpload\" ng-file-select=\"uploadProfileCover($files)\" />\n" +
     "\n" +
     "</section>"
   );
@@ -1080,12 +1092,19 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('profile-image.html',
     "<section class=\"profile-image\">\n" +
     "\n" +
+    "  <div class=\"profile-image__container\"\n" +
+    "    ng-class=\"{ 'profile-image__container--edit' : isEdit }\"\n" +
+    "    style=\"background-image:url('(~ image ~)');\">\n" +
     "\n" +
-    "  <div class=\"profile-image__container\"  style=\"background-image:url('(~ image ~)'); background-image:url('http://i.imgur.com/rIGYmMP.jpg');\">\n" +
+    "  <label class=\"profile-image__upload-label\" for=\"profileImageUpload\">\n" +
+    "    <div class=\"profile-image__dropzone\"\n" +
+    "      ng-file-drop=\"uploadProfileImage($files)\"\n" +
+    "      ng-file-drag-over-class=\"profile-image__dropzone--active\"\n" +
+    "      ng-show=\"isEdit\">\n" +
+    "    </div>\n" +
+    "  </label>\n" +
     "\n" +
-    "\n" +
-    "  </div>\n" +
-    "\n" +
+    "  <input class=\"profile-image__upload\" type=\"file\" id=\"profileImageUpload\" ng-file-select=\"uploadProfileImage($files)\" />\n" +
     "\n" +
     "</section>"
   );
@@ -1096,13 +1115,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <div class=\"sub-navigation__control\">\n" +
     "      <ul class=\"sub-navigation__modes\">\n" +
     "        <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\"> <!-- ng-show=\"video.status=='published'\" -->\n" +
-    "          <a class=\"sub-navigation__link button button--primary\" ng-click=\"isEdit = true\">edit</a>\n" +
-    "        </li>\n" +
-    "        <li class=\"psub-navigation__mode\" ng-show=\"isEdit\">\n" +
-    "          <a class=\"sub-navigation__link button button--primary\" ng-click=\"save()\">save</a>\n" +
+    "          <a class=\"sub-navigation__link btn  btn--utility\" ng-click=\"isEdit = true\">edit</a>\n" +
     "        </li>\n" +
     "        <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
-    "          <a class=\"sub-navigation__link button\" ng-click=\"cancel()\">cancel</a>\n" +
+    "          <a class=\"sub-navigation__link btn  btn--utility\" ng-click=\"save()\">save</a>\n" +
+    "        </li>\n" +
+    "        <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
+    "          <a class=\"sub-navigation__link btn  btn--utility\" ng-click=\"cancel()\">cancel</a>\n" +
     "        </li>\n" +
     "      </ul>\n" +
     "    </div>\n" +
@@ -1113,11 +1132,11 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('profile.html',
     "<section class=\"profile\" ng-controller=\"ProfileCtrl\">\n" +
     "\n" +
-    "  <profile-navigation></profile-navigation>\n" +
+    "  <profile-navigation is-edit=\"isEdit\"></profile-navigation>\n" +
     "\n" +
-    "  <profile-cover image=\"profile.profile_cover\"></profile-cover>\n" +
+    "  <profile-cover image=\"profile.profile_cover\" is-edit=\"isEdit\"></profile-cover>\n" +
     "\n" +
-    "  <profile-image image=\"profile.avatar\"></profile-image>\n" +
+    "  <profile-image image=\"profile.avatar\" is-edit=\"isEdit\"></profile-image>\n" +
     "\n" +
     "  <h2 class=\"profile__name\"\n" +
     "    ng-show=\"isEdit\"\n" +

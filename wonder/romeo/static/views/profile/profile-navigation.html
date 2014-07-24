@@ -2,13 +2,13 @@
     <div class="sub-navigation__control">
       <ul class="sub-navigation__modes">
         <li class="sub-navigation__mode" ng-hide="isEdit"> <!-- ng-show="video.status=='published'" -->
-          <a class="sub-navigation__link button button--primary" ng-click="isEdit = true">edit</a>
-        </li>
-        <li class="psub-navigation__mode" ng-show="isEdit">
-          <a class="sub-navigation__link button button--primary" ng-click="save()">save</a>
+          <a class="sub-navigation__link btn  btn--utility" ng-click="isEdit = true">edit</a>
         </li>
         <li class="sub-navigation__mode" ng-show="isEdit">
-          <a class="sub-navigation__link button" ng-click="cancel()">cancel</a>
+          <a class="sub-navigation__link btn  btn--utility" ng-click="save()">save</a>
+        </li>
+        <li class="sub-navigation__mode" ng-show="isEdit">
+          <a class="sub-navigation__link btn  btn--utility" ng-click="cancel()">cancel</a>
         </li>
       </ul>
     </div>
