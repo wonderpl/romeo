@@ -1,8 +1,8 @@
 <section class="video-more">
 
-  <a class="video-more__link button" ng-click="(showMoreLinkConfigPanel = !showMoreLinkConfigPanel)" ng-show="isEdit">{{ text ? text : 'Add a link (optional) &hellip;' }}</a>
+  <a class="video-more__link btn" ng-click="(showMoreLinkConfigPanel = !showMoreLinkConfigPanel)" ng-show="isEdit">{{ text ? text : 'Add a link (optional) &hellip;' }}</a>
 
-  <a class="video-more__link button" href="{{ url }}" ng-hide="isEdit">{{ text }}</a>
+  <a class="video-more__link btn  btn--positive" href="{{ url }}" ng-hide="isEdit">{{ text }}</a>
 
   <section class="video-more__form" ng-class="{ 'video-more__form--active' : showMoreLinkConfigPanel }" ng-show="isEdit">
 
@@ -38,7 +38,7 @@
 
         <p class="video-more__hint"><strong>Hint:</strong> Drive traffic to your website by adding a link</p>
 
-        <input class="button button--primary" type="submit" value="Okay" />
+        <input class="btn  btn--positive" type="submit" value="Okay" />
 
       </form>
 
