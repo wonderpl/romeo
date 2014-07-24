@@ -1,0 +1,39 @@
+
+.sub-navigation__control {
+  text-align: right;
+  padding: 0.5em 0;
+  border-top: solid 1px #efefef;
+  border-bottom: solid 1px #efefef;
+}
+
+.sub-navigation__modes {
+
+}
+
+.sub-navigation__mode {
+  display: inline-block;
+}
+
+
+
+.sub-navigation {
+  background: $white;
+  z-index: 10;
+}
+
+.sub-navigation--sticky {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  margin-left: -480px;
+  width: 960px;
+  -webkit-box-shadow: 0 4px 4px -4px $grey;
+     -moz-box-shadow: 0 4px 4px -4px $grey;
+          box-shadow: 0 4px 4px -4px $grey;
+}
+
+.sub-navigation__placeholder {
+  display: block;
+  height: 52px;
+}
+

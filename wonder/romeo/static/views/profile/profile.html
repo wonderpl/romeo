@@ -1,0 +1,29 @@
+<section class="profile" ng-controller="ProfileCtrl">
+
+  <profile-navigation is-edit="isEdit"></profile-navigation>
+
+  <profile-cover image="profile.profile_cover" is-edit="isEdit"></profile-cover>
+
+  <profile-image image="profile.avatar" is-edit="isEdit"></profile-image>
+
+  <h2 class="profile__name"
+    ng-show="isEdit"
+    medium-editor
+    data-placeholder="{{ profile.name ? ' ' : 'name' }}"
+    options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
+    ng-model="profile.display_name">
+  </h2>
+
+  <h2 class="profile__name" ng-hide="isEdit" ng-bind="profile.display_name"></h2>
+
+  <div class="profile__description"
+    ng-show="isEdit"
+    medium-editor
+    data-placeholder="{{ profile.description ? ' ' : 'description' }}"
+    options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
+    ng-model="profile.description">
+  </div>
+
+  <div class="profile__description" ng-hide="isEdit" ng-bind-html="profile.description"></div>
+
+</section>

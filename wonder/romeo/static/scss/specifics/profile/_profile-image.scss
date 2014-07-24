@@ -1,0 +1,51 @@
+.profile-image {
+  margin-top: -50px;
+  margin-bottom: 12px;
+}
+
+.profile-image__container {
+  border: solid 1px $white;
+  width: 100px;
+  height: 100px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: white;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-clip: padding-box;
+  position: relative;
+}
+
+.profile-image__container--edit {
+
+}
+
+.profile-image__container--edit:hover {
+  cursor: pointer;
+  border: solid 1px $dark-green;
+  opacity: 0.6;
+}
+
+.profile-image__dropzone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height : 100%;
+  width: 100%;
+  border: solid 1px $red;
+  border-radius: 50%;
+}
+
+.profile-image__dropzone:hover {
+  cursor: pointer;
+}
+
+.profile-image__dropzone--active {
+  background: $white;
+  opacity: 0.6;
+}
+
+.profile-image__upload {
+  display: none;
+}

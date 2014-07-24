@@ -1,0 +1,15 @@
+<section class="profile-cover"
+  ng-class="{ 'profile-cover--edit' : isEdit }"
+  style="background-image:url('{{ image }}');">
+
+  <label class="profile-cover__upload-label" for="profileCoverUpload">
+    <div class="profile-cover__dropzone"
+      ng-file-drop="uploadProfileCover($files)"
+      ng-file-drag-over-class="profile-cover__dropzone--active"
+      ng-show="isEdit">
+    </div>
+  </label>
+
+  <input class="profile-cover__upload" type="file" id="profileCoverUpload" ng-file-select="uploadProfileCover($files)" />
+
+</section>

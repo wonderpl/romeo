@@ -1063,10 +1063,102 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  </nav>\n" +
     "\n" +
     "  <section class=\"page-header__current-user\" ng-if=\"isLoggedIn\">\n" +
-    "    <a href=\"/#/account\" class=\"page-header__link page-header__profile-link  hide-text\" style=\"background-image: url((~ User.avatar ~));\">(~ User.display_name ~)</a>\n" +
+    "    <a href=\"/#/profile\" class=\"page-header__link page-header__profile-link  hide-text\" style=\"background-image: url((~ User.avatar ~));\">(~ User.display_name ~)</a>\n" +
     "  </section>\n" +
     "\n" +
     "</header>"
+  );
+
+
+  $templateCache.put('profile-cover.html',
+    "<section class=\"profile-cover\"\n" +
+    "  ng-class=\"{ 'profile-cover--edit' : isEdit }\"\n" +
+    "  style=\"background-image:url('(~ image ~)');\">\n" +
+    "\n" +
+    "  <label class=\"profile-cover__upload-label\" for=\"profileCoverUpload\">\n" +
+    "    <div class=\"profile-cover__dropzone\"\n" +
+    "      ng-file-drop=\"uploadProfileCover($files)\"\n" +
+    "      ng-file-drag-over-class=\"profile-cover__dropzone--active\"\n" +
+    "      ng-show=\"isEdit\">\n" +
+    "    </div>\n" +
+    "  </label>\n" +
+    "\n" +
+    "  <input class=\"profile-cover__upload\" type=\"file\" id=\"profileCoverUpload\" ng-file-select=\"uploadProfileCover($files)\" />\n" +
+    "\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('profile-image.html',
+    "<section class=\"profile-image\">\n" +
+    "\n" +
+    "  <div class=\"profile-image__container\"\n" +
+    "    ng-class=\"{ 'profile-image__container--edit' : isEdit }\"\n" +
+    "    style=\"background-image:url('(~ image ~)');\">\n" +
+    "\n" +
+    "  <label class=\"profile-image__upload-label\" for=\"profileImageUpload\">\n" +
+    "    <div class=\"profile-image__dropzone\"\n" +
+    "      ng-file-drop=\"uploadProfileImage($files)\"\n" +
+    "      ng-file-drag-over-class=\"profile-image__dropzone--active\"\n" +
+    "      ng-show=\"isEdit\">\n" +
+    "    </div>\n" +
+    "  </label>\n" +
+    "\n" +
+    "  <input class=\"profile-image__upload\" type=\"file\" id=\"profileImageUpload\" ng-file-select=\"uploadProfileImage($files)\" />\n" +
+    "\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('profile-navigation.html',
+    "<section class=\"sub-navigation sub-navigation__placeholder\">\n" +
+    "    <div class=\"sub-navigation__control\">\n" +
+    "      <ul class=\"sub-navigation__modes\">\n" +
+    "        <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\"> <!-- ng-show=\"video.status=='published'\" -->\n" +
+    "          <a class=\"sub-navigation__link btn  btn--utility\" ng-click=\"isEdit = true\">edit</a>\n" +
+    "        </li>\n" +
+    "        <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
+    "          <a class=\"sub-navigation__link btn  btn--utility\" ng-click=\"save()\">save</a>\n" +
+    "        </li>\n" +
+    "        <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
+    "          <a class=\"sub-navigation__link btn  btn--utility\" ng-click=\"cancel()\">cancel</a>\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "    </div>\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('profile.html',
+    "<section class=\"profile\" ng-controller=\"ProfileCtrl\">\n" +
+    "\n" +
+    "  <profile-navigation is-edit=\"isEdit\"></profile-navigation>\n" +
+    "\n" +
+    "  <profile-cover image=\"profile.profile_cover\" is-edit=\"isEdit\"></profile-cover>\n" +
+    "\n" +
+    "  <profile-image image=\"profile.avatar\" is-edit=\"isEdit\"></profile-image>\n" +
+    "\n" +
+    "  <h2 class=\"profile__name\"\n" +
+    "    ng-show=\"isEdit\"\n" +
+    "    medium-editor\n" +
+    "    data-placeholder=\"(~ profile.name ? ' ' : 'name' ~)\"\n" +
+    "    options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
+    "    ng-model=\"profile.display_name\">\n" +
+    "  </h2>\n" +
+    "\n" +
+    "  <h2 class=\"profile__name\" ng-hide=\"isEdit\" ng-bind=\"profile.display_name\"></h2>\n" +
+    "\n" +
+    "  <div class=\"profile__description\"\n" +
+    "    ng-show=\"isEdit\"\n" +
+    "    medium-editor\n" +
+    "    data-placeholder=\"(~ profile.description ? ' ' : 'description' ~)\"\n" +
+    "    options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
+    "    ng-model=\"profile.description\">\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <div class=\"profile__description\" ng-hide=\"isEdit\" ng-bind-html=\"profile.description\"></div>\n" +
+    "\n" +
+    "</section>"
   );
 
 
@@ -1389,19 +1481,20 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('video-extended-controls.html',
-    "<section class=\"video-extended-controls\">\n" +
-    "\n" +
+    "<section class=\"video-extended-controls\" ng-show=\"isEdit\">\n" +
     "  <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCategoryShow }\">\n" +
-    "    <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\"\n" +
+    "    <i class=\"icon  icon--medium  icon--plus  section-drawer__icon\" ng-click=\"addCategoryShow = !addCategoryShow\" ng-hide=\"addCategoryShow\"></i>\n" +
+    "    <!--<span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\"\n" +
     "      ng-click=\"addCategoryShow = !addCategoryShow\"\n" +
     "      ng-hide=\"addCategoryShow\">\n" +
     "      +\n" +
-    "    </span>\n" +
-    "    <span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\"\n" +
+    "    </span>-->\n" +
+    "    <i class=\"icon  icon--medium  icon--minus  section-drawer__icon\" ng-click=\"addCategoryShow = !addCategoryShow\" ng-show=\"addCategoryShow\"></i>\n" +
+    "    <!--<span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\"\n" +
     "      ng-click=\"addCategoryShow = !addCategoryShow\"\n" +
     "      ng-show=\"addCategoryShow\">\n" +
     "      -\n" +
-    "    </span>\n" +
+    "    </span>-->\n" +
     "    <category-add-video selected-category=\"video.category\"\n" +
     "      show-category=\"addCategoryShow\"\n" +
     "      class=\"video-extended-controls__section-contents\">\n" +
@@ -1411,16 +1504,18 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <section class=\"video-extended-controls__section\"\n" +
     "    ng-class=\"{ 'video-extended-controls__section--expanded' : addCollectionShow }\">\n" +
-    "    <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\"\n" +
+    "    <i class=\"icon  icon--medium  icon--plus  section-drawer__icon\" ng-click=\"addCollectionShow = !addCollectionShow\" ng-hide=\"addCollectionShow\"></i>\n" +
+    "    <!--<span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\"\n" +
     "      ng-click=\"addCollectionShow = !addCollectionShow\"\n" +
     "      ng-hide=\"addCollectionShow\">\n" +
     "      +\n" +
-    "    </span>\n" +
-    "    <span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\"\n" +
+    "    </span>-->\n" +
+    "    <i class=\"icon  icon--medium  icon--minus  section-drawer__icon\" ng-click=\"addCollectionShow = !addCollectionShow\" ng-show=\"addCollectionShow\"></i>\n" +
+    "    <!--<span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\"\n" +
     "      ng-click=\"addCollectionShow = !addCollectionShow\"\n" +
     "      ng-show=\"addCollectionShow\">\n" +
     "      -\n" +
-    "    </span>\n" +
+    "    </span>-->\n" +
     "    <collection-add-video available-tags=\"tags\"\n" +
     "      video=\"video\"\n" +
     "      show-collection=\"addCollectionShow\"\n" +
@@ -1430,21 +1525,22 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  </section>\n" +
     "\n" +
     "  <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCollaboratorShow }\">\n" +
-    "    <span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\"\n" +
+    "    <i class=\"icon  icon--medium  icon--plus  section-drawer__icon\" ng-click=\"addCollaboratorShow = !addCollaboratorShow\" ng-hide=\"addCollaboratorShow\"></i>\n" +
+    "    <!--<span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\"\n" +
     "      ng-click=\"addCollaboratorShow = !addCollaboratorShow\"\n" +
     "      ng-hide=\"addCollaboratorShow\">\n" +
     "      +\n" +
-    "    </span>\n" +
-    "    <span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\"\n" +
+    "    </span>-->\n" +
+    "    <i class=\"icon  icon--medium  icon--minus  section-drawer__icon\" ng-click=\"addCollaboratorShow = !addCollaboratorShow\" ng-show=\"addCollaboratorShow\"></i>\n" +
+    "    <!--<span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\"\n" +
     "      ng-click=\"addCollaboratorShow = !addCollaboratorShow\"\n" +
     "      ng-show=\"addCollaboratorShow\">\n" +
     "      -\n" +
-    "    </span>\n" +
+    "    </span>-->\n" +
     "    <add-collaborator class=\"video-extended-controls__section-contents\"\n" +
     "      show-collaborator=\"addCollaboratorShow\">\n" +
     "    </add-collaborator>\n" +
     "  </section>\n" +
-    "\n" +
     "</section>"
   );
 
@@ -1573,22 +1669,37 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('video-navigation.html',
-    "<section class=\"video-view-control-panel\">\n" +
-    "  <ul class=\"video-view-control-panel__modes\">\n" +
-    "    <li class=\"video-view-control-panel__mode\" ng-show=\"isEdit\">\n" +
-    "      <a class=\"video-view-control-panel__link button button--primary\" ng-click=\"save()\">save</a>\n" +
+    "<section class=\"sub-navigation video-view-control-panel\">\n" +
+    "  <ul class=\"sub-navigation__modes\">\n" +
+    "    <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
+    "      <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"save()\">\n" +
+    "        <i class=\"icon  icon--check  icon-text__icon\"></i>\n" +
+    "        Save Changes\n" +
+    "      </a>\n" +
     "    </li>\n" +
-    "    <li class=\"video-view-control-panel__mode\" ng-show=\"isEdit\">\n" +
-    "      <a class=\"video-view-control-panel__link button\" ng-click=\"cancel()\">cancel</a>\n" +
+    "    <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
+    "      <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"cancel()\">\n" +
+    "        <i class=\"icon  icon--cross  icon-text__icon\"></i>\n" +
+    "        Cancel\n" +
+    "      </a>\n" +
     "    </li>\n" +
-    "    <li class=\"video-view-control-panel__mode\" ng-hide=\"isEdit\"> <!-- ng-show=\"video.status=='published'\" -->\n" +
-    "      <a class=\"video-view-control-panel__link button button--primary\" ng-click=\"displaySection('edit')\">edit</a>\n" +
+    "    <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\"> <!-- ng-show=\"video.status=='published'\" -->\n" +
+    "      <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"displaySection('edit')\">\n" +
+    "        <i class=\"icon  icon--edit  icon-text__icon\"></i>\n" +
+    "        Edit Video\n" +
+    "      </a>\n" +
     "    </li>\n" +
-    "    <li class=\"video-view-control-panel__mode\" ng-hide=\"isEdit\">\n" +
-    "      <a class=\"video-view-control-panel__link button button--primary\" ng-click=\"displaySection('')\">review</a>\n" +
+    "    <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\">\n" +
+    "      <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"displaySection('')\">\n" +
+    "        <i class=\"icon  icon--eye  icon-text__icon\"></i>\n" +
+    "        Review\n" +
+    "      </a>\n" +
     "    </li>\n" +
-    "    <li class=\"video-view-control-panel__mode\" ng-hide=\"isEdit\">\n" +
-    "      <a class=\"video-view-control-panel__link button button--primary\" ng-click=\"displaySection('comments')\">comment</a>\n" +
+    "    <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\">\n" +
+    "      <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"displaySection('comments')\">\n" +
+    "        <i class=\"icon  icon--speech-bubble  icon-text__icon\"></i>\n" +
+    "        Comments\n" +
+    "      </a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
     "</section>"
@@ -1606,17 +1717,17 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('video-share.html',
     "<section class=\"video-share\">\n" +
-    "  <ul class=\"video-share__controls\">\n" +
-    "    <li class=\"video-share__control inline-space-fix\" ng-class=\"{ 'video-share__control--disabled' : !hasTags || hasTags === 'false' }\">\n" +
-    "      <a class=\"hide-text video-share__link video-share__link--embed button button__component button__component--left\" ng-click=\"showEmbedCode = !showEmbedCode\">embed</a>\n" +
-    "    </li>\n" +
-    "    <li class=\"video-share__control inline-space-fix\" ng-class=\"{ 'video-share__control--disabled' : !hasTags || hasTags === 'false' }\">\n" +
-    "      <a class=\"hide-text video-share__link video-share__link--twitter button button__component\" ng-click=\"shareTwitter()\">twitter</a>\n" +
-    "    </li>\n" +
-    "    <li class=\"video-share__control\" ng-class=\"{ 'video-share__control--disabled' : !hasTags || hasTags === 'false' }\">\n" +
-    "      <a class=\"hide-text video-share__link video-share__link--facebook button button__component button__component--right\" ng-click=\"shareFacebook()\">facebook</a>\n" +
-    "    </li>\n" +
-    "  </ul>\n" +
+    "  <div class=\"btn-center  btn-group\">\n" +
+    "    <a href=\"\" class=\"btn  btn--small\" ng-class=\"{ 'btn--disabled' : !hasTags || hasTags === 'false' }\" ng-click=\"showEmbedCode = !showEmbedCode\">\n" +
+    "      <i class=\"icon  icon--medium  icon--code\"></i>\n" +
+    "    </a>\n" +
+    "    <a href=\"\" class=\"btn  btn--small\" ng-class=\"{ 'btn--disabled' : !hasTags || hasTags === 'false' }\" ng-click=\"shareTwitter()\">\n" +
+    "      <i class=\"icon  icon--medium  icon--twitter\"></i>\n" +
+    "    </a>\n" +
+    "    <a href=\"\" class=\"btn  btn--small\" ng-class=\"{ 'btn--disabled' : !hasTags || hasTags === 'false' }\" ng-click=\"shareFacebook()\">\n" +
+    "      <i class=\"icon  icon--medium  icon--facebook\" ></i>\n" +
+    "    </a>\n" +
+    "  </div>\n" +
     "  <section class=\"video-share__embed-code-container\"\n" +
     "    ng-class=\"{ 'video-share__embed-code-container--active' : showEmbedCode }\">\n" +
     "  <label class=\"video-share__embed-code-label\">\n" +
