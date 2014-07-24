@@ -94,6 +94,7 @@
   font-family: $heading-font-family;
   text-align: center;
   color: $swatch-four;
+  background-color: transparent;
   border: 1px solid rgba($swatch-four, 0.5);
   border-radius: 100px;
   cursor: pointer;
@@ -129,6 +130,19 @@
 }
 .btn--blob {
   border-radius: 100%;
+}
+
+.btn--positive {
+  color: $swatch-five;
+  border-color: rgba($swatch-five,0.6);
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: $swatch-five;
+    border-color: rgba($swatch-five,1);
+  }
 }
 
 .btn--disabled {
@@ -192,7 +206,7 @@
   & > .icon { color: $swatch-three; }
 }
 .btn--utility--active {
-  background-color: $watch-five;
+  background-color: $swatch-five;
 
   &,
   &:hover,
