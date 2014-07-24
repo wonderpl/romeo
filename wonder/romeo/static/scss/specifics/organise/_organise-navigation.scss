@@ -8,11 +8,15 @@
 }
 
 .organise-navigation__nav-items {
-  margin-bottom: 24px;
+  font-size: 0.75em;
+  margin-bottom: $base-spacing-unit;
 }
 
 .organise-navigation__nav-item {
   color: $dark-grey;
+}
+.organise-navigation__link {
+  display: block;
 }
 
 .organise-navigation__nav-item--collection {
@@ -24,9 +28,12 @@
 }
 
 .organise-navigation__nav-item--title {
-  text-transform: lowercase;
   font-variant: small-caps;
-  color: $grey;
+  font-weight: bold;
+  font-size: 1em;
+  text-transform: lowercase;
+  letter-spacing: 0.1em;
+  color: $light-grey;
 }
 
 .organise-navigation__link:hover {
