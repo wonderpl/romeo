@@ -3,7 +3,7 @@
   <section class="organise-video-list__list-controls">
     <label class="organise-video-list__list-control-label">
       Sort:
-      <select class="organise-video-list__select button button--small"
+      <select class="organise-video-list__select  btn  btn--small"
         ng-model="sortOption"
         ng-init="sortOption=''">
         <option value="">none</option>
@@ -12,12 +12,14 @@
     </label>
     <label class="organise-video-list__list-control-label">
       View:
-      <a class="inline-space-fix button button__component button__component--left"
-        ng-class="{ 'organise-video-list__list-control--active button--active' : !isList }"
+      <div class="btn-group">
+        <a class="btn  btn--small" title="Display videos in a grid view."
+        ng-class="{ 'btn--active' : !isList }"
         ng-click="isList = false"><i class="icon  icon--grid"></i></a>
-      <a class="button button__component button__component--right"
-        ng-class="{ 'organise-video-list__list-control--active button--active' : isList }"
+        <a class="btn  btn--small" title="Display videos in a list view."
+        ng-class="{ 'btn--active' : isList }"
         ng-click="isList = true"><i class="icon  icon--align-justify"></i></a>
+      </div>
     </label>
   </section>
 
