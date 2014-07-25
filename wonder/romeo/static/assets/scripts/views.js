@@ -551,11 +551,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('login.html',
-    "\n" +
-    "\n" +
-    "<div id=\"page-login\" class=\"page section\" ng-controller=\"LoginCtrl\" autocomplete=\"off\">\n" +
-    "\t<div class=\"inner\">\n" +
-    "\t\t<h1>Login</h1>\n" +
+    "<div id=\"page-login\" class=\"center-container\" ng-controller=\"LoginCtrl\" autocomplete=\"off\">\n" +
+    "\t<div class=\"center-object\">\n" +
     "\t\t<form ng-submit=\"login()\">\n" +
     "\t\t\t<div class=\"row\">\n" +
     "\t\t\t\t<label for=\"username\">Username</label>\n" +
@@ -991,14 +988,31 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <span class=\"organise-video__title\" ng-hide=\"isList\" ng-bind=\"video.title\"></span>\n" +
     "\n" +
-    "  <section class=\"organise-video__controls-container\"\n" +
+    "  <div class=\"video-thumb-container\" ng-hide=\"isList\">\n" +
+    "    <ul class=\"nav  nav--block  video-action-list\">\n" +
+    "      <li class=\"video-action-list__item\"><a href=\"\" class=\"video-action-list__link\" ng-href=\"#/video/(~video.id~)/edit\"><i class=\"icon  icon--edit\"></i><span class=\"t--block\">Edit</span></a></li>\n" +
+    "      <li class=\"video-action-list__item\"><a href=\"\" class=\"video-action-list__link\"><i class=\"icon  icon--eye\"></i><span class=\"t--block\">Review</span></a></li>\n" +
+    "      <li class=\"video-action-list__item\"><a href=\"\" class=\"video-action-list__link\"><i class=\"icon  icon--bar-graph\"></i><span class=\"t--block\">Stats</span></a></li>\n" +
+    "      <li class=\"video-action-list__item\"><a href=\"\" class=\"video-action-list__link\" ng-click=\"addRemove(video)\"><i class=\"icon  icon--collection\"></i><span class=\"t--block\">Add / Remove</span></a></li>\n" +
+    "      <li class=\"video-action-list__item\"><a href=\"\" class=\"video-action-list__link\" ng-click=\"delete(video)\"><i class=\"icon  icon--trash\"></i><span class=\"t--block\">Delete</span></a></l>\n" +
+    "    </ul>\n" +
+    "    <ng-switch on=\"video.thumbnails.items[0].url.length\">\n" +
+    "      <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"video-thumb-container__thumb\" style=\"background-image: url('http://placehold.it/218x122')\" ng-switch-when=\"0\">\n" +
+    "      <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"video-thumb-container__thumb\" style=\"background-image: url('(~ video.thumbnails.items[0].url ~)')\" ng-switch-default>\n" +
+    "    </ng-switch>\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <!--<section class=\"organise-video__controls-container\"\n" +
     "    ng-hide=\"isList\"\n" +
     "    style=\"background-image: url('(~ video.thumbnails.items[0].url ~)')\">\n" +
     "    <div class=\"organise-video__overlay\">\n" +
     "      <div class=\"organise-video__controls-mask\"></div>\n" +
     "      <ul class=\"organise-video__controls\">\n" +
     "        <li class=\"organise-video__control\">\n" +
-    "          <a class=\"organise-video__link organise-video__link--edit\" ng-href=\"#/video/(~video.id~)/edit\">edit</a>\n" +
+    "          <a class=\"organise-video__link organise-video__link--edit\" ng-href=\"#/video/(~video.id~)/edit\">\n" +
+    "            <i class=\"icon  icon--edit\"></i>\n" +
+    "            <span class=\"t--block  t--center\">edit</span>\n" +
+    "          </a>\n" +
     "        </li>\n" +
     "        <li class=\"organise-video__control\">\n" +
     "          <a class=\"organise-video__link organise-video__link--stats\">stats</a>\n" +
@@ -1011,8 +1025,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        </li>\n" +
     "      </ul>\n" +
     "    </div>\n" +
-    "  </section>\n" +
-    "\n" +
+    "  </section>-->\n" +
     "</section>"
   );
 

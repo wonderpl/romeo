@@ -83,6 +83,7 @@ angular.module('RomeoApp.services').factory('VideoService',
     */
     Video.update = function (id, data) {
         var url = '/api/video/' + id + '';
+        data.link_url = data.link_url || '';
         return DataService.request({ url: url, method: 'PATCH', data: data });
     };
 
