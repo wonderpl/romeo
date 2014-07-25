@@ -191,6 +191,11 @@
   > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {
     border-radius: 0;
   }
+
+  > .btn--active {
+    color: #fff;
+    background-color: rgba($swatch-four, 0.8);
+  }
 }
 
 .btn--utility {
