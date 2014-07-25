@@ -228,10 +228,11 @@ def _video_item(video, full=False):
     if full:
         data['player_logo_url'] = video.get_player_logo_url()
 
+    thumbnails = sorted(video.thumbnails, key=lambda t: t.width, reverse=True)
     data['thumbnails'] = dict(
         items=[
             {f: getattr(thumbnail, f) for f in ('url', 'width', 'height')}
-            for thumbnail in video.thumbnails[:None if full else 1]
+            for thumbnail in thumbnails[:None if full else 1]
         ]
     )
 

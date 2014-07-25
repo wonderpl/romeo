@@ -81,7 +81,8 @@ class Video(db.Model):
     def get_thumbnail_url(self, size=None):
         # TODO: use size to pick appropriate thumbnail
         if self.thumbnails:
-            return self.thumbnails[0].url
+            thumbnails = sorted(self.thumbnails, key=lambda t: t.width, reverse=True)
+            return thumbnails[0].url
 
     def get_player_logo_url(self, size=None):
         if self.player_logo_filename:
