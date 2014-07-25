@@ -52,8 +52,8 @@ angular.module('RomeoApp.controllers')
 
   function save () {
     AccountService.updateUser({
-      display_name  : $scope.display_name,
-      description   : $scope.description
+      display_name  : $scope.profile.display_name,
+      description   : $scope.profile.description
     }).then(function () {
       $scope.isEdit = false;
     });
