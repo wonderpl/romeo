@@ -167,7 +167,6 @@ angular.module('RomeoApp.services').factory('VideoService',
           var l = videos.length;
           while (l--) {
             if (videos[l].id === videoId) {
-              isOwner = true;
               deferred.resolve({
                 isOwner : true
               });
