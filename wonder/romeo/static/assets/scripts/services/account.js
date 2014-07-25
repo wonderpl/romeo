@@ -5,6 +5,8 @@ angular.module('RomeoApp.services').factory('AccountService',
     ['DataService', 'localStorageService', '$rootScope', 'AuthService', '$q', '$timeout',
     function (DataService, localStorageService, $rootScope, AuthService, $q, $timeout) {
 
+    'use strict';
+
     var Account = {},
         User = null,
         ID = null;

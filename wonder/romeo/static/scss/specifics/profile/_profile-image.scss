@@ -33,8 +33,9 @@
   left: 0;
   height : 100%;
   width: 100%;
-  border: solid 1px $red;
   border-radius: 50%;
+  background: $black;
+  opacity: 0.6;
 }
 
 .profile-image__dropzone:hover {
@@ -42,8 +43,7 @@
 }
 
 .profile-image__dropzone--active {
-  background: $white;
-  opacity: 0.6;
+  border: solid 1px $dark-green;
 }
 
 .profile-image__upload {

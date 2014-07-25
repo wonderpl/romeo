@@ -24,7 +24,8 @@
   left: 0;
   height : 100%;
   width: 100%;
-  border: solid 1px $red;
+  background: $black;
+  opacity: 0.6;
 }
 
 .profile-cover__dropzone:hover {
@@ -32,8 +33,7 @@
 }
 
 .profile-cover__dropzone--active {
-  background: $white;
-  opacity: 0.6;
+  border: solid 1px $dark-green;
 }
 
 .profile-cover__upload {
