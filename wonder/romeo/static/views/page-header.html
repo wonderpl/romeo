@@ -1,22 +1,10 @@
-<header class="page-header">
+<header class="page-header cf">
   <h1 class="page-header__logo">
-    <a class="page-header__logo-link hide-text" href="/#/">WonderPl</a>
+    <ng-switch on="$root.isCollaborator">
+      <a class="page-header__logo-link hide-text" ng-switch-when="true">WonderPl</a>
+      <a class="page-header__logo-link hide-text" href="/#/" ng-switch-default="">WonderPl</a>
+    </ng-switch>
   </h1>
-    <!-- <a href="/#/library" class="manage wp-button">Manage</a> -->
-    <!-- <a href="/#/" id="wonder"></a> -->
-    <!-- <span ng-if="isLoggedIn"> -->
-        <!--<a class="delete wp-button">Delete</a>-->
-        <!-- <a class="save-draft wp-button" ng-click="save()">Save Draft</a> -->
-        <!--<a class="quick-share wp-button" ng-click="toggleQuickShare()">Quick Share</a>-->
-        <!--<a class="publish wp-button">Publish</a>-->
-        <!-- <a class="save-upload wp-button call-to-action" ng-click="save()" ng-show="isCurrentPage('/upload')">Save</a> -->
-        <!-- <a href="/#/manage" class="manage wp-button">Manage</a> -->
-        <!-- <a href="/#/upload" class="upload wp-button">Upload</a> -->
-        <!-- <a href="/#/account" class="avatar" style="background-image: url((~ User.avatar ~));"></a> -->
-    <!-- </span> -->
-    <!-- <span ng-if="!isLoggedIn"> -->
-        <!-- <a class="login wp-button">Login</a> -->
-    <!-- </span> -->
 
   <upload-progress upload="upload" ng-if="isLoggedIn"></upload-progress>
 

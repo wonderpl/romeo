@@ -1,8 +1,9 @@
-angular.module('RomeoApp.directives')
-  .directive('organiseVideo', ['$templateCache', function ($templateCache) {
+angular
+  .module('RomeoApp.directives')
+  .directive('organiseVideo', ['$templateCache', OrganiseVideo]);
 
+function OrganiseVideo ($templateCache) {
   'use strict';
-
   return {
     restrict : 'E',
     replace : true,
@@ -12,14 +13,12 @@ angular.module('RomeoApp.directives')
       isList : '='
     },
     controller : function ($scope) {
-
       $scope.delete = function (video) {
         $scope.$emit('delete-video', video);
       };
-
       $scope.addRemove = function (video) {
         $scope.$emit('add-remove-video', video);
       };
     }
   };
-}]);
+}

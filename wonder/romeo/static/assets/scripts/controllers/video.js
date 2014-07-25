@@ -24,6 +24,7 @@ angular.module('RomeoApp.controllers')
       $scope.embedUrl = '';
       $scope.currentTime = 0;
       $scope.notified = false;
+      $scope.isOwner = false;
     }
 
     /*
@@ -89,7 +90,7 @@ angular.module('RomeoApp.controllers')
       function() { return $scope.video ? $scope.video.id : null; },
       function(newValue, oldValue) {
         if (newValue !== '' && newValue !== oldValue) {
-          CommentsService.getComments($scope.video.id).then(function (data) {
+          CommentsService.getComments(newValue).then(function (data) {
             console.log(data);
             $scope.comments = data.comment.items;
           });
@@ -213,7 +214,7 @@ angular.module('RomeoApp.controllers')
           $scope.displaySection();
         });
       } else {
-        $location.path('/orgabnise');
+        $location.path('/organise');
       }
     };
 
@@ -276,7 +277,7 @@ angular.module('RomeoApp.controllers')
         $scope.videoTotalTime = durationHack($scope.player.getDuration());
       }
       var OO = frame.OO;
-      if (OO && OO.ready) {
+      if (OO && OO.ready && $scope.videoTotalTime > 0) {
         OO.ready(function () {
           bindEvents(OO);
         });
@@ -347,20 +348,24 @@ angular.module('RomeoApp.controllers')
         $location.path(url, false);
       }
 
-      switch (section) {
-        case 'edit':
-          $scope.isEdit = true;
-          $scope.isReview = $scope.isComments = false;
-        break;
-        case 'comments':
-          $scope.isComments = true;
-          $scope.isReview = $scope.isEdit = false;
-        break;
-        default:
-          $scope.isReview = true;
-          $scope.isEdit = $scope.isComments = false;
-        break;
+      if (section === 'edit' && $scope.isOwner) {
+
+        $scope.isEdit = true;
+
+      } else if ($rootScope.isCollaborator) {
+
+        $scope.isReview = true;
+        $scope.isComments = true;
+
+      } else if (section === 'comments') {
+
+        $scope.isComments = true;
+
+      } else {
+
+        $scope.isReview = true;
       }
+
     };
 
     // probably a better way of doing this
@@ -372,6 +377,9 @@ angular.module('RomeoApp.controllers')
 
       $scope.displaySection('edit');
 
+    } else {
+
+      $scope.displaySection();
     }
 
     TagService.getTags().then(function (data) {
@@ -405,38 +413,17 @@ angular.module('RomeoApp.controllers')
           $scope.playerParameters.hideLogo = data.hideLogo === 'True' ? true : false;
         });
 
+        VideoService.isOwner().then(function (data) {
+
+          $scope.isOwner = data.isOwner;
+
+        });
+
       });
 
     } else {
 
       $scope.displaySection('edit');
     }
-
-    AuthService.loginAsCollaborator(query.token).then(function(data){
-      if (data.authenticatedAsOwner) {
-
-        // show comments
-
-        // allow edit/review/comments
-
-        $scope.isOwner = true;
-
-      } else if (data.authenticatedAsCollaborator) {
-
-        // show comments
-
-        // allow review/comments
-
-        $scope.isCollaborator = true;
-
-      } else {
-
-        // redirect to 400 not authenticated
-      }
-    }, function(err){
-
-      console.log(err);
-
-    });
 
 }]);

@@ -159,6 +159,33 @@ angular.module('RomeoApp.services').factory('VideoService',
         return deferred.promise;
     };
 
+    Video.isOwner = function (videoId) {
+      var deferred = new $q.defer();
+      AuthService.getSessionId().then(function(response){
+        DataService.request({ url: '/api/account/' + response + '/videos', method: 'GET'}).then(function(response){
+          var videos = response.video.items;
+          var l = videos.length;
+          while (l--) {
+            if (videos[l].id === videoId) {
+              isOwner = true;
+              deferred.resolve({
+                isOwner : true
+              });
+            }
+          }
+          deferred.resolve({
+            isOwner : false
+          });
+        }, function () {
+          deferred.reject(response);
+        });
+      }, function () {
+        deferred.reject();
+      });
+
+      return deferred.promise;
+    };
+
     /*
     * Add a video to a collection
     */
@@ -219,6 +246,7 @@ angular.module('RomeoApp.services').factory('VideoService',
         delete: Video.delete,
         get: Video.get,
         getAll: Video.getAll,
+        isOwner: Video.isOwner,
         getOne: Video.getOne,
         addToCollection: Video.addToCollection,
         removeFromCollection: Video.removeFromCollection,

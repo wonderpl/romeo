@@ -22,7 +22,16 @@
         var sessionUrl;
         var authChecks = {
             loggedin: function(ErrorService, AuthService, $q) {
-                return AuthService.loginCheck();
+
+              var dfd = new $q.defer();
+
+              AuthService.loginCheck().then(dfd.resolve,
+
+              function () {
+                AuthService.collaboratorCheck().then(dfd.resolve, dfd.reject);
+              });
+
+              return dfd.promise;
             }
         };
 
@@ -169,6 +178,7 @@
         $rootScope.$on('$routeChangeError', function(evt, next, last, error) {
             console.log( error );
             if (error instanceof ErrorService.AuthError) {
+                $location.url($location.path());
                 $location.url('/login');
             }
         });

@@ -8,27 +8,18 @@ angular.module('RomeoApp.services').factory('CommentsService',
   'use strict';
 
   function addComment (videoId, data) {
-
-    var deferred = new $q.defer();
-    AuthService.getSessionId().then(function(response){
-      deferred.resolve(DataService.request({
-        url: '/api/video/' + videoId + '/comments',
-        method: 'POST',
-        data: data
-      }));
+    return DataService.request({
+      url: '/api/video/' + videoId + '/comments',
+      method: 'POST',
+      data: data
     });
-    return deferred.promise;
   }
 
   function getComments (videoId) {
-    var deferred = new $q.defer();
-    AuthService.getSessionId().then(function(response){
-      deferred.resolve(DataService.request({
-        url: '/api/video/' + videoId + '/comments',
-        method: 'GET',
-      }));
+    return DataService.request({
+      url: '/api/video/' + videoId + '/comments',
+      method: 'GET'
     });
-    return deferred.promise;
   }
 
   function notify (videoId) {

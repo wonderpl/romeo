@@ -1,4 +1,5 @@
 <section class="sub-navigation video-view-control-panel">
+  <p>{{ isCollaborator }}</p>
   <ul class="sub-navigation__modes">
     <li class="sub-navigation__mode" ng-show="isEdit">
       <a class="sub-navigation__link btn  btn--utility  icon-text" ng-click="save()">
@@ -12,7 +13,7 @@
         Cancel
       </a>
     </li>
-    <li class="sub-navigation__mode" ng-hide="isEdit"> <!-- ng-show="video.status=='published'" -->
+    <li class="sub-navigation__mode" ng-hide="isEdit || !isOwner"> <!-- ng-show="video.status=='published'" -->
       <a class="sub-navigation__link btn  btn--utility  icon-text" ng-click="displaySection('edit')">
         <i class="icon  icon--edit  icon-text__icon"></i>
         Edit Video

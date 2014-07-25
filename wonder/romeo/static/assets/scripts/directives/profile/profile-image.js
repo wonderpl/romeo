@@ -1,8 +1,10 @@
-angular.module('RomeoApp.directives')
-  .directive('profileImage', ['$templateCache', function ($templateCache) {
 
+angular
+  .module('RomeoApp.directives')
+  .directive('profileImage', ['$templateCache', ProfileImageDirective]);
+
+function ProfileImageDirective ($templateCache) {
   'use strict';
-
   return {
     restrict : 'E',
     replace : true,
@@ -12,11 +14,9 @@ angular.module('RomeoApp.directives')
       isEdit : '='
     },
     controller : function ($scope) {
-
       $scope.uploadProfileImage = function () {
-
         $scope.$emit('upload-profile-image');
       };
     }
   };
-}]);
+}

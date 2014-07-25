@@ -5803,7 +5803,14 @@ strong {
   margin-left: 6px;
 }
 
-/* line 2, ../../scss/components/_sub-navigation.scss */
+/* line 1, ../../scss/components/_sub-navigation.scss */
+.sub-navigation {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: right;
+}
+
+/* line 7, ../../scss/components/_sub-navigation.scss */
 .sub-navigation__control {
   text-align: right;
   padding: 0.5em 0;
@@ -5811,18 +5818,18 @@ strong {
   border-bottom: solid 1px #efefef;
 }
 
-/* line 13, ../../scss/components/_sub-navigation.scss */
+/* line 18, ../../scss/components/_sub-navigation.scss */
 .sub-navigation__mode {
   display: inline-block;
 }
 
-/* line 19, ../../scss/components/_sub-navigation.scss */
+/* line 24, ../../scss/components/_sub-navigation.scss */
 .sub-navigation {
   background: white;
   z-index: 10;
 }
 
-/* line 24, ../../scss/components/_sub-navigation.scss */
+/* line 29, ../../scss/components/_sub-navigation.scss */
 .sub-navigation--sticky {
   position: fixed;
   top: 0;
@@ -5834,7 +5841,7 @@ strong {
   box-shadow: 0 4px 4px -4px #999999;
 }
 
-/* line 35, ../../scss/components/_sub-navigation.scss */
+/* line 40, ../../scss/components/_sub-navigation.scss */
 .sub-navigation__placeholder {
   display: block;
   height: 52px;
