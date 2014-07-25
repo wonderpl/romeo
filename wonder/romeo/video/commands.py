@@ -5,6 +5,7 @@ from wonder.romeo import manager, db
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core import dolly, ooyala
 from wonder.romeo.account.models import Account, AccountUser
+from wonder.romeo.account.views import get_dollyuser
 from .models import Video, VideoThumbnail, VideoTag, VideoTagVideo
 from .forms import send_processed_email
 
@@ -114,10 +115,12 @@ def _create_video_record(asset, account_id, tag_id):
 
 
 @manager.command
-def import_videos_from_ooyala():
+def import_videos_from_ooyala(label=None):
     next_page_token = None
     while True:
         params = dict(limit=100, include='metadata')
+        if label:
+            params['where'] = "labels INCLUDES '%s'" % label
         if next_page_token:
             params['page_token'] = next_page_token
         response = ooyala.ooyala_request('assets', params=params)
@@ -200,3 +203,17 @@ def mark_video_processed(videoid, set_error=False):
             ]
         )
     update_video_status(video, data, send_email=False)
+
+
+@manager.command
+@commit_on_success
+def fixup_video_data():
+    videos = {}
+    for video in Video.query.filter_by(dolly_instance=None):
+        channel = next((t.dolly_channel for t in video.tags if t.dolly_channel), None)
+        if not channel:
+            continue
+        if channel not in videos:
+            videos[channel] = get_dollyuser(video.account).get_channel_videos(channel)
+        video.dolly_instance = next((v['id'] for v in videos[channel]
+                                     if v['video']['source_id'] == video.external_id), None)
