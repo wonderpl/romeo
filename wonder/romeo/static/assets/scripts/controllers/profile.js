@@ -57,12 +57,12 @@ angular.module('RomeoApp.controllers')
     }).then(function () {
       $scope.isEdit = false;
     });
-  };
+  }
 
   function cancel () {
     $scope.isEdit = false;
     loadUserDetails();
-  };
+  }
 
 
 
