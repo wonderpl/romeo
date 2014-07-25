@@ -389,7 +389,7 @@ angular.module('RomeoApp.controllers')
 
         angular.extend($scope.video, data);
 
-        $scope.hasProcessed = ($scope.video.status === 'ready');
+        $scope.hasProcessed = (($scope.video.status === 'ready') || ($scope.video.status === 'published'));
         $scope.showUpload = ($scope.video.status === 'uploading');
 
         if (($scope.video.status === 'ready') || ($scope.video.status === 'published')) {
