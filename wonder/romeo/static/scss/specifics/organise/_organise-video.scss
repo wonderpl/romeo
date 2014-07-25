@@ -79,6 +79,10 @@
 
 .organise-video__inline-control {
   display: inline-block;
+
+  & + & {
+    margin-left: 4px;
+  }
 }
 
 .organise-video__inline-link {
