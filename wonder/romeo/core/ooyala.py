@@ -97,6 +97,8 @@ def create_asset(s3path, metadata):
         buf = key.get_contents_as_string(headers={'Range': 'bytes=%d-%d' % range})
         response = requests.put(upload_url, buf)
         response.raise_for_status()
+        current_app.logger.info('Uploaded %s (%d-%d) to %s',
+                                s3path, range[0], range[1], upload_url)
         assert response.status_code == 204
     try:
         ooyala_request('assets', assetid, 'upload_status',
