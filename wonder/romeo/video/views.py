@@ -461,6 +461,13 @@ class VideoTagVideoResource(Resource):
         return None, 204
 
 
+def collaborator_record(collaborator_id):
+    collaborator = VideoCollaborator.query.get(collaborator_id)
+    result = _collaborator_item(collaborator)
+    result['video'] = dict(href=url_for('api.video', video_id=collaborator.video_id))
+    return result
+
+
 def _collaborator_item(collaborator):
     return dict(
         username=collaborator.name,
@@ -474,7 +481,7 @@ def _collaborator_item(collaborator):
 @api_resource('/video/<int:video_id>/collaborators')
 class VideoCollaboratorsResource(Resource):
 
-    @video_view()
+    @video_view(with_collaborator_permission=True)
     def get(self, video):
         query = VideoCollaborator.query.filter_by(video_id=video.id)
         items = map(_collaborator_item, query.all())

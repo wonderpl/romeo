@@ -402,7 +402,8 @@ class VideoCollaboratorTestCase(TestCase):
         # Check that collaborator can access video with token
         with current_app.test_client() as client:
             r = client.post('/api/validate_token', data=dict(token=token))
-            self.assertEquals(r.status_code, 204)
+            self.assertEquals(r.status_code, 200)
+            self.assertEquals(json.loads(r.data)['username'], 'test')
 
             r = client.get('/api/video/%d' % video.id)
             self.assertEquals(r.status_code, 200)

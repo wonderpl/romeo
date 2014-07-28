@@ -96,6 +96,7 @@ class UserProxy(UserMixin, CollaborationMixin):
 
 
 class CollaborationUser(UserMixin, CollaborationMixin):
+    id = None
     account_id = None
 
 

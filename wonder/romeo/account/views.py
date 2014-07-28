@@ -82,6 +82,8 @@ class TokenValidatorResource(Resource):
         if type(token) is dict and 'collaborator' in token:
             session['collaborator_ids'] = list(
                 set([token['collaborator']] + session.get('collaborator_ids', [])))
+            from wonder.romeo.video.views import collaborator_record
+            return collaborator_record(token['collaborator'])
 
         return None, 204
 

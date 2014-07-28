@@ -37,12 +37,12 @@ class BaseResource(Resource):
 
     def get(self):
         if current_user.is_authenticated():
-            return dict(
-                auth_status='logged_in',
-                user=dict(href=url_for('api.user', user_id=current_user.id)),
-                account=dict(href=url_for('api.account', account_id=current_user.account_id)),
-            )
+            status = dict(auth_status='logged_in')
+            if current_user.id and current_user.account_id:
+                status.update(
+                    user=dict(href=url_for('api.user', user_id=current_user.id)),
+                    account=dict(href=url_for('api.account', account_id=current_user.account_id)),
+                )
         else:
-            return dict(
-                auth_status='logged_out'
-            )
+            status = dict(auth_status='logged_out')
+        return status

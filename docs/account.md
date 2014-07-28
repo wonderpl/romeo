@@ -1,5 +1,5 @@
-Auth
-====
+Authentication
+==============
 
 ### Login
 
@@ -66,7 +66,28 @@ Content-Type: application/json
 }
 ```
 
-If the token is valid a `204` will be returned with an updated session cookie.
+If the token is a valid "collaborator" token then a `200` will be returned with
+the collaborator data and the session cookie will be updated to allow access to
+the specified video.
+
+```http
+HTTP/1.1 200 OK
+Set-Cookie: session=XXX
+Content-Type: application/json
+
+{
+ "username": "Paul Egan",
+ "avatar_url": "http://path/to/avatar/img.jpg",
+ "video": {
+  "href": "/api/video/28099975"
+ },
+ "permissions": [
+  "can_download"
+ ]
+}
+```
+
+For other valid tokens a `204` will be returned with an updated session cookie.
 
 ```http
 HTTP/1.1 204 NO CONTENT
