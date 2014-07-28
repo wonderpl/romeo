@@ -353,6 +353,14 @@ class VideoShareUrlResource(Resource):
         return dict(url=url), 302, {'Location': url}
 
 
+def _source_content_url(assetid):
+    streams = ooyala_request('assets', assetid, 'streams')
+    return next(s['url'] for s in streams if
+                s['stream_type'] == 'single' and
+                s['muxing_format'] == 'MP4' and
+                s['average_video_bitrate'] > 1200)
+
+
 @api_resource('/video/<int:video_id>/embed_code')
 class VideoEmbedCodeResource(Resource):
 
@@ -369,6 +377,9 @@ class VideoEmbedCodeResource(Resource):
 
         if request.args.get('style') == 'seo':
             template = 'video/embed_seo.html'
+            # One of content_url or flash_embed is needed for Google to generate
+            # search result thumbnails for a videos.
+            # content_url = _source_content_url(video.external_id)
         else:
             template = 'video/embed_simple.html'
 

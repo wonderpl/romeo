@@ -3,10 +3,33 @@
   <meta itemprop="name" content="{{ video.title }}" />
   <meta itemprop="duration" content="{{ video.duration }}" />{# TODO: ISO duration like "T3M25S" #}
   <meta itemprop="thumbnailUrl" content="{{ video.thumbnail }}" />
+  {% if content_url %}
+  <meta itemprop="contentURL" content="{{ content_url }}" />
+  {% endif %}
+  {% if flash_embed %}
   <meta itemprop="embedUrl" content="http://player.ooyala.com/player.swf?embedCode={{ video.external_id }}&keepEmbedCode=true" />
+  {% else %}
+  <meta itemprop="embedUrl" content="http://wonderpl.com/embed/{{ video.id }}/" />
+  {% endif %}
   {% if video.description %}
   <noscript itemprop="description">
     {{ video.description|safe }}
+  </noscript>
+  {% endif %}
+  {% if object_embed %}
+  <noscript>
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="{{ width }}" height="{{ height }}"
+            codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
+      <param name="movie" value="http://player.ooyala.com/player.swf?embedCode={{ video.external_id }}&keepEmbedCode=true" />
+      <param name="allowScriptAccess" value="always" />
+      <param name="allowFullScreen" value="true" />
+      <param name="flashvars" value="embedType=noscriptObjectTag&embedCode={{ video.external_id }}"/>
+      <embed type="application/x-shockwave-flash" width="{{ width }}" height="{{ height }}"
+             src="http://player.ooyala.com/player.swf?embedCode={{ video.external_id }}"
+             flashvars="&embedCode={{ video.external_id }}"
+             play="true" loop="false" allowscriptaccess="always" allowfullscreen="true">
+      </embed>
+    </object>
   </noscript>
   {% endif %}
 </div>
