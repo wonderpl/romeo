@@ -1,0 +1,64 @@
+/**
+ * _organise.video-thumb.scss
+ */
+.video-thumb-container {
+  display: block;
+  width: 218px;
+  height: 122px;
+  position: relative;
+  background-color: #000;
+  @extend .cf;
+  
+  &:hover .video-thumb-container__thumb {
+    opacity: 0.25;
+  }
+}
+
+.video-thumb-container__thumb {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top:    0;
+  right:  0;
+  bottom: 0;
+  left:   0;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: cover;
+  pointer-events: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.video-action-list {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top:    0;
+  left:   0;
+  bottom: 0;
+  right:  0;
+  
+  > li {
+    display: block;
+    width: 50%;
+    float: left;
+    text-align: center;
+    
+    &:nth-of-type(-n+3) {width: 33.3333%;}
+  }
+}
+
+.video-action-list__link {
+  display: block;
+  font-size: 0.75em;
+  line-height: 1.5;
+  font-family: $heading-font-family;
+  color: #fff;
+  border-bottom: none;
+  text-deocration: none;
+  
+  > .icon {
+    pointer-events: none;
+  }
+}
