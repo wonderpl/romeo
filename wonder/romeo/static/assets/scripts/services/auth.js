@@ -24,7 +24,6 @@ angular.module('RomeoApp.services').factory('AuthService',
                 'password': password
             }
         }).success(function (data) {
-            console.log('login response', data);
             return Auth.setSession(data.account);
         }).error(function () {
             // debugger;
@@ -44,9 +43,6 @@ angular.module('RomeoApp.services').factory('AuthService',
     * Second we check if we get a valid response when we try and communicated
     */
     Auth.loginCheck = function() {
-
-      console.log('loginCheck()');
-
       var deferred = new $q.defer();
       $timeout(function(){
           if ( loggedIn === true || isCollaborator === true ) {
@@ -71,11 +67,7 @@ angular.module('RomeoApp.services').factory('AuthService',
     };
 
     Auth.collaboratorCheck = function () {
-
-      console.log('collaboratorCheck()');
-
       var query = $location.search();
-      console.log(query);
       var token = query ? query.token : null;
       var dfd = new $q.defer();
       if (token) {
@@ -141,14 +133,11 @@ angular.module('RomeoApp.services').factory('AuthService',
     * Login collaborators for commenting on videos
     */
     Auth.loginAsCollaborator = function (token) {
-      console.log(token);
       return $http({
         method  : 'post',
         url     : '/api/validate_token',
         data    : { token : token }
       }).success(function (data) {
-        console.log('token valid');
-        console.log(data);
         loggedIn = true;
         isCollaborator = true;
         $rootScope.isCollaborator = true;

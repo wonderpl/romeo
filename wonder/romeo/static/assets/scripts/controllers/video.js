@@ -7,7 +7,6 @@ angular.module('RomeoApp.controllers')
     'use strict';
 
     function persistVideoData (data) {
-      console.log('persistVideoData()');
       angular.extend($scope.video, data);
     }
 
@@ -91,7 +90,6 @@ angular.module('RomeoApp.controllers')
       function(newValue, oldValue) {
         if (newValue !== '' && newValue !== oldValue) {
           CommentsService.getComments(newValue).then(function (data) {
-            console.log(data);
             $scope.comments = data.comment.items;
           });
         }
@@ -344,18 +342,17 @@ angular.module('RomeoApp.controllers')
 
       if ($scope.video && $scope.video.id) {
         var url = '/video/' + $scope.video.id + '/' + section;
-        console.log(url);
         $location.path(url, false);
       }
 
-      if (section === 'edit' && $scope.isOwner) {
-
-        $scope.isEdit = true;
-
-      } else if ($rootScope.isCollaborator) {
+      if ($rootScope.isCollaborator) {
 
         $scope.isReview = true;
         $scope.isComments = true;
+
+      } else if (section === 'edit') {
+
+        $scope.isEdit = true;
 
       } else if (section === 'comments') {
 
@@ -367,20 +364,6 @@ angular.module('RomeoApp.controllers')
       }
 
     };
-
-    // probably a better way of doing this
-    if ($location.path().indexOf('comments') > -1) {
-
-      $scope.displaySection('comments');
-
-    } else if ($location.path().indexOf('edit') > -1) {
-
-      $scope.displaySection('edit');
-
-    } else {
-
-      $scope.displaySection();
-    }
 
     TagService.getTags().then(function (data) {
 
@@ -413,9 +396,14 @@ angular.module('RomeoApp.controllers')
           $scope.playerParameters.hideLogo = data.hideLogo === 'True' ? true : false;
         });
 
-        VideoService.isOwner().then(function (data) {
+        VideoService.isOwner($scope.video.id).then(function (data) {
 
           $scope.isOwner = data.isOwner;
+
+          if (!$scope.isOwner && !$rootScope.isCollaborator) {
+            alert('not authorised');
+            $location.path('/');
+          }
 
         });
 
@@ -424,6 +412,20 @@ angular.module('RomeoApp.controllers')
     } else {
 
       $scope.displaySection('edit');
+    }
+
+    // probably a better way of doing this
+    if ($location.path().indexOf('comments') > -1) {
+
+      $scope.displaySection('comments');
+
+    } else if ($location.path().indexOf('edit') > -1) {
+
+      $scope.displaySection('edit');
+
+    } else {
+
+      $scope.displaySection();
     }
 
 }]);
