@@ -1,31 +1,22 @@
-from werkzeug import generate_password_hash
-from flask import current_app
+import sys
 from wonder.romeo import manager, db
-from wonder.romeo.core import dolly
 from wonder.romeo.core.db import commit_on_success
 from .models import Account, AccountUser
 from .views import get_dollyuser
+from .forms import register_user
 
 
 @manager.command
 def createuser(account, username, password='changeme'):
-    user = AccountUser(
-        username=username,
-        password_hash=generate_password_hash(password),
-    )
-    account = Account(name=account, users=[user])
-    db.session.add(account)
-    # need to commit here so that dolly can verify the account
     try:
-        db.session.commit()
+        register_user(account, username, password)
     except Exception as e:
-        current_app.logger.error(e.message)
-        return
-
-    dollydata = dolly.login(user.id)
-    account.dolly_user = dollydata['user_id']
-    account.dolly_token = dollydata['access_token']
-    db.session.commit()
+        if hasattr(e, 'response'):
+            print >>sys.stderr, 'Error from dolly: %s' % e.response.content[-200:]
+        else:
+            print >>sys.stderr, e.message
+    else:
+        db.session.commit()
 
 
 @manager.command

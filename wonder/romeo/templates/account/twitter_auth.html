@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <a href="{{ url_for('.twitter_auth_redirect') }}?callback=twitterAuth" target="_new" class="btn btn-lg btn-primary btn-block">Sign in with Twitter</a>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+function twitterAuth(result) {
+  console.log(result);
+  if (result.error) {
+    alert(result.error);
+  } else {
+    result.credentials['username'] = prompt('Please provide your email address (to be used as your username)');
+    $.ajax({
+      url: "{{ url_for('api.externallogin') }}",
+      type: "post",
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify(result.credentials),
+      dataType: "json"
+    })
+      .done(function (data) {
+        if (data.account) {
+          localStorage.setItem('ls.session_url', data.account.href);  // See setSession in auth.js
+          location.href = '/app#/profile';
+        } else {
+          alert(JSON.stringify(data));
+        }
+      })
+      .fail(function (response) {
+        alert(JSON.stringify(response.responseJSON) || 'Oops!');
+      });
+  }
+}
+</script>
+{% endblock %}

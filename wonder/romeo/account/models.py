@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, CHAR, event
-from sqlalchemy.orm import relationship
+from sqlalchemy import (
+    Column, Integer, String, Boolean, ForeignKey, DateTime, Enum, CHAR, event, func)
+from sqlalchemy.orm import relationship, backref
 from werkzeug.routing import RequestRedirect
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import url_for, flash, session
@@ -8,10 +9,15 @@ from wonder.romeo import db, login_manager
 from wonder.romeo.core.db import genid
 
 
+EXTERNAL_SYSTEMS = 'email', 'facebook', 'twitter', 'google', 'apns', 'dolly'
+EXTERNAL_SYSTEM_CHOICES = zip(EXTERNAL_SYSTEMS, map(str.capitalize, EXTERNAL_SYSTEMS))
+
+
 class Account(db.Model):
     __tablename__ = 'account'
 
     id = Column(Integer, primary_key=True)
+    date_added = Column(DateTime(), nullable=False, default=func.now())
     name = Column(String(128), nullable=False)
     dolly_user = Column(CHAR(22))
     dolly_token = Column(String(128))
@@ -21,18 +27,20 @@ class AccountUser(db.Model):
     __tablename__ = 'account_user'
 
     id = Column(Integer, primary_key=True)
+    date_added = Column(DateTime(), nullable=False, default=func.now())
     account_id = Column('account', ForeignKey(Account.id), nullable=False, index=True)
     username = Column(String(128), unique=True, nullable=False)
-    password_hash = Column(String(128), nullable=False)
+    password_hash = Column(String(128))
     active = Column(Boolean, nullable=False, default=True, server_default='true')
     display_name = Column(String(256))
     avatar_url = Column(String(256))
 
-    account = relationship(Account, backref='users')
+    account = relationship(Account, backref=backref('users', cascade='all, delete-orphan'))
 
     @classmethod
     def get_from_credentials(cls, username, password):
-        user = cls.query.filter_by(active=True, username=username).first()
+        user = cls.query.filter(
+            cls.active == True, func.lower(cls.username) == username.lower()).first()
         if user and user.check_password(password):
             return user
 
@@ -52,6 +60,22 @@ class AccountUser(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+
+class AccountUserAuthToken(db.Model):
+
+    __tablename__ = "account_user_auth_token"
+
+    id = Column(Integer, primary_key=True)
+    account_user_id = Column('account_user', ForeignKey(AccountUser.id), nullable=False)
+    external_system = Column(Enum(*EXTERNAL_SYSTEMS, name='external_system'), nullable=False)
+    external_uid = Column(String(1024), nullable=False)
+    external_token = Column(String(1024), nullable=False)
+    permissions = Column(String(1024), nullable=True)
+    meta = Column(String(1024), nullable=True)
+    expires = Column(DateTime(), nullable=True)
+
+    account_user = relationship(AccountUser, backref='auth_tokens')
 
 
 class CollaborationMixin(object):

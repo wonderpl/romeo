@@ -1,14 +1,23 @@
+import re
 from functools import wraps
+from urlparse import parse_qs
+from requests_oauthlib import OAuth1, requests
+import twitter
+from xml.etree import cElementTree as ElementTree
 from itsdangerous import URLSafeSerializer, BadSignature
 from flask import (Blueprint, current_app, request, render_template, url_for,
                    session, redirect, jsonify, abort)
 from flask.ext.login import login_user, logout_user, fresh_login_required, current_user
 from flask.ext.restful.reqparse import RequestParser
+from wonder.common.i18n import lazy_gettext as _
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.rest import Resource, api_resource
 from wonder.romeo.core.dolly import DollyUser
-from .forms import LoginForm, ChangePasswordForm
+from .forms import RegistrationForm, ExternalLoginForm, LoginForm, ChangePasswordForm
 from .models import UserProxy, AccountUser
+
+
+CALLBACK_JS_FUNCTION_RE = re.compile('^[\w.]+$')
 
 
 accountapp = Blueprint('account', __name__)
@@ -51,6 +60,78 @@ def verify():
         return jsonify(), 401
 
 
+@accountapp.route('/auth/twitter')
+def twitter_auth():
+    return render_template('account/twitter_auth.html')
+
+
+@accountapp.route('/auth/twitter_redirect')
+def twitter_auth_redirect():
+    callback_uri = url_for('.twitter_auth_callback', _external=True)
+    callback_function = request.args.get('callback', '')
+    if CALLBACK_JS_FUNCTION_RE.match(callback_function):
+        callback_uri += '?callback=' + callback_function
+
+    oauth = OAuth1(
+        current_app.config['TWITTER_CONSUMER_KEY'],
+        current_app.config['TWITTER_CONSUMER_SECRET'],
+        callback_uri=callback_uri,
+    )
+    response = requests.post(twitter.REQUEST_TOKEN_URL, auth=oauth)
+    token_data = parse_qs(response.content)
+    assert token_data['oauth_callback_confirmed'][0] == 'true'
+
+    # OK to store secret in session cookie??
+    session['twitter_req_token'] = token_data['oauth_token'][0]
+    session['twitter_req_secret'] = token_data['oauth_token_secret'][0]
+
+    url = twitter.SIGNIN_URL + '?oauth_token=' + token_data['oauth_token'][0]
+    return redirect(url)
+
+
+@accountapp.route('/auth/twitter_callback')
+def twitter_auth_callback():
+    callback_function = request.args.get('callback', '')
+    if not CALLBACK_JS_FUNCTION_RE.match(callback_function):
+        callback_function = 'console.log'
+    verifier = request.args.get('oauth_verifier')
+    token = request.args.get('oauth_token')
+    secret = session.pop('twitter_req_secret', None)
+
+    result = dict(error=None)
+    if verifier and secret and token == session.pop('twitter_req_token', 'none'):
+        oauth = OAuth1(
+            current_app.config['TWITTER_CONSUMER_KEY'],
+            current_app.config['TWITTER_CONSUMER_SECRET'],
+            token,
+            secret,
+            verifier=verifier,
+        )
+        response = requests.post(twitter.ACCESS_TOKEN_URL, auth=oauth)
+        if response.ok:
+            token_data = parse_qs(response.content)
+            token = token_data['oauth_token'][0] + ':' + token_data['oauth_token_secret'][0]
+            result['credentials'] = dict(
+                external_system='twitter',
+                external_token=token,
+                metadata=dict(screen_name=token_data['screen_name'][0]),
+            )
+        else:
+            try:
+                result['error'] =\
+                    ElementTree.fromstring(response.content).find('error').text
+            except SyntaxError:
+                result['error'] = _('Unknown')
+    else:
+        if request.args.get('denied'):
+            result['error'] = _('Access not granted')
+        else:
+            result['error'] = _('Invalid token')
+
+    return render_template('account/twitter_auth_callback.html',
+                           result=result, callback_function=callback_function)
+
+
 @api_resource('/validate_token')
 class TokenValidatorResource(Resource):
 
@@ -73,23 +154,38 @@ class TokenValidatorResource(Resource):
         return None, 204
 
 
-@api_resource('/login')
-class LoginResource(Resource):
+class BaseLoginResource(Resource):
 
     # disable login_required decorator
     decorators = []
 
+    @commit_on_success
     def post(self):
-        form = LoginForm(csrf_enabled=False)
-        if (form.validate_on_submit() and
-                login_user(UserProxy(form.user.id, form.user), form.remember.data)):
-            return dict(
-                user=UserResource().get(current_user.id),
-                account=AccountResource().get(current_user.account.id),
-            )
-        else:
-            logout_user()
-            return dict(error='invalid_request', form_errors=form.errors), 400
+        form = self.form_class(csrf_enabled=False)
+        if form.validate_on_submit():
+            user = form.save()
+            if login_user(UserProxy(user.id, user), form.remember.data):
+                return dict(
+                    user=UserResource().get(current_user.id),
+                    account=AccountResource().get(current_user.account.id),
+                )
+        logout_user()
+        return dict(error='invalid_request', form_errors=form.errors), 400
+
+
+@api_resource('/register')
+class RegisterResource(BaseLoginResource):
+    form_class = RegistrationForm
+
+
+@api_resource('/login')
+class LoginResource(BaseLoginResource):
+    form_class = LoginForm
+
+
+@api_resource('/login/external')
+class ExternalLoginResource(BaseLoginResource):
+    form_class = ExternalLoginForm
 
 
 @api_resource('/user/<int:user_id>')

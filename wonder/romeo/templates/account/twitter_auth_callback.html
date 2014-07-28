@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Wonder PL</title>
+    <script>
+      if (window.opener && window.opener.{{ callback_function }}) {
+        window.opener.{{ callback_function }}({{ result|tojson }});
+      }
+      window.close()
+    </script>
+  </head>
+</html>

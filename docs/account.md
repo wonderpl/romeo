@@ -48,7 +48,68 @@ Content-Type: application/json
 {
  "error": "invalid_request",
  "form_errors": {
-  "username": [ "mismatch" ]
+  "username": [ "The username or password you entered is incorrect." ]
+ }
+}
+```
+
+### Social Login/Registration
+
+To log in with an OAuth token from Twitter `POST` to `/api/login/external` with the
+token and the user's username/email address.
+
+```http
+POST /api/login/external HTTP/1.1
+Content-Type: application/json
+
+{
+ "external_system": "twitter",
+ "external_token": "xxx",
+ "username": "user@system.com"
+}
+```
+
+Property        | Required | Value                   | Description
+:-------------- | :------- | :---------------------- | :----------
+external_system | Yes      | `twitter`               | Specifies the social/oauth platform
+external_token  | Yes      | The OAuth access token  | For Twitter, combine the key & secret with a `:`
+username        | Yes      | Email address           | Email address used for login
+
+On success the response will be the same as a login response, containing account and
+user resource information.
+
+On error, the `form_errors` property will describe the issue:
+
+```http
+HTTP/1.1 400 BAD REQUEST
+Content-Type: application/json
+
+{
+ "error": "invalid_request",
+ "form_errors": {
+  "external_system": [ "Not a valid choice." ],
+  "external_token": [ "Invalid token." ],
+  "username": [ "Username already registered." ]
+ }
+}
+```
+
+#### OAuth Flow
+
+To retrieve a Twitter access token open a new browser window for the url
+`/auth/twitter_redirect?callback=<callback_function>`.  On completion of the
+Twitter OAuth flow `callback_function` will be called with a JSON object of
+the form:
+
+```json
+{
+ "error": null,
+ "credentials": {
+  "external_system": "twitter",
+  "external_token": "key:secret",
+  "metadata": {
+   "screen_name": "foo"
+  }
  }
 }
 ```

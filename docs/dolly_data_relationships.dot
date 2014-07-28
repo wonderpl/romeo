@@ -1,0 +1,31 @@
+digraph data {
+	label = "Relationship between Romeo & Dolly data models";
+	rankdir = LR;
+
+	node [shape=box,fixedsize=true,width=2];
+	edge [arrowsize=0.5];
+
+	subgraph cluster1 {
+		label = Dolly;
+		style = "dotted";
+		user -> channel -> video_instance -> video0 [constraint=false];
+		video0 [label = "video"];
+	}
+
+	subgraph cluster2 {
+		label = Romeo;
+		style = "dotted";
+		account -> video_tag -> video_tag_video -> video [constraint=false];
+		account:e -> video [constraint=false];
+		account -> account_user;
+		video -> collaborator;
+	}
+
+	{
+		edge [color=lightgrey];
+		user -> account;
+		channel -> video_tag;
+		video_instance -> video_tag_video;
+		video0 -> video;
+	}
+}
