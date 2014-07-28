@@ -68,6 +68,10 @@ GRAVATAR_SIZE = 60
 # Map Ooyala error messages to our own:
 VIDEO_ERROR_MESSAGES = {
     None: '',
+    'Unsupported format: Not a valid media file.': '''
+        Sorry, the file you tried to upload isn't a video file that is supported by Wonder.
+        Wonder supports H264 MP4 and Quicktime (.mov) video files.
+    ''',
     'Unsupported format: Unable to read the file': '''
         Sorry, the file you tried to upload isn't a video file that is supported by Wonder.
         Wonder supports H264 MP4 and Quicktime (.mov) video files.
