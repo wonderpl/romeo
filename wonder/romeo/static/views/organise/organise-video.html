@@ -19,14 +19,31 @@
 
   <span class="organise-video__title" ng-hide="isList" ng-bind="video.title"></span>
 
-  <section class="organise-video__controls-container"
+  <div class="video-thumb-container" ng-hide="isList">
+    <ul class="nav  nav--block  video-action-list">
+      <li class="video-action-list__item"><a href="" class="video-action-list__link" ng-href="#/video/{{video.id}}/edit"><i class="icon  icon--edit"></i><span class="t--block">Edit</span></a></li>
+      <li class="video-action-list__item"><a href="" class="video-action-list__link"><i class="icon  icon--eye"></i><span class="t--block">Review</span></a></li>
+      <li class="video-action-list__item"><a href="" class="video-action-list__link"><i class="icon  icon--bar-graph"></i><span class="t--block">Stats</span></a></li>
+      <li class="video-action-list__item"><a href="" class="video-action-list__link" ng-click="addRemove(video)"><i class="icon  icon--collection"></i><span class="t--block">Add / Remove</span></a></li>
+      <li class="video-action-list__item"><a href="" class="video-action-list__link" ng-click="delete(video)"><i class="icon  icon--trash"></i><span class="t--block">Delete</span></a></l>
+    </ul>
+    <ng-switch on="video.thumbnails.items[0].url.length">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="video-thumb-container__thumb" style="background-image: url('http://placehold.it/218x122')" ng-switch-when="0">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="video-thumb-container__thumb" style="background-image: url('{{ video.thumbnails.items[0].url }}')" ng-switch-default>
+    </ng-switch>
+  </div>
+
+  <!--<section class="organise-video__controls-container"
     ng-hide="isList"
     style="background-image: url('{{ video.thumbnails.items[0].url }}')">
     <div class="organise-video__overlay">
       <div class="organise-video__controls-mask"></div>
       <ul class="organise-video__controls">
         <li class="organise-video__control">
-          <a class="organise-video__link organise-video__link--edit" ng-href="#/video/{{video.id}}/edit">edit</a>
+          <a class="organise-video__link organise-video__link--edit" ng-href="#/video/{{video.id}}/edit">
+            <i class="icon  icon--edit"></i>
+            <span class="t--block  t--center">edit</span>
+          </a>
         </li>
         <li class="organise-video__control">
           <a class="organise-video__link organise-video__link--stats">stats</a>
@@ -39,6 +56,5 @@
         </li>
       </ul>
     </div>
-  </section>
-
+  </section>-->
 </section>
