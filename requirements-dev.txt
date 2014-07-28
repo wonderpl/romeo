@@ -1,4 +1,6 @@
+flake8 >= 2
 pytest >= 2.5
+mock >= 1
 fixture >= 1.5
 cssmin >= 0.2
 rjsmin >= 1.0

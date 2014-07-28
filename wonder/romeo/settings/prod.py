@@ -1,5 +1,11 @@
 import os
-execfile(os.environ['WONDER_SETTINGS'])
+
+_decrypt = lambda x: x
+try:
+    execfile(os.environ['WONDER_SETTINGS'])
+except (IOError, KeyError):
+    pass
+
 
 SECRET_KEY = _decrypt('.YFx\xa9\xedT\xb3\x039\xd6J\xe9\x00\xb6\xf2\xce\x15\xe9Wx0\xa9\xbaE\xd61\x86\xe4-\xc4\xfc\x82\x847&\x08\xb4\x13\xf2\xbf3<\x18h\x10\xd6*\x922\x14\xe0\xa5u{W\x91\xbb\xd9\x99~\xca\x18\x00')
 
