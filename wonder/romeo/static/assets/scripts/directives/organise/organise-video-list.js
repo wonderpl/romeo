@@ -1,9 +1,10 @@
-angular.module('RomeoApp.directives')
-  .directive('organiseVideoList', ['$templateCache',
-  function ($templateCache) {
 
+angular
+  .module('RomeoApp.directives')
+  .directive('organiseVideoList', ['$templateCache', OrganiseVideoList]);
+
+function OrganiseVideoList ($templateCache) {
   'use strict';
-
   return {
     restrict : 'E',
     replace : true,
@@ -13,9 +14,7 @@ angular.module('RomeoApp.directives')
       tag : '='
     },
     controller : function ($scope) {
-
       $scope.isList = false;
-
       function filterVideosByTagId (tagId) {
         var filteredVideos = [];
         var videos = $scope.videos || [];
@@ -32,13 +31,11 @@ angular.module('RomeoApp.directives')
         }
         return filteredVideos;
       }
-
       $scope.$watch('videos', function (newValue, oldValue) {
         if (newValue !== oldValue) {
           $scope.filteredVideos = $scope.tag ? filterVideosByTagId($scope.tag.id) : newValue;
         }
       });
-
       $scope.$watch('tag', function (newValue, oldValue) {
         if (newValue !== oldValue) {
           $scope.filteredVideos = newValue ? filterVideosByTagId(newValue.id) : $scope.videos;
@@ -46,4 +43,4 @@ angular.module('RomeoApp.directives')
       });
     }
   };
-}]);
+}

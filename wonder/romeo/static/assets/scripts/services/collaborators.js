@@ -9,7 +9,6 @@ angular.module('RomeoApp.services').factory('CollaboratorsService',
   'use strict';
 
   function addCollaborator (videoId, data) {
-
     var deferred = new $q.defer();
     AuthService.getSessionId().then(function(response){
       deferred.resolve(DataService.request({
@@ -22,13 +21,9 @@ angular.module('RomeoApp.services').factory('CollaboratorsService',
   }
 
   function getCollaborators (videoId) {
-    var deferred = new $q.defer();
-    AuthService.getSessionId().then(function(response){
-      deferred.resolve(DataService.request({
-        url: '/api/video/' + videoId + '/collaborators'
-      }));
+    return DataService.request({
+      url: '/api/video/' + videoId + '/collaborators'
     });
-    return deferred.promise;
   }
 
   return ({

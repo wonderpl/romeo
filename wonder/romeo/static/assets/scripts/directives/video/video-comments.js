@@ -32,7 +32,8 @@ angular.module('RomeoApp.directives')
       videoId : '@',
       currentTime : '=',
       comments : '=',
-      notified : '='
+      notified : '=',
+      isOwner: '='
     },
     controller : function ($scope) {
 
@@ -49,8 +50,6 @@ angular.module('RomeoApp.directives')
         return comment;
       }
 
-      $scope.isOwner = true;
-
       $scope.$watch(
         function() { return $rootScope.User; },
         function(newValue, oldValue) {
@@ -65,8 +64,6 @@ angular.module('RomeoApp.directives')
       function videoOnPaused (event, data) {
         $timeout(function () {
           $scope.inputActive = true;
-          // UX no-no
-          // window.scroll(0, $('.js-video-feedback-input').offset().top - 48);
         });
       }
 

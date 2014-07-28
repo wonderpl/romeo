@@ -1,8 +1,9 @@
+
 angular.module('RomeoApp.directives')
-  .directive('profileNavigation', ['$templateCache', function ($templateCache) {
+  .directive('profileNavigation', ['$templateCache', ProfileNavigationDirective]);
 
+function ProfileNavigationDirective ($templateCache) {
   'use strict';
-
   return {
     restrict : 'E',
     replace : true,
@@ -11,21 +12,15 @@ angular.module('RomeoApp.directives')
       isEdit : '='
     },
     controller : function ($scope) {
-
       $scope.save = function () {
         $scope.$emit('profile-save');
       };
-
       $scope.cancel = function () {
         $scope.$emit('profile-cancel');
       };
-
     },
-
     link : function (scope, elem, attr) {
-
       var stickyClass = 'sub-navigation--sticky';
-
       $(window).scroll(function(e) {
         if (e.currentTarget.scrollY > 43) {
           elem.addClass(stickyClass);
@@ -35,4 +30,4 @@ angular.module('RomeoApp.directives')
       });
     }
   };
-}]);
+}

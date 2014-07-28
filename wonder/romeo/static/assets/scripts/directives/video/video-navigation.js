@@ -8,9 +8,13 @@ angular.module('RomeoApp.directives')
     replace : true,
     template : $templateCache.get('video-navigation.html'),
     scope : {
-      isEdit : '='
+      isEdit : '=',
+      isOwner : '='
     },
     controller : function ($scope) {
+
+
+      // $scope.isCollaborator = $root.isCollaborator;
 
       $scope.save = function () {
         $rootScope.$emit('video-save');

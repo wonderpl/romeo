@@ -9,7 +9,8 @@ angular.module('RomeoApp.services').factory('AuthService',
 
     var Auth = {},
         session = null,
-        loggedIn = false;
+        loggedIn = false,
+        isCollaborator = false;
 
     /*
     * POSTS the users login credentials to the server.  If successful, we add the session url to local storage.
@@ -43,35 +44,57 @@ angular.module('RomeoApp.services').factory('AuthService',
     * Second we check if we get a valid response when we try and communicated
     */
     Auth.loginCheck = function() {
-        var deferred = new $q.defer();
-        $timeout(function(){
-            if ( loggedIn === true ) {
+
+      console.log('loginCheck()');
+
+      var deferred = new $q.defer();
+      $timeout(function(){
+          if ( loggedIn === true || isCollaborator === true ) {
+            deferred.resolve();
+          } else {
+            Auth.getSession().then(function(response){
+              $http({method: 'GET', url: (response.href || response) }).then(function(response){
+                loggedIn = true;
+                $rootScope.isLoggedIn = true;
                 deferred.resolve();
-            } else {
-                Auth.getSession().then(function(response){
-                    $http({method: 'GET', url: (response.href || response) }).then(function(response){
-                        loggedIn = true;
-                        $rootScope.isLoggedIn = true;
-                        deferred.resolve();
-                    }, function(response){
-                        loggedIn = false;
-                        $rootScope.isLoggedIn = false;
-                        deferred.reject('not logged in');
-                    });
-                }, function(){
-                    deferred.reject('not logged in');
-                });
-            }
-        });
-        return deferred.promise;
+              }, function(response){
+                $rootScope.isLoggedIn = false;
+                loggedIn = false;
+                deferred.reject('not logged in');
+              });
+            }, function(){
+                deferred.reject('not logged in');
+            });
+          }
+      });
+      return deferred.promise;
+    };
+
+    Auth.collaboratorCheck = function () {
+
+      console.log('collaboratorCheck()');
+
+      var query = $location.search();
+      console.log(query);
+      var token = query ? query.token : null;
+      var dfd = new $q.defer();
+      if (token) {
+        Auth.loginAsCollaborator(token).then(dfd.resolve, dfd.reject);
+      } else {
+        dfd.reject();
+      }
+      return dfd.promise;
     };
 
     /*
     * Adds the session url to local storage
     */
     Auth.setSession = function(sessionData) {
-        localStorageService.add('session_url', sessionData.href);
-        session = sessionData.href;
+        var session = null;
+        if (sessionData) {
+          localStorageService.add('session_url', sessionData.href);
+          session = sessionData.href;
+        }
         return session;
     };
 
@@ -118,14 +141,23 @@ angular.module('RomeoApp.services').factory('AuthService',
     * Login collaborators for commenting on videos
     */
     Auth.loginAsCollaborator = function (token) {
-      console.log('loginAsCollaborator()');
-        var deferred = new $q.defer();
-        Auth.getSession().then(function(response){
-            deferred.resolve(response.match(/api\/account\/(\d+)/)[1]);
-        }, function(response){
-            deferred.reject('not logged in');
-        });
-        return deferred.promise;
+      console.log(token);
+      return $http({
+        method  : 'post',
+        url     : '/api/validate_token',
+        data    : { token : token }
+      }).success(function (data) {
+        console.log('token valid');
+        console.log(data);
+        loggedIn = true;
+        isCollaborator = true;
+        $rootScope.isCollaborator = true;
+        return Auth.setSession(data);
+      }).error(function () {
+        alert('token invalid');
+        $rootScope.isCollaborator = false;
+        isCollaborator = false;
+      });
     };
 
     return {
@@ -133,6 +165,7 @@ angular.module('RomeoApp.services').factory('AuthService',
         loginAsCollaborator: Auth.loginAsCollaborator,
         isLoggedIn: Auth.isLoggedIn,
         loginCheck: Auth.loginCheck,
+        collaboratorCheck: Auth.collaboratorCheck,
         setSession: Auth.setSession,
         getSession: Auth.getSession,
         getSessionId: Auth.getSessionId,

@@ -8,7 +8,7 @@ angular.module('RomeoApp.directives')
     replace : true,
     template : $templateCache.get('add-collaborator.html'),
     scope : {
-      videoId : '@',
+      video : '=',
       showCollaborator : '='
     },
     controller : function ($scope) {
@@ -21,8 +21,7 @@ angular.module('RomeoApp.directives')
       };
 
       $scope.add = function () {
-
-        CollaboratorsService.addCollaborator($scope.videoId, $scope.collaborator).then(function() {},
+        CollaboratorsService.addCollaborator($scope.video.id, $scope.collaborator).then(function() {},
         function (response) {
           console.log(response);
           console.log(response.error);

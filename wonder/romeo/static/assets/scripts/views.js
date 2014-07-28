@@ -1035,25 +1035,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('page-header.html',
-    "<header class=\"page-header\">\n" +
+    "<header class=\"page-header cf\">\n" +
     "  <h1 class=\"page-header__logo\">\n" +
-    "    <a class=\"page-header__logo-link hide-text\" href=\"/#/\">WonderPl</a>\n" +
+    "    <ng-switch on=\"$root.isCollaborator\">\n" +
+    "      <a class=\"page-header__logo-link hide-text\" ng-switch-when=\"true\">WonderPl</a>\n" +
+    "      <a class=\"page-header__logo-link hide-text\" href=\"/#/\" ng-switch-default=\"\">WonderPl</a>\n" +
+    "    </ng-switch>\n" +
     "  </h1>\n" +
-    "    <!-- <a href=\"/#/library\" class=\"manage wp-button\">Manage</a> -->\n" +
-    "    <!-- <a href=\"/#/\" id=\"wonder\"></a> -->\n" +
-    "    <!-- <span ng-if=\"isLoggedIn\"> -->\n" +
-    "        <!--<a class=\"delete wp-button\">Delete</a>-->\n" +
-    "        <!-- <a class=\"save-draft wp-button\" ng-click=\"save()\">Save Draft</a> -->\n" +
-    "        <!--<a class=\"quick-share wp-button\" ng-click=\"toggleQuickShare()\">Quick Share</a>-->\n" +
-    "        <!--<a class=\"publish wp-button\">Publish</a>-->\n" +
-    "        <!-- <a class=\"save-upload wp-button call-to-action\" ng-click=\"save()\" ng-show=\"isCurrentPage('/upload')\">Save</a> -->\n" +
-    "        <!-- <a href=\"/#/manage\" class=\"manage wp-button\">Manage</a> -->\n" +
-    "        <!-- <a href=\"/#/upload\" class=\"upload wp-button\">Upload</a> -->\n" +
-    "        <!-- <a href=\"/#/account\" class=\"avatar\" style=\"background-image: url((~ User.avatar ~));\"></a> -->\n" +
-    "    <!-- </span> -->\n" +
-    "    <!-- <span ng-if=\"!isLoggedIn\"> -->\n" +
-    "        <!-- <a class=\"login wp-button\">Login</a> -->\n" +
-    "    <!-- </span> -->\n" +
     "\n" +
     "  <upload-progress upload=\"upload\" ng-if=\"isLoggedIn\"></upload-progress>\n" +
     "\n" +
@@ -1116,7 +1104,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<section class=\"sub-navigation sub-navigation__placeholder\">\n" +
     "    <div class=\"sub-navigation__control\">\n" +
     "      <ul class=\"sub-navigation__modes\">\n" +
-    "        <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\"> <!-- ng-show=\"video.status=='published'\" -->\n" +
+    "        <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\">\n" +
     "          <a class=\"sub-navigation__link btn  btn--utility\" ng-click=\"isEdit = true\">edit</a>\n" +
     "        </li>\n" +
     "        <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
@@ -1540,6 +1528,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      -\n" +
     "    </span>-->\n" +
     "    <add-collaborator class=\"video-extended-controls__section-contents\"\n" +
+    "      video=\"video\"\n" +
     "      show-collaborator=\"addCollaboratorShow\">\n" +
     "    </add-collaborator>\n" +
     "  </section>\n" +
@@ -1672,6 +1661,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('video-navigation.html',
     "<section class=\"sub-navigation video-view-control-panel\">\n" +
+    "  <p>(~ isCollaborator ~)</p>\n" +
     "  <ul class=\"sub-navigation__modes\">\n" +
     "    <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
     "      <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"save()\">\n" +
@@ -1685,7 +1675,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        Cancel\n" +
     "      </a>\n" +
     "    </li>\n" +
-    "    <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\"> <!-- ng-show=\"video.status=='published'\" -->\n" +
+    "    <li class=\"sub-navigation__mode\" ng-hide=\"isEdit || !isOwner\"> <!-- ng-show=\"video.status=='published'\" -->\n" +
     "      <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"displaySection('edit')\">\n" +
     "        <i class=\"icon  icon--edit  icon-text__icon\"></i>\n" +
     "        Edit Video\n" +
@@ -1810,11 +1800,11 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "<div ng-controller=\"VideoCtrl\">\n" +
     "\n" +
-    "  <div class=\"video-view__nav-placeholder\">\n" +
-    "    <video-navigation is-edit=\"isEdit\"></video-navigation>\n" +
+    "  <div class=\"video-view__nav-placeholder\" ng-hide=\"$root.isCollaborator\">\n" +
+    "    <video-navigation is-edit=\"isEdit\" is-owner=\"isOwner\"></video-navigation>\n" +
     "  </div>\n" +
     "\n" +
-    "  <section ng-cloak class=\"main-view video-view\">\n" +
+    "  <section class=\"main-view video-view\">\n" +
     "\n" +
     "    <h2 class=\"video-view__title\"\n" +
     "      data-placeholder=\"(~ titlePlaceholder ~)\"\n" +
@@ -1835,7 +1825,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <h3 class=\"video-view__sub-title\" ng-hide=\"isEdit\" ng-bind-html=\"video.strapline\"></h2>\n" +
     "\n" +
     "    <div class=\"video-view__container\">\n" +
-    "      <video-upload ng-show=\"showUpload && isEdit\"></video-upload>\n" +
+    "      <video-upload ng-show=\"showUpload && isEdit\" ng-cloak></video-upload>\n" +
     "      <video-player ng-show=\"hasProcessed\" embed-url=\"embedUrl\"></video-player>\n" +
     "      <video-edit ng-show=\"showVideoEdit && isEdit\"></video-edit>\n" +
     "      <video-color-picker player-parameters=\"playerParameters\" video-id=\"(~ video.id ~)\" ng-show=\"showColorPicker && isEdit\"></video-color-picker>\n" +
@@ -1873,11 +1863,11 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <video-extended-controls ng-show=\"isEdit\"></video-extended-controls>\n" +
     "\n" +
-    "    <section class=\"video-view__comments\" ng-show=\"video.id && isComments\"><!-- video.status === 'published'\" -->\n" +
+    "    <section class=\"video-view__comments\" ng-show=\"video.id && isComments && video.status === 'published'\">\n" +
     "      <div class=\"video-view__comments-section--left\">\n" +
     "        <video-indicators comments=\"comments\" current-time=\"videoCurrentTime\" total-time=\"videoTotalTime\"></video-indicators>\n" +
     "        <video-frame-stepper current-time=\"videoCurrentTime\"></video-frame-stepper>\n" +
-    "        <video-comments notified=\"notified\" comments=\"comments\" video-id=\"(~ video.id ~)\" current-time=\"videoCurrentTime\"></video-comments>\n" +
+    "        <video-comments notified=\"notified\" is-owner=\"isOwner\" comments=\"comments\" video-id=\"(~ video.id ~)\" current-time=\"videoCurrentTime\"></video-comments>\n" +
     "      </div>\n" +
     "      <div class=\"video-view__comments-section--right\">\n" +
     "        <video-collaborators notified=\"notified\" ng-show=\"video.id && isComments\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
