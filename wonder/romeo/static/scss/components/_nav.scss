@@ -1,0 +1,90 @@
+/**
+ * _objects.nav.scss
+ */
+.nav {
+  list-style: none;
+  margin-left: 0;
+  @extend .cf;
+
+  > li {
+
+    &,
+    > a {
+      display: inline-block;
+    }
+  }
+}
+
+.nav--stacked {
+  
+  > li {
+    display: list-item;
+
+    > a {
+      display: block;
+    }
+  }
+}
+
+.nav--banner { text-align: center; }
+
+.nav--block {
+  overflow: hidden;
+  line-height: 1;
+  /**
+   * Remove whitespace caused by `inline-block`.
+   */
+  font-family: nospace;
+  white-space: nowrap;
+
+  > li {
+   font-family: $base-font-family;
+
+    > a {
+     padding: $half-spacing-unit;
+    }
+  }
+}
+
+.nav--fit {
+  display: table;
+  width: 100%;
+
+  > li {
+   display: table-cell;
+
+    > a {
+     display: block;
+    }
+  }
+}
+
+.nav--keywords {
+
+  > li {
+
+    &:after {
+      content: "\002C" "\00A0";
+    }
+    &:last-child:after {
+      display:none;
+    }
+
+    &[data-ornament]:after {
+      content: "attr(data-ornament)";
+    }
+    &[data-ornament]:last-child:after {
+      display: none;
+    }
+  }
+}
+
+.nav--spaced {
+
+  > li {
+
+    & + & {
+      margin-top: $base-spacing-unit;
+    }
+  }
+}
