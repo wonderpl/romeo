@@ -22,8 +22,10 @@ def _request(path, method='get', jsondata=None, token=None, **kwargs):
     if jsondata is not None:
         kwargs['data'] = json.dumps(jsondata)
         headers['Content-Type'] = 'application/json'
-    base = current_app.config['DOLLY_WS_SECURE_BASE' if 'Authorization' in headers
-                              else 'DOLLY_WS_BASE']
+    if method.lower() != 'get' or 'Authorization' in headers:
+        base = current_app.config['DOLLY_WS_SECURE_BASE']
+    else:
+        base = current_app.config['DOLLY_WS_BASE']
     response = requests.request(method, urljoin(base, path), **kwargs)
     response.raise_for_status()
     response.cache_max_age = _parse_cache_header(response)
