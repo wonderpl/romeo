@@ -7861,18 +7861,19 @@ strong {
   padding-bottom: 56.25%;
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center top;
   border: solid 1px transparent;
   position: relative;
 }
 
-/* line 15, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 16, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover--edit:hover {
   cursor: pointer;
   border: solid 1px #51b364;
   opacity: 0.6;
 }
 
-/* line 21, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 22, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__dropzone {
   position: absolute;
   top: 0;
@@ -7883,17 +7884,17 @@ strong {
   opacity: 0.6;
 }
 
-/* line 31, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 32, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__dropzone:hover {
   cursor: pointer;
 }
 
-/* line 35, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 36, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__dropzone--active {
   border: solid 1px #51b364;
 }
 
-/* line 39, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 40, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__upload {
   display: none;
 }

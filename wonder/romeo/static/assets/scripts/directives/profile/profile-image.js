@@ -14,8 +14,8 @@ function ProfileImageDirective ($templateCache) {
       isEdit : '='
     },
     controller : function ($scope) {
-      $scope.uploadProfileImage = function () {
-        $scope.$emit('upload-profile-image');
+      $scope.uploadProfileImage = function (files) {
+        $scope.$emit('upload-profile-image', files[0]);
       };
     }
   };

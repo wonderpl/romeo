@@ -1115,6 +1115,18 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('profile-video-hero.html',
+    "<section class=\"profile-video-hero\">\n" +
+    "\n" +
+    "  <profile-cover image=\"video.owner.profile_cover\"></profile-cover>\n" +
+    "  <profile-image image=\"video.owner.avatar\"></profile-image>\n" +
+    "\n" +
+    "  <span ng-bind=\"video.owner.display_name\">Bob</span>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
   $templateCache.put('profile.html',
     "<section class=\"profile\" ng-controller=\"ProfileCtrl\">\n" +
     "\n" +
@@ -1802,6 +1814,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <section class=\"main-view video-view\">\n" +
     "\n" +
+    "    <profile-video-hero ng-show=\"isCollaborator\"></profile-video-hero>\n" +
+    "\n" +
     "    <h2 class=\"video-view__title\"\n" +
     "      data-placeholder=\"(~ titlePlaceholder ~)\"\n" +
     "      medium-editor\n" +
@@ -1859,7 +1873,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <video-extended-controls ng-show=\"isEdit\"></video-extended-controls>\n" +
     "\n" +
-    "    <section class=\"video-view__comments\" ng-show=\"video.id && isComments\">\n" +
+    "    <section class=\"video-view__comments\" ng-show=\"video.id && isComments || $root.isCollaborator\">\n" +
     "      <div class=\"video-view__comments-section--left\">\n" +
     "        <video-indicators comments=\"comments\" current-time=\"videoCurrentTime\" total-time=\"videoTotalTime\"></video-indicators>\n" +
     "        <video-frame-stepper current-time=\"videoCurrentTime\"></video-frame-stepper>\n" +

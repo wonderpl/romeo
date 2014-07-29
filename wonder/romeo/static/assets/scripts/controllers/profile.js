@@ -1,6 +1,6 @@
 angular.module('RomeoApp.controllers')
-  .controller('ProfileCtrl', ['$scope', 'AccountService', 'UploadService',
-  function($scope, AccountService, UploadService) {
+  .controller('ProfileCtrl', ['$scope', 'AccountService', 'UploadService', '$timeout',
+  function($scope, AccountService, UploadService, $timeout) {
 
   'use strict';
 
@@ -37,7 +37,9 @@ angular.module('RomeoApp.controllers')
     console.log(file);
     AccountService.updateAvatar(file).then(function (data) {
       console.log(data);
-      $scope.profile = data;
+      $timeout(function () {
+        $scope.profile = data;
+      });
     });
   }
 
@@ -45,16 +47,16 @@ angular.module('RomeoApp.controllers')
     console.log('uploadProfileCover()');
     console.log(file);
     AccountService.updateCoverImage(file).then(function (data) {
-      console.log(data);
-      $scope.profile = data;
+      $scope.profile = JSON.parse(data);
     });
   }
 
   function save () {
-    AccountService.updateUser({
+    var data = {
       display_name  : $scope.profile.display_name,
       description   : $scope.profile.description
-    }).then(function () {
+    };
+    AccountService.updateUser(data).then(function () {
       $scope.isEdit = false;
     });
   }
