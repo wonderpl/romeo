@@ -359,48 +359,6 @@ function VideoCtrl ($rootScope, $scope, $location, $upload, UploadService, $rout
     });
   }
 
-<<<<<<< HEAD
-    initialiseNewScope();
-
-    if ($routeParams.id) {
-
-      // load video
-
-      VideoService.get($routeParams.id).then(function (data) {
-
-        angular.extend($scope.video, data);
-
-        $scope.hasProcessed = (($scope.video.status === 'ready') || ($scope.video.status === 'published'));
-        $scope.showUpload = ($scope.video.status === 'uploading');
-
-        if (($scope.video.status === 'ready') || ($scope.video.status === 'published')) {
-          $scope.loadVideo($scope.video.id);
-        }
-
-        $scope.showVideoEdit = (($scope.video.status === 'ready') || ($scope.video.status === 'published'));
-
-        VideoService.getPlayerParameters($scope.video.id).then(function (data) {
-
-          $scope.playerParameters = {};
-          $scope.playerParameters.rgb = data.rgb ? JSON.parse(data.rgb) : null;
-          $scope.playerParameters.hideLogo = data.hideLogo === 'True' ? true : false;
-        });
-
-        VideoService.isOwner($scope.video.id).then(function (data) {
-
-          $scope.isOwner = data.isOwner;
-
-          if (!$scope.isOwner && !$rootScope.isCollaborator) {
-            alert('not authorised');
-            $location.path('/');
-          }
-
-        });
-
-      });
-
-    } else {
-=======
   if ($location.path().indexOf('comments') > -1) {
     $scope.displaySection('comments');
   } else if ($location.path().indexOf('edit') > -1) {
@@ -408,7 +366,6 @@ function VideoCtrl ($rootScope, $scope, $location, $upload, UploadService, $rout
   } else {
     $scope.displaySection();
   }
->>>>>>> collaborators
 
   if ($routeParams.id) {
     getVideo($routeParams.id);
@@ -416,22 +373,4 @@ function VideoCtrl ($rootScope, $scope, $location, $upload, UploadService, $rout
     $scope.displaySection('edit');
   }
 
-<<<<<<< HEAD
-    // probably a better way of doing this
-    if ($location.path().indexOf('comments') > -1) {
-
-      $scope.displaySection('comments');
-
-    } else if ($location.path().indexOf('edit') > -1) {
-
-      $scope.displaySection('edit');
-
-    } else {
-
-      $scope.displaySection();
-    }
-
-}]);
-=======
 }
->>>>>>> collaborators
