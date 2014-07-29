@@ -124,20 +124,24 @@ def _update_users(account_id, **kwargs):
     AccountUser.query.filter_by(account_id=account_id, **args_are_null).update(kwargs)
 
 
+def account_item(account, dollyuser):
+    userdata = dollyuser.get_userdata()
+    return dict(
+        href=url_for('api.account', account_id=account.id),
+        name=account.name,
+        display_name=userdata['display_name'],
+        description=userdata['description'],
+        avatar=userdata['avatar_thumbnail_url'],
+        profile_cover=userdata['profile_cover_url'],
+    )
+
+
 @api_resource('/account/<int:account_id>')
 class AccountResource(Resource):
 
     @dolly_account_view
     def get(self, account, dollyuser):
-        userdata = dollyuser.get_userdata()
-        return dict(
-            href=url_for('api.account', account_id=account.id),
-            name=account.name,
-            display_name=userdata['display_name'],
-            description=userdata['description'],
-            avatar=userdata['avatar_thumbnail_url'],
-            profile_cover=userdata['profile_cover_url'],
-        )
+        return account_item(account, dollyuser)
 
     account_parser = RequestParser()
     account_parser.add_argument('display_name', dest='set_display_name')

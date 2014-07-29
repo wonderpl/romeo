@@ -405,8 +405,16 @@ class VideoCollaboratorTestCase(TestCase):
             self.assertEquals(r.status_code, 200)
             self.assertEquals(json.loads(r.data)['username'], 'test')
 
-            r = client.get('/api/video/%d' % video.id)
-            self.assertEquals(r.status_code, 200)
+            with patch('wonder.romeo.core.dolly.DollyUser.get_userdata') as get_userdata:
+                get_userdata.return_value = dict(
+                    display_name='test',
+                    description='',
+                    avatar_thumbnail_url='',
+                    profile_cover_url='',
+                )
+                r = client.get('/api/video/%d' % video.id)
+                self.assertEquals(r.status_code, 200)
+                self.assertEquals(json.loads(r.data)['account']['display_name'], 'test')
 
         # Same request for anonymous should fail
         with current_app.test_client() as client:

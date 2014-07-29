@@ -230,6 +230,14 @@ Content-Type: application/json
  "link_url": "http://x.com",
  "link_title": "test",
  "player_logo_url": "http://path/to/logo/img",
+ "account": {
+  "href": "/api/account/14511293",
+  "name": "account",
+  "display_name": "account name",
+  "description": "account description.",
+  "avatar": "http://path/to/avatar/img.jpg",
+  "profile_cover": "http://path/to/profile/cover/img.jpg"
+ },
  "thumbnails": {
   "items": [
    {

@@ -10,7 +10,7 @@ from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.s3 import s3connection, video_bucket
 from wonder.romeo.core.ooyala import ooyala_request, get_video_data
 from wonder.romeo.core.util import gravatar_url
-from wonder.romeo.account.views import dolly_account_view, get_dollyuser
+from wonder.romeo.account.views import dolly_account_view, get_dollyuser, account_item
 from .models import (Video, VideoTag, VideoTagVideo, VideoThumbnail,
                      VideoPlayerParameter, VideoComment, VideoCollaborator)
 from .forms import (VideoTagForm, VideoForm, VideoCommentForm, VideoCollaboratorForm,
@@ -214,7 +214,7 @@ class PublicVideoResource(Resource):
         return video.get_dolly_data()
 
 
-def _video_item(video, full=False):
+def _video_item(video, full=False, with_account=False):
     fields = ('id', 'href', 'status', 'date_added', 'date_updated', 'title')
     if full:
         fields += ('strapline', 'description', 'category', 'link_url', 'link_title', 'duration')
@@ -227,6 +227,9 @@ def _video_item(video, full=False):
 
     if full:
         data['player_logo_url'] = video.get_player_logo_url()
+
+    if with_account:
+        data['account'] = account_item(video.account, get_dollyuser(video.account))
 
     thumbnails = sorted(video.thumbnails, key=lambda t: t.width, reverse=True)
     data['thumbnails'] = dict(
@@ -267,7 +270,7 @@ class VideoResource(Resource):
 
     @video_view(with_collaborator_permission=True)
     def get(self, video):
-        return _video_item(video, full=True)
+        return _video_item(video, full=True, with_account=True)
 
     @commit_on_success
     @video_view()
