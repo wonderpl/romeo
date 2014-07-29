@@ -10,10 +10,7 @@ function ProfileVideoHeroDirective ($templateCache, UploadService) {
     replace : true,
     template : $templateCache.get('profile-video-hero.html'),
     scope : {
-
-    },
-    controller : function ($scope) {
-
+      account : '='
     }
   };
 }

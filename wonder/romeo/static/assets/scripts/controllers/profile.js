@@ -17,7 +17,6 @@ angular.module('RomeoApp.controllers')
 
   function loadUserDetails () {
     AccountService.getUser().then(function (data) {
-      console.log(data);
       $scope.profile = data;
     });
   }
@@ -65,8 +64,6 @@ angular.module('RomeoApp.controllers')
     $scope.isEdit = false;
     loadUserDetails();
   }
-
-
 
 }]);
 

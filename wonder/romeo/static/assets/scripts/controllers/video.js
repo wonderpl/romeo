@@ -2,9 +2,9 @@ angular.module('fileUpload', [ 'angularFileUpload' ]);
 
 angular
   .module('RomeoApp.controllers')
-  .controller('VideoCtrl', ['$rootScope', '$scope', '$location', '$upload', 'UploadService', '$routeParams', 'VideoService', '$sce', 'TagService', 'CommentsService', '$timeout', VideoCtrl]);
+  .controller('VideoCtrl', ['$rootScope', '$scope', '$location', '$upload', 'UploadService', '$routeParams', 'VideoService', '$sce', 'TagService', 'CommentsService', '$timeout', 'AccountService', VideoCtrl]);
 
-function VideoCtrl ($rootScope, $scope, $location, $upload, UploadService, $routeParams, VideoService, $sce, TagService, CommentsService, $timeout) {
+function VideoCtrl ($rootScope, $scope, $location, $upload, UploadService, $routeParams, VideoService, $sce, TagService, CommentsService, $timeout, AccountService) {
 
   'use strict';
 
@@ -347,6 +347,7 @@ function VideoCtrl ($rootScope, $scope, $location, $upload, UploadService, $rout
       assignStatus($scope.video.status);
       getPlayerParameters($scope.video.id);
       verifyUser($scope.video.id);
+      assignCollaboratorPermissions();
     });
   }
 
@@ -362,6 +363,23 @@ function VideoCtrl ($rootScope, $scope, $location, $upload, UploadService, $rout
     getVideo($routeParams.id);
   } else {
     $scope.displaySection('edit');
+  }
+
+  function assignCollaboratorPermissions () {
+    if ($rootScope.User && $rootScope.isCollaborator) {
+      var permissions = $rootScope.User.permissions;
+      var l = permissions.length;
+      while (l--) {
+        switch (permissions[l]) {
+          case 'can_comment':
+            $scope.canComment = true;
+          break;
+          case 'can_download':
+            $scope.canDownload = true;
+          break;
+        }
+      }
+    }
   }
 
 }

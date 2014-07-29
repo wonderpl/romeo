@@ -141,6 +141,7 @@ angular.module('RomeoApp.services').factory('AuthService',
         loggedIn = true;
         isCollaborator = true;
         $rootScope.isCollaborator = true;
+        $rootScope.User = data;
         return Auth.setSession(data);
       }).error(function () {
         alert('token invalid');

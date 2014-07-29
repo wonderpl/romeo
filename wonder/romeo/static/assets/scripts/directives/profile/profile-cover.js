@@ -11,7 +11,8 @@ function ProfileCoverDirective ($templateCache, UploadService) {
     template : $templateCache.get('profile-cover.html'),
     scope : {
       image: '=',
-      isEdit : '='
+      isEdit : '=',
+      isHero : '='
     },
     controller : function ($scope) {
       $scope.uploadProfileCover = function (files) {

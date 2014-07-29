@@ -6426,17 +6426,23 @@ strong {
 }
 
 /* line 23, ../../scss/specifics/video/_video-view.scss */
+.video-view__download {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+/* line 28, ../../scss/specifics/video/_video-view.scss */
 .video-view__edit {
   display: none;
   position: relative;
 }
 
-/* line 28, ../../scss/specifics/video/_video-view.scss */
+/* line 33, ../../scss/specifics/video/_video-view.scss */
 .video-view__edit--active {
   display: block;
 }
 
-/* line 32, ../../scss/specifics/video/_video-view.scss */
+/* line 37, ../../scss/specifics/video/_video-view.scss */
 .video-view__container {
   position: relative;
   width: 100%;
@@ -6444,26 +6450,26 @@ strong {
   margin-bottom: 48px;
 }
 
-/* line 39, ../../scss/specifics/video/_video-view.scss */
+/* line 44, ../../scss/specifics/video/_video-view.scss */
 .video-view__save-controls {
   margin-bottom: 24px;
   text-align: center;
 }
 
-/* line 44, ../../scss/specifics/video/_video-view.scss */
+/* line 49, ../../scss/specifics/video/_video-view.scss */
 .video-view__description {
   width: 600px;
   margin: 0 auto;
   overflow: auto;
 }
 
-/* line 50, ../../scss/specifics/video/_video-view.scss */
+/* line 55, ../../scss/specifics/video/_video-view.scss */
 .video-view__description--edit {
   border-bottom: solid 1px #999999;
   min-height: 10em;
 }
 
-/* line 55, ../../scss/specifics/video/_video-view.scss */
+/* line 60, ../../scss/specifics/video/_video-view.scss */
 .video-view__nav-placeholder {
   display: block;
   height: 52px;
@@ -7874,6 +7880,11 @@ strong {
 }
 
 /* line 22, ../../scss/specifics/profile/_profile-cover.scss */
+.profile-cover--hero {
+  padding-bottom: 28%;
+}
+
+/* line 26, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__dropzone {
   position: absolute;
   top: 0;
@@ -7884,17 +7895,17 @@ strong {
   opacity: 0.6;
 }
 
-/* line 32, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 36, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__dropzone:hover {
   cursor: pointer;
 }
 
-/* line 36, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 40, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__dropzone--active {
   border: solid 1px #51b364;
 }
 
-/* line 40, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 44, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__upload {
   display: none;
 }

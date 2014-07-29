@@ -1058,7 +1058,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('profile-cover.html',
     "<section class=\"profile-cover\"\n" +
-    "  ng-class=\"{ 'profile-cover--edit' : isEdit }\"\n" +
+    "  ng-class=\"{ 'profile-cover--edit' : isEdit, 'profile-cover--hero' : isHero }\"\n" +
     "  style=\"background-image:url('(~ image ~)');\">\n" +
     "\n" +
     "  <label class=\"profile-cover__upload-label\" for=\"profileCoverUpload\">\n" +
@@ -1118,10 +1118,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('profile-video-hero.html',
     "<section class=\"profile-video-hero\">\n" +
     "\n" +
-    "  <profile-cover image=\"video.owner.profile_cover\"></profile-cover>\n" +
-    "  <profile-image image=\"video.owner.avatar\"></profile-image>\n" +
+    "  <profile-cover is-hero=\"true\" image=\"account.profile_cover\"></profile-cover>\n" +
+    "  <profile-image image=\"account.avatar\"></profile-image>\n" +
     "\n" +
-    "  <span ng-bind=\"video.owner.display_name\">Bob</span>\n" +
+    "  <h2 class=\"profile__name\" ng-bind=\"account.display_name\"></h2>\n" +
     "\n" +
     "</section>"
   );
@@ -1814,7 +1814,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <section class=\"main-view video-view\">\n" +
     "\n" +
-    "    <profile-video-hero ng-show=\"isCollaborator\"></profile-video-hero>\n" +
+    "    <profile-video-hero ng-show=\"isCollaborator\" account=\"video.account\"></profile-video-hero>\n" +
     "\n" +
     "    <h2 class=\"video-view__title\"\n" +
     "      data-placeholder=\"(~ titlePlaceholder ~)\"\n" +
@@ -1873,7 +1873,11 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <video-extended-controls ng-show=\"isEdit\"></video-extended-controls>\n" +
     "\n" +
-    "    <section class=\"video-view__comments\" ng-show=\"video.id && isComments || $root.isCollaborator\">\n" +
+    "    <section class=\"video-view__download\" ng-show=\"video.id && $root.isCollaborator && canDownload\">\n" +
+    "      <a class=\"btn\">Download</a>\n" +
+    "    </section>\n" +
+    "\n" +
+    "    <section class=\"video-view__comments\" ng-show=\"video.id && isComments || (video.id && $root.isCollaborator && canComment)\">\n" +
     "      <div class=\"video-view__comments-section--left\">\n" +
     "        <video-indicators comments=\"comments\" current-time=\"videoCurrentTime\" total-time=\"videoTotalTime\"></video-indicators>\n" +
     "        <video-frame-stepper current-time=\"videoCurrentTime\"></video-frame-stepper>\n" +

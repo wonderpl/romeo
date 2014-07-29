@@ -7,7 +7,7 @@
 
   <section class="main-view video-view">
 
-    <profile-video-hero ng-show="isCollaborator"></profile-video-hero>
+    <profile-video-hero ng-show="isCollaborator" account="video.account"></profile-video-hero>
 
     <h2 class="video-view__title"
       data-placeholder="{{ titlePlaceholder }}"
@@ -66,7 +66,11 @@
 
     <video-extended-controls ng-show="isEdit"></video-extended-controls>
 
-    <section class="video-view__comments" ng-show="video.id && isComments || $root.isCollaborator">
+    <section class="video-view__download" ng-show="video.id && $root.isCollaborator && canDownload">
+      <a class="btn">Download</a>
+    </section>
+
+    <section class="video-view__comments" ng-show="video.id && isComments || (video.id && $root.isCollaborator && canComment)">
       <div class="video-view__comments-section--left">
         <video-indicators comments="comments" current-time="videoCurrentTime" total-time="videoTotalTime"></video-indicators>
         <video-frame-stepper current-time="videoCurrentTime"></video-frame-stepper>
