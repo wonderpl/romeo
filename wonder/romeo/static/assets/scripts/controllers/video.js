@@ -19,7 +19,6 @@ function VideoCtrl ($rootScope, $scope, $location, $upload, UploadService, $rout
     $scope.straplinePlaceholder = 'Subtitle';
     $scope.descriptionPlaceholder = 'Additional content including but not limited to: recipes, ingredients, lyrics, stories, etc.';
     $scope.showUpload = true;
-    $scope.isUploading = false;
     $scope.hasProcessed = false;
     $scope.videoHasLoaded = false;
     $scope.embedUrl = '';
@@ -125,7 +124,7 @@ function VideoCtrl ($rootScope, $scope, $location, $upload, UploadService, $rout
   $scope.onFileSelect = function(files) {
 
     $scope.video.title = $scope.video.title || stripExtension(files[0].name);
-    $scope.titlePlaceholder = '';
+    // $scope.titlePlaceholder = '';
 
     var data = { title : $scope.video.title };
 
@@ -142,7 +141,6 @@ function VideoCtrl ($rootScope, $scope, $location, $upload, UploadService, $rout
     }
     $scope.showPreviewSelector = true;
     $scope.showUpload = false;
-    $scope.isUploading = true;
   };
 
   $scope.closePreviewSelector = function () {
@@ -158,7 +156,6 @@ function VideoCtrl ($rootScope, $scope, $location, $upload, UploadService, $rout
   function videoUploadOnComplete (event) {
     // manaual ajax request doesn't return video object to extend what we have in scope
     $scope.video.status = 'processing';
-    $scope.isUploading = false;
   }
 
   $scope.$on('video-upload-poll', videoUploadOnPoll);
@@ -220,12 +217,6 @@ function VideoCtrl ($rootScope, $scope, $location, $upload, UploadService, $rout
     $location.path(url, false);
     $scope.hasProcessed = true;
   }
-
-  $scope.$on('video-upload-start', videoUploadOnStart);
-  function videoUploadOnStart (event) {
-    $scope.isUploading = true;
-  }
-
 
   $scope.$on('video-seek', videoOnSeek);
   function videoOnSeek (event, seconds) {

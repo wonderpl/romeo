@@ -991,7 +991,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <div class=\"video-thumb-container\" ng-hide=\"isList\">\n" +
     "    <ul class=\"nav  nav--block  video-action-list\">\n" +
     "      <li class=\"video-action-list__item\"><a href=\"\" class=\"video-action-list__link\" ng-href=\"#/video/(~video.id~)/edit\"><i class=\"icon  icon--edit\"></i><span class=\"t--block\">Edit</span></a></li>\n" +
-    "      <li class=\"video-action-list__item\"><a href=\"\" class=\"video-action-list__link\"><i class=\"icon  icon--eye\"></i><span class=\"t--block\">Review</span></a></li>\n" +
+    "      <li class=\"video-action-list__item\"><a href=\"\" class=\"video-action-list__link\" ng-href=\"#/video/(~video.id~)\"><i class=\"icon  icon--eye\"></i><span class=\"t--block\">Review</span></a></li>\n" +
     "      <li class=\"video-action-list__item\"><a href=\"\" class=\"video-action-list__link\"><i class=\"icon  icon--bar-graph\"></i><span class=\"t--block\">Stats</span></a></li>\n" +
     "      <li class=\"video-action-list__item\"><a href=\"\" class=\"video-action-list__link\" ng-click=\"addRemove(video)\"><i class=\"icon  icon--collection\"></i><span class=\"t--block\">Add / Remove</span></a></li>\n" +
     "      <li class=\"video-action-list__item\"><a href=\"\" class=\"video-action-list__link\" ng-click=\"delete(video)\"><i class=\"icon  icon--trash\"></i><span class=\"t--block\">Delete</span></a></l>\n" +
@@ -1002,30 +1002,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </ng-switch>\n" +
     "  </div>\n" +
     "\n" +
-    "  <!--<section class=\"organise-video__controls-container\"\n" +
-    "    ng-hide=\"isList\"\n" +
-    "    style=\"background-image: url('(~ video.thumbnails.items[0].url ~)')\">\n" +
-    "    <div class=\"organise-video__overlay\">\n" +
-    "      <div class=\"organise-video__controls-mask\"></div>\n" +
-    "      <ul class=\"organise-video__controls\">\n" +
-    "        <li class=\"organise-video__control\">\n" +
-    "          <a class=\"organise-video__link organise-video__link--edit\" ng-href=\"#/video/(~video.id~)/edit\">\n" +
-    "            <i class=\"icon  icon--edit\"></i>\n" +
-    "            <span class=\"t--block  t--center\">edit</span>\n" +
-    "          </a>\n" +
-    "        </li>\n" +
-    "        <li class=\"organise-video__control\">\n" +
-    "          <a class=\"organise-video__link organise-video__link--stats\">stats</a>\n" +
-    "        </li>\n" +
-    "        <li class=\"organise-video__control\">\n" +
-    "          <a class=\"organise-video__link organise-video__link--add-remove\" ng-click=\"addRemove(video)\">add/remove</a>\n" +
-    "        </li>\n" +
-    "        <li class=\"organise-video__control\">\n" +
-    "          <a class=\"organise-video__link organise-video__link--delete\" ng-click=\"delete(video)\">delete</a>\n" +
-    "        </li>\n" +
-    "      </ul>\n" +
-    "    </div>\n" +
-    "  </section>-->\n" +
     "</section>"
   );
 
@@ -1876,7 +1852,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <video-extended-controls ng-show=\"isEdit\"></video-extended-controls>\n" +
     "\n" +
-    "    <section class=\"video-view__comments\" ng-show=\"video.id && isComments && video.status === 'published'\">\n" +
+    "    <section class=\"video-view__comments\" ng-show=\"video.id && isComments\">\n" +
     "      <div class=\"video-view__comments-section--left\">\n" +
     "        <video-indicators comments=\"comments\" current-time=\"videoCurrentTime\" total-time=\"videoTotalTime\"></video-indicators>\n" +
     "        <video-frame-stepper current-time=\"videoCurrentTime\"></video-frame-stepper>\n" +

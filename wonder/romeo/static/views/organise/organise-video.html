@@ -22,7 +22,7 @@
   <div class="video-thumb-container" ng-hide="isList">
     <ul class="nav  nav--block  video-action-list">
       <li class="video-action-list__item"><a href="" class="video-action-list__link" ng-href="#/video/{{video.id}}/edit"><i class="icon  icon--edit"></i><span class="t--block">Edit</span></a></li>
-      <li class="video-action-list__item"><a href="" class="video-action-list__link"><i class="icon  icon--eye"></i><span class="t--block">Review</span></a></li>
+      <li class="video-action-list__item"><a href="" class="video-action-list__link" ng-href="#/video/{{video.id}}"><i class="icon  icon--eye"></i><span class="t--block">Review</span></a></li>
       <li class="video-action-list__item"><a href="" class="video-action-list__link"><i class="icon  icon--bar-graph"></i><span class="t--block">Stats</span></a></li>
       <li class="video-action-list__item"><a href="" class="video-action-list__link" ng-click="addRemove(video)"><i class="icon  icon--collection"></i><span class="t--block">Add / Remove</span></a></li>
       <li class="video-action-list__item"><a href="" class="video-action-list__link" ng-click="delete(video)"><i class="icon  icon--trash"></i><span class="t--block">Delete</span></a></l>
@@ -33,28 +33,4 @@
     </ng-switch>
   </div>
 
-  <!--<section class="organise-video__controls-container"
-    ng-hide="isList"
-    style="background-image: url('{{ video.thumbnails.items[0].url }}')">
-    <div class="organise-video__overlay">
-      <div class="organise-video__controls-mask"></div>
-      <ul class="organise-video__controls">
-        <li class="organise-video__control">
-          <a class="organise-video__link organise-video__link--edit" ng-href="#/video/{{video.id}}/edit">
-            <i class="icon  icon--edit"></i>
-            <span class="t--block  t--center">edit</span>
-          </a>
-        </li>
-        <li class="organise-video__control">
-          <a class="organise-video__link organise-video__link--stats">stats</a>
-        </li>
-        <li class="organise-video__control">
-          <a class="organise-video__link organise-video__link--add-remove" ng-click="addRemove(video)">add/remove</a>
-        </li>
-        <li class="organise-video__control">
-          <a class="organise-video__link organise-video__link--delete" ng-click="delete(video)">delete</a>
-        </li>
-      </ul>
-    </div>
-  </section>-->
 </section>
