@@ -224,6 +224,10 @@ angular.module('RomeoApp.services').factory('VideoService',
       return hasTag;
     };
 
+    Video.getDownloadUrl = function (videoId) {
+        return DataService.request({ url: '/api/video/' + videoId + '/download_url', method: 'GET'});
+    };
+
     /*
     * Initialise the service
     */
@@ -233,6 +237,7 @@ angular.module('RomeoApp.services').factory('VideoService',
     * Expose the methods to the service
     */
     return {
+        getDownloadUrl: Video.getDownloadUrl,
         getPlayerParameters: Video.getPlayerParameters,
         setPlayerParameters: Video.setPlayerParameters,
         getEmbedCode: Video.getEmbedCode,

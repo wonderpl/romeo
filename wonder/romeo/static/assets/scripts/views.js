@@ -1469,6 +1469,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('video-download.html',
+    "<section class=\"video-view__download\">\n" +
+    "  <a class=\"btn\" ng-click=\"download()\">Download</a>\n" +
+    "</section>"
+  );
+
+
   $templateCache.put('video-edit.html',
     "<section class=\"video-edit\">\n" +
     "\n" +
@@ -1875,9 +1882,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <video-extended-controls ng-show=\"isEdit\"></video-extended-controls>\n" +
     "\n" +
-    "    <section class=\"video-view__download\" ng-show=\"video.id && $root.isCollaborator && canDownload\">\n" +
-    "      <a class=\"btn\">Download</a>\n" +
-    "    </section>\n" +
+    "    <video-download video-id=\"video.id\" ng-show=\"video.id && $root.isCollaborator && canDownload\"></video-download>\n" +
     "\n" +
     "    <section class=\"video-view__comments\" ng-show=\"video.id && isComments || (video.id && $root.isCollaborator && canComment)\">\n" +
     "      <div class=\"video-view__comments-section--left\">\n" +

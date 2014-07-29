@@ -66,9 +66,7 @@
 
     <video-extended-controls ng-show="isEdit"></video-extended-controls>
 
-    <section class="video-view__download" ng-show="video.id && $root.isCollaborator && canDownload">
-      <a class="btn">Download</a>
-    </section>
+    <video-download video-id="video.id" ng-show="video.id && $root.isCollaborator && canDownload"></video-download>
 
     <section class="video-view__comments" ng-show="video.id && isComments || (video.id && $root.isCollaborator && canComment)">
       <div class="video-view__comments-section--left">
