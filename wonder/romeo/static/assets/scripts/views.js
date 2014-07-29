@@ -1373,9 +1373,11 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <section class=\"video-feedback__input-container\">\n" +
     "\n" +
     "      <div class=\"video-feedback__comment\">\n" +
-    "        <a class=\"video-feedback__comment-profile-image\" style=\"background-image: url('(~ user.avatar ~)');\"></a>\n" +
+    "        <a class=\"video-feedback__comment-profile-image\" style=\"background-image: url('(~ user.avatar ~)');\" ng-show=\"user\"></a>\n" +
+    "        <a class=\"video-feedback__comment-profile-image\" style=\"background-image: url('(~ $root.User.avatar_url ~)');\" ng-show=\"$root.isCollaborator\"></a>\n" +
     "        <div class=\"video-feedback__comment-details\">\n" +
-    "          <span class=\"video-feedback__comment-name\">(~ user.display_name ~)</span>\n" +
+    "          <span class=\"video-feedback__comment-name\" ng-show=\"user\">(~ user.display_name ~)</span>\n" +
+    "          <span class=\"video-feedback__comment-name\" ng-show=\"$root.isCollaborator\">(~ $root.User.username ~)</span>\n" +
     "        </div>\n" +
     "        <div class=\"video-feedback__comment-content\">\n" +
     "          <span class=\"video-feedback__comment-timestamp\">\n" +
