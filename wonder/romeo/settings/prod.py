@@ -23,6 +23,8 @@ DOLLY_PUBSUB_SECRET = _decrypt('\x15\xc4\xd6?\xe7o\x7fS\x94$\xc5<?\x83-\xaf\xac=
 
 DEFAULT_EMAIL_SOURCE = 'Wonder PL <noreply@wonderpl.com>'
 
+SERVER_NAME = 'romeo.wonderpl.com'
+
 # AWS
 VIDEO_S3_BUCKET = 'video.us.wonderpl.com'
 MEDIA_S3_BUCKET = 'media.us.wonderpl.com'
