@@ -974,6 +974,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <a class=\"organise-video__inline-link organise-video__inline-link--edit\" ng-href=\"#/video/(~video.id~)/edit\"><i class=\"icon  icon--edit\"></i></a>\n" +
     "    </li>\n" +
     "    <li class=\"organise-video__inline-control\">\n" +
+    "      <a class=\"organise-video__inline-link organise-video__inline-link--view\" ng-href=\"#/video/(~video.id~)\"><i class=\"icon  icon--eye\"></i></a>\n" +
+    "    </li>\n" +
+    "    <li class=\"organise-video__inline-control\">\n" +
     "      <a class=\"organise-video__inline-link organise-video__inline-link--stats\"><i class=\"icon  icon--bar-graph\"></i></a>\n" +
     "    </li>\n" +
     "    <li class=\"organise-video__inline-control\">\n" +
@@ -984,17 +987,21 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </li>\n" +
     "  </ul>\n" +
     "\n" +
-    "  <span class=\"organise-video__inline-title\" ng-show=\"isList\" ng-bind=\"video.title\"></span>\n" +
+    "  <a ng-href=\"#/video/(~video.id~)\">\n" +
+    "    <span class=\"organise-video__inline-title\" ng-show=\"isList\" ng-bind=\"video.title\"></span>\n" +
+    "  </a>\n" +
     "\n" +
-    "  <span class=\"organise-video__title\" ng-hide=\"isList\" ng-bind=\"video.title\"></span>\n" +
+    "  <a ng-href=\"#/video/(~video.id~)\">\n" +
+    "    <span class=\"organise-video__title\" ng-hide=\"isList\" ng-bind=\"video.title\"></span>\n" +
+    "  </a>\n" +
     "\n" +
     "  <div class=\"video-thumb-container\" ng-hide=\"isList\">\n" +
     "    <ul class=\"nav  nav--block  video-action-list\">\n" +
-    "      <li class=\"video-action-list__item\"><a href=\"\" class=\"video-action-list__link\" ng-href=\"#/video/(~video.id~)/edit\"><i class=\"icon  icon--edit\"></i><span class=\"t--block\">Edit</span></a></li>\n" +
-    "      <li class=\"video-action-list__item\"><a href=\"\" class=\"video-action-list__link\" ng-href=\"#/video/(~video.id~)\"><i class=\"icon  icon--eye\"></i><span class=\"t--block\">Review</span></a></li>\n" +
-    "      <li class=\"video-action-list__item\"><a href=\"\" class=\"video-action-list__link\"><i class=\"icon  icon--bar-graph\"></i><span class=\"t--block\">Stats</span></a></li>\n" +
-    "      <li class=\"video-action-list__item\"><a href=\"\" class=\"video-action-list__link\" ng-click=\"addRemove(video)\"><i class=\"icon  icon--collection\"></i><span class=\"t--block\">Add / Remove</span></a></li>\n" +
-    "      <li class=\"video-action-list__item\"><a href=\"\" class=\"video-action-list__link\" ng-click=\"delete(video)\"><i class=\"icon  icon--trash\"></i><span class=\"t--block\">Delete</span></a></l>\n" +
+    "      <li class=\"video-action-list__item\"><a class=\"video-action-list__link\" ng-href=\"#/video/(~video.id~)/edit\"><i class=\"icon  icon--edit\"></i><span class=\"t--block\">Edit</span></a></li>\n" +
+    "      <li class=\"video-action-list__item\"><a class=\"video-action-list__link\" ng-href=\"#/video/(~video.id~)\"><i class=\"icon  icon--eye\"></i><span class=\"t--block\">Review</span></a></li>\n" +
+    "      <li class=\"video-action-list__item\"><a class=\"video-action-list__link\"><i class=\"icon  icon--bar-graph\"></i><span class=\"t--block\">Stats</span></a></li>\n" +
+    "      <li class=\"video-action-list__item\"><a class=\"video-action-list__link\" ng-click=\"addRemove(video)\"><i class=\"icon  icon--collection\"></i><span class=\"t--block\">Add / Remove</span></a></li>\n" +
+    "      <li class=\"video-action-list__item\"><a class=\"video-action-list__link\" ng-click=\"delete(video)\"><i class=\"icon  icon--trash\"></i><span class=\"t--block\">Delete</span></a></l>\n" +
     "    </ul>\n" +
     "    <ng-switch on=\"video.thumbnails.items[0].url.length\">\n" +
     "      <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"video-thumb-container__thumb\" style=\"background-image: url('http://placehold.it/218x122')\" ng-switch-when=\"0\">\n" +

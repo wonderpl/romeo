@@ -7774,6 +7774,11 @@ strong {
   margin-left: 4px;
 }
 
+/* line 88, ../../scss/specifics/organise/_organise-video.scss */
+.organise-video__inline-link {
+  display: block;
+}
+
 /* line 92, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__inline-link:hover {
   cursor: pointer;
