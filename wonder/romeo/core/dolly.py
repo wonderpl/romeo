@@ -96,7 +96,12 @@ class DollyUser(object):
             channeldata.setdefault(field, '')
 
     def get_userdata(self):
-        return self._user_request(params=dict(data='channels')).json()
+        data = self._user_request(params=dict(data='channels')).json()
+        # XXX: Change Dolly config to generate another size suitable for web?
+        cover_url = data.get('profile_cover_url')
+        if cover_url:
+            data['profile_cover_url'] = cover_url.replace('thumbnail_medium', 'ipad')
+        return data
 
     def set_display_name(self, name):
         self._user_request('first_name', 'put', name)
