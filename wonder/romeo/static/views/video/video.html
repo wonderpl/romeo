@@ -1,11 +1,11 @@
 
-<div ng-controller="VideoCtrl">
+<div ng-controller="VideoCtrl" class="cf">
 
   <div class="video-view__nav-placeholder" ng-hide="$root.isCollaborator">
     <video-navigation is-edit="isEdit" is-owner="isOwner"></video-navigation>
   </div>
 
-  <section class="main-view video-view">
+  <section class="main-view video-view video-view--{{ $root.commentsPosition }}">
 
     <profile-video-hero ng-show="isCollaborator" account="video.account"></profile-video-hero>
 
@@ -68,22 +68,25 @@
 
     <video-download video-id="video.id" ng-show="video.id && $root.isCollaborator && canDownload"></video-download>
 
-    <section class="video-view__comments" ng-show="video.id && isComments || (video.id && $root.isCollaborator && canComment)">
-      <div class="video-view__comments-section--left">
-        <video-indicators comments="comments" current-time="videoCurrentTime" total-time="videoTotalTime"></video-indicators>
-        <video-frame-stepper current-time="videoCurrentTime"></video-frame-stepper>
-        <video-comments notified="notified" is-owner="isOwner" comments="comments" video-id="{{ video.id }}" current-time="videoCurrentTime"></video-comments>
-      </div>
-      <div class="video-view__comments-section--right">
-        <video-collaborators notified="notified" ng-show="video.id && isComments" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>
-      </div>
-    </section>
+
 
     <div class="video-view__save-controls" ng-show="isEdit">
       <a ng-click="cancel()" class="button">cancel</a>
       <a ng-click="save()" class="button button--primary">save changes</a>
     </div>
 
+  </section>
+
+  <section class="cf video-view__comments video-view__comments--{{ $root.commentsPosition }}" ng-show="video.id && isComments || (video.id && $root.isCollaborator && canComment)">
+    <div ng-class="{ 'video-view__comments-section--left' : $root.commentsPosition === 'bottom', 'video-view__comments-section--wide' : $root.commentsPosition === 'wide' || $root.commentsPosition === 'mirror' }">
+      <video-indicators comments="comments" current-time="videoCurrentTime" total-time="videoTotalTime"></video-indicators>
+      <video-frame-stepper current-time="videoCurrentTime"></video-frame-stepper>
+      <video-comments notified="notified" is-owner="isOwner" comments="comments" video-id="{{ video.id }}" current-time="videoCurrentTime"></video-comments>
+    </div>
+    <div ng-class="{ 'video-view__comments-section--right' : $root.commentsPosition === 'bottom', 'video-view__comments-section--wide' : $root.commentsPosition === 'wide' || $root.commentsPosition === 'mirror' }">
+      <video-collaborators notified="notified" ng-show="video.id && isComments" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>
+    </div>
+    <video-comments-control></video-comments-control>
   </section>
 
 </div>

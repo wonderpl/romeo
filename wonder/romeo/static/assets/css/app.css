@@ -4555,40 +4555,47 @@ body {
   margin: 0 auto;
 }
 
-/* line 27, ../../scss/base/project/_globals.scss */
+/* line 26, ../../scss/base/project/_globals.scss */
+.container--wide,
+.container--mirror {
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+/* line 33, ../../scss/base/project/_globals.scss */
 a,
 a:hover,
 a:visited {
   text-decoration: none;
 }
 
-/* line 31, ../../scss/base/project/_globals.scss */
+/* line 37, ../../scss/base/project/_globals.scss */
 h2 {
   margin: 0;
   font-size: 3em;
   line-height: 1.5;
 }
 
-/* line 37, ../../scss/base/project/_globals.scss */
+/* line 43, ../../scss/base/project/_globals.scss */
 h3 {
   margin: 0 0 0.5em;
   font-size: 2.375em;
   line-height: 1.5;
 }
 
-/* line 43, ../../scss/base/project/_globals.scss */
+/* line 49, ../../scss/base/project/_globals.scss */
 :focus {
   outline-color: transparent;
   outline-style: none;
 }
 
-/* line 48, ../../scss/base/project/_globals.scss */
+/* line 54, ../../scss/base/project/_globals.scss */
 textarea {
   margin: 0;
   padding: 0;
 }
 
-/* line 57, ../../scss/base/project/_globals.scss */
+/* line 63, ../../scss/base/project/_globals.scss */
 ::-webkit-input-placeholder,
 :-moz-placeholder,
 ::-moz-placeholder,
@@ -4597,7 +4604,7 @@ textarea {
   font-size: 1em;
 }
 
-/* line 62, ../../scss/base/project/_globals.scss */
+/* line 68, ../../scss/base/project/_globals.scss */
 strong {
   font-weight: 800;
 }
@@ -5906,7 +5913,15 @@ strong {
   box-shadow: 0 4px 4px -4px #999999;
 }
 
-/* line 40, ../../scss/components/_sub-navigation.scss */
+/* line 41, ../../scss/components/_sub-navigation.scss */
+.sub-navigation--mirror,
+.sub-navigation--wide {
+  left: 0;
+  margin: 0;
+  width: 100%;
+}
+
+/* line 47, ../../scss/components/_sub-navigation.scss */
 .sub-navigation__placeholder {
   display: block;
   height: 52px;
@@ -6404,45 +6419,85 @@ strong {
   width: 960px;
   margin-left: auto;
   margin-right: auto;
+  vertical-align: top;
 }
 
-/* line 7, ../../scss/specifics/video/_video-view.scss */
+/* line 8, ../../scss/specifics/video/_video-view.scss */
+.video-view--wide {
+  width: 59%;
+  display: inline-block;
+  vertical-align: top;
+  padding: 0 12px;
+}
+
+/* line 15, ../../scss/specifics/video/_video-view.scss */
+.video-view--mirror {
+  width: 59%;
+  display: inline-block;
+  float: right;
+  padding: 0 12px;
+}
+
+/* line 22, ../../scss/specifics/video/_video-view.scss */
 .video-view__comments {
   position: relative;
   text-align: center;
+  vertical-align: top;
 }
 
-/* line 12, ../../scss/specifics/video/_video-view.scss */
+/* line 28, ../../scss/specifics/video/_video-view.scss */
+.video-view__comments--wide {
+  display: inline-block;
+  width: 40%;
+  margin-top: 48px;
+  padding-bottom: 96px;
+}
+
+/* line 35, ../../scss/specifics/video/_video-view.scss */
+.video-view__comments--mirror {
+  display: inline-block;
+  width: 40%;
+  float: left;
+  margin-top: 48px;
+  padding-bottom: 96px;
+}
+
+/* line 43, ../../scss/specifics/video/_video-view.scss */
 .video-view__comments-section--left {
   float: left;
   width: 73%;
   margin-left: 48px;
 }
 
-/* line 18, ../../scss/specifics/video/_video-view.scss */
+/* line 49, ../../scss/specifics/video/_video-view.scss */
 .video-view__comments-section--right {
   float: right;
   width: 21%;
 }
 
-/* line 23, ../../scss/specifics/video/_video-view.scss */
+/* line 54, ../../scss/specifics/video/_video-view.scss */
+.video-view__comments-section--wide {
+  padding: 0 12px;
+}
+
+/* line 58, ../../scss/specifics/video/_video-view.scss */
 .video-view__download {
   text-align: center;
   margin-bottom: 48px;
 }
 
-/* line 28, ../../scss/specifics/video/_video-view.scss */
+/* line 63, ../../scss/specifics/video/_video-view.scss */
 .video-view__edit {
   display: none;
   position: relative;
 }
 
-/* line 33, ../../scss/specifics/video/_video-view.scss */
+/* line 68, ../../scss/specifics/video/_video-view.scss */
 .video-view__edit--active {
   display: block;
 }
 
-/* line 37, ../../scss/specifics/video/_video-view.scss */
+/* line 72, ../../scss/specifics/video/_video-view.scss */
 .video-view__container {
   position: relative;
   width: 100%;
@@ -6450,26 +6505,26 @@ strong {
   margin-bottom: 48px;
 }
 
-/* line 44, ../../scss/specifics/video/_video-view.scss */
+/* line 79, ../../scss/specifics/video/_video-view.scss */
 .video-view__save-controls {
   margin-bottom: 24px;
   text-align: center;
 }
 
-/* line 49, ../../scss/specifics/video/_video-view.scss */
+/* line 84, ../../scss/specifics/video/_video-view.scss */
 .video-view__description {
   width: 600px;
   margin: 0 auto;
   overflow: auto;
 }
 
-/* line 55, ../../scss/specifics/video/_video-view.scss */
+/* line 90, ../../scss/specifics/video/_video-view.scss */
 .video-view__description--edit {
   border-bottom: solid 1px #999999;
   min-height: 10em;
 }
 
-/* line 60, ../../scss/specifics/video/_video-view.scss */
+/* line 95, ../../scss/specifics/video/_video-view.scss */
 .video-view__nav-placeholder {
   display: block;
   height: 52px;
@@ -7393,6 +7448,35 @@ strong {
 /* line 39, ../../scss/specifics/video/_video-medium.scss */
 .video-medium > :last-child {
   margin-bottom: 0;
+}
+
+/* line 1, ../../scss/specifics/video/_video-comments-control.scss */
+.video-comments-control {
+  position: fixed;
+  bottom: 0;
+  display: block;
+  text-align: right;
+  background: white;
+  width: 960px;
+  margin: 0 auto;
+  padding: 12px;
+  z-index: 2;
+  -webkit-box-shadow: 0 -4px 4px -4px #999999;
+  -moz-box-shadow: 0 -4px 4px -4px #999999;
+  box-shadow: 0 -4px 4px -4px #999999;
+}
+
+/* line 17, ../../scss/specifics/video/_video-comments-control.scss */
+.video-comments-control--wide,
+.video-comments-control--mirror {
+  width: 100%;
+  margin: 0;
+  left: 0;
+}
+
+/* line 23, ../../scss/specifics/video/_video-comments-control.scss */
+.video-comments-control__option {
+  display: inline-block;
 }
 
 /**

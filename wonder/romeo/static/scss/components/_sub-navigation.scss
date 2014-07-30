@@ -37,6 +37,13 @@
           box-shadow: 0 4px 4px -4px $grey;
 }
 
+.sub-navigation--mirror,
+.sub-navigation--wide {
+  left: 0;
+  margin: 0;
+  width: 100%;
+}
+
 .sub-navigation__placeholder {
   display: block;
   height: 52px;
