@@ -1,0 +1,22 @@
+.login-view {
+  padding-top: 48px;
+}
+
+.login-view__label {
+  display: block;
+  padding: 0 0 12px 0;
+  text-align: right;
+  width: 20em;
+}
+
+.login-view__input {
+
+}
+
+.login-view__errors {
+  display: block;
+  padding: 0 0 12px 0;
+  text-align: right;
+  width: 20em;
+  color: $red;
+}

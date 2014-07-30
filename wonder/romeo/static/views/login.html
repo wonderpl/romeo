@@ -1,20 +1,17 @@
-<div id="page-login" class="center-container" ng-controller="LoginCtrl" autocomplete="off">
-	<div class="center-object">
+
+
+<div ng-controller="LoginCtrl" autocomplete="off" class="login-view">
+
 		<form ng-submit="login()">
-			<div class="row">
-				<label for="username">Username</label>
-				<input type="text" id="login-username" name="username" ng-model="username" autocomplete="off">
-			</div>
-			<div class="row">
-				<label for="password">Password</label>
-				<input type="password" id="login-password" name="password" ng-model="password" autocomplete="off">
-			</div>
-			<div class="row">
-				<button type="submit" pl-progress-button>
-					<span class="label">Login</span>
-					<div class="progress"></div>
-				</button>
-			</div>
+
+				<label class="login-view__label">Username <input type="text" ng-model="username" autocomplete="off" class="login-view__input" /></label>
+
+				<label class="login-view__label">Password <input type="password" name="password" ng-model="password" autocomplete="off"  class="login-view__input" /></label>
+
+        <span class="login-view__errors" ng-bind="errors"></span>
+
+				<label class="login-view__label hide-text">Login <button type="submit" class="btn btn--positive">Login</button></label>
+
 		</form>
-	</div>
+
 </div>

@@ -551,25 +551,22 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('login.html',
-    "<div id=\"page-login\" class=\"center-container\" ng-controller=\"LoginCtrl\" autocomplete=\"off\">\n" +
-    "\t<div class=\"center-object\">\n" +
+    "\n" +
+    "\n" +
+    "<div ng-controller=\"LoginCtrl\" autocomplete=\"off\" class=\"login-view\">\n" +
+    "\n" +
     "\t\t<form ng-submit=\"login()\">\n" +
-    "\t\t\t<div class=\"row\">\n" +
-    "\t\t\t\t<label for=\"username\">Username</label>\n" +
-    "\t\t\t\t<input type=\"text\" id=\"login-username\" name=\"username\" ng-model=\"username\" autocomplete=\"off\">\n" +
-    "\t\t\t</div>\n" +
-    "\t\t\t<div class=\"row\">\n" +
-    "\t\t\t\t<label for=\"password\">Password</label>\n" +
-    "\t\t\t\t<input type=\"password\" id=\"login-password\" name=\"password\" ng-model=\"password\" autocomplete=\"off\">\n" +
-    "\t\t\t</div>\n" +
-    "\t\t\t<div class=\"row\">\n" +
-    "\t\t\t\t<button type=\"submit\" pl-progress-button>\n" +
-    "\t\t\t\t\t<span class=\"label\">Login</span>\n" +
-    "\t\t\t\t\t<div class=\"progress\"></div>\n" +
-    "\t\t\t\t</button>\n" +
-    "\t\t\t</div>\n" +
+    "\n" +
+    "\t\t\t\t<label class=\"login-view__label\">Username <input type=\"text\" ng-model=\"username\" autocomplete=\"off\" class=\"login-view__input\" /></label>\n" +
+    "\n" +
+    "\t\t\t\t<label class=\"login-view__label\">Password <input type=\"password\" name=\"password\" ng-model=\"password\" autocomplete=\"off\"  class=\"login-view__input\" /></label>\n" +
+    "\n" +
+    "        <span class=\"login-view__errors\" ng-bind=\"errors\"></span>\n" +
+    "\n" +
+    "\t\t\t\t<label class=\"login-view__label hide-text\">Login <button type=\"submit\" class=\"btn btn--positive\">Login</button></label>\n" +
+    "\n" +
     "\t\t</form>\n" +
-    "\t</div>\n" +
+    "\n" +
     "</div>"
   );
 
@@ -1473,7 +1470,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "            ng-show=\"comment.resolved\"\n" +
     "            ng-class=\"{ 'video-feedback__resolve-link--active' : replyActive && isOwner }\"\n" +
     "            ng-click=\"unresolve(comment.id)\">\n" +
-    "            unresolve\n" +
+    "            reopen\n" +
     "          </a>\n" +
     "        </div>\n" +
     "      </li>\n" +

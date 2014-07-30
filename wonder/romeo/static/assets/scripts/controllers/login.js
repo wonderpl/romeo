@@ -18,8 +18,15 @@ angular.module('RomeoApp.controllers').controller('LoginCtrl',
             };
 
             $scope.login = function () {
-                return AuthService.login($scope.username, $scope.password).then($scope.handleRedirect, function () {
+                return AuthService.login($scope.username, $scope.password).then($scope.handleRedirect,
+                  function (response) {
                     // Error Logging in
+                    console.log(response);
+
+                    if (response.data.error) {
+
+                      $scope.errors = 'login error';
+                    };
                 });
             };
 

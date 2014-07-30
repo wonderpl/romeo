@@ -8066,6 +8066,28 @@ strong {
   text-align: center;
 }
 
+/* line 1, ../../scss/specifics/login/_login-view.scss */
+.login-view {
+  padding-top: 48px;
+}
+
+/* line 5, ../../scss/specifics/login/_login-view.scss */
+.login-view__label {
+  display: block;
+  padding: 0 0 12px 0;
+  text-align: right;
+  width: 20em;
+}
+
+/* line 16, ../../scss/specifics/login/_login-view.scss */
+.login-view__errors {
+  display: block;
+  padding: 0 0 12px 0;
+  text-align: right;
+  width: 20em;
+  color: red;
+}
+
 /*!
 ========== VENDOR
 */
