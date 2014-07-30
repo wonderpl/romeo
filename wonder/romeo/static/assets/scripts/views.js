@@ -875,7 +875,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <a class=\"organise-navigation__link\" ng-click=\"showAllVideos()\">All videos</a>\n" +
     "    </li>\n" +
     "    <li class=\"organise-navigation__nav-item\">\n" +
-    "      <a class=\"organise-navigation__link\" ng-click=\"showAllVideos()\">Recently added videos</a>\n" +
+    "      <a class=\"organise-navigation__link\" ng-click=\"showRecentVideos()\">Recently added videos</a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
     "\n" +
@@ -948,7 +948,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <ul class=\"organise-video-list__videos\" ng-show=\"filteredVideos\">\n" +
     "    <li class=\"organise-video-list__video\"\n" +
-    "      ng-repeat=\"video in filteredVideos | orderBy: sortOption\"\n" +
+    "      ng-repeat=\"video in filteredVideos | orderBy: sortOption | filter : customFilter\"\n" +
     "      ng-class=\"{\n" +
     "        'organise-video-list__video--last' : ($index + 1) % 3 == 0,\n" +
     "        'organise-video-list__video--list' : isList\n" +
@@ -1022,7 +1022,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <organise-collection ng-show=\"tag\" tag=\"tag\" is-edit=\"isEdit\"></organise-collection>\n" +
     "\n" +
-    "    <organise-video-list videos=\"videos\" tag=\"tag\"></organise-video-list>\n" +
+    "    <organise-video-list videos=\"videos\" tag=\"tag\" custom-filter-function=\"customFilterFunction\"></organise-video-list>\n" +
     "\n" +
     "  </div>\n" +
     "\n" +
