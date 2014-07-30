@@ -1049,7 +1049,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  </nav>\n" +
     "\n" +
     "  <section class=\"page-header__current-user\" ng-if=\"isLoggedIn\">\n" +
-    "    <a href=\"/#/profile\" class=\"page-header__link page-header__profile-link  hide-text\" style=\"background-image: url((~ User.avatar ~));\">(~ User.display_name ~)</a>\n" +
+    "    <a href=\"/#/profile\" class=\"page-header__link page-header__profile-link  hide-text\" ng-style=\"profile\">(~ User.display_name ~)</a>\n" +
     "  </section>\n" +
     "\n" +
     "</header>"

@@ -8,7 +8,7 @@ angular.module('RomeoApp.controllers').controller('LoginCtrl',
             $scope.password = $scope.username || '';
             $scope.href = '';
 
-            $scope.handleRedirect = function () {
+            $scope.handleRedirect = function (response) {
                 var params = $location.search();
                 if (params.redirect) {
                     console.log('redirect to ->' + params.redirect);

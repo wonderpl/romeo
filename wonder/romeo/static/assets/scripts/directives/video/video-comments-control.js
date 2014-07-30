@@ -21,12 +21,7 @@ function VideoCommentsControl ($templateCache, $rootScope) {
       });
 
       $scope.reposition = function (position) {
-
-        console.log('reposition()');
-        console.log(position);
-
         var commentsPosition;
-
         switch (position) {
           case 'bottom':
             commentsPosition = 'bottom';
@@ -41,9 +36,8 @@ function VideoCommentsControl ($templateCache, $rootScope) {
             commentsPosition = 'bottom';
           break;
         }
-
         $rootScope.commentsPosition = position;
-      }
+      };
     }
   };
 }
