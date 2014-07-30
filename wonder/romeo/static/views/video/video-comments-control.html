@@ -1,15 +1,7 @@
 <section class="video-comments-control video-comments-control--{{ $root.commentsPosition }}">
-
-  <ul>
-    <li class="video-comments-control__option">
-      <a class="btn btn--utility  icon-text" ng-click="reposition('mirror')">left</a>
-    </li>
-    <li class="video-comments-control__option">
-      <a class="btn btn--utility  icon-text" ng-click="reposition('default')">bottom</a>
-    </li>
-    <li class="video-comments-control__option">
-      <a class="btn btn--utility  icon-text" ng-click="reposition('wide')">right</a>
-    </li>
-  </ul>
-
+  <div class="btn-group">
+    <a class="btn btn--small" ng-click="reposition('mirror')"><i class="icon  icon--split-vertical-alt"></i></a>
+    <a class="btn btn--small" ng-click="reposition('default')"><i class="icon  icon--split-horizontal"></i></a>
+    <a class="btn btn--small" ng-click="reposition('wide')"><i class="icon  icon--split-vertical"></i></a>
+  </div>
 </section>
