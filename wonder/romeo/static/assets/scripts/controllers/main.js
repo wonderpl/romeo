@@ -11,6 +11,8 @@ angular.module('RomeoApp.controllers').controller('MainCtrl',
     $rootScope.Videos = {};
     $rootScope.Tags = {};
 
+    $rootScope.commentsPosition = 'default';
+
     /*
     * Cached Selectors ( not sure which of these are still needed )
     */

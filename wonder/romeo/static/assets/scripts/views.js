@@ -1364,6 +1364,25 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('video-comments-control.html',
+    "<section class=\"video-comments-control video-comments-control--(~ $root.commentsPosition ~)\">\n" +
+    "\n" +
+    "  <ul>\n" +
+    "    <li class=\"video-comments-control__option\">\n" +
+    "      <a class=\"btn btn--utility  icon-text\" ng-click=\"reposition('mirror')\">left</a>\n" +
+    "    </li>\n" +
+    "    <li class=\"video-comments-control__option\">\n" +
+    "      <a class=\"btn btn--utility  icon-text\" ng-click=\"reposition('default')\">bottom</a>\n" +
+    "    </li>\n" +
+    "    <li class=\"video-comments-control__option\">\n" +
+    "      <a class=\"btn btn--utility  icon-text\" ng-click=\"reposition('wide')\">right</a>\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
   $templateCache.put('video-comments.html',
     "<section class=\"video-feedback\">\n" +
     "\n" +
@@ -1677,7 +1696,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('video-navigation.html',
-    "<section class=\"sub-navigation video-view-control-panel\">\n" +
+    "<section class=\"sub-navigation video-view-control-panel sub-navigation--(~ $root.commentsPosition ~)\">\n" +
     "  <p>(~ isCollaborator ~)</p>\n" +
     "  <ul class=\"sub-navigation__modes\">\n" +
     "    <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
@@ -1815,13 +1834,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('video.html',
     "\n" +
-    "<div ng-controller=\"VideoCtrl\">\n" +
+    "<div ng-controller=\"VideoCtrl\" class=\"cf\">\n" +
     "\n" +
     "  <div class=\"video-view__nav-placeholder\" ng-hide=\"$root.isCollaborator\">\n" +
     "    <video-navigation is-edit=\"isEdit\" is-owner=\"isOwner\"></video-navigation>\n" +
     "  </div>\n" +
     "\n" +
-    "  <section class=\"main-view video-view\">\n" +
+    "  <section class=\"main-view video-view video-view--(~ $root.commentsPosition ~)\">\n" +
     "\n" +
     "    <profile-video-hero ng-show=\"isCollaborator\" account=\"video.account\"></profile-video-hero>\n" +
     "\n" +
@@ -1884,22 +1903,25 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <video-download video-id=\"video.id\" ng-show=\"video.id && $root.isCollaborator && canDownload\"></video-download>\n" +
     "\n" +
-    "    <section class=\"video-view__comments\" ng-show=\"video.id && isComments || (video.id && $root.isCollaborator && canComment)\">\n" +
-    "      <div class=\"video-view__comments-section--left\">\n" +
-    "        <video-indicators comments=\"comments\" current-time=\"videoCurrentTime\" total-time=\"videoTotalTime\"></video-indicators>\n" +
-    "        <video-frame-stepper current-time=\"videoCurrentTime\"></video-frame-stepper>\n" +
-    "        <video-comments notified=\"notified\" is-owner=\"isOwner\" comments=\"comments\" video-id=\"(~ video.id ~)\" current-time=\"videoCurrentTime\"></video-comments>\n" +
-    "      </div>\n" +
-    "      <div class=\"video-view__comments-section--right\">\n" +
-    "        <video-collaborators notified=\"notified\" ng-show=\"video.id && isComments\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
-    "      </div>\n" +
-    "    </section>\n" +
+    "\n" +
     "\n" +
     "    <div class=\"video-view__save-controls\" ng-show=\"isEdit\">\n" +
     "      <a ng-click=\"cancel()\" class=\"button\">cancel</a>\n" +
     "      <a ng-click=\"save()\" class=\"button button--primary\">save changes</a>\n" +
     "    </div>\n" +
     "\n" +
+    "  </section>\n" +
+    "\n" +
+    "  <section class=\"cf video-view__comments video-view__comments--(~ $root.commentsPosition ~)\" ng-show=\"video.id && isComments || (video.id && $root.isCollaborator && canComment)\">\n" +
+    "    <div ng-class=\"{ 'video-view__comments-section--left' : $root.commentsPosition === 'bottom', 'video-view__comments-section--wide' : $root.commentsPosition === 'wide' || $root.commentsPosition === 'mirror' }\">\n" +
+    "      <video-indicators comments=\"comments\" current-time=\"videoCurrentTime\" total-time=\"videoTotalTime\"></video-indicators>\n" +
+    "      <video-frame-stepper current-time=\"videoCurrentTime\"></video-frame-stepper>\n" +
+    "      <video-comments notified=\"notified\" is-owner=\"isOwner\" comments=\"comments\" video-id=\"(~ video.id ~)\" current-time=\"videoCurrentTime\"></video-comments>\n" +
+    "    </div>\n" +
+    "    <div ng-class=\"{ 'video-view__comments-section--right' : $root.commentsPosition === 'bottom', 'video-view__comments-section--wide' : $root.commentsPosition === 'wide' || $root.commentsPosition === 'mirror' }\">\n" +
+    "      <video-collaborators notified=\"notified\" ng-show=\"video.id && isComments\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
+    "    </div>\n" +
+    "    <video-comments-control></video-comments-control>\n" +
     "  </section>\n" +
     "\n" +
     "</div>\n" +

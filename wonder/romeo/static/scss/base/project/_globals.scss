@@ -22,6 +22,12 @@ body {
   margin: 0 auto;
 }
 
+.container--wide,
+.container--mirror {
+  max-width: 2*$containerWidth + px;
+  margin: 0 auto;
+}
+
 a,
 a:hover,
 a:visited {
