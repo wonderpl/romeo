@@ -38,6 +38,8 @@ angular.module('RomeoApp.controllers')
 
     $scope.$on('show-recent', function ($event) {
       $scope.customFilterFunction = 'isRecent';
+      redirect();
+      loadTag();
     });
 
     $scope.$on('save-tag', function ($event) {
