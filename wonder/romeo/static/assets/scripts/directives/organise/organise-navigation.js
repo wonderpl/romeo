@@ -28,6 +28,9 @@ function OrganiseNavigationDirective ($templateCache) {
       $scope.showAllVideos = function () {
         $scope.$emit('show-collection');
       };
+      $scope.showRecentVideos = function () {
+        $scope.$emit('show-recent');
+      };
     }
   };
 }

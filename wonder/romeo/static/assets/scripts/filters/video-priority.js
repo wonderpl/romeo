@@ -11,6 +11,6 @@ angular.module('RomeoApp.filters')
         filtered.push(categories[l]);
       }
     }
-    return categories;
+    return filtered;
   };
 });

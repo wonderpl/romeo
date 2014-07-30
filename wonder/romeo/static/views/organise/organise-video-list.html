@@ -30,7 +30,7 @@
 
   <ul class="organise-video-list__videos" ng-show="filteredVideos">
     <li class="organise-video-list__video"
-      ng-repeat="video in filteredVideos | orderBy: sortOption"
+      ng-repeat="video in filteredVideos | orderBy: sortOption | filter : customFilter"
       ng-class="{
         'organise-video-list__video--last' : ($index + 1) % 3 == 0,
         'organise-video-list__video--list' : isList
