@@ -68,7 +68,7 @@ function OrganiseVideoList ($templateCache) {
       $scope.isRecent = function (video) {
         var timestamp = new Date(video.date_updated).getTime();
         return isVideoRecent(timestamp);
-      }
+      };
     }
   };
 }
