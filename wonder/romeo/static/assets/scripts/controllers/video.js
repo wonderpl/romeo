@@ -278,6 +278,7 @@ function VideoCtrl ($rootScope, $scope, $location, $upload, UploadService, $rout
       $scope.$apply();
     });
     bus.subscribe(OO.EVENTS.SEEKED, 'WonderUIModule', function (seconds) {
+      $scope.videoCurrentTime = seconds;
       $scope.player.pause();
     });
     bus.subscribe(OO.EVENTS.PAUSED, 'WonderUIModule', function () {
