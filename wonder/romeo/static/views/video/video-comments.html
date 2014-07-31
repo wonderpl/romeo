@@ -49,11 +49,10 @@
     </div>
 
     <ul class="video-feedback__comments-list">
-      <li class="video-feedback__comment"
+      <li id="comment-{{ comment.id }}"
+        class="video-feedback__comment"
         ng-class="{ 'video-feedback__comment--active' : isTimeSync(comment.timestamp) }"
-        ng-repeat="comment in comments | orderBy : 'timestamp' | filter: { resolved : filterResolved }"
-        ng-mouseenter="replyActive = true"
-        ng-mouseleave="replyActive = false">
+        ng-repeat="comment in comments | orderBy : 'timestamp' | filter: { resolved : filterResolved }">
           <div ng-class="{ 'video-feedback__comment--resolved' : comment.resolved }">
             <a class="video-feedback__comment-profile-image" style="background-image: url('{{ comment.avatar_url }}');"></a>
             <div class="video-feedback__comment-details">
@@ -73,19 +72,16 @@
         <div class="video-feedback__comment-controls">
           <a class="video-feedback__reply-link"
             ng-hide="comment.resolved"
-            ng-class="{ 'video-feedback__reply-link--active' : replyActive }"
             ng-click="reply(comment.timestamp)">
             reply
           </a>
           <a class="video-feedback__resolve-link"
-            ng-hide="comment.resolved"
-            ng-class="{ 'video-feedback__resolve-link--active' : replyActive && isOwner }"
+            ng-hide="comment.resolved || !isOwner"
             ng-click="resolve(comment.id)">
             resolve
           </a>
           <a class="video-feedback__resolve-link"
-            ng-show="comment.resolved"
-            ng-class="{ 'video-feedback__resolve-link--active' : replyActive && isOwner }"
+            ng-show="comment.resolved && isOwner"
             ng-click="unresolve(comment.id)">
             reopen
           </a>

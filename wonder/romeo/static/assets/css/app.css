@@ -6271,15 +6271,24 @@ strong {
 .video-feedback {
   margin: 48px 0 0;
   display: block;
+  transition: all 0.4s;
 }
 
-/* line 6, ../../scss/specifics/video/_video-feedback.scss */
+/* line 7, ../../scss/specifics/video/_video-feedback.scss */
+.video-feedback__comments-list {
+  max-height: 500px;
+  overflow-y: scroll;
+  padding-bottom: 500px;
+  position: relative;
+}
+
+/* line 14, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback--column {
   width: 75%;
   float: left;
 }
 
-/* line 14, ../../scss/specifics/video/_video-feedback.scss */
+/* line 22, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__form {
   text-align: right;
   transition: max-height 0.4s linear;
@@ -6288,12 +6297,12 @@ strong {
   border-bottom: solid 1px #b7bcbd;
 }
 
-/* line 22, ../../scss/specifics/video/_video-feedback.scss */
+/* line 30, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__form--active {
   max-height: 100em;
 }
 
-/* line 26, ../../scss/specifics/video/_video-feedback.scss */
+/* line 34, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__input {
   text-align: left;
   border: 0 none;
@@ -6304,12 +6313,12 @@ strong {
   width: 100%;
 }
 
-/* line 36, ../../scss/specifics/video/_video-feedback.scss */
+/* line 44, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__input--active {
   height: 100px;
 }
 
-/* line 40, ../../scss/specifics/video/_video-feedback.scss */
+/* line 48, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comments {
   margin: 20px 0;
   transition: all 1s ease-in-out;
@@ -6317,23 +6326,23 @@ strong {
   text-align: left;
 }
 
-/* line 47, ../../scss/specifics/video/_video-feedback.scss */
+/* line 55, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment {
-  transition: border-width 0.4s, padding-left 0.4s, opacity 0.4s linear;
+  transition: opacity 0.4s linear;
   margin: 1em 0;
   position: relative;
   clear: both;
   text-align: left;
 }
 
-/* line 55, ../../scss/specifics/video/_video-feedback.scss */
+/* line 63, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-details {
   display: block;
   padding-top: 0.5em;
   min-height: 0.5em;
 }
 
-/* line 61, ../../scss/specifics/video/_video-feedback.scss */
+/* line 69, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-resolved {
   font-size: 0.8em;
   padding: 0.5em;
@@ -6344,28 +6353,28 @@ strong {
   opacity: 0;
 }
 
-/* line 71, ../../scss/specifics/video/_video-feedback.scss */
+/* line 79, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-resolved--active {
   opacity: 1;
 }
 
-/* line 75, ../../scss/specifics/video/_video-feedback.scss */
+/* line 83, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment--resolved {
   opacity: 0.4;
 }
 
-/* line 79, ../../scss/specifics/video/_video-feedback.scss */
+/* line 87, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-content {
   margin-top: 0.5em;
 }
 
-/* line 83, ../../scss/specifics/video/_video-feedback.scss */
+/* line 91, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-timestamp {
   display: block;
   float: left;
 }
 
-/* line 88, ../../scss/specifics/video/_video-feedback.scss */
+/* line 96, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-profile-image {
   display: inline-block;
   height: 66px;
@@ -6378,37 +6387,31 @@ strong {
   margin-right: 1em;
 }
 
-/* line 100, ../../scss/specifics/video/_video-feedback.scss */
+/* line 108, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-text {
   margin-left: 140px;
   margin-bottom: 3em;
 }
 
-/* line 105, ../../scss/specifics/video/_video-feedback.scss */
+/* line 113, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-name {
   font-weight: 800;
   margin-right: 1em;
 }
 
-/* line 110, ../../scss/specifics/video/_video-feedback.scss */
+/* line 118, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-time-posted {
   font-size: 0.8em;
   color: #999999;
   margin-right: 1em;
 }
 
-/* line 116, ../../scss/specifics/video/_video-feedback.scss */
-.video-feedback__comment--active {
-  border-left: solid 5px #c8e6ce;
-  padding-left: 15px;
-}
-
-/* line 121, ../../scss/specifics/video/_video-feedback.scss */
+/* line 124, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment--hover {
   background-color: #ffefef;
 }
 
-/* line 125, ../../scss/specifics/video/_video-feedback.scss */
+/* line 128, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-message {
   display: inline-block;
   width: 80%;
@@ -6416,19 +6419,19 @@ strong {
   margin-bottom: 10px;
 }
 
-/* line 132, ../../scss/specifics/video/_video-feedback.scss */
+/* line 135, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-time {
   display: inline-block;
   width: 40px;
   font-size: small;
 }
 
-/* line 138, ../../scss/specifics/video/_video-feedback.scss */
+/* line 141, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-time:hover {
   cursor: pointer;
 }
 
-/* line 142, ../../scss/specifics/video/_video-feedback.scss */
+/* line 145, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-author {
   margin-left: 45px;
   color: #999999;
@@ -6438,7 +6441,7 @@ strong {
   font-variant: small-caps;
 }
 
-/* line 151, ../../scss/specifics/video/_video-feedback.scss */
+/* line 154, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-date {
   color: #b7bcbd;
   font-style: italic;
@@ -6446,74 +6449,62 @@ strong {
   text-transform: lowercase;
 }
 
-/* line 158, ../../scss/specifics/video/_video-feedback.scss */
+/* line 161, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-author:after {
   content: ',';
 }
 
-/* line 162, ../../scss/specifics/video/_video-feedback.scss */
+/* line 165, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__resolve-link {
   position: absolute;
   bottom: 12px;
   right: 4em;
-  opacity: 0;
   cursor: pointer;
   color: #51b364;
 }
 
-/* line 171, ../../scss/specifics/video/_video-feedback.scss */
-.video-feedback__resolve-link--active {
-  opacity: 1;
-}
-
-/* line 175, ../../scss/specifics/video/_video-feedback.scss */
+/* line 173, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__resolve-link:hover {
   text-decoration: underline;
 }
 
-/* line 179, ../../scss/specifics/video/_video-feedback.scss */
+/* line 177, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__reply-link {
   position: absolute;
   bottom: 12px;
   right: 12px;
-  opacity: 0;
   cursor: pointer;
   color: #51b364;
 }
 
-/* line 188, ../../scss/specifics/video/_video-feedback.scss */
-.video-feedback__reply-link--active {
-  opacity: 1;
-}
-
-/* line 192, ../../scss/specifics/video/_video-feedback.scss */
+/* line 185, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__reply-link:hover {
   text-decoration: underline;
 }
 
-/* line 196, ../../scss/specifics/video/_video-feedback.scss */
+/* line 189, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-timestamp-link {
   color: #51b364;
   cursor: pointer;
 }
 
-/* line 201, ../../scss/specifics/video/_video-feedback.scss */
+/* line 194, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-timestamp-link:hover {
   text-decoration: underline;
 }
 
-/* line 205, ../../scss/specifics/video/_video-feedback.scss */
+/* line 198, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__notify {
   text-align: center;
 }
 
-/* line 213, ../../scss/specifics/video/_video-feedback.scss */
+/* line 206, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-controls {
   padding-top: 1em;
   position: relative;
 }
 
-/* line 218, ../../scss/specifics/video/_video-feedback.scss */
+/* line 211, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comments-filters {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -6525,7 +6516,7 @@ strong {
   padding-right: 2em;
 }
 
-/* line 225, ../../scss/specifics/video/_video-feedback.scss */
+/* line 218, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comments-filter-label {
   font-variant: small-caps;
   color: #999999;

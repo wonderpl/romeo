@@ -24,6 +24,15 @@ angular.module('RomeoApp.directives')
     return comment;
   }
 
+  // http://stackoverflow.com/a/1129270
+  function sortById(a, b) {
+    if (a.id < b.id)
+       return -1;
+    if (a.id > b.id)
+      return 1;
+    return 0;
+  }
+
   return {
     restrict : 'E',
     replace: true,
@@ -34,6 +43,50 @@ angular.module('RomeoApp.directives')
       comments : '=',
       notified : '=',
       isOwner: '='
+    },
+    link : function (scope, element, attrs) {
+
+      scope.$watch(function () {
+          return Math.round(scope.currentTime);
+        },
+        function(newValue, oldValue) {
+          if (newValue && newValue !== oldValue) {
+            var comments = getCommentsByTime(newValue);
+            var sortedComments = comments.length ? comments.sort(sortById) : [];
+            var el = sortedComments.length ? getCommentElementById(sortedComments[0].id) : null;
+            if (el) {
+              scrollToComment(el);
+            }
+          }
+        }
+      );
+
+      function getCommentsByTime (time) {
+        var filtered = [];
+        var comments = scope.comments;
+        var l = comments.length;
+        while (l--) {
+          if (comments[l].timestamp === time) {
+            filtered.push(comments[l]);
+          }
+        }
+        return filtered;
+      }
+
+      function getCommentElementById (id) {
+        return element.find('#comment-' + id);
+      }
+
+      function scrollToComment (el) {
+        var list = element.find('.video-feedback__comments-list').first();
+        var position = el.position().top;
+        if (position > 0) {
+          list.animate({
+              scrollTop: position
+          }, 1000);
+        }
+      }
+
     },
     controller : function ($scope) {
 

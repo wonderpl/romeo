@@ -1424,11 +1424,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </div>\n" +
     "\n" +
     "    <ul class=\"video-feedback__comments-list\">\n" +
-    "      <li class=\"video-feedback__comment\"\n" +
+    "      <li id=\"comment-(~ comment.id ~)\"\n" +
+    "        class=\"video-feedback__comment\"\n" +
     "        ng-class=\"{ 'video-feedback__comment--active' : isTimeSync(comment.timestamp) }\"\n" +
-    "        ng-repeat=\"comment in comments | orderBy : 'timestamp' | filter: { resolved : filterResolved }\"\n" +
-    "        ng-mouseenter=\"replyActive = true\"\n" +
-    "        ng-mouseleave=\"replyActive = false\">\n" +
+    "        ng-repeat=\"comment in comments | orderBy : 'timestamp' | filter: { resolved : filterResolved }\">\n" +
     "          <div ng-class=\"{ 'video-feedback__comment--resolved' : comment.resolved }\">\n" +
     "            <a class=\"video-feedback__comment-profile-image\" style=\"background-image: url('(~ comment.avatar_url ~)');\"></a>\n" +
     "            <div class=\"video-feedback__comment-details\">\n" +
@@ -1448,19 +1447,16 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        <div class=\"video-feedback__comment-controls\">\n" +
     "          <a class=\"video-feedback__reply-link\"\n" +
     "            ng-hide=\"comment.resolved\"\n" +
-    "            ng-class=\"{ 'video-feedback__reply-link--active' : replyActive }\"\n" +
     "            ng-click=\"reply(comment.timestamp)\">\n" +
     "            reply\n" +
     "          </a>\n" +
     "          <a class=\"video-feedback__resolve-link\"\n" +
-    "            ng-hide=\"comment.resolved\"\n" +
-    "            ng-class=\"{ 'video-feedback__resolve-link--active' : replyActive && isOwner }\"\n" +
+    "            ng-hide=\"comment.resolved || !isOwner\"\n" +
     "            ng-click=\"resolve(comment.id)\">\n" +
     "            resolve\n" +
     "          </a>\n" +
     "          <a class=\"video-feedback__resolve-link\"\n" +
-    "            ng-show=\"comment.resolved\"\n" +
-    "            ng-class=\"{ 'video-feedback__resolve-link--active' : replyActive && isOwner }\"\n" +
+    "            ng-show=\"comment.resolved && isOwner\"\n" +
     "            ng-click=\"unresolve(comment.id)\">\n" +
     "            reopen\n" +
     "          </a>\n" +
