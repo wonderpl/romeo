@@ -1027,6 +1027,23 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('page-footer.html',
+    "<section class=\"page-footer cf\">\n" +
+    "  <ul class=\"page-footer__items\">\n" +
+    "    <li class=\"page-footer__item\"><a href=\"#\" class=\"page-footer__link\">iOS App</a></li>\n" +
+    "    <li class=\"page-footer__item\"><a href=\"#\" class=\"page-footer__link\">Help</a></li>\n" +
+    "    <li class=\"page-footer__item\"><a href=\"#\" class=\"page-footer__link\">API</a></li>\n" +
+    "    <li class=\"page-footer__item\"><a href=\"#\" class=\"page-footer__link\">Blog</a></li>\n" +
+    "    <li class=\"page-footer__item\"><a href=\"#\" class=\"page-footer__link\">Twitter</a></li>\n" +
+    "    <li class=\"page-footer__item\"><a href=\"#\" class=\"page-footer__link\">Facebook</a></li>\n" +
+    "    <li class=\"page-footer__item\"><a href=\"#\" class=\"page-footer__link\">LinkedIn</a></li>\n" +
+    "    <li class=\"page-footer__item\"><a href=\"#\" class=\"page-footer__link\">Instagram</a></li>\n" +
+    "  </ul>\n" +
+    "  <span class=\"page-footer__note\">&copy; 2014 Wonder PL, Ltd.</span>\n" +
+    "</section>"
+  );
+
+
   $templateCache.put('page-header.html',
     "<header class=\"page-header cf page-header--(~ $root.layoutMode ~)\">\n" +
     "  <h1 class=\"page-header__logo\">\n" +
@@ -1318,7 +1335,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('layout-control.html',
-    "<section class=\"layout-control layout-control--(~ $root.layoutMode ~)\">\n" +
+    "<section ng-show=\"isComments\" class=\"layout-control layout-control--(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
     "  <div class=\"btn-group\">\n" +
     "    <a class=\"btn btn--small\" ng-click=\"reposition('mirror')\"><i class=\"icon  icon--split-vertical-alt\"></i></a>\n" +
     "    <a class=\"btn btn--small\" ng-click=\"reposition('column')\"><i class=\"icon  icon--split-horizontal\"></i></a>\n" +
@@ -1681,7 +1698,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('video-navigation.html',
-    "<section class=\"sub-navigation video-view-control-panel sub-navigation--(~ $root.layoutMode ~)\">\n" +
+    "<section class=\"sub-navigation video-view-control-panel sub-navigation--(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
     "  <p>(~ isCollaborator ~)</p>\n" +
     "  <ul class=\"sub-navigation__modes\">\n" +
     "    <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
@@ -1822,12 +1839,12 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<div ng-controller=\"VideoCtrl\" class=\"cf\">\n" +
     "\n" +
     "  <div class=\"video-view__nav-placeholder\" ng-hide=\"$root.isCollaborator\">\n" +
-    "    <video-navigation is-edit=\"isEdit\" is-owner=\"isOwner\"></video-navigation>\n" +
+    "    <video-navigation is-edit=\"isEdit\" is-owner=\"isOwner\" is-comments=\"isComments\"></video-navigation>\n" +
     "  </div>\n" +
     "\n" +
-    "  <div class=\"configurable-layout configurable-layout-(~ $root.layoutMode ~) cf\">\n" +
+    "  <div class=\"configurable-layout configurable-layout-(~ isComments ? $root.layoutMode : 'column' ~) cf\">\n" +
     "\n" +
-    "    <div class=\"layout-block layout-block__primary layout-block-primary--(~ $root.layoutMode ~)\">\n" +
+    "    <div class=\"layout-block layout-block__primary layout-block-primary--(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
     "\n" +
     "      <section class=\"main-view video-view\">\n" +
     "\n" +
@@ -1901,7 +1918,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    </div>\n" +
     "\n" +
-    "    <div class=\"layout-block layout-block__secondary layout-block-secondary--(~ $root.layoutMode ~)\">\n" +
+    "    <div class=\"layout-block layout-block__secondary layout-block-secondary--(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
     "\n" +
     "      <section class=\"cf video-view__comments\" ng-show=\"video.id && isComments || (video.id && $root.isCollaborator && canComment)\">\n" +
     "        <video-indicators comments=\"comments\" current-time=\"videoCurrentTime\" total-time=\"videoTotalTime\"></video-indicators>\n" +
@@ -1911,7 +1928,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    </div>\n" +
     "\n" +
-    "    <div class=\"layout-block layout-block__tertiary layout-block-tertiary--(~ $root.layoutMode ~)\">\n" +
+    "    <div class=\"layout-block layout-block__tertiary layout-block-tertiary--(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
     "      <section class=\"cf video-view__comments\" ng-show=\"video.id && isComments || (video.id && $root.isCollaborator && canComment)\">\n" +
     "        <video-collaborators notified=\"notified\" ng-show=\"video.id && isComments && $root.layoutMode === 'column'\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
     "        <video-comments notified=\"notified\" is-owner=\"isOwner\" comments=\"comments\" video-id=\"(~ video.id ~)\" current-time=\"videoCurrentTime\"></video-comments>\n" +
@@ -1920,8 +1937,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  </div>\n" +
     "\n" +
-    "<video-comments-control></video-comments-control>\n" +
-    "  <layout-control></layout-control>\n" +
+    "  <layout-control is-comments=\"isComments\" is-edit=\"isEdit\"></layout-control>\n" +
     "\n" +
     "</div>\n" +
     "\n" +

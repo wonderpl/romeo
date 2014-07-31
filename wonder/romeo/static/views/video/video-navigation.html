@@ -1,4 +1,4 @@
-<section class="sub-navigation video-view-control-panel sub-navigation--{{ $root.layoutMode }}">
+<section class="sub-navigation video-view-control-panel sub-navigation--{{ isComments ? $root.layoutMode : 'column' }}">
   <p>{{ isCollaborator }}</p>
   <ul class="sub-navigation__modes">
     <li class="sub-navigation__mode" ng-show="isEdit">

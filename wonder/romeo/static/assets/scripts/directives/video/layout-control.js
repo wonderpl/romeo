@@ -12,13 +12,10 @@ function LayoutControl ($templateCache, $rootScope, $cookies) {
     replace : true,
     template : $templateCache.get('layout-control.html'),
     scope : {
-
+      'isComments' : '=',
+      'isEdit' : '='
     },
     controller : function ($scope) {
-
-      $scope.$on('$locationChangeStart', function(event) {
-        $rootScope.layoutMode = 'column';
-      });
 
       $scope.reposition = function (mode) {
         var layoutMode;

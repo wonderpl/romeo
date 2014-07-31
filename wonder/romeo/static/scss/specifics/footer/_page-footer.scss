@@ -1,0 +1,26 @@
+.page-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  min-width: 960px;
+  background: $white;
+  padding: 12px;
+}
+
+.page-footer__items {
+  float: left;
+}
+
+.page-footer__item {
+  display: inline-block;
+  margin-right: 0.5em;
+}
+
+.page-footer__link {
+  color: $dark-grey;
+}
+
+.page-footer__note {
+  float: right;
+  color: $dark-grey;
+}

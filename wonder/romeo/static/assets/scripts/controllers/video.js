@@ -298,12 +298,19 @@ function VideoCtrl ($rootScope, $scope, $location, $upload, UploadService, $rout
     if ($rootScope.isCollaborator) {
       $scope.isReview = true;
       $scope.isComments = true;
+      $scope.isEdit = false;
     } else if (section === 'edit') {
       $scope.isEdit = true;
+      $scope.isReview = false;
+      $scope.isComments = false;
     } else if (section === 'comments') {
       $scope.isComments = true;
+      $scope.isEdit = false;
+      $scope.isReview = false;
     } else {
       $scope.isReview = true;
+      $scope.isComments = false;
+      $scope.isEdit = false;
     }
   };
 
