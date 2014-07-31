@@ -5044,721 +5044,756 @@ strong {
 }
 
 /* line 39, ../../scss/components/_icons.scss */
-.icon--color-picker:before {
+.icon--exit:before {
   content: "\e600";
 }
 
 /* line 40, ../../scss/components/_icons.scss */
-.icon--collection-add:before {
+.icon--group:before {
   content: "\e601";
 }
 
 /* line 41, ../../scss/components/_icons.scss */
-.icon--collection-remove:before {
+.icon--outbound:before {
   content: "\e602";
 }
 
 /* line 42, ../../scss/components/_icons.scss */
-.icon--collection:before {
+.icon--split-horizontal:before {
   content: "\e603";
 }
 
 /* line 43, ../../scss/components/_icons.scss */
-.icon--edit:before {
+.icon--split-vertical-alt:before {
   content: "\e604";
 }
 
 /* line 44, ../../scss/components/_icons.scss */
-.icon--full-screen:before {
+.icon--split-vertical:before {
   content: "\e605";
 }
 
 /* line 45, ../../scss/components/_icons.scss */
-.icon--warning-circle:before {
+.icon--code:before {
   content: "\e606";
 }
 
 /* line 46, ../../scss/components/_icons.scss */
-.icon--air-play:before {
+.icon--color-picker:before {
   content: "\e607";
 }
 
 /* line 47, ../../scss/components/_icons.scss */
-.icon--align-center:before {
+.icon--facebook:before {
   content: "\e608";
 }
 
 /* line 48, ../../scss/components/_icons.scss */
-.icon--align-justify:before {
+.icon--twitter:before {
   content: "\e609";
 }
 
 /* line 49, ../../scss/components/_icons.scss */
-.icon--align-left:before {
+.icon--air-play:before {
   content: "\e60a";
 }
 
 /* line 50, ../../scss/components/_icons.scss */
-.icon--align-right:before {
+.icon--align-center:before {
   content: "\e60b";
 }
 
 /* line 51, ../../scss/components/_icons.scss */
-.icon--alt:before {
+.icon--align-justify:before {
   content: "\e60c";
 }
 
 /* line 52, ../../scss/components/_icons.scss */
-.icon--anchor:before {
+.icon--align-left:before {
   content: "\e60d";
 }
 
 /* line 53, ../../scss/components/_icons.scss */
-.icon--archive:before {
+.icon--align-right:before {
   content: "\e60e";
 }
 
 /* line 54, ../../scss/components/_icons.scss */
-.icon--arrow-down:before {
+.icon--alt:before {
   content: "\e60f";
 }
 
 /* line 55, ../../scss/components/_icons.scss */
-.icon--arrow-left:before {
+.icon--anchor:before {
   content: "\e610";
 }
 
 /* line 56, ../../scss/components/_icons.scss */
-.icon--arrow-right:before {
+.icon--archive:before {
   content: "\e611";
 }
 
 /* line 57, ../../scss/components/_icons.scss */
-.icon--arrow-up:before {
+.icon--arrow-down:before {
   content: "\e612";
 }
 
 /* line 58, ../../scss/components/_icons.scss */
-.icon--bag:before {
+.icon--arrow-left:before {
   content: "\e613";
 }
 
 /* line 59, ../../scss/components/_icons.scss */
-.icon--ban:before {
+.icon--arrow-right:before {
   content: "\e614";
 }
 
 /* line 60, ../../scss/components/_icons.scss */
-.icon--bar-graph-2 {
+.icon--arrow-up:before {
   content: "\e615";
 }
 
 /* line 61, ../../scss/components/_icons.scss */
-.icon--bar-graph:before {
+.icon--bag:before {
   content: "\e616";
 }
 
 /* line 62, ../../scss/components/_icons.scss */
-.icon--battery:before {
+.icon--ban:before {
   content: "\e617";
 }
 
 /* line 63, ../../scss/components/_icons.scss */
-.icon--bell:before {
+.icon--bar-graph-2:before {
   content: "\e618";
 }
 
 /* line 64, ../../scss/components/_icons.scss */
-.icon--book:before {
+.icon--bar-graph:before {
   content: "\e619";
 }
 
 /* line 65, ../../scss/components/_icons.scss */
-.icon--box:before {
+.icon--battery:before {
   content: "\e61a";
 }
 
 /* line 66, ../../scss/components/_icons.scss */
-.icon--briefcase:before {
+.icon--bell:before {
   content: "\e61b";
 }
 
 /* line 67, ../../scss/components/_icons.scss */
-.icon--camera:before {
+.icon--book:before {
   content: "\e61c";
 }
 
 /* line 68, ../../scss/components/_icons.scss */
-.icon--check:before {
+.icon--box:before {
   content: "\e61d";
 }
 
 /* line 69, ../../scss/components/_icons.scss */
-.icon--circle-add:before {
+.icon--briefcase:before {
   content: "\e61e";
 }
 
 /* line 70, ../../scss/components/_icons.scss */
-.icon--circle-check:before {
+.icon--camera:before {
   content: "\e61f";
 }
 
 /* line 71, ../../scss/components/_icons.scss */
-.icon--circle-cross:before {
+.icon--check:before {
   content: "\e620";
 }
 
 /* line 72, ../../scss/components/_icons.scss */
-.icon--circle-minus:before {
+.icon--circle-add:before {
   content: "\e621";
 }
 
 /* line 73, ../../scss/components/_icons.scss */
-.icon--clipboard:before {
+.icon--circle-check:before {
   content: "\e622";
 }
 
 /* line 74, ../../scss/components/_icons.scss */
-.icon--clock:before {
+.icon--circle-cross:before {
   content: "\e623";
 }
 
 /* line 75, ../../scss/components/_icons.scss */
-.icon--cloud-download:before {
+.icon--circle-minus:before {
   content: "\e624";
 }
 
 /* line 76, ../../scss/components/_icons.scss */
-.icon--cloud-upload:before {
+.icon--clipboard:before {
   content: "\e625";
 }
 
 /* line 77, ../../scss/components/_icons.scss */
-.icon--cloud:before {
+.icon--clock:before {
   content: "\e626";
 }
 
 /* line 78, ../../scss/components/_icons.scss */
-.icon--cog:before {
+.icon--cloud-download:before {
   content: "\e627";
 }
 
 /* line 79, ../../scss/components/_icons.scss */
-.icon--columns:before {
+.icon--cloud-upload:before {
   content: "\e628";
 }
 
 /* line 80, ../../scss/components/_icons.scss */
-.icon--command:before {
+.icon--cloud:before {
   content: "\e629";
 }
 
 /* line 81, ../../scss/components/_icons.scss */
-.icon--content-left:before {
+.icon--cog:before {
   content: "\e62a";
 }
 
 /* line 82, ../../scss/components/_icons.scss */
-.icon--content-right:before {
+.icon--collection-add:before {
   content: "\e62b";
 }
 
 /* line 83, ../../scss/components/_icons.scss */
-.icon--contract:before {
+.icon--collection-remove:before {
   content: "\e62c";
 }
 
 /* line 84, ../../scss/components/_icons.scss */
-.icon--cross:before {
+.icon--collection:before {
   content: "\e62d";
 }
 
 /* line 85, ../../scss/components/_icons.scss */
-.icon--delete:before {
+.icon--color-picker2:before {
   content: "\e62e";
 }
 
 /* line 86, ../../scss/components/_icons.scss */
-.icon--disc:before {
+.icon--columns:before {
   content: "\e62f";
 }
 
 /* line 87, ../../scss/components/_icons.scss */
-.icon--download:before {
+.icon--command:before {
   content: "\e630";
 }
 
 /* line 88, ../../scss/components/_icons.scss */
-.icon--drop:before {
+.icon--content-left:before {
   content: "\e631";
 }
 
 /* line 89, ../../scss/components/_icons.scss */
-.icon--ellipsis:before {
+.icon--content-right:before {
   content: "\e632";
 }
 
 /* line 90, ../../scss/components/_icons.scss */
-.icon--esc:before {
+.icon--contract:before {
   content: "\e633";
 }
 
 /* line 91, ../../scss/components/_icons.scss */
-.icon--expand:before {
+.icon--cross:before {
   content: "\e634";
 }
 
 /* line 92, ../../scss/components/_icons.scss */
-.icon--eye:before {
+.icon--delete:before {
   content: "\e635";
 }
 
 /* line 93, ../../scss/components/_icons.scss */
-.icon--fast-forward:before {
+.icon--disc:before {
   content: "\e636";
 }
 
 /* line 94, ../../scss/components/_icons.scss */
-.icon--file-add:before {
+.icon--download:before {
   content: "\e637";
 }
 
 /* line 95, ../../scss/components/_icons.scss */
-.icon--file-subtract:before {
+.icon--drop:before {
   content: "\e638";
 }
 
 /* line 96, ../../scss/components/_icons.scss */
-.icon--file:before {
+.icon--edit:before {
   content: "\e639";
 }
 
 /* line 97, ../../scss/components/_icons.scss */
-.icon--flag:before {
+.icon--ellipsis:before {
   content: "\e63a";
 }
 
 /* line 98, ../../scss/components/_icons.scss */
-.icon--folder:before {
+.icon--esc:before {
   content: "\e63b";
 }
 
 /* line 99, ../../scss/components/_icons.scss */
-.icon--globe:before {
+.icon--expand:before {
   content: "\e63c";
 }
 
 /* line 100, ../../scss/components/_icons.scss */
-.icon--grid-2:before {
+.icon--eye:before {
   content: "\e63d";
 }
 
 /* line 101, ../../scss/components/_icons.scss */
-.icon--grid:before {
+.icon--fast-forward:before {
   content: "\e63e";
 }
 
 /* line 102, ../../scss/components/_icons.scss */
-.icon--head:before {
+.icon--file-add:before {
   content: "\e63f";
 }
 
 /* line 103, ../../scss/components/_icons.scss */
-.icon--heart:before {
+.icon--file-subtract:before {
   content: "\e640";
 }
 
 /* line 104, ../../scss/components/_icons.scss */
-.icon--help:before {
+.icon--file:before {
   content: "\e641";
 }
 
 /* line 105, ../../scss/components/_icons.scss */
-.icon--image:before {
+.icon--flag:before {
   content: "\e642";
 }
 
 /* line 106, ../../scss/components/_icons.scss */
-.icon--inbox:before {
+.icon--folder:before {
   content: "\e643";
 }
 
 /* line 107, ../../scss/components/_icons.scss */
-.icon--layers:before {
+.icon--full-screen:before {
   content: "\e644";
 }
 
 /* line 108, ../../scss/components/_icons.scss */
-.icon--layout:before {
+.icon--globe:before {
   content: "\e645";
 }
 
 /* line 109, ../../scss/components/_icons.scss */
-.icon--link:before {
+.icon--grid-2:before {
   content: "\e646";
 }
 
 /* line 110, ../../scss/components/_icons.scss */
-.icon--loader:before {
+.icon--grid:before {
   content: "\e647";
 }
 
 /* line 111, ../../scss/components/_icons.scss */
-.icon--location-2:before {
+.icon--head:before {
   content: "\e648";
 }
 
 /* line 112, ../../scss/components/_icons.scss */
-.icon--location:before {
+.icon--heart:before {
   content: "\e649";
 }
 
 /* line 113, ../../scss/components/_icons.scss */
-.icon--lock:before {
+.icon--help:before {
   content: "\e64a";
 }
 
 /* line 114, ../../scss/components/_icons.scss */
-.icon--mail:before {
+.icon--image:before {
   content: "\e64b";
 }
 
 /* line 115, ../../scss/components/_icons.scss */
-.icon--map:before {
+.icon--inbox:before {
   content: "\e64c";
 }
 
 /* line 116, ../../scss/components/_icons.scss */
-.icon--marquee-add:before {
+.icon--layers:before {
   content: "\e64d";
 }
 
 /* line 117, ../../scss/components/_icons.scss */
-.icon--marquee-subtract:before {
+.icon--layout:before {
   content: "\e64e";
 }
 
 /* line 118, ../../scss/components/_icons.scss */
-.icon--marquee:before {
+.icon--link:before {
   content: "\e64f";
 }
 
 /* line 119, ../../scss/components/_icons.scss */
-.icon--maximize:before {
+.icon--loader:before {
   content: "\e650";
 }
 
 /* line 120, ../../scss/components/_icons.scss */
-.icon--menu:before {
+.icon--location-2:before {
   content: "\e651";
 }
 
 /* line 121, ../../scss/components/_icons.scss */
-.icon--microphone:before {
+.icon--location:before {
   content: "\e652";
 }
 
 /* line 122, ../../scss/components/_icons.scss */
-.icon--minimize:before {
+.icon--lock:before {
   content: "\e653";
 }
 
 /* line 123, ../../scss/components/_icons.scss */
-.icon--minus:before {
+.icon--mail:before {
   content: "\e654";
 }
 
 /* line 124, ../../scss/components/_icons.scss */
-.icon--monitor:before {
+.icon--map:before {
   content: "\e655";
 }
 
 /* line 125, ../../scss/components/_icons.scss */
-.icon--moon:before {
+.icon--marquee-add:before {
   content: "\e656";
 }
 
 /* line 126, ../../scss/components/_icons.scss */
-.icon--move:before {
+.icon--marquee-subtract:before {
   content: "\e657";
 }
 
 /* line 127, ../../scss/components/_icons.scss */
-.icon--mute:before {
+.icon--marquee:before {
   content: "\e658";
 }
 
 /* line 128, ../../scss/components/_icons.scss */
-.icon--open:before {
+.icon--maximize:before {
   content: "\e659";
 }
 
 /* line 129, ../../scss/components/_icons.scss */
-.icon--outbox:before {
+.icon--menu:before {
   content: "\e65a";
 }
 
 /* line 130, ../../scss/components/_icons.scss */
-.icon--paper-clip:before {
+.icon--microphone:before {
   content: "\e65b";
 }
 
 /* line 131, ../../scss/components/_icons.scss */
-.icon--paper-stack:before {
+.icon--minimize:before {
   content: "\e65c";
 }
 
 /* line 132, ../../scss/components/_icons.scss */
-.icon--paper:before {
+.icon--minus:before {
   content: "\e65d";
 }
 
 /* line 133, ../../scss/components/_icons.scss */
-.icon--paragraph:before {
+.icon--monitor:before {
   content: "\e65e";
 }
 
 /* line 134, ../../scss/components/_icons.scss */
-.icon--pause:before {
+.icon--moon:before {
   content: "\e65f";
 }
 
 /* line 135, ../../scss/components/_icons.scss */
-.icon--pie-graph:before {
+.icon--move:before {
   content: "\e660";
 }
 
 /* line 136, ../../scss/components/_icons.scss */
-.icon--play:before {
+.icon--mute:before {
   content: "\e661";
 }
 
 /* line 137, ../../scss/components/_icons.scss */
-.icon--plus:before {
+.icon--open:before {
   content: "\e662";
 }
 
 /* line 138, ../../scss/components/_icons.scss */
-.icon--power:before {
+.icon--outbox:before {
   content: "\e663";
 }
 
 /* line 139, ../../scss/components/_icons.scss */
-.icon--printer:before {
+.icon--paper-clip:before {
   content: "\e664";
 }
 
 /* line 140, ../../scss/components/_icons.scss */
-.icon--record:before {
+.icon--paper-stack:before {
   content: "\e665";
 }
 
 /* line 141, ../../scss/components/_icons.scss */
-.icon--reload:before {
+.icon--paper:before {
   content: "\e666";
 }
 
 /* line 142, ../../scss/components/_icons.scss */
-.icon--repeat:before {
+.icon--paragraph:before {
   content: "\e667";
 }
 
 /* line 143, ../../scss/components/_icons.scss */
-.icon--reply:before {
+.icon--pause:before {
   content: "\e668";
 }
 
 /* line 144, ../../scss/components/_icons.scss */
-.icon--rewind:before {
+.icon--pie-graph:before {
   content: "\e669";
 }
 
 /* line 145, ../../scss/components/_icons.scss */
-.icon--ribbon:before {
+.icon--play:before {
   content: "\e66a";
 }
 
 /* line 146, ../../scss/components/_icons.scss */
-.icon--search:before {
+.icon--plus:before {
   content: "\e66b";
 }
 
 /* line 147, ../../scss/components/_icons.scss */
-.icon--server:before {
+.icon--power:before {
   content: "\e66c";
 }
 
 /* line 148, ../../scss/components/_icons.scss */
-.icon--share:before {
+.icon--printer:before {
   content: "\e66d";
 }
 
 /* line 149, ../../scss/components/_icons.scss */
-.icon--shuffle:before {
+.icon--record:before {
   content: "\e66e";
 }
 
 /* line 150, ../../scss/components/_icons.scss */
-.icon--signal:before {
+.icon--reload:before {
   content: "\e66f";
 }
 
 /* line 151, ../../scss/components/_icons.scss */
-.icon--skip-back:before {
+.icon--repeat:before {
   content: "\e670";
 }
 
 /* line 152, ../../scss/components/_icons.scss */
-.icon--skip-forward:before {
+.icon--reply:before {
   content: "\e671";
 }
 
 /* line 153, ../../scss/components/_icons.scss */
-.icon--speech-bubble:before {
+.icon--rewind:before {
   content: "\e672";
 }
 
 /* line 154, ../../scss/components/_icons.scss */
-.icon--square-add:before {
+.icon--ribbon:before {
   content: "\e673";
 }
 
 /* line 155, ../../scss/components/_icons.scss */
-.icon--square-check:before {
+.icon--search:before {
   content: "\e674";
 }
 
 /* line 156, ../../scss/components/_icons.scss */
-.icon--square-cross:before {
+.icon--server:before {
   content: "\e675";
 }
 
 /* line 157, ../../scss/components/_icons.scss */
-.icon--square-minus:before {
+.icon--share:before {
   content: "\e676";
 }
 
 /* line 158, ../../scss/components/_icons.scss */
-.icon--stack-2:before {
+.icon--shuffle:before {
   content: "\e677";
 }
 
 /* line 159, ../../scss/components/_icons.scss */
-.icon--stack:before {
+.icon--signal:before {
   content: "\e678";
 }
 
 /* line 160, ../../scss/components/_icons.scss */
-.icon--star:before {
+.icon--skip-back:before {
   content: "\e679";
 }
 
 /* line 161, ../../scss/components/_icons.scss */
-.icon--stop:before {
+.icon--skip-forward:before {
   content: "\e67a";
 }
 
 /* line 162, ../../scss/components/_icons.scss */
-.icon--sun:before {
+.icon--speech-bubble:before {
   content: "\e67b";
 }
 
 /* line 163, ../../scss/components/_icons.scss */
-.icon--tag:before {
+.icon--square-add:before {
   content: "\e67c";
 }
 
 /* line 164, ../../scss/components/_icons.scss */
-.icon--target:before {
+.icon--square-check:before {
   content: "\e67d";
 }
 
 /* line 165, ../../scss/components/_icons.scss */
-.icon--thermometer:before {
+.icon--square-cross:before {
   content: "\e67e";
 }
 
 /* line 166, ../../scss/components/_icons.scss */
-.icon--toggle:before {
+.icon--square-minus:before {
   content: "\e67f";
 }
 
 /* line 167, ../../scss/components/_icons.scss */
-.icon--trash:before {
+.icon--stack-2:before {
   content: "\e680";
 }
 
 /* line 168, ../../scss/components/_icons.scss */
-.icon--umbrella:before {
+.icon--stack:before {
   content: "\e681";
 }
 
 /* line 169, ../../scss/components/_icons.scss */
-.icon--unlock:before {
+.icon--star:before {
   content: "\e682";
 }
 
 /* line 170, ../../scss/components/_icons.scss */
-.icon--upload:before {
+.icon--stop:before {
   content: "\e683";
 }
 
 /* line 171, ../../scss/components/_icons.scss */
-.icon--video:before {
+.icon--sun:before {
   content: "\e684";
 }
 
 /* line 172, ../../scss/components/_icons.scss */
-.icon--volume:before {
+.icon--tag:before {
   content: "\e685";
 }
 
 /* line 173, ../../scss/components/_icons.scss */
-.icon--watch:before {
+.icon--target:before {
   content: "\e686";
 }
 
 /* line 174, ../../scss/components/_icons.scss */
-.icon--zoom-in:before {
+.icon--thermometer:before {
   content: "\e687";
 }
 
 /* line 175, ../../scss/components/_icons.scss */
-.icon--zoom-out:before {
+.icon--toggle:before {
   content: "\e688";
 }
 
 /* line 176, ../../scss/components/_icons.scss */
-.icon--twitter:before {
+.icon--trash:before {
   content: "\e689";
 }
 
 /* line 177, ../../scss/components/_icons.scss */
-.icon--code:before {
+.icon--umbrella:before {
   content: "\e68a";
 }
 
 /* line 178, ../../scss/components/_icons.scss */
-.icon--facebook:before {
+.icon--unlock:before {
   content: "\e68b";
 }
 
+/* line 179, ../../scss/components/_icons.scss */
+.icon--upload:before {
+  content: "\e68c";
+}
+
 /* line 180, ../../scss/components/_icons.scss */
+.icon--video:before {
+  content: "\e68d";
+}
+
+/* line 181, ../../scss/components/_icons.scss */
+.icon--volume:before {
+  content: "\e68e";
+}
+
+/* line 182, ../../scss/components/_icons.scss */
+.icon--warning-circle:before {
+  content: "\e68f";
+}
+
+/* line 183, ../../scss/components/_icons.scss */
+.icon--watch:before {
+  content: "\e690";
+}
+
+/* line 184, ../../scss/components/_icons.scss */
+.icon--zoom-in:before {
+  content: "\e691";
+}
+
+/* line 185, ../../scss/components/_icons.scss */
+.icon--zoom-out:before {
+  content: "\e692";
+}
+
+/* line 187, ../../scss/components/_icons.scss */
 .icon--medium {
   font-size: 24px;
 }
 
-/* line 181, ../../scss/components/_icons.scss */
+/* line 188, ../../scss/components/_icons.scss */
 .icon--large {
   font-size: 32px;
 }
 
-/* line 182, ../../scss/components/_icons.scss */
+/* line 189, ../../scss/components/_icons.scss */
 .icon--huge {
   font-size: 64px;
 }
 
-/* line 183, ../../scss/components/_icons.scss */
+/* line 190, ../../scss/components/_icons.scss */
 .icon--natural {
   font-size: inherit;
 }
