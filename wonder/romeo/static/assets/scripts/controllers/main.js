@@ -11,8 +11,7 @@ angular.module('RomeoApp.controllers').controller('MainCtrl',
     $rootScope.Videos = {};
     $rootScope.Tags = {};
 
-    $rootScope.commentsPosition = 'default';
-    $rootScope.layoutMode = 'default';
+    $rootScope.layoutMode = 'column';
 
     $scope.profile = '';
 

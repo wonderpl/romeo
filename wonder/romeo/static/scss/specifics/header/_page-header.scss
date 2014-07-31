@@ -7,6 +7,12 @@
   @extend .cf;
 }
 
+.page-header--wide,
+.page-header--mirror {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
 .page-header__logo {
   display: inline-block;
   float: left;

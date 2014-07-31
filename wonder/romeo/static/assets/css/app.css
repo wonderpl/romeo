@@ -5954,9 +5954,11 @@ strong {
   left: 0;
   margin: 0;
   width: 100%;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
-/* line 47, ../../scss/components/_sub-navigation.scss */
+/* line 49, ../../scss/components/_sub-navigation.scss */
 .sub-navigation__placeholder {
   display: block;
   height: 52px;
@@ -6166,7 +6168,7 @@ strong {
 }
 
 /* line 9, ../../scss/specifics/video/_configurable-layout.scss */
-.layout-block-primary--default {
+.layout-block-primary--column {
   width: 960px;
   margin-left: auto;
   margin-right: auto;
@@ -6272,7 +6274,7 @@ strong {
 }
 
 /* line 6, ../../scss/specifics/video/_video-feedback.scss */
-.video-feedback--default {
+.video-feedback--column {
   width: 75%;
   float: left;
 }
@@ -7433,7 +7435,7 @@ strong {
 }
 
 /* line 5, ../../scss/specifics/video/_video-collaborators.scss */
-.video-collaborators--default {
+.video-collaborators--column {
   float: right;
   width: 22%;
 }
@@ -7600,13 +7602,20 @@ strong {
   font-weight: 800;
 }
 
-/* line 10, ../../scss/specifics/header/_page-header.scss */
+/* line 11, ../../scss/specifics/header/_page-header.scss */
+.page-header--wide,
+.page-header--mirror {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* line 16, ../../scss/specifics/header/_page-header.scss */
 .page-header__logo {
   display: inline-block;
   float: left;
 }
 
-/* line 15, ../../scss/specifics/header/_page-header.scss */
+/* line 21, ../../scss/specifics/header/_page-header.scss */
 .page-header__logo-link {
   background-image: url("/static/assets/img/page-logo.png");
   background-repeat: no-repeat;
@@ -7616,24 +7625,24 @@ strong {
   margin: 0.5em 0;
 }
 
-/* line 24, ../../scss/specifics/header/_page-header.scss */
+/* line 30, ../../scss/specifics/header/_page-header.scss */
 .page-header__link {
   color: #70797b;
 }
 
-/* line 28, ../../scss/specifics/header/_page-header.scss */
+/* line 34, ../../scss/specifics/header/_page-header.scss */
 .page-header__link:hover {
   text-decoration: underline;
 }
 
-/* line 32, ../../scss/specifics/header/_page-header.scss */
+/* line 38, ../../scss/specifics/header/_page-header.scss */
 .page-header__current-user {
   display: inline-block;
   vertical-align: middle;
   padding: 0 1em;
 }
 
-/* line 37, ../../scss/specifics/header/_page-header.scss */
+/* line 43, ../../scss/specifics/header/_page-header.scss */
 .page-header__profile-link {
   display: block;
   background-repeat: no-repeat;
@@ -7644,23 +7653,23 @@ strong {
   background-size: contain;
 }
 
-/* line 47, ../../scss/specifics/header/_page-header.scss */
+/* line 53, ../../scss/specifics/header/_page-header.scss */
 .page-header__navigation {
   display: inline-block;
 }
 
-/* line 51, ../../scss/specifics/header/_page-header.scss */
+/* line 57, ../../scss/specifics/header/_page-header.scss */
 .page-header__navigation-item {
   display: inline-block;
   border-right: 1px solid #b7bcbd;
 }
 
-/* line 56, ../../scss/specifics/header/_page-header.scss */
+/* line 62, ../../scss/specifics/header/_page-header.scss */
 .page-header__navigation-item:first-child {
   border-left: 1px solid #b7bcbd;
 }
 
-/* line 60, ../../scss/specifics/header/_page-header.scss */
+/* line 66, ../../scss/specifics/header/_page-header.scss */
 .page-header__navigation-link {
   padding: 1em;
   display: block;

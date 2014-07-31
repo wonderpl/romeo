@@ -1028,7 +1028,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('page-header.html',
-    "<header class=\"page-header cf\">\n" +
+    "<header class=\"page-header cf page-header--(~ $root.layoutMode ~)\">\n" +
     "  <h1 class=\"page-header__logo\">\n" +
     "    <ng-switch on=\"$root.isCollaborator\">\n" +
     "      <a class=\"page-header__logo-link hide-text\" ng-switch-when=\"true\">WonderPl</a>\n" +
@@ -1321,7 +1321,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<section class=\"layout-control layout-control--(~ $root.layoutMode ~)\">\n" +
     "  <div class=\"btn-group\">\n" +
     "    <a class=\"btn btn--small\" ng-click=\"reposition('mirror')\"><i class=\"icon  icon--split-vertical-alt\"></i></a>\n" +
-    "    <a class=\"btn btn--small\" ng-click=\"reposition('default')\"><i class=\"icon  icon--split-horizontal\"></i></a>\n" +
+    "    <a class=\"btn btn--small\" ng-click=\"reposition('column')\"><i class=\"icon  icon--split-horizontal\"></i></a>\n" +
     "    <a class=\"btn btn--small\" ng-click=\"reposition('wide')\"><i class=\"icon  icon--split-vertical\"></i></a>\n" +
     "  </div>\n" +
     "</section>"
@@ -1910,14 +1910,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <section class=\"cf video-view__comments\" ng-show=\"video.id && isComments || (video.id && $root.isCollaborator && canComment)\">\n" +
     "        <video-indicators comments=\"comments\" current-time=\"videoCurrentTime\" total-time=\"videoTotalTime\"></video-indicators>\n" +
     "        <video-frame-stepper current-time=\"videoCurrentTime\"></video-frame-stepper>\n" +
-    "        <video-collaborators notified=\"notified\" ng-show=\"video.id && isComments && $root.layoutMode !== 'default'\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
+    "        <video-collaborators notified=\"notified\" ng-show=\"video.id && isComments && $root.layoutMode !== 'column'\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
     "      </section>\n" +
     "\n" +
     "    </div>\n" +
     "\n" +
     "    <div class=\"layout-block layout-block__tertiary layout-block-tertiary--(~ $root.layoutMode ~)\">\n" +
     "      <section class=\"cf video-view__comments\" ng-show=\"video.id && isComments || (video.id && $root.isCollaborator && canComment)\">\n" +
-    "        <video-collaborators notified=\"notified\" ng-show=\"video.id && isComments && $root.layoutMode === 'default'\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
+    "        <video-collaborators notified=\"notified\" ng-show=\"video.id && isComments && $root.layoutMode === 'column'\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
     "        <video-comments notified=\"notified\" is-owner=\"isOwner\" comments=\"comments\" video-id=\"(~ video.id ~)\" current-time=\"videoCurrentTime\"></video-comments>\n" +
     "      </section>\n" +
     "    </div>\n" +
