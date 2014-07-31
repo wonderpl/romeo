@@ -3,7 +3,7 @@ angular
   .directive('layoutControl', LayoutControl);
 
 
-function LayoutControl ($templateCache, $rootScope) {
+function LayoutControl ($templateCache, $rootScope, $cookies) {
 
   'use strict';
 
@@ -36,6 +36,7 @@ function LayoutControl ($templateCache, $rootScope) {
             layoutMode = 'column';
           break;
         }
+        $cookies.layout = layoutMode;
         $rootScope.layoutMode = layoutMode;
       };
     }
