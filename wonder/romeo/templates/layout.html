@@ -23,7 +23,7 @@
 </head>
 <body ng-app="{% block appName %}RomeoApp{% endblock %}" ng-controller="MainCtrl" class="page-(~ getCurrentRoute() ~)">
 
-  <div class="container cf container--(~ $root.commentsPosition ~)">
+  <div class="container cf container--(~ $root.layoutMode ~)">
     {% block content %}
     {% endblock %}
   </div>

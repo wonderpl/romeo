@@ -2,6 +2,21 @@
 
 }
 
+.video-collaborators--default {
+  float: right;
+  width: 22%;
+}
+
+.video-collaborators--mirror {
+  width: 30%;
+  float: left;
+}
+
+.video-collaborators--wide {
+  width: 30%;
+  float: right;
+}
+
 .video-collaborators__header {
   padding-bottom: 1em;
 }

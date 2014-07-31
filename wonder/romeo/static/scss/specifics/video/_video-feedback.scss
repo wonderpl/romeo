@@ -3,6 +3,11 @@
   display: block;
 }
 
+.video-feedback--default {
+  width: 75%;
+  float: left;
+}
+
 .video-feedback__input-container {
 }
 
@@ -23,7 +28,7 @@
   border: 0 none;
   resize: none;
   transition: height 0.4s ease-in-out;
-  height: 35px;
+  height: 48px;
   font-size: 1em;
   width: 100%;
 }

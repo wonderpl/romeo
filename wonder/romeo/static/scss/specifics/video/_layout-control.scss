@@ -1,4 +1,4 @@
-.video-comments-control {
+.layout-control {
   position: fixed;
   bottom: 0;
   display: block;
@@ -13,13 +13,13 @@
           box-shadow: 0 -4px 4px -4px $grey;
 }
 
-.video-comments-control--wide,
-.video-comments-control--mirror {
+.layout-control--wide,
+.layout-control--mirror {
   width: 100%;
   margin: 0;
   left: 0;
 }
 
-.video-comments-control__option {
+.layout-control__option {
   display: inline-block;
 }

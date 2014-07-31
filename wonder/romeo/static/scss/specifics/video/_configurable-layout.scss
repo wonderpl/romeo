@@ -1,0 +1,63 @@
+.configurable-layout {
+  margin-bottom: 100px;
+}
+
+.configurable-layout--mirror {
+  text-align: right;
+}
+
+.layout-block-primary--default {
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  vertical-align: top;
+}
+
+
+.layout-block-primary--wide {
+  width: 63%;
+  display: inline-block;
+  padding: 0 12px;
+  vertical-align: top;
+}
+
+.layout-block-secondary--wide {
+  width: 63%;
+  display: inline-block;
+  padding: 0 12px;
+  float: left;
+}
+
+.layout-block-tertiary--wide {
+  width: 35%;
+  display: inline-block;
+  vertical-align: top;
+  padding: 0 12px;
+  position: absolute;
+  top: 48px;
+  right: 12px;
+}
+
+.layout-block-primary--mirror {
+  width: 63%;
+  padding: 0 12px;
+  float:right;
+  clear: right;
+}
+
+.layout-block-secondary--mirror {
+  width: 63%;
+  padding: 0 12px;
+  float: right;
+  clear: right;
+}
+
+.layout-block-tertiary--mirror {
+  width: 35%;
+  padding: 0 12px;
+  position: absolute;
+  left: 0;
+}
+
+
+

@@ -1,3 +1,5 @@
+@import "_layout-control";
+@import "_configurable-layout";
 @import "_video-edit";
 @import "_video-feedback";
 @import "_video-player";
@@ -15,6 +17,5 @@
 @import "_video-more";
 @import "_video-collaborators";
 @import "_video-medium";
-@import "_video-comments-control";
 
 @import "_video-section-drawer.scss";

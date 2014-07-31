@@ -26,7 +26,7 @@ angular.module('RomeoApp.controllers').controller('LoginCtrl',
                     if (response.data.error) {
 
                       $scope.errors = 'login error';
-                    };
+                    }
                 });
             };
 

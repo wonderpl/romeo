@@ -12,6 +12,7 @@ angular.module('RomeoApp.controllers').controller('MainCtrl',
     $rootScope.Tags = {};
 
     $rootScope.commentsPosition = 'default';
+    $rootScope.layoutMode = 'default';
 
     $scope.profile = '';
 

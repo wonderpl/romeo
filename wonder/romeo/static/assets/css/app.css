@@ -6126,6 +6126,104 @@ strong {
 /*!
 ========== SPECIFICS
 */
+/* line 1, ../../scss/specifics/video/_layout-control.scss */
+.layout-control {
+  position: fixed;
+  bottom: 0;
+  display: block;
+  text-align: right;
+  background: white;
+  width: 960px;
+  margin: 0 auto;
+  padding: 12px;
+  z-index: 2;
+  -webkit-box-shadow: 0 -4px 4px -4px #999999;
+  -moz-box-shadow: 0 -4px 4px -4px #999999;
+  box-shadow: 0 -4px 4px -4px #999999;
+}
+
+/* line 17, ../../scss/specifics/video/_layout-control.scss */
+.layout-control--wide,
+.layout-control--mirror {
+  width: 100%;
+  margin: 0;
+  left: 0;
+}
+
+/* line 23, ../../scss/specifics/video/_layout-control.scss */
+.layout-control__option {
+  display: inline-block;
+}
+
+/* line 1, ../../scss/specifics/video/_configurable-layout.scss */
+.configurable-layout {
+  margin-bottom: 100px;
+}
+
+/* line 5, ../../scss/specifics/video/_configurable-layout.scss */
+.configurable-layout--mirror {
+  text-align: right;
+}
+
+/* line 9, ../../scss/specifics/video/_configurable-layout.scss */
+.layout-block-primary--default {
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  vertical-align: top;
+}
+
+/* line 17, ../../scss/specifics/video/_configurable-layout.scss */
+.layout-block-primary--wide {
+  width: 63%;
+  display: inline-block;
+  padding: 0 12px;
+  vertical-align: top;
+}
+
+/* line 24, ../../scss/specifics/video/_configurable-layout.scss */
+.layout-block-secondary--wide {
+  width: 63%;
+  display: inline-block;
+  padding: 0 12px;
+  float: left;
+}
+
+/* line 31, ../../scss/specifics/video/_configurable-layout.scss */
+.layout-block-tertiary--wide {
+  width: 35%;
+  display: inline-block;
+  vertical-align: top;
+  padding: 0 12px;
+  position: absolute;
+  top: 48px;
+  right: 12px;
+}
+
+/* line 41, ../../scss/specifics/video/_configurable-layout.scss */
+.layout-block-primary--mirror {
+  width: 63%;
+  padding: 0 12px;
+  float: right;
+  clear: right;
+}
+
+/* line 48, ../../scss/specifics/video/_configurable-layout.scss */
+.layout-block-secondary--mirror {
+  width: 63%;
+  padding: 0 12px;
+  float: right;
+  clear: right;
+}
+
+/* line 55, ../../scss/specifics/video/_configurable-layout.scss */
+.layout-block-tertiary--mirror {
+  width: 35%;
+  padding: 0 12px;
+  position: absolute;
+  left: 0;
+}
+
 /* line 1, ../../scss/specifics/video/_video-edit.scss */
 .video-edit {
   position: absolute;
@@ -6173,7 +6271,13 @@ strong {
   display: block;
 }
 
-/* line 9, ../../scss/specifics/video/_video-feedback.scss */
+/* line 6, ../../scss/specifics/video/_video-feedback.scss */
+.video-feedback--default {
+  width: 75%;
+  float: left;
+}
+
+/* line 14, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__form {
   text-align: right;
   transition: max-height 0.4s linear;
@@ -6182,28 +6286,28 @@ strong {
   border-bottom: solid 1px #b7bcbd;
 }
 
-/* line 17, ../../scss/specifics/video/_video-feedback.scss */
+/* line 22, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__form--active {
   max-height: 100em;
 }
 
-/* line 21, ../../scss/specifics/video/_video-feedback.scss */
+/* line 26, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__input {
   text-align: left;
   border: 0 none;
   resize: none;
   transition: height 0.4s ease-in-out;
-  height: 35px;
+  height: 48px;
   font-size: 1em;
   width: 100%;
 }
 
-/* line 31, ../../scss/specifics/video/_video-feedback.scss */
+/* line 36, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__input--active {
   height: 100px;
 }
 
-/* line 35, ../../scss/specifics/video/_video-feedback.scss */
+/* line 40, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comments {
   margin: 20px 0;
   transition: all 1s ease-in-out;
@@ -6211,7 +6315,7 @@ strong {
   text-align: left;
 }
 
-/* line 42, ../../scss/specifics/video/_video-feedback.scss */
+/* line 47, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment {
   transition: border-width 0.4s, padding-left 0.4s, opacity 0.4s linear;
   margin: 1em 0;
@@ -6220,14 +6324,14 @@ strong {
   text-align: left;
 }
 
-/* line 50, ../../scss/specifics/video/_video-feedback.scss */
+/* line 55, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-details {
   display: block;
   padding-top: 0.5em;
   min-height: 0.5em;
 }
 
-/* line 56, ../../scss/specifics/video/_video-feedback.scss */
+/* line 61, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-resolved {
   font-size: 0.8em;
   padding: 0.5em;
@@ -6238,28 +6342,28 @@ strong {
   opacity: 0;
 }
 
-/* line 66, ../../scss/specifics/video/_video-feedback.scss */
+/* line 71, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-resolved--active {
   opacity: 1;
 }
 
-/* line 70, ../../scss/specifics/video/_video-feedback.scss */
+/* line 75, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment--resolved {
   opacity: 0.4;
 }
 
-/* line 74, ../../scss/specifics/video/_video-feedback.scss */
+/* line 79, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-content {
   margin-top: 0.5em;
 }
 
-/* line 78, ../../scss/specifics/video/_video-feedback.scss */
+/* line 83, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-timestamp {
   display: block;
   float: left;
 }
 
-/* line 83, ../../scss/specifics/video/_video-feedback.scss */
+/* line 88, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-profile-image {
   display: inline-block;
   height: 66px;
@@ -6272,37 +6376,37 @@ strong {
   margin-right: 1em;
 }
 
-/* line 95, ../../scss/specifics/video/_video-feedback.scss */
+/* line 100, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-text {
   margin-left: 140px;
   margin-bottom: 3em;
 }
 
-/* line 100, ../../scss/specifics/video/_video-feedback.scss */
+/* line 105, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-name {
   font-weight: 800;
   margin-right: 1em;
 }
 
-/* line 105, ../../scss/specifics/video/_video-feedback.scss */
+/* line 110, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-time-posted {
   font-size: 0.8em;
   color: #999999;
   margin-right: 1em;
 }
 
-/* line 111, ../../scss/specifics/video/_video-feedback.scss */
+/* line 116, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment--active {
   border-left: solid 5px #c8e6ce;
   padding-left: 15px;
 }
 
-/* line 116, ../../scss/specifics/video/_video-feedback.scss */
+/* line 121, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment--hover {
   background-color: #ffefef;
 }
 
-/* line 120, ../../scss/specifics/video/_video-feedback.scss */
+/* line 125, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-message {
   display: inline-block;
   width: 80%;
@@ -6310,19 +6414,19 @@ strong {
   margin-bottom: 10px;
 }
 
-/* line 127, ../../scss/specifics/video/_video-feedback.scss */
+/* line 132, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-time {
   display: inline-block;
   width: 40px;
   font-size: small;
 }
 
-/* line 133, ../../scss/specifics/video/_video-feedback.scss */
+/* line 138, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-time:hover {
   cursor: pointer;
 }
 
-/* line 137, ../../scss/specifics/video/_video-feedback.scss */
+/* line 142, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-author {
   margin-left: 45px;
   color: #999999;
@@ -6332,7 +6436,7 @@ strong {
   font-variant: small-caps;
 }
 
-/* line 146, ../../scss/specifics/video/_video-feedback.scss */
+/* line 151, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-date {
   color: #b7bcbd;
   font-style: italic;
@@ -6340,12 +6444,12 @@ strong {
   text-transform: lowercase;
 }
 
-/* line 153, ../../scss/specifics/video/_video-feedback.scss */
+/* line 158, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-author:after {
   content: ',';
 }
 
-/* line 157, ../../scss/specifics/video/_video-feedback.scss */
+/* line 162, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__resolve-link {
   position: absolute;
   bottom: 12px;
@@ -6355,17 +6459,17 @@ strong {
   color: #51b364;
 }
 
-/* line 166, ../../scss/specifics/video/_video-feedback.scss */
+/* line 171, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__resolve-link--active {
   opacity: 1;
 }
 
-/* line 170, ../../scss/specifics/video/_video-feedback.scss */
+/* line 175, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__resolve-link:hover {
   text-decoration: underline;
 }
 
-/* line 174, ../../scss/specifics/video/_video-feedback.scss */
+/* line 179, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__reply-link {
   position: absolute;
   bottom: 12px;
@@ -6375,39 +6479,39 @@ strong {
   color: #51b364;
 }
 
-/* line 183, ../../scss/specifics/video/_video-feedback.scss */
+/* line 188, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__reply-link--active {
   opacity: 1;
 }
 
-/* line 187, ../../scss/specifics/video/_video-feedback.scss */
+/* line 192, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__reply-link:hover {
   text-decoration: underline;
 }
 
-/* line 191, ../../scss/specifics/video/_video-feedback.scss */
+/* line 196, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-timestamp-link {
   color: #51b364;
   cursor: pointer;
 }
 
-/* line 196, ../../scss/specifics/video/_video-feedback.scss */
+/* line 201, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-timestamp-link:hover {
   text-decoration: underline;
 }
 
-/* line 200, ../../scss/specifics/video/_video-feedback.scss */
+/* line 205, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__notify {
   text-align: center;
 }
 
-/* line 208, ../../scss/specifics/video/_video-feedback.scss */
+/* line 213, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comment-controls {
   padding-top: 1em;
   position: relative;
 }
 
-/* line 213, ../../scss/specifics/video/_video-feedback.scss */
+/* line 218, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comments-filters {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -6419,7 +6523,7 @@ strong {
   padding-right: 2em;
 }
 
-/* line 220, ../../scss/specifics/video/_video-feedback.scss */
+/* line 225, ../../scss/specifics/video/_video-feedback.scss */
 .video-feedback__comments-filter-label {
   font-variant: small-caps;
   color: #999999;
@@ -6449,90 +6553,31 @@ strong {
   left: 0;
 }
 
-/* line 1, ../../scss/specifics/video/_video-view.scss */
-.video-view {
-  width: 960px;
-  margin-left: auto;
-  margin-right: auto;
-  vertical-align: top;
-}
-
-/* line 8, ../../scss/specifics/video/_video-view.scss */
-.video-view--wide {
-  width: 59%;
-  display: inline-block;
-  vertical-align: top;
-  padding: 0 12px;
-}
-
-/* line 15, ../../scss/specifics/video/_video-view.scss */
-.video-view--mirror {
-  width: 59%;
-  display: inline-block;
-  float: right;
-  padding: 0 12px;
-}
-
-/* line 22, ../../scss/specifics/video/_video-view.scss */
+/* line 5, ../../scss/specifics/video/_video-view.scss */
 .video-view__comments {
   position: relative;
   text-align: center;
   vertical-align: top;
 }
 
-/* line 28, ../../scss/specifics/video/_video-view.scss */
-.video-view__comments--wide {
-  display: inline-block;
-  width: 40%;
-  margin-top: 48px;
-  padding-bottom: 96px;
-}
-
-/* line 35, ../../scss/specifics/video/_video-view.scss */
-.video-view__comments--mirror {
-  display: inline-block;
-  width: 40%;
-  float: left;
-  margin-top: 48px;
-  padding-bottom: 96px;
-}
-
-/* line 43, ../../scss/specifics/video/_video-view.scss */
-.video-view__comments-section--left {
-  float: left;
-  width: 73%;
-  margin-left: 48px;
-}
-
-/* line 49, ../../scss/specifics/video/_video-view.scss */
-.video-view__comments-section--right {
-  float: right;
-  width: 21%;
-}
-
-/* line 54, ../../scss/specifics/video/_video-view.scss */
-.video-view__comments-section--wide {
-  padding: 0 12px;
-}
-
-/* line 58, ../../scss/specifics/video/_video-view.scss */
+/* line 11, ../../scss/specifics/video/_video-view.scss */
 .video-view__download {
   text-align: center;
   margin-bottom: 48px;
 }
 
-/* line 63, ../../scss/specifics/video/_video-view.scss */
+/* line 16, ../../scss/specifics/video/_video-view.scss */
 .video-view__edit {
   display: none;
   position: relative;
 }
 
-/* line 68, ../../scss/specifics/video/_video-view.scss */
+/* line 21, ../../scss/specifics/video/_video-view.scss */
 .video-view__edit--active {
   display: block;
 }
 
-/* line 72, ../../scss/specifics/video/_video-view.scss */
+/* line 25, ../../scss/specifics/video/_video-view.scss */
 .video-view__container {
   position: relative;
   width: 100%;
@@ -6540,26 +6585,26 @@ strong {
   margin-bottom: 48px;
 }
 
-/* line 79, ../../scss/specifics/video/_video-view.scss */
+/* line 32, ../../scss/specifics/video/_video-view.scss */
 .video-view__save-controls {
   margin-bottom: 24px;
   text-align: center;
 }
 
-/* line 84, ../../scss/specifics/video/_video-view.scss */
+/* line 37, ../../scss/specifics/video/_video-view.scss */
 .video-view__description {
   width: 600px;
   margin: 0 auto;
   overflow: auto;
 }
 
-/* line 90, ../../scss/specifics/video/_video-view.scss */
+/* line 43, ../../scss/specifics/video/_video-view.scss */
 .video-view__description--edit {
   border-bottom: solid 1px #999999;
   min-height: 10em;
 }
 
-/* line 95, ../../scss/specifics/video/_video-view.scss */
+/* line 48, ../../scss/specifics/video/_video-view.scss */
 .video-view__nav-placeholder {
   display: block;
   height: 52px;
@@ -7388,17 +7433,35 @@ strong {
 }
 
 /* line 5, ../../scss/specifics/video/_video-collaborators.scss */
+.video-collaborators--default {
+  float: right;
+  width: 22%;
+}
+
+/* line 10, ../../scss/specifics/video/_video-collaborators.scss */
+.video-collaborators--mirror {
+  width: 30%;
+  float: left;
+}
+
+/* line 15, ../../scss/specifics/video/_video-collaborators.scss */
+.video-collaborators--wide {
+  width: 30%;
+  float: right;
+}
+
+/* line 20, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators__header {
   padding-bottom: 1em;
 }
 
-/* line 9, ../../scss/specifics/video/_video-collaborators.scss */
+/* line 24, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators__collaborator {
   text-align: left;
   margin-bottom: 0.5em;
 }
 
-/* line 14, ../../scss/specifics/video/_video-collaborators.scss */
+/* line 29, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators__title {
   font-variant: small-caps;
   color: #999999;
@@ -7406,7 +7469,7 @@ strong {
   margin-top: 0.5em;
 }
 
-/* line 21, ../../scss/specifics/video/_video-collaborators.scss */
+/* line 36, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators__none-message {
   font-variant: small-caps;
   color: #999999;
@@ -7414,7 +7477,7 @@ strong {
   text-transform: lowercase;
 }
 
-/* line 28, ../../scss/specifics/video/_video-collaborators.scss */
+/* line 43, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators__collaborator-image {
   height: 33px;
   width: 33px;
@@ -7425,14 +7488,14 @@ strong {
   margin-right: 0.5em;
 }
 
-/* line 38, ../../scss/specifics/video/_video-collaborators.scss */
+/* line 53, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators__collaborator-name {
   display: inline-block;
   margin-top: 0.5em;
   margin-right: 0.5em;
 }
 
-/* line 44, ../../scss/specifics/video/_video-collaborators.scss */
+/* line 59, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators__collaborator-name-container {
   width: 150px;
   display: inline-block;
@@ -7483,35 +7546,6 @@ strong {
 /* line 39, ../../scss/specifics/video/_video-medium.scss */
 .video-medium > :last-child {
   margin-bottom: 0;
-}
-
-/* line 1, ../../scss/specifics/video/_video-comments-control.scss */
-.video-comments-control {
-  position: fixed;
-  bottom: 0;
-  display: block;
-  text-align: right;
-  background: white;
-  width: 960px;
-  margin: 0 auto;
-  padding: 12px;
-  z-index: 2;
-  -webkit-box-shadow: 0 -4px 4px -4px #999999;
-  -moz-box-shadow: 0 -4px 4px -4px #999999;
-  box-shadow: 0 -4px 4px -4px #999999;
-}
-
-/* line 17, ../../scss/specifics/video/_video-comments-control.scss */
-.video-comments-control--wide,
-.video-comments-control--mirror {
-  width: 100%;
-  margin: 0;
-  left: 0;
-}
-
-/* line 23, ../../scss/specifics/video/_video-comments-control.scss */
-.video-comments-control__option {
-  display: inline-block;
 }
 
 /**
