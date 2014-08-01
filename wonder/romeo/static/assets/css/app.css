@@ -6212,7 +6212,7 @@ strong {
   width: 49%;
   display: inline-block;
   vertical-align: top;
-  padding: 0 24px 0 12px;
+  padding: 0 48px 0 12px;
   position: absolute;
   top: 48px;
   right: 12px;
@@ -6237,7 +6237,7 @@ strong {
 /* line 68, ../../scss/specifics/video/_configurable-layout.scss */
 .layout-block-tertiary--mirror {
   width: 49%;
-  padding: 0 12px 0 24px;
+  padding: 0 12px 0 48px;
   position: absolute;
   left: 0;
 }
@@ -8226,6 +8226,18 @@ strong {
   text-align: right;
   width: 20em;
   color: red;
+}
+
+/* line 26, ../../scss/specifics/login/_login-view.scss */
+.login-view__loading-indicator {
+  height: 20px;
+  width: 20px;
+  margin: 10px;
+}
+
+/* line 32, ../../scss/specifics/login/_login-view.scss */
+.login-view__submit {
+  vertical-align: top;
 }
 
 /*!

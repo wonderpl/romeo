@@ -22,3 +22,13 @@
   width: 20em;
   color: $red;
 }
+
+.login-view__loading-indicator {
+  height: 20px;
+  width: 20px;
+  margin: 10px;
+}
+
+.login-view__submit {
+  vertical-align: top;
+}

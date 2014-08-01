@@ -1,35 +1,36 @@
-angular.module('RomeoApp.controllers').controller('LoginCtrl',
-    ['$scope', '$location', 'AuthService',
-        function ($scope, $location, AuthService) {
 
-            'use strict';
+angular
+  .module('RomeoApp.controllers')
+  .controller('LoginCtrl', LoginController);
 
-            $scope.username = $scope.username || '';
-            $scope.password = $scope.username || '';
-            $scope.href = '';
+function LoginController ($scope, $location, AuthService) {
 
-            $scope.handleRedirect = function (response) {
-                var params = $location.search();
-                if (params.redirect) {
-                    console.log('redirect to ->' + params.redirect);
-                } else {
-                    $location.url('/organise');
-                }
-            };
+  'use strict';
 
-            $scope.login = function () {
-                return AuthService.login($scope.username, $scope.password).then($scope.handleRedirect,
-                  function (response) {
-                    // Error Logging in
-                    console.log(response);
+  $scope.username = $scope.username || '';
+  $scope.password = $scope.username || '';
+  $scope.href = '';
 
-                    if (response.data.error) {
+  $scope.handleRedirect = function (response) {
+    $scope.isLoading = false;
+    var params = $location.search();
+    if (params.redirect) {
+      console.log('redirect to ->' + params.redirect);
+    } else {
+      $location.url('/organise');
+    }
+  };
 
-                      $scope.errors = 'login error';
-                    }
-                });
-            };
+  $scope.login = function () {
+    return AuthService.login($scope.username, $scope.password).then(
+    $scope.handleRedirect,
+    function (response) {
+      console.log(response);
+      $scope.isLoading = false;
+      if (response.data.error) {
+        $scope.errors = 'login error';
+      }
+    });
+  };
 
-        }
-    ]
-);
+}

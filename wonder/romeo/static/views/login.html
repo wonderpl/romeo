@@ -10,7 +10,13 @@
 
         <span class="login-view__errors" ng-bind="errors"></span>
 
-				<label class="login-view__label hide-text">Login <button type="submit" class="btn btn--positive">Login</button></label>
+				<label class="login-view__label hide-text">
+          Login
+          <img class="login-view__loading-indicator" src="/static/assets/img/loading.gif" ng-show="isLoading" />
+          <button type="submit" class="btn btn--positive login-view__submit" ng-click="isLoading = true;">
+            Login
+          </button>
+        </label>
 
 		</form>
 

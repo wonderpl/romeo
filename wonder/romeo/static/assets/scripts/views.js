@@ -567,7 +567,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "        <span class=\"login-view__errors\" ng-bind=\"errors\"></span>\n" +
     "\n" +
-    "\t\t\t\t<label class=\"login-view__label hide-text\">Login <button type=\"submit\" class=\"btn btn--positive\">Login</button></label>\n" +
+    "\t\t\t\t<label class=\"login-view__label hide-text\">\n" +
+    "          Login\n" +
+    "          <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading\" />\n" +
+    "          <button type=\"submit\" class=\"btn btn--positive login-view__submit\" ng-click=\"isLoading = true;\">\n" +
+    "            Login\n" +
+    "          </button>\n" +
+    "        </label>\n" +
     "\n" +
     "\t\t</form>\n" +
     "\n" +
