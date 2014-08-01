@@ -1507,9 +1507,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('video-download.html',
-    "<section class=\"video-view__download\">\n" +
-    "  <a class=\"btn\" ng-click=\"download()\">Download</a>\n" +
-    "</section>"
+    "<a class=\"btn  btn--utility  icon-text  f--left\" ng-click=\"download()\"><i class=\"icon  icon--download  icon-text__icon\"></i>Download source file</a>"
   );
 
 
@@ -1716,7 +1714,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('video-navigation.html',
     "<section class=\"sub-navigation video-view-control-panel sub-navigation--(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
     "\n" +
-    "  <video-download video-id=\"videoId\"></video-download>\n" +
+    "  <video-download video-id=\"videoId\" ng-show=\"videoId\"></video-download>\n" +
     "\n" +
     "  <ul class=\"sub-navigation__modes\">\n" +
     "    <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
@@ -1857,7 +1855,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<div ng-controller=\"VideoCtrl\" class=\"cf\">\n" +
     "\n" +
     "  <div class=\"video-view__nav-placeholder\" ng-hide=\"$root.isCollaborator\">\n" +
-    "    <video-navigation is-edit=\"isEdit\" is-owner=\"isOwner\" is-comments=\"isComments\" video-id=\"videoId\"></video-navigation>\n" +
+    "    <video-navigation is-edit=\"isEdit\" is-owner=\"isOwner\" is-comments=\"isComments\" video-id=\"video.id\"></video-navigation>\n" +
     "  </div>\n" +
     "\n" +
     "  <div class=\"configurable-layout configurable-layout-(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
