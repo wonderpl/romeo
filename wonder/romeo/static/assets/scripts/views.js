@@ -1365,7 +1365,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <h4 class=\"video-collaborators__title\">collaborators</h4>\n" +
     "    <a class=\"button button--primary button--small video-collaborators__notify\"\n" +
     "      ng-click=\"notify(videoId)\"\n" +
-    "      ng-class=\"{ 'button--disabled' : notified || !collaborators }\">Notify All</a>\n" +
+    "      ng-class=\"{ 'button--disabled' : notified || !collaborators || !comments.length }\">Notify All</a>\n" +
     "  </header>\n" +
     "\n" +
     "  <p class=\"video-collaborators__none-message\" ng-hide=\"collaborators\">You have no collaborators!</p>\n" +
@@ -1411,10 +1411,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <section class=\"video-feedback__input-container\">\n" +
     "\n" +
     "      <div class=\"video-feedback__comment\">\n" +
-    "        <a class=\"video-feedback__comment-profile-image\" style=\"background-image: url('(~ user.avatar ~)');\" ng-show=\"user\"></a>\n" +
+    "        <a class=\"video-feedback__comment-profile-image\" ng-style=\"{ 'background-image' : 'url(' + $root.User.avatar + ')' }\" ng-show=\"$root.User\"></a>\n" +
     "        <a class=\"video-feedback__comment-profile-image\" style=\"background-image: url('(~ $root.User.avatar_url ~)');\" ng-show=\"$root.isCollaborator\"></a>\n" +
     "        <div class=\"video-feedback__comment-details\">\n" +
-    "          <span class=\"video-feedback__comment-name\" ng-show=\"user\">(~ user.display_name ~)</span>\n" +
+    "          <span class=\"video-feedback__comment-name\" ng-show=\"$root.User\">(~ $root.User.display_name ~)</span>\n" +
     "          <span class=\"video-feedback__comment-name\" ng-show=\"$root.isCollaborator\">(~ $root.User.username ~)</span>\n" +
     "        </div>\n" +
     "        <div class=\"video-feedback__comment-content\">\n" +
@@ -1936,14 +1936,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <section class=\"cf video-view__comments\" ng-show=\"video.id && isComments || (video.id && $root.isCollaborator && canComment)\">\n" +
     "        <video-indicators comments=\"comments\" current-time=\"videoCurrentTime\" total-time=\"videoTotalTime\"></video-indicators>\n" +
     "        <video-frame-stepper current-time=\"videoCurrentTime\"></video-frame-stepper>\n" +
-    "        <video-collaborators notified=\"notified\" ng-show=\"video.id && isComments && $root.layoutMode !== 'column'\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
+    "        <video-collaborators notified=\"notified\" comments=\"comments\" ng-show=\"video.id && isComments && $root.layoutMode !== 'column'\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
     "      </section>\n" +
     "\n" +
     "    </div>\n" +
     "\n" +
     "    <div class=\"layout-block layout-block__tertiary layout-block-tertiary--(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
     "      <section class=\"cf video-view__comments\" ng-show=\"video.id && isComments || (video.id && $root.isCollaborator && canComment)\">\n" +
-    "        <video-collaborators notified=\"notified\" ng-show=\"video.id && isComments && $root.layoutMode === 'column'\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
+    "        <video-collaborators notified=\"notified\" comments=\"comments\" ng-show=\"video.id && isComments && $root.layoutMode === 'column'\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
     "        <video-comments notified=\"notified\" is-owner=\"isOwner\" comments=\"comments\" video-id=\"(~ video.id ~)\" current-time=\"videoCurrentTime\"></video-comments>\n" +
     "      </section>\n" +
     "    </div>\n" +

@@ -9,7 +9,8 @@ angular.module('RomeoApp.directives')
     template : $templateCache.get('video-collaborators.html'),
     scope : {
       videoId : '@',
-      notified : '='
+      notified : '=',
+      comments : '='
     },
     controller : function ($scope) {
 

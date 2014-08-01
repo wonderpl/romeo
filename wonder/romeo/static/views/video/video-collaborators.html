@@ -4,7 +4,7 @@
     <h4 class="video-collaborators__title">collaborators</h4>
     <a class="button button--primary button--small video-collaborators__notify"
       ng-click="notify(videoId)"
-      ng-class="{ 'button--disabled' : notified || !collaborators }">Notify All</a>
+      ng-class="{ 'button--disabled' : notified || !collaborators || !comments.length }">Notify All</a>
   </header>
 
   <p class="video-collaborators__none-message" ng-hide="collaborators">You have no collaborators!</p>

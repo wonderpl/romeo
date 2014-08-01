@@ -258,11 +258,9 @@
 
                 $http(options).then(
                 function(response){
-                  console.log(response);
                   deferred.resolve(response.data);
                 },
                 function(response){
-                  console.log(response);
                   deferred.reject(response);
                 });
 

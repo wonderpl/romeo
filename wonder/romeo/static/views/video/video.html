@@ -86,14 +86,14 @@
       <section class="cf video-view__comments" ng-show="video.id && isComments || (video.id && $root.isCollaborator && canComment)">
         <video-indicators comments="comments" current-time="videoCurrentTime" total-time="videoTotalTime"></video-indicators>
         <video-frame-stepper current-time="videoCurrentTime"></video-frame-stepper>
-        <video-collaborators notified="notified" ng-show="video.id && isComments && $root.layoutMode !== 'column'" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>
+        <video-collaborators notified="notified" comments="comments" ng-show="video.id && isComments && $root.layoutMode !== 'column'" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>
       </section>
 
     </div>
 
     <div class="layout-block layout-block__tertiary layout-block-tertiary--{{ isComments ? $root.layoutMode : 'column' }}">
       <section class="cf video-view__comments" ng-show="video.id && isComments || (video.id && $root.isCollaborator && canComment)">
-        <video-collaborators notified="notified" ng-show="video.id && isComments && $root.layoutMode === 'column'" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>
+        <video-collaborators notified="notified" comments="comments" ng-show="video.id && isComments && $root.layoutMode === 'column'" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>
         <video-comments notified="notified" is-owner="isOwner" comments="comments" video-id="{{ video.id }}" current-time="videoCurrentTime"></video-comments>
       </section>
     </div>

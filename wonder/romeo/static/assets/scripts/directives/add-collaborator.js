@@ -1,5 +1,8 @@
-angular.module('RomeoApp.directives')
-  .directive('addCollaborator', ['$templateCache', 'CollaboratorsService', function ($templateCache, CollaboratorsService) {
+angular
+  .module('RomeoApp.directives')
+  .directive('addCollaborator', addCollaboratorDirective);
+
+function addCollaboratorDirective ($templateCache, CollaboratorsService) {
 
   'use strict';
 
@@ -25,20 +28,25 @@ angular.module('RomeoApp.directives')
       $scope.add = function () {
         $scope.errors = null;
         $scope.collaboratorAdded = false;
-        CollaboratorsService.addCollaborator($scope.video.id, $scope.collaborator).then(
-        function(data) {
-          console.log(data);
-          $scope.collaboratorAdded = true;
-          $scope.collaborator = null;
-        },
-        function (response) {
-          $scope.errors = response.data.error;
-          console.log(response);
-          console.log(response.data);
-          console.log(response.data.form_errors);
-        });
+        if ($scope.video && $scope.video.id) {
+          CollaboratorsService.addCollaborator($scope.video.id, $scope.collaborator).then(
+          function(data) {
+            console.log(data);
+            $scope.collaboratorAdded = true;
+            $scope.collaborator = null;
+          },
+          function (response) {
+            $scope.errors = response.data.error;
+            console.log(response);
+            console.log(response.data);
+            console.log(response.data.form_errors);
+          });
+        } else {
+          $scope.errors = {};
+        }
+
       };
 
     }
   };
-}]);
+}
