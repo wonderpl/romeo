@@ -10,7 +10,8 @@ angular.module('RomeoApp.directives')
     scope : {
       isEdit : '=',
       isOwner : '=',
-      isComments : '='
+      isComments : '=',
+      videoId : '='
     },
     controller : function ($scope) {
 

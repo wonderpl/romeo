@@ -2,7 +2,7 @@
 <div ng-controller="VideoCtrl" class="cf">
 
   <div class="video-view__nav-placeholder" ng-hide="$root.isCollaborator">
-    <video-navigation is-edit="isEdit" is-owner="isOwner" is-comments="isComments"></video-navigation>
+    <video-navigation is-edit="isEdit" is-owner="isOwner" is-comments="isComments" video-id="videoId"></video-navigation>
   </div>
 
   <div class="configurable-layout configurable-layout-{{ isComments ? $root.layoutMode : 'column' }}">
