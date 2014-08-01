@@ -13,6 +13,8 @@ function MainController ($scope, $rootScope, $timeout, $location, $modal, $eleme
   $rootScope.Videos = {};
   $rootScope.Tags = {};
 
+  $rootScope.isComments = false;
+
   $rootScope.layoutMode = $cookies.layout ? $cookies.layout : 'column';
 
   $scope.profile = '';

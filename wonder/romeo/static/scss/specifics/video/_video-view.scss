@@ -2,6 +2,15 @@
 
 }
 
+.video-view__title {
+
+}
+
+.video-view__title--small {
+  font-size: 2em;
+  line-height: 1.5;
+}
+
 .video-view__comments {
   position: relative;
   text-align: center;
@@ -25,7 +34,7 @@
 .video-view__container {
   position: relative;
   width: 100%;
-  height: 540px;
+  max-height: 540px;
   margin-bottom: 48px;
 }
 

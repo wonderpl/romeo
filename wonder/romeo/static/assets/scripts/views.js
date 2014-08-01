@@ -1111,20 +1111,20 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('profile-navigation.html',
-    "<section class=\"sub-navigation sub-navigation__placeholder\">\n" +
-    "    <div class=\"sub-navigation__control\">\n" +
-    "      <ul class=\"sub-navigation__modes\">\n" +
-    "        <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\">\n" +
-    "          <a class=\"sub-navigation__link btn  btn--utility\" ng-click=\"isEdit = true\">edit</a>\n" +
-    "        </li>\n" +
-    "        <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
-    "          <a class=\"sub-navigation__link btn  btn--utility\" ng-click=\"save()\">save</a>\n" +
-    "        </li>\n" +
-    "        <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
-    "          <a class=\"sub-navigation__link btn  btn--utility\" ng-click=\"cancel()\">cancel</a>\n" +
-    "        </li>\n" +
-    "      </ul>\n" +
-    "    </div>\n" +
+    "<section class=\"sub-navigation\">\n" +
+    "\n" +
+    "  <ul class=\"sub-navigation__modes\">\n" +
+    "    <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\">\n" +
+    "      <a class=\"sub-navigation__link btn  btn--utility\" ng-click=\"isEdit = true\">edit</a>\n" +
+    "    </li>\n" +
+    "    <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
+    "      <a class=\"sub-navigation__link btn  btn--utility\" ng-click=\"save()\">save</a>\n" +
+    "    </li>\n" +
+    "    <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
+    "      <a class=\"sub-navigation__link btn  btn--utility\" ng-click=\"cancel()\">cancel</a>\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
+    "\n" +
     "</section>"
   );
 
@@ -1144,7 +1144,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('profile.html',
     "<section class=\"profile\" ng-controller=\"ProfileCtrl\">\n" +
     "\n" +
-    "  <profile-navigation is-edit=\"isEdit\"></profile-navigation>\n" +
+    "  <div class=\"profile-view__nav-placeholder sub-navigation__placeholder\">\n" +
+    "    <profile-navigation is-edit=\"isEdit\"></profile-navigation>\n" +
+    "  </div>\n" +
+    "\n" +
     "\n" +
     "  <profile-cover image=\"profile.profile_cover\" is-edit=\"isEdit\"></profile-cover>\n" +
     "\n" +
@@ -1164,7 +1167,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    ng-show=\"isEdit\"\n" +
     "    medium-editor\n" +
     "    data-placeholder=\"(~ profile.description ? ' ' : 'description' ~)\"\n" +
-    "    options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
+    "    options=\"{ buttons : ['bold', 'italic', 'header1', 'header2', 'unorderedlist', 'quote'], firstHeader : 'h2', secondHeader : 'h3' }\"\n" +
     "    ng-model=\"profile.description\">\n" +
     "  </div>\n" +
     "\n" +
@@ -1842,9 +1845,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <video-navigation is-edit=\"isEdit\" is-owner=\"isOwner\" is-comments=\"isComments\"></video-navigation>\n" +
     "  </div>\n" +
     "\n" +
-    "  <div class=\"configurable-layout configurable-layout-(~ isComments ? $root.layoutMode : 'column' ~) cf\">\n" +
+    "  <div class=\"configurable-layout configurable-layout-(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
     "\n" +
-    "    <div class=\"layout-block layout-block__primary layout-block-primary--(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
+    "    <div class=\"layout-block layout-block__primary layout-block-primary--(~ isComments ? $root.layoutMode : 'column' ~)\" ng-class=\"{ 'layout-block--narrow' : isComments }\">\n" +
     "\n" +
     "      <section class=\"main-view video-view\">\n" +
     "\n" +
@@ -1865,7 +1868,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "          ng-show=\"isEdit\">\n" +
     "        </h2>\n" +
     "\n" +
-    "        <h2 class=\"video-view__title\" ng-hide=\"isEdit\" ng-bind-html=\"video.title\"></h2>\n" +
+    "        <h2 class=\"video-view__title\" ng-hide=\"isEdit\" ng-bind-html=\"video.title\" ng-class=\"{ 'video-view__title--small' : isComments }\"></h2>\n" +
     "        <h3 class=\"video-view__sub-title\" ng-hide=\"isEdit\" ng-bind-html=\"video.strapline\"></h2>\n" +
     "\n" +
     "        <div class=\"video-view__container\">\n" +
@@ -1918,7 +1921,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    </div>\n" +
     "\n" +
-    "    <div class=\"layout-block layout-block__secondary layout-block-secondary--(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
+    "    <div class=\"layout-block layout-block__secondary layout-block-secondary--(~ isComments ? $root.layoutMode : 'column' ~)\" ng-class=\"{ 'layout-block--narrow' : isComments }\">\n" +
     "\n" +
     "      <section class=\"cf video-view__comments\" ng-show=\"video.id && isComments || (video.id && $root.isCollaborator && canComment)\">\n" +
     "        <video-indicators comments=\"comments\" current-time=\"videoCurrentTime\" total-time=\"videoTotalTime\"></video-indicators>\n" +

@@ -1,5 +1,7 @@
 .profile {
-  margin-bottom: 24px;
+  width: $containerWidth + px;
+  margin: 0 auto;
+  padding-bottom: 100px;
 }
 
 .profile__name {

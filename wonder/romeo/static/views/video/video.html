@@ -5,9 +5,9 @@
     <video-navigation is-edit="isEdit" is-owner="isOwner" is-comments="isComments"></video-navigation>
   </div>
 
-  <div class="configurable-layout configurable-layout-{{ isComments ? $root.layoutMode : 'column' }} cf">
+  <div class="configurable-layout configurable-layout-{{ isComments ? $root.layoutMode : 'column' }}">
 
-    <div class="layout-block layout-block__primary layout-block-primary--{{ isComments ? $root.layoutMode : 'column' }}">
+    <div class="layout-block layout-block__primary layout-block-primary--{{ isComments ? $root.layoutMode : 'column' }}" ng-class="{ 'layout-block--narrow' : isComments }">
 
       <section class="main-view video-view">
 
@@ -28,7 +28,7 @@
           ng-show="isEdit">
         </h2>
 
-        <h2 class="video-view__title" ng-hide="isEdit" ng-bind-html="video.title"></h2>
+        <h2 class="video-view__title" ng-hide="isEdit" ng-bind-html="video.title" ng-class="{ 'video-view__title--small' : isComments }"></h2>
         <h3 class="video-view__sub-title" ng-hide="isEdit" ng-bind-html="video.strapline"></h2>
 
         <div class="video-view__container">
@@ -81,7 +81,7 @@
 
     </div>
 
-    <div class="layout-block layout-block__secondary layout-block-secondary--{{ isComments ? $root.layoutMode : 'column' }}">
+    <div class="layout-block layout-block__secondary layout-block-secondary--{{ isComments ? $root.layoutMode : 'column' }}" ng-class="{ 'layout-block--narrow' : isComments }">
 
       <section class="cf video-view__comments" ng-show="video.id && isComments || (video.id && $root.isCollaborator && canComment)">
         <video-indicators comments="comments" current-time="videoCurrentTime" total-time="videoTotalTime"></video-indicators>

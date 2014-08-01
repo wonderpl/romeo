@@ -1,5 +1,5 @@
 .video-feedback {
-  margin: 48px 0 0;
+  margin: 12px 0 0;
   display: block;
   transition: all 0.4s;
 }
@@ -22,13 +22,13 @@
 .video-feedback__form {
   text-align: right;
   transition: max-height 0.4s linear;
-  max-height: 8em;
+  max-height: 6em;
   overflow: hidden;
   border-bottom: solid 1px $light-grey;
 }
 
 .video-feedback__form--active {
-  max-height: 100em;
+  max-height: 20em;
 }
 
 .video-feedback__input {
@@ -42,7 +42,7 @@
 }
 
 .video-feedback__input--active {
-  height: 100px;
+  height: 60px;
 }
 
 .video-feedback__comments {
@@ -107,7 +107,7 @@
 
 .video-feedback__comment-text {
   margin-left: 140px;
-  margin-bottom: 3em;
+  margin-bottom: 12px;
 }
 
 .video-feedback__comment-name {

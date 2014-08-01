@@ -1,6 +1,9 @@
 <section class="profile" ng-controller="ProfileCtrl">
 
-  <profile-navigation is-edit="isEdit"></profile-navigation>
+  <div class="profile-view__nav-placeholder sub-navigation__placeholder">
+    <profile-navigation is-edit="isEdit"></profile-navigation>
+  </div>
+
 
   <profile-cover image="profile.profile_cover" is-edit="isEdit"></profile-cover>
 
@@ -20,7 +23,7 @@
     ng-show="isEdit"
     medium-editor
     data-placeholder="{{ profile.description ? ' ' : 'description' }}"
-    options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
+    options="{ buttons : ['bold', 'italic', 'header1', 'header2', 'unorderedlist', 'quote'], firstHeader : 'h2', secondHeader : 'h3' }"
     ng-model="profile.description">
   </div>
 
