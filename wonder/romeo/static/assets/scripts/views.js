@@ -1125,13 +1125,16 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <ul class=\"sub-navigation__modes\">\n" +
     "    <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\">\n" +
-    "      <a class=\"sub-navigation__link btn  btn--utility\" ng-click=\"isEdit = true\">edit</a>\n" +
+    "      <a class=\"sub-navigation__link btn btn--utility\" ng-click=\"isEdit = true\">edit</a>\n" +
     "    </li>\n" +
     "    <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
-    "      <a class=\"sub-navigation__link btn  btn--utility\" ng-click=\"save()\">save</a>\n" +
+    "      <a class=\"sub-navigation__link btn btn--utility\" ng-click=\"save()\">save</a>\n" +
     "    </li>\n" +
     "    <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
-    "      <a class=\"sub-navigation__link btn  btn--utility\" ng-click=\"cancel()\">cancel</a>\n" +
+    "      <a class=\"sub-navigation__link btn btn--utility\" ng-click=\"cancel()\">cancel</a>\n" +
+    "    </li>\n" +
+    "    <li class=\"sub-navigation__mode\">\n" +
+    "      <a class=\"sub-navigation__link btn btn--utility\" href=\"/logout\">logout</a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
     "\n" +
