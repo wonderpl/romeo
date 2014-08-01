@@ -88,7 +88,11 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  </section>\n" +
     "\n" +
-    "  <a class=\"button button--primary\" ng-click=\"add()\">Send Request</a>\n" +
+    "  <div class=\"video-add-collaborators__messages\">\n" +
+    "    <p ng-show=\"collaboratorAdded\">New collaborator has been added.</p>\n" +
+    "    <p class=\"video-add-collaborators__message--error\" ng-show=\"errors\">An error occured. Collaborator not added.</p>\n" +
+    "  </div>\n" +
+    "  <a class=\"btn btn--positive\" ng-click=\"add()\">Send Request</a>\n" +
     "\n" +
     "</section>\n" +
     "\n" +

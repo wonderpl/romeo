@@ -13,19 +13,29 @@ angular.module('RomeoApp.directives')
     },
     controller : function ($scope) {
 
-      $scope.collaborator = {
+      var collaborator = {
         email : '',
         name : '',
         can_comment : false,
         can_download : false
       };
 
+      $scope.collaborator = collaborator;
+
       $scope.add = function () {
-        CollaboratorsService.addCollaborator($scope.video.id, $scope.collaborator).then(function() {},
+        $scope.errors = null;
+        $scope.collaboratorAdded = false;
+        CollaboratorsService.addCollaborator($scope.video.id, $scope.collaborator).then(
+        function(data) {
+          console.log(data);
+          $scope.collaboratorAdded = true;
+          $scope.collaborator = null;
+        },
         function (response) {
+          $scope.errors = response.data.error;
           console.log(response);
-          console.log(response.error);
-          console.log(response.form_errors);
+          console.log(response.data);
+          console.log(response.data.form_errors);
         });
       };
 

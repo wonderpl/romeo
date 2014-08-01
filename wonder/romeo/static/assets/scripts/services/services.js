@@ -256,8 +256,14 @@
 
             AuthService.loginCheck().then(function(){
 
-                $http(options).then(function(response){
-                    deferred.resolve(response.data);
+                $http(options).then(
+                function(response){
+                  console.log(response);
+                  deferred.resolve(response.data);
+                },
+                function(response){
+                  console.log(response);
+                  deferred.reject(response);
                 });
 
             }, function(){

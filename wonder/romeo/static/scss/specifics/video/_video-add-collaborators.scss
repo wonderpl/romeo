@@ -1,5 +1,14 @@
 .video-add-collaborators {
-  margin-bottom: 2em;
+  margin-bottom: 12px;
+}
+
+.video-add-collaborators__messages {
+  margin-bottom: 12px;
+}
+
+.video-add-collaborators__message--error {
+  font-weight: 800;
+  color: $red;
 }
 
 .video-add-collaborators__label {
