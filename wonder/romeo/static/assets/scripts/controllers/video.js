@@ -4,7 +4,7 @@ angular
   .module('RomeoApp.controllers')
   .controller('VideoCtrl', ['$rootScope', '$http', '$scope', '$location', '$upload', 'UploadService', '$routeParams', 'VideoService', '$sce', 'TagService', 'CommentsService', '$timeout', 'AccountService', 'AuthService', VideoCtrl]);
 
-function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService, $routeParams, VideoService, $sce, TagService, CommentsService, $timeout, AccountService, AuthService) {
+function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService, $routeParams, VideoService, $sce, TagService, CommentsService, $timeout, AccountService) {
 
   'use strict';
 
@@ -253,7 +253,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
       var OO = frame.OO;
       if (OO && OO.ready && $scope.videoTotalTime > 0) {
         OO.ready(function () {
-          bindEvents(OO);
+          bindPlayerEvents(OO);
         });
 
       } else {
@@ -269,7 +269,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
 
   // http://support.ooyala.com/developers/documentation/concepts/xmp_securexdr_view_mbus.html
   // http://support.ooyala.com/developers/documentation/api/player_v3_api_events.html
-  function bindEvents (OO) {
+  function bindPlayerEvents (OO) {
     var bus = $scope.player.mb;
     bus.subscribe(OO.EVENTS.PLAYBACK_READY, 'WonderUIModule', function () {
     });
@@ -292,29 +292,52 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
   });
 
   $scope.displaySection = function (section) {
+
     section = section || '';
+
+    updateSectionUrl(section);
+
+    if ($rootScope.isCollaborator) {
+      displayCollaboratorSection();
+    } else if (section === 'edit') {
+      displayEditSection();
+    } else if (section === 'comments') {
+      displayComments();
+    } else {
+      displayReviewSection();
+    }
+  };
+
+  function updateSectionUrl (section) {
     if ($scope.video && $scope.video.id) {
       var url = '/video/' + $scope.video.id + '/' + section;
       $location.path(url, false);
     }
-    if ($rootScope.isCollaborator) {
-      $scope.isReview = true;
-      $scope.isComments = true;
-      $scope.isEdit = false;
-    } else if (section === 'edit') {
-      $scope.isEdit = true;
-      $scope.isReview = false;
-      $scope.isComments = false;
-    } else if (section === 'comments') {
-      $scope.isComments = true;
-      $scope.isEdit = false;
-      $scope.isReview = false;
-    } else {
-      $scope.isReview = true;
-      $scope.isComments = false;
-      $scope.isEdit = false;
-    }
-  };
+  }
+
+  function displayCollaboratorSection () {
+    $scope.isReview = true;
+    $scope.isComments = true;
+    $scope.isEdit = false;
+  }
+
+  function displayEditSection () {
+    $scope.isEdit = true;
+    $scope.isReview = false;
+    $scope.isComments = false;
+  }
+
+  function displayComments () {
+    $scope.isComments = true;
+    $scope.isEdit = false;
+    $scope.isReview = false;
+  }
+
+  function displayReviewSection () {
+    $scope.isReview = true;
+    $scope.isComments = false;
+    $scope.isEdit = false;
+  }
 
   initialiseNewScope();
 

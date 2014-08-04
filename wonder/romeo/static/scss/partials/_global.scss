@@ -168,7 +168,6 @@
   width: 1px;
   height: 100%;
   margin: 0 auto;
-  background: $flat-gray-1;
 }
 
 .loading {
@@ -199,50 +198,28 @@
     display: block;
     position: relative;
     font-size: 13px;
-    border-bottom: 1px solid darken($flat-gray-1, 10%);
     @include transition( background .1s ease-out );
 
     span {
       padding: 14px 10px 12px 10px;
       @include transition( all .1s ease-out );
-      border-left: 0px solid $flat-blue-4;
       display: block;
     }
 
-    &:hover, &:active, &:focus {
-      background: lighten($flat-gray-2, 18%);
-    }
     a.info {
       display: none;
       font-size: 13px;
       position: absolute;
       right: 12px;
       top: 16px;
-      color: $flat-blue-4;
       text-decoration: none;
       @include transition( all .1s ease-out );
-
-      &:hover, &:focus, &:active {
-        color: $flat-blue-1;
-      }
     }
 
     &:hover, &:focus, &:active {
       a.info {
         display: block;
       }
-    }
-
-    &.highlight {
-      background: $flat-gray-1;
-    }
-
-    &.highlighted span {
-      border-left: 5px solid $flat-blue-4;
-    }
-
-    &.all-videos {
-      background: $flat-gray-1;
     }
   }
 }
@@ -271,7 +248,6 @@
       padding: 22px;
       width: 49.5%;
       margin: 0 0 6px 0;
-      background: $flat-gray-1;
 
       &:nth-child(odd) {
         margin: 0 1% 6px 0;
@@ -287,7 +263,6 @@
       span.number {
         display: block;
         font-size: 14px;
-        color: $flat-gray-3;
         margin: 0 0 22px 0;
       }
 
@@ -298,7 +273,6 @@
           @include inline-block;
           width: 46px;
           height: 32px;
-          background: $flat-gray-3;
           color: white;
           text-align: center;
           margin: 0px 3px 3px 0;
@@ -331,7 +305,6 @@ h1.collections-page {
   display: block;
   height: 0px;
   overflow: hidden;
-  background: $flat-blue-4;
   color: #fff;
   font-size: 14px;
   @include transition( height .2s ease-out );
@@ -349,12 +322,7 @@ h1.collections-page {
     font-size: 13px;
   }
 
-  &.border-top {
-    // border-top: 1px solid lighten( $flat-blue-4, 5% );
-  }
-
   &.show {
-    border-top: 1px solid lighten( $flat-blue-4, 5% );
     height: 35px;
   }
 }
@@ -397,7 +365,6 @@ h1.collections-page {
 
   li {
     position: relative;
-    background: $flat-blue-2;
     @include border-radius( 3px );
     @include inline-block;
     vertical-align: top;
@@ -468,7 +435,6 @@ h1.collections-page {
       width: 28px;
       height: 28px;
       text-align: center;
-      background: $flat-blue-2;
       padding: 7px 0 0 0;
       @include border-radius( 0px 0px 0px 0px );
 
@@ -476,20 +442,11 @@ h1.collections-page {
         content: "\e61f";
       }
 
-      &:hover, &:active, &:focus {
-        background: lighten( $flat-blue-2, 10% );
-      }
-
       &.checked {
-        background: $flat-green-4;
 
         &:before {
           content: "\e61e";
         }
-
-        &:hover, &:active, &:focus {
-          background: lighten( $flat-green-4, 10% );
-        }
       }
     }
 
@@ -497,22 +454,15 @@ h1.collections-page {
       // display: none;
       position: absolute;
       bottom: 0px;
-      background: $flat-blue-2;
 
       &.analytics {
         right: 28px;
         @include border-radius( 0px );
-        border-right: 1px solid lighten( $flat-blue-2, 5% );
       }
 
       &.edit {
         right: 56px;
         @include border-radius( 5px 0 0 0 );
-        border-right: 1px solid lighten( $flat-blue-2, 5% );
-      }
-
-      &:hover, &:focus, &:active {
-        background: lighten( $flat-blue-2, 10% );
       }
     }
 
@@ -520,22 +470,15 @@ h1.collections-page {
       // display: none;
       position: absolute;
       bottom: 0px;
-      background: $flat-blue-2;
 
       &.analytics {
         right: 28px;
         @include border-radius( 0px );
-        border-right: 1px solid lighten( $flat-blue-2, 5% );
       }
 
       &.edit {
         right: 56px;
         @include border-radius( 5px 0 0 0 );
-        border-right: 1px solid lighten( $flat-blue-2, 5% );
-      }
-
-      &:hover, &:focus, &:active {
-        background: lighten( $flat-blue-2, 10% );
       }
     }
 
@@ -561,13 +504,11 @@ h1.collections-page {
 #video-list-list {
   overflow: auto;
   height: 596px;
-  border: 1px solid darken($flat-gray-1, 10%);
 
   li.row {
     display: block;
     width: 100%;
     padding: 8px;
-    border-bottom: 1px solid darken($flat-gray-1, 10%);
 
     .button {
       float: right;
@@ -579,7 +520,6 @@ h1.collections-page {
       padding: 8px;
 
       a {
-        color: $flat-blue-4;
         text-decoration: none;
 
         &:hover, &:focus, &:active {
@@ -604,7 +544,6 @@ h1.collections-page {
     .pl-checkbox {
       //@include icon;
       float: right;
-      color: $flat-blue-4;
       cursor: pointer;
       @include inline-block;
       width: 28px;
@@ -616,19 +555,10 @@ h1.collections-page {
         content: "\e61f";
       }
 
-      &:hover, &:active, &:focus {
-        // background: lighten( $flat-blue-2, 10% );
-      }
-
       &.checked {
-        // background: $flat-green-4;
 
         &:before {
           content: "\e61e";
-        }
-
-        &:hover, &:active, &:focus {
-          // background: lighten( $flat-green-4, 10% );
         }
       }
     }
@@ -637,8 +567,6 @@ h1.collections-page {
 }
 
 .toolbar {
-  background: $flat-gray-1;
-  border: 1px solid darken($flat-gray-1, 20%);
   padding: 8px;
   position: relative;
   display: block;
@@ -668,7 +596,6 @@ h1.collections-page {
     right: 15px;
     top: 15px;
     background: transparent;
-    color: $flat-gray-2;
     cursor: pointer;
 
     &.show {
@@ -677,13 +604,11 @@ h1.collections-page {
   }
 
   #selection-status {
-    color: $flat-blue-4;
     font-size: 14px;
     padding: 8px 0 0 0;
     display: none;
 
     a {
-      color: $flat-blue-4;
       text-decoration: underline;
       cursor: pointer;
     }
@@ -709,9 +634,6 @@ h1.collections-page {
 
   ul {
     display: block;
-    border-left: 1px solid $flat-gray-2;
-    border-right: 1px solid $flat-gray-2;
-    border-bottom: 1px solid $flat-gray-2;
     width: 100%;
 
     li:last-child {
@@ -728,7 +650,6 @@ h1.collections-page {
   display: block;
   width: 100%;
   position: relative;
-  background: $flat-gray-2;
   margin: 0 0 17px 0;
 
   &:before {
@@ -771,16 +692,11 @@ h1.collections-page {
       a {
         display: block;
         position: relative;
-        background: $flat-blue-4;
         color: #fff;
         text-decoration: none;
         padding: 6px 10px;
         @include border-radius( 5px );
         @include transition( all .1s ease-out );
-
-        &:hover, &:focus, &:active {
-          background: lighten($flat-blue-4, 10%);
-        }
 
         span {
           padding: 0 6px 0 0;
@@ -839,7 +755,6 @@ h1.collections-page {
     display: block;
     margin: 0 0 2px 0;
     padding: 18px 26px 18px 26px;
-    color: $wp-grey;
     font-weight: 300;
     border-bottom: 1px solid #e5e5e5;
   }
@@ -850,7 +765,6 @@ h1.collections-page {
       font-size: 12px;
 
       a {
-        color: $flat-red-1;
         cursor: pointer;
       }
     }
@@ -871,7 +785,6 @@ h1.collections-page {
     }
 
     a {
-      color: $flat-red-2;
       text-decoration: underline;
       cursor: pointer;
     }
@@ -888,7 +801,6 @@ h1.collections-page {
     padding: 8px;
     border: none;
     outline: none;
-    background: $flat-green-4;
     color: white;
     @include border-radius( 5px );
     font-size: 15px;
@@ -905,13 +817,7 @@ h1.collections-page {
     top: 12px;
     font-size: 22px;
     cursor: pointer;
-    color: $flat-blue-4;
     @include transition( color .1s ease-out );
-
-    &:hover, &:focus, &:active {
-      color: $flat-blue-2;
-    }
-
   }
 }
 
@@ -976,7 +882,6 @@ h1.collections-page {
     margin: 6px;
     font-size: 13px;
     @include border-radius( 5px );
-    background: $flat-blue-4;
   }
 }
 
@@ -988,7 +893,6 @@ h1.collections-page {
   pointer-events: none;
   @include opacity(0);
   position: absolute;
-  background: $flat-blue-2;
   left: 0;
   bottom: 0;
   height: 26px;
@@ -1005,7 +909,6 @@ h1.collections-page {
     height: 0;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-top: 6px solid $flat-blue-2;
   }
 
   span {
@@ -1059,23 +962,6 @@ h1.collections-page {
         display: block;
         font-size: 16px;
       }
-    }
-
-    &.success {
-      background: $flat-green-4;
-    }
-
-    &.error {
-      background: $flat-red-2;
-    }
-
-    &.warning {
-      background: $flat-yellow-1;
-      color: #000;
-    }
-
-    &.info {
-      background: $flat-blue-4;
     }
 
     &.show {

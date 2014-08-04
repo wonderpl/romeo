@@ -2,25 +2,6 @@
 @import "compass/css3";
 @import "compass/css3/user-interface";
 
-// variables, mixins, etc
-@import "partials/colours";
-//@import "partials/typography";
-@import "partials/forms";
-@import "partials/nvd3";
-@import "partials/animation";
-@import "partials/ngTags";
-@import "partials/wonderplayer/_global";
-
-// default global styles
-@import "partials/global";
-
-// Romeo specific styles
-@import "partials/romeo/analytics";
-@import "partials/romeo/account";
-@import "partials/romeo/upload";
-@import "partials/romeo/manage";
-@import "partials/wonderplayer/_tablet";
-
 // http://docssa.info/#fileStructure
 /*!
 ========== BASE

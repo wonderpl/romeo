@@ -1,5 +1,8 @@
-angular.module('RomeoApp.directives')
-  .directive('videoDownload', function ($templateCache, $location, VideoService) {
+angular
+  .module('RomeoApp.directives')
+  .directive('videoDownload', ['$templateCache', '$location', 'VideoService', '$q', VideoDownloadDirective]);
+
+function VideoDownloadDirective ($templateCache, $location, VideoService, $q) {
 
   'use strict';
 
@@ -12,10 +15,11 @@ angular.module('RomeoApp.directives')
     },
     controller : function ($scope) {
       $scope.download = function () {
-        VideoService.getDownloadUrl($scope.videoId).then(function (data) {
-          $location.path(data.url);
+        VideoService.getDownloadUrl($scope.videoId)
+        .then(function (data) {
+          window.location = data.url;
         });
       };
     }
   };
-});
+}
