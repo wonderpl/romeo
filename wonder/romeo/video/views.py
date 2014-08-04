@@ -395,7 +395,7 @@ class VideoEmbedCodeResource(Resource):
 @api_resource('/video/<int:video_id>/player_parameters')
 class VideoPlayerParametersResource(Resource):
 
-    @video_view()
+    @video_view(with_collaborator_permission=True)
     def get(self, video):
         return video.player_parameters
 
