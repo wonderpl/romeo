@@ -12,9 +12,6 @@ SECRET_KEY = _decrypt('.YFx\xa9\xedT\xb3\x039\xd6J\xe9\x00\xb6\xf2\xce\x15\xe9Wx
 DATABASE_PASSWORD = _decrypt('5\xe8X\x04\x9cc\x86Da\x8f')
 DATABASE_URL = 'postgresql://romeo:%s@db1/romeo' % DATABASE_PASSWORD
 
-SESSION_COOKIE_SECURE = True
-ENABLE_BACKGROUND_SQS = True
-
 DOLLY_WS_BASE = 'http://api.wonderpl.com/ws/'
 DOLLY_WS_SECURE_BASE = 'https://secure.wonderpl.com/ws/'
 DOLLY_WEBLITE_URL_FMT = 'http://wonderpl.com/channel/{slug}/{channelid}/?video={instanceid}'
@@ -25,6 +22,10 @@ DEFAULT_EMAIL_SOURCE = 'Wonder PL <noreply@wonderpl.com>'
 
 SERVER_NAME = 'romeo.wonderpl.com'
 ASSETS_URL = 'https://' + SERVER_NAME + '/static'
+SESSION_COOKIE_DOMAIN = SERVER_NAME
+SESSION_COOKIE_SECURE = True
+
+ENABLE_BACKGROUND_SQS = True
 
 # AWS
 VIDEO_S3_BUCKET = 'video.us.wonderpl.com'
