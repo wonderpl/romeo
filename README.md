@@ -22,7 +22,7 @@ Creating & using dev database tunnel:
 
 Run dev server with:
 
-    python2.7 manage.py runserver
+    python2.7 manage.py runserver -p 5001 --threaded
 
 Some local settings worth considering:
 
