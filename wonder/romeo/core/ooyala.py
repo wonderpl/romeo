@@ -56,6 +56,20 @@ def get_video_data(id):
     return data
 
 
+def set_metadata(assetid, metadata):
+    labelname = str(metadata.pop('label', None))
+    if labelname:
+        idmap = dict((l['name'], l['id']) for l in ooyala_request('labels')['items'])
+        if labelname in idmap:
+            labelid = idmap[labelname]
+        else:
+            labelid = ooyala_request('labels', data=json.dumps(dict(name=labelname)))['id']
+        ooyala_request('assets', assetid, 'labels', labelid, method='put')
+    if metadata:
+        ooyala_request('assets', assetid, 'metadata',
+                       method='patch', data=json.dumps(metadata))
+
+
 def create_asset(s3path, metadata):
     # get metadata from s3
     chunk_size = 2 ** 22
@@ -78,17 +92,7 @@ def create_asset(s3path, metadata):
     assetid = response['embed_code']
 
     # set label and metadata
-    labelname = str(metadata.pop('label', None))
-    if labelname:
-        idmap = dict((l['name'], l['id']) for l in ooyala_request('labels')['items'])
-        if labelname in idmap:
-            labelid = idmap[labelname]
-        else:
-            labelid = ooyala_request('labels', data=json.dumps(dict(name=labelname)))['id']
-        ooyala_request('assets', assetid, 'labels', labelid, method='put')
-    if metadata:
-        ooyala_request('assets', assetid, 'metadata',
-                       method='patch', data=json.dumps(metadata))
+    set_metadata(assetid, metadata)
 
     # copy video data from s3 to ooyala
     range = -1, -1

@@ -3,6 +3,7 @@ from flask import current_app
 from werkzeug import generate_password_hash
 from wonder.romeo import manager, db
 from wonder.romeo.core.db import commit_on_success
+from wonder.romeo.core.s3 import video_bucket
 from wonder.romeo.core import dolly, ooyala
 from wonder.romeo.account.models import Account, AccountUser
 from wonder.romeo.account.views import get_dollyuser
@@ -217,3 +218,20 @@ def fixup_video_data():
             videos[channel] = get_dollyuser(video.account).get_channel_videos(channel)
         video.dolly_instance = next((v['id'] for v in videos[channel]
                                      if v['video']['source_id'] == video.external_id), None)
+
+
+@manager.command
+def migrate_video_files(account):
+    for video in Video.query.filter_by(account_id=account, filename='dolly'):
+        metadata = ooyala.ooyala_request('assets', video.external_id, 'metadata')
+        key = video_bucket.get_key(metadata['path'])
+        assert key.size < 5 * 2 ** 30   # can't copy files bigger than this
+
+        video.filename = Video.get_random_filename()
+        dst = Video.get_video_filepath(account, video.filename)
+        key.copy(video_bucket.name, dst)
+        key.delete()
+
+        ooyala.set_metadata(video.external_id, dict(path=dst, label=account))
+
+    db.session.commit()
