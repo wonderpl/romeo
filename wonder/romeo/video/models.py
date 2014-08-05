@@ -1,4 +1,5 @@
 import os
+import re
 from urlparse import urljoin
 from itsdangerous import URLSafeSerializer
 from sqlalchemy import (
@@ -60,6 +61,13 @@ class Video(db.Model):
     def player_parameters(self):
         params = VideoPlayerParameter.query.filter_by(video_id=self.id)
         return dict(params.values('name', 'value'))
+
+    @property
+    def download_name(self):
+        name = re.sub(r'\W+', '', self.title.replace(' ', '_'))
+        name = re.sub('_+', '_', name).strip('_')
+        # TODO: check file type
+        return name + '.mp4'
 
     @classmethod
     def get_random_filename(cls):

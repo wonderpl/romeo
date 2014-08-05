@@ -335,8 +335,12 @@ class VideoDownloadUrlResource(Resource):
     @video_view(with_collaborator_permission='download')
     def get(self, video):
         expires = 600
+        headers = {
+            'response-content-type': 'application/octet-stream',
+            'response-content-disposition': 'attachment; filename="%s"' % video.download_name
+        }
         key = video_bucket.get_key(video.filepath)
-        url = key.generate_url(expires, force_http=True)
+        url = key.generate_url(expires, force_http=True, response_headers=headers)
         return dict(url=url, expires=expires), 302, {'Location': url}
 
 
