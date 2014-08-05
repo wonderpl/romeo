@@ -771,6 +771,53 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('notification-tray.html',
+    "<section class=\"notice-tray\">\n" +
+    "\n" +
+    "  <!--\n" +
+    "   - The outer container is used to fix the content into position. It has\n" +
+    "   - a positioning class which fixes it to the top.\n" +
+    "   -->\n" +
+    "\n" +
+    "\n" +
+    "  <ul>\n" +
+    "   <li ng-repeat=\"notification in notifications\">\n" +
+    "\n" +
+    "\n" +
+    "    <!--\n" +
+    "     - the actual notice uses extended classes to apply styles to it, as do the\n" +
+    "     - animations. An animation class will need to be applied to it for it to\n" +
+    "     - flip out when dismissing.\n" +
+    "     -->\n" +
+    "    <div class=\"notice animate  animate--flip  animate--flip-in-x\" ng-class=\"notice--(~ notification.status ~)\">\n" +
+    "\n" +
+    "      <!--\n" +
+    "       - Use a flag object to easily position elements vertically in the middle.\n" +
+    "       -->\n" +
+    "      <div class=\"flag  flag--rev\">\n" +
+    "\n" +
+    "        <div class=\"flag__body\">\n" +
+    "          <b>(~ notification.title ~)</b>:<br>\n" +
+    "          (~ notification.message ~)\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <div class=\"flag__img\">\n" +
+    "          <!--\n" +
+    "           - clicking this will dismiss the notice. TODO: needs styling yet.\n" +
+    "           -->\n" +
+    "          <a class=\"notice__dismiss\" ng-click=\"removeNotification(notification.id)\">\n" +
+    "            <i class=\"icon  icon--cross\"></i>\n" +
+    "          </a>\n" +
+    "        </div>\n" +
+    "      </div>\n" +
+    "\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
   $templateCache.put('organise-collection.html',
     "<section class=\"organise-collection\">\n" +
     "\n" +
@@ -984,6 +1031,12 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <li class=\"page-footer__item\"><a href=\"#\" class=\"page-footer__link\">Facebook</a></li>\n" +
     "    <li class=\"page-footer__item\"><a href=\"#\" class=\"page-footer__link\">LinkedIn</a></li>\n" +
     "    <li class=\"page-footer__item\"><a href=\"#\" class=\"page-footer__link\">Instagram</a></li>\n" +
+    "\n" +
+    "    <li class=\"page-footer__item\"><a class=\"page-footer__link\" ng-click=\"testNotify('success')\">SUCCESS</a></li>\n" +
+    "    <li class=\"page-footer__item\"><a class=\"page-footer__link\" ng-click=\"testNotify('warning')\">WARNING</a></li>\n" +
+    "    <li class=\"page-footer__item\"><a class=\"page-footer__link\" ng-click=\"testNotify('error')\">ERROR</a></li>\n" +
+    "    <li class=\"page-footer__item\"><a class=\"page-footer__link\" ng-click=\"testNotify('info')\">INFO</a></li>\n" +
+    "\n" +
     "  </ul>\n" +
     "  <span class=\"page-footer__note\">&copy; 2014 Wonder PL, Ltd.</span>\n" +
     "</section>"
@@ -1633,7 +1686,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  </section>\n" +
     "\n" +
-    "</section>"
+    "</section>\n"
   );
 
 

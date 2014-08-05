@@ -24,21 +24,4 @@
   font-size: 0.875em;
   font-family: $heading-font-family;
   border-radius: 3px;
-
-  &--full-page {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top:    0;
-    right:  0;
-    bottom: 0;
-    left:   0;
-    z-index: 5001;
-    border-radius: none !important;
-  }
-
-  &--success { background-color: #F2FCF4; }
-  &--error   { background-color: #FFF3F2; }
-  &--warning { background-color: #FCFBF2; }
-  &--info    { background-color: #F2FBFC; }
 }
