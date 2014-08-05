@@ -5,7 +5,7 @@ angular.module('RomeoApp.controllers')
     'use strict';
 
     function refresh () {
-      redirect('', true);
+      redirect('/organise', true);
     }
 
     function redirect (path, force) {
