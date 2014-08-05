@@ -31,17 +31,13 @@ def dolly_account_view(f):
 
 @accountapp.route('/login', methods=('GET', 'POST'))
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        if login_user(UserProxy(form.user.id, form.user), form.remember.data):
-            return redirect(request.args.get('next') or url_for('.settings'))
-    return render_template('account/login.html', form=form)
+    return redirect(url_for('root.app') + '#/login')
 
 
 @accountapp.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('root.home'))
+    return redirect(url_for('root.app'))
 
 
 @accountapp.route('/_verify_account')
@@ -53,17 +49,6 @@ def verify():
         )
     else:
         return jsonify(), 401
-
-
-# TODO: Remove me?
-@accountapp.route('/settings')
-@fresh_login_required
-def settings():
-    dollyuser = get_dollyuser(current_user.account).get_userdata()
-    change_password_form = ChangePasswordForm()
-    return render_template('account/settings.html',
-                           dollyuser=dollyuser,
-                           change_password_form=change_password_form)
 
 
 @api_resource('/validate_token')

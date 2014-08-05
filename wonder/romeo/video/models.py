@@ -47,7 +47,7 @@ class Video(db.Model):
     @property
     def web_url(self):
         """Link to angular view for this video."""
-        return url_for('root.home', _external=True) + '#/video/' + str(self.id)
+        return url_for('root.app', _external=True) + '#/video/' + str(self.id)
 
     @property
     def filepath(self):

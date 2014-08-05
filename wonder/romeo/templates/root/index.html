@@ -1,4 +1,11 @@
 {% extends "base.html" %}
+
+{% block headjs %}
+<script>
+location.replace('/app' + location.hash);
+</script>
+{% endblock %}
+
 {% block content %}
 <div class="container">
 

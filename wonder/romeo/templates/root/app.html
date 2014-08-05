@@ -19,16 +19,17 @@
     {% endassets %}
 
 </head>
-<body ng-app="{% block appName %}RomeoApp{% endblock %}" ng-controller="MainCtrl" class="page-(~ getCurrentRoute() ~)">
+<body ng-app="RomeoApp" ng-controller="MainCtrl" class="page-(~ getCurrentRoute() ~)">
 
   <div class="container cf container--(~ $root.layoutMode ~)">
-    {% block content %}
-    {% endblock %}
+    <page-header profile="profile"></page-header>
+
+    <ng-view></ng-view>
+
+    <page-footer></page-footer>
   </div>
 
   <div id="liveScripts">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
     <!--[if lt IE 9]>
         <script type="text/javascript" src="aight.min.js"></script>
     <![endif]-->

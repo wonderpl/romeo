@@ -21,19 +21,6 @@ from .commands import update_video_status
 videoapp = Blueprint('video', __name__)
 
 
-@videoapp.route('/upload')
-@login_required
-def upload():
-    return render_template('video/upload.html')
-
-
-@videoapp.route('/videos')
-@login_required
-def video_list():
-    videos = Video.query.filter_by(deleted=False, account_id=current_user.account_id)
-    return render_template('video/list.html', videos=videos)
-
-
 @videoapp.route('/_ooyala/callback')
 @commit_on_success
 def ooyala_callback():
