@@ -15,6 +15,8 @@ function NotificationTrayDirective ($templateCache, $timeout) {
     },
     controller : function ($scope) {
 
+      console.log('test');
+
       $scope.notifications = $scope.notifications || [];
 
       $scope.removeNotification = function (id) {
@@ -52,7 +54,7 @@ function NotificationTrayDirective ($templateCache, $timeout) {
           message   : data.message,
           timestamp : new Date().getTime(),
           id        : Math.round(Math.random() * 10000000)
-        }
+        };
         console.log(notification);
         $scope.notifications.push(notification);
 

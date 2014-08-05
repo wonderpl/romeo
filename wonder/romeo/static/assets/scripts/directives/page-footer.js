@@ -11,7 +11,6 @@ function PageFooterDirective ($templateCache) {
     replace : true,
     template : $templateCache.get('page-footer.html'),
     controller : function ($scope) {
-
       $scope.testNotify = function (status) {
         $scope.$emit('notify', {
           status : status,

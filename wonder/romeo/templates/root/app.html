@@ -22,6 +22,9 @@
 <body ng-app="RomeoApp" ng-controller="MainCtrl" class="page-(~ getCurrentRoute() ~)">
 
   <div class="container cf container--(~ $root.layoutMode ~)">
+
+    <notification-tray notifications="notifications"></notification-tray>
+
     <page-header profile="profile"></page-header>
 
     <ng-view></ng-view>
