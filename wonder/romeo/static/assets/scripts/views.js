@@ -1580,7 +1580,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <a class=\"video-thumbnail__option video-thumbnail__option--select\" ng-class=\"{ 'video-thumbnail__option--disabled' : video.status !== 'ready' }\" ng-hide=\"showThumbnailSelector\" ng-click=\"(video.status !== 'ready') || selectThumbnail()\">Pick a generated thumbnail</a>\n" +
     "\n" +
-    "  <section class=\"video-thumbnail__option video-thumbnail__option--upload\" ng-hide=\"showThumbnailSelector\" ng-file-drop=\"onPreviewImageSelect($files)\" ng-file-select=\"onPreviewImageSelect($files)\">\n" +
+    "  <section class=\"video-thumbnail__option video-thumbnail__option--upload\" ng-hide=\"showThumbnailSelector\" ng-file-drop=\"onPreviewImageSelect($files)\">\n" +
     "    <p>Choose your own thumbnail</p>\n" +
     "    <input type=\"file\" ng-file-select=\"onPreviewImageSelect($files)\" />\n" +
     "    <div ng-file-drop-available=\"dropSupported=true\" ng-show=\"!dropSupported\">HTML5 Drop File is not supported!</div>\n" +
