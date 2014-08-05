@@ -26,6 +26,13 @@ angular.module('RomeoApp.directives')
           }
         }
       });
+      $scope.$watch('url', function (newValue, oldValue) {
+        if (newValue !== oldValue) {
+          if (newValue.length < 7) {
+            $scope.url = 'http://';
+          }
+        }
+      });
 
       $scope.save = function () {
         $rootScope.$emit('video-save');
