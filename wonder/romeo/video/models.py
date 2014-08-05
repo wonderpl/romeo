@@ -3,7 +3,7 @@ from urlparse import urljoin
 from itsdangerous import URLSafeSerializer
 from sqlalchemy import (
     Column, Integer, String, Text, Boolean, DateTime, ForeignKey, Enum,
-    PrimaryKeyConstraint, func, event, null)
+    PrimaryKeyConstraint, UniqueConstraint, func, event, null)
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.ext.associationproxy import association_proxy
@@ -170,6 +170,9 @@ class VideoThumbnail(db.Model):
 
 class VideoLocaleMeta(db.Model):
     __tablename__ = 'video_locale_meta'
+    __table_args__ = (
+        UniqueConstraint('video', 'locale'),
+    )
 
     id = Column(Integer, primary_key=True)
     video_id = Column('video', ForeignKey(Video.id), nullable=False)
