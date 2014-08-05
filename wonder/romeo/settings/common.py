@@ -27,6 +27,7 @@ REMEMBER_COOKIE_NAME = 'at'
 REMEMBER_COOKIE_DURATION = timedelta(days=1)
 REMEMBER_COOKIE_SECURE = False
 # SESSION_PROTECTION = 'strong'
+SESSION_COOKIE_NAME = 'romeo'
 
 # Flask-Assets
 ASSETS_URL = '/static'
