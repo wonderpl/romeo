@@ -19,6 +19,8 @@
  * flipInX
  */
 .animate--flipInX {
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
   -webkit-animation-name: flipInX;
           animation-name: flipInX;
 }
