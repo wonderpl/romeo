@@ -55,6 +55,30 @@ Content-Type: application/json
 }
 ```
 
+### Status Override
+
+For clients that cannot handle a specific response status the `X-HTTP-Status-Override`
+request header can be used.
+
+```http
+GET /api/doesnt_exist HTTP/1.1
+X-HTTP-Status-Override: 200
+```
+
+In this example, instead of a `404` the response will be a `200` and will include the
+original status in the `X-HTTP-Status-Override` response header.
+
+```http
+HTTP/1.1 200 OK
+X-HTTP-Status-Override: 404 NOT FOUND
+Content-Type: application/json
+
+{
+ "status": 404,
+ "message": "Not Found."
+}
+```
+
 ### Authentication
 
 Currently based on session cookies. Ensure all api requests include the `Cookie` header

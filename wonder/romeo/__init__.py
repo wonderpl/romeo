@@ -3,7 +3,7 @@ import logging
 from glob import glob
 from werkzeug.utils import import_string
 from werkzeug.contrib.fixers import ProxyFix
-from flask import Flask, json
+from flask import Flask, request, json
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.script import Manager
 from flask.ext.script.commands import Server
@@ -74,6 +74,17 @@ def _load_extensions(app, wsgi=False):
 def _register_middleware(app):
     from wonder.romeo.core import sqs
     sqs.init_app(app)
+
+    def _force_status(response):
+        try:
+            status_code = int(request.headers['X-HTTP-Status-Override'])
+        except (KeyError, ValueError):
+            pass
+        else:
+            response.headers['X-HTTP-Status-Override'] = response.status
+            response.status_code = status_code
+        return response
+    app.after_request(_force_status)
 
 
 def _register_blueprints(app):
