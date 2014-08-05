@@ -1,0 +1,8 @@
+<section class="video-delete">
+  <a class="modal__close" ng-click="close()">&times;</a>
+  <h5 class="video-delete__title">Delete video</h5>
+  <section class="video-delete__msg">
+    <p>Are you sure you want to delete '{{video.title}}'?</p>
+    <a ng-click="close()" class="button">Cancel</a> <a ng-click="delete(video)" class="button button--primary">Okay</a>
+  </section>
+</section>

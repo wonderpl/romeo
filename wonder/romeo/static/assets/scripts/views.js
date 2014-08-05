@@ -664,6 +664,18 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('modal-delete-video.html',
+    "<section class=\"video-delete\">\n" +
+    "  <a class=\"modal__close\" ng-click=\"close()\">&times;</a>\n" +
+    "  <h5 class=\"video-delete__title\">Delete video</h5>\n" +
+    "  <section class=\"video-delete__msg\">\n" +
+    "    <p>Are you sure you want to delete '(~video.title~)'?</p>\n" +
+    "    <a ng-click=\"close()\" class=\"button\">Cancel</a> <a ng-click=\"delete(video)\" class=\"button button--primary\">Okay</a>\n" +
+    "  </section>\n" +
+    "</section>"
+  );
+
+
   $templateCache.put('modal-edit-collection.html',
     "<h2>Edit Collection</h2>\n" +
     "<div class=\"modal-content\">\n" +
@@ -911,7 +923,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <a class=\"organise-video__inline-link organise-video__inline-link--add-remove\" ng-click=\"addRemove(video)\"><i class=\"icon  icon--collection\"></i></a>\n" +
     "    </li>\n" +
     "    <li class=\"organise-video__inline-control\">\n" +
-    "      <a class=\"organise-video__inline-link organise-video__inline-link--delete\" ng-click=\"delete(video)\"><i class=\"icon  icon--trash\"></i></a>\n" +
+    "      <a class=\"organise-video__inline-link organise-video__inline-link--delete\" ng-click=\"showDelete(video)\"><i class=\"icon  icon--trash\"></i></a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
     "\n" +
@@ -929,7 +941,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <li class=\"video-action-list__item\"><a class=\"video-action-list__link\" ng-href=\"#/video/(~video.id~)\"><i class=\"icon  icon--eye\"></i><span class=\"t--block\">Review</span></a></li>\n" +
     "      <li class=\"video-action-list__item\"><a class=\"video-action-list__link\"><i class=\"icon  icon--bar-graph\"></i><span class=\"t--block\">Stats</span></a></li>\n" +
     "      <li class=\"video-action-list__item\"><a class=\"video-action-list__link\" ng-click=\"addRemove(video)\"><i class=\"icon  icon--collection\"></i><span class=\"t--block\">Add / Remove</span></a></li>\n" +
-    "      <li class=\"video-action-list__item\"><a class=\"video-action-list__link\" ng-click=\"delete(video)\"><i class=\"icon  icon--trash\"></i><span class=\"t--block\">Delete</span></a></l>\n" +
+    "      <li class=\"video-action-list__item\"><a class=\"video-action-list__link\" ng-click=\"showDelete(video)\"><i class=\"icon  icon--trash\"></i><span class=\"t--block\">Delete</span></a></l>\n" +
     "    </ul>\n" +
     "    <ng-switch on=\"video.thumbnails.items[0].url.length\">\n" +
     "      <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"video-thumb-container__thumb\" style=\"background-image: url('http://placehold.it/218x122')\" ng-switch-when=\"0\">\n" +
