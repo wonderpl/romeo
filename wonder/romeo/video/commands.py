@@ -170,7 +170,7 @@ def update_video_status(video, data, send_email=True):
         send_processed_email(video.id, error=failure_reason)
 
 
-@manager.command
+@manager.cron_command(30)
 @commit_on_success
 def check_ooyala_processing_status():
     videos = Video.query.filter(Video.status == 'processing', Video.external_id != None)

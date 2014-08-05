@@ -7,13 +7,13 @@ import wtforms
 from flask import current_app, request
 from flask.ext.login import current_user
 from flask.ext.wtf import Form
+from wonder.common.sqs import background_on_sqs
 from wonder.romeo import db
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.dolly import get_categories, push_video_data
 from wonder.romeo.core.ooyala import create_asset, ooyala_request, DuplicateException
 from wonder.romeo.core.email import send_email, email_template_env
 from wonder.romeo.core.s3 import upload_file, download_file, media_bucket, video_bucket
-from wonder.romeo.core.sqs import background_on_sqs
 from wonder.romeo.core.util import gravatar_url
 from wonder.romeo.account.models import AccountUser
 from .models import Video, VideoTag, VideoThumbnail, VideoComment, VideoCollaborator

@@ -1,21 +1,14 @@
-import os
 import logging
-from glob import glob
 from werkzeug.utils import import_string
 from werkzeug.contrib.fixers import ProxyFix
 from flask import Flask, request, json
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.script import Manager
-from flask.ext.script.commands import Server
 from flask.ext.login import LoginManager
 from flask.ext.cache import Cache
-from flask.ext.assets import Environment, ManageAssets
+from flask.ext.assets import Environment
 from flask.ext.restful import Api
-
-
-def _reloader_extra_files():
-    from wonder.romeo import settings
-    return glob(os.path.join(os.path.dirname(settings.__file__), '*.py'))
+from wonder.common.commands import Manager
+from wonder.romeo import settings
 
 
 def _configure(app):
@@ -50,7 +43,7 @@ def _init_api(app):
 
 
 def _load_extensions(app, wsgi=False):
-    for ext in assetenv, cache, login_manager:
+    for ext in assets_env, cache, login_manager:
         ext.init_app(app)
 
     login_manager.login_view = 'account.login'
@@ -72,7 +65,7 @@ def _load_extensions(app, wsgi=False):
 
 
 def _register_middleware(app):
-    from wonder.romeo.core import sqs
+    from wonder.common import sqs
     sqs.init_app(app)
 
     def _force_status(response):
@@ -146,8 +139,6 @@ def create_app(wsgi=False):
 api = Api(prefix='/api', catch_all_404s=True)
 db = SQLAlchemy()
 login_manager = LoginManager()
-assetenv = Environment()
+assets_env = Environment()
 cache = Cache()
-manager = Manager(create_app, with_default_commands=True)
-manager.add_command('assets', ManageAssets(assetenv))
-manager.add_command('runserver', Server(extra_files=_reloader_extra_files()))
+manager = Manager(create_app, assets_env=assets_env, reloader_extra_files=settings)
