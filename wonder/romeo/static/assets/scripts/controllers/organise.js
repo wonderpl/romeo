@@ -70,7 +70,7 @@ angular.module('RomeoApp.controllers')
     });
 
     $scope.$on('delete-video', function ($event, video) {
-      if (video && window.confirm("Are you sure you want to delete '" + video.title + "'?")) {
+      if (video) {
         VideoService.delete(video.id);
         refresh();
       }
