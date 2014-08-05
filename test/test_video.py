@@ -296,6 +296,7 @@ class VideoCommentTestCase(DataTestCase, TestCase):
         class comment2:
             video_id = 4201
             comment = 'xyzzy2'
+            timestamp = 88
             user_type = 'account_user'
             user_id = 4101
 
@@ -362,6 +363,7 @@ class VideoCommentTestCase(DataTestCase, TestCase):
             self.assertNotIn(self.data.VideoCommentData.comment1.comment, email_body)
             # comment 2 is new
             self.assertIn(self.data.VideoCommentData.comment2.comment, email_body)
+            self.assertIn('@1:28', email_body)  # timestamp: 88s
             # comment 3 is by somebody else
             self.assertNotIn(self.data.VideoCommentData.comment3.comment, email_body)
 

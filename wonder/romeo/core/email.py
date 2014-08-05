@@ -1,4 +1,5 @@
 import re
+from datetime import timedelta
 from boto import connect_ses
 from werkzeug.local import LocalProxy
 from jinja2 import Environment, PackageLoader
@@ -23,6 +24,15 @@ def send_email(recipient, body, subject=None, format='html'):
     )
 
 
+def _timestamp_fmt(t):
+    hours, minutes, seconds = str(timedelta(seconds=t)).split(':')
+    if hours == '0':
+        hours = None
+    if hours is None and minutes[0] == '0':
+        minutes = minutes[1:]
+    return ':'.join(filter(None, (hours, minutes, seconds)))
+
+
 def _get_template_env():
     config = current_app.config
 
@@ -38,7 +48,7 @@ def _get_template_env():
         loader=PackageLoader('wonder.romeo', config['EMAIL_TEMPLATE_PATH']),
         **options
     )
-    env.globals.update(config=config, url_for=url_for)
+    env.globals.update(config=config, url_for=url_for, timestamp_fmt=_timestamp_fmt)
 
     return env
 

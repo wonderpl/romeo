@@ -29,7 +29,7 @@
         {{ sender.name }}
         <span style="padding-left:24px;font-size:12px;color:#b7bcbd;">{{ comments[0].date_added.strftime('%d/%m/%Y %M:%S') }}</span>
       </div>
-      {% if comments[0].timestamp %}<b>{{ comments[0].timestamp }}</b> - {% endif %}{{ comments[0].comment }}<br><br>
+      {% if comments[0].timestamp %}<b>@{{ timestamp_fmt(comments[0].timestamp) }}</b> - {% endif %}{{ comments[0].comment }}<br><br>
     </td>
   </tr>
 </table>
