@@ -194,6 +194,7 @@ def create_cover_thumbnails(video_id):
             timage.thumbnail(size, Image.ANTIALIAS)
             timage.save(buf, image.format)
             thumbnail = _thumbnail(str(size[0]), timage.size)
+            buf.seek(0)
             upload_file(media_bucket, urlparse(thumbnail.url).path, buf, content_type)
             video.thumbnails.append(thumbnail)
 
