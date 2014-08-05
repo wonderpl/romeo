@@ -1,4 +1,4 @@
-/* line 17, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 17, ../../../../../../../.rvm/gems/ruby-1.9.3-p286/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -20,45 +20,45 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 22, ../../../../../../../.rvm/gems/ruby-1.9.3-p286/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 24, ../../../../../../../.rvm/gems/ruby-1.9.3-p286/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 26, ../../../../../../../.rvm/gems/ruby-1.9.3-p286/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 28, ../../../../../../../.rvm/gems/ruby-1.9.3-p286/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 30, ../../../../../../../.rvm/gems/ruby-1.9.3-p286/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 103, ../../../../../../../.rvm/gems/ruby-1.9.3-p286/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 32, ../../../../../../../.rvm/gems/ruby-1.9.3-p286/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 116, ../../../../../../../.rvm/gems/ruby-1.9.3-p286/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block;
 }
@@ -263,7 +263,7 @@ strong {
  * clearfix.scss
  */
 /* line 6, ../../scss/base/project/_clearfix.scss */
-.cf:after, .split:after, .nav:after, .configurable-layout:after, .page-header:after, .organise-video-list__list-control-label:after, .video-thumb-container:after {
+.cf:after, .split:after, .nav:after, .configurable-layout:after, .page-header:after, .organise-video-list__list-control-label:after, .organise-video-delete:after, .video-thumb-container:after {
   content: "";
   display: table;
   clear: both;
@@ -550,7 +550,147 @@ strong {
   color: white;
 }
 
-/* line 1, ../../scss/components/_modal.scss */
+/*  Modal
+/* ======================================= */
+/* line 3, ../../scss/components/_modal.scss */
+#modal-bg {
+  display: block;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+/* line 16, ../../scss/components/_modal.scss */
+#modal-bg.show {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+/* line 23, ../../scss/components/_modal.scss */
+#modal {
+  display: block;
+  position: fixed;
+  width: 520px;
+  left: 50%;
+  top: 50%;
+  background: white;
+  z-index: 101;
+  padding: 0px;
+  pointer-events: none;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+}
+/* line 39, ../../scss/components/_modal.scss */
+#modal .modal-content {
+  padding: 26px;
+  display: block;
+}
+/* line 44, ../../scss/components/_modal.scss */
+#modal h2 {
+  font-family: 'proxima-nova', sans-serif;
+  display: block;
+  margin: 0 0 2px 0;
+  padding: 18px 26px 18px 26px;
+  font-weight: 300;
+  border-bottom: 1px solid #e5e5e5;
+}
+/* line 54, ../../scss/components/_modal.scss */
+#modal label span {
+  float: right;
+  font-size: 12px;
+}
+/* line 58, ../../scss/components/_modal.scss */
+#modal label span a {
+  cursor: pointer;
+}
+/* line 64, ../../scss/components/_modal.scss */
+#modal .collection-list {
+  list-style-type: disc;
+  padding: 16px 0 0 20px;
+  font-size: 14px;
+}
+/* line 69, ../../scss/components/_modal.scss */
+#modal .collection-list li {
+  display: list-item;
+  margin: 0 0 8px 0;
+}
+/* line 74, ../../scss/components/_modal.scss */
+#modal .collection-list span {
+  font-size: 12px;
+}
+/* line 78, ../../scss/components/_modal.scss */
+#modal .collection-list a {
+  text-decoration: underline;
+  cursor: pointer;
+}
+/* line 84, ../../scss/components/_modal.scss */
+#modal.show {
+  pointer-events: auto;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
+/* line 90, ../../scss/components/_modal.scss */
+#modal input[type=submit] {
+  display: block;
+  padding: 8px;
+  border: none;
+  outline: none;
+  color: white;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  font-size: 15px;
+  float: right;
+  cursor: pointer;
+}
+/* line 102, ../../scss/components/_modal.scss */
+#modal a.close-modal {
+  display: none;
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  right: 12px;
+  top: 12px;
+  font-size: 22px;
+  cursor: pointer;
+  -webkit-transition: color 0.1s ease-out;
+  -moz-transition: color 0.1s ease-out;
+  -o-transition: color 0.1s ease-out;
+  transition: color 0.1s ease-out;
+}
+
+/* line 115, ../../scss/components/_modal.scss */
 .modal__close {
   position: absolute;
   top: 0.5em;
@@ -1733,6 +1873,164 @@ strong {
   -ms-transform: translateY(0);
   -o-transform: translateY(0);
   transform: translateY(0);
+}
+
+/*  Modal
+/* ======================================= */
+/* line 3, ../../scss/components/_modal.scss */
+#modal-bg {
+  display: block;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+/* line 16, ../../scss/components/_modal.scss */
+#modal-bg.show {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+/* line 23, ../../scss/components/_modal.scss */
+#modal {
+  display: block;
+  position: fixed;
+  width: 520px;
+  left: 50%;
+  top: 50%;
+  background: white;
+  z-index: 101;
+  padding: 0px;
+  pointer-events: none;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+}
+/* line 39, ../../scss/components/_modal.scss */
+#modal .modal-content {
+  padding: 26px;
+  display: block;
+}
+/* line 44, ../../scss/components/_modal.scss */
+#modal h2 {
+  font-family: 'proxima-nova', sans-serif;
+  display: block;
+  margin: 0 0 2px 0;
+  padding: 18px 26px 18px 26px;
+  font-weight: 300;
+  border-bottom: 1px solid #e5e5e5;
+}
+/* line 54, ../../scss/components/_modal.scss */
+#modal label span {
+  float: right;
+  font-size: 12px;
+}
+/* line 58, ../../scss/components/_modal.scss */
+#modal label span a {
+  cursor: pointer;
+}
+/* line 64, ../../scss/components/_modal.scss */
+#modal .collection-list {
+  list-style-type: disc;
+  padding: 16px 0 0 20px;
+  font-size: 14px;
+}
+/* line 69, ../../scss/components/_modal.scss */
+#modal .collection-list li {
+  display: list-item;
+  margin: 0 0 8px 0;
+}
+/* line 74, ../../scss/components/_modal.scss */
+#modal .collection-list span {
+  font-size: 12px;
+}
+/* line 78, ../../scss/components/_modal.scss */
+#modal .collection-list a {
+  text-decoration: underline;
+  cursor: pointer;
+}
+/* line 84, ../../scss/components/_modal.scss */
+#modal.show {
+  pointer-events: auto;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
+/* line 90, ../../scss/components/_modal.scss */
+#modal input[type=submit] {
+  display: block;
+  padding: 8px;
+  border: none;
+  outline: none;
+  color: white;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  font-size: 15px;
+  float: right;
+  cursor: pointer;
+}
+/* line 102, ../../scss/components/_modal.scss */
+#modal a.close-modal {
+  display: none;
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  right: 12px;
+  top: 12px;
+  font-size: 22px;
+  cursor: pointer;
+  -webkit-transition: color 0.1s ease-out;
+  -moz-transition: color 0.1s ease-out;
+  -o-transition: color 0.1s ease-out;
+  transition: color 0.1s ease-out;
+}
+
+/* line 115, ../../scss/components/_modal.scss */
+.modal__close {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  border: solid 2px #70797b;
+  border-radius: 50%;
+  color: #70797b;
+  font-weight: 800;
+  height: 1em;
+  width: 1em;
+  display: block;
+  text-align: center;
+  font-size: 1.5em;
+  line-height: 0.9;
+  cursor: pointer;
 }
 
 /*!
@@ -3614,6 +3912,54 @@ strong {
 /* line 92, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__inline-link:hover {
   cursor: pointer;
+}
+
+/* line 96, ../../scss/specifics/organise/_organise-video.scss */
+.organise-video-delete {
+  max-width: 700px;
+  margin: 0 auto;
+  transition: max-height 0.4s, opacity 0.4s ease-in-out;
+  position: relative;
+  background: white;
+  font-size: 1em;
+}
+/* line 105, ../../scss/specifics/organise/_organise-video.scss */
+.organise-video-delete .media__img {
+  float: left;
+  margin-right: 24px;
+}
+/* line 109, ../../scss/specifics/organise/_organise-video.scss */
+.organise-video-delete .media__body {
+  overflow: hidden;
+}
+
+/* line 114, ../../scss/specifics/organise/_organise-video.scss */
+.organise-video-delete__title {
+  font-size: 1em;
+  border-bottom: solid 1px #999999;
+  color: #70797b;
+  padding: 12px;
+}
+
+/* line 121, ../../scss/specifics/organise/_organise-video.scss */
+.organise-video-delete__controls {
+  padding: 24px 24px 48px;
+}
+
+/* line 124, ../../scss/specifics/organise/_organise-video.scss */
+.organise-video-delete__msg {
+  margin-bottom: 24px;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+/* line 129, ../../scss/specifics/organise/_organise-video.scss */
+.organise-video-delete_button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-right: 24px;
+  margin-bottom: 24px;
 }
 
 /**
