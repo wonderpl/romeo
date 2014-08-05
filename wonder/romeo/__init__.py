@@ -60,7 +60,7 @@ def _load_extensions(app, wsgi=False):
 
     if 'SENTRY_DSN' in app.config:
         from raven.contrib.flask import Sentry
-        Sentry(app, logging=app.config.get('SENTRY_ENABLE_LOGGING'), level=logging.WARN)
+        Sentry(app, logging=True, level=logging.WARN)
 
     if app.debug:
         try:

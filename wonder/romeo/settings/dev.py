@@ -16,3 +16,7 @@ SESSION_COOKIE_DOMAIN = SERVER_NAME
 SESSION_COOKIE_SECURE = True
 
 ENABLE_BACKGROUND_SQS = True
+
+SENTRY_USER = '912ecddb02504d4abf7005e1c60ae67f'
+SENTRY_PASSWORD = _decrypt('^\r\x90\xa8JS\xa3Z\xa1t\xc7\x86\xc1n\xb7\xa4u\tS\xc7U_\xe51>i\xdb\x0b\x1d\x92~\xdd')
+SENTRY_DSN = 'https://%s:%s@sentry.dev.rockpack.com/8' % (SENTRY_USER, SENTRY_PASSWORD)
