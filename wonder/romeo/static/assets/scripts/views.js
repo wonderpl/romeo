@@ -665,12 +665,15 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('modal-delete-video.html',
-    "<section class=\"video-delete\">\n" +
+    "<section class=\"organise-video-delete\">\n" +
     "  <a class=\"modal__close\" ng-click=\"close()\">&times;</a>\n" +
-    "  <h5 class=\"video-delete__title\">Delete video</h5>\n" +
-    "  <section class=\"video-delete__msg\">\n" +
-    "    <p>Are you sure you want to delete '(~video.title~)'?</p>\n" +
-    "    <a ng-click=\"close()\" class=\"button\">Cancel</a> <a ng-click=\"delete(video)\" class=\"button button--primary\">Okay</a>\n" +
+    "  <h5 class=\"organise-video-delete__title\">Delete video</h5>\n" +
+    "  <section class=\"organise-video-delete__controls\">\n" +
+    "    <div class=\"media__img\"><i class=\"icon icon--trash icon--large\"></i></div>\n" +
+    "    <div class=\"media__body\">\n" +
+    "      <p class=\"organise-video-delete__msg\">Are you sure you want to delete '(~video.title~)'?</p>\n" +
+    "      <a ng-click=\"delete(video)\" class=\"organise-video-delete_button button button--primary\">Okay</a>\n" +
+    "    </div>\n" +
     "  </section>\n" +
     "</section>"
   );
