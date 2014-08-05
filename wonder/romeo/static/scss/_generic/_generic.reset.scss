@@ -1,0 +1,61 @@
+/**
+ * _generic.reset.scss
+ */
+/**
+ * 1. Strip out all margin and padding from specific elements.
+ */
+body,h1,h2,h3,h4,h5,h6,p,blockquote,pre,dl,dd,ol,ul,form,fieldset,legend,table,th,td,caption,hr {
+  margin: 0; /* [1] */
+  padding: 0; /* [1] */
+}
+
+/**
+ * 1. Default all browser behaviour for abbreviated/definition elements to display
+ *    a help cursor.
+ */
+abbr[title],dfn[title] {
+  cursor: help; /* [1] */
+}
+
+/**
+ * 1. Strip out all underlined text decoration from underline and inserted elements.
+ */
+u,ins {
+  text-decoration: none; /* [1] */
+}
+
+/**
+ * 1. Add custom border-bottom for inserted elements, to make up for now underlined
+ *    text decoration.
+ */
+ins {
+  border-bottom: 1px solid; /* [1] */
+}
+
+/**
+ * 1. Add an italic font style to alt attributes within images to make them look
+ *    nicer.
+ */
+img {
+  font-style: italic; /* [1] */
+}
+
+/**
+ * 1. Help make form elements more click-able by displaying a pointer cursor
+ *    instead of a standard text cursor.
+ */
+input,textarea,button,select,option {
+  cursor: pointer; /* [1] */
+}
+
+/**
+ * 1. normalise previous declaration by allowing the text cursor on
+ *    textual form elements.
+ */
+input[type="text"]:active,
+input[type="text"]:focus,
+textarea:active,
+textarea:focus {
+  cursor: text; /* [1] */
+  outline: none; /* [1] */
+}

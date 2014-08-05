@@ -1,0 +1,109 @@
+/**
+ * _tools.mixins.scss
+ */
+
+/**
+ * Apply leading based on font-size
+ * e.g. for 18px — '@include font-size($base-font-size * 1.125);'
+ */
+@mixin font-size($font-size, $line-height: true) {
+  font-size: $font-size;
+  font-size: ($font-size / $base-font-size) * 1rem;
+
+  @if $line-height == true {
+    line-height: ceil($font-size / $base-line-height) * ($base-line-height / $font-size);
+  }
+}
+
+
+/**
+ * Breakpoint mixin
+ * e.g. `@include breakpoint(bp-one) { ... }`
+ */
+@mixin breakpoint($name) {
+  @if $name == "bp-one" {
+    @media (min-width: 355px) {
+      @content;
+    }
+  }
+  @else if $name == "bp-two" {
+    @media (min-width: 597px) {
+      @content;
+    }
+  }
+  @else if $name == "bp-three" {
+    @media (min-width: 708px) {
+      @content;
+    }
+  }
+  @else if $name == "bp-four" {
+    @media (min-width: 1025px) {
+      @content;
+    }
+  }
+}
+
+
+/**
+ * Easily add vendor prefixes
+ * e.g. `@include vendor(border-radius, 4px);`
+ * !NOTE: Autoprefixer now depricates this mixin
+ */
+@mixin vendor($property, $value...){
+    -webkit-#{$property}:$value;
+       -moz-#{$property}:$value;
+        -ms-#{$property}:$value;
+         -o-#{$property}:$value;
+            #{$property}:$value;
+}
+
+
+/**
+ * Easily add vendor prefixed animations
+ * e.g. `.foo{ @include vendor(animation, shrink 3s); }`
+ * !NOTE: Autoprefixer now depricates this mixin
+ */
+@mixin keyframe ($animation-name){
+  @-webkit-keyframes $animation-name{
+    @content;
+  }
+
+  @-moz-keyframes $animation-name{
+    @content;
+  }
+
+  @-ms-keyframes $animation-name{
+    @content;
+  }
+
+  @-o-keyframes $animation-name{
+    @content;
+  }
+
+  @keyframes $animation-name{
+    @content;
+  }
+}
+
+/**
+ * Easily generate positioning classes
+ */
+@mixin absolute($args) {
+  $offsets: top right bottom left;
+
+  @each $o in $offsets {
+    $i: index($args, $o);
+
+    @if $i
+    and $i + 1 <= length($args)
+    and type-of( nth($args, $i + 1) ) == number {
+      #{$o}: nth($args, $i + 1);
+    }
+  }
+}
+
+@mixin _position($position, $args) { position: $position; }
+
+@mixin absolute($args) { @include position(absolute, $args); }
+@mixin fixed($args)    { @include position(fixed, $args); }
+@mixin relative($args) { @include position(relative, $args); }

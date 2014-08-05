@@ -1,0 +1,37 @@
+/**
+ * _object.media.scss
+ */
+/**
+ * Place any image- and text-like content side-by-side, as per:
+ * stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code
+ */
+.media {
+  display: block;
+  @extend .cf;
+}
+
+  .media__img {
+    float: left;
+    margin-right: $base-spacing-unit;
+  
+    > img {
+      display: block;
+    }
+  }
+
+  .media__body {
+    overflow: hidden;
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+.media--rev {
+  
+  > .media__img {
+    float: right;
+    margin-right: 0;
+    margin-left: $base-spacing-unit;
+  }
+}

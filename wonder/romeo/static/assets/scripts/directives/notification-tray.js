@@ -6,10 +6,6 @@ function NotificationTrayDirective ($templateCache, $timeout) {
 
   'use strict';
 
-  function removeNotificationData (index) {
-    $scope.notifications[index].active = false;
-  }
-
   return {
     restrict : 'E',
     replace : true,
@@ -21,6 +17,11 @@ function NotificationTrayDirective ($templateCache, $timeout) {
 
       $scope.notifications = $scope.notifications || [];
 
+      $scope.removeNotificationData = function (index) {
+        $scope.notifications[index].show = false;
+        $scope.notifications[index].hide = true;
+      };
+
       $scope.removeNotification = function (id) {
         console.log('removeNotification');
         var notifications = $scope.notifications;
@@ -28,7 +29,7 @@ function NotificationTrayDirective ($templateCache, $timeout) {
         var notification = null;
         while (l--) {
           if (notifications[l].id === id) {
-            removeNotificationData(l);
+            $scope.removeNotificationData(l);
             break;
           }
         }
@@ -41,9 +42,11 @@ function NotificationTrayDirective ($templateCache, $timeout) {
         var l = notifications.length;
         while (l--) {
           if (current - notifications[l].timestamp > 5000 && notifications[l].status !== 'error' && notifications[l].active) {
-            notifications[l].active = false;
+            notifications[l].hide = true;
+            notifications[l].show = false;
           }
-          if (current - notifications[l].timestamp > 10000 && !notifications[l].active) {
+          if (current - notifications[l].timestamp > 6000 && notifications[l].hide) {
+            notifications[l].active = false;
             $scope.notifications.splice(l, 1);
           }
         }
@@ -56,14 +59,13 @@ function NotificationTrayDirective ($templateCache, $timeout) {
           title     : data.title,
           message   : data.message,
           timestamp : new Date().getTime(),
-          id        : Math.round(Math.random() * 10000000)
+          id        : Math.round(Math.random() * 10000000),
+          active    : true,
+          show      : true,
+          hide      : false 
         };
         console.log(notification);
         $scope.notifications.push(notification);
-        $timeout(function () {
-          notification.active = true;
-        }, 1000);
-
       });
 
       $scope.pollNotifications();

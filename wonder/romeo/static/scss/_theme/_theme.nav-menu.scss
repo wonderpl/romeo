@@ -1,0 +1,34 @@
+/**
+ * _theme.nav-menu.scss
+ */
+.nav-menu {
+  margin-bottom: 0;
+  float: right;
+  
+  > li + li {
+    margin-left: $half-spacing-unit / 2;
+  }
+}
+  .nav-menu__item {
+
+    > .avatar {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0;
+      position: relative;
+      left: auto;
+      z-index: 0;
+    }
+  }
+    .nav-menu__link {
+      padding-right: $half-spacing-unit / 2;
+      padding-left:  $half-spacing-unit / 2;
+      font-variant: small-caps;
+      font-weight: bold;
+      line-height: 57px;
+      text-transform: lowercase;
+      letter-spacing: 0.1em;
+      color: $swatch-three;
+      text-decoration: none;
+      border: none;
+    }

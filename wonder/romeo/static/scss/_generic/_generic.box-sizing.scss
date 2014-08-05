@@ -1,0 +1,14 @@
+/**
+ * _generic.global-box-sizing.scss
+ */
+/**
+ * 1. blanket apply the correct box model across all elements.
+ */
+* {
+
+  &,
+  &:before,
+  &:after {
+    box-sizing: border-box; /* [1] */
+  }
+}

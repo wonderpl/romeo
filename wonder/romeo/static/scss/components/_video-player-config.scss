@@ -1,13 +1,13 @@
 .video-player-config {
   padding: 1em 1em 2.5em 1em;
-  background: $grey;
+  background: $swatch-two;
   background: rgba(255, 255, 255, 0.2);
 }
 
 .video-player-config__hide-logo-label {
   display: block;
   margin: 0.5em;
-  color: $white;
+  color: $swatch-one;
   text-shadow: 0 0 10px black;
   position: absolute;
   z-index: 10;

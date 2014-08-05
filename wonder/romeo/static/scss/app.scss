@@ -1,25 +1,111 @@
-@import "compass/reset";
-@import "compass/css3";
-@import "compass/css3/user-interface";
+// DoCCSa
+// base ----------- variables, fonts, mixins, helpers... common styles.
+// components ----- reusable objects.
+// specifics ------ specifics to the project, organized by items/sections.
+// vendor --------- third party stuff.
 
-// http://docssa.info/#fileStructure
-/*!
-========== BASE
-*/
-// variables, fonts, mixins, helpers... common styles used across the entire site
-@import 'base/__base';
-/*!
-========== COMPONENTS
-*/
-// reusable components
-@import 'components/__components';
-/*!
-========== SPECIFICS
-*/
-// declarations specific to the project, organized according to the items/sections represented
-@import 'specifics/__specifics';
-/*!
-========== VENDOR
-*/
-// third party stuff
-@import 'vendor/__vendor';
+@import
+  "_settings/settings.defaults",
+
+  "_tools/tools.functions",
+  "_tools/tools.mixins",
+//  "_tools/tools.debug",
+
+  "_generic/generic.normalize",
+  "_generic/generic.reset",
+  "_generic/generic.box-sizing",
+  "_generic/generic.clearfix",
+  "_generic/generic.shared",
+
+  "_base/base.images",
+
+  "_objects/objects.nav",
+  "_objects/objects.media",
+  "_objects/objects.flag",
+  "_objects/objects.split",
+  "_objects/objects.icon",
+  "_objects/objects.icon-text",
+
+  "_components/components.animations.scss",
+  "_components/components.avatars.scss",
+
+  "_theme/theme.structure",
+  "_theme/theme.page-header",
+  "_theme/theme.page-logo",
+  "_theme/theme.nav-menu",
+  "_theme/theme.notices",
+
+  "_trumps/trumps.hidden",
+
+//  "compass/reset",
+//  "compass/css3",
+//  "compass/css3/user-interface",
+
+//  "base/project/_variables.scss", — Is now _settings.defaults.scss
+//  "base/project/_fonts.scss",     — TODO: delete
+//  "base/project/_globals.scss",   — TODO: replace with _base.page.scss
+//  "base/project/_helpers.scss",   — TODO: replace with _trumps.scss
+//  "base/project/_clearfix.scss",  — TODO: replace with _generic.clearifx.scss
+
+//  "base/utils/_helpers.scss",     — TODO: Add to _trumps.scss
+//  "base/utils/_mixins.scss",      — Is now _tools.mixins.scss
+
+//  "base/_config.scss",
+
+//  "components/_animation.scss",
+//  "components/_buttons.scss",
+//  "components/_modal.scss",
+  "components/_video-player-config.scss",
+//  "components/_icons.scss",
+//  "components/_split.scss",
+//  "components/_icon-text.scss",
+//  "components/_nav.scss",
+  "components/_sub-navigation.scss",
+  "components/_video-player-config.scss",
+  "components/_text-styles.scss",
+  "components/_layout-styles.scss",
+  "components/_center-object.scss",
+//  "components/_modal.scss",
+//  "components/_notice.scss",
+
+  "specifics/video/_layout-control",
+  "specifics/video/_configurable-layout",
+  "specifics/video/_video-edit",
+  "specifics/video/_video-feedback",
+  "specifics/video/_video-player",
+  "specifics/video/_video-view",
+  "specifics/video/_video-share",
+  "specifics/video/_video-indicators",
+  "specifics/video/_video-upload",
+  "specifics/video/_video-thumbnail",
+  "specifics/video/_video-extended-controls",
+  "specifics/video/_video-edit-categories",
+  "specifics/video/_video-edit-collections",
+  "specifics/video/_video-new-collection",
+  "specifics/video/_video-add-collaborators",
+  "specifics/video/_video-frame-stepper",
+  "specifics/video/_video-more",
+  "specifics/video/_video-collaborators",
+  "specifics/video/_video-medium",
+  "specifics/video/_video-section-drawer.scss",
+
+  "specifics/upload/_upload-progress",
+
+//  "specifics/header/_page-header",
+
+  "specifics/footer/_page-footer",
+
+  "specifics/organise/_organise-navigation",
+  "specifics/organise/_organise-view",
+  "specifics/organise/_organise-collection",
+  "specifics/organise/_organise-video-list",
+  "specifics/organise/_organise-video",
+  "specifics/organise/_organise-video-thumb",
+
+  "specifics/profile/_profile-cover",
+  "specifics/profile/_profile-image",
+  "specifics/profile/_profile-view",
+
+  "specifics/login/_login-view";
+
+//  "vendor/__vendor";

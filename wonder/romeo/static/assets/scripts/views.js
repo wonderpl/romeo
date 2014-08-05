@@ -775,49 +775,17 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('notification-tray.html',
-    "<section class=\"notice-tray\">\n" +
-    "\n" +
-    "  <!--\n" +
-    "   - The outer container is used to fix the content into position. It has\n" +
-    "   - a positioning class which fixes it to the top.\n" +
-    "   -->\n" +
-    "\n" +
-    "\n" +
-    "  <ul>\n" +
-    "   <li ng-repeat=\"notification in notifications\">\n" +
-    "\n" +
-    "\n" +
-    "    <!--\n" +
-    "     - the actual notice uses extended classes to apply styles to it, as do the\n" +
-    "     - animations. An animation class will need to be applied to it for it to\n" +
-    "     - flip out when dismissing.\n" +
-    "     -->\n" +
-    "    <div class=\"notice animate  animate--flip  animate--flip-in-x notice--(~ notification.status ~)\" ng-class=\"{ 'notice--active' : notification.active }\">\n" +
-    "\n" +
-    "      <!--\n" +
-    "       - Use a flag object to easily position elements vertically in the middle.\n" +
-    "       -->\n" +
-    "      <div class=\"flag  flag--rev\">\n" +
-    "\n" +
-    "        <div class=\"flag__body\">\n" +
-    "          <b>(~ notification.title ~)</b>:<br>\n" +
-    "          (~ notification.message ~)\n" +
-    "        </div>\n" +
-    "\n" +
-    "        <div class=\"flag__img\">\n" +
-    "          <!--\n" +
-    "           - clicking this will dismiss the notice. TODO: needs styling yet.\n" +
-    "           -->\n" +
-    "          <a class=\"notice__dismiss\" ng-click=\"removeNotification(notification.id); notification.active = false\">\n" +
-    "            <i class=\"icon  icon--cross\"></i>\n" +
-    "          </a>\n" +
-    "        </div>\n" +
+    "<ul class=\"nav  nav--stacked  notice-tray\">\n" +
+    "  <li ng-repeat=\"notification in notifications\" class=\"notice  notice--(~ notification.status ~)  animate  animate--flippable\" ng-class=\"{ 'notice--active' : notification.active, 'animation--flipInX' : notification.show,  'animation--flipOutX' : notification.hide}\">\n" +
+    "    <div class=\"flag  flag--rev\">\n" +
+    "      <div class=\"flag__body\">\n" +
+    "        <p><b>(~ notification.title ~)</b>:<br>\n" +
+    "        (~ notification.message ~)</p>\n" +
     "      </div>\n" +
-    "\n" +
-    "    </li>\n" +
-    "  </ul>\n" +
-    "\n" +
-    "</section>"
+    "      <div class=\"flag__img\"><a class=\"notice__dismiss\" ng-click=\"removeNotification(notification.id); notification.show = false; notification.hide = true\"><i class=\"icon  icon--cross\"></a></i></div>\n" +
+    "    </div>\n" +
+    "  </li>\n" +
+    "</ul>"
   );
 
 
@@ -1049,27 +1017,23 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('page-header.html',
-    "<header class=\"page-header cf page-header--(~ $root.layoutMode ~)\">\n" +
-    "  <h1 class=\"page-header__logo\">\n" +
+    "<header class=\"page-header\" role=\"header\">\n" +
+    "  <nav class=\"wrapper\" role=\"navigation\">\n" +
     "    <ng-switch on=\"$root.isCollaborator\">\n" +
-    "      <a class=\"page-header__logo-link hide-text\" ng-switch-when=\"true\">WonderPl</a>\n" +
-    "      <a class=\"page-header__logo-link hide-text\" href=\"/#/\" ng-switch-default=\"\">WonderPl</a>\n" +
+    "    <a href=\"\" class=\"page-logo  page-logo--header\" ng-switch-when=\"true\">\n" +
+    "      <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"page-logo__img\" alt=\"Wonder PL\">\n" +
+    "    </a>\n" +
+    "    <a href=\"/#/\" class=\"page-logo  page-logo--header\" ng-switch-default=\"\">\n" +
+    "      <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"page-logo__img\" alt=\"Wonder PL\">\n" +
+    "    </a>\n" +
     "    </ng-switch>\n" +
-    "  </h1>\n" +
-    "\n" +
-    "  <upload-progress upload=\"upload\" ng-if=\"isLoggedIn\"></upload-progress>\n" +
-    "\n" +
-    "  <nav class=\"page-header__navigation\" ng-if=\"isLoggedIn\">\n" +
-    "    <ul class=\"page-header__navigation-list\">\n" +
-    "      <li class=\"page-header__navigation-item\"><a class=\"page-header__navigation-link page-header__link\" href=\"/#/organise\">manage</a></li>\n" +
-    "      <li class=\"page-header__navigation-item\"><a class=\"page-header__navigation-link page-header__link\" href=\"/#/video\">upload</a></li>\n" +
+    "    <upload-progress upload=\"upload\" ng-if=\"isLoggedIn\"></upload-progress>\n" +
+    "    <ul class=\"nav  nav-menu\" ng-if=\"isLoggedIn\">\n" +
+    "      <li class=\"nav-menu__item\"><a href=\"/#/organise\" class=\"nav-menu__link\">Manage</a></li>\n" +
+    "      <li class=\"nav-menu__item\"><a href=\"/#/video\" class=\"nav-menu__link\">Upload</a></li>\n" +
+    "      <li class=\"nav-menu__item\"><a href=\"/#/profile\" class=\"nav-menu__link  avatar  avatar--small\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"(~ user.name ~)\" class=\"avatar__img\" ng-style=\"profile\"></a></li>\n" +
     "    </ul>\n" +
     "  </nav>\n" +
-    "\n" +
-    "  <section class=\"page-header__current-user\" ng-if=\"isLoggedIn\">\n" +
-    "    <a href=\"/#/profile\" class=\"page-header__link page-header__profile-link  hide-text\" ng-style=\"profile\">(~ User.display_name ~)</a>\n" +
-    "  </section>\n" +
-    "\n" +
     "</header>"
   );
 

@@ -1,22 +1,18 @@
-<header class="page-header cf page-header--{{ $root.layoutMode }}">
-  <h1 class="page-header__logo">
+<header class="page-header" role="header">
+  <nav class="wrapper" role="navigation">
     <ng-switch on="$root.isCollaborator">
-      <a class="page-header__logo-link hide-text" ng-switch-when="true">WonderPl</a>
-      <a class="page-header__logo-link hide-text" href="/#/" ng-switch-default="">WonderPl</a>
+    <a href="" class="page-logo  page-logo--header" ng-switch-when="true">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="page-logo__img" alt="Wonder PL">
+    </a>
+    <a href="/#/" class="page-logo  page-logo--header" ng-switch-default="">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="page-logo__img" alt="Wonder PL">
+    </a>
     </ng-switch>
-  </h1>
-
-  <upload-progress upload="upload" ng-if="isLoggedIn"></upload-progress>
-
-  <nav class="page-header__navigation" ng-if="isLoggedIn">
-    <ul class="page-header__navigation-list">
-      <li class="page-header__navigation-item"><a class="page-header__navigation-link page-header__link" href="/#/organise">manage</a></li>
-      <li class="page-header__navigation-item"><a class="page-header__navigation-link page-header__link" href="/#/video">upload</a></li>
+    <upload-progress upload="upload" ng-if="isLoggedIn"></upload-progress>
+    <ul class="nav  nav-menu" ng-if="isLoggedIn">
+      <li class="nav-menu__item"><a href="/#/organise" class="nav-menu__link">Manage</a></li>
+      <li class="nav-menu__item"><a href="/#/video" class="nav-menu__link">Upload</a></li>
+      <li class="nav-menu__item"><a href="/#/profile" class="nav-menu__link  avatar  avatar--small"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="{{ user.name }}" class="avatar__img" ng-style="profile"></a></li>
     </ul>
   </nav>
-
-  <section class="page-header__current-user" ng-if="isLoggedIn">
-    <a href="/#/profile" class="page-header__link page-header__profile-link  hide-text" ng-style="profile">{{ User.display_name }}</a>
-  </section>
-
 </header>

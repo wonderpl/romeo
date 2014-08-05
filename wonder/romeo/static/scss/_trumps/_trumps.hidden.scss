@@ -1,0 +1,11 @@
+/**
+ * _trump.hidden.scss
+ */
+.accessibility,
+.is-hidden,
+%accessibility,
+%is-hidden {
+  position: absolute;
+  left: -9999px;
+  visibility: hidden;
+}

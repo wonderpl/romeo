@@ -1,0 +1,14 @@
+/**
+ * _tools.fuctions.scss
+ */
+@function quarter($base-spacing-unit) {
+    @return round($base-spacing-unit / 4);
+}
+
+@function halve($base-spacing-unit) {
+    @return round($base-spacing-unit / 2);
+}
+
+@function double($base-spacing-unit) {
+    @return round($base-spacing-unit * 2);
+}

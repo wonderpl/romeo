@@ -1,0 +1,27 @@
+/**
+ * _theme.page-logo.scss
+ */
+.page-logo {
+  width: 48px;
+  height: 33px;
+  margin-top:    $half-spacing-unit;
+  margin-right:  $base-spacing-unit;
+  margin-bottom: $half-spacing-unit;
+  position: relative;
+  float: left;
+
+  &,
+  &:hover {
+    border-bottom: 0;
+  }
+
+  &,
+  > img {
+    display: block;
+  }
+}
+
+.page-logo__img {
+  background-image: url(/static/assets/img/wonder-logo-vertical-102x72.svg);
+  @extend %img--full;
+}
