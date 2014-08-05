@@ -2,9 +2,9 @@ angular.module('fileUpload', [ 'angularFileUpload' ]);
 
 angular
   .module('RomeoApp.controllers')
-  .controller('VideoCtrl', ['$rootScope', '$scope', '$location', '$upload', 'UploadService', '$routeParams', 'VideoService', '$sce', 'TagService', 'CommentsService', '$timeout', 'AccountService', VideoCtrl]);
+  .controller('VideoCtrl', ['$rootScope', '$http', '$scope', '$location', '$upload', 'UploadService', '$routeParams', 'VideoService', '$sce', 'TagService', 'CommentsService', '$timeout', 'AccountService', 'AuthService', VideoCtrl]);
 
-function VideoCtrl ($rootScope, $scope, $location, $upload, UploadService, $routeParams, VideoService, $sce, TagService, CommentsService, $timeout, AccountService) {
+function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService, $routeParams, VideoService, $sce, TagService, CommentsService, $timeout, AccountService, AuthService) {
 
   'use strict';
 
@@ -104,7 +104,8 @@ function VideoCtrl ($rootScope, $scope, $location, $upload, UploadService, $rout
   $scope.$watch(
     function() { return $scope.video ? $scope.video.id : null; },
     function(newValue, oldValue) {
-      if (newValue !== '' && newValue !== oldValue && showComments()) {
+      var showComment = showComments();
+      if (newValue !== '' && newValue !== oldValue && showComment) {
         CommentsService.getComments(newValue).then(function (data) {
           $scope.comments = data.comment.items;
         });
@@ -328,10 +329,30 @@ function VideoCtrl ($rootScope, $scope, $location, $upload, UploadService, $rout
   function verifyUser (id) {
     VideoService.isOwner(id).then(function (data) {
       $scope.isOwner = data.isOwner;
-      if (!$scope.isOwner && !$rootScope.isCollaborator) {
-        alert('not authorised');
-        $location.path('/');
+      if (!$scope.isOwner) {
+        var query = $location.search();
+        var token = query ? query.token : null;
+        if (token) {
+          validateToken(token);
+        } else {
+          alert('not authorised');
+          $location.path('/');
+        }
       }
+    });
+  }
+
+  function validateToken (token) {
+    return $http({
+      method  : 'post',
+      url     : '/api/validate_token',
+      data    : { 'token' : token }
+    }).success(function (data) {
+      $rootScope.isCollaborator = true;
+    }).error(function () {
+      alert('token invalid');
+      $rootScope.isCollaborator = false;
+      $location.path('/');
     });
   }
 
@@ -393,10 +414,10 @@ function VideoCtrl ($rootScope, $scope, $location, $upload, UploadService, $rout
 
   function showComments () {
     if ($scope.video.id) {
-      if ($scope.$root.isCollaborator) {
+      if ($rootScope.isCollaborator) {
         return $scope.canComment;
-      } else if ($scope.isComments) {
-        return true;
+      } else {
+        return $scope.isComments;
       }
     }
     return false;
