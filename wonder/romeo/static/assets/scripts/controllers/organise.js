@@ -114,9 +114,13 @@ angular.module('RomeoApp.controllers')
       TagService.createTag(data).then(function (tag) {
         TagService.getTags().then(function (data) {
           $scope.tags = data.tag.items;
+          if ($scope.addVideoToCollection) {
+            $scope.addTag(tag.id);
+            $scope.addVideoToCollection = false;
+          }
           $scope.close();
-          redirect('/organise', true);
           loadTag(tag.id);
+          redirect('/organise', true);
           $scope.$emit('notify', {
             status : 'success',
             title : 'New Collection Created',
@@ -129,6 +133,14 @@ angular.module('RomeoApp.controllers')
     $scope.close = function () {
       $modal.hide();
       $scope.collection = null;
+      $scope.addVideoToCollection = false;
+    };
+
+    $scope.hideAddRemoveAndShowCreateCollection = function () {
+      $modal.hide();
+      $scope.collection = null;
+      $scope.addVideoToCollection = true;
+      $scope.$emit('show-create-collection', false);
     };
 
     $scope.removeTag = function (id) {

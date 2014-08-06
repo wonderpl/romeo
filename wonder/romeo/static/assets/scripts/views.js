@@ -239,7 +239,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <ul class=\"video-edit-collections__options\">\n" +
     "      <li class=\"video-edit-collections__option\"\n" +
-    "        ng-click=\"showCreateCollection()\"\n" +
+    "        ng-click=\"hideAddRemoveAndShowCreateCollection()\"\n" +
     "        ng-class=\"{ 'video-edit-collections__option--modal' : isModal }\">\n" +
     "        <span class=\"video-edit-collections__option-title\">Create New Collection</span>\n" +
     "        <span class=\"video-edit-collections__option-count\"></span>\n" +
