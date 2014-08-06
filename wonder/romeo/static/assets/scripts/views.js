@@ -994,25 +994,27 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('page-footer.html',
-    "<section class=\"page-footer cf\">\n" +
-    "  <ul class=\"page-footer__items\">\n" +
-    "    <li class=\"page-footer__item\"><a href=\"#\" class=\"page-footer__link\">iOS App</a></li>\n" +
-    "    <li class=\"page-footer__item\"><a href=\"#\" class=\"page-footer__link\">Help</a></li>\n" +
-    "    <li class=\"page-footer__item\"><a href=\"#\" class=\"page-footer__link\">API</a></li>\n" +
-    "    <li class=\"page-footer__item\"><a href=\"#\" class=\"page-footer__link\">Blog</a></li>\n" +
-    "    <li class=\"page-footer__item\"><a href=\"#\" class=\"page-footer__link\">Twitter</a></li>\n" +
-    "    <li class=\"page-footer__item\"><a href=\"#\" class=\"page-footer__link\">Facebook</a></li>\n" +
-    "    <li class=\"page-footer__item\"><a href=\"#\" class=\"page-footer__link\">LinkedIn</a></li>\n" +
-    "    <li class=\"page-footer__item\"><a href=\"#\" class=\"page-footer__link\">Instagram</a></li>\n" +
-    "\n" +
-    "    <li class=\"page-footer__item\"><a class=\"page-footer__link\" ng-click=\"testNotify('success')\">SUCCESS</a></li>\n" +
-    "    <li class=\"page-footer__item\"><a class=\"page-footer__link\" ng-click=\"testNotify('warning')\">WARNING</a></li>\n" +
-    "    <li class=\"page-footer__item\"><a class=\"page-footer__link\" ng-click=\"testNotify('error')\">ERROR</a></li>\n" +
-    "    <li class=\"page-footer__item\"><a class=\"page-footer__link\" ng-click=\"testNotify('info')\">INFO</a></li>\n" +
-    "\n" +
-    "  </ul>\n" +
-    "  <span class=\"page-footer__note\">&copy; 2014 Wonder PL, Ltd.</span>\n" +
-    "</section>"
+    "<footer class=\"page-footer\" role=\"contentinfo\">\n" +
+    "  <div class=\"wrapper\">\n" +
+    "    <ul class=\"nav  footer-nav\">\n" +
+    "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">iOS App</a></li>\n" +
+    "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">Help</a></li>\n" +
+    "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">API</a></li>\n" +
+    "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">Blog</a></li>\n" +
+    "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">Twitter</a></li>\n" +
+    "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">Facebook</a></li>\n" +
+    "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">LinkedIn</a></li>\n" +
+    "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">Instagram</a></li>\n" +
+    "    \n" +
+    "      <li class=\"footer-nav__item\"><a class=\"footer-nav__link\" ng-click=\"testNotify('success')\">SUCCESS</a></li>\n" +
+    "      <li class=\"footer-nav__item\"><a class=\"footer-nav__link\" ng-click=\"testNotify('warning')\">WARNING</a></li>\n" +
+    "      <li class=\"footer-nav__item\"><a class=\"footer-nav__link\" ng-click=\"testNotify('error')\">ERROR</a></li>\n" +
+    "      <li class=\"footer-nav__item\"><a class=\"footer-nav__link\" ng-click=\"testNotify('info')\">INFO</a></li>\n" +
+    "    \n" +
+    "      <li class=\"footer-nav__item  f--right\">&copy; 2014 Wonder PL, Ltd.</li>\n" +
+    "    </ul>\n" +
+    "  </div>\n" +
+    "</footer>"
   );
 
 

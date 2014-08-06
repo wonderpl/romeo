@@ -607,6 +607,30 @@ dt {
 }
 
 /**
+ * _base.page.scss
+ */
+/* line 5, ../../scss/_base/_base.page.scss */
+html,
+body {
+  height: 100%;
+}
+
+/* line 8, ../../scss/_base/_base.page.scss */
+html {
+  font-weight: 400;
+  font-size: 1em;
+  line-height: 1.5;
+  font-family: "FreightText Pro", Georgia, Cambria, "Times New Roman", Times, serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* line 15, ../../scss/_base/_base.page.scss */
+body {
+  color: #70797b;
+  background-color: white;
+}
+
+/**
  * _base.images.scss
  */
 /* line 4, ../../scss/_base/_base.images.scss */
@@ -1973,9 +1997,40 @@ img[width], img[height] {
   font-variant: small-caps;
   font-weight: bold;
   line-height: 57px;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: lowercase;
   letter-spacing: 0.1em;
   color: #2e2e32;
+  text-decoration: none;
+  border: none;
+}
+
+/**
+ * _theme.footer-nav.scss
+ */
+/* line 4, ../../scss/_theme/_theme.footer-nav.scss */
+.footer-nav {
+  margin-bottom: 0;
+}
+/* line 7, ../../scss/_theme/_theme.footer-nav.scss */
+.footer-nav > li {
+  font-weight: 200;
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
+  line-height: 3.9166666666666665;
+}
+/* line 12, ../../scss/_theme/_theme.footer-nav.scss */
+.footer-nav > li:last-child {
+  margin-left: 0;
+}
+/* line 15, ../../scss/_theme/_theme.footer-nav.scss */
+.footer-nav > li + li {
+  margin-left: 12px;
+}
+
+/* line 18, ../../scss/_theme/_theme.footer-nav.scss */
+.footer-nav__link {
   text-decoration: none;
   border: none;
 }
