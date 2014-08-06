@@ -1,6 +1,6 @@
 angular.module('RomeoApp.directives')
-  .directive('collectionAddVideo', ['$templateCache', 'VideoService', '$q', '$location', 'TagService', '$modal',
-  function ($templateCache, VideoService, $q, $location, TagService, $modal) {
+  .directive('collectionAddVideo', ['$templateCache', 'VideoService', '$q', '$location', 'TagService', '$modal', '$route',
+  function ($templateCache, VideoService, $q, $location, TagService, $modal, $route) {
 
   'use strict';
 
@@ -78,18 +78,47 @@ angular.module('RomeoApp.directives')
         TagService.createTag(data).then(function () {
           TagService.getTags().then(function (data) {
             $scope.availableTags = data.tag.items;
+            $scope.tags = data.tag.items;
+            var tag = getTagByLabel(label);
+            
+            if (tag && $scope.addVideoToCollection) {
+              $scope.addTag(tag.id);
+            }
+            $scope.addVideoToCollection = false;
             $modal.hide();
+            $route.reload();
           });
         });
       };
 
       $scope.close = function () {
+        $scope.addVideoToCollection = false;
         $modal.hide();
       };
 
-      $scope.showCreateCollection = function () {
+      $scope.hideAddRemoveAndShowCreateCollection = function () {
+        $scope.addVideoToCollection = true;
+        $scope.collection = {};
+        $scope.collection.scope = 'private';
         $modal.load('modal-create-new-collection.html', true, $scope, {});
       };
+
+      $scope.hasTagLabel = function (label) {
+        return (getTagByLabel(label) !== null);
+      };
+
+      function getTagByLabel (label) {
+        var tag = null;
+        var tags = $scope.tags || [];
+        var l = tags.length;
+        while (l--) {
+          if (tags[l].label == label) {
+            tag = tags[l];
+            break;
+          }
+        }
+        return tag;
+      }
     }
   };
 }]);
