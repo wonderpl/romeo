@@ -721,11 +721,11 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('organise-breadcrumb.html',
-    "<section class=\"organise-breadcrumb\">\n" +
-    "  <span ng-show=\"!filter\">All Videos</span>\n" +
-    "  <span ng-show=\"!filter && tag\">&gt; (~ tag.label ~)</span>\n" +
-    "  <span ng-show=\"filter\">Recent Videos</span>\n" +
-    "</section>"
+    "<ol class=\"nav  page-breadcrumbs\">\n" +
+    "  <li ng-show=\"!filter\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title\">All Videos</span></li>\n" +
+    "  <li ng-show=\"!filter && tag\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title  page-breadcrumbs__title--selected\">(~ tag.label ~)</span></li>\n" +
+    "  <li ng-show=\"filter\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title\">Recent Videos</span></li>\n" +
+    "</ol>"
   );
 
 
@@ -913,12 +913,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('organise.html',
     "<main role=\"main\" class=\"page-content\" ng-controller=\"OrganiseCtrl\">\n" +
     "  <div class=\"wrapper  wrapper--fixed\">\n" +
-    "  <organise-breadcrumb tag=\"tag\" filter=\"customFilterFunction\"></organise-breadcrumb>\n" +
+    "    <organise-breadcrumb tag=\"tag\" filter=\"customFilterFunction\"></organise-breadcrumb>\n" +
+    "    <div class=\"layout\">\n" +
     "      <organise-navigation tags=\"tags\" current-tag=\"tag\" custom-filter-function=\"customFilterFunction\"></organise-navigation>\n" +
-    "      <div class=\"organise__main\">\n" +
+    "      <div class=\"layout__item  two-thirds\">\n" +
     "        <organise-collection ng-show=\"tag\" tag=\"tag\" is-edit=\"isEdit\"></organise-collection>  \n" +
     "        <organise-video-list videos=\"videos\" tag=\"tag\" custom-filter-function=\"customFilterFunction\"></organise-video-list>\n" +
     "      </div>\n" +
+    "    </div>\n" +
     "  </div>\n" +
     "</main>\n"
   );
