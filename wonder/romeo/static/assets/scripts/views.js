@@ -789,6 +789,15 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('organise-breadcrumb.html',
+    "<section class=\"organise-breadcrumb\">\n" +
+    "  <span ng-show=\"!filter\">All Videos</span>\n" +
+    "  <span ng-show=\"!filter && tag\">&gt; (~ tag.label ~)</span>\n" +
+    "  <span ng-show=\"filter\">Recent Videos</span>\n" +
+    "</section>"
+  );
+
+
   $templateCache.put('organise-collection.html',
     "<section class=\"organise-collection\">\n" +
     "\n" +
@@ -978,6 +987,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('organise.html',
     "<section class=\"organise\" ng-controller=\"OrganiseCtrl\">\n" +
+    "\n" +
+    "  <organise-breadcrumb tag=\"tag\" filter=\"customFilterFunction\"></organise-breadcrumb>\n" +
     "\n" +
     "  <organise-navigation tags=\"tags\" current-tag=\"tag\" custom-filter-function=\"customFilterFunction\"></organise-navigation>\n" +
     "\n" +
