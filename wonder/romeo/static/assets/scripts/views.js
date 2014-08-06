@@ -721,11 +721,11 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('organise-breadcrumb.html',
-    "<section class=\"organise-breadcrumb\">\n" +
-    "  <span ng-show=\"!filter\">All Videos</span>\n" +
-    "  <span ng-show=\"!filter && tag\">&gt; (~ tag.label ~)</span>\n" +
-    "  <span ng-show=\"filter\">Recent Videos</span>\n" +
-    "</section>"
+    "<ol class=\"nav  page-breadcrumbs\">\n" +
+    "  <li ng-show=\"!filter\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title\">All Videos</span></li>\n" +
+    "  <li ng-show=\"!filter && tag\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title  page-breadcrumbs__title--selected\">(~ tag.label ~)</span></li>\n" +
+    "  <li ng-show=\"filter\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title\">Recent Videos</span></li>\n" +
+    "</ol>"
   );
 
 
@@ -766,55 +766,49 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('organise-navigation.html',
-    "<section class=\"organise-navigation\">\n" +
-    "\n" +
-    "  <ul class=\"organise-navigation__nav-items organise-navigation__nav--core\">\n" +
-    "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--title\">\n" +
-    "      Manage\n" +
+    "<div class=\"layout__item  one-third  organise-navigation\">\n" +
+    "  <ul class=\"nav  nav--stacked  browse-list\">\n" +
+    "    <li class=\"browse-list__item\">\n" +
+    "      <span class=\"browse-list__title\">Manage</span>\n" +
     "    </li>\n" +
-    "    <li class=\"organise-navigation__nav-item\" ng-class=\"{ 'organise-navigation__nav-item--active' : !customFilterFunction && !currentTag }\">\n" +
-    "      <a class=\"organise-navigation__link\" ng-click=\"showAllVideos()\">All videos</a>\n" +
+    "    <li class=\"browse-list__item\">\n" +
+    "      <a class=\"browse-list__link\" ng-class=\"{ 'organise-navigation__link--active' : !customFilterFunction && !currentTag }\" ng-click=\"showAllVideos()\">All videos</a>\n" +
     "    </li>\n" +
-    "    <li class=\"organise-navigation__nav-item\" ng-class=\"{ 'organise-navigation__nav-item--active' : customFilterFunction === 'isRecent' }\">\n" +
-    "      <a class=\"organise-navigation__link\" ng-click=\"showRecentVideos()\">Recently added videos</a>\n" +
+    "    <li class=\"browse-list__item\">\n" +
+    "      <a class=\"browse-list__link\" ng-class=\"{ 'organise-navigation__link--active' : customFilterFunction === 'isRecent' }\" ng-click=\"showRecentVideos()\">Recently added videos</a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
     "\n" +
-    "  <ul class=\"organise-navigation__nav-items organise-navigation__nav--private\">\n" +
-    "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--title\">\n" +
-    "      Collections not visible in app\n" +
+    "  <ul class=\"nav  nav--stacked  browse-list\">\n" +
+    "    <li class=\"browse-list__item\">\n" +
+    "      <span class=\"browse-list__title\">Collections not visible in app</span>\n" +
     "    </li>\n" +
-    "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--collection\"\n" +
-    "      ng-class=\"{ 'organise-navigation__nav-item--active' : currentTag.id === tag.id }\"\n" +
-    "      ng-repeat=\"tag in tags | filter : { public : false }\">\n" +
-    "      <a class=\"organise-navigation__link\"\n" +
-    "        ng-bind=\"tag.label\"\n" +
-    "        ng-click=\"loadCollection(tag.id)\">\n" +
+    "    <li class=\"browse-list__item\" ng-repeat=\"tag in tags | filter : { public : false }\">\n" +
+    "      <a class=\"browse-list__link\" ng-class=\"{ 'browse-list__item--active' : currentTag.id === tag.id }\" ng-bind=\"tag.label\" ng-click=\"loadCollection(tag.id)\"></a>\n" +
+    "    </li>\n" +
+    "    <li class=\"browse-list__item\">\n" +
+    "      <a class=\"browse-list__link  browse-list__link--create  split\" ng-click=\"createPrivateCollection()\">\n" +
+    "        <span class=\"split__title\">Add a new private collection</span>\n" +
+    "        <i class=\"icon  icon--plus\"></i>\n" +
     "      </a>\n" +
     "    </li>\n" +
-    "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--new\">\n" +
-    "      <a class=\"organise-navigation__link organise-navigation__link--new  split\" ng-click=\"createPrivateCollection()\"><span class=\"split__title\">Add a new private collection</span> <i class=\"icon  icon--plus\"></i></a>\n" +
-    "    </li>\n" +
     "  </ul>\n" +
     "\n" +
-    "  <ul class=\"organise-navigation__nav-items organise-navigation__nav--public\">\n" +
-    "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--title\">\n" +
-    "      Collections visible in app\n" +
+    "  <ul class=\"nav  nav--stacked  browse-list\">\n" +
+    "    <li class=\"browse-list__item\">\n" +
+    "      <span class=\"browse-list__title\">Collections visible in app</span>\n" +
     "    </li>\n" +
-    "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--collection\"\n" +
-    "      ng-class=\"{ 'organise-navigation__nav-item--active' : currentTag.id === tag.id }\"\n" +
-    "      ng-repeat=\"tag in tags | filter : { public : true }\">\n" +
-    "      <a class=\"organise-navigation__link\"\n" +
-    "        ng-bind=\"tag.label\"\n" +
-    "        ng-click=\"loadCollection(tag.id)\">\n" +
+    "    <li class=\"browse-list__item\" ng-repeat=\"tag in tags | filter : { public : true }\">\n" +
+    "      <a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : currentTag.id === tag.id }\" ng-bind=\"tag.label\" ng-click=\"loadCollection(tag.id)\"></a>\n" +
+    "    </li>\n" +
+    "    <li class=\"browse-list__item\">\n" +
+    "      <a class=\"browse-list__link  browse-list__link--create  split\" ng-click=\"createPublicCollection()\">\n" +
+    "        <span class=\"split__title\">Add a new public collection</span>\n" +
+    "        <i class=\"icon  icon--plus\"></i>\n" +
     "      </a>\n" +
     "    </li>\n" +
-    "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--new\">\n" +
-    "      <a class=\"organise-navigation__link organise-navigation__link--new  split\" ng-click=\"createPublicCollection()\"><span class=\"split__title\">Add a new public collection</span> <i class=\"icon  icon--plus\"></i></a>\n" +
-    "    </li>\n" +
     "  </ul>\n" +
-    "\n" +
-    "</section>"
+    "</div>"
   );
 
 
@@ -917,21 +911,18 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('organise.html',
-    "<section class=\"organise\" ng-controller=\"OrganiseCtrl\">\n" +
-    "\n" +
-    "  <organise-breadcrumb tag=\"tag\" filter=\"customFilterFunction\"></organise-breadcrumb>\n" +
-    "\n" +
-    "  <organise-navigation tags=\"tags\" current-tag=\"tag\" custom-filter-function=\"customFilterFunction\"></organise-navigation>\n" +
-    "\n" +
-    "  <div class=\"organise__main\">\n" +
-    "\n" +
-    "    <organise-collection ng-show=\"tag\" tag=\"tag\" is-edit=\"isEdit\"></organise-collection>\n" +
-    "\n" +
-    "    <organise-video-list videos=\"videos\" tag=\"tag\" custom-filter-function=\"customFilterFunction\"></organise-video-list>\n" +
-    "\n" +
+    "<main role=\"main\" class=\"page-content\" ng-controller=\"OrganiseCtrl\">\n" +
+    "  <div class=\"wrapper  wrapper--fixed\">\n" +
+    "    <organise-breadcrumb tag=\"tag\" filter=\"customFilterFunction\"></organise-breadcrumb>\n" +
+    "    <div class=\"layout\">\n" +
+    "      <organise-navigation tags=\"tags\" current-tag=\"tag\" custom-filter-function=\"customFilterFunction\"></organise-navigation>\n" +
+    "      <div class=\"layout__item  two-thirds\">\n" +
+    "        <organise-collection ng-show=\"tag\" tag=\"tag\" is-edit=\"isEdit\"></organise-collection>  \n" +
+    "        <organise-video-list videos=\"videos\" tag=\"tag\" custom-filter-function=\"customFilterFunction\"></organise-video-list>\n" +
+    "      </div>\n" +
+    "    </div>\n" +
     "  </div>\n" +
-    "\n" +
-    "</section>"
+    "</main>\n"
   );
 
 

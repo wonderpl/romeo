@@ -1,0 +1,28 @@
+/**
+ * _theme.browse-list.scss
+ */
+.browse-list {
+
+  > li {
+
+  }  
+}
+
+  .browse-list__item {
+
+  }
+    .browse-list__title,
+    .browse-list__link {
+      font-family: $heading-font-family;
+    }
+    .browse-list__title {
+      font-variant: small-caps;
+      font-weight: bold;
+      text-transform: lowercase;
+      letter-spacing: 0.1em;
+      color: $swatch-two;
+    }
+    .browse-list__link--active {
+      color: $swatch-five;
+      font-weight: bold;
+    }
