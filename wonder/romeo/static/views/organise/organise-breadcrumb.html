@@ -1,5 +1,5 @@
-<section class="organise-breadcrumb">
-  <span ng-show="!filter">All Videos</span>
-  <span ng-show="!filter && tag">&gt; {{ tag.label }}</span>
-  <span ng-show="filter">Recent Videos</span>
-</section>
+<ol class="nav  page-breadcrumbs">
+  <li ng-show="!filter" class="page-breadcrumbs__item"><span class="page-breadcrumbs__title">All Videos</span></li>
+  <li ng-show="!filter && tag" class="page-breadcrumbs__item"><span class="page-breadcrumbs__title  page-breadcrumbs__title--selected">{{ tag.label }}</span></li>
+  <li ng-show="filter" class="page-breadcrumbs__item"><span class="page-breadcrumbs__title">Recent Videos</span></li>
+</ol>
