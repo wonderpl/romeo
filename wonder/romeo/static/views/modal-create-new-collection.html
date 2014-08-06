@@ -20,7 +20,7 @@
           </label>
         </li>
       </ul>
-      <a ng-click="newCollectionForm.$valid && saveNewCollection(); isSubmitted = true;" class="button button--primary">Okay</a>
+      <a ng-click="newCollectionForm.$valid && saveNewCollection() && close(); isSubmitted = true;" class="button button--primary">Okay</a>
     </form>
   </section>
 </section>
