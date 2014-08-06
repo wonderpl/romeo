@@ -4,10 +4,10 @@
     <li class="organise-navigation__nav-item organise-navigation__nav-item--title">
       Manage
     </li>
-    <li class="organise-navigation__nav-item">
+    <li class="organise-navigation__nav-item" ng-class="{ 'organise-navigation__nav-item--active' : !customFilterFunction && !currentTag }">
       <a class="organise-navigation__link" ng-click="showAllVideos()">All videos</a>
     </li>
-    <li class="organise-navigation__nav-item">
+    <li class="organise-navigation__nav-item" ng-class="{ 'organise-navigation__nav-item--active' : customFilterFunction === 'isRecent' }">
       <a class="organise-navigation__link" ng-click="showRecentVideos()">Recently added videos</a>
     </li>
   </ul>
@@ -17,6 +17,7 @@
       Collections not visible in app
     </li>
     <li class="organise-navigation__nav-item organise-navigation__nav-item--collection"
+      ng-class="{ 'organise-navigation__nav-item--active' : currentTag.id === tag.id }"
       ng-repeat="tag in tags | filter : { public : false }">
       <a class="organise-navigation__link"
         ng-bind="tag.label"
@@ -33,6 +34,7 @@
       Collections visible in app
     </li>
     <li class="organise-navigation__nav-item organise-navigation__nav-item--collection"
+      ng-class="{ 'organise-navigation__nav-item--active' : currentTag.id === tag.id }"
       ng-repeat="tag in tags | filter : { public : true }">
       <a class="organise-navigation__link"
         ng-bind="tag.label"

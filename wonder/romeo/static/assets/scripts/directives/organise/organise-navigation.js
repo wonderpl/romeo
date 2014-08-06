@@ -10,7 +10,9 @@ function OrganiseNavigationDirective ($templateCache) {
     replace : true,
     template : $templateCache.get('organise-navigation.html'),
     scope : {
-      tags : '='
+      tags : '=',
+      currentTag : '=',
+      customFilterFunction : '='
     },
     controller : function ($scope) {
       function showCreateCollection (isPublic) {
@@ -32,7 +34,7 @@ function OrganiseNavigationDirective ($templateCache) {
         $scope.$emit('show-recent');
       };
     }
-  };  
+  };
 }
 
 angular

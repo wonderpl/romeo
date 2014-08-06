@@ -864,10 +864,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--title\">\n" +
     "      Manage\n" +
     "    </li>\n" +
-    "    <li class=\"organise-navigation__nav-item\">\n" +
+    "    <li class=\"organise-navigation__nav-item\" ng-class=\"{ 'organise-navigation__nav-item--active' : !customFilterFunction && !currentTag }\">\n" +
     "      <a class=\"organise-navigation__link\" ng-click=\"showAllVideos()\">All videos</a>\n" +
     "    </li>\n" +
-    "    <li class=\"organise-navigation__nav-item\">\n" +
+    "    <li class=\"organise-navigation__nav-item\" ng-class=\"{ 'organise-navigation__nav-item--active' : customFilterFunction === 'isRecent' }\">\n" +
     "      <a class=\"organise-navigation__link\" ng-click=\"showRecentVideos()\">Recently added videos</a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
@@ -877,6 +877,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      Collections not visible in app\n" +
     "    </li>\n" +
     "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--collection\"\n" +
+    "      ng-class=\"{ 'organise-navigation__nav-item--active' : currentTag.id === tag.id }\"\n" +
     "      ng-repeat=\"tag in tags | filter : { public : false }\">\n" +
     "      <a class=\"organise-navigation__link\"\n" +
     "        ng-bind=\"tag.label\"\n" +
@@ -893,6 +894,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      Collections visible in app\n" +
     "    </li>\n" +
     "    <li class=\"organise-navigation__nav-item organise-navigation__nav-item--collection\"\n" +
+    "      ng-class=\"{ 'organise-navigation__nav-item--active' : currentTag.id === tag.id }\"\n" +
     "      ng-repeat=\"tag in tags | filter : { public : true }\">\n" +
     "      <a class=\"organise-navigation__link\"\n" +
     "        ng-bind=\"tag.label\"\n" +
@@ -1009,7 +1011,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('organise.html',
     "<section class=\"organise\" ng-controller=\"OrganiseCtrl\">\n" +
     "\n" +
-    "  <organise-navigation tags=\"tags\"></organise-navigation>\n" +
+    "  <organise-navigation tags=\"tags\" current-tag=\"tag\" custom-filter-function=\"customFilterFunction\"></organise-navigation>\n" +
     "\n" +
     "  <div class=\"organise__main\">\n" +
     "\n" +

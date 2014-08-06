@@ -3813,11 +3813,16 @@ strong {
 }
 
 /* line 22, ../../scss/specifics/organise/_organise-navigation.scss */
+.organise-navigation__nav-item--active {
+  font-weight: 800;
+}
+
+/* line 26, ../../scss/specifics/organise/_organise-navigation.scss */
 .organise-navigation__nav-item--collection {
   color: #51b364;
 }
 
-/* line 30, ../../scss/specifics/organise/_organise-navigation.scss */
+/* line 34, ../../scss/specifics/organise/_organise-navigation.scss */
 .organise-navigation__nav-item--title {
   font-variant: small-caps;
   font-weight: bold;
@@ -3827,7 +3832,7 @@ strong {
   color: #b7bcbd;
 }
 
-/* line 39, ../../scss/specifics/organise/_organise-navigation.scss */
+/* line 43, ../../scss/specifics/organise/_organise-navigation.scss */
 .organise-navigation__link:hover {
   cursor: pointer;
   text-decoration: underline;
