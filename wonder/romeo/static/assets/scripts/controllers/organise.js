@@ -21,6 +21,12 @@ angular.module('RomeoApp.controllers')
 
     VideoService.getAll().then(function (data) {
       $scope.videos = data.video.items;
+
+      // Map over all videos removing html entities from the title
+      var elem = $('<div/>');
+      for (var i = 0; $scope.videos.length > i; ++i) {
+        $scope.videos[i].title = elem.html($scope.videos[i].title).text();
+      }
     });
 
     TagService.getTags().then(function(data){
@@ -142,6 +148,10 @@ angular.module('RomeoApp.controllers')
       return VideoService.hasTag(tagId, $scope.video);
     };
 
+    $scope.hasTagLabel = function (label) {
+      return (getTagByLabel(label) !== null);
+    };
+
     $scope.addTag = function (id) {
       VideoService.addToCollection($scope.video.id, id).then(function () {
         VideoService.get($scope.video.id).then(function (data) {
@@ -161,6 +171,19 @@ angular.module('RomeoApp.controllers')
       var l = tags.length;
       while (l--) {
         if (tags[l].id === parseInt(id, 10)) {
+          tag = tags[l];
+          break;
+        }
+      }
+      return tag;
+    }
+
+    function getTagByLabel (label) {
+      var tag = null;
+      var tags = $scope.tags || [];
+      var l = tags.length;
+      while (l--) {
+        if (tags[l].label == label) {
           tag = tags[l];
           break;
         }
