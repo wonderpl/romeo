@@ -104,7 +104,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
   $scope.$watch(
     function() { return $scope.video ? $scope.video.id : null; },
     function(newValue, oldValue) {
-      if (newValue !== '' && newValue !== oldValue && $scope.showComments()) {
+      if (newValue !== '' && newValue !== oldValue) {
         CommentsService.getComments(newValue).then(function (data) {
           $scope.comments = data.comment.items;
         });
