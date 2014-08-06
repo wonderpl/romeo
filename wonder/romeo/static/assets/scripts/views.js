@@ -1189,7 +1189,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('layout-control.html',
-    "<section ng-show=\"isComments\" class=\"layout-control layout-control--(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
+    "<section class=\"layout-control layout-control--(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
     "  <div class=\"btn-group\">\n" +
     "    <a class=\"btn btn--small\" ng-click=\"reposition('mirror')\"><i class=\"icon  icon--split-vertical-alt\"></i></a>\n" +
     "    <a class=\"btn btn--small\" ng-click=\"reposition('column')\"><i class=\"icon  icon--split-horizontal\"></i></a>\n" +
@@ -1761,7 +1761,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  </div>\n" +
     "\n" +
-    "  <layout-control is-comments=\"isComments\" is-edit=\"isEdit\"></layout-control>\n" +
+    "  <layout-control is-comments=\"isComments\" is-edit=\"isEdit\" ng-show=\"isComments && (canComment || !$root.isCollaborator)\"></layout-control>\n" +
     "\n" +
     "</div>\n" +
     "\n" +

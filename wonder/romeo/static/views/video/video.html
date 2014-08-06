@@ -100,7 +100,7 @@
 
   </div>
 
-  <layout-control is-comments="isComments" is-edit="isEdit"></layout-control>
+  <layout-control is-comments="isComments" is-edit="isEdit" ng-show="isComments && (canComment || !$root.isCollaborator)"></layout-control>
 
 </div>
 
