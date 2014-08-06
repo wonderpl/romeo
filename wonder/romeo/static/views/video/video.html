@@ -83,7 +83,7 @@
 
     <div class="layout-block layout-block__secondary layout-block-secondary--{{ isComments ? $root.layoutMode : 'column' }}" ng-class="{ 'layout-block--narrow' : isComments }">
 
-      <section class="cf video-view__comments" ng-show="showComments">
+      <section class="cf video-view__comments" ng-show="showComments()">
         <video-indicators comments="comments" current-time="videoCurrentTime" total-time="videoTotalTime"></video-indicators>
         <video-frame-stepper current-time="videoCurrentTime"></video-frame-stepper>
         <video-collaborators notified="notified" comments="comments" ng-show="video.id && isComments && $root.layoutMode !== 'column'" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>
@@ -92,7 +92,7 @@
     </div>
 
     <div class="layout-block layout-block__tertiary layout-block-tertiary--{{ isComments ? $root.layoutMode : 'column' }}">
-      <section class="cf video-view__comments" ng-show="showComments">
+      <section class="cf video-view__comments" ng-show="showComments()">
         <video-collaborators notified="notified" comments="comments" ng-show="video.id && isComments && $root.layoutMode === 'column'" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>
         <video-comments notified="notified" is-owner="isOwner" comments="comments" video-id="{{ video.id }}" current-time="videoCurrentTime"></video-comments>
       </section>
@@ -100,7 +100,7 @@
 
   </div>
 
-  <layout-control is-comments="isComments" is-edit="isEdit" ng-show="isComments && (canComment || !$root.isCollaborator)"></layout-control>
+  <layout-control is-comments="isComments" ng-show="(!$root.isCollaborator || ($root.isCollaborator && canComment)) && "></layout-control>
 
 </div>
 

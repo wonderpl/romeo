@@ -104,8 +104,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
   $scope.$watch(
     function() { return $scope.video ? $scope.video.id : null; },
     function(newValue, oldValue) {
-      var showComment = showComments();
-      if (newValue !== '' && newValue !== oldValue && showComment) {
+      if (newValue !== '' && newValue !== oldValue && $scope.showComments()) {
         CommentsService.getComments(newValue).then(function (data) {
           $scope.comments = data.comment.items;
         });
@@ -430,7 +429,6 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
       getPlayerParameters($scope.video.id);
       verifyUser($scope.video.id);
       assignCollaboratorPermissions();
-      $scope.showComments = showComments();
     });
   }
 
@@ -465,7 +463,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
     }
   }
 
-  function showComments () {
+  $scope.showComments = function () {
     if ($scope.video.id) {
       if ($rootScope.isCollaborator) {
         return $scope.canComment;
@@ -474,6 +472,6 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
       }
     }
     return false;
-  }
+  };
 
 }

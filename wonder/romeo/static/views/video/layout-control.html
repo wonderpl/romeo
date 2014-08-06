@@ -1,4 +1,4 @@
-<section class="layout-control layout-control--{{ isComments ? $root.layoutMode : 'column' }}">
+<section ng-show="isComments" class="layout-control layout-control--{{ isComments ? $root.layoutMode : 'column' }}">
   <div class="btn-group">
     <a class="btn btn--small" ng-click="reposition('mirror')"><i class="icon  icon--split-vertical-alt"></i></a>
     <a class="btn btn--small" ng-click="reposition('column')"><i class="icon  icon--split-horizontal"></i></a>

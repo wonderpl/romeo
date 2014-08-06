@@ -12,8 +12,7 @@ function LayoutControl ($templateCache, $rootScope, $cookies) {
     replace : true,
     template : $templateCache.get('layout-control.html'),
     scope : {
-      'isComments' : '=',
-      'isEdit' : '='
+      'isComments' : '='
     },
     controller : function ($scope) {
 

@@ -1189,7 +1189,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('layout-control.html',
-    "<section class=\"layout-control layout-control--(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
+    "<section ng-show=\"isComments\" class=\"layout-control layout-control--(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
     "  <div class=\"btn-group\">\n" +
     "    <a class=\"btn btn--small\" ng-click=\"reposition('mirror')\"><i class=\"icon  icon--split-vertical-alt\"></i></a>\n" +
     "    <a class=\"btn btn--small\" ng-click=\"reposition('column')\"><i class=\"icon  icon--split-horizontal\"></i></a>\n" +
@@ -1744,7 +1744,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "    <div class=\"layout-block layout-block__secondary layout-block-secondary--(~ isComments ? $root.layoutMode : 'column' ~)\" ng-class=\"{ 'layout-block--narrow' : isComments }\">\n" +
     "\n" +
-    "      <section class=\"cf video-view__comments\" ng-show=\"showComments\">\n" +
+    "      <section class=\"cf video-view__comments\" ng-show=\"showComments()\">\n" +
     "        <video-indicators comments=\"comments\" current-time=\"videoCurrentTime\" total-time=\"videoTotalTime\"></video-indicators>\n" +
     "        <video-frame-stepper current-time=\"videoCurrentTime\"></video-frame-stepper>\n" +
     "        <video-collaborators notified=\"notified\" comments=\"comments\" ng-show=\"video.id && isComments && $root.layoutMode !== 'column'\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
@@ -1753,7 +1753,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </div>\n" +
     "\n" +
     "    <div class=\"layout-block layout-block__tertiary layout-block-tertiary--(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
-    "      <section class=\"cf video-view__comments\" ng-show=\"showComments\">\n" +
+    "      <section class=\"cf video-view__comments\" ng-show=\"showComments()\">\n" +
     "        <video-collaborators notified=\"notified\" comments=\"comments\" ng-show=\"video.id && isComments && $root.layoutMode === 'column'\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
     "        <video-comments notified=\"notified\" is-owner=\"isOwner\" comments=\"comments\" video-id=\"(~ video.id ~)\" current-time=\"videoCurrentTime\"></video-comments>\n" +
     "      </section>\n" +
@@ -1761,7 +1761,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  </div>\n" +
     "\n" +
-    "  <layout-control is-comments=\"isComments\" is-edit=\"isEdit\" ng-show=\"isComments && (canComment || !$root.isCollaborator)\"></layout-control>\n" +
+    "  <layout-control is-comments=\"isComments\" ng-show=\"(!$root.isCollaborator || ($root.isCollaborator && canComment)) && \"></layout-control>\n" +
     "\n" +
     "</div>\n" +
     "\n" +
