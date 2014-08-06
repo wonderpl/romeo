@@ -1420,7 +1420,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "            name=\"linkUrl\"\n" +
     "            ng-model=\"url\"\n" +
     "            required\n" +
-    "            ng-pattern=\"/^[h|H][t|T][t|T][p|P][s|S]?:\\/\\/.*/\"\n" +
     "            placeholder=\"Link URL\" />\n" +
     "        </label>\n" +
     "\n" +

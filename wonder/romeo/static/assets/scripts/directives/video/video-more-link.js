@@ -18,6 +18,7 @@ angular.module('RomeoApp.directives')
       var maxLength = 30;
 
       $scope.$watch('text', function (newValue, oldValue) {
+        console.log(newValue);
         if (newValue !== oldValue) {
           var newLength = newValue && newValue.length ? newValue.length : 0;
           $scope.remaining = maxLength - newLength;
@@ -27,9 +28,19 @@ angular.module('RomeoApp.directives')
         }
       });
       $scope.$watch('url', function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-          if (newValue.length < 7) {
-            $scope.url = 'http://';
+        if (newValue && newValue !== oldValue) {
+          console.log(newValue);
+          if (!newValue.match(/^http[s]?:\/\/.+/gi)) {
+            if (newValue.match(/^http[s]?:\/\//gi)) {
+
+              $scope.url = '';
+
+            } else {
+
+              if ($scope.url && $scope.url.toLowerCase() !== 'http://') {
+                $scope.url = 'http://' + $scope.url;
+              }
+            }
           }
         }
       });
