@@ -1,49 +1,43 @@
-<section class="organise-navigation">
-
-  <ul class="organise-navigation__nav-items organise-navigation__nav--core">
-    <li class="organise-navigation__nav-item organise-navigation__nav-item--title">
-      Manage
+<div class="layout__item  one-third  organise-navigation">
+  <ul class="nav  nav--stacked  browse-list">
+    <li class="browse-list__item">
+      <span class="browse-list__title">Manage</span>
     </li>
-    <li class="organise-navigation__nav-item" ng-class="{ 'organise-navigation__nav-item--active' : !customFilterFunction && !currentTag }">
-      <a class="organise-navigation__link" ng-click="showAllVideos()">All videos</a>
+    <li class="browse-list__item">
+      <a class="browse-list__link" ng-class="{ 'organise-navigation__link--active' : !customFilterFunction && !currentTag }" ng-click="showAllVideos()">All videos</a>
     </li>
-    <li class="organise-navigation__nav-item" ng-class="{ 'organise-navigation__nav-item--active' : customFilterFunction === 'isRecent' }">
-      <a class="organise-navigation__link" ng-click="showRecentVideos()">Recently added videos</a>
+    <li class="browse-list__item">
+      <a class="browse-list__link" ng-class="{ 'organise-navigation__link--active' : customFilterFunction === 'isRecent' }" ng-click="showRecentVideos()">Recently added videos</a>
     </li>
   </ul>
 
-  <ul class="organise-navigation__nav-items organise-navigation__nav--private">
-    <li class="organise-navigation__nav-item organise-navigation__nav-item--title">
-      Collections not visible in app
+  <ul class="nav  nav--stacked  browse-list">
+    <li class="browse-list__item">
+      <span class="browse-list__title">Collections not visible in app</span>
     </li>
-    <li class="organise-navigation__nav-item organise-navigation__nav-item--collection"
-      ng-class="{ 'organise-navigation__nav-item--active' : currentTag.id === tag.id }"
-      ng-repeat="tag in tags | filter : { public : false }">
-      <a class="organise-navigation__link"
-        ng-bind="tag.label"
-        ng-click="loadCollection(tag.id)">
+    <li class="browse-list__item" ng-repeat="tag in tags | filter : { public : false }">
+      <a class="browse-list__link" ng-class="{ 'browse-list__item--active' : currentTag.id === tag.id }" ng-bind="tag.label" ng-click="loadCollection(tag.id)"></a>
+    </li>
+    <li class="browse-list__item">
+      <a class="browse-list__link  browse-list__link--create  split" ng-click="createPrivateCollection()">
+        <span class="split__title">Add a new private collection</span>
+        <i class="icon  icon--plus"></i>
       </a>
     </li>
-    <li class="organise-navigation__nav-item organise-navigation__nav-item--new">
-      <a class="organise-navigation__link organise-navigation__link--new  split" ng-click="createPrivateCollection()"><span class="split__title">Add a new private collection</span> <i class="icon  icon--plus"></i></a>
-    </li>
   </ul>
 
-  <ul class="organise-navigation__nav-items organise-navigation__nav--public">
-    <li class="organise-navigation__nav-item organise-navigation__nav-item--title">
-      Collections visible in app
+  <ul class="nav  nav--stacked  browse-list">
+    <li class="browse-list__item">
+      <span class="browse-list__title">Collections visible in app</span>
     </li>
-    <li class="organise-navigation__nav-item organise-navigation__nav-item--collection"
-      ng-class="{ 'organise-navigation__nav-item--active' : currentTag.id === tag.id }"
-      ng-repeat="tag in tags | filter : { public : true }">
-      <a class="organise-navigation__link"
-        ng-bind="tag.label"
-        ng-click="loadCollection(tag.id)">
+    <li class="browse-list__item" ng-repeat="tag in tags | filter : { public : true }">
+      <a class="browse-list__link" ng-class="{ 'browse-list__link--active' : currentTag.id === tag.id }" ng-bind="tag.label" ng-click="loadCollection(tag.id)"></a>
+    </li>
+    <li class="browse-list__item">
+      <a class="browse-list__link  browse-list__link--create  split" ng-click="createPublicCollection()">
+        <span class="split__title">Add a new public collection</span>
+        <i class="icon  icon--plus"></i>
       </a>
     </li>
-    <li class="organise-navigation__nav-item organise-navigation__nav-item--new">
-      <a class="organise-navigation__link organise-navigation__link--new  split" ng-click="createPublicCollection()"><span class="split__title">Add a new public collection</span> <i class="icon  icon--plus"></i></a>
-    </li>
   </ul>
-
-</section>
+</div>

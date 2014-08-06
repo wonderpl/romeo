@@ -1,15 +1,10 @@
-<section class="organise" ng-controller="OrganiseCtrl">
-
+<main role="main" class="page-content" ng-controller="OrganiseCtrl">
+  <div class="wrapper  wrapper--fixed">
   <organise-breadcrumb tag="tag" filter="customFilterFunction"></organise-breadcrumb>
-
-  <organise-navigation tags="tags" current-tag="tag" custom-filter-function="customFilterFunction"></organise-navigation>
-
-  <div class="organise__main">
-
-    <organise-collection ng-show="tag" tag="tag" is-edit="isEdit"></organise-collection>
-
-    <organise-video-list videos="videos" tag="tag" custom-filter-function="customFilterFunction"></organise-video-list>
-
+      <organise-navigation tags="tags" current-tag="tag" custom-filter-function="customFilterFunction"></organise-navigation>
+      <div class="organise__main">
+        <organise-collection ng-show="tag" tag="tag" is-edit="isEdit"></organise-collection>  
+        <organise-video-list videos="videos" tag="tag" custom-filter-function="customFilterFunction"></organise-video-list>
+      </div>
   </div>
-
-</section>
+</main>
