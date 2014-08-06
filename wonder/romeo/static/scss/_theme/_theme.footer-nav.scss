@@ -1,0 +1,21 @@
+/**
+ * _theme.footer-nav.scss
+ */
+.footer-nav {
+  margin-bottom: 0;
+  
+  > li {
+    font-weight: 200;
+    @include font-size($base-font-size * 0.75);
+    line-height: 3.9166666666666665;
+
+    &:last-child { margin-left: 0;}
+  }
+
+  > li + li { margin-left: $half-spacing-unit; }
+}
+
+  .footer-nav__link {
+    text-decoration: none;
+    border: none;
+  }
