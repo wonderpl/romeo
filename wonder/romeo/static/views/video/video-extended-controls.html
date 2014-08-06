@@ -1,17 +1,7 @@
 <section class="video-extended-controls" ng-show="isEdit">
   <section class="video-extended-controls__section" ng-class="{ 'video-extended-controls__section--expanded' : addCategoryShow }">
     <i class="icon  icon--medium  icon--plus  section-drawer__icon" ng-click="addCategoryShow = !addCategoryShow" ng-hide="addCategoryShow"></i>
-    <!--<span class="video-extended-controls__indicator video-extended-controls__indicator--more"
-      ng-click="addCategoryShow = !addCategoryShow"
-      ng-hide="addCategoryShow">
-      +
-    </span>-->
     <i class="icon  icon--medium  icon--minus  section-drawer__icon" ng-click="addCategoryShow = !addCategoryShow" ng-show="addCategoryShow"></i>
-    <!--<span class="video-extended-controls__indicator video-extended-controls__indicator--less"
-      ng-click="addCategoryShow = !addCategoryShow"
-      ng-show="addCategoryShow">
-      -
-    </span>-->
     <category-add-video selected-category="video.category"
       show-category="addCategoryShow"
       class="video-extended-controls__section-contents">
@@ -22,17 +12,7 @@
   <section class="video-extended-controls__section"
     ng-class="{ 'video-extended-controls__section--expanded' : addCollectionShow }">
     <i class="icon  icon--medium  icon--plus  section-drawer__icon" ng-click="addCollectionShow = !addCollectionShow" ng-hide="addCollectionShow"></i>
-    <!--<span class="video-extended-controls__indicator video-extended-controls__indicator--more"
-      ng-click="addCollectionShow = !addCollectionShow"
-      ng-hide="addCollectionShow">
-      +
-    </span>-->
     <i class="icon  icon--medium  icon--minus  section-drawer__icon" ng-click="addCollectionShow = !addCollectionShow" ng-show="addCollectionShow"></i>
-    <!--<span class="video-extended-controls__indicator video-extended-controls__indicator--less"
-      ng-click="addCollectionShow = !addCollectionShow"
-      ng-show="addCollectionShow">
-      -
-    </span>-->
     <collection-add-video available-tags="tags"
       video="video"
       show-collection="addCollectionShow"
@@ -43,17 +23,7 @@
 
   <section class="video-extended-controls__section" ng-class="{ 'video-extended-controls__section--expanded' : addCollaboratorShow }">
     <i class="icon  icon--medium  icon--plus  section-drawer__icon" ng-click="addCollaboratorShow = !addCollaboratorShow" ng-hide="addCollaboratorShow"></i>
-    <!--<span class="video-extended-controls__indicator video-extended-controls__indicator--more"
-      ng-click="addCollaboratorShow = !addCollaboratorShow"
-      ng-hide="addCollaboratorShow">
-      +
-    </span>-->
     <i class="icon  icon--medium  icon--minus  section-drawer__icon" ng-click="addCollaboratorShow = !addCollaboratorShow" ng-show="addCollaboratorShow"></i>
-    <!--<span class="video-extended-controls__indicator video-extended-controls__indicator--less"
-      ng-click="addCollaboratorShow = !addCollaboratorShow"
-      ng-show="addCollaboratorShow">
-      -
-    </span>-->
     <add-collaborator class="video-extended-controls__section-contents"
       video="video"
       show-collaborator="addCollaboratorShow">

@@ -19,8 +19,6 @@ function NotificationTrayDirective ($templateCache, $timeout) {
     },
     controller : function ($scope) {
 
-      console.log('test');
-
       $scope.notifications = $scope.notifications || [];
 
       $scope.removeNotification = function (id) {

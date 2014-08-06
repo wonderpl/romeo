@@ -2640,25 +2640,30 @@ strong {
 }
 
 /* line 41, ../../scss/specifics/video/_video-view.scss */
+.video-view__container--fixed {
+  height: 540px;
+}
+
+/* line 45, ../../scss/specifics/video/_video-view.scss */
 .video-view__save-controls {
   margin-bottom: 24px;
   text-align: center;
 }
 
-/* line 46, ../../scss/specifics/video/_video-view.scss */
+/* line 50, ../../scss/specifics/video/_video-view.scss */
 .video-view__description {
   width: 600px;
   margin: 0 auto;
   overflow: auto;
 }
 
-/* line 52, ../../scss/specifics/video/_video-view.scss */
+/* line 56, ../../scss/specifics/video/_video-view.scss */
 .video-view__description--edit {
   border-bottom: solid 1px #999999;
   min-height: 10em;
 }
 
-/* line 57, ../../scss/specifics/video/_video-view.scss */
+/* line 61, ../../scss/specifics/video/_video-view.scss */
 .video-view__nav-placeholder {
   display: block;
   height: 52px;

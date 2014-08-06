@@ -1385,17 +1385,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<section class=\"video-extended-controls\" ng-show=\"isEdit\">\n" +
     "  <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCategoryShow }\">\n" +
     "    <i class=\"icon  icon--medium  icon--plus  section-drawer__icon\" ng-click=\"addCategoryShow = !addCategoryShow\" ng-hide=\"addCategoryShow\"></i>\n" +
-    "    <!--<span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\"\n" +
-    "      ng-click=\"addCategoryShow = !addCategoryShow\"\n" +
-    "      ng-hide=\"addCategoryShow\">\n" +
-    "      +\n" +
-    "    </span>-->\n" +
     "    <i class=\"icon  icon--medium  icon--minus  section-drawer__icon\" ng-click=\"addCategoryShow = !addCategoryShow\" ng-show=\"addCategoryShow\"></i>\n" +
-    "    <!--<span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\"\n" +
-    "      ng-click=\"addCategoryShow = !addCategoryShow\"\n" +
-    "      ng-show=\"addCategoryShow\">\n" +
-    "      -\n" +
-    "    </span>-->\n" +
     "    <category-add-video selected-category=\"video.category\"\n" +
     "      show-category=\"addCategoryShow\"\n" +
     "      class=\"video-extended-controls__section-contents\">\n" +
@@ -1406,17 +1396,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <section class=\"video-extended-controls__section\"\n" +
     "    ng-class=\"{ 'video-extended-controls__section--expanded' : addCollectionShow }\">\n" +
     "    <i class=\"icon  icon--medium  icon--plus  section-drawer__icon\" ng-click=\"addCollectionShow = !addCollectionShow\" ng-hide=\"addCollectionShow\"></i>\n" +
-    "    <!--<span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\"\n" +
-    "      ng-click=\"addCollectionShow = !addCollectionShow\"\n" +
-    "      ng-hide=\"addCollectionShow\">\n" +
-    "      +\n" +
-    "    </span>-->\n" +
     "    <i class=\"icon  icon--medium  icon--minus  section-drawer__icon\" ng-click=\"addCollectionShow = !addCollectionShow\" ng-show=\"addCollectionShow\"></i>\n" +
-    "    <!--<span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\"\n" +
-    "      ng-click=\"addCollectionShow = !addCollectionShow\"\n" +
-    "      ng-show=\"addCollectionShow\">\n" +
-    "      -\n" +
-    "    </span>-->\n" +
     "    <collection-add-video available-tags=\"tags\"\n" +
     "      video=\"video\"\n" +
     "      show-collection=\"addCollectionShow\"\n" +
@@ -1427,17 +1407,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCollaboratorShow }\">\n" +
     "    <i class=\"icon  icon--medium  icon--plus  section-drawer__icon\" ng-click=\"addCollaboratorShow = !addCollaboratorShow\" ng-hide=\"addCollaboratorShow\"></i>\n" +
-    "    <!--<span class=\"video-extended-controls__indicator video-extended-controls__indicator--more\"\n" +
-    "      ng-click=\"addCollaboratorShow = !addCollaboratorShow\"\n" +
-    "      ng-hide=\"addCollaboratorShow\">\n" +
-    "      +\n" +
-    "    </span>-->\n" +
     "    <i class=\"icon  icon--medium  icon--minus  section-drawer__icon\" ng-click=\"addCollaboratorShow = !addCollaboratorShow\" ng-show=\"addCollaboratorShow\"></i>\n" +
-    "    <!--<span class=\"video-extended-controls__indicator video-extended-controls__indicator--less\"\n" +
-    "      ng-click=\"addCollaboratorShow = !addCollaboratorShow\"\n" +
-    "      ng-show=\"addCollaboratorShow\">\n" +
-    "      -\n" +
-    "    </span>-->\n" +
     "    <add-collaborator class=\"video-extended-controls__section-contents\"\n" +
     "      video=\"video\"\n" +
     "      show-collaborator=\"addCollaboratorShow\">\n" +
@@ -1743,7 +1713,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        <h2 class=\"video-view__title\" ng-hide=\"isEdit\" ng-bind-html=\"video.title\" ng-class=\"{ 'video-view__title--small' : isComments }\"></h2>\n" +
     "        <h3 class=\"video-view__sub-title\" ng-hide=\"isEdit\" ng-bind-html=\"video.strapline\"></h2>\n" +
     "\n" +
-    "        <div class=\"video-view__container\">\n" +
+    "        <div class=\"video-view__container\" ng-class=\"{'video-view__container--fixed': isEdit}\">\n" +
     "          <video-upload ng-show=\"showUpload && isEdit\" ng-cloak></video-upload>\n" +
     "          <video-player ng-show=\"hasProcessed\" embed-url=\"embedUrl\"></video-player>\n" +
     "          <video-edit ng-show=\"showVideoEdit && isEdit\"></video-edit>\n" +

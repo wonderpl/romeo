@@ -38,6 +38,10 @@
   margin-bottom: 24px;
 }
 
+.video-view__container--fixed {
+  height: 540px;
+}
+
 .video-view__save-controls {
   margin-bottom: $base-spacing-unit;
   text-align: center;

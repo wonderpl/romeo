@@ -31,7 +31,7 @@
         <h2 class="video-view__title" ng-hide="isEdit" ng-bind-html="video.title" ng-class="{ 'video-view__title--small' : isComments }"></h2>
         <h3 class="video-view__sub-title" ng-hide="isEdit" ng-bind-html="video.strapline"></h2>
 
-        <div class="video-view__container">
+        <div class="video-view__container" ng-class="{'video-view__container--fixed': isEdit}">
           <video-upload ng-show="showUpload && isEdit" ng-cloak></video-upload>
           <video-player ng-show="hasProcessed" embed-url="embedUrl"></video-player>
           <video-edit ng-show="showVideoEdit && isEdit"></video-edit>
