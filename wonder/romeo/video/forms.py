@@ -98,7 +98,7 @@ class VideoForm(BaseForm):
             video.thumbnails = [
                 VideoThumbnail.from_cover_image(self.cover_image.data, self.account_id)
             ]
-            create_cover_thumbnails(video.id)
+            create_cover_thumbnails(video.id, self.cover_image.data)
 
         video.record_workflow_event(event)
 
@@ -173,14 +173,17 @@ def publish_video_changes(video_id):
 
 @background_on_sqs
 @commit_on_success
-def create_cover_thumbnails(video_id):
+def create_cover_thumbnails(video_id, cover_filename=None):
     def _thumbnail(size, dim):
         return VideoThumbnail.from_cover_image(cover_filename, video.account_id, size, dim)
 
     video = Video.query.get(video_id)
     assert video.external_id
     cover_filepath = urlparse(video.thumbnails[0].url).path
-    cover_filename = cover_filepath.rsplit('/', 1)[-1]
+    if cover_filename != cover_filepath.rsplit('/', 1)[-1]:
+        current_app.logger.warning('Unexpected cover image: %d: %s: %s',
+                                   video_id, cover_filename, cover_filepath)
+        return
 
     imgdata = download_file(media_bucket, cover_filepath)
     image = Image.open(StringIO(imgdata))
