@@ -15,7 +15,7 @@
      - animations. An animation class will need to be applied to it for it to
      - flip out when dismissing.
      -->
-    <div class="notice animate  animate--flip  animate--flip-in-x" ng-class="notice--{{ notification.status }}">
+    <div class="notice animate  animate--flip  animate--flip-in-x notice--{{ notification.status }}" ng-class="{ 'notice--active' : notification.active }">
 
       <!--
        - Use a flag object to easily position elements vertically in the middle.
@@ -31,7 +31,7 @@
           <!--
            - clicking this will dismiss the notice. TODO: needs styling yet.
            -->
-          <a class="notice__dismiss" ng-click="removeNotification(notification.id)">
+          <a class="notice__dismiss" ng-click="removeNotification(notification.id); notification.active = false">
             <i class="icon  icon--cross"></i>
           </a>
         </div>

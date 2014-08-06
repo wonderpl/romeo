@@ -6,6 +6,10 @@ function NotificationTrayDirective ($templateCache, $timeout) {
 
   'use strict';
 
+  function removeNotificationData (index) {
+    $scope.notifications[index].active = false;
+  }
+
   return {
     restrict : 'E',
     replace : true,
@@ -26,8 +30,7 @@ function NotificationTrayDirective ($templateCache, $timeout) {
         var notification = null;
         while (l--) {
           if (notifications[l].id === id) {
-            notification = notifications[l];
-            notifications.splice(l, 1);
+            removeNotificationData(l);
             break;
           }
         }
@@ -39,9 +42,11 @@ function NotificationTrayDirective ($templateCache, $timeout) {
         var current = new Date().getTime();
         var l = notifications.length;
         while (l--) {
-          if (current - notifications[l].timestamp > 5000 && notifications[l].status !== 'error') {
-            notifications.splice(l, 1);
-            break;
+          if (current - notifications[l].timestamp > 5000 && notifications[l].status !== 'error' && notifications[l].active) {
+            notifications[l].active = false;
+          }
+          if (current - notifications[l].timestamp > 10000 && !notifications[l].active) {
+            $scope.notifications.splice(l, 1);
           }
         }
         $timeout($scope.pollNotifications, 1000);
@@ -57,6 +62,9 @@ function NotificationTrayDirective ($templateCache, $timeout) {
         };
         console.log(notification);
         $scope.notifications.push(notification);
+        $timeout(function () {
+          notification.active = true;
+        }, 1000);
 
       });
 

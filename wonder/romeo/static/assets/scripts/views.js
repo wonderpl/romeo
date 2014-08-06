@@ -789,7 +789,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "     - animations. An animation class will need to be applied to it for it to\n" +
     "     - flip out when dismissing.\n" +
     "     -->\n" +
-    "    <div class=\"notice animate  animate--flip  animate--flip-in-x\" ng-class=\"notice--(~ notification.status ~)\">\n" +
+    "    <div class=\"notice animate  animate--flip  animate--flip-in-x notice--(~ notification.status ~)\" ng-class=\"{ 'notice--active' : notification.active }\">\n" +
     "\n" +
     "      <!--\n" +
     "       - Use a flag object to easily position elements vertically in the middle.\n" +
@@ -805,7 +805,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "          <!--\n" +
     "           - clicking this will dismiss the notice. TODO: needs styling yet.\n" +
     "           -->\n" +
-    "          <a class=\"notice__dismiss\" ng-click=\"removeNotification(notification.id)\">\n" +
+    "          <a class=\"notice__dismiss\" ng-click=\"removeNotification(notification.id); notification.active = false\">\n" +
     "            <i class=\"icon  icon--cross\"></i>\n" +
     "          </a>\n" +
     "        </div>\n" +
