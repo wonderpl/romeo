@@ -44,7 +44,13 @@ angular.module('RomeoApp.controllers')
 
     $scope.$on('save-tag', function ($event) {
       if ($scope.tag) {
-        TagService.updateTag($scope.tag);
+        TagService.updateTag($scope.tag).then(function () {
+          $scope.$emit('notify', {
+            status : 'success',
+            title : 'Tag updated',
+            message : 'New tag information saved.'}
+          );
+        });
       }
     });
 
@@ -52,6 +58,11 @@ angular.module('RomeoApp.controllers')
       if ($scope.tag) {
         TagService.deleteTag($scope.tag.id).then(function () {
           refresh();
+          $scope.$emit('notify', {
+            status : 'warning',
+            title : 'Tag deleted',
+            message : $scope.tag.label + ' deleted.'}
+          );
         });
       }
     });
@@ -71,8 +82,14 @@ angular.module('RomeoApp.controllers')
 
     $scope.$on('delete-video', function ($event, video) {
       if (video) {
-        VideoService.delete(video.id);
-        refresh();
+        VideoService.delete(video.id).then(function () {
+          refresh();
+          $scope.$emit('notify', {
+            status : 'warning',
+            title : 'Video deleted',
+            message : 'Video (' + video.id + ') deleted.'}
+          );
+        });
       }
     });
 
@@ -94,6 +111,11 @@ angular.module('RomeoApp.controllers')
           $scope.close();
           redirect(tag.id);
           loadTag(tag.id);
+          $scope.$emit('notify', {
+            status : 'success',
+            title : 'New Collection Created',
+            message : 'Collection details saved.'}
+          );
         });
       });
     };
@@ -107,6 +129,11 @@ angular.module('RomeoApp.controllers')
       VideoService.removeFromCollection($scope.video.id, id).then(function () {
         VideoService.get($scope.video.id).then(function (data) {
           angular.extend($scope.video, data);
+          $scope.$emit('notify', {
+            status : 'info',
+            title : 'Collection Updated',
+            message : 'Video removed from collection.'}
+          );
         });
       });
     };
@@ -119,6 +146,11 @@ angular.module('RomeoApp.controllers')
       VideoService.addToCollection($scope.video.id, id).then(function () {
         VideoService.get($scope.video.id).then(function (data) {
           angular.extend($scope.video, data);
+          $scope.$emit('notify', {
+            status : 'info',
+            title : 'Collection Updated',
+            message : 'Video added to collection.'}
+          );
         });
       });
     };

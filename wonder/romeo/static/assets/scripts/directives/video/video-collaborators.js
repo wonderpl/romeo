@@ -14,21 +14,25 @@ angular.module('RomeoApp.directives')
     },
     controller : function ($scope) {
 
-
-    $scope.$watch(
-      'videoId',
-      function(newValue, oldValue) {
-        if (newValue && newValue !== oldValue) {
-          CollaboratorsService.getCollaborators(newValue).then(function (data) {
-            $scope.collaborators = data.collaborator.items;
-          });
+      $scope.$watch(
+        'videoId',
+        function(newValue, oldValue) {
+          if (newValue && newValue !== oldValue) {
+            CollaboratorsService.getCollaborators(newValue).then(function (data) {
+              $scope.collaborators = data.collaborator.items;
+            });
+          }
         }
-      }
-    );
+      );
 
       $scope.notify = function () {
         CommentsService.notify($scope.videoId).then(function () {
           $scope.notified = true;
+          $scope.$emit('notify', {
+            status : 'success',
+            title : 'Collaborators Notified',
+            message : 'All collaborators have been sent notification of recent comments.'}
+          );
         });
       };
     }

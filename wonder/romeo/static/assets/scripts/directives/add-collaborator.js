@@ -34,6 +34,11 @@ function addCollaboratorDirective ($templateCache, CollaboratorsService) {
             console.log(data);
             $scope.collaboratorAdded = true;
             $scope.collaborator = null;
+            $scope.$emit('notify', {
+              status : 'success',
+              title : 'Collaborator Added',
+              message : $scope.collaborator + ' has been added as a collaborator.'}
+            );
           },
           function (response) {
             $scope.errors = response.data.error;

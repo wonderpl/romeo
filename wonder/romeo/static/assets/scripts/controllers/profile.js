@@ -38,6 +38,11 @@ angular.module('RomeoApp.controllers')
       console.log(data);
       $timeout(function () {
         $scope.profile = data;
+        $scope.$emit('notify', {
+          status : 'success',
+          title : 'Avatar updated',
+          message : 'New avatar saved.'}
+        );
       });
     });
   }
@@ -47,6 +52,11 @@ angular.module('RomeoApp.controllers')
     console.log(file);
     AccountService.updateCoverImage(file).then(function (data) {
       $scope.profile = JSON.parse(data);
+      $scope.$emit('notify', {
+        status : 'success',
+        title : 'Cover image updated',
+        message : 'New cover image saved.'}
+      );
     });
   }
 
@@ -57,6 +67,11 @@ angular.module('RomeoApp.controllers')
     };
     AccountService.updateUser(data).then(function () {
       $scope.isEdit = false;
+      $scope.$emit('notify', {
+        status : 'success',
+        title : 'User Profile Updated',
+        message : 'Profile details saved.'}
+      );
     });
   }
 

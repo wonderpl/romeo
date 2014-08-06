@@ -119,6 +119,11 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
       $scope.loadVideo($scope.video.id);
       $scope.showPreviewSelector = false;
       $scope.showVideoEdit = true;
+      $scope.$emit('notify', {
+        status : 'success',
+        title : 'Preview Image Updated',
+        message : 'New preview image saved.'}
+      );
     });
   };
 
@@ -157,6 +162,11 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
   function videoUploadOnComplete (event) {
     // manaual ajax request doesn't return video object to extend what we have in scope
     $scope.video.status = 'processing';
+    $scope.$emit('notify', {
+      status : 'info',
+      title : 'Video Upload Complete',
+      message : 'Video has been uploaded and is now processing.'}
+    );
   }
 
   $scope.$on('video-upload-poll', videoUploadOnPoll);
@@ -186,6 +196,11 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
       VideoService.update($scope.video.id, $scope.video).then(function (data) {
         angular.extend($scope.video, data);
         $scope.displaySection();
+        $scope.$emit('notify', {
+          status : 'success',
+          title : 'Video Updated',
+          message : 'Your changes have been saved.'}
+        );
       });
     } else {
       $scope.video.title = $scope.video.title || 'Untitled Video';
@@ -193,6 +208,11 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
         angular.extend($scope.video, data);
         var url = '/video/' + $scope.video.id + '/edit';
         $location.path(url, false);
+        $scope.$emit('notify', {
+          status : 'success',
+          title : 'Video Create',
+          message : 'New video created.'}
+        );
       });
     }
   };
@@ -206,6 +226,11 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
       VideoService.get($scope.video.id).then(function (data) {
         angular.extend($scope.video, data);
         $scope.displaySection();
+        $scope.$emit('notify', {
+          status : 'info',
+          title : 'Video Updates Discarded',
+          message : 'Your changes have been discarded.'}
+        );
       });
     } else {
       $location.path('/organise');
@@ -217,6 +242,11 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
     var url = '/video/' + $scope.video.id + '/edit';
     $location.path(url, false);
     $scope.hasProcessed = true;
+    $scope.$emit('notify', {
+      status : 'success',
+      title : 'Video Upload Complete',
+      message : 'Video processing complete.'}
+    );
   }
 
   $scope.$on('video-seek', videoOnSeek);
