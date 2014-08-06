@@ -642,23 +642,26 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <a class=\"modal__close\" ng-click=\"close()\">&times;</a>\n" +
     "  <h5 class=\"video-new-collection__new-title\">Create a collection</h5>\n" +
     "  <section class=\"video-new-collection__new-controls\">\n" +
-    "    <input ng-model=\"collection.label\" placeholder=\"Name\" class=\"video-new-collection__new-collection-name\" />\n" +
-    "    <textarea ng-model=\"collection.description\" placeholder=\"Collection description (optional)&hellip;\" class=\"video-new-collection__new-collection-description\"></textarea>\n" +
-    "    <ul class=\"video-new-collection__scope-options\">\n" +
-    "      <li class=\"video-new-collection__scope-option\">\n" +
-    "        <label class=\"video-new-collection__label\">\n" +
-    "          <input type=\"radio\" name=\"scope\" ng-model=\"collection.scope\" value=\"public\" />\n" +
-    "          Public\n" +
-    "        </label>\n" +
-    "      </li>\n" +
-    "      <li class=\"video-new-collection__scope-option\">\n" +
-    "        <label class=\"video-new-collection__label\">\n" +
-    "          <input type=\"radio\" name=\"scope\" ng-model=\"collection.scope\" value=\"private\" />\n" +
-    "          Private\n" +
-    "        </label>\n" +
-    "      </li>\n" +
-    "    </ul>\n" +
-    "    <a ng-click=\"saveNewCollection()\" class=\"button button--primary\">Okay</a>\n" +
+    "    <form name=\"newCollectionForm\">\n" +
+    "      <input ng-model=\"collection.label\" placeholder=\"Name\" class=\"video-new-collection__new-collection-name\" name=\"collectionLabel\" validate-collection-title required />\n" +
+    "      <span class=\"video-new-collection__error\" ng-show=\"newCollectionForm.collectionLabel.$error.exists && isSubmitted\">Error: there is already a collection with that name</span>\n" +
+    "      <textarea ng-model=\"collection.description\" placeholder=\"Collection description (optional)&hellip;\" class=\"video-new-collection__new-collection-description\"></textarea>\n" +
+    "      <ul class=\"video-new-collection__scope-options\">\n" +
+    "        <li class=\"video-new-collection__scope-option\">\n" +
+    "          <label class=\"video-new-collection__label\">\n" +
+    "            <input type=\"radio\" name=\"scope\" ng-model=\"collection.scope\" value=\"public\" />\n" +
+    "            Public\n" +
+    "          </label>\n" +
+    "        </li>\n" +
+    "        <li class=\"video-new-collection__scope-option\">\n" +
+    "          <label class=\"video-new-collection__label\">\n" +
+    "            <input type=\"radio\" name=\"scope\" ng-model=\"collection.scope\" value=\"private\" />\n" +
+    "            Private\n" +
+    "          </label>\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "      <a ng-click=\"newCollectionForm.$valid && saveNewCollection(); isSubmitted = true;\" class=\"button button--primary\">Okay</a>\n" +
+    "    </form>\n" +
     "  </section>\n" +
     "</section>"
   );

@@ -32,5 +32,23 @@ function OrganiseNavigationDirective ($templateCache) {
         $scope.$emit('show-recent');
       };
     }
-  };
+  };  
 }
+
+angular
+  .module('RomeoApp.directives')
+  .directive('validateCollectionTitle', function() {
+    'use strict';
+    return {
+      require: 'ngModel',
+      link: function(scope, elm, attrs, ctrl) {
+        ctrl.$setValidity('exists', true);
+        ctrl.$parsers.unshift(function(viewValue) {
+          var exists = scope.hasTagLabel(viewValue);
+          ctrl.$setValidity('exists', !exists);
+          return exists ? undefined : viewValue;
+        });
+        console.groupEnd();
+      }
+    };
+  });
