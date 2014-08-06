@@ -34,6 +34,11 @@ angular.module('RomeoApp.controllers')
   function uploadProfileImage ($event, file) {
     console.log('uploadProfileImage()');
     console.log(file);
+    $scope.$emit('notify', {
+      status : 'info',
+      title : 'Uploading New Avatar',
+      message : 'Image uploading to server. Your page will update when transfer is complete.'}
+    );
     AccountService.updateAvatar(file).then(function (data) {
       console.log(data);
       $timeout(function () {
@@ -50,6 +55,11 @@ angular.module('RomeoApp.controllers')
   function uploadProfileCover ($event, file) {
     console.log('uploadProfileCover()');
     console.log(file);
+    $scope.$emit('notify', {
+      status : 'info',
+      title : 'Uploading New Cover Image',
+      message : 'Image uploading to server. Your page will update when transfer is complete.'}
+    );
     AccountService.updateCoverImage(file).then(function (data) {
       $scope.profile = JSON.parse(data);
       $scope.$emit('notify', {
