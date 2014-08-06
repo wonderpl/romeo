@@ -1,0 +1,18 @@
+/**
+ * _generic.clearfix.scss
+ */
+/**
+ * Apply a new micro clearfix to elements by '@extend'ing the class
+ * rather than littering '.cf' classes across the markup.
+ * 1. 
+ * 2. 
+ * 3.
+ */
+.cf {
+  
+  &:after {
+    content: ""; /* [1] */
+    display: table; /* [2] */
+    clear: both; /* [3] */
+  }
+}

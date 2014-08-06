@@ -1,0 +1,16 @@
+/**
+ * _theme.page-header.scss
+ */
+.page-header {
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid rgba($swatch-two,0.5);
+  @extend .cf;
+}
+.page-header--fixed {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}

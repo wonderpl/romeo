@@ -1,0 +1,42 @@
+/**
+ * _components.avatars.scss
+ */
+.avatar {
+  display: block;
+  width: 66px;
+  height: 66px;
+  overflow: hidden;
+  margin-left: -33px;
+  margin-bottom: $base-spacing-unit;
+  position: relative;
+  left: 50%;
+  text-align: center;
+  background-clip: padding-box;
+  border-radius: 100%;
+  border: 1px solid #fff;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.16),
+              0 2px 12px 1px rgba(0,0,0,0.2);
+
+  > .avatar__img {
+    display: block;
+    @extend %img--full;
+    z-index: -1;
+    background-position: 50%;
+  }
+}
+
+.avatar--small {
+  width: 33px;
+  height: 33px;
+  margin-left: -17px;
+}
+.avatar--large {
+  width: 88px;
+  height: 88px;
+  margin-left: -44px;
+}
+.avatar--huge {
+  width: 120px;
+  height: 120px;
+  margin-left: -60px;
+}

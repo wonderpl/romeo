@@ -1,0 +1,64 @@
+/**
+ * _theme.notices.scss
+ */
+.notice-tray {
+  width: 100%;
+  position: fixed;
+  top:  0;
+  left: 0;
+  z-index: 5001;
+  pointer-events: auto;
+  @extend .cf;
+
+  > .notice {
+    max-width: 50%;
+    margin-right: auto;
+    margin-left:  auto;
+    position: absolute;
+    left: -9999px;
+    visibility: hidden;
+
+    &:first-child {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+
+  > .notice--active {
+    position: static;
+    visibility: visible;
+  }
+  > .notice--hide {
+    position: absolute;
+    left: -9999px;
+    visibility: hidden;
+  }
+}
+
+.notice {
+  margin-bottom: $base-spacing-unit;
+  padding: $half-spacing-unit $base-spacing-unit;
+  font-size: 0.875em;
+  font-family: $heading-font-family;
+  border-radius: 3px;
+  
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+.notice--full-page {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top:    0;
+  right:  0;
+  bottom: 0;
+  left:   0;
+  z-index: 5002;
+  border-radius: none !important;
+}
+  
+.notice--success { background-color: #9DCA5A; }
+.notice--error   { background-color: #D74E45; }
+.notice--warning { background-color: #F09F5F; }
+.notice--info    { background-color: #5BB3C8; }

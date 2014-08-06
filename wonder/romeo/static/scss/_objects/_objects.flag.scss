@@ -1,0 +1,56 @@
+/**
+ * _object.flag.scss
+ */
+/**
+ * The flag object is a design pattern similar to the media object, however it
+ * utilises `display: table[-cell];` to give us control over the vertical
+ * alignments of the text and image. csswizardry.com/2013/05/the-flag-object
+ */
+.flag {
+  display: table;
+  width: 100%;
+}
+  .flag__img,
+  .flag__body {
+    display: table-cell;
+    vertical-align: middle;
+  }
+  .flag__img {
+    padding-right: $base-spacing-unit;
+
+    > img {
+      display: block;
+      max-width: none;
+    }
+  }
+  .flag__body {
+    width: 100%;
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+.flag--rev {
+
+  > .flag__img {
+    padding-right: 0;
+    padding-left: $base-spacing-unit;
+  }
+}
+
+.flag--top {
+
+  > .flag__img,
+  > .flag__body {
+    vertical-align: top;
+  }
+}
+
+.flag--bottom {
+
+  > .flag__img,
+  > .flag__body {
+    vertical-align: bottom;
+  }
+}

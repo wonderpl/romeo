@@ -1,0 +1,179 @@
+/**
+ * _objects.button.scss
+ */
+/**
+ * A simple button object.
+ */
+
+/**
+ * 1. Allow us to style box model properties.
+ * 2. Line different sized buttons up a little nicer.
+ * 3. Make buttons inherit font styles (often necessary when styling `input`s as
+ *    buttons).
+ * 4. Reset/normalize some styles.
+ * 5. Force all button-styled elements to appear clickable.
+ * 6. Fixes odd inner spacing in IE7.
+ * 7. Subtract the border size from the padding value so that buttons do not
+ *    grow larger as we add borders.
+ */
+.btn {
+  display: inline-block; /* [1] */
+  overflow: visible; /* [6] */
+  vertical-align: middle; /* [2]*/
+  margin: 0; /* [4] */
+  padding: $half-spacing-unit $base-spacing-unit; /* [7] */
+  font: inherit; /* [3] */
+  text-align: center; /* [4] */
+  background-color: transparent;
+  border: none; /* [4] */
+  cursor: pointer; /* [5] */
+
+  &,
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    text-decoration: none; /* [4] */
+    color: $swatch-four;
+  }
+}
+
+/**
+ * Fix a Firefox bug whereby `input type="submit"` gains 2px extra padding.
+ */
+.btn::-moz-focus-inner,
+.btn::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/**
+ * Small buttons
+ */
+.btn--small { padding: ($half-spacing-unit / 2) $half-spacing-unit; }
+
+/**
+ * Large buttons
+ */
+.btn--large { padding: $base-spacing-unit  ($base-spacing-unit * 2); }
+
+/**
+ * Full-width buttons
+ */
+.btn--full {
+  width: 100%;
+  /**
+   * Remove paddings so that widths and paddings don’t conflict.
+   */
+  padding-right: 0;
+  padding-left:  0;
+}
+
+
+.btn--round { border-radius: 3px !important; }
+
+/**
+ * Round-ended buttons.
+ *
+ * 1. Overly-large value to ensure the radius rounds the whole end of the
+ *    button.
+ */
+.btn--pill {
+  padding: $half-spacing-unit ($half-spacing-unit + ($half-spacing-unit / 2 ));
+  border-radius: 40px !important;
+}
+
+/**
+ * Circular buttons.
+ *
+ * 1. Use a full-value percentage number to ensure all rounded corners are 
+ *    equal which will result in a circle if all sides are equal.
+ */
+.btn--blob {
+  border-radius: 100%;
+}
+
+.btn--positive {
+  color: $swatch-five;
+  border-color: rgba($swatch-five,0.6);
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: $swatch-five;
+    border-color: rgba($swatch-five,1);
+  }
+}
+
+.btn--disabled {
+
+  &,
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    opacity: 0.3;
+    border: 1px solid rgba($swatch-four, 0.8);
+    cursor: not-allowed;
+  }
+}
+
+.btn-center {
+  display: block;
+  width: 100%;
+  text-align: center;
+
+  > .btn {
+    margin-right: auto;
+    margin-left:  auto;
+  }
+}
+
+.btn-group {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+
+  > .btn + .btn {
+    margin-left: -0.375em;
+  }
+
+  > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+    border-top-right-radius:    0;
+    border-bottom-right-radius: 0;
+  }
+  > .btn:last-child:not(:first-child),
+  > .dropdown-toggle:not(:first-child) {
+    border-top-left-radius:    0;
+    border-bottom-left-radius: 0;
+  }
+  > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+    border-radius: 0;
+  }
+
+  > .btn--active {
+    color: #fff;
+    background-color: rgba($swatch-four, 0.8);
+  }
+}
+
+.btn--utility {
+  padding: 8px 16px;
+  font-variant: small-caps;
+  font-weight: 600;
+  font-size: 0.75em;
+  text-transform: lowercase;
+  letter-spacing: 0.1em;
+  background-color: lighten($swatch-two,20%);
+  border: none;
+
+  & > .icon { color: $swatch-three; }
+}
+.btn--utility--active {
+  background-color: $swatch-five;
+
+  &,
+  &:hover,
+  & > .icon { color: $swatch-one; }
+}

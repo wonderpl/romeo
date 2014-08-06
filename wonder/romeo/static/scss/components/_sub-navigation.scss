@@ -22,7 +22,7 @@
 
 
 .sub-navigation {
-  background: $white;
+  background: $swatch-one;
   z-index: 10;
 }
 
@@ -37,9 +37,9 @@
   left: 50%;
   margin: 0 0 0 -480px;
   width: 960px;
-  -webkit-box-shadow: 0 4px 4px -4px $grey;
-     -moz-box-shadow: 0 4px 4px -4px $grey;
-          box-shadow: 0 4px 4px -4px $grey;
+  -webkit-box-shadow: 0 4px 4px -4px $swatch-four;
+     -moz-box-shadow: 0 4px 4px -4px $swatch-four;
+          box-shadow: 0 4px 4px -4px $swatch-four;
 }
 
 .sub-navigation--mirror,

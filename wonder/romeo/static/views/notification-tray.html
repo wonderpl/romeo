@@ -1,43 +1,11 @@
-<section class="notice-tray">
-
-  <!--
-   - The outer container is used to fix the content into position. It has
-   - a positioning class which fixes it to the top.
-   -->
-
-
-  <ul>
-   <li ng-repeat="notification in notifications">
-
-
-    <!--
-     - the actual notice uses extended classes to apply styles to it, as do the
-     - animations. An animation class will need to be applied to it for it to
-     - flip out when dismissing.
-     -->
-    <div class="notice animate  animate--flip  animate--flip-in-x notice--{{ notification.status }}" ng-class="{ 'notice--active' : notification.active }">
-
-      <!--
-       - Use a flag object to easily position elements vertically in the middle.
-       -->
-      <div class="flag  flag--rev">
-
-        <div class="flag__body">
-          <b>{{ notification.title }}</b>:<br>
-          {{ notification.message }}
-        </div>
-
-        <div class="flag__img">
-          <!--
-           - clicking this will dismiss the notice. TODO: needs styling yet.
-           -->
-          <a class="notice__dismiss" ng-click="removeNotification(notification.id); notification.active = false">
-            <i class="icon  icon--cross"></i>
-          </a>
-        </div>
+<ul class="nav  nav--stacked  notice-tray">
+  <li ng-repeat="notification in notifications" class="notice  notice--{{ notification.status }}  animate  animate--flippable" ng-class="{ 'notice--active' : notification.active, 'animation--flipInX' : notification.show,  'animation--flipOutX' : notification.hide}">
+    <div class="flag  flag--rev">
+      <div class="flag__body">
+        <p><b>{{ notification.title }}</b>:<br>
+        {{ notification.message }}</p>
       </div>
-
-    </li>
-  </ul>
-
-</section>
+      <div class="flag__img"><a class="notice__dismiss" ng-click="removeNotification(notification.id); notification.show = false; notification.hide = true"><i class="icon  icon--cross"></a></i></div>
+    </div>
+  </li>
+</ul>

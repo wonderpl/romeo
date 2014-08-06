@@ -1,337 +1,1737 @@
-/* line 17, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+@charset "UTF-8";
+/**
+ * _settings.defaults.scss
+ */
+/**
+ * _tools.fuctions.scss
+ */
+/**
+ * _tools.mixins.scss
+ */
+/**
+ * Apply leading based on font-size
+ * e.g. for 18px — '@include font-size($base-font-size * 1.125);'
+ */
+/**
+ * Breakpoint mixin
+ * e.g. `@include breakpoint(bp-one) { ... }`
+ */
+/**
+ * Easily add vendor prefixes
+ * e.g. `@include vendor(border-radius, 4px);`
+ * !NOTE: Autoprefixer now depricates this mixin
+ */
+/**
+ * Easily add vendor prefixed animations
+ * e.g. `.foo{ @include vendor(animation, shrink 3s); }`
+ * !NOTE: Autoprefixer now depricates this mixin
+ */
+/**
+ * Easily generate positioning classes
+ */
+/**
+ * _generic.normalize.scss
+ */
+/*! normalize.css v3.0.0 | MIT License | git.io/normalize */
+/**
+ * 1. Set default font family to sans-serif.
+ * 2. Prevent iOS text size adjust after orientation change, without disabling
+ *    user zoom.
+ */
+/* line 12, ../../scss/_generic/_generic.normalize.scss */
+html {
+  font-family: sans-serif;
+  /* 1 */
+  -ms-text-size-adjust: 100%;
+  /* 2 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */
+}
+
+/**
+ * Remove default margin.
+ */
+/* line 22, ../../scss/_generic/_generic.normalize.scss */
+body {
   margin: 0;
-  padding: 0;
-  border: 0;
-  font: inherit;
-  font-size: 100%;
+}
+
+/* HTML5 display definitions
+   ========================================================================== */
+/**
+ * Correct `block` display not defined in IE 8/9.
+ */
+/* line 44, ../../scss/_generic/_generic.normalize.scss */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+  display: block;
+}
+
+/**
+ * 1. Correct `inline-block` display not defined in IE 8/9.
+ * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
+ */
+/* line 56, ../../scss/_generic/_generic.normalize.scss */
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  /* 1 */
+  vertical-align: baseline;
+  /* 2 */
+}
+
+/**
+ * Prevent modern browsers from displaying `audio` without controls.
+ * Remove excess height in iOS 5 devices.
+ */
+/* line 66, ../../scss/_generic/_generic.normalize.scss */
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+/**
+ * Address `[hidden]` styling not present in IE 8/9.
+ * Hide the `template` element in IE, Safari, and Firefox < 22.
+ */
+/* line 77, ../../scss/_generic/_generic.normalize.scss */
+[hidden],
+template {
+  display: none;
+}
+
+/* Links
+   ========================================================================== */
+/**
+ * Remove the gray background color from active links in IE 10.
+ */
+/* line 88, ../../scss/_generic/_generic.normalize.scss */
+a {
+  background: transparent;
+}
+
+/**
+ * Improve readability when focused and also mouse hovered in all browsers.
+ */
+/* line 97, ../../scss/_generic/_generic.normalize.scss */
+a:active,
+a:hover {
+  outline: 0;
+}
+
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * Address styling not present in IE 8/9, Safari 5, and Chrome.
+ */
+/* line 108, ../../scss/_generic/_generic.normalize.scss */
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+
+/**
+ * Address style set to `bolder` in Firefox 4+, Safari 5, and Chrome.
+ */
+/* line 117, ../../scss/_generic/_generic.normalize.scss */
+b,
+strong {
+  font-weight: bold;
+}
+
+/**
+ * Address styling not present in Safari 5 and Chrome.
+ */
+/* line 125, ../../scss/_generic/_generic.normalize.scss */
+dfn {
+  font-style: italic;
+}
+
+/**
+ * Address variable `h1` font-size and margin within `section` and `article`
+ * contexts in Firefox 4+, Safari 5, and Chrome.
+ */
+/* line 134, ../../scss/_generic/_generic.normalize.scss */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+/**
+ * Address styling not present in IE 8/9.
+ */
+/* line 143, ../../scss/_generic/_generic.normalize.scss */
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+/**
+ * Address inconsistent and variable font size in all browsers.
+ */
+/* line 152, ../../scss/_generic/_generic.normalize.scss */
+small {
+  font-size: 80%;
+}
+
+/**
+ * Prevent `sub` and `sup` affecting `line-height` in all browsers.
+ */
+/* line 161, ../../scss/_generic/_generic.normalize.scss */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-html {
-  line-height: 1;
+/* line 168, ../../scss/_generic/_generic.normalize.scss */
+sup {
+  top: -0.5em;
 }
 
-/* line 24, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-ol, ul {
-  list-style: none;
+/* line 172, ../../scss/_generic/_generic.normalize.scss */
+sub {
+  bottom: -0.25em;
 }
 
-/* line 26, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* Embedded content
+   ========================================================================== */
+/**
+ * Remove border when inside `a` element in IE 8/9.
+ */
+/* line 183, ../../scss/_generic/_generic.normalize.scss */
+img {
+  border: 0;
+}
+
+/**
+ * Correct overflow displayed oddly in IE 9.
+ */
+/* line 191, ../../scss/_generic/_generic.normalize.scss */
+svg:not(:root) {
+  overflow: hidden;
+}
+
+/* Grouping content
+   ========================================================================== */
+/**
+ * Address margin not present in IE 8/9 and Safari 5.
+ */
+/* line 202, ../../scss/_generic/_generic.normalize.scss */
+figure {
+  margin: 1em 40px;
+}
+
+/**
+ * Address differences between Firefox and other browsers.
+ */
+/* line 210, ../../scss/_generic/_generic.normalize.scss */
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+
+/**
+ * Contain overflow in all browsers.
+ */
+/* line 220, ../../scss/_generic/_generic.normalize.scss */
+pre {
+  overflow: auto;
+}
+
+/**
+ * Address odd `em`-unit font size rendering in all browsers.
+ */
+/* line 231, ../../scss/_generic/_generic.normalize.scss */
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+/* Forms
+   ========================================================================== */
+/**
+ * Known limitation: by default, Chrome and Safari on OS X allow very limited
+ * styling of `select`, unless a `border` property is set.
+ */
+/**
+ * 1. Correct color not being inherited.
+ *    Known issue: affects color of disabled elements.
+ * 2. Correct font properties not being inherited.
+ * 3. Address margins set differently in Firefox 4+, Safari 5, and Chrome.
+ */
+/* line 255, ../../scss/_generic/_generic.normalize.scss */
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit;
+  /* 1 */
+  font: inherit;
+  /* 2 */
+  margin: 0;
+  /* 3 */
+}
+
+/**
+ * Address `overflow` set to `hidden` in IE 8/9/10.
+ */
+/* line 265, ../../scss/_generic/_generic.normalize.scss */
+button {
+  overflow: visible;
+}
+
+/**
+ * Address inconsistent `text-transform` inheritance for `button` and `select`.
+ * All other form control elements do not inherit `text-transform` values.
+ * Correct `button` style inheritance in Firefox, IE 8+, and Opera
+ * Correct `select` style inheritance in Firefox.
+ */
+/* line 277, ../../scss/_generic/_generic.normalize.scss */
+button,
+select {
+  text-transform: none;
+}
+
+/**
+ * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+ *    and `video` controls.
+ * 2. Correct inability to style clickable `input` types in iOS.
+ * 3. Improve usability and consistency of cursor style between image-type
+ *    `input` and others.
+ */
+/* line 292, ../../scss/_generic/_generic.normalize.scss */
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  /* 2 */
+  cursor: pointer;
+  /* 3 */
+}
+
+/**
+ * Re-set default cursor for disabled elements.
+ */
+/* line 302, ../../scss/_generic/_generic.normalize.scss */
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+/**
+ * Remove inner padding and border in Firefox 4+.
+ */
+/* line 311, ../../scss/_generic/_generic.normalize.scss */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/**
+ * Address Firefox 4+ setting `line-height` on `input` using `!important` in
+ * the UA stylesheet.
+ */
+/* line 321, ../../scss/_generic/_generic.normalize.scss */
+input {
+  line-height: normal;
+}
+
+/**
+ * It's recommended that you don't attempt to style these elements.
+ * Firefox's implementation doesn't respect box-sizing, padding, or width.
+ *
+ * 1. Address box sizing set to `content-box` in IE 8/9/10.
+ * 2. Remove excess padding in IE 8/9/10.
+ */
+/* line 334, ../../scss/_generic/_generic.normalize.scss */
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */
+}
+
+/**
+ * Fix the cursor style for Chrome's increment/decrement buttons. For certain
+ * `font-size` values of the `input`, it causes the cursor style of the
+ * decrement button to change from `default` to `text`.
+ */
+/* line 346, ../../scss/_generic/_generic.normalize.scss */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/**
+ * 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome.
+ * 2. Address `box-sizing` set to `border-box` in Safari 5 and Chrome
+ *    (include `-moz` to future-proof).
+ */
+/* line 356, ../../scss/_generic/_generic.normalize.scss */
+input[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  /* 2 */
+  box-sizing: content-box;
+}
+
+/**
+ * Remove inner padding and search cancel button in Safari and Chrome on OS X.
+ * Safari (but not Chrome) clips the cancel button when the search input has
+ * padding (and `textfield` appearance).
+ */
+/* line 370, ../../scss/_generic/_generic.normalize.scss */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/**
+ * Define consistent border, margin, and padding.
+ */
+/* line 378, ../../scss/_generic/_generic.normalize.scss */
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+
+/**
+ * 1. Correct `color` not being inherited in IE 8/9.
+ * 2. Remove padding so people aren't caught out if they zero out fieldsets.
+ */
+/* line 389, ../../scss/_generic/_generic.normalize.scss */
+legend {
+  border: 0;
+  /* 1 */
+  padding: 0;
+  /* 2 */
+}
+
+/**
+ * Remove default vertical scrollbar in IE 8/9.
+ */
+/* line 398, ../../scss/_generic/_generic.normalize.scss */
+textarea {
+  overflow: auto;
+}
+
+/**
+ * Don't inherit the `font-weight` (applied by a rule above).
+ * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.
+ */
+/* line 407, ../../scss/_generic/_generic.normalize.scss */
+optgroup {
+  font-weight: bold;
+}
+
+/* Tables
+   ========================================================================== */
+/**
+ * Remove most spacing between table cells.
+ */
+/* line 418, ../../scss/_generic/_generic.normalize.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-caption, th, td {
-  text-align: left;
-  font-weight: normal;
-  vertical-align: middle;
+/* line 424, ../../scss/_generic/_generic.normalize.scss */
+td,
+th {
+  padding: 0;
 }
 
-/* line 30, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-q, blockquote {
-  quotes: none;
+/**
+ * _generic.reset.scss
+ */
+/**
+ * 1. Strip out all margin and padding from specific elements.
+ */
+/* line 7, ../../scss/_generic/_generic.reset.scss */
+body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, dl, dd, ol, ul, form, fieldset, legend, table, th, td, caption, hr {
+  margin: 0;
+  /* [1] */
+  padding: 0;
+  /* [1] */
 }
-/* line 103, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-q:before, q:after, blockquote:before, blockquote:after {
+
+/**
+ * 1. Default all browser behaviour for abbreviated/definition elements to display
+ *    a help cursor.
+ */
+/* line 16, ../../scss/_generic/_generic.reset.scss */
+abbr[title], dfn[title] {
+  cursor: help;
+  /* [1] */
+}
+
+/**
+ * 1. Strip out all underlined text decoration from underline and inserted elements.
+ */
+/* line 23, ../../scss/_generic/_generic.reset.scss */
+u, ins {
+  text-decoration: none;
+  /* [1] */
+}
+
+/**
+ * 1. Add custom border-bottom for inserted elements, to make up for now underlined
+ *    text decoration.
+ */
+/* line 31, ../../scss/_generic/_generic.reset.scss */
+ins {
+  border-bottom: 1px solid;
+  /* [1] */
+}
+
+/**
+ * 1. Add an italic font style to alt attributes within images to make them look
+ *    nicer.
+ */
+/* line 39, ../../scss/_generic/_generic.reset.scss */
+img {
+  font-style: italic;
+  /* [1] */
+}
+
+/**
+ * 1. Help make form elements more click-able by displaying a pointer cursor
+ *    instead of a standard text cursor.
+ */
+/* line 47, ../../scss/_generic/_generic.reset.scss */
+input, textarea, button, select, option {
+  cursor: pointer;
+  /* [1] */
+}
+
+/**
+ * 1. normalise previous declaration by allowing the text cursor on
+ *    textual form elements.
+ */
+/* line 58, ../../scss/_generic/_generic.reset.scss */
+input[type="text"]:active,
+input[type="text"]:focus,
+textarea:active,
+textarea:focus {
+  cursor: text;
+  /* [1] */
+  outline: none;
+  /* [1] */
+}
+
+/**
+ * _generic.global-box-sizing.scss
+ */
+/**
+ * 1. blanket apply the correct box model across all elements.
+ */
+/* line 11, ../../scss/_generic/_generic.box-sizing.scss */
+*, *:before, *:after {
+  box-sizing: border-box;
+  /* [1] */
+}
+
+/**
+ * _generic.clearfix.scss
+ */
+/**
+ * Apply a new micro clearfix to elements by '@extend'ing the class
+ * rather than littering '.cf' classes across the markup.
+ * 1. 
+ * 2. 
+ * 3.
+ */
+/* line 13, ../../scss/_generic/_generic.clearfix.scss */
+.cf:after, .nav:after, .media:after, .split:after, .wrapper:after, .page-header:after, .notice-tray:after, .configurable-layout:after, .organise-video-list__list-control-label:after, .organise-video-delete:after, .video-thumb-container:after {
   content: "";
-  content: none;
+  /* [1] */
+  display: table;
+  /* [2] */
+  clear: both;
+  /* [3] */
 }
 
-/* line 32, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-a img {
-  border: none;
+/**
+ * _generic.shared
+ */
+/**
+ * 1. Apply vertical rhythm to elements in one fell swoop with margin-bottom.
+ *    This is much more manageable then having padding and margin do the same
+ *    thing.
+ */
+/* line 15, ../../scss/_generic/_generic.shared.scss */
+h1, h2, h3, h4, h5, h6,
+ul, ol, dl,
+blockquote, p, address,
+table,
+fieldset,
+figure,
+pre {
+  margin-bottom: 24px;
+  /* [1] */
 }
 
-/* line 116, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-0.12.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+/**
+ * 1. indent lists and definition lists by a common value.
+ */
+/* line 23, ../../scss/_generic/_generic.shared.scss */
+ol, ul,
+dt {
+  margin-left: 24px;
+  /* [1] */
+}
+
+/**
+ * _base.page.scss
+ */
+/* line 5, ../../scss/_base/_base.page.scss */
+html,
+body {
+  height: 100%;
+}
+
+/* line 8, ../../scss/_base/_base.page.scss */
+html {
+  font-weight: 400;
+  font-size: 1em;
+  line-height: 1.5;
+  font-family: "FreightText Pro", Georgia, Cambria, "Times New Roman", Times, serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* line 15, ../../scss/_base/_base.page.scss */
+body {
+  color: #70797b;
+  background-color: white;
+}
+
+/**
+ * _base.images.scss
+ */
+/* line 4, ../../scss/_base/_base.images.scss */
+img {
+  max-width: 100%;
+  height: auto;
+  font-style: italic;
+}
+/* line 10, ../../scss/_base/_base.images.scss */
+img[width], img[height] {
+  max-width: none;
+}
+
+/* line 15, ../../scss/_base/_base.images.scss */
+.img--full,
+.avatar > .avatar__img,
+.page-logo__img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: cover;
+}
+
+/**
+ * _objects.nav.scss
+ */
+/* line 4, ../../scss/_objects/_objects.nav.scss */
+.nav {
+  list-style: none;
+  margin-left: 0;
+}
+/* line 12, ../../scss/_objects/_objects.nav.scss */
+.nav > li,
+.nav > li > a {
+  display: inline-block;
+}
+
+/* line 20, ../../scss/_objects/_objects.nav.scss */
+.nav--stacked > li {
+  display: list-item;
+}
+/* line 23, ../../scss/_objects/_objects.nav.scss */
+.nav--stacked > li > a {
   display: block;
 }
 
-/*!
-========== BASE
-*/
-/* line 1, ../../scss/base/project/_fonts.scss */
-.sans-serif, .large-font, .video-medium h2, .organise-collection__title, .medium-font, .video-medium h3, .regular-font--sans, .organise-navigation, .small-font, .organise-collection__visibility, .organise-video-list__select, .organise-video__title, .quote-font, .video-medium blockquote, html,
-body {
-  font-family: 'proxima-nova', sans-serif;
+/* line 29, ../../scss/_objects/_objects.nav.scss */
+.nav--banner {
+  text-align: center;
 }
 
-/* line 5, ../../scss/base/project/_fonts.scss */
-.serif, .regular-font, .video-medium p, .video-medium ul {
-  font-family: 'freight-text-pro', serif;
-}
-
-/* line 9, ../../scss/base/project/_fonts.scss */
-.large-font, .video-medium h2, .organise-collection__title {
-  font-size: 32px;
-  line-height: 39px;
-  color: black;
-}
-
-/* line 16, ../../scss/base/project/_fonts.scss */
-.medium-font, .video-medium h3 {
-  font-size: 24px;
-  line-height: 36px;
-  color: black;
-}
-
-/* line 23, ../../scss/base/project/_fonts.scss */
-.regular-font, .video-medium p, .video-medium ul {
-  font-size: 20px;
-  line-height: 29px;
-  color: black;
-}
-
-/* line 30, ../../scss/base/project/_fonts.scss */
-.regular-font--sans, .organise-navigation {
-  font-size: 20px;
-  line-height: 29px;
-  color: black;
-}
-
-/* line 37, ../../scss/base/project/_fonts.scss */
-.small-font, .organise-collection__visibility, .organise-video-list__select, .organise-video__title {
-  font-size: 16px;
-  line-height: 24px;
-  color: black;
-}
-
-/* line 44, ../../scss/base/project/_fonts.scss */
-.quote-font, .video-medium blockquote {
-  font-size: 32px;
-  line-height: 39px;
-  color: black;
-}
-
-/* line 5, ../../scss/base/project/_globals.scss */
-*, *:before, *:after {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-/* line 11, ../../scss/base/project/_globals.scss */
-html,
-body {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* line 20, ../../scss/base/project/_globals.scss */
-.container {
-  max-width: 960px;
-  margin: 0 auto;
-}
-
-/* line 26, ../../scss/base/project/_globals.scss */
-.container--wide,
-.container--mirror {
-  max-width: 1920px;
-  margin: 0 auto;
-}
-
-/* line 33, ../../scss/base/project/_globals.scss */
-a,
-a:hover,
-a:visited {
-  text-decoration: none;
-}
-
-/* line 37, ../../scss/base/project/_globals.scss */
-h2 {
-  margin: 0;
-  font-size: 2.6em;
-  line-height: 1.2;
-}
-
-/* line 43, ../../scss/base/project/_globals.scss */
-h3 {
-  margin: 0 0 0.5em;
-  font-size: 2.375em;
-  line-height: 1.5;
-}
-
-/* line 49, ../../scss/base/project/_globals.scss */
-:focus {
-  outline-color: transparent;
-  outline-style: none;
-}
-
-/* line 54, ../../scss/base/project/_globals.scss */
-textarea {
-  margin: 0;
-  padding: 0;
-}
-
-/* line 63, ../../scss/base/project/_globals.scss */
-::-webkit-input-placeholder,
-:-moz-placeholder,
-::-moz-placeholder,
-:-ms-input-placeholder {
-  color: #b7bcbd;
-  font-size: 1em;
-}
-
-/* line 68, ../../scss/base/project/_globals.scss */
-strong {
-  font-weight: 800;
-}
-
-/* line 1, ../../scss/base/project/_helpers.scss */
-.hide-text {
-  color: transparent !important;
-  white-space: nowrap;
+/* line 31, ../../scss/_objects/_objects.nav.scss */
+.nav--block {
   overflow: hidden;
-}
-
-/* line 7, ../../scss/base/project/_helpers.scss */
-.inline-space-fix {
-  margin-right: -4px;
-}
-
-/* line 11, ../../scss/base/project/_helpers.scss */
-.no-padding {
-  padding: 0;
-}
-
-/* line 15, ../../scss/base/project/_helpers.scss */
-.clear-float-container {
-  overflow: auto;
-  width: 100%;
-}
-
-/* line 20, ../../scss/base/project/_helpers.scss */
-.push-bottom {
-  margin-bottom: 1em;
-}
-
-/* line 24, ../../scss/base/project/_helpers.scss */
-.truncate, .organise-video__title {
-  max-width: 100%;
-  overflow: hidden;
+  line-height: 1;
+  /**
+   * Remove whitespace caused by `inline-block`.
+   */
+  font-family: nospace;
   white-space: nowrap;
-  text-overflow: ellipsis;
+}
+/* line 40, ../../scss/_objects/_objects.nav.scss */
+.nav--block > li {
+  font-family: "FreightText Pro", Georgia, Cambria, "Times New Roman", Times, serif;
+}
+/* line 43, ../../scss/_objects/_objects.nav.scss */
+.nav--block > li > a {
+  padding: 12px;
 }
 
-/* line 31, ../../scss/base/project/_helpers.scss */
-.truncate--two, .organise-video__title {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  max-height: 48px;
-  white-space: normal;
-  -webkit-line-clamp: 2;
-}
-
-/* line 39, ../../scss/base/project/_helpers.scss */
-.truncate--three {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  max-height: 72px;
-  white-space: normal;
-  -webkit-line-clamp: 3;
-}
-
-/* line 47, ../../scss/base/project/_helpers.scss */
-.truncate--four {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  max-height: 96px;
-  white-space: normal;
-  webkit-line-clamp: 4;
-}
-
-/**
- * clearfix.scss
- */
-/* line 6, ../../scss/base/project/_clearfix.scss */
-.cf:after, .split:after, .nav:after, .notice-tray:after, .configurable-layout:after, .page-header:after, .organise-video-list__list-control-label:after, .organise-video-delete:after, .video-thumb-container:after {
-  content: "";
+/* line 49, ../../scss/_objects/_objects.nav.scss */
+.nav--fit {
   display: table;
-  clear: both;
+  width: 100%;
+}
+/* line 53, ../../scss/_objects/_objects.nav.scss */
+.nav--fit > li {
+  display: table-cell;
+}
+/* line 56, ../../scss/_objects/_objects.nav.scss */
+.nav--fit > li > a {
+  display: block;
 }
 
-/* line 1, ../../scss/base/utils/_helpers.scss */
-.no-selection, .button__component, .video-preview__previous-image-link, .video-preview__next-image-link, .video-extended-controls__indicator {
-  -webkit-user-select: none;
-  /* webkit (safari, chrome) browsers */
-  -moz-user-select: none;
-  /* mozilla browsers */
-  -khtml-user-select: none;
-  /* webkit (konqueror) browsers */
-  -ms-user-select: none;
-  /* IE10+ */
+/* line 66, ../../scss/_objects/_objects.nav.scss */
+.nav--keywords > li:after {
+  content: "\002C" "\00A0";
+}
+/* line 69, ../../scss/_objects/_objects.nav.scss */
+.nav--keywords > li:last-child:after {
+  display: none;
+}
+/* line 73, ../../scss/_objects/_objects.nav.scss */
+.nav--keywords > li[data-ornament]:after {
+  content: "attr(data-ornament)";
+}
+/* line 76, ../../scss/_objects/_objects.nav.scss */
+.nav--keywords > li[data-ornament]:last-child:after {
+  display: none;
 }
 
-/* line 8, ../../scss/base/utils/_helpers.scss */
-.enable-hardware-acceleration, .video-preview__available-images, .video-extended-controls__section {
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
+/* line 86, ../../scss/_objects/_objects.nav.scss */
+.nav--spaced > li + .nav--spaced > li {
+  margin-top: 24px;
 }
 
 /**
- * `@include vendor(border-radius, 4px);`
+ * _object.media.scss
  */
 /**
- * `.foo{ @include vendor(animation, shrink 3s); }`
+ * Place any image- and text-like content side-by-side, as per:
+ * stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code
  */
-/*!
-========== COMPONENTS
-*/
+/* line 8, ../../scss/_objects/_objects.media.scss */
+.media {
+  display: block;
+}
+
+/* line 13, ../../scss/_objects/_objects.media.scss */
+.media__img {
+  float: left;
+  margin-right: 24px;
+}
+/* line 17, ../../scss/_objects/_objects.media.scss */
+.media__img > img {
+  display: block;
+}
+
+/* line 22, ../../scss/_objects/_objects.media.scss */
+.media__body {
+  overflow: hidden;
+}
+/* line 25, ../../scss/_objects/_objects.media.scss */
+.media__body > :last-child {
+  margin-bottom: 0;
+}
+
+/* line 32, ../../scss/_objects/_objects.media.scss */
+.media--rev > .media__img {
+  float: right;
+  margin-right: 0;
+  margin-left: 24px;
+}
+
 /**
- * _partials.animation.scss
+ * _object.flag.scss
  */
-/* line 4, ../../scss/components/_animation.scss */
+/**
+ * The flag object is a design pattern similar to the media object, however it
+ * utilises `display: table[-cell];` to give us control over the vertical
+ * alignments of the text and image. csswizardry.com/2013/05/the-flag-object
+ */
+/* line 9, ../../scss/_objects/_objects.flag.scss */
+.flag {
+  display: table;
+  width: 100%;
+}
+
+/* line 14, ../../scss/_objects/_objects.flag.scss */
+.flag__img,
+.flag__body {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+/* line 18, ../../scss/_objects/_objects.flag.scss */
+.flag__img {
+  padding-right: 24px;
+}
+/* line 21, ../../scss/_objects/_objects.flag.scss */
+.flag__img > img {
+  display: block;
+  max-width: none;
+}
+
+/* line 26, ../../scss/_objects/_objects.flag.scss */
+.flag__body {
+  width: 100%;
+}
+/* line 29, ../../scss/_objects/_objects.flag.scss */
+.flag__body > :last-child {
+  margin-bottom: 0;
+}
+
+/* line 36, ../../scss/_objects/_objects.flag.scss */
+.flag--rev > .flag__img {
+  padding-right: 0;
+  padding-left: 24px;
+}
+
+/* line 45, ../../scss/_objects/_objects.flag.scss */
+.flag--top > .flag__img,
+.flag--top > .flag__body {
+  vertical-align: top;
+}
+
+/* line 53, ../../scss/_objects/_objects.flag.scss */
+.flag--bottom > .flag__img,
+.flag--bottom > .flag__body {
+  vertical-align: bottom;
+}
+
+/**
+ * _object.split.scss
+ */
+/* line 4, ../../scss/_objects/_objects.split.scss */
+.split {
+  text-align: right;
+  list-style: none;
+  margin-left: 0;
+}
+/* line 10, ../../scss/_objects/_objects.split.scss */
+.split > .split__title {
+  text-align: left;
+  float: left;
+  clear: left;
+}
+
+/**
+ * .icons.scss
+ */
+/**
+ * The icon module uses private-area encoded characters to avoid problems
+ * with screen readers.
+ */
+/**
+ * 1. Allow us to style box model properties.
+ * 2. Line icons up in the middle of content.
+ * 3. We want each icon to be 16x16, a standard size.
+ * 4. Move the icon down by a pixel to align to the baseline.
+ * 5. Reset/normalize some styles.
+ * 6. Align the icon in the centre of it's parent.
+ * 7. Inherit the colour from the parent container.
+ * 8. Apply some styles to get icons looking their best. See: https://icomoon.io/#docs/crisp
+ * 9. Don't allow any pointer events should the icons be clicked inside an anchor.
+ */
+/* line 19, ../../scss/_objects/_objects.icon.scss */
+.icon {
+  display: inline-block;
+  /* [1] */
+  vertical-align: middle;
+  /* [2] */
+  width: 1em;
+  /* [3] */
+  height: 1em;
+  /* [3] */
+  position: relative;
+  /* [4] */
+  top: -0.0625em;
+  /* [4] */
+  font-weight: normal;
+  /* [5] */
+  font-style: normal;
+  /* [5] */
+  font-size: 16px;
+  /* [3] */
+  line-height: 1;
+  /* [5] */
+  font-family: "icon-font";
+  text-align: center;
+  /* [6] */
+  color: inherit;
+  /* [7] */
+  -webkit-font-smoothing: antialiased;
+  /* [8] */
+  -moz-osx-font-smoothing: grayscale;
+  /* [8] */
+  pointer-events: none;
+  /* [9] */
+  /**
+   *
+   */
+  /**
+   * 1. Because icons are like design flourishes, they shouldn't 
+   *    exist in the markup, and therefore be rendered in style.
+   * 2. Do not allow Apple's VoiceOver to read any of the contents
+   *    in the pseudo elements.
+   * 3. Utilise opentype features to allow sharper rendering of icons.
+   */
+}
+/* line 47, ../../scss/_objects/_objects.icon.scss */
+.icon:before {
+  content: "";
+  /* [1] */
+  speak: none;
+  /* [2] */
+  text-rendering: optimizeLegibility;
+  /* [2] */
+}
+
+/* line 54, ../../scss/_objects/_objects.icon.scss */
+.icon--exit:before {
+  content: "\e600";
+}
+
+/* line 55, ../../scss/_objects/_objects.icon.scss */
+.icon--group:before {
+  content: "\e601";
+}
+
+/* line 56, ../../scss/_objects/_objects.icon.scss */
+.icon--outbound:before {
+  content: "\e602";
+}
+
+/* line 57, ../../scss/_objects/_objects.icon.scss */
+.icon--split-horizontal:before {
+  content: "\e603";
+}
+
+/* line 58, ../../scss/_objects/_objects.icon.scss */
+.icon--split-vertical-alt:before {
+  content: "\e604";
+}
+
+/* line 59, ../../scss/_objects/_objects.icon.scss */
+.icon--split-vertical:before {
+  content: "\e605";
+}
+
+/* line 60, ../../scss/_objects/_objects.icon.scss */
+.icon--code:before {
+  content: "\e606";
+}
+
+/* line 61, ../../scss/_objects/_objects.icon.scss */
+.icon--color-picker:before {
+  content: "\e607";
+}
+
+/* line 62, ../../scss/_objects/_objects.icon.scss */
+.icon--facebook:before {
+  content: "\e608";
+}
+
+/* line 63, ../../scss/_objects/_objects.icon.scss */
+.icon--twitter:before {
+  content: "\e609";
+}
+
+/* line 64, ../../scss/_objects/_objects.icon.scss */
+.icon--air-play:before {
+  content: "\e60a";
+}
+
+/* line 65, ../../scss/_objects/_objects.icon.scss */
+.icon--align-center:before {
+  content: "\e60b";
+}
+
+/* line 66, ../../scss/_objects/_objects.icon.scss */
+.icon--align-justify:before {
+  content: "\e60c";
+}
+
+/* line 67, ../../scss/_objects/_objects.icon.scss */
+.icon--align-left:before {
+  content: "\e60d";
+}
+
+/* line 68, ../../scss/_objects/_objects.icon.scss */
+.icon--align-right:before {
+  content: "\e60e";
+}
+
+/* line 69, ../../scss/_objects/_objects.icon.scss */
+.icon--alt:before {
+  content: "\e60f";
+}
+
+/* line 70, ../../scss/_objects/_objects.icon.scss */
+.icon--anchor:before {
+  content: "\e610";
+}
+
+/* line 71, ../../scss/_objects/_objects.icon.scss */
+.icon--archive:before {
+  content: "\e611";
+}
+
+/* line 72, ../../scss/_objects/_objects.icon.scss */
+.icon--arrow-down:before {
+  content: "\e612";
+}
+
+/* line 73, ../../scss/_objects/_objects.icon.scss */
+.icon--arrow-left:before {
+  content: "\e613";
+}
+
+/* line 74, ../../scss/_objects/_objects.icon.scss */
+.icon--arrow-right:before {
+  content: "\e614";
+}
+
+/* line 75, ../../scss/_objects/_objects.icon.scss */
+.icon--arrow-up:before {
+  content: "\e615";
+}
+
+/* line 76, ../../scss/_objects/_objects.icon.scss */
+.icon--bag:before {
+  content: "\e616";
+}
+
+/* line 77, ../../scss/_objects/_objects.icon.scss */
+.icon--ban:before {
+  content: "\e617";
+}
+
+/* line 78, ../../scss/_objects/_objects.icon.scss */
+.icon--bar-graph-2:before {
+  content: "\e618";
+}
+
+/* line 79, ../../scss/_objects/_objects.icon.scss */
+.icon--bar-graph:before {
+  content: "\e619";
+}
+
+/* line 80, ../../scss/_objects/_objects.icon.scss */
+.icon--battery:before {
+  content: "\e61a";
+}
+
+/* line 81, ../../scss/_objects/_objects.icon.scss */
+.icon--bell:before {
+  content: "\e61b";
+}
+
+/* line 82, ../../scss/_objects/_objects.icon.scss */
+.icon--book:before {
+  content: "\e61c";
+}
+
+/* line 83, ../../scss/_objects/_objects.icon.scss */
+.icon--box:before {
+  content: "\e61d";
+}
+
+/* line 84, ../../scss/_objects/_objects.icon.scss */
+.icon--briefcase:before {
+  content: "\e61e";
+}
+
+/* line 85, ../../scss/_objects/_objects.icon.scss */
+.icon--camera:before {
+  content: "\e61f";
+}
+
+/* line 86, ../../scss/_objects/_objects.icon.scss */
+.icon--check:before {
+  content: "\e620";
+}
+
+/* line 87, ../../scss/_objects/_objects.icon.scss */
+.icon--circle-add:before {
+  content: "\e621";
+}
+
+/* line 88, ../../scss/_objects/_objects.icon.scss */
+.icon--circle-check:before {
+  content: "\e622";
+}
+
+/* line 89, ../../scss/_objects/_objects.icon.scss */
+.icon--circle-cross:before {
+  content: "\e623";
+}
+
+/* line 90, ../../scss/_objects/_objects.icon.scss */
+.icon--circle-minus:before {
+  content: "\e624";
+}
+
+/* line 91, ../../scss/_objects/_objects.icon.scss */
+.icon--clipboard:before {
+  content: "\e625";
+}
+
+/* line 92, ../../scss/_objects/_objects.icon.scss */
+.icon--clock:before {
+  content: "\e626";
+}
+
+/* line 93, ../../scss/_objects/_objects.icon.scss */
+.icon--cloud-download:before {
+  content: "\e627";
+}
+
+/* line 94, ../../scss/_objects/_objects.icon.scss */
+.icon--cloud-upload:before {
+  content: "\e628";
+}
+
+/* line 95, ../../scss/_objects/_objects.icon.scss */
+.icon--cloud:before {
+  content: "\e629";
+}
+
+/* line 96, ../../scss/_objects/_objects.icon.scss */
+.icon--cog:before {
+  content: "\e62a";
+}
+
+/* line 97, ../../scss/_objects/_objects.icon.scss */
+.icon--collection-add:before {
+  content: "\e62b";
+}
+
+/* line 98, ../../scss/_objects/_objects.icon.scss */
+.icon--collection-remove:before {
+  content: "\e62c";
+}
+
+/* line 99, ../../scss/_objects/_objects.icon.scss */
+.icon--collection:before {
+  content: "\e62d";
+}
+
+/* line 100, ../../scss/_objects/_objects.icon.scss */
+.icon--color-picker2:before {
+  content: "\e62e";
+}
+
+/* line 101, ../../scss/_objects/_objects.icon.scss */
+.icon--columns:before {
+  content: "\e62f";
+}
+
+/* line 102, ../../scss/_objects/_objects.icon.scss */
+.icon--command:before {
+  content: "\e630";
+}
+
+/* line 103, ../../scss/_objects/_objects.icon.scss */
+.icon--content-left:before {
+  content: "\e631";
+}
+
+/* line 104, ../../scss/_objects/_objects.icon.scss */
+.icon--content-right:before {
+  content: "\e632";
+}
+
+/* line 105, ../../scss/_objects/_objects.icon.scss */
+.icon--contract:before {
+  content: "\e633";
+}
+
+/* line 106, ../../scss/_objects/_objects.icon.scss */
+.icon--cross:before {
+  content: "\e634";
+}
+
+/* line 107, ../../scss/_objects/_objects.icon.scss */
+.icon--delete:before {
+  content: "\e635";
+}
+
+/* line 108, ../../scss/_objects/_objects.icon.scss */
+.icon--disc:before {
+  content: "\e636";
+}
+
+/* line 109, ../../scss/_objects/_objects.icon.scss */
+.icon--download:before {
+  content: "\e637";
+}
+
+/* line 110, ../../scss/_objects/_objects.icon.scss */
+.icon--drop:before {
+  content: "\e638";
+}
+
+/* line 111, ../../scss/_objects/_objects.icon.scss */
+.icon--edit:before {
+  content: "\e639";
+}
+
+/* line 112, ../../scss/_objects/_objects.icon.scss */
+.icon--ellipsis:before {
+  content: "\e63a";
+}
+
+/* line 113, ../../scss/_objects/_objects.icon.scss */
+.icon--esc:before {
+  content: "\e63b";
+}
+
+/* line 114, ../../scss/_objects/_objects.icon.scss */
+.icon--expand:before {
+  content: "\e63c";
+}
+
+/* line 115, ../../scss/_objects/_objects.icon.scss */
+.icon--eye:before {
+  content: "\e63d";
+}
+
+/* line 116, ../../scss/_objects/_objects.icon.scss */
+.icon--fast-forward:before {
+  content: "\e63e";
+}
+
+/* line 117, ../../scss/_objects/_objects.icon.scss */
+.icon--file-add:before {
+  content: "\e63f";
+}
+
+/* line 118, ../../scss/_objects/_objects.icon.scss */
+.icon--file-subtract:before {
+  content: "\e640";
+}
+
+/* line 119, ../../scss/_objects/_objects.icon.scss */
+.icon--file:before {
+  content: "\e641";
+}
+
+/* line 120, ../../scss/_objects/_objects.icon.scss */
+.icon--flag:before {
+  content: "\e642";
+}
+
+/* line 121, ../../scss/_objects/_objects.icon.scss */
+.icon--folder:before {
+  content: "\e643";
+}
+
+/* line 122, ../../scss/_objects/_objects.icon.scss */
+.icon--full-screen:before {
+  content: "\e644";
+}
+
+/* line 123, ../../scss/_objects/_objects.icon.scss */
+.icon--globe:before {
+  content: "\e645";
+}
+
+/* line 124, ../../scss/_objects/_objects.icon.scss */
+.icon--grid-2:before {
+  content: "\e646";
+}
+
+/* line 125, ../../scss/_objects/_objects.icon.scss */
+.icon--grid:before {
+  content: "\e647";
+}
+
+/* line 126, ../../scss/_objects/_objects.icon.scss */
+.icon--head:before {
+  content: "\e648";
+}
+
+/* line 127, ../../scss/_objects/_objects.icon.scss */
+.icon--heart:before {
+  content: "\e649";
+}
+
+/* line 128, ../../scss/_objects/_objects.icon.scss */
+.icon--help:before {
+  content: "\e64a";
+}
+
+/* line 129, ../../scss/_objects/_objects.icon.scss */
+.icon--image:before {
+  content: "\e64b";
+}
+
+/* line 130, ../../scss/_objects/_objects.icon.scss */
+.icon--inbox:before {
+  content: "\e64c";
+}
+
+/* line 131, ../../scss/_objects/_objects.icon.scss */
+.icon--layers:before {
+  content: "\e64d";
+}
+
+/* line 132, ../../scss/_objects/_objects.icon.scss */
+.icon--layout:before {
+  content: "\e64e";
+}
+
+/* line 133, ../../scss/_objects/_objects.icon.scss */
+.icon--link:before {
+  content: "\e64f";
+}
+
+/* line 134, ../../scss/_objects/_objects.icon.scss */
+.icon--loader:before {
+  content: "\e650";
+}
+
+/* line 135, ../../scss/_objects/_objects.icon.scss */
+.icon--location-2:before {
+  content: "\e651";
+}
+
+/* line 136, ../../scss/_objects/_objects.icon.scss */
+.icon--location:before {
+  content: "\e652";
+}
+
+/* line 137, ../../scss/_objects/_objects.icon.scss */
+.icon--lock:before {
+  content: "\e653";
+}
+
+/* line 138, ../../scss/_objects/_objects.icon.scss */
+.icon--mail:before {
+  content: "\e654";
+}
+
+/* line 139, ../../scss/_objects/_objects.icon.scss */
+.icon--map:before {
+  content: "\e655";
+}
+
+/* line 140, ../../scss/_objects/_objects.icon.scss */
+.icon--marquee-add:before {
+  content: "\e656";
+}
+
+/* line 141, ../../scss/_objects/_objects.icon.scss */
+.icon--marquee-subtract:before {
+  content: "\e657";
+}
+
+/* line 142, ../../scss/_objects/_objects.icon.scss */
+.icon--marquee:before {
+  content: "\e658";
+}
+
+/* line 143, ../../scss/_objects/_objects.icon.scss */
+.icon--maximize:before {
+  content: "\e659";
+}
+
+/* line 144, ../../scss/_objects/_objects.icon.scss */
+.icon--menu:before {
+  content: "\e65a";
+}
+
+/* line 145, ../../scss/_objects/_objects.icon.scss */
+.icon--microphone:before {
+  content: "\e65b";
+}
+
+/* line 146, ../../scss/_objects/_objects.icon.scss */
+.icon--minimize:before {
+  content: "\e65c";
+}
+
+/* line 147, ../../scss/_objects/_objects.icon.scss */
+.icon--minus:before {
+  content: "\e65d";
+}
+
+/* line 148, ../../scss/_objects/_objects.icon.scss */
+.icon--monitor:before {
+  content: "\e65e";
+}
+
+/* line 149, ../../scss/_objects/_objects.icon.scss */
+.icon--moon:before {
+  content: "\e65f";
+}
+
+/* line 150, ../../scss/_objects/_objects.icon.scss */
+.icon--move:before {
+  content: "\e660";
+}
+
+/* line 151, ../../scss/_objects/_objects.icon.scss */
+.icon--mute:before {
+  content: "\e661";
+}
+
+/* line 152, ../../scss/_objects/_objects.icon.scss */
+.icon--open:before {
+  content: "\e662";
+}
+
+/* line 153, ../../scss/_objects/_objects.icon.scss */
+.icon--outbox:before {
+  content: "\e663";
+}
+
+/* line 154, ../../scss/_objects/_objects.icon.scss */
+.icon--paper-clip:before {
+  content: "\e664";
+}
+
+/* line 155, ../../scss/_objects/_objects.icon.scss */
+.icon--paper-stack:before {
+  content: "\e665";
+}
+
+/* line 156, ../../scss/_objects/_objects.icon.scss */
+.icon--paper:before {
+  content: "\e666";
+}
+
+/* line 157, ../../scss/_objects/_objects.icon.scss */
+.icon--paragraph:before {
+  content: "\e667";
+}
+
+/* line 158, ../../scss/_objects/_objects.icon.scss */
+.icon--pause:before {
+  content: "\e668";
+}
+
+/* line 159, ../../scss/_objects/_objects.icon.scss */
+.icon--pie-graph:before {
+  content: "\e669";
+}
+
+/* line 160, ../../scss/_objects/_objects.icon.scss */
+.icon--play:before {
+  content: "\e66a";
+}
+
+/* line 161, ../../scss/_objects/_objects.icon.scss */
+.icon--plus:before {
+  content: "\e66b";
+}
+
+/* line 162, ../../scss/_objects/_objects.icon.scss */
+.icon--power:before {
+  content: "\e66c";
+}
+
+/* line 163, ../../scss/_objects/_objects.icon.scss */
+.icon--printer:before {
+  content: "\e66d";
+}
+
+/* line 164, ../../scss/_objects/_objects.icon.scss */
+.icon--record:before {
+  content: "\e66e";
+}
+
+/* line 165, ../../scss/_objects/_objects.icon.scss */
+.icon--reload:before {
+  content: "\e66f";
+}
+
+/* line 166, ../../scss/_objects/_objects.icon.scss */
+.icon--repeat:before {
+  content: "\e670";
+}
+
+/* line 167, ../../scss/_objects/_objects.icon.scss */
+.icon--reply:before {
+  content: "\e671";
+}
+
+/* line 168, ../../scss/_objects/_objects.icon.scss */
+.icon--rewind:before {
+  content: "\e672";
+}
+
+/* line 169, ../../scss/_objects/_objects.icon.scss */
+.icon--ribbon:before {
+  content: "\e673";
+}
+
+/* line 170, ../../scss/_objects/_objects.icon.scss */
+.icon--search:before {
+  content: "\e674";
+}
+
+/* line 171, ../../scss/_objects/_objects.icon.scss */
+.icon--server:before {
+  content: "\e675";
+}
+
+/* line 172, ../../scss/_objects/_objects.icon.scss */
+.icon--share:before {
+  content: "\e676";
+}
+
+/* line 173, ../../scss/_objects/_objects.icon.scss */
+.icon--shuffle:before {
+  content: "\e677";
+}
+
+/* line 174, ../../scss/_objects/_objects.icon.scss */
+.icon--signal:before {
+  content: "\e678";
+}
+
+/* line 175, ../../scss/_objects/_objects.icon.scss */
+.icon--skip-back:before {
+  content: "\e679";
+}
+
+/* line 176, ../../scss/_objects/_objects.icon.scss */
+.icon--skip-forward:before {
+  content: "\e67a";
+}
+
+/* line 177, ../../scss/_objects/_objects.icon.scss */
+.icon--speech-bubble:before {
+  content: "\e67b";
+}
+
+/* line 178, ../../scss/_objects/_objects.icon.scss */
+.icon--square-add:before {
+  content: "\e67c";
+}
+
+/* line 179, ../../scss/_objects/_objects.icon.scss */
+.icon--square-check:before {
+  content: "\e67d";
+}
+
+/* line 180, ../../scss/_objects/_objects.icon.scss */
+.icon--square-cross:before {
+  content: "\e67e";
+}
+
+/* line 181, ../../scss/_objects/_objects.icon.scss */
+.icon--square-minus:before {
+  content: "\e67f";
+}
+
+/* line 182, ../../scss/_objects/_objects.icon.scss */
+.icon--stack-2:before {
+  content: "\e680";
+}
+
+/* line 183, ../../scss/_objects/_objects.icon.scss */
+.icon--stack:before {
+  content: "\e681";
+}
+
+/* line 184, ../../scss/_objects/_objects.icon.scss */
+.icon--star:before {
+  content: "\e682";
+}
+
+/* line 185, ../../scss/_objects/_objects.icon.scss */
+.icon--stop:before {
+  content: "\e683";
+}
+
+/* line 186, ../../scss/_objects/_objects.icon.scss */
+.icon--sun:before {
+  content: "\e684";
+}
+
+/* line 187, ../../scss/_objects/_objects.icon.scss */
+.icon--tag:before {
+  content: "\e685";
+}
+
+/* line 188, ../../scss/_objects/_objects.icon.scss */
+.icon--target:before {
+  content: "\e686";
+}
+
+/* line 189, ../../scss/_objects/_objects.icon.scss */
+.icon--thermometer:before {
+  content: "\e687";
+}
+
+/* line 190, ../../scss/_objects/_objects.icon.scss */
+.icon--toggle:before {
+  content: "\e688";
+}
+
+/* line 191, ../../scss/_objects/_objects.icon.scss */
+.icon--trash:before {
+  content: "\e689";
+}
+
+/* line 192, ../../scss/_objects/_objects.icon.scss */
+.icon--umbrella:before {
+  content: "\e68a";
+}
+
+/* line 193, ../../scss/_objects/_objects.icon.scss */
+.icon--unlock:before {
+  content: "\e68b";
+}
+
+/* line 194, ../../scss/_objects/_objects.icon.scss */
+.icon--upload:before {
+  content: "\e68c";
+}
+
+/* line 195, ../../scss/_objects/_objects.icon.scss */
+.icon--video:before {
+  content: "\e68d";
+}
+
+/* line 196, ../../scss/_objects/_objects.icon.scss */
+.icon--volume:before {
+  content: "\e68e";
+}
+
+/* line 197, ../../scss/_objects/_objects.icon.scss */
+.icon--warning-circle:before {
+  content: "\e68f";
+}
+
+/* line 198, ../../scss/_objects/_objects.icon.scss */
+.icon--watch:before {
+  content: "\e690";
+}
+
+/* line 199, ../../scss/_objects/_objects.icon.scss */
+.icon--zoom-in:before {
+  content: "\e691";
+}
+
+/* line 200, ../../scss/_objects/_objects.icon.scss */
+.icon--zoom-out:before {
+  content: "\e692";
+}
+
+/**
+ * By using standard multiples, we can ensure icons
+ * look great at these sizes.
+ */
+/* line 206, ../../scss/_objects/_objects.icon.scss */
+.icon--medium {
+  font-size: 24px;
+}
+
+/* line 207, ../../scss/_objects/_objects.icon.scss */
+.icon--large {
+  font-size: 32px;
+}
+
+/* line 208, ../../scss/_objects/_objects.icon.scss */
+.icon--huge {
+  font-size: 64px;
+}
+
+/* line 209, ../../scss/_objects/_objects.icon.scss */
+.icon--natural {
+  font-size: inherit;
+}
+
+/**
+ * _object.icon-text.scss
+ */
+/* line 6, ../../scss/_objects/_objects.icon-text.scss */
+.icon-text > .icon-text__icon {
+  margin-right: 6px;
+}
+
+/* line 13, ../../scss/_objects/_objects.icon-text.scss */
+.icon-text--rev > .icon-text__icon {
+  margin-left: 6px;
+}
+
+/**
+ * _components.animation.scss
+ */
+/* line 4, ../../scss/_components/_components.animations.scss */
 .animate {
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
-/* line 8, ../../scss/components/_animation.scss */
-.animate--infinite {
+/* line 10, ../../scss/_components/_components.animations.scss */
+.animate--loopable {
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
 }
 
-/* line 12, ../../scss/components/_animation.scss */
-.animate--flip {
+/* line 14, ../../scss/_components/_components.animations.scss */
+.animate--flippable {
   -webkit-backface-visibility: visible;
   backface-visibility: visible;
 }
 
-/**
- * flipInX
- */
-/* line 21, ../../scss/components/_animation.scss */
+/* line 20, ../../scss/_components/_components.animations.scss */
 .animate--flipInX {
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
   -webkit-animation-name: flipInX;
   animation-name: flipInX;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
 }
 
 @-webkit-keyframes flipInX {
-  /* line 28, ../../scss/components/_animation.scss */
+  /* line 27, ../../scss/_components/_components.animations.scss */
   0% {
     -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
     transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
@@ -340,7 +1740,7 @@ strong {
     opacity: 0;
   }
 
-  /* line 35, ../../scss/components/_animation.scss */
+  /* line 34, ../../scss/_components/_components.animations.scss */
   40% {
     -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
     transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
@@ -348,20 +1748,20 @@ strong {
     transition-timing-function: ease-in;
   }
 
-  /* line 41, ../../scss/components/_animation.scss */
+  /* line 40, ../../scss/_components/_components.animations.scss */
   60% {
     -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
     transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
     opacity: 1;
   }
 
-  /* line 46, ../../scss/components/_animation.scss */
+  /* line 45, ../../scss/_components/_components.animations.scss */
   80% {
     -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
     transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
   }
 
-  /* line 50, ../../scss/components/_animation.scss */
+  /* line 49, ../../scss/_components/_components.animations.scss */
   100% {
     -webkit-transform: perspective(400px);
     transform: perspective(400px);
@@ -369,7 +1769,7 @@ strong {
 }
 
 @keyframes flipInX {
-  /* line 56, ../../scss/components/_animation.scss */
+  /* line 55, ../../scss/_components/_components.animations.scss */
   0% {
     -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
     transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
@@ -378,7 +1778,7 @@ strong {
     opacity: 0;
   }
 
-  /* line 63, ../../scss/components/_animation.scss */
+  /* line 62, ../../scss/_components/_components.animations.scss */
   40% {
     -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
     transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
@@ -386,440 +1786,354 @@ strong {
     transition-timing-function: ease-in;
   }
 
-  /* line 69, ../../scss/components/_animation.scss */
+  /* line 68, ../../scss/_components/_components.animations.scss */
   60% {
     -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
     transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
     opacity: 1;
   }
 
-  /* line 74, ../../scss/components/_animation.scss */
+  /* line 73, ../../scss/_components/_components.animations.scss */
   80% {
     -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
     transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
   }
 
-  /* line 78, ../../scss/components/_animation.scss */
+  /* line 77, ../../scss/_components/_components.animations.scss */
   100% {
     -webkit-transform: perspective(400px);
     transform: perspective(400px);
   }
 }
 
-/* line 1, ../../scss/components/_buttons.scss */
-.button {
-  border: solid 1px #b7bcbd;
-  border-radius: 24px;
-  display: inline-block;
-  padding: 0.5em 1em;
-  color: #999999;
-  transition: border-color 0.3s ease-in-out;
-  cursor: pointer;
-  background: white;
-  font-family: proxima-nova, sans-serif;
-  font-size: 1em;
-  line-height: 16px;
+/* line 84, ../../scss/_components/_components.animations.scss */
+.animate--flipOutX {
+  -webkit-animation-name: flipOutX;
+  animation-name: flipOutX;
+  -webkit-animation-duration: 0.75s;
+  animation-duration: 0.75s;
 }
 
-/* line 15, ../../scss/components/_buttons.scss */
-.button:hover {
-  border-color: #70797b;
+@-webkit-keyframes flipOutX {
+  /* line 91, ../../scss/_components/_components.animations.scss */
+  0% {
+    -webkit-transform: perspective(400px);
+    transform: perspective(400px);
+  }
+
+  /* line 96, ../../scss/_components/_components.animations.scss */
+  30% {
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    opacity: 1;
+  }
+
+  /* line 102, ../../scss/_components/_components.animations.scss */
+  100% {
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    opacity: 0;
+  }
 }
 
-/* line 19, ../../scss/components/_buttons.scss */
-.button--primary {
-  color: #51b364;
-  border-color: #c8e6ce;
-}
+@keyframes flipOutX {
+  /* line 110, ../../scss/_components/_components.animations.scss */
+  0% {
+    -webkit-transform: perspective(400px);
+    -ms-transform: perspective(400px);
+    transform: perspective(400px);
+  }
 
-/* line 24, ../../scss/components/_buttons.scss */
-.button--primary:hover {
-  border-color: #51b364;
-}
+  /* line 116, ../../scss/_components/_components.animations.scss */
+  30% {
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    -ms-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    opacity: 1;
+  }
 
-/* line 28, ../../scss/components/_buttons.scss */
-.button--wide {
-  padding-left: 2em;
-  padding-right: 2em;
-}
-
-/* line 33, ../../scss/components/_buttons.scss */
-.button--right {
-  float: right;
-}
-
-/* line 37, ../../scss/components/_buttons.scss */
-.button--small {
-  padding: 0.5em;
-}
-
-/* line 41, ../../scss/components/_buttons.scss */
-.button--active {
-  transition: background-color 0.4s ease-in-out;
-  background: #70797b;
-  color: white;
-}
-
-/* line 47, ../../scss/components/_buttons.scss */
-.button--disabled {
-  border-color: #b7bcbd;
-  color: #b7bcbd;
-  cursor: not-allowed;
-}
-
-/* line 53, ../../scss/components/_buttons.scss */
-.button--disabled:hover {
-  border-color: #b7bcbd;
-}
-
-/* line 57, ../../scss/components/_buttons.scss */
-.button__component {
-  border-radius: 0;
-  cursor: pointer;
-}
-
-/* line 63, ../../scss/components/_buttons.scss */
-.button__component--left {
-  border-top-left-radius: 24px;
-  border-bottom-left-radius: 24px;
-  border-right-color: transparent;
-  font-weight: bold;
-}
-
-/* line 70, ../../scss/components/_buttons.scss */
-.button__component--right {
-  border-top-right-radius: 24px;
-  border-bottom-right-radius: 24px;
-  border-left-color: transparent;
-  font-weight: bold;
-}
-
-/* line 77, ../../scss/components/_buttons.scss */
-.button__component--input-container {
-  padding-top: 6px;
+  /* line 123, ../../scss/_components/_components.animations.scss */
+  100% {
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    -ms-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    opacity: 0;
+  }
 }
 
 /**
- * _objects.button.scss
+ * _components.avatars.scss
  */
-/* line 85, ../../scss/components/_buttons.scss */
-.btn {
-  display: inline-block;
-  overflow: visible;
-  vertical-align: middle;
-  margin: 0;
-  padding: 12px 24px;
-  font: inherit;
-  font-weight: 400;
-  font-size: 0.875em;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  text-align: center;
-  color: #70797b;
-  background-color: transparent;
-  border: 1px solid rgba(112, 121, 123, 0.5);
-  border-radius: 100px;
-  cursor: pointer;
-  -webkit-transition: border-color 0.3s ease-in-out;
-  -moz-transition: border-color 0.3s ease-in-out;
-  -ms-transition: border-color 0.3s ease-in-out;
-  -o-transition: border-color 0.3s ease-in-out;
-  transition: border-color 0.3s ease-in-out;
-}
-/* line 107, ../../scss/components/_buttons.scss */
-.btn, .btn:hover, .btn:active, .btn:focus, .btn:visited {
-  text-decoration: none;
-  color: #70797b;
-}
-/* line 112, ../../scss/components/_buttons.scss */
-.btn:hover {
-  border-color: rgba(112, 121, 123, 0.8);
-}
-/* line 114, ../../scss/components/_buttons.scss */
-.btn > * {
-  pointer-events: none;
-}
-
-/* line 117, ../../scss/components/_buttons.scss */
-.btn--small {
-  padding: 6px 12px;
-}
-
-/* line 118, ../../scss/components/_buttons.scss */
-.btn--large {
-  padding: 24px 48px;
-}
-
-/* line 120, ../../scss/components/_buttons.scss */
-.btn--full {
-  width: 100%;
-  padding-right: 0;
-  padding-left: 0;
-}
-
-/* line 126, ../../scss/components/_buttons.scss */
-.btn--round {
-  border-radius: 3px !important;
-}
-
-/* line 127, ../../scss/components/_buttons.scss */
-.btn--pill {
-  padding: 12px 18px;
-  border-radius: 40px !important;
-}
-
-/* line 131, ../../scss/components/_buttons.scss */
-.btn--blob {
-  border-radius: 100%;
-}
-
-/* line 135, ../../scss/components/_buttons.scss */
-.btn--positive {
-  color: #51b364;
-  border-color: rgba(81, 179, 100, 0.6);
-}
-/* line 142, ../../scss/components/_buttons.scss */
-.btn--positive:hover, .btn--positive:active, .btn--positive:focus, .btn--positive:visited {
-  color: #51b364;
-  border-color: #51b364;
-}
-
-/* line 154, ../../scss/components/_buttons.scss */
-.btn--disabled, .btn--disabled:hover, .btn--disabled:active, .btn--disabled:focus, .btn--disabled:visited {
-  opacity: 0.3;
-  border: 1px solid rgba(112, 121, 123, 0.8);
-  cursor: not-allowed;
-}
-
-/* line 161, ../../scss/components/_buttons.scss */
-.btn-center {
+/* line 4, ../../scss/_components/_components.avatars.scss */
+.avatar {
   display: block;
-  width: 100%;
+  width: 66px;
+  height: 66px;
+  overflow: hidden;
+  margin-left: -33px;
+  margin-bottom: 24px;
+  position: relative;
+  left: 50%;
   text-align: center;
+  background-clip: padding-box;
+  border-radius: 100%;
+  border: 1px solid #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.16), 0 2px 12px 1px rgba(0, 0, 0, 0.2);
 }
-/* line 166, ../../scss/components/_buttons.scss */
-.btn-center > .btn {
+/* line 20, ../../scss/_components/_components.avatars.scss */
+.avatar > .avatar__img {
+  display: block;
+  z-index: -1;
+  background-position: 50%;
+}
+
+/* line 28, ../../scss/_components/_components.avatars.scss */
+.avatar--small {
+  width: 33px;
+  height: 33px;
+  margin-left: -17px;
+}
+
+/* line 33, ../../scss/_components/_components.avatars.scss */
+.avatar--large {
+  width: 88px;
+  height: 88px;
+  margin-left: -44px;
+}
+
+/* line 38, ../../scss/_components/_components.avatars.scss */
+.avatar--huge {
+  width: 120px;
+  height: 120px;
+  margin-left: -60px;
+}
+
+/**
+ * _theme.structure.scss
+ */
+/* line 4, ../../scss/_theme/_theme.structure.scss */
+.wrapper {
   margin-right: auto;
   margin-left: auto;
+  padding-right: 24px;
+  padding-left: 24px;
+  position: relative;
 }
 
-/* line 172, ../../scss/components/_buttons.scss */
-.btn-group {
+/**
+ * _theme.page-header.scss
+ */
+/* line 4, ../../scss/_theme/_theme.page-header.scss */
+.page-header {
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid rgba(183, 188, 189, 0.5);
+}
+
+/* line 10, ../../scss/_theme/_theme.page-header.scss */
+.page-header--fixed {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+/**
+ * _theme.page-logo.scss
+ */
+/* line 4, ../../scss/_theme/_theme.page-logo.scss */
+.page-logo {
+  width: 48px;
+  height: 33px;
+  margin-top: 12px;
+  margin-right: 24px;
+  margin-bottom: 12px;
   position: relative;
+  float: left;
+}
+/* line 14, ../../scss/_theme/_theme.page-logo.scss */
+.page-logo, .page-logo:hover {
+  border-bottom: 0;
+}
+/* line 19, ../../scss/_theme/_theme.page-logo.scss */
+.page-logo,
+.page-logo > img {
+  display: block;
+}
+
+/* line 24, ../../scss/_theme/_theme.page-logo.scss */
+.page-logo__img {
+  background-image: url(/static/assets/img/wonder-logo-vertical-102x72.svg);
+}
+
+/**
+ * _theme.nav-menu.scss
+ */
+/* line 4, ../../scss/_theme/_theme.nav-menu.scss */
+.nav-menu {
+  margin-bottom: 0;
+  float: right;
+}
+/* line 8, ../../scss/_theme/_theme.nav-menu.scss */
+.nav-menu > li + li {
+  margin-left: 6px;
+}
+
+/* line 14, ../../scss/_theme/_theme.nav-menu.scss */
+.nav-menu__item > .avatar {
   display: inline-block;
   vertical-align: middle;
-}
-/* line 177, ../../scss/components/_buttons.scss */
-.btn-group > .btn + .btn {
-  margin-left: -0.375em;
-}
-/* line 181, ../../scss/components/_buttons.scss */
-.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-/* line 186, ../../scss/components/_buttons.scss */
-.btn-group > .btn:last-child:not(:first-child),
-.btn-group > .dropdown-toggle:not(:first-child) {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-/* line 190, ../../scss/components/_buttons.scss */
-.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {
-  border-radius: 0;
-}
-/* line 194, ../../scss/components/_buttons.scss */
-.btn-group > .btn--active {
-  color: #fff;
-  background-color: rgba(112, 121, 123, 0.8);
+  margin: 0;
+  position: relative;
+  left: auto;
+  z-index: 0;
 }
 
-/* line 200, ../../scss/components/_buttons.scss */
-.btn--utility {
-  padding: 8px 16px;
+/* line 23, ../../scss/_theme/_theme.nav-menu.scss */
+.nav-menu__link {
+  padding-right: 6px;
+  padding-left: 6px;
   font-variant: small-caps;
-  font-weight: 600;
-  font-size: 0.75em;
+  font-weight: bold;
+  line-height: 57px;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: lowercase;
   letter-spacing: 0.1em;
-  background-color: #eceeee;
+  color: #2e2e32;
+  text-decoration: none;
   border: none;
 }
-/* line 210, ../../scss/components/_buttons.scss */
-.btn--utility > .icon {
-  color: #2e2e32;
+
+/**
+ * _theme.footer-nav.scss
+ */
+/* line 4, ../../scss/_theme/_theme.footer-nav.scss */
+.footer-nav {
+  margin-bottom: 0;
+}
+/* line 7, ../../scss/_theme/_theme.footer-nav.scss */
+.footer-nav > li {
+  font-weight: 200;
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 2;
+  line-height: 3.9166666666666665;
+}
+/* line 12, ../../scss/_theme/_theme.footer-nav.scss */
+.footer-nav > li:last-child {
+  margin-left: 0;
+}
+/* line 15, ../../scss/_theme/_theme.footer-nav.scss */
+.footer-nav > li + li {
+  margin-left: 12px;
 }
 
-/* line 212, ../../scss/components/_buttons.scss */
-.btn--utility--active {
-  background-color: #51b364;
-}
-/* line 217, ../../scss/components/_buttons.scss */
-.btn--utility--active, .btn--utility--active:hover, .btn--utility--active > .icon {
-  color: white;
+/* line 18, ../../scss/_theme/_theme.footer-nav.scss */
+.footer-nav__link {
+  text-decoration: none;
+  border: none;
 }
 
-/*  Modal
-/* ======================================= */
-/* line 3, ../../scss/components/_modal.scss */
-#modal-bg {
-  display: block;
-  position: fixed;
+/**
+ * _theme.notices.scss
+ */
+/* line 4, ../../scss/_theme/_theme.notices.scss */
+.notice-tray {
   width: 100%;
-  height: 100%;
-  left: 0;
+  position: fixed;
   top: 0;
-  z-index: 100;
-  background: rgba(0, 0, 0, 0.7);
-  pointer-events: none;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-  opacity: 0;
-  -webkit-transition: all 0.3s ease-out;
-  -moz-transition: all 0.3s ease-out;
-  -o-transition: all 0.3s ease-out;
-  transition: all 0.3s ease-out;
-}
-/* line 16, ../../scss/components/_modal.scss */
-#modal-bg.show {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  opacity: 1;
+  left: 0;
+  z-index: 5001;
   pointer-events: auto;
-  cursor: pointer;
+}
+/* line 13, ../../scss/_theme/_theme.notices.scss */
+.notice-tray > .notice {
+  max-width: 50%;
+  margin-right: auto;
+  margin-left: auto;
+  position: absolute;
+  left: -9999px;
+  visibility: hidden;
+}
+/* line 21, ../../scss/_theme/_theme.notices.scss */
+.notice-tray > .notice:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+/* line 27, ../../scss/_theme/_theme.notices.scss */
+.notice-tray > .notice--active {
+  position: static;
+  visibility: visible;
+}
+/* line 31, ../../scss/_theme/_theme.notices.scss */
+.notice-tray > .notice--hide {
+  position: absolute;
+  left: -9999px;
+  visibility: hidden;
 }
 
-/* line 23, ../../scss/components/_modal.scss */
-#modal {
-  display: block;
-  position: fixed;
-  width: 520px;
-  left: 50%;
-  top: 50%;
-  background: white;
-  z-index: 101;
-  padding: 0px;
-  pointer-events: none;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-  opacity: 0;
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  -webkit-transition: all 0.3s ease-out;
-  -moz-transition: all 0.3s ease-out;
-  -o-transition: all 0.3s ease-out;
-  transition: all 0.3s ease-out;
-  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
+/* line 38, ../../scss/_theme/_theme.notices.scss */
+.notice {
+  margin-bottom: 24px;
+  padding: 12px 24px;
+  font-size: 0.875em;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
   border-radius: 3px;
 }
-/* line 39, ../../scss/components/_modal.scss */
-#modal .modal-content {
-  padding: 26px;
-  display: block;
-}
-/* line 44, ../../scss/components/_modal.scss */
-#modal h2 {
-  font-family: 'proxima-nova', sans-serif;
-  display: block;
-  margin: 0 0 2px 0;
-  padding: 18px 26px 18px 26px;
-  font-weight: 300;
-  border-bottom: 1px solid #e5e5e5;
-}
-/* line 54, ../../scss/components/_modal.scss */
-#modal label span {
-  float: right;
-  font-size: 12px;
-}
-/* line 58, ../../scss/components/_modal.scss */
-#modal label span a {
-  cursor: pointer;
-}
-/* line 64, ../../scss/components/_modal.scss */
-#modal .collection-list {
-  list-style-type: disc;
-  padding: 16px 0 0 20px;
-  font-size: 14px;
-}
-/* line 69, ../../scss/components/_modal.scss */
-#modal .collection-list li {
-  display: list-item;
-  margin: 0 0 8px 0;
-}
-/* line 74, ../../scss/components/_modal.scss */
-#modal .collection-list span {
-  font-size: 12px;
-}
-/* line 78, ../../scss/components/_modal.scss */
-#modal .collection-list a {
-  text-decoration: underline;
-  cursor: pointer;
-}
-/* line 84, ../../scss/components/_modal.scss */
-#modal.show {
-  pointer-events: auto;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  opacity: 1;
-}
-/* line 90, ../../scss/components/_modal.scss */
-#modal input[type=submit] {
-  display: block;
-  padding: 8px;
-  border: none;
-  outline: none;
-  color: white;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
-  font-size: 15px;
-  float: right;
-  cursor: pointer;
-}
-/* line 102, ../../scss/components/_modal.scss */
-#modal a.close-modal {
-  display: none;
-  position: absolute;
-  width: 22px;
-  height: 22px;
-  right: 12px;
-  top: 12px;
-  font-size: 22px;
-  cursor: pointer;
-  -webkit-transition: color 0.1s ease-out;
-  -moz-transition: color 0.1s ease-out;
-  -o-transition: color 0.1s ease-out;
-  transition: color 0.1s ease-out;
+/* line 45, ../../scss/_theme/_theme.notices.scss */
+.notice > :last-child {
+  margin-bottom: 0;
 }
 
-/* line 115, ../../scss/components/_modal.scss */
-.modal__close {
+/* line 49, ../../scss/_theme/_theme.notices.scss */
+.notice--full-page {
+  width: 100%;
+  height: 100%;
   position: absolute;
-  top: 0.5em;
-  right: 0.5em;
-  border: solid 2px #70797b;
-  border-radius: 50%;
-  color: #70797b;
-  font-weight: 800;
-  height: 1em;
-  width: 1em;
-  display: block;
-  text-align: center;
-  font-size: 1.5em;
-  line-height: 0.9;
-  cursor: pointer;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 5002;
+  border-radius: none !important;
+}
+
+/* line 61, ../../scss/_theme/_theme.notices.scss */
+.notice--success {
+  background-color: #9DCA5A;
+}
+
+/* line 62, ../../scss/_theme/_theme.notices.scss */
+.notice--error {
+  background-color: #D74E45;
+}
+
+/* line 63, ../../scss/_theme/_theme.notices.scss */
+.notice--warning {
+  background-color: #F09F5F;
+}
+
+/* line 64, ../../scss/_theme/_theme.notices.scss */
+.notice--info {
+  background-color: #5BB3C8;
+}
+
+/**
+ * _trump.hidden.scss
+ */
+/* line 7, ../../scss/_trumps/_trumps.hidden.scss */
+.accessibility,
+.is-hidden {
+  position: absolute;
+  left: -9999px;
+  visibility: hidden;
 }
 
 /* line 1, ../../scss/components/_video-player-config.scss */
 .video-player-config {
   padding: 1em 1em 2.5em 1em;
-  background: #999999;
+  background: #b7bcbd;
   background: rgba(255, 255, 255, 0.2);
 }
 
@@ -838,910 +2152,6 @@ strong {
 .video-player-config__hide-logo-checkbox {
   float: left;
   margin-right: 0.5em;
-}
-
-/**
- * .icons.scss
- */
-@font-face {
-  font-family: "icon-font";
-  src: url(/static/assets/fonts/icon/icon.eot);
-  src: url(/static/assets/fonts/icon/icon.eot?#ie) format("embedded-opentype"), url(/static/assets/fonts/icon/icon.woff) format("woff"), url(/static/assets/fonts/icon/icon.ttf) format("truetype"), url(/static/assets/fonts/icon/icon.svg#ios) format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-/* line 14, ../../scss/components/_icons.scss */
-.icon {
-  display: inline-block;
-  vertical-align: middle;
-  width: 1em;
-  height: 1em;
-  position: relative;
-  top: -0.0625em;
-  font-weight: normal;
-  font-style: normal;
-  font-size: 16px;
-  line-height: 1;
-  font-family: "icon-font";
-  text-align: center;
-  color: inherit;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  pointer-events: none;
-}
-/* line 32, ../../scss/components/_icons.scss */
-.icon:before {
-  content: "";
-  speak: none;
-  text-rendering: optimizeLegibility;
-}
-
-/* line 39, ../../scss/components/_icons.scss */
-.icon--exit:before {
-  content: "\e600";
-}
-
-/* line 40, ../../scss/components/_icons.scss */
-.icon--group:before {
-  content: "\e601";
-}
-
-/* line 41, ../../scss/components/_icons.scss */
-.icon--outbound:before {
-  content: "\e602";
-}
-
-/* line 42, ../../scss/components/_icons.scss */
-.icon--split-horizontal:before {
-  content: "\e603";
-}
-
-/* line 43, ../../scss/components/_icons.scss */
-.icon--split-vertical-alt:before {
-  content: "\e604";
-}
-
-/* line 44, ../../scss/components/_icons.scss */
-.icon--split-vertical:before {
-  content: "\e605";
-}
-
-/* line 45, ../../scss/components/_icons.scss */
-.icon--code:before {
-  content: "\e606";
-}
-
-/* line 46, ../../scss/components/_icons.scss */
-.icon--color-picker:before {
-  content: "\e607";
-}
-
-/* line 47, ../../scss/components/_icons.scss */
-.icon--facebook:before {
-  content: "\e608";
-}
-
-/* line 48, ../../scss/components/_icons.scss */
-.icon--twitter:before {
-  content: "\e609";
-}
-
-/* line 49, ../../scss/components/_icons.scss */
-.icon--air-play:before {
-  content: "\e60a";
-}
-
-/* line 50, ../../scss/components/_icons.scss */
-.icon--align-center:before {
-  content: "\e60b";
-}
-
-/* line 51, ../../scss/components/_icons.scss */
-.icon--align-justify:before {
-  content: "\e60c";
-}
-
-/* line 52, ../../scss/components/_icons.scss */
-.icon--align-left:before {
-  content: "\e60d";
-}
-
-/* line 53, ../../scss/components/_icons.scss */
-.icon--align-right:before {
-  content: "\e60e";
-}
-
-/* line 54, ../../scss/components/_icons.scss */
-.icon--alt:before {
-  content: "\e60f";
-}
-
-/* line 55, ../../scss/components/_icons.scss */
-.icon--anchor:before {
-  content: "\e610";
-}
-
-/* line 56, ../../scss/components/_icons.scss */
-.icon--archive:before {
-  content: "\e611";
-}
-
-/* line 57, ../../scss/components/_icons.scss */
-.icon--arrow-down:before {
-  content: "\e612";
-}
-
-/* line 58, ../../scss/components/_icons.scss */
-.icon--arrow-left:before {
-  content: "\e613";
-}
-
-/* line 59, ../../scss/components/_icons.scss */
-.icon--arrow-right:before {
-  content: "\e614";
-}
-
-/* line 60, ../../scss/components/_icons.scss */
-.icon--arrow-up:before {
-  content: "\e615";
-}
-
-/* line 61, ../../scss/components/_icons.scss */
-.icon--bag:before {
-  content: "\e616";
-}
-
-/* line 62, ../../scss/components/_icons.scss */
-.icon--ban:before {
-  content: "\e617";
-}
-
-/* line 63, ../../scss/components/_icons.scss */
-.icon--bar-graph-2:before {
-  content: "\e618";
-}
-
-/* line 64, ../../scss/components/_icons.scss */
-.icon--bar-graph:before {
-  content: "\e619";
-}
-
-/* line 65, ../../scss/components/_icons.scss */
-.icon--battery:before {
-  content: "\e61a";
-}
-
-/* line 66, ../../scss/components/_icons.scss */
-.icon--bell:before {
-  content: "\e61b";
-}
-
-/* line 67, ../../scss/components/_icons.scss */
-.icon--book:before {
-  content: "\e61c";
-}
-
-/* line 68, ../../scss/components/_icons.scss */
-.icon--box:before {
-  content: "\e61d";
-}
-
-/* line 69, ../../scss/components/_icons.scss */
-.icon--briefcase:before {
-  content: "\e61e";
-}
-
-/* line 70, ../../scss/components/_icons.scss */
-.icon--camera:before {
-  content: "\e61f";
-}
-
-/* line 71, ../../scss/components/_icons.scss */
-.icon--check:before {
-  content: "\e620";
-}
-
-/* line 72, ../../scss/components/_icons.scss */
-.icon--circle-add:before {
-  content: "\e621";
-}
-
-/* line 73, ../../scss/components/_icons.scss */
-.icon--circle-check:before {
-  content: "\e622";
-}
-
-/* line 74, ../../scss/components/_icons.scss */
-.icon--circle-cross:before {
-  content: "\e623";
-}
-
-/* line 75, ../../scss/components/_icons.scss */
-.icon--circle-minus:before {
-  content: "\e624";
-}
-
-/* line 76, ../../scss/components/_icons.scss */
-.icon--clipboard:before {
-  content: "\e625";
-}
-
-/* line 77, ../../scss/components/_icons.scss */
-.icon--clock:before {
-  content: "\e626";
-}
-
-/* line 78, ../../scss/components/_icons.scss */
-.icon--cloud-download:before {
-  content: "\e627";
-}
-
-/* line 79, ../../scss/components/_icons.scss */
-.icon--cloud-upload:before {
-  content: "\e628";
-}
-
-/* line 80, ../../scss/components/_icons.scss */
-.icon--cloud:before {
-  content: "\e629";
-}
-
-/* line 81, ../../scss/components/_icons.scss */
-.icon--cog:before {
-  content: "\e62a";
-}
-
-/* line 82, ../../scss/components/_icons.scss */
-.icon--collection-add:before {
-  content: "\e62b";
-}
-
-/* line 83, ../../scss/components/_icons.scss */
-.icon--collection-remove:before {
-  content: "\e62c";
-}
-
-/* line 84, ../../scss/components/_icons.scss */
-.icon--collection:before {
-  content: "\e62d";
-}
-
-/* line 85, ../../scss/components/_icons.scss */
-.icon--color-picker2:before {
-  content: "\e62e";
-}
-
-/* line 86, ../../scss/components/_icons.scss */
-.icon--columns:before {
-  content: "\e62f";
-}
-
-/* line 87, ../../scss/components/_icons.scss */
-.icon--command:before {
-  content: "\e630";
-}
-
-/* line 88, ../../scss/components/_icons.scss */
-.icon--content-left:before {
-  content: "\e631";
-}
-
-/* line 89, ../../scss/components/_icons.scss */
-.icon--content-right:before {
-  content: "\e632";
-}
-
-/* line 90, ../../scss/components/_icons.scss */
-.icon--contract:before {
-  content: "\e633";
-}
-
-/* line 91, ../../scss/components/_icons.scss */
-.icon--cross:before {
-  content: "\e634";
-}
-
-/* line 92, ../../scss/components/_icons.scss */
-.icon--delete:before {
-  content: "\e635";
-}
-
-/* line 93, ../../scss/components/_icons.scss */
-.icon--disc:before {
-  content: "\e636";
-}
-
-/* line 94, ../../scss/components/_icons.scss */
-.icon--download:before {
-  content: "\e637";
-}
-
-/* line 95, ../../scss/components/_icons.scss */
-.icon--drop:before {
-  content: "\e638";
-}
-
-/* line 96, ../../scss/components/_icons.scss */
-.icon--edit:before {
-  content: "\e639";
-}
-
-/* line 97, ../../scss/components/_icons.scss */
-.icon--ellipsis:before {
-  content: "\e63a";
-}
-
-/* line 98, ../../scss/components/_icons.scss */
-.icon--esc:before {
-  content: "\e63b";
-}
-
-/* line 99, ../../scss/components/_icons.scss */
-.icon--expand:before {
-  content: "\e63c";
-}
-
-/* line 100, ../../scss/components/_icons.scss */
-.icon--eye:before {
-  content: "\e63d";
-}
-
-/* line 101, ../../scss/components/_icons.scss */
-.icon--fast-forward:before {
-  content: "\e63e";
-}
-
-/* line 102, ../../scss/components/_icons.scss */
-.icon--file-add:before {
-  content: "\e63f";
-}
-
-/* line 103, ../../scss/components/_icons.scss */
-.icon--file-subtract:before {
-  content: "\e640";
-}
-
-/* line 104, ../../scss/components/_icons.scss */
-.icon--file:before {
-  content: "\e641";
-}
-
-/* line 105, ../../scss/components/_icons.scss */
-.icon--flag:before {
-  content: "\e642";
-}
-
-/* line 106, ../../scss/components/_icons.scss */
-.icon--folder:before {
-  content: "\e643";
-}
-
-/* line 107, ../../scss/components/_icons.scss */
-.icon--full-screen:before {
-  content: "\e644";
-}
-
-/* line 108, ../../scss/components/_icons.scss */
-.icon--globe:before {
-  content: "\e645";
-}
-
-/* line 109, ../../scss/components/_icons.scss */
-.icon--grid-2:before {
-  content: "\e646";
-}
-
-/* line 110, ../../scss/components/_icons.scss */
-.icon--grid:before {
-  content: "\e647";
-}
-
-/* line 111, ../../scss/components/_icons.scss */
-.icon--head:before {
-  content: "\e648";
-}
-
-/* line 112, ../../scss/components/_icons.scss */
-.icon--heart:before {
-  content: "\e649";
-}
-
-/* line 113, ../../scss/components/_icons.scss */
-.icon--help:before {
-  content: "\e64a";
-}
-
-/* line 114, ../../scss/components/_icons.scss */
-.icon--image:before {
-  content: "\e64b";
-}
-
-/* line 115, ../../scss/components/_icons.scss */
-.icon--inbox:before {
-  content: "\e64c";
-}
-
-/* line 116, ../../scss/components/_icons.scss */
-.icon--layers:before {
-  content: "\e64d";
-}
-
-/* line 117, ../../scss/components/_icons.scss */
-.icon--layout:before {
-  content: "\e64e";
-}
-
-/* line 118, ../../scss/components/_icons.scss */
-.icon--link:before {
-  content: "\e64f";
-}
-
-/* line 119, ../../scss/components/_icons.scss */
-.icon--loader:before {
-  content: "\e650";
-}
-
-/* line 120, ../../scss/components/_icons.scss */
-.icon--location-2:before {
-  content: "\e651";
-}
-
-/* line 121, ../../scss/components/_icons.scss */
-.icon--location:before {
-  content: "\e652";
-}
-
-/* line 122, ../../scss/components/_icons.scss */
-.icon--lock:before {
-  content: "\e653";
-}
-
-/* line 123, ../../scss/components/_icons.scss */
-.icon--mail:before {
-  content: "\e654";
-}
-
-/* line 124, ../../scss/components/_icons.scss */
-.icon--map:before {
-  content: "\e655";
-}
-
-/* line 125, ../../scss/components/_icons.scss */
-.icon--marquee-add:before {
-  content: "\e656";
-}
-
-/* line 126, ../../scss/components/_icons.scss */
-.icon--marquee-subtract:before {
-  content: "\e657";
-}
-
-/* line 127, ../../scss/components/_icons.scss */
-.icon--marquee:before {
-  content: "\e658";
-}
-
-/* line 128, ../../scss/components/_icons.scss */
-.icon--maximize:before {
-  content: "\e659";
-}
-
-/* line 129, ../../scss/components/_icons.scss */
-.icon--menu:before {
-  content: "\e65a";
-}
-
-/* line 130, ../../scss/components/_icons.scss */
-.icon--microphone:before {
-  content: "\e65b";
-}
-
-/* line 131, ../../scss/components/_icons.scss */
-.icon--minimize:before {
-  content: "\e65c";
-}
-
-/* line 132, ../../scss/components/_icons.scss */
-.icon--minus:before {
-  content: "\e65d";
-}
-
-/* line 133, ../../scss/components/_icons.scss */
-.icon--monitor:before {
-  content: "\e65e";
-}
-
-/* line 134, ../../scss/components/_icons.scss */
-.icon--moon:before {
-  content: "\e65f";
-}
-
-/* line 135, ../../scss/components/_icons.scss */
-.icon--move:before {
-  content: "\e660";
-}
-
-/* line 136, ../../scss/components/_icons.scss */
-.icon--mute:before {
-  content: "\e661";
-}
-
-/* line 137, ../../scss/components/_icons.scss */
-.icon--open:before {
-  content: "\e662";
-}
-
-/* line 138, ../../scss/components/_icons.scss */
-.icon--outbox:before {
-  content: "\e663";
-}
-
-/* line 139, ../../scss/components/_icons.scss */
-.icon--paper-clip:before {
-  content: "\e664";
-}
-
-/* line 140, ../../scss/components/_icons.scss */
-.icon--paper-stack:before {
-  content: "\e665";
-}
-
-/* line 141, ../../scss/components/_icons.scss */
-.icon--paper:before {
-  content: "\e666";
-}
-
-/* line 142, ../../scss/components/_icons.scss */
-.icon--paragraph:before {
-  content: "\e667";
-}
-
-/* line 143, ../../scss/components/_icons.scss */
-.icon--pause:before {
-  content: "\e668";
-}
-
-/* line 144, ../../scss/components/_icons.scss */
-.icon--pie-graph:before {
-  content: "\e669";
-}
-
-/* line 145, ../../scss/components/_icons.scss */
-.icon--play:before {
-  content: "\e66a";
-}
-
-/* line 146, ../../scss/components/_icons.scss */
-.icon--plus:before {
-  content: "\e66b";
-}
-
-/* line 147, ../../scss/components/_icons.scss */
-.icon--power:before {
-  content: "\e66c";
-}
-
-/* line 148, ../../scss/components/_icons.scss */
-.icon--printer:before {
-  content: "\e66d";
-}
-
-/* line 149, ../../scss/components/_icons.scss */
-.icon--record:before {
-  content: "\e66e";
-}
-
-/* line 150, ../../scss/components/_icons.scss */
-.icon--reload:before {
-  content: "\e66f";
-}
-
-/* line 151, ../../scss/components/_icons.scss */
-.icon--repeat:before {
-  content: "\e670";
-}
-
-/* line 152, ../../scss/components/_icons.scss */
-.icon--reply:before {
-  content: "\e671";
-}
-
-/* line 153, ../../scss/components/_icons.scss */
-.icon--rewind:before {
-  content: "\e672";
-}
-
-/* line 154, ../../scss/components/_icons.scss */
-.icon--ribbon:before {
-  content: "\e673";
-}
-
-/* line 155, ../../scss/components/_icons.scss */
-.icon--search:before {
-  content: "\e674";
-}
-
-/* line 156, ../../scss/components/_icons.scss */
-.icon--server:before {
-  content: "\e675";
-}
-
-/* line 157, ../../scss/components/_icons.scss */
-.icon--share:before {
-  content: "\e676";
-}
-
-/* line 158, ../../scss/components/_icons.scss */
-.icon--shuffle:before {
-  content: "\e677";
-}
-
-/* line 159, ../../scss/components/_icons.scss */
-.icon--signal:before {
-  content: "\e678";
-}
-
-/* line 160, ../../scss/components/_icons.scss */
-.icon--skip-back:before {
-  content: "\e679";
-}
-
-/* line 161, ../../scss/components/_icons.scss */
-.icon--skip-forward:before {
-  content: "\e67a";
-}
-
-/* line 162, ../../scss/components/_icons.scss */
-.icon--speech-bubble:before {
-  content: "\e67b";
-}
-
-/* line 163, ../../scss/components/_icons.scss */
-.icon--square-add:before {
-  content: "\e67c";
-}
-
-/* line 164, ../../scss/components/_icons.scss */
-.icon--square-check:before {
-  content: "\e67d";
-}
-
-/* line 165, ../../scss/components/_icons.scss */
-.icon--square-cross:before {
-  content: "\e67e";
-}
-
-/* line 166, ../../scss/components/_icons.scss */
-.icon--square-minus:before {
-  content: "\e67f";
-}
-
-/* line 167, ../../scss/components/_icons.scss */
-.icon--stack-2:before {
-  content: "\e680";
-}
-
-/* line 168, ../../scss/components/_icons.scss */
-.icon--stack:before {
-  content: "\e681";
-}
-
-/* line 169, ../../scss/components/_icons.scss */
-.icon--star:before {
-  content: "\e682";
-}
-
-/* line 170, ../../scss/components/_icons.scss */
-.icon--stop:before {
-  content: "\e683";
-}
-
-/* line 171, ../../scss/components/_icons.scss */
-.icon--sun:before {
-  content: "\e684";
-}
-
-/* line 172, ../../scss/components/_icons.scss */
-.icon--tag:before {
-  content: "\e685";
-}
-
-/* line 173, ../../scss/components/_icons.scss */
-.icon--target:before {
-  content: "\e686";
-}
-
-/* line 174, ../../scss/components/_icons.scss */
-.icon--thermometer:before {
-  content: "\e687";
-}
-
-/* line 175, ../../scss/components/_icons.scss */
-.icon--toggle:before {
-  content: "\e688";
-}
-
-/* line 176, ../../scss/components/_icons.scss */
-.icon--trash:before {
-  content: "\e689";
-}
-
-/* line 177, ../../scss/components/_icons.scss */
-.icon--umbrella:before {
-  content: "\e68a";
-}
-
-/* line 178, ../../scss/components/_icons.scss */
-.icon--unlock:before {
-  content: "\e68b";
-}
-
-/* line 179, ../../scss/components/_icons.scss */
-.icon--upload:before {
-  content: "\e68c";
-}
-
-/* line 180, ../../scss/components/_icons.scss */
-.icon--video:before {
-  content: "\e68d";
-}
-
-/* line 181, ../../scss/components/_icons.scss */
-.icon--volume:before {
-  content: "\e68e";
-}
-
-/* line 182, ../../scss/components/_icons.scss */
-.icon--warning-circle:before {
-  content: "\e68f";
-}
-
-/* line 183, ../../scss/components/_icons.scss */
-.icon--watch:before {
-  content: "\e690";
-}
-
-/* line 184, ../../scss/components/_icons.scss */
-.icon--zoom-in:before {
-  content: "\e691";
-}
-
-/* line 185, ../../scss/components/_icons.scss */
-.icon--zoom-out:before {
-  content: "\e692";
-}
-
-/* line 187, ../../scss/components/_icons.scss */
-.icon--medium {
-  font-size: 24px;
-}
-
-/* line 188, ../../scss/components/_icons.scss */
-.icon--large {
-  font-size: 32px;
-}
-
-/* line 189, ../../scss/components/_icons.scss */
-.icon--huge {
-  font-size: 64px;
-}
-
-/* line 190, ../../scss/components/_icons.scss */
-.icon--natural {
-  font-size: inherit;
-}
-
-/**
- * _object.split.scss
- */
-/* line 4, ../../scss/components/_split.scss */
-.split {
-  text-align: right;
-  list-style: none;
-  margin-left: 0;
-}
-/* line 10, ../../scss/components/_split.scss */
-.split > .split__title {
-  text-align: left;
-  float: left;
-  clear: left;
-}
-
-/**
- * _object.icon-text.scss
- */
-/* line 6, ../../scss/components/_icon-text.scss */
-.icon-text > .icon-text__icon {
-  margin-right: 6px;
-}
-
-/* line 13, ../../scss/components/_icon-text.scss */
-.icon-text--rev > .icon-text__icon {
-  margin-left: 6px;
-}
-
-/**
- * _objects.nav.scss
- */
-/* line 4, ../../scss/components/_nav.scss */
-.nav {
-  list-style: none;
-  margin-left: 0;
-}
-/* line 12, ../../scss/components/_nav.scss */
-.nav > li,
-.nav > li > a {
-  display: inline-block;
-}
-
-/* line 20, ../../scss/components/_nav.scss */
-.nav--stacked > li {
-  display: list-item;
-}
-/* line 23, ../../scss/components/_nav.scss */
-.nav--stacked > li > a {
-  display: block;
-}
-
-/* line 29, ../../scss/components/_nav.scss */
-.nav--banner {
-  text-align: center;
-}
-
-/* line 31, ../../scss/components/_nav.scss */
-.nav--block {
-  overflow: hidden;
-  line-height: 1;
-  /**
-   * Remove whitespace caused by `inline-block`.
-   */
-  font-family: nospace;
-  white-space: nowrap;
-}
-/* line 40, ../../scss/components/_nav.scss */
-.nav--block > li {
-  font-family: "FreightText Pro", Georgia, Cambria, "Times New Roman", Times, serif;
-}
-/* line 43, ../../scss/components/_nav.scss */
-.nav--block > li > a {
-  padding: 12px;
-}
-
-/* line 49, ../../scss/components/_nav.scss */
-.nav--fit {
-  display: table;
-  width: 100%;
-}
-/* line 53, ../../scss/components/_nav.scss */
-.nav--fit > li {
-  display: table-cell;
-}
-/* line 56, ../../scss/components/_nav.scss */
-.nav--fit > li > a {
-  display: block;
-}
-
-/* line 66, ../../scss/components/_nav.scss */
-.nav--keywords > li:after {
-  content: "\002C" "\00A0";
-}
-/* line 69, ../../scss/components/_nav.scss */
-.nav--keywords > li:last-child:after {
-  display: none;
-}
-/* line 73, ../../scss/components/_nav.scss */
-.nav--keywords > li[data-ornament]:after {
-  content: "attr(data-ornament)";
-}
-/* line 76, ../../scss/components/_nav.scss */
-.nav--keywords > li[data-ornament]:last-child:after {
-  display: none;
-}
-
-/* line 86, ../../scss/components/_nav.scss */
-.nav--spaced > li + .nav--spaced > li {
-  margin-top: 24px;
 }
 
 /* line 1, ../../scss/components/_sub-navigation.scss */
@@ -1783,9 +2193,9 @@ strong {
   left: 50%;
   margin: 0 0 0 -480px;
   width: 960px;
-  -webkit-box-shadow: 0 4px 4px -4px #999999;
-  -moz-box-shadow: 0 4px 4px -4px #999999;
-  box-shadow: 0 4px 4px -4px #999999;
+  -webkit-box-shadow: 0 4px 4px -4px #70797b;
+  -moz-box-shadow: 0 4px 4px -4px #70797b;
+  box-shadow: 0 4px 4px -4px #70797b;
 }
 
 /* line 46, ../../scss/components/_sub-navigation.scss */
@@ -1807,7 +2217,7 @@ strong {
 /* line 1, ../../scss/components/_video-player-config.scss */
 .video-player-config {
   padding: 1em 1em 2.5em 1em;
-  background: #999999;
+  background: #b7bcbd;
   background: rgba(255, 255, 255, 0.2);
 }
 
@@ -1983,196 +2393,6 @@ strong {
   transform: translateY(0);
 }
 
-/*  Modal
-/* ======================================= */
-/* line 3, ../../scss/components/_modal.scss */
-#modal-bg {
-  display: block;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  z-index: 100;
-  background: rgba(0, 0, 0, 0.7);
-  pointer-events: none;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-  opacity: 0;
-  -webkit-transition: all 0.3s ease-out;
-  -moz-transition: all 0.3s ease-out;
-  -o-transition: all 0.3s ease-out;
-  transition: all 0.3s ease-out;
-}
-/* line 16, ../../scss/components/_modal.scss */
-#modal-bg.show {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  opacity: 1;
-  pointer-events: auto;
-  cursor: pointer;
-}
-
-/* line 23, ../../scss/components/_modal.scss */
-#modal {
-  display: block;
-  position: fixed;
-  width: 520px;
-  left: 50%;
-  top: 50%;
-  background: white;
-  z-index: 101;
-  padding: 0px;
-  pointer-events: none;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-  opacity: 0;
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  -webkit-transition: all 0.3s ease-out;
-  -moz-transition: all 0.3s ease-out;
-  -o-transition: all 0.3s ease-out;
-  transition: all 0.3s ease-out;
-  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-}
-/* line 39, ../../scss/components/_modal.scss */
-#modal .modal-content {
-  padding: 26px;
-  display: block;
-}
-/* line 44, ../../scss/components/_modal.scss */
-#modal h2 {
-  font-family: 'proxima-nova', sans-serif;
-  display: block;
-  margin: 0 0 2px 0;
-  padding: 18px 26px 18px 26px;
-  font-weight: 300;
-  border-bottom: 1px solid #e5e5e5;
-}
-/* line 54, ../../scss/components/_modal.scss */
-#modal label span {
-  float: right;
-  font-size: 12px;
-}
-/* line 58, ../../scss/components/_modal.scss */
-#modal label span a {
-  cursor: pointer;
-}
-/* line 64, ../../scss/components/_modal.scss */
-#modal .collection-list {
-  list-style-type: disc;
-  padding: 16px 0 0 20px;
-  font-size: 14px;
-}
-/* line 69, ../../scss/components/_modal.scss */
-#modal .collection-list li {
-  display: list-item;
-  margin: 0 0 8px 0;
-}
-/* line 74, ../../scss/components/_modal.scss */
-#modal .collection-list span {
-  font-size: 12px;
-}
-/* line 78, ../../scss/components/_modal.scss */
-#modal .collection-list a {
-  text-decoration: underline;
-  cursor: pointer;
-}
-/* line 84, ../../scss/components/_modal.scss */
-#modal.show {
-  pointer-events: auto;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  opacity: 1;
-}
-/* line 90, ../../scss/components/_modal.scss */
-#modal input[type=submit] {
-  display: block;
-  padding: 8px;
-  border: none;
-  outline: none;
-  color: white;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
-  font-size: 15px;
-  float: right;
-  cursor: pointer;
-}
-/* line 102, ../../scss/components/_modal.scss */
-#modal a.close-modal {
-  display: none;
-  position: absolute;
-  width: 22px;
-  height: 22px;
-  right: 12px;
-  top: 12px;
-  font-size: 22px;
-  cursor: pointer;
-  -webkit-transition: color 0.1s ease-out;
-  -moz-transition: color 0.1s ease-out;
-  -o-transition: color 0.1s ease-out;
-  transition: color 0.1s ease-out;
-}
-
-/* line 115, ../../scss/components/_modal.scss */
-.modal__close {
-  position: absolute;
-  top: 0.5em;
-  right: 0.5em;
-  border: solid 2px #70797b;
-  border-radius: 50%;
-  color: #70797b;
-  font-weight: 800;
-  height: 1em;
-  width: 1em;
-  display: block;
-  text-align: center;
-  font-size: 1.5em;
-  line-height: 0.9;
-  cursor: pointer;
-}
-
-/**
- * _notice.scss
- */
-/* line 4, ../../scss/components/_notice.scss */
-.notice-tray {
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 5001;
-  pointer-events: auto;
-}
-/* line 13, ../../scss/components/_notice.scss */
-.notice-tray .notice {
-  max-width: 50%;
-  margin-right: auto;
-  margin-left: auto;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-
-/* line 22, ../../scss/components/_notice.scss */
-.notice {
-  padding: 12px 24px;
-  font-size: 0.875em;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  border-radius: 3px;
-}
-
-/*!
-========== SPECIFICS
-*/
 /* line 1, ../../scss/specifics/video/_layout-control.scss */
 .layout-control {
   position: fixed;
@@ -2184,9 +2404,9 @@ strong {
   margin: 0 auto;
   padding: 12px;
   z-index: 2;
-  -webkit-box-shadow: 0 -4px 4px -4px #999999;
-  -moz-box-shadow: 0 -4px 4px -4px #999999;
-  box-shadow: 0 -4px 4px -4px #999999;
+  -webkit-box-shadow: 0 -4px 4px -4px #70797b;
+  -moz-box-shadow: 0 -4px 4px -4px #70797b;
+  box-shadow: 0 -4px 4px -4px #70797b;
 }
 
 /* line 17, ../../scss/specifics/video/_layout-control.scss */
@@ -3672,89 +3892,6 @@ strong {
   padding: 1em;
 }
 
-/* line 1, ../../scss/specifics/header/_page-header.scss */
-.page-header {
-  position: relative;
-  text-align: right;
-  border-bottom: solid 1px #b7bcbd;
-  font-size: 0.8em;
-  font-weight: 800;
-  min-width: 960px;
-}
-
-/* line 12, ../../scss/specifics/header/_page-header.scss */
-.page-header--wide,
-.page-header--mirror {
-  padding-left: 12px;
-  padding-right: 12px;
-}
-
-/* line 17, ../../scss/specifics/header/_page-header.scss */
-.page-header__logo {
-  display: inline-block;
-  float: left;
-}
-
-/* line 22, ../../scss/specifics/header/_page-header.scss */
-.page-header__logo-link {
-  background-image: url("/static/assets/img/page-logo.png");
-  background-repeat: no-repeat;
-  display: block;
-  height: 27px;
-  width: 160px;
-  margin: 0.5em 0;
-}
-
-/* line 31, ../../scss/specifics/header/_page-header.scss */
-.page-header__link {
-  color: #70797b;
-}
-
-/* line 35, ../../scss/specifics/header/_page-header.scss */
-.page-header__link:hover {
-  text-decoration: underline;
-}
-
-/* line 39, ../../scss/specifics/header/_page-header.scss */
-.page-header__current-user {
-  display: inline-block;
-  vertical-align: middle;
-  padding: 0 1em;
-}
-
-/* line 44, ../../scss/specifics/header/_page-header.scss */
-.page-header__profile-link {
-  display: block;
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 33px;
-  width: 33px;
-  border-radius: 50%;
-  background-size: contain;
-}
-
-/* line 54, ../../scss/specifics/header/_page-header.scss */
-.page-header__navigation {
-  display: inline-block;
-}
-
-/* line 58, ../../scss/specifics/header/_page-header.scss */
-.page-header__navigation-item {
-  display: inline-block;
-  border-right: 1px solid #b7bcbd;
-}
-
-/* line 63, ../../scss/specifics/header/_page-header.scss */
-.page-header__navigation-item:first-child {
-  border-left: 1px solid #b7bcbd;
-}
-
-/* line 67, ../../scss/specifics/header/_page-header.scss */
-.page-header__navigation-link {
-  padding: 1em;
-  display: block;
-}
-
 /* line 1, ../../scss/specifics/footer/_page-footer.scss */
 .page-footer {
   position: fixed;
@@ -4349,7 +4486,3 @@ strong {
 .login-view__submit {
   vertical-align: top;
 }
-
-/*!
-========== VENDOR
-*/

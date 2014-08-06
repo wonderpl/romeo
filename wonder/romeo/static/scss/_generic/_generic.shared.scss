@@ -1,0 +1,25 @@
+/**
+ * _generic.shared
+ */
+/**
+ * 1. Apply vertical rhythm to elements in one fell swoop with margin-bottom.
+ *    This is much more manageable then having padding and margin do the same
+ *    thing.
+ */
+h1,h2,h3,h4,h5,h6,
+ul,ol,dl,
+blockquote,p,address,
+table,
+fieldset,
+figure,
+pre {
+  margin-bottom: $base-spacing-unit; /* [1] */
+}
+
+/**
+ * 1. indent lists and definition lists by a common value.
+ */
+ol,ul,
+dt {
+  margin-left: $base-spacing-unit; /* [1] */
+}
