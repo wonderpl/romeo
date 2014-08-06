@@ -27,7 +27,7 @@
     <td width="100%" valign="top" style="vertical-align:top;font-size:14px;line-height:1.5;text-align:left;color:#70797b;" class="media__body">
       <div style="font-weight:bold;font-size:16px;font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif;color:#2e2e32">
         {{ sender.name }}
-        <span style="padding-left:24px;font-size:12px;color:#b7bcbd;">{{ comments[0].date_added.strftime('%d/%m/%Y %M:%S') }}</span>
+        <span style="padding-left:24px;font-size:12px;color:#b7bcbd;">{{ comments[0].date_added.strftime('%d/%m/%Y %H:%M') }}</span>
       </div>
       {% if comments[0].timestamp %}<b>@{{ timestamp_fmt(comments[0].timestamp) }}</b> - {% endif %}{{ comments[0].comment }}<br><br>
     </td>
