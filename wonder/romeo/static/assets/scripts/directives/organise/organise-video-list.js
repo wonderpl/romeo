@@ -44,11 +44,13 @@ function OrganiseVideoList ($templateCache) {
       }
       $scope.$watch('videos', function (newValue, oldValue) {
         if (newValue !== oldValue) {
+          console.log('video data changed');
           $scope.filteredVideos = $scope.tag ? filterVideosByTagId($scope.tag.id) : newValue;
         }
       });
       $scope.$watch('tag', function (newValue, oldValue) {
         if (newValue !== oldValue) {
+          console.log('tag data changed');
           $scope.filteredVideos = newValue ? filterVideosByTagId(newValue.id) : $scope.videos;
         }
       });
