@@ -155,6 +155,15 @@ angular.module('RomeoApp.controllers')
           );
         });
       });
+      var tags = $scope.video.tags;
+      for (var i = 0; i < tags.length; ++i) {
+        if (tags[i].id == id) {
+          tags.splice(i, 1);
+          $scope.video.tags = tags;
+          console.dir(tags);
+          $scope.close();
+        }
+      }
     };
 
     $scope.hasTag = function (tagId) {
