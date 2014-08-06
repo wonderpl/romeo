@@ -911,29 +911,16 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('organise.html',
-<<<<<<< HEAD
-    "<section class=\"organise\" ng-controller=\"OrganiseCtrl\">\n" +
-    "\n" +
-    "  <organise-breadcrumb tag=\"tag\" filter=\"customFilterFunction\"></organise-breadcrumb>\n" +
-    "\n" +
-    "  <organise-navigation tags=\"tags\" current-tag=\"tag\" custom-filter-function=\"customFilterFunction\"></organise-navigation>\n" +
-    "\n" +
-    "  <div class=\"organise__main\">\n" +
-    "\n" +
-    "    <organise-collection ng-show=\"tag\" tag=\"tag\" is-edit=\"isEdit\"></organise-collection>\n" +
-=======
     "<main role=\"main\" class=\"page-content\" ng-controller=\"OrganiseCtrl\">\n" +
     "  <div class=\"wrapper  wrapper--fixed\">\n" +
->>>>>>> Add generates styles and scripts
-    "\n" +
+    "  <organise-breadcrumb tag=\"tag\" filter=\"customFilterFunction\"></organise-breadcrumb>\n" +
     "      <organise-navigation tags=\"tags\" current-tag=\"tag\" custom-filter-function=\"customFilterFunction\"></organise-navigation>\n" +
     "      <div class=\"organise__main\">\n" +
     "        <organise-collection ng-show=\"tag\" tag=\"tag\" is-edit=\"isEdit\"></organise-collection>  \n" +
     "        <organise-video-list videos=\"videos\" tag=\"tag\" custom-filter-function=\"customFilterFunction\"></organise-video-list>\n" +
     "      </div>\n" +
-    "\n" +
     "  </div>\n" +
-    "</main>"
+    "</main>\n"
   );
 
 
