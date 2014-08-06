@@ -4,15 +4,15 @@
     <a href="" class="page-logo  page-logo--header" ng-switch-when="true">
       <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="page-logo__img" alt="Wonder PL">
     </a>
-    <a href="/#/" class="page-logo  page-logo--header" ng-switch-default="">
+    <a href="#/" class="page-logo  page-logo--header" ng-switch-default="">
       <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="page-logo__img" alt="Wonder PL">
     </a>
     </ng-switch>
     <upload-progress upload="upload" ng-if="isLoggedIn"></upload-progress>
     <ul class="nav  nav-menu" ng-if="isLoggedIn">
-      <li class="nav-menu__item"><a href="/#/organise" class="nav-menu__link">Manage</a></li>
-      <li class="nav-menu__item"><a href="/#/video" class="nav-menu__link">Upload</a></li>
-      <li class="nav-menu__item"><a href="/#/profile" class="nav-menu__link  avatar  avatar--small"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="{{ user.name }}" class="avatar__img" ng-style="profile"></a></li>
+      <li class="nav-menu__item"><a href="#/organise" class="nav-menu__link">Manage</a></li>
+      <li class="nav-menu__item"><a href="#/video" class="nav-menu__link">Upload</a></li>
+      <li class="nav-menu__item"><a href="#/profile" class="nav-menu__link  avatar  avatar--small"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="{{ user.name }}" class="avatar__img" ng-style="profile"></a></li>
     </ul>
   </nav>
 </header>
