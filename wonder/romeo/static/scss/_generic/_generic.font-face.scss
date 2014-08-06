@@ -1,6 +1,9 @@
 /**
  * _generic.font-face.scss
  */
+/**
+ * iconfont
+ */
 @font-face {
   font-family: "icon-font";
   src: url(/static/assets/fonts/icon/icon.eot);
@@ -8,6 +11,19 @@
        url(/static/assets/fonts/icon/icon.woff) format("woff"),
        url(/static/assets/fonts/icon/icon.ttf) format("truetype"),
        url(/static/assets/fonts/icon/icon.svg#ios) format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/**
+ * nospace
+ */
+@font-face {
+  font-family: nospace;
+  src: url(/static/assets/fonts/nospace/nospace.eot);
+  src: url(/static/assets/fonts/nospace/nospace.eot?#ie) format("embedded-opentype"),
+       url(/static/assets/fonts/nospace/nospace.woff) format("woff"),
+       url(/static/assets/fonts/nospace/nospace.ttf) format("truetype");
   font-weight: normal;
   font-style: normal;
 }

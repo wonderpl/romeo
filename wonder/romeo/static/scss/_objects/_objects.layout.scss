@@ -1,0 +1,80 @@
+/**
+ * _object.layout.scss
+ */
+.layout {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-left: -$base-spacing-unit;
+  font-family: nospace;
+  @extend .cf;
+}
+.layout__item {
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+  padding-left: $base-spacing-unit;
+  font-family: $base-font-family;
+}
+
+.layout--middle {
+
+  > .layout__item {
+    vertical-align: middle;
+  }
+}
+.layout--bottom {
+
+  > .layout__item {
+    vertical-align: bottom;
+  }
+}
+
+.layout--rev {
+  direction: rtl;
+  text-align: right;
+
+  > .layout__item {
+    direction: ltr;
+    text-align: left;
+  }
+}
+
+.layout--flush {
+  margin-left: 0;
+
+  > .layout__item {
+    padding-left: 0;
+  }
+}
+
+.layout--right {
+  text-align: right;
+
+  > .layout__item {
+    vertical-align: left;
+  }
+}
+.layout--center {
+  text-align: center;
+
+  > .layout__item {
+    text-align: left;
+  }
+}
+
+.layout--fat {
+  margin-left: -$base-spacing-unit * 2;
+
+  > .layout__item {
+    padding-left: $base-spacing-unit * 2;
+  }
+}
+
+.layout--thin {
+  margin-left: -$half-spacing-unit * 2;
+
+  > .layout__item {
+    padding-left: $half-spacing-unit;
+  }
+}
