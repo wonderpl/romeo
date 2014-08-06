@@ -32,7 +32,7 @@ function VideoService (DataService, localStorageService, $rootScope, AuthService
 
   Video.getShareUrl = function (id, service) {
     var url = '/api/video/' + id + '/share_url?target=' + service;
-    return DataService.request({ url : url });
+    return DataService.request({ url : url, method: 'GET', headers : { 'X-HTTP-Status-Override' : 200 } });
   };
 
   /*
