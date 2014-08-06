@@ -115,7 +115,7 @@ angular.module('RomeoApp.controllers')
         TagService.getTags().then(function (data) {
           $scope.tags = data.tag.items;
           $scope.close();
-          redirect(tag.id);
+          redirect('/organise', true);
           loadTag(tag.id);
           $scope.$emit('notify', {
             status : 'success',
