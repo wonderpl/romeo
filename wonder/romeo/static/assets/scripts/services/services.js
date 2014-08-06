@@ -114,6 +114,7 @@
 
         $el_bg.bind('click', function (event) {
             modal.hide();
+            $route.reload();
         });
 
         /*

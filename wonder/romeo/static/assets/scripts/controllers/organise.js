@@ -1,11 +1,11 @@
 angular.module('RomeoApp.controllers')
-  .controller('OrganiseCtrl', ['$scope', 'TagService', '$location', '$modal', '$routeParams', 'VideoService',
-  function($scope, TagService, $location, $modal, $routeParams, VideoService) {
+  .controller('OrganiseCtrl', ['$scope', 'TagService', '$location', '$modal', '$routeParams', '$route', 'VideoService',
+  function($scope, TagService, $location, $modal, $routeParams, $route, VideoService) {
 
     'use strict';
 
     function refresh () {
-      redirect('/organise', true);
+      $route.reload();
     }
 
     function redirect (path, force) {
@@ -134,6 +134,7 @@ angular.module('RomeoApp.controllers')
       $modal.hide();
       $scope.collection = null;
       $scope.addVideoToCollection = false;
+      refresh();
     };
 
     $scope.hideAddRemoveAndShowCreateCollection = function () {
@@ -154,15 +155,6 @@ angular.module('RomeoApp.controllers')
           );
         });
       });
-      var tags = $scope.video.tags;
-      for (var i = 0; i < tags.length; ++i) {
-        if (tags[i].id == id) {
-          tags.splice(i, 1);
-          $scope.video.tags = tags;
-          console.dir(tags);
-          $scope.close();
-        }
-      }
     };
 
     $scope.hasTag = function (tagId) {
