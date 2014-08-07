@@ -28,8 +28,8 @@
     <p>Go and <a href="#/video">upload</a> a video.</p>
   </div>
 
-  <ul class="organise-video-list__videos" ng-show="filteredVideos">
-    <li class="organise-video-list__video"
+  <ul class="layout" ng-show="filteredVideos">
+    <li class="layout__item  one-third"
       ng-repeat="video in filteredVideos | orderBy: sortOption | filter : customFilter"
       ng-class="{
         'organise-video-list__video--last' : ($index + 1) % 3 == 0,

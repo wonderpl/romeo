@@ -22,7 +22,11 @@
       letter-spacing: 0.1em;
       color: $swatch-two;
     }
+    .browse-list__link {
+      cursor: pointer;
+    }
     .browse-list__link--active {
       color: $swatch-five;
       font-weight: bold;
+      cursor: auto;
     }
