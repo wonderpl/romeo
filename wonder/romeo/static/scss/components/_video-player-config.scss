@@ -1,17 +1,48 @@
 .video-player-config {
-  padding: 1em 1em 2.5em 1em;
-  background: $swatch-two;
-  background: rgba(255, 255, 255, 0.2);
+  background-color: #fff;
+  background-clip: content-box;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px 1px rgba(0, 0, 0, 0.12);
+
+  &:before,
+  &:after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    border: solid transparent;
+    pointer-events: none;
+  }
+  &:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-top-color: #fff;
+    border-width: 10px;
+    margin-left: -10px;
+  }
+  &:before {
+    border-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0.1);
+    border-width: 11px;
+    margin-left: -11px;
+  }
+
+  > .sp-container {
+    background-color: transparent !important;
+    border: none !important;
+  }
 }
 
 .video-player-config__hide-logo-label {
   display: block;
-  margin: 0.5em;
-  color: $swatch-one;
-  text-shadow: 0 0 10px black;
-  position: absolute;
+  padding-left: 0.5em;
+  margin-bottom: 0.5em;
+  position: relative;
   z-index: 10;
-  width: 10em;
+  width: 100%;
 }
 
 .video-player-config__hide-logo-checkbox {

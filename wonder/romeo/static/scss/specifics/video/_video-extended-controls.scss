@@ -48,6 +48,8 @@
 }
 
 .video-extended-controls__section-header {
+  font-family: $heading-font-family;
+  color: $swatch-three;
   cursor: pointer;
   margin-bottom: 24px;
 }

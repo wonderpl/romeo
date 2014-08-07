@@ -3,7 +3,19 @@
 }
 
 .video-view__title {
+  margin-bottom: $half-spacing-unit;
+  font-family: $heading-font-family;
+  font-size: 42px;
+  line-height: 58px;
+  color: $swatch-three;
+}
 
+.video-view__sub-title {
+  font-weight: 400;
+  font-size: 38px;
+  line-height: 46px;
+  font-family: $heading-font-family;
+  color: $swatch-four;
 }
 
 .video-view__title--small {

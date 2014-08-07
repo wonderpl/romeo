@@ -24,7 +24,7 @@ function MainController ($window, $scope, $rootScope, $timeout, $location, $moda
   $window.onbeforeunload = function () {
 
     return $scope.upload.status === 'uploading' ? 'Leaving this page will cancel your video upload.' : '';
-  }
+  };
 
   $rootScope.isUnique = function (arr, string) {
       if (arr.length === 0) {

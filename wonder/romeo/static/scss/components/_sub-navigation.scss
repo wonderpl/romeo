@@ -30,10 +30,10 @@
   z-index: 10;
 }
 
-.sub-navigation--column {
+/*.sub-navigation--column {
   width: 960px;
   margin: 0 auto;
-}
+}*/
 
 .sub-navigation--sticky {
   position: fixed;
@@ -44,14 +44,14 @@
   box-shadow: 0 4px 4px -4px $swatch-four;
 }
 
-.sub-navigation--mirror,
+/*.sub-navigation--mirror,
 .sub-navigation--wide {
   left: 0;
   margin: 0;
   width: 100%;
   padding-left: 12px;
   padding-right: 12px;
-}
+}*/
 
 .sub-navigation__placeholder {
   display: block;

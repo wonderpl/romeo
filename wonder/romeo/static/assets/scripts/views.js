@@ -1442,41 +1442,42 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('video-navigation.html',
     "<section class=\"sub-navigation video-view-control-panel sub-navigation--(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
+    "  <div class=\"wrapper\">\n" +
+    "    <video-download video-id=\"videoId\" ng-show=\"videoId\"></video-download>\n" +
     "\n" +
-    "  <video-download video-id=\"videoId\" ng-show=\"videoId\"></video-download>\n" +
-    "\n" +
-    "  <ul class=\"sub-navigation__modes\">\n" +
-    "    <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
-    "      <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"save()\">\n" +
-    "        <i class=\"icon  icon--check  icon-text__icon\"></i>\n" +
-    "        Save Changes\n" +
-    "      </a>\n" +
-    "    </li>\n" +
-    "    <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
-    "      <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"cancel()\">\n" +
-    "        <i class=\"icon  icon--cross  icon-text__icon\"></i>\n" +
-    "        Cancel\n" +
-    "      </a>\n" +
-    "    </li>\n" +
-    "    <li class=\"sub-navigation__mode\" ng-hide=\"isEdit || !isOwner\"> <!-- ng-show=\"video.status=='published'\" -->\n" +
-    "      <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"displaySection('edit')\">\n" +
-    "        <i class=\"icon  icon--edit  icon-text__icon\"></i>\n" +
-    "        Edit Video\n" +
-    "      </a>\n" +
-    "    </li>\n" +
-    "    <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\">\n" +
-    "      <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"displaySection('')\">\n" +
-    "        <i class=\"icon  icon--eye  icon-text__icon\"></i>\n" +
-    "        Review\n" +
-    "      </a>\n" +
-    "    </li>\n" +
-    "    <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\">\n" +
-    "      <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"displaySection('comments')\">\n" +
-    "        <i class=\"icon  icon--speech-bubble  icon-text__icon\"></i>\n" +
-    "        Comments\n" +
-    "      </a>\n" +
-    "    </li>\n" +
-    "  </ul>\n" +
+    "    <ul class=\"sub-navigation__modes\">\n" +
+    "      <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
+    "        <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"save()\">\n" +
+    "          <i class=\"icon  icon--check  icon-text__icon\"></i>\n" +
+    "          Save Changes\n" +
+    "        </a>\n" +
+    "      </li>\n" +
+    "      <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
+    "        <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"cancel()\">\n" +
+    "          <i class=\"icon  icon--cross  icon-text__icon\"></i>\n" +
+    "          Cancel\n" +
+    "        </a>\n" +
+    "      </li>\n" +
+    "      <li class=\"sub-navigation__mode\" ng-hide=\"isEdit || !isOwner\"> <!-- ng-show=\"video.status=='published'\" -->\n" +
+    "        <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"displaySection('edit')\">\n" +
+    "          <i class=\"icon  icon--edit  icon-text__icon\"></i>\n" +
+    "          Edit Video\n" +
+    "        </a>\n" +
+    "      </li>\n" +
+    "      <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\">\n" +
+    "        <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"displaySection('')\">\n" +
+    "          <i class=\"icon  icon--eye  icon-text__icon\"></i>\n" +
+    "          Review\n" +
+    "        </a>\n" +
+    "      </li>\n" +
+    "      <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\">\n" +
+    "        <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"displaySection('comments')\">\n" +
+    "          <i class=\"icon  icon--speech-bubble  icon-text__icon\"></i>\n" +
+    "          Comments\n" +
+    "        </a>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </div>\n" +
     "</section>"
   );
 

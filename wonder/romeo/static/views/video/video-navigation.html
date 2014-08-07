@@ -1,37 +1,38 @@
 <section class="sub-navigation video-view-control-panel sub-navigation--{{ isComments ? $root.layoutMode : 'column' }}">
+  <div class="wrapper">
+    <video-download video-id="videoId" ng-show="videoId"></video-download>
 
-  <video-download video-id="videoId" ng-show="videoId"></video-download>
-
-  <ul class="sub-navigation__modes">
-    <li class="sub-navigation__mode" ng-show="isEdit">
-      <a class="sub-navigation__link btn  btn--utility  icon-text" ng-click="save()">
-        <i class="icon  icon--check  icon-text__icon"></i>
-        Save Changes
-      </a>
-    </li>
-    <li class="sub-navigation__mode" ng-show="isEdit">
-      <a class="sub-navigation__link btn  btn--utility  icon-text" ng-click="cancel()">
-        <i class="icon  icon--cross  icon-text__icon"></i>
-        Cancel
-      </a>
-    </li>
-    <li class="sub-navigation__mode" ng-hide="isEdit || !isOwner"> <!-- ng-show="video.status=='published'" -->
-      <a class="sub-navigation__link btn  btn--utility  icon-text" ng-click="displaySection('edit')">
-        <i class="icon  icon--edit  icon-text__icon"></i>
-        Edit Video
-      </a>
-    </li>
-    <li class="sub-navigation__mode" ng-hide="isEdit">
-      <a class="sub-navigation__link btn  btn--utility  icon-text" ng-click="displaySection('')">
-        <i class="icon  icon--eye  icon-text__icon"></i>
-        Review
-      </a>
-    </li>
-    <li class="sub-navigation__mode" ng-hide="isEdit">
-      <a class="sub-navigation__link btn  btn--utility  icon-text" ng-click="displaySection('comments')">
-        <i class="icon  icon--speech-bubble  icon-text__icon"></i>
-        Comments
-      </a>
-    </li>
-  </ul>
+    <ul class="sub-navigation__modes">
+      <li class="sub-navigation__mode" ng-show="isEdit">
+        <a class="sub-navigation__link btn  btn--utility  icon-text" ng-click="save()">
+          <i class="icon  icon--check  icon-text__icon"></i>
+          Save Changes
+        </a>
+      </li>
+      <li class="sub-navigation__mode" ng-show="isEdit">
+        <a class="sub-navigation__link btn  btn--utility  icon-text" ng-click="cancel()">
+          <i class="icon  icon--cross  icon-text__icon"></i>
+          Cancel
+        </a>
+      </li>
+      <li class="sub-navigation__mode" ng-hide="isEdit || !isOwner"> <!-- ng-show="video.status=='published'" -->
+        <a class="sub-navigation__link btn  btn--utility  icon-text" ng-click="displaySection('edit')">
+          <i class="icon  icon--edit  icon-text__icon"></i>
+          Edit Video
+        </a>
+      </li>
+      <li class="sub-navigation__mode" ng-hide="isEdit">
+        <a class="sub-navigation__link btn  btn--utility  icon-text" ng-click="displaySection('')">
+          <i class="icon  icon--eye  icon-text__icon"></i>
+          Review
+        </a>
+      </li>
+      <li class="sub-navigation__mode" ng-hide="isEdit">
+        <a class="sub-navigation__link btn  btn--utility  icon-text" ng-click="displaySection('comments')">
+          <i class="icon  icon--speech-bubble  icon-text__icon"></i>
+          Comments
+        </a>
+      </li>
+    </ul>
+  </div>
 </section>
