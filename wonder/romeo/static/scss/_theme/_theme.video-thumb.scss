@@ -31,7 +31,7 @@
 .video-thumb-list {
   width: 100%;
   height: 100%;
-  margin-bottom: none;
+  margin-bottom: 0;
   position: absolute;
   top:    0;
   left:   0;
@@ -53,6 +53,7 @@
     
     > a {
       display: block;
+      pointer-events: auto;
     }
 
     &:nth-of-type(-n+3) {width: 33.3333%;}

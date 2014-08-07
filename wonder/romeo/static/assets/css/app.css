@@ -2862,7 +2862,7 @@ select {
 .video-thumb-list {
   width: 100%;
   height: 100%;
-  margin-bottom: none;
+  margin-bottom: 0;
   position: absolute;
   top: 0;
   left: 0;
@@ -2885,13 +2885,14 @@ select {
 /* line 54, ../../scss/_theme/_theme.video-thumb.scss */
 .video-thumb-list > li > a {
   display: block;
+  pointer-events: auto;
 }
-/* line 58, ../../scss/_theme/_theme.video-thumb.scss */
+/* line 59, ../../scss/_theme/_theme.video-thumb.scss */
 .video-thumb-list > li:nth-of-type(-n+3) {
   width: 33.3333%;
 }
 
-/* line 61, ../../scss/_theme/_theme.video-thumb.scss */
+/* line 62, ../../scss/_theme/_theme.video-thumb.scss */
 .video-thumb-list__link {
   font-size: 0.75em;
   line-height: 1.5;
@@ -3341,23 +3342,55 @@ label,
 
 /* line 1, ../../scss/components/_video-player-config.scss */
 .video-player-config {
-  padding: 1em 1em 2.5em 1em;
-  background: #b7bcbd;
-  background: rgba(255, 255, 255, 0.2);
+  background-color: #fff;
+  background-clip: content-box;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px 1px rgba(0, 0, 0, 0.12);
+}
+/* line 9, ../../scss/components/_video-player-config.scss */
+.video-player-config:before, .video-player-config:after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  pointer-events: none;
+}
+/* line 20, ../../scss/components/_video-player-config.scss */
+.video-player-config:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-top-color: #fff;
+  border-width: 10px;
+  margin-left: -10px;
+}
+/* line 26, ../../scss/components/_video-player-config.scss */
+.video-player-config:before {
+  border-color: rgba(0, 0, 0, 0);
+  border-top-color: rgba(0, 0, 0, 0.1);
+  border-width: 11px;
+  margin-left: -11px;
+}
+/* line 33, ../../scss/components/_video-player-config.scss */
+.video-player-config > .sp-container {
+  background-color: transparent !important;
+  border: none !important;
 }
 
-/* line 7, ../../scss/components/_video-player-config.scss */
+/* line 39, ../../scss/components/_video-player-config.scss */
 .video-player-config__hide-logo-label {
   display: block;
-  margin: 0.5em;
-  color: white;
-  text-shadow: 0 0 10px black;
-  position: absolute;
+  padding-left: 0.5em;
+  margin-bottom: 0.5em;
+  position: relative;
   z-index: 10;
-  width: 10em;
+  width: 100%;
 }
 
-/* line 17, ../../scss/components/_video-player-config.scss */
+/* line 48, ../../scss/components/_video-player-config.scss */
 .video-player-config__hide-logo-checkbox {
   float: left;
   margin-right: 0.5em;
@@ -3398,12 +3431,10 @@ label,
   z-index: 10;
 }
 
-/* line 33, ../../scss/components/_sub-navigation.scss */
-.sub-navigation--column {
+/*.sub-navigation--column {
   width: 960px;
   margin: 0 auto;
-}
-
+}*/
 /* line 38, ../../scss/components/_sub-navigation.scss */
 .sub-navigation--sticky {
   position: fixed;
@@ -3414,16 +3445,14 @@ label,
   box-shadow: 0 4px 4px -4px #70797b;
 }
 
-/* line 48, ../../scss/components/_sub-navigation.scss */
-.sub-navigation--mirror,
+/*.sub-navigation--mirror,
 .sub-navigation--wide {
   left: 0;
   margin: 0;
   width: 100%;
   padding-left: 12px;
   padding-right: 12px;
-}
-
+}*/
 /* line 56, ../../scss/components/_sub-navigation.scss */
 .sub-navigation__placeholder {
   display: block;
@@ -3431,23 +3460,55 @@ label,
 
 /* line 1, ../../scss/components/_video-player-config.scss */
 .video-player-config {
-  padding: 1em 1em 2.5em 1em;
-  background: #b7bcbd;
-  background: rgba(255, 255, 255, 0.2);
+  background-color: #fff;
+  background-clip: content-box;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px 1px rgba(0, 0, 0, 0.12);
+}
+/* line 9, ../../scss/components/_video-player-config.scss */
+.video-player-config:before, .video-player-config:after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  pointer-events: none;
+}
+/* line 20, ../../scss/components/_video-player-config.scss */
+.video-player-config:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-top-color: #fff;
+  border-width: 10px;
+  margin-left: -10px;
+}
+/* line 26, ../../scss/components/_video-player-config.scss */
+.video-player-config:before {
+  border-color: rgba(0, 0, 0, 0);
+  border-top-color: rgba(0, 0, 0, 0.1);
+  border-width: 11px;
+  margin-left: -11px;
+}
+/* line 33, ../../scss/components/_video-player-config.scss */
+.video-player-config > .sp-container {
+  background-color: transparent !important;
+  border: none !important;
 }
 
-/* line 7, ../../scss/components/_video-player-config.scss */
+/* line 39, ../../scss/components/_video-player-config.scss */
 .video-player-config__hide-logo-label {
   display: block;
-  margin: 0.5em;
-  color: white;
-  text-shadow: 0 0 10px black;
-  position: absolute;
+  padding-left: 0.5em;
+  margin-bottom: 0.5em;
+  position: relative;
   z-index: 10;
-  width: 10em;
+  width: 100%;
 }
 
-/* line 17, ../../scss/components/_video-player-config.scss */
+/* line 48, ../../scss/components/_video-player-config.scss */
 .video-player-config__hide-logo-checkbox {
   float: left;
   margin-right: 0.5em;
@@ -4036,37 +4097,55 @@ label,
   left: 0;
 }
 
-/* line 9, ../../scss/specifics/video/_video-view.scss */
+/* line 5, ../../scss/specifics/video/_video-view.scss */
+.video-view__title {
+  margin-bottom: 12px;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 42px;
+  line-height: 58px;
+  color: #2e2e32;
+}
+
+/* line 13, ../../scss/specifics/video/_video-view.scss */
+.video-view__sub-title {
+  font-weight: 400;
+  font-size: 38px;
+  line-height: 46px;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #70797b;
+}
+
+/* line 21, ../../scss/specifics/video/_video-view.scss */
 .video-view__title--small {
   font-size: 2em;
   line-height: 1.5;
 }
 
-/* line 14, ../../scss/specifics/video/_video-view.scss */
+/* line 26, ../../scss/specifics/video/_video-view.scss */
 .video-view__comments {
   position: relative;
   text-align: center;
   vertical-align: top;
 }
 
-/* line 20, ../../scss/specifics/video/_video-view.scss */
+/* line 32, ../../scss/specifics/video/_video-view.scss */
 .video-view__download {
   text-align: center;
   margin-bottom: 48px;
 }
 
-/* line 25, ../../scss/specifics/video/_video-view.scss */
+/* line 37, ../../scss/specifics/video/_video-view.scss */
 .video-view__edit {
   display: none;
   position: relative;
 }
 
-/* line 30, ../../scss/specifics/video/_video-view.scss */
+/* line 42, ../../scss/specifics/video/_video-view.scss */
 .video-view__edit--active {
   display: block;
 }
 
-/* line 34, ../../scss/specifics/video/_video-view.scss */
+/* line 46, ../../scss/specifics/video/_video-view.scss */
 .video-view__container {
   position: relative;
   width: 100%;
@@ -4074,31 +4153,31 @@ label,
   margin-bottom: 24px;
 }
 
-/* line 41, ../../scss/specifics/video/_video-view.scss */
+/* line 53, ../../scss/specifics/video/_video-view.scss */
 .video-view__container--fixed {
   height: 540px;
 }
 
-/* line 45, ../../scss/specifics/video/_video-view.scss */
+/* line 57, ../../scss/specifics/video/_video-view.scss */
 .video-view__save-controls {
   margin-bottom: 24px;
   text-align: center;
 }
 
-/* line 50, ../../scss/specifics/video/_video-view.scss */
+/* line 62, ../../scss/specifics/video/_video-view.scss */
 .video-view__description {
   width: 600px;
   margin: 0 auto;
   overflow: auto;
 }
 
-/* line 56, ../../scss/specifics/video/_video-view.scss */
+/* line 68, ../../scss/specifics/video/_video-view.scss */
 .video-view__description--edit {
   border-bottom: solid 1px #999999;
   min-height: 10em;
 }
 
-/* line 61, ../../scss/specifics/video/_video-view.scss */
+/* line 73, ../../scss/specifics/video/_video-view.scss */
 .video-view__nav-placeholder {
   display: block;
   height: 52px;
@@ -4513,18 +4592,20 @@ label,
 
 /* line 50, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__section-header {
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #2e2e32;
   cursor: pointer;
   margin-bottom: 24px;
 }
 
-/* line 55, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 57, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__section-header-title {
   display: inline-block;
   font-weight: 800;
   font-size: 1.5em;
 }
 
-/* line 61, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 63, ../../scss/specifics/video/_video-extended-controls.scss */
 .collection-add-video--modal {
   margin: 12px;
 }
@@ -4539,6 +4620,7 @@ label,
   padding: 1em;
   font-weight: bold;
   font-size: 0.875em;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #70797b;
   text-align: center;
   border: solid 2px #a4abad;
@@ -4552,24 +4634,25 @@ label,
   /*transition: border-color 0.4s ease-in-out;*/
 }
 
-/* line 23, ../../scss/specifics/video/_video-edit-categories.scss */
+/* line 24, ../../scss/specifics/video/_video-edit-categories.scss */
 .video-edit-categories__category:hover {
   border-color: #70797b;
 }
 
-/* line 27, ../../scss/specifics/video/_video-edit-categories.scss */
+/* line 28, ../../scss/specifics/video/_video-edit-categories.scss */
 .video-edit-categories__category--active {
   color: #fff;
   background-color: #51b364;
   border-color: #51b364;
 }
-/* line 32, ../../scss/specifics/video/_video-edit-categories.scss */
+/* line 33, ../../scss/specifics/video/_video-edit-categories.scss */
 .video-edit-categories__category--active:hover {
   border-color: #51b364;
 }
 
-/* line 38, ../../scss/specifics/video/_video-edit-categories.scss */
+/* line 39, ../../scss/specifics/video/_video-edit-categories.scss */
 .video-edit-categories__subcategories {
+  margin: 0;
   float: left;
   display: inline-block;
   transition: max-height 0.4s ease-in-out;
@@ -4577,23 +4660,23 @@ label,
   overflow: hidden;
 }
 
-/* line 46, ../../scss/specifics/video/_video-edit-categories.scss */
+/* line 48, ../../scss/specifics/video/_video-edit-categories.scss */
 .video-edit-categories__subcategories--active {
   max-height: 100em;
 }
 
-/* line 50, ../../scss/specifics/video/_video-edit-categories.scss */
+/* line 52, ../../scss/specifics/video/_video-edit-categories.scss */
 .video-edit-categories__subcategory {
   margin-right: 16px;
   border-color: #e6e6e6;
 }
 
-/* line 55, ../../scss/specifics/video/_video-edit-categories.scss */
+/* line 57, ../../scss/specifics/video/_video-edit-categories.scss */
 .video-edit-categories__subcategory:hover {
   border-color: #cccccc;
 }
 
-/* line 59, ../../scss/specifics/video/_video-edit-categories.scss */
+/* line 61, ../../scss/specifics/video/_video-edit-categories.scss */
 .video-edit-categories__subcategory--active {
   color: #51b364;
   background-color: transparent;
@@ -4602,18 +4685,18 @@ label,
    * !shame!
    */
 }
-/* line 67, ../../scss/specifics/video/_video-edit-categories.scss */
+/* line 69, ../../scss/specifics/video/_video-edit-categories.scss */
 .video-edit-categories__subcategory--active:hover {
   border-color: #51b364 !important;
 }
 
-/* line 72, ../../scss/specifics/video/_video-edit-categories.scss */
+/* line 74, ../../scss/specifics/video/_video-edit-categories.scss */
 .video-edit-categories__selected-category {
   display: inline-block;
   color: #999999;
 }
 
-/* line 77, ../../scss/specifics/video/_video-edit-categories.scss */
+/* line 79, ../../scss/specifics/video/_video-edit-categories.scss */
 .video-edit-categories__remove-category {
   font-weight: 800;
   color: red;
