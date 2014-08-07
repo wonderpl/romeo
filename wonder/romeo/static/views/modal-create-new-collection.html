@@ -1,26 +1,48 @@
-<section class="video-new-collection">
-  <a class="modal__close" ng-click="close()">&times;</a>
-  <h5 class="video-new-collection__new-title">Create a collection</h5>
-  <section class="video-new-collection__new-controls">
-    <form name="newCollectionForm">
-      <input ng-model="collection.label" placeholder="Name" class="video-new-collection__new-collection-name" name="collectionLabel" validate-collection-title required />
-      <span class="video-new-collection__error" ng-show="newCollectionForm.collectionLabel.$error.exists && isSubmitted">Error: there is already a collection with that name</span>
-      <textarea ng-model="collection.description" placeholder="Collection description (optional)&hellip;" class="video-new-collection__new-collection-description"></textarea>
-      <ul class="video-new-collection__scope-options">
-        <li class="video-new-collection__scope-option">
-          <label class="video-new-collection__label">
-            <input type="radio" name="scope" ng-model="collection.scope" value="public" />
-            Public
-          </label>
-        </li>
-        <li class="video-new-collection__scope-option">
-          <label class="video-new-collection__label">
-            <input type="radio" name="scope" ng-model="collection.scope" value="private" />
-            Private
-          </label>
-        </li>
-      </ul>
-      <a ng-click="newCollectionForm.$valid && saveNewCollection(); isSubmitted = true;" class="button button--primary">Okay</a>
-    </form>
-  </section>
-</section>
+<div class="modal__title  split">
+  <span class="split__title  t--block  w--800">Create a collection</span>
+  <a class="modal__link" ng-click="close()"><i class="icon icon--medium icon--circle-cross"></i></a>
+</div>
+<div class="modal__content">
+  <div class="media">
+    <div class="media__img">
+    <i class="icon  icon--large  icon--collection-add"></i>
+    </div>
+    <div class="media__body">
+      <form name="newCollectionForm" class="modal-form">
+        <fieldset class="modal-form__fieldset">
+          <legend class="is-hidden">Enter collection details</legend>
+          <ul class="form-fields">
+            <li>
+              <input type="text" ng-model="collection.label" placeholder="Name" class="form-input  modal-input  video-new-collection__new-collection-name" name="collectionLabel" validate-collection-title required />
+              <span class="video-new-collection__error" ng-show="newCollectionForm.collectionLabel.$error.exists && isSubmitted">Error: there is already a collection with that name</span>
+            </li>
+            <li>
+              <textarea ng-model="collection.description" placeholder="Collection description (optional)&hellip;" class="video-new-collection__new-collection-description"></textarea>
+            </li>
+            <li>
+              <ul class="check-list">
+                <li>
+                  <label class="video-new-collection__label">
+                    <input type="radio" name="scope" ng-model="collection.scope" value="public" />
+                    Public
+                  </label>
+                </li>
+                <li>
+                  <label class="video-new-collection__label">
+                    <input type="radio" name="scope" ng-model="collection.scope" value="private" />
+                    Private
+                  </label>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal__footer">
+  <div class="modal__actions">
+    <a ng-click="newCollectionForm.$valid && saveNewCollection(); isSubmitted = true;" class="btn  btn--small  btn--positive">Okay</a>
+  </div>
+</div>
