@@ -1286,7 +1286,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      show-category=\"addCategoryShow\"\n" +
     "      class=\"video-extended-controls__section-contents\">\n" +
     "    </category-add-video>\n" +
-    "    <span class=\"button button--primary\" ng-click=\"save(); addCategoryShow = !addCategoryShow\">Done</span>\n" +
+    "    <span class=\"btn  btn--positive\" ng-click=\"save(); addCategoryShow = !addCategoryShow\">Done</span>\n" +
     "  </section>\n" +
     "\n" +
     "  <section class=\"video-extended-controls__section\"\n" +
@@ -1298,7 +1298,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      show-collection=\"addCollectionShow\"\n" +
     "      class=\"video-extended-controls__section-contents\">\n" +
     "    </collection-add-video>\n" +
-    "    <span class=\"button button--primary\" ng-click=\"save(); addCollectionShow = !addCollectionShow\">Done</span>\n" +
+    "    <span class=\"btn  btn--positive\" ng-click=\"save(); addCollectionShow = !addCollectionShow\">Done</span>\n" +
     "  </section>\n" +
     "\n" +
     "  <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCollaboratorShow }\">\n" +
