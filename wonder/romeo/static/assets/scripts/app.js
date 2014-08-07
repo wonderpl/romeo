@@ -22,16 +22,15 @@
         var sessionUrl;
         var authChecks = {
             loggedin: function(ErrorService, AuthService, $q) {
+                var dfd = new $q.defer();
+                console.info('Login: App.authChecks.loggedid');
+                AuthService.loginCheck().then(dfd.resolve,
+                    function () {
+                        console.info('Login: App.authChecks.loggedid - User not logged in, check for token');
+                        AuthService.collaboratorCheck().then(dfd.resolve, dfd.reject);
+                    });
 
-              var dfd = new $q.defer();
-
-              AuthService.loginCheck().then(dfd.resolve,
-
-              function () {
-                AuthService.collaboratorCheck().then(dfd.resolve, dfd.reject);
-              });
-
-              return dfd.promise;
+                return dfd.promise;
             }
         };
 

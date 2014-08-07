@@ -45,21 +45,29 @@ angular.module('RomeoApp.services').factory('AuthService',
     */
     Auth.loginCheck = function() {
       var deferred = new $q.defer();
+
+      console.log('Login: loginCheck');
       $timeout(function(){
           if ( loggedIn === true || isCollaborator === true ) {
             deferred.resolve();
+            console.log('Login: Auth.loginCheck - Already logged in (loggedIn: ' + loggedIn + ', isCollaborator: ' + isCollaborator + ')');
           } else {
+            console.log('Login: Auth.loginCheck - Try to log in');
             Auth.getSession().then(function(response){
+              console.log('Login: Auth.loginCheck - Got session, trying to retrive original url to verify the session is valid');
               $http({method: 'GET', url: (response.href || response) }).then(function(response){
                 loggedIn = true;
                 $rootScope.isLoggedIn = true;
+                console.log('Login: Auth.loginCheck - All good, access granted');
                 deferred.resolve();
               }, function(response){
                 $rootScope.isLoggedIn = false;
                 loggedIn = false;
+                console.warn("Login: Auth.loginCheck - Couldn't access page with supplied session, not logged in");
                 deferred.reject('not logged in');
               });
             }, function(){
+                console.warn("Login: Auth.loginCheck - No session available, not logged in");
                 deferred.reject('not logged in');
             });
           }
@@ -72,8 +80,10 @@ angular.module('RomeoApp.services').factory('AuthService',
       var token = query ? query.token : null;
       var dfd = new $q.defer();
       if (token) {
+        console.log('Login: Auth.collaboratorCheck - Have token (' + token + ') in url, check it');
         Auth.loginAsCollaborator(token).then(dfd.resolve, dfd.reject);
       } else {
+        console.warn('Login: Auth.collaboratorCheck - No token, nothing to do here');
         dfd.reject();
       }
       return dfd.promise;
@@ -96,13 +106,16 @@ angular.module('RomeoApp.services').factory('AuthService',
     */
     Auth.getSession = function() {
         var deferred = new $q.defer();
-
+        console.log('Login: Auth.getSession');
         $timeout(function() {
             if ( session !== null ) {
+                console.log('Login: Auth.getSession - session cookie found');
                 deferred.resolve(session.account || session);
             } else if ( localStorageService.get('session_url') !== null ) {
+                console.log('Login: Auth.getSession - Local storage session found');
                 deferred.resolve(localStorageService.get('session_url'));
             } else {
+                console.warn('Login: Auth.getSession - No session');
                 deferred.reject('no session');
             }
         });
@@ -116,8 +129,10 @@ angular.module('RomeoApp.services').factory('AuthService',
     Auth.getSessionId = function() {
         var deferred = new $q.defer();
         Auth.getSession().then(function(response){
+            console.info("Login: Auth.getSessionId - Session found, checking if it's a valid account");
             deferred.resolve(response.match(/api\/account\/(\d+)/)[1]);
         }, function(response){
+            console.warn("Login: Auth.getSession - Session not found");
             deferred.reject('not logged in');
         });
         return deferred.promise;
@@ -127,6 +142,8 @@ angular.module('RomeoApp.services').factory('AuthService',
     * Redirects the user to the login page
     */
     Auth.redirect = function() {
+        console.error('Login: Auth.redirect - Login method told to redirect to login page');
+        console.trace();
         $location.path('/login');
     };
 
@@ -137,14 +154,16 @@ angular.module('RomeoApp.services').factory('AuthService',
       return $http({
         method  : 'post',
         url     : '/api/validate_token',
-        data    : { token : token }
+        data    : { 'token' : token }
       }).success(function (data) {
+        console.log('Login: Auth.loginAsCollaborator - Token validated');
         loggedIn = true;
         isCollaborator = true;
         $rootScope.isCollaborator = true;
         $rootScope.User = data;
         return Auth.setSession(data);
       }).error(function () {
+        console.warn('Login: Auth.loginAsCollaborator - Token invalid');
         alert('token invalid');
         $rootScope.isCollaborator = false;
         isCollaborator = false;
