@@ -46,11 +46,9 @@ angular.module('RomeoApp.directives')
       $scope.shareTwitter = function () {
 
         VideoService.getShareUrl($scope.video.id, 'twitter').then(function (data) {
-
           ga('send', 'event', 'uiAction', 'share', 'twitter');
 
           window.open("http://twitter.com/intent/tweet?url=" + data.url);
-
         });
       };
 
@@ -71,7 +69,7 @@ angular.module('RomeoApp.directives')
 window.fbAsyncInit = function() {
   'use strict';
     FB.init({
-      appId      : facebook_app_id, // FB app id
+      appId      : wonder.romeo.settings.facebook_app_id, // FB app id
 //      channelUrl : 'YOUR_WEBSITE_CHANNEL_URL',
       status     : false, // check login status
       cookie     : false, // enable cookies to allow the server to access the session
