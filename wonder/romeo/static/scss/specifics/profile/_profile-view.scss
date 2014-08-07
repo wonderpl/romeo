@@ -1,15 +1,17 @@
 .profile {
-  width: $containerWidth + px;
-  margin: 0 auto;
-  padding-bottom: 100px;
 }
 
 .profile__name {
-  margin-bottom: 12px;
+  font-size: 50px;
+  margin-bottom: $half-spacing-unit;
+  font-family: $heading-font-family;
+  color: $swatch-three;
   text-align: center;
 }
 
 .profile__description {
-  margin-bottom: 12px;
+  margin-bottom: $base-spacing-unit;
+  @extend .lead;
+  color: $swatch-three;
   text-align: center;
 }

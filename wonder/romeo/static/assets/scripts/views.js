@@ -742,36 +742,40 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('organise-collection.html',
     "<section class=\"organise-collection\">\n" +
-    "\n" +
-    "  <h3 class=\"organise-collection__title\">\n" +
-    "    <div ng-hide=\"isEdit\">\n" +
-    "      (~ tag.label ~)\n" +
-    "      <span class=\"organise-collection__visibility organise-collection__visibility--private\">(~ tag.public ? 'public' : 'private' ~)</span>\n" +
+    "  <div class=\"media\">\n" +
+    "    <div class=\"media__img\">\n" +
+    "      <i class=\"icon  icon--huge  icon--collection-add\"></i>\n" +
     "    </div>\n" +
-    "    <div medium-editor\n" +
-    "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true, placeholder : '' }\"\n" +
-    "      ng-model=\"tag.label\"\n" +
-    "      ng-show=\"isEdit\">\n" +
+    "  \n" +
+    "    <div class=\"media__body\">\n" +
+    "      <h3 class=\"heading  w--800  no-spacing  organise-collection__title\">\n" +
+    "        <div ng-hide=\"isEdit\">\n" +
+    "          (~ tag.label ~)\n" +
+    "          <span class=\"organise-collection__visibility organise-collection__visibility--private\">(~ tag.public ? 'public' : 'private' ~)</span>\n" +
+    "        </div>\n" +
+    "        <div medium-editor\n" +
+    "          options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true, placeholder : '' }\"\n" +
+    "          ng-model=\"tag.label\"\n" +
+    "          ng-show=\"isEdit\">\n" +
+    "        </div>\n" +
+    "      </h3>\n" +
+    "    \n" +
+    "      <p class=\"organise-collection__description\" ng-bind=\"tag.description\" ng-hide=\"isEdit\"></p>\n" +
+    "    \n" +
+    "      <p class=\"organise-collection__description\"\n" +
+    "        medium-editor\n" +
+    "        options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true, placeholder : '' }\"\n" +
+    "        ng-model=\"tag.description\"\n" +
+    "        ng-show=\"isEdit\">\n" +
+    "      </p>\n" +
+    "    \n" +
+    "      <a class=\"button organise-collection__button organise-collection__button--edit\" ng-hide=\"isEdit\" ng-click=\"isEdit = !isEdit\">Edit</a>\n" +
+    "    \n" +
+    "      <a class=\"button button--primary organise-collection__button organise-collection__button--save\" ng-show=\"isEdit\" ng-click=\"save()\">Done</a>\n" +
+    "    \n" +
+    "      <a class=\"button organise-collection__button organise-collection__button--delete\" ng-show=\"isEdit\" ng-click=\"delete()\">Delete</a>\n" +
     "    </div>\n" +
-    "  </h3>\n" +
-    "\n" +
-    "  <p class=\"organise-collection__description\" ng-bind=\"tag.description\" ng-hide=\"isEdit\"></p>\n" +
-    "\n" +
-    "  <p class=\"organise-collection__description\"\n" +
-    "    medium-editor\n" +
-    "    options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true, placeholder : '' }\"\n" +
-    "    ng-model=\"tag.description\"\n" +
-    "    ng-show=\"isEdit\">\n" +
-    "  </p>\n" +
-    "\n" +
-    "  <a class=\"button organise-collection__button organise-collection__button--edit\" ng-hide=\"isEdit\" ng-click=\"isEdit = !isEdit\">Edit</a>\n" +
-    "\n" +
-    "  <a class=\"button button--primary organise-collection__button organise-collection__button--save\" ng-show=\"isEdit\" ng-click=\"save()\">Done</a>\n" +
-    "\n" +
-    "  <a class=\"button organise-collection__button organise-collection__button--delete\" ng-show=\"isEdit\" ng-click=\"delete()\">Delete</a>\n" +
-    "\n" +
-    "\n" +
-    "\n" +
+    "  </div>\n" +
     "</section>"
   );
 
@@ -985,8 +989,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('profile-cover.html',
-    "<section class=\"profile-cover\"\n" +
-    "  ng-class=\"{ 'profile-cover--edit' : isEdit, 'profile-cover--hero' : isHero }\"\n" +
+    "<section class=\"profile-cover\" \n" +
+    "  ng-class=\"{ 'profile-cover--edit' : isEdit, 'profile-cover--hero' : isHero, 'profile-cover--img' : image }\"\n" +
     "  style=\"background-image:url('(~ image ~)');\">\n" +
     "\n" +
     "  <label class=\"profile-cover__upload-label\" for=\"profileCoverUpload\">\n" +
@@ -1026,22 +1030,22 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('profile-navigation.html',
     "<section class=\"sub-navigation\">\n" +
-    "\n" +
-    "  <ul class=\"sub-navigation__modes\">\n" +
-    "    <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\">\n" +
-    "      <a class=\"sub-navigation__link btn btn--utility\" ng-click=\"isEdit = true\">edit</a>\n" +
-    "    </li>\n" +
-    "    <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
-    "      <a class=\"sub-navigation__link btn btn--utility\" ng-click=\"save()\">save</a>\n" +
-    "    </li>\n" +
-    "    <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
-    "      <a class=\"sub-navigation__link btn btn--utility\" ng-click=\"cancel()\">cancel</a>\n" +
-    "    </li>\n" +
-    "    <li class=\"sub-navigation__mode\">\n" +
-    "      <a class=\"sub-navigation__link btn btn--utility\" href=\"/logout\">logout</a>\n" +
-    "    </li>\n" +
-    "  </ul>\n" +
-    "\n" +
+    "  <div class=\"wrapper\">\n" +
+    "    <ul class=\"sub-navigation__modes\">\n" +
+    "      <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\">\n" +
+    "        <a class=\"sub-navigation__link btn btn--utility\" ng-click=\"isEdit = true\">edit</a>\n" +
+    "      </li>\n" +
+    "      <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
+    "        <a class=\"sub-navigation__link btn btn--utility\" ng-click=\"save()\">save</a>\n" +
+    "      </li>\n" +
+    "      <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
+    "        <a class=\"sub-navigation__link btn btn--utility\" ng-click=\"cancel()\">cancel</a>\n" +
+    "      </li>\n" +
+    "      <li class=\"sub-navigation__mode\">\n" +
+    "        <a class=\"sub-navigation__link btn btn--utility\" href=\"/logout\">logout</a>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </div>\n" +
     "</section>"
   );
 
@@ -1070,25 +1074,27 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <profile-image image=\"profile.avatar\" is-edit=\"isEdit\"></profile-image>\n" +
     "\n" +
-    "  <h2 class=\"profile__name\"\n" +
-    "    ng-show=\"isEdit\"\n" +
-    "    medium-editor\n" +
-    "    data-placeholder=\"(~ profile.name ? ' ' : 'name' ~)\"\n" +
-    "    options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
-    "    ng-model=\"profile.display_name\">\n" +
-    "  </h2>\n" +
-    "\n" +
-    "  <h2 class=\"profile__name\" ng-hide=\"isEdit\" ng-bind=\"profile.display_name\"></h2>\n" +
-    "\n" +
-    "  <div class=\"profile__description\"\n" +
-    "    ng-show=\"isEdit\"\n" +
-    "    medium-editor\n" +
-    "    data-placeholder=\"(~ profile.description ? ' ' : 'description' ~)\"\n" +
-    "    options=\"{ buttons : ['bold', 'italic', 'header1', 'header2', 'unorderedlist', 'quote'], firstHeader : 'h2', secondHeader : 'h3' }\"\n" +
-    "    ng-model=\"profile.description\">\n" +
+    "  <div class=\"wrapper wrapper--fixed\">\n" +
+    "    <h2 class=\"profile__name\"\n" +
+    "      ng-show=\"isEdit\"\n" +
+    "      medium-editor\n" +
+    "      data-placeholder=\"(~ profile.name ? ' ' : 'name' ~)\"\n" +
+    "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
+    "      ng-model=\"profile.display_name\">\n" +
+    "    </h2>\n" +
+    "  \n" +
+    "    <h2 class=\"profile__name\" ng-hide=\"isEdit\" ng-bind=\"profile.display_name\"></h2>\n" +
+    "  \n" +
+    "    <div class=\"profile__description\"\n" +
+    "      ng-show=\"isEdit\"\n" +
+    "      medium-editor\n" +
+    "      data-placeholder=\"(~ profile.description ? ' ' : 'description' ~)\"\n" +
+    "      options=\"{ buttons : ['bold', 'italic', 'header1', 'header2', 'unorderedlist', 'quote'], firstHeader : 'h2', secondHeader : 'h3' }\"\n" +
+    "      ng-model=\"profile.description\">\n" +
+    "    </div>\n" +
+    "  \n" +
+    "    <div class=\"profile__description\" ng-hide=\"isEdit\" ng-bind-html=\"profile.description\"></div>\n" +
     "  </div>\n" +
-    "\n" +
-    "  <div class=\"profile__description\" ng-hide=\"isEdit\" ng-bind-html=\"profile.description\"></div>\n" +
     "\n" +
     "</section>"
   );

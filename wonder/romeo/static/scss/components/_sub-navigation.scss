@@ -1,6 +1,4 @@
 .sub-navigation {
-  padding-top:    $half-spacing-unit;
-  padding-bottom: $half-spacing-unit;
   text-align: right;
 }
 
@@ -12,7 +10,13 @@
 }
 
 .sub-navigation__modes {
+  margin: 0;
+  padding-top:    $half-spacing-unit / 2;
+  padding-bottom: $half-spacing-unit / 2;
 
+  > li + li {
+    margin-left: $half-spacing-unit / 2;
+  }
 }
 
 .sub-navigation__mode {
@@ -53,6 +57,6 @@
 
 .sub-navigation__placeholder {
   display: block;
-  height: 52px;
+  //height: 52px;
 }
 
