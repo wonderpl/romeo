@@ -37,13 +37,11 @@
 
 .sub-navigation--sticky {
   position: fixed;
-  top: 0;
-  left: 50%;
-  margin: 0 0 0 -480px;
-  width: 960px;
-  -webkit-box-shadow: 0 4px 4px -4px $swatch-four;
-     -moz-box-shadow: 0 4px 4px -4px $swatch-four;
-          box-shadow: 0 4px 4px -4px $swatch-four;
+  top:  0;
+  left: 0;
+  width: 100%;
+  background-color: rgba($swatch-one,0.9);
+  box-shadow: 0 4px 4px -4px $swatch-four;
 }
 
 .sub-navigation--mirror,

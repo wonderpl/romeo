@@ -3408,15 +3408,13 @@ label,
 .sub-navigation--sticky {
   position: fixed;
   top: 0;
-  left: 50%;
-  margin: 0 0 0 -480px;
-  width: 960px;
-  -webkit-box-shadow: 0 4px 4px -4px #70797b;
-  -moz-box-shadow: 0 4px 4px -4px #70797b;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
   box-shadow: 0 4px 4px -4px #70797b;
 }
 
-/* line 50, ../../scss/components/_sub-navigation.scss */
+/* line 48, ../../scss/components/_sub-navigation.scss */
 .sub-navigation--mirror,
 .sub-navigation--wide {
   left: 0;
@@ -3426,7 +3424,7 @@ label,
   padding-right: 12px;
 }
 
-/* line 58, ../../scss/components/_sub-navigation.scss */
+/* line 56, ../../scss/components/_sub-navigation.scss */
 .sub-navigation__placeholder {
   display: block;
 }
@@ -5129,12 +5127,13 @@ label,
 /* line 50, ../../scss/specifics/organise/_organise-video-list.scss */
 .organise-video-list__list-control-label {
   display: inline-block;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-/* line 54, ../../scss/specifics/organise/_organise-video-list.scss */
+/* line 55, ../../scss/specifics/organise/_organise-video-list.scss */
 .organise-video-list__list-control-label + .organise-video-list__list-control-label {
   margin-left: 24px;
 }
-/* line 58, ../../scss/specifics/organise/_organise-video-list.scss */
+/* line 59, ../../scss/specifics/organise/_organise-video-list.scss */
 .organise-video-list__list-control-label > .btn-group {
   margin-bottom: 0;
 }

@@ -10,7 +10,7 @@
   <profile-image image="profile.avatar" is-edit="isEdit"></profile-image>
 
   <div class="wrapper wrapper--fixed">
-    <h2 class="profile__name"
+    <h2 class="profile__name  no-spacing"
       ng-show="isEdit"
       medium-editor
       data-placeholder="{{ profile.name ? ' ' : 'name' }}"
@@ -18,7 +18,7 @@
       ng-model="profile.display_name">
     </h2>
   
-    <h2 class="profile__name" ng-hide="isEdit" ng-bind="profile.display_name"></h2>
+    <h2 class="profile__name  no-spacing" ng-hide="isEdit" ng-bind="profile.display_name"></h2>
   
     <div class="profile__description"
       ng-show="isEdit"

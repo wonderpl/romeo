@@ -49,6 +49,7 @@
 
 .organise-video-list__list-control-label {
   display: inline-block;
+  font-family: $heading-font-family;
   @extend .cf;
 
   & + & {
