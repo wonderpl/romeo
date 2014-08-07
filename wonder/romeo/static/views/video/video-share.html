@@ -1,12 +1,12 @@
 <section class="video-share">
   <div class="btn-center  btn-group">
-    <a href="" class="btn  btn--small" ng-class="{ 'btn--disabled' : !videoIsPublic }" ng-click="!videoIsPublic || (showEmbedCode = !showEmbedCode)">
+    <a href="" class="btn  btn--small" ng-class="{ 'btn--disabled' : !videoIsPublic }" ng-click="!videoIsPublic || (showEmbedCode = !showEmbedCode)" title="{{{true: 'Once you have published a Video you can use these links to generate an Embed Code, and to share the video using your Facebook and Twitter accounts.&#013;&#013;In order to publish the video, Add it to a Public Collection.&#013;&#013;You can add a new Public Collection in Manage, using the menu option of the same name.', false: ''}[!videoIsPublic] }}">
       <i class="icon  icon--medium  icon--code"></i>
     </a>
-    <a href="" class="btn  btn--small" ng-class="{ 'btn--disabled' : !videoIsPublic }" ng-click="!videoIsPublic || shareTwitter()">
+    <a href="" class="btn  btn--small" ng-class="{ 'btn--disabled' : !videoIsPublic }" ng-click="!videoIsPublic || shareTwitter()" title="{{{true: 'Once you have published a Video you can use these links to generate an Embed Code, and to share the video using your Facebook and Twitter accounts.&#013;&#013;In order to publish the video, Add it to a Public Collection.&#013;&#013;You can add a new Public Collection in Manage, using the menu option of the same name.', false: ''}[!videoIsPublic] }}">
       <i class="icon  icon--medium  icon--twitter"></i>
     </a>
-    <a href="" class="btn  btn--small" ng-class="{ 'btn--disabled' : !videoIsPublic }" ng-click="!videoIsPublic || shareFacebook()">
+    <a href="" class="btn  btn--small" ng-class="{ 'btn--disabled' : !videoIsPublic }" ng-click="!videoIsPublic || shareFacebook()" title="{{{true: 'Once you have published a Video you can use these links to generate an Embed Code, and to share the video using your Facebook and Twitter accounts.&#013;&#013;In order to publish the video, Add it to a Public Collection.&#013;&#013;You can add a new Public Collection in Manage, using the menu option of the same name.', false: ''}[!videoIsPublic] }}">
       <i class="icon  icon--medium  icon--facebook" ></i>
     </a>
   </div>

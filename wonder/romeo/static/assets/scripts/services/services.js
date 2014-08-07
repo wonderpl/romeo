@@ -121,10 +121,11 @@
         $el = ng.element(el);
         $el.addClass('modal animation animation--flippable');
 
-        $el_bg.bind('click', function (event) {
+        $container.on('click', function (e) {
+          console.log(e);
+          if (e.currentTarget === e.target) {
             modal.hide();
-            $route.reload();
-            //event.stopPropagation();
+          }
         });
 
         /*

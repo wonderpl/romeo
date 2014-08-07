@@ -2,7 +2,12 @@
 
   <iframe ng-hide="videoHasLoaded" class="video-preview__frame" src="/embed/88888888/?controls=1"></iframe>
 
-  <a class="video-thumbnail__option video-thumbnail__option--select" ng-class="{ 'video-thumbnail__option--disabled' : video.status !== 'ready' }" ng-hide="showThumbnailSelector" ng-click="(video.status !== 'ready') || selectThumbnail()">Pick a generated thumbnail</a>
+  <a class="video-thumbnail__option video-thumbnail__option--select"
+    ng-class="{ 'video-thumbnail__option--disabled' : video.status !== 'ready' }"
+    ng-hide="showThumbnailSelector"
+    ng-click="(video.status !== 'ready') || selectThumbnail()"
+    title="{{{true: 'Once your video has been uploaded and processed you can choose a thumbnail from the those that have been automatically generated video. Go to Organise, Choose Edit, click on the video and then click \'Pick a generated thumbnail\'', false: ''}[video.status !== 'ready'] }}"
+    >Pick a generated thumbnail</a>
 
   <section class="video-thumbnail__option video-thumbnail__option--upload" ng-hide="showThumbnailSelector" ng-file-drop="onPreviewImageSelect($files)">
     <p>Choose your own thumbnail</p>

@@ -61,7 +61,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<section class=\"add-collaborator\">\n" +
     "\n" +
     "  <header class=\"video-extended-controls__section-header\" ng-click=\"showCollaborator = !showCollaborator\">\n" +
-    "    <h4 class=\"video-extended-controls__section-header-title\">\n" +
+    "    <h4 class=\"video-extended-controls__section-header-title\" title=\"Invite people to review and comment on your video, or send someone a link to download it. Type in their name, email address and the permissions yo want to give them.\">\n" +
     "      Collaborators\n" +
     "    </h4>\n" +
     "  </header>\n" +
@@ -176,7 +176,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<section class=\"video-edit-categories\">\n" +
     "\n" +
     "  <header class=\"video-extended-controls__section-header\" ng-click=\"showCategory = !showCategory\">\n" +
-    "    <h4 class=\"video-extended-controls__section-header-title\">\n" +
+    "    <h4 class=\"video-extended-controls__section-header-title\" title=\"You can choose a category top associate your video with. This will make it easier for people to find it, once it has been published.\">\n" +
     "      (~ selectedCategory ? 'In Category:' : 'Add video to category' ~)\n" +
     "    </h4>\n" +
     "    <span ng-show=\"selectedCategory\" class=\"video-edit-categories__selected-category\">\n" +
@@ -1384,7 +1384,12 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('video-more-link.html',
     "<section class=\"video-more\">\n" +
     "\n" +
-    "  <a class=\"video-more__link btn\" ng-click=\"(showMoreLinkConfigPanel = !showMoreLinkConfigPanel)\" ng-show=\"isEdit\">(~ text ? text : 'Add a link (optional) &hellip;' ~)</a>\n" +
+    "  <a class=\"video-more__link btn\"\n" +
+    "    ng-click=\"(showMoreLinkConfigPanel = !showMoreLinkConfigPanel)\"\n" +
+    "    ng-show=\"isEdit\"\n" +
+    "    title=\"You can add a button, which will appear under your video in the Wonder App that takes you to any website.&#013;&#013;Simply add the text for the button (up-to 30 characters) and type in the URL you want to go to.\">\n" +
+    "    (~ text ? text : 'Add a link (optional) &hellip;' ~)\n" +
+    "  </a>\n" +
     "\n" +
     "  <a class=\"video-more__link btn  btn--positive\" href=\"(~ url ~)\" ng-hide=\"isEdit\">(~ text ~)</a>\n" +
     "\n" +
@@ -1486,13 +1491,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('video-share.html',
     "<section class=\"video-share\">\n" +
     "  <div class=\"btn-center  btn-group\">\n" +
-    "    <a href=\"\" class=\"btn  btn--small\" ng-class=\"{ 'btn--disabled' : !videoIsPublic }\" ng-click=\"!videoIsPublic || (showEmbedCode = !showEmbedCode)\">\n" +
+    "    <a href=\"\" class=\"btn  btn--small\" ng-class=\"{ 'btn--disabled' : !videoIsPublic }\" ng-click=\"!videoIsPublic || (showEmbedCode = !showEmbedCode)\" title=\"(~{true: 'Once you have published a Video you can use these links to generate an Embed Code, and to share the video using your Facebook and Twitter accounts.&#013;&#013;In order to publish the video, Add it to a Public Collection.&#013;&#013;You can add a new Public Collection in Manage, using the menu option of the same name.', false: ''}[!videoIsPublic] ~)\">\n" +
     "      <i class=\"icon  icon--medium  icon--code\"></i>\n" +
     "    </a>\n" +
-    "    <a href=\"\" class=\"btn  btn--small\" ng-class=\"{ 'btn--disabled' : !videoIsPublic }\" ng-click=\"!videoIsPublic || shareTwitter()\">\n" +
+    "    <a href=\"\" class=\"btn  btn--small\" ng-class=\"{ 'btn--disabled' : !videoIsPublic }\" ng-click=\"!videoIsPublic || shareTwitter()\" title=\"(~{true: 'Once you have published a Video you can use these links to generate an Embed Code, and to share the video using your Facebook and Twitter accounts.&#013;&#013;In order to publish the video, Add it to a Public Collection.&#013;&#013;You can add a new Public Collection in Manage, using the menu option of the same name.', false: ''}[!videoIsPublic] ~)\">\n" +
     "      <i class=\"icon  icon--medium  icon--twitter\"></i>\n" +
     "    </a>\n" +
-    "    <a href=\"\" class=\"btn  btn--small\" ng-class=\"{ 'btn--disabled' : !videoIsPublic }\" ng-click=\"!videoIsPublic || shareFacebook()\">\n" +
+    "    <a href=\"\" class=\"btn  btn--small\" ng-class=\"{ 'btn--disabled' : !videoIsPublic }\" ng-click=\"!videoIsPublic || shareFacebook()\" title=\"(~{true: 'Once you have published a Video you can use these links to generate an Embed Code, and to share the video using your Facebook and Twitter accounts.&#013;&#013;In order to publish the video, Add it to a Public Collection.&#013;&#013;You can add a new Public Collection in Manage, using the menu option of the same name.', false: ''}[!videoIsPublic] ~)\">\n" +
     "      <i class=\"icon  icon--medium  icon--facebook\" ></i>\n" +
     "    </a>\n" +
     "  </div>\n" +
@@ -1511,7 +1516,12 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <iframe ng-hide=\"videoHasLoaded\" class=\"video-preview__frame\" src=\"/embed/88888888/?controls=1\"></iframe>\n" +
     "\n" +
-    "  <a class=\"video-thumbnail__option video-thumbnail__option--select\" ng-class=\"{ 'video-thumbnail__option--disabled' : video.status !== 'ready' }\" ng-hide=\"showThumbnailSelector\" ng-click=\"(video.status !== 'ready') || selectThumbnail()\">Pick a generated thumbnail</a>\n" +
+    "  <a class=\"video-thumbnail__option video-thumbnail__option--select\"\n" +
+    "    ng-class=\"{ 'video-thumbnail__option--disabled' : video.status !== 'ready' }\"\n" +
+    "    ng-hide=\"showThumbnailSelector\"\n" +
+    "    ng-click=\"(video.status !== 'ready') || selectThumbnail()\"\n" +
+    "    title=\"(~{true: 'Once your video has been uploaded and processed you can choose a thumbnail from the those that have been automatically generated video. Go to Organise, Choose Edit, click on the video and then click \\'Pick a generated thumbnail\\'', false: ''}[video.status !== 'ready'] ~)\"\n" +
+    "    >Pick a generated thumbnail</a>\n" +
     "\n" +
     "  <section class=\"video-thumbnail__option video-thumbnail__option--upload\" ng-hide=\"showThumbnailSelector\" ng-file-drop=\"onPreviewImageSelect($files)\">\n" +
     "    <p>Choose your own thumbnail</p>\n" +
