@@ -101,6 +101,9 @@ class DollyUser(object):
         cover_url = data.get('profile_cover_url')
         if cover_url:
             data['profile_cover_url'] = cover_url.replace('thumbnail_medium', 'ipad')
+        avatar_url = data.get('avatar_thumbnail_url')
+        if avatar_url:
+            data['avatar_thumbnail_url'] = avatar_url.replace('_medium', '_large')
         return data
 
     def set_display_name(self, name):
