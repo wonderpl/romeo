@@ -969,7 +969,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <a href=\"\" class=\"page-logo  page-logo--header\" ng-switch-when=\"true\">\n" +
     "      <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"page-logo__img\" alt=\"Wonder PL\">\n" +
     "    </a>\n" +
-    "    <a href=\"#/\" class=\"page-logo  page-logo--header\" ng-switch-default=\"\">\n" +
+    "    <a href=\"#/\" class=\"page-logo  page-logo--header\" ng-switch-default=\"\" analytics-on analytics-label=\"Page logo\">\n" +
     "      <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"page-logo__img\" alt=\"Wonder PL\">\n" +
     "    </a>\n" +
     "    </ng-switch>\n" +

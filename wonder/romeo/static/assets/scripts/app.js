@@ -14,7 +14,9 @@
                 ns + '.analytics',
             'ngRoute',
             'ngCookies',
-            'angularFileUpload'] /* module dependencies */);
+            'angularFileUpload',
+            'angulartics',
+            'angulartics.google.analytics'] /* module dependencies */);
 
     app.config(['$routeProvider', '$interpolateProvider', '$httpProvider',
       function( $routeProvider, $interpolateProvider, $httpProvider ){
