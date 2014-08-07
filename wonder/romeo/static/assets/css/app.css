@@ -2674,7 +2674,7 @@ select {
   top: 0;
   left: 0;
   z-index: 5001;
-  pointer-events: auto;
+  pointer-events: none;
 }
 /* line 13, ../../scss/_theme/_theme.notices.scss */
 .notice-tray > .notice {
@@ -2684,25 +2684,26 @@ select {
   position: absolute;
   left: -9999px;
   visibility: hidden;
+  pointer-events: auto;
 }
-/* line 21, ../../scss/_theme/_theme.notices.scss */
+/* line 22, ../../scss/_theme/_theme.notices.scss */
 .notice-tray > .notice:first-child {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-/* line 27, ../../scss/_theme/_theme.notices.scss */
+/* line 28, ../../scss/_theme/_theme.notices.scss */
 .notice-tray > .notice--active {
   position: static;
   visibility: visible;
 }
-/* line 31, ../../scss/_theme/_theme.notices.scss */
+/* line 32, ../../scss/_theme/_theme.notices.scss */
 .notice-tray > .notice--hide {
   position: absolute;
   left: -9999px;
   visibility: hidden;
 }
 
-/* line 38, ../../scss/_theme/_theme.notices.scss */
+/* line 39, ../../scss/_theme/_theme.notices.scss */
 .notice {
   margin-bottom: 24px;
   padding: 12px 24px;
@@ -2710,12 +2711,12 @@ select {
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
   border-radius: 3px;
 }
-/* line 45, ../../scss/_theme/_theme.notices.scss */
+/* line 46, ../../scss/_theme/_theme.notices.scss */
 .notice > :last-child {
   margin-bottom: 0;
 }
 
-/* line 49, ../../scss/_theme/_theme.notices.scss */
+/* line 50, ../../scss/_theme/_theme.notices.scss */
 .notice--full-page {
   width: 100%;
   height: 100%;
@@ -2728,22 +2729,22 @@ select {
   border-radius: none !important;
 }
 
-/* line 61, ../../scss/_theme/_theme.notices.scss */
+/* line 62, ../../scss/_theme/_theme.notices.scss */
 .notice--success {
   background-color: #9DCA5A;
 }
 
-/* line 62, ../../scss/_theme/_theme.notices.scss */
+/* line 63, ../../scss/_theme/_theme.notices.scss */
 .notice--error {
   background-color: #D74E45;
 }
 
-/* line 63, ../../scss/_theme/_theme.notices.scss */
+/* line 64, ../../scss/_theme/_theme.notices.scss */
 .notice--warning {
   background-color: #F09F5F;
 }
 
-/* line 64, ../../scss/_theme/_theme.notices.scss */
+/* line 65, ../../scss/_theme/_theme.notices.scss */
 .notice--info {
   background-color: #5BB3C8;
 }
@@ -3442,7 +3443,9 @@ label,
   left: 0;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 4px 4px -4px #70797b;
+  background-clip: padding-box;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 4px -4px rgba(0, 0, 0, 0.05);
 }
 
 /*.sub-navigation--mirror,
@@ -3453,7 +3456,7 @@ label,
   padding-left: 12px;
   padding-right: 12px;
 }*/
-/* line 56, ../../scss/components/_sub-navigation.scss */
+/* line 58, ../../scss/components/_sub-navigation.scss */
 .sub-navigation__placeholder {
   display: block;
 }
@@ -5025,7 +5028,7 @@ label,
 
 /* line 1, ../../scss/specifics/video/_video-medium.scss */
 .video-medium {
-  color: #70797b;
+  color: #2e2e32;
 }
 /* line 5, ../../scss/specifics/video/_video-medium.scss */
 .video-medium h2, .video-medium h3, .video-medium p, .video-medium ul, .video-medium blockquote {
@@ -5039,6 +5042,11 @@ label,
 .video-medium i {
   font-style: italic;
 }
+/* line 10, ../../scss/specifics/video/_video-medium.scss */
+.video-medium p {
+  font-size: 20px;
+  line-height: 28px;
+}
 /* line 11, ../../scss/specifics/video/_video-medium.scss */
 .video-medium ul {
   list-style: disc inside;
@@ -5047,25 +5055,28 @@ label,
 .video-medium blockquote {
   margin: 0;
   margin-right: auto;
+  margin-bottom: 24px;
   margin-left: auto;
   max-width: 80%;
   min-width: 450px;
   text-indent: -0.41em;
   font-weight: 300;
+  font-size: 20px;
+  line-height: 28px;
   text-align: center;
   quotes: "\201C" "\201D";
 }
-/* line 28, ../../scss/specifics/video/_video-medium.scss */
+/* line 29, ../../scss/specifics/video/_video-medium.scss */
 .video-medium blockquote:before {
   content: "\2018";
   content: open-quote;
 }
-/* line 33, ../../scss/specifics/video/_video-medium.scss */
+/* line 34, ../../scss/specifics/video/_video-medium.scss */
 .video-medium blockquote:after {
   content: "\2019";
   content: close-quote;
 }
-/* line 39, ../../scss/specifics/video/_video-medium.scss */
+/* line 40, ../../scss/specifics/video/_video-medium.scss */
 .video-medium > :last-child {
   margin-bottom: 0;
 }

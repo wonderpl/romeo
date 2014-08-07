@@ -7,7 +7,7 @@
   top:  0;
   left: 0;
   z-index: 5001;
-  pointer-events: auto;
+  pointer-events: none;
   @extend .cf;
 
   > .notice {
@@ -17,6 +17,7 @@
     position: absolute;
     left: -9999px;
     visibility: hidden;
+    pointer-events: auto;
 
     &:first-child {
       border-top-left-radius: 0;
