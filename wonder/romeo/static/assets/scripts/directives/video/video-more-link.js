@@ -28,7 +28,6 @@ angular.module('RomeoApp.directives')
       });
       $scope.$watch('url', function (newValue, oldValue) {
         if (newValue && newValue !== oldValue) {
-          console.log(newValue);
           if (!newValue.match(/^http[s]?:\/\/.+/gi)) {
             if (newValue.match(/^http[s]?:\/\//gi)) {
 

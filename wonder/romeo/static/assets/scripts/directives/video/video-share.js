@@ -28,18 +28,18 @@ angular.module('RomeoApp.directives')
       $scope.shareFacebook = function () {
 
         VideoService.getShareUrl($scope.video.id, 'facebook').then(function (data) {
-
           ga('send', 'event', 'uiAction', 'share', 'facebook');
-
-          var picture = $scope.video && $scope.video.thumbnails && $scope.video.thumbnails.items ? $scope.video.thumbnails.items[0] : null;
-
-          FB.ui({
+          var fbParams = {
               method: 'feed',
               link: (data.url),
-              picture: picture, // this is probably wrong
               name: 'WonderPL',
               caption: 'Shared a video with you'
-          });
+          };
+
+          if ($scope.video && $scope.video.thumbnails && $scope.video.thumbnails.items) {
+            fbParams.picture = $scope.video.thumbnails.items[0].url;
+          }
+          FB.ui(fbParams);
         });
       };
 
@@ -71,7 +71,7 @@ angular.module('RomeoApp.directives')
 window.fbAsyncInit = function() {
   'use strict';
     FB.init({
-      appId      : '123456789', //@TODO This needs the proper FB app id
+      appId      : facebook_app_id, // FB app id
 //      channelUrl : 'YOUR_WEBSITE_CHANNEL_URL',
       status     : false, // check login status
       cookie     : false, // enable cookies to allow the server to access the session
