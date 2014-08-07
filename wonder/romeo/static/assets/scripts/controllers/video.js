@@ -123,6 +123,12 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
         title : 'Preview Image Updated',
         message : 'New preview image saved.'}
       );
+    }, function () {
+      $scope.$emit('notify', {
+        status : 'error',
+        title : 'Preview Image Update Error',
+        message : 'Preview image not saved.'}
+      );
     });
   };
 

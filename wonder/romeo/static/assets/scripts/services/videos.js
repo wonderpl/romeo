@@ -112,7 +112,13 @@ function VideoService (DataService, localStorageService, $rootScope, AuthService
           mimeType: 'multipart/form-data',
           contentType: false
       }).done(function (response) {
-          return deferred.resolve(response);
+        deferred.resolve(response);
+      }).fail(function (xhr, status, error) {
+        deferred.reject({
+          xhr     : xhr,
+          status  : status,
+          error   : error
+        });
       });
 
       return deferred.promise;
@@ -132,7 +138,13 @@ function VideoService (DataService, localStorageService, $rootScope, AuthService
           mimeType: 'multipart/form-data',
           contentType: false
       }).done(function (response) {
-          return deferred.resolve(response);
+        deferred.resolve(response);
+      }).fail(function (xhr, status, error) {
+        deferred.reject({
+          xhr     : xhr,
+          status  : status,
+          error   : error
+        });
       });
 
       return deferred.promise;
