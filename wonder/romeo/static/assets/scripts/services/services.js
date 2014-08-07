@@ -104,17 +104,27 @@
             compiledTemplate,
             urlCache = {};
 
+
         el_bg.setAttribute('id', 'modal-bg');
         b.appendChild(el_bg);
         $el_bg = ng.element(el_bg);
+        $el_bg.addClass('modal-bg');
+
+        var container  = d.createElement('div');
+        var $container = ng.element(container);
+        $container.addClass('center-object');
+
+        el_bg.appendChild(container);
 
         el.setAttribute('id', 'modal');
-        b.appendChild(el);
+        container.appendChild(el);
         $el = ng.element(el);
+        $el.addClass('modal animation animation--flippable');
 
         $el_bg.bind('click', function (event) {
             modal.hide();
             $route.reload();
+            //event.stopPropagation();
         });
 
         /*
@@ -122,18 +132,15 @@
         */
         modal.show = function ( opts ) {
             $el_bg.addClass('show');
-            $el.addClass('show');
         };
 
         modal.hide = function () {
             $el_bg.removeClass('show');
-            $el.removeClass('show');
             $el.attr('style','');
         };
 
         modal.toggle = function () {
             $el_bg.toggleClass('show');
-            $el.toggleClass('show');
         };
 
         /*

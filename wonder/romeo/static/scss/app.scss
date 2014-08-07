@@ -23,6 +23,8 @@
   "_base/base.paragraphs",
   "_base/base.anchors",
   "_base/base.images",
+  "_base/base.tables",
+  "_base/base.forms",
 
   "_objects/objects.nav",
   "_objects/objects.media",
@@ -37,6 +39,7 @@
 
   "_components/components.animations",
   "_components/components.avatars",
+  "_components/components.center-object",
   "_components/components.ratios",
   "_components/components.truncate-text",
 
@@ -49,7 +52,10 @@
   "_theme/theme.browse-list",
   "_theme/theme.page-breadcrumbs",
   "_theme/theme.video-thumb",
+  "_theme/theme.forms",
   "_theme/theme.button",
+  "_theme/theme.modal",
+  "_theme/theme.modal-form.scss",
 
   "_trumps/trumps.widths",
   "_trumps/trumps.hidden",
@@ -98,7 +104,7 @@
   "specifics/video/_video-extended-controls",
   "specifics/video/_video-edit-categories",
   "specifics/video/_video-edit-collections",
-  "specifics/video/_video-new-collection",
+//  "specifics/video/_video-new-collection",
   "specifics/video/_video-add-collaborators",
   "specifics/video/_video-frame-stepper",
   "specifics/video/_video-more",

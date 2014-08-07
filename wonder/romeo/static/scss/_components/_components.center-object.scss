@@ -1,0 +1,25 @@
+/**
+ * _components.center-content.scss
+ */
+.center-object,
+%center-object {
+  position: relative;
+  top: 50%;
+  @include vendor(transform, translateY(-50%));
+}
+
+.center-container,
+%center-container {
+  display: table;
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  > .center-object,
+  > %center-object {
+    display: table-cell;
+    vertical-align: middle;
+    top: 0;
+    @include vendor(transform, translateY(0));
+  }
+}

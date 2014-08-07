@@ -1,0 +1,27 @@
+/**
+ * _theme.modal-form.scss
+ */
+.modal-form {
+  
+  .form-fields {
+
+    > li {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+  .modal-form__fieldset {
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+    .modal-input {
+      display: block;
+      border: 0;
+      border-bottom: 1px solid $swatch-two;
+      -webkit-appearance: none;
+         -moz-appearance: none;
+          -ms-appearance: none;
+              appearance: none;
+    }
