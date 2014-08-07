@@ -15,6 +15,9 @@
   background-repeat: no-repeat;
   background-clip: padding-box;
   position: relative;
+  border: 1px solid #fff;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.16),
+              0 2px 12px 1px rgba(0,0,0,0.2);
 }
 
 .profile-image__container--edit {
@@ -23,8 +26,7 @@
 
 .profile-image__container--edit:hover {
   cursor: pointer;
-  border: solid 1px $dark-green;
-  opacity: 0.6;
+  border: solid 1px $swatch-five;
 }
 
 .profile-image__dropzone {
@@ -35,7 +37,6 @@
   width: 100%;
   border-radius: 50%;
   background: $black;
-  opacity: 0.6;
 }
 
 .profile-image__dropzone:hover {

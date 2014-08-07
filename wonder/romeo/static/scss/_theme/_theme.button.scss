@@ -35,8 +35,7 @@
 
   &:hover,
   &:active,
-  &:focus,
-  &:visited {
+  &:focus {
     color: $swatch-five;
     border-color: $swatch-five;
   }
@@ -51,8 +50,7 @@
 
   &:hover,
   &:active,
-  &:focus,
-  &:visited {
+  &:focus {
     color: #F04223;
     border-color: #F04223;
   }
@@ -73,8 +71,7 @@
 
   &:hover,
   &:active,
-  &:focus,
-  &:visited {
+  &:focus {
     background-color: lighten($swatch-two,15%);
   }
 
@@ -96,8 +93,7 @@
   &,
   &:hover,
   &:active,
-  &:focus,
-  &:visited {
+  &:focus {
     opacity: 0.3;
     border: 1px solid rgba($swatch-four, 0.8);
     cursor: not-allowed;
