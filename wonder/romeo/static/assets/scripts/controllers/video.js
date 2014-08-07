@@ -315,6 +315,15 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
     bus.subscribe(OO.EVENTS.PAUSED, 'WonderUIModule', function () {
       $scope.$broadcast('player-paused');
     });
+    bus.subscribe(OO.EVENTS.ERROR, 'WonderUIModule', function (code) {
+      console.log('player error ', code);
+      $scope.$emit('notify', {
+        status : 'error',
+        title : 'Video Player Error',
+        message : 'Video player is experiencing technical issues.'}
+      );
+      $scope.$broadcast('player-error');
+    });
   }
 
   $rootScope.$on('display-section', function (event, section) {
