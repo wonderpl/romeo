@@ -75,10 +75,6 @@
     app.filter('videoSearchFilter', function() {
         return function( items, filter) {
 
-            // if ( search === "" ) {
-            //     return items;
-            // }
-
             var result = {
                     results: {},
                     length: 0
@@ -105,29 +101,6 @@
                         searchmatched = true;
                     }
                 }
-
-                // ng.forEach( value, function( value2, key2 ) {
-
-                //     if ( filter.collection === null ) {
-                //         collectionmatched = true;
-                //     } else if ( typeof value2 === "object" ) {
-                //         ng.forEach( value2, function( value3, key3 ){
-                //             if ( filter.collection === value3.id ) {
-                //                 collectionmatched = true;
-                //             }
-                //         });
-                //     }
-
-                //     if ( collectionmatched === true ) {
-                //         console.log( 'collectionmatched === true' );
-                //         if ( typeof value2 === "string" ) {
-                //             if ( value2.toLowerCase().indexOf(searchterm) !== (-1) ) {
-                //                 searchmatched = true;
-                //             }
-                //         }
-                //     }
-
-                // });
 
                 if ( collectionmatched === true && searchmatched === true) {
                     result.results[key] = value;
