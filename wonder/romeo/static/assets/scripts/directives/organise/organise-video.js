@@ -29,7 +29,7 @@ function OrganiseVideo ($templateCache, $modal) {
       };
       function getThumbnail() {
         var thumbs = $scope.video.thumbnails.items;
-        var thumbnail = thumbs.length ? thumbs[0].url : '/static/assets/img/default-video-thumbnail.png';
+        var thumbnail = (thumbs.length > 0 && thumbs[0].width !== 0) ? thumbs[0].url : '/static/assets/img/default-video-thumbnail.png';
         console.dir(thumbs);
         for (var i =0; i < thumbs.length; ++i) {
 
