@@ -1479,8 +1479,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <label class=\"video-share__embed-code-label\">\n" +
     "    <input class=\"video-share__embed-code-field\" placeholder=\"embed link\" ng-model=\"embedCode.html\" />\n" +
     "  </label>\n" +
-    "\n" +
     "  </section>\n" +
+    "  <div id=\"fb-root\"></div>\n" +
     "</section>"
   );
 

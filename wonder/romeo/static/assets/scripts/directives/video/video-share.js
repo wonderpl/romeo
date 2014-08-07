@@ -66,3 +66,25 @@ angular.module('RomeoApp.directives')
     }
   };
 }]);
+
+// Include facebook
+window.fbAsyncInit = function() {
+  'use strict';
+    FB.init({
+      appId      : '123456789', //@TODO This needs the proper FB app id
+//      channelUrl : 'YOUR_WEBSITE_CHANNEL_URL',
+      status     : false, // check login status
+      cookie     : false, // enable cookies to allow the server to access the session
+      xfbml      : true  // parse XFBML
+    });
+    };
+ 
+  (function(d){
+    'use strict';
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document));
+ 
