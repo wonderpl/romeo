@@ -1,0 +1,44 @@
+/**
+ * _theme.forms.scss
+ */
+.form-fields {
+  list-style: none;
+  margin: 0;
+  
+  > li {
+    margin-bottom: $base-spacing-unit;
+    padding: $half-spacing-unit;
+  }
+  
+  > li:last-child {
+    margin-bottom: 0;
+  }
+}
+
+label,
+.label {
+  display: block;
+}
+.form-label {
+  font-size: 0.75em;
+  color: darken($swatch-four, 30%);
+  cursor: pointer;
+}
+.additional {
+  display: block;
+  font-weight: normal;
+}
+.check-list {
+  list-style: none;
+  margin:0;
+}
+  .check-label,
+  .check-list label,
+  .check-list .label{
+    display: inline-block;
+  }
+
+.spoken-form label {
+  display: inline-block;
+  font: inherit;
+}
