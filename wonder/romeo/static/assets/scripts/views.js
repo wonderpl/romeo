@@ -1072,7 +1072,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <profile-image image=\"profile.avatar\" is-edit=\"isEdit\"></profile-image>\n" +
     "\n" +
     "  <div class=\"wrapper wrapper--fixed\">\n" +
-    "    <h2 class=\"profile__name\"\n" +
+    "    <h2 class=\"profile__name  no-spacing\"\n" +
     "      ng-show=\"isEdit\"\n" +
     "      medium-editor\n" +
     "      data-placeholder=\"(~ profile.name ? ' ' : 'name' ~)\"\n" +
@@ -1080,7 +1080,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      ng-model=\"profile.display_name\">\n" +
     "    </h2>\n" +
     "  \n" +
-    "    <h2 class=\"profile__name\" ng-hide=\"isEdit\" ng-bind=\"profile.display_name\"></h2>\n" +
+    "    <h2 class=\"profile__name  no-spacing\" ng-hide=\"isEdit\" ng-bind=\"profile.display_name\"></h2>\n" +
     "  \n" +
     "    <div class=\"profile__description\"\n" +
     "      ng-show=\"isEdit\"\n" +
