@@ -1,8 +1,8 @@
 angular
   .module('RomeoApp.controllers')
-  .controller('MainCtrl', MainController);
+  .controller('MainCtrl', ['$window', '$scope', '$rootScope', '$timeout', '$location', '$modal', '$element', '$cookies', 'localStorageService', 'AuthService', MainController]);
 
-function MainController ($scope, $rootScope, $timeout, $location, $modal, $element, $cookies, localStorageService, AuthService) {
+function MainController ($window, $scope, $rootScope, $timeout, $location, $modal, $element, $cookies, localStorageService, AuthService) {
 
   'use strict';
 
@@ -20,6 +20,11 @@ function MainController ($scope, $rootScope, $timeout, $location, $modal, $eleme
   $scope.profile = '';
 
   $scope.currentRoute = $location;
+
+  $window.onbeforeunload = function () {
+
+    return $scope.upload.status === 'uploading' ? 'Leaving this page will cancel your video upload.' : '';
+  }
 
   $rootScope.isUnique = function (arr, string) {
       if (arr.length === 0) {
