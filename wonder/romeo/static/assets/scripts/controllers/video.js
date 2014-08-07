@@ -208,15 +208,20 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
           message : 'Your changes have been saved.'}
         );
       });
+    } else if (!$scope.video.title || $scope.video.title.trim() === '') {
+      $scope.$emit('notify', {
+        status : 'error',
+        title : 'Video Not Saved',
+        message : 'Title is a required field.'}
+      );
     } else {
-      $scope.video.title = $scope.video.title || 'Untitled Video';
       VideoService.create($scope.video).then(function (data) {
         angular.extend($scope.video, data);
         var url = '/video/' + $scope.video.id + '/edit';
         $location.path(url, false);
         $scope.$emit('notify', {
           status : 'success',
-          title : 'Video Create',
+          title : 'Video Created',
           message : 'New video created.'}
         );
       });
