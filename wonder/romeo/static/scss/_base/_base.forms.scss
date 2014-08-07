@@ -1,0 +1,17 @@
+/**
+ * _base.forms.scss
+ */
+fieldset{
+  border: none;
+}
+
+legend {
+  padding:0;
+}
+
+input,
+textarea,
+select {
+  font-size: 1em;
+  font-family: $base-font-family;
+}
