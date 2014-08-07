@@ -28,8 +28,12 @@
   }
 
   > .btn--active {
-    color: #fff;
     background-color: $swatch-four
+
+    &,
+    &:hover {
+      color: $swatch-one;
+    }
   }
   > .btn--position.btn--active {
     background-color: $swatch-five;
