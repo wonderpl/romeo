@@ -6,6 +6,8 @@ body {
   height: 100%;
 }
 html {
+  min-height: 100%;
+  position: relative;
   font-weight: $base-font-weight;
   font-size: ($base-font-size / 16px) * 1em;
   line-height: $base-line-height / $base-font-size;
@@ -13,6 +15,7 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 body {
+  margin-bottom: 47px;
   color: $swatch-four;
   background-color: $swatch-one;
 }
