@@ -1,27 +1,28 @@
 .video-medium {
 
-  color: $dark-grey;
+  color: $swatch-three;
 
   h2,h3,p,ul,blockquote{ margin-bottom: $base-spacing-unit; }
-  h2 { @extend .large-font; }
-  h3 { @extend .medium-font; }
+  h2 {  }
+  h3 {  }
   b { font-weight: bold; }
   i { font-style: italic; }
-  p { @extend .regular-font; }
+  p { font-size: 20px; line-height: 28px; }
   ul {
     @extend .regular-font;
     list-style: disc inside;
   }
   blockquote {
-
-    @extend .quote-font;
     margin: 0;
     margin-right: auto;
+    margin-bottom: $base-spacing-unit;
     margin-left:  auto;
     max-width: 80%;
     min-width: 450px;
     text-indent: -0.41em;
     font-weight: 300;
+    font-size: 20px;
+    line-height: 28px;
     text-align: center;
     quotes: "#{$open-quote}" "#{$close-quote}";
 
