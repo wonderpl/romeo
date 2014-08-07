@@ -21,6 +21,7 @@ angular.module('RomeoApp.directives')
               $scope.embedCode = data;
             });
           }
+          $scope.videoIsPublic = videoIsPublic();
         }
       });
 
@@ -52,6 +53,16 @@ angular.module('RomeoApp.directives')
 
         });
       };
+
+      function videoIsPublic() {
+        var tags = $scope.video.tags.items;
+        for (var i = 0; i < tags.length; ++i) {
+          if (tags[i].public === true || tags[i].public == 'public') {
+            return true;
+          }
+        }
+        return false;
+      }
     }
   };
 }]);
