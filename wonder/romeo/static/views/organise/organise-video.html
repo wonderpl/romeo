@@ -34,10 +34,7 @@
       <li class="video-thumb-list__item"><a class="video-thumb-list__link" ng-click="addRemove(video)"><i class="icon  icon--collection"></i><span class="t--block  t--center">Add / Remove</span></a></li>
       <li class="video-thumb-list__item"><a class="video-thumb-list__link" ng-click="showDelete(video)"><i class="icon  icon--trash"></i><span class="t--block  t--center">Delete</span></a></l>
     </ul>
-    <ng-switch on="video.thumbnails.items[0].url.length">
-      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="ratio__src  video-thumb__img" style="background-image: url('http://placehold.it/218x122')" ng-switch-when="0">
-      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="ratio__src  video-thumb__img" style="background-image: url('{{ video.thumbnails.items[0].url }}')" ng-switch-default>
-    </ng-switch>
+    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="ratio__src  video-thumb__img" style="background-image: url('{{ thumbnail }}')">
   </div>
 
 </div>

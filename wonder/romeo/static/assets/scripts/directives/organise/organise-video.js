@@ -27,6 +27,18 @@ function OrganiseVideo ($templateCache, $modal) {
       $scope.close = function () {
         $modal.hide();
       };
+      function getThumbnail() {
+        var thumbs = $scope.video.thumbnails.items;
+        var thumbnail = thumbs.length ? thumbs[0].url : '/static/assets/img/default-video-thumbnail.png';
+        console.dir(thumbs);
+        for (var i =0; i < thumbs.length; ++i) {
+
+          if (thumbs[i].height == 180)
+            return thumbs[i].url;
+        }
+        return thumbnail;
+      }
+      $scope.thumbnail = getThumbnail();
     }
   };
 }
