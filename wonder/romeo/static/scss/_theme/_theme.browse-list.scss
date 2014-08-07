@@ -9,7 +9,7 @@
 }
 
   .browse-list__item {
-
+    margin-bottom: 6px;
   }
     .browse-list__title,
     .browse-list__link {
@@ -23,10 +23,23 @@
       color: $swatch-two;
     }
     .browse-list__link {
+      color: $swatch-four;
+      border: none;
       cursor: pointer;
+
+      &:hover {
+        margin: -4px -6px;
+        padding: 4px 6px;
+        background-color: rgba($swatch-two,0.25);
+        border-radius: 3px;
+      }
     }
     .browse-list__link--active {
       color: $swatch-five;
       font-weight: bold;
       cursor: auto;
+
+      &:hover {
+        background-color: transparent;
+      }
     }

@@ -9,7 +9,7 @@
 
   "_tools/tools.functions",
   "_tools/tools.mixins",
-//  "_tools/tools.debug",
+  //"_tools/tools.debug",
 
   "_generic/generic.font-face",
   "_generic/generic.normalize",
@@ -19,6 +19,9 @@
   "_generic/generic.shared",
 
   "_base/base.page",
+  "_base/base.headings",
+  "_base/base.paragraphs",
+  "_base/base.anchors",
   "_base/base.images",
 
   "_objects/objects.nav",
@@ -28,9 +31,13 @@
   "_objects/objects.icon",
   "_objects/objects.icon-text",
   "_objects/objects.layout",
+  "_objects/objects.box",
+  "_objects/objects.button",
+  "_objects/objects.button-group",
 
   "_components/components.animations",
   "_components/components.avatars",
+  "_components/components.ratios",
   "_components/components.truncate-text",
 
   "_theme/theme.structure",
@@ -41,6 +48,8 @@
   "_theme/theme.notices",
   "_theme/theme.browse-list",
   "_theme/theme.page-breadcrumbs",
+  "_theme/theme.video-thumb",
+  "_theme/theme.button",
 
   "_trumps/trumps.widths",
   "_trumps/trumps.hidden",
