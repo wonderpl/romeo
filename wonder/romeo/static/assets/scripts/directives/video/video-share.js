@@ -48,7 +48,7 @@ angular.module('RomeoApp.directives')
         VideoService.getShareUrl($scope.video.id, 'twitter').then(function (data) {
           ga('send', 'event', 'uiAction', 'share', 'twitter');
 
-          window.open("http://twitter.com/intent/tweet?url=" + data.url);
+          window.open("http://twitter.com/intent/tweet?url=" + data.url, 'twitter_popup', 'width=560, height=360');
         });
       };
 
