@@ -2021,6 +2021,44 @@ img[width], img[height] {
 }
 
 /**
+ * _components.truncate-text.scss
+*/
+/* line 4, ../../scss/_components/_components.truncate-text.scss */
+.trunc {
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* line 10, ../../scss/_components/_components.truncate-text.scss */
+.trunc--two {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  max-height: 48px;
+  white-space: normal;
+  -webkit-line-clamp: 2;
+}
+
+/* line 17, ../../scss/_components/_components.truncate-text.scss */
+.trunc--three {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  max-height: 72px;
+  white-space: normal;
+  -webkit-line-clamp: 3;
+}
+
+/* line 24, ../../scss/_components/_components.truncate-text.scss */
+.trunc--four {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  max-height: 96px;
+  white-space: normal;
+  webkit-line-clamp: 4;
+}
+
+/**
  * _theme.structure.scss
  */
 /* line 4, ../../scss/_theme/_theme.structure.scss */
@@ -2255,9 +2293,15 @@ img[width], img[height] {
 }
 
 /* line 25, ../../scss/_theme/_theme.browse-list.scss */
+.browse-list__link {
+  cursor: pointer;
+}
+
+/* line 28, ../../scss/_theme/_theme.browse-list.scss */
 .browse-list__link--active {
   color: #51b364;
   font-weight: bold;
+  cursor: auto;
 }
 
 /**
@@ -4329,24 +4373,18 @@ img[width], img[height] {
   bottom: 12px;
 }
 
-/* line 1, ../../scss/specifics/organise/_organise-video-list.scss */
-.organise-video-list {
-  max-width: 100%;
-  text-align: center;
-}
-
-/* line 6, ../../scss/specifics/organise/_organise-video-list.scss */
+/* line 4, ../../scss/specifics/organise/_organise-video-list.scss */
 .organise-video-list__display-controls {
   text-align: right;
   margin-bottom: 12px;
 }
 
-/* line 11, ../../scss/specifics/organise/_organise-video-list.scss */
+/* line 9, ../../scss/specifics/organise/_organise-video-list.scss */
 .organise-video-list__videos {
   text-align: left;
 }
 
-/* line 15, ../../scss/specifics/organise/_organise-video-list.scss */
+/* line 13, ../../scss/specifics/organise/_organise-video-list.scss */
 .organise-video-list__video {
   display: inline-block;
   width: 32.5%;
@@ -4356,7 +4394,7 @@ img[width], img[height] {
   vertical-align: top;
 }
 
-/* line 24, ../../scss/specifics/organise/_organise-video-list.scss */
+/* line 22, ../../scss/specifics/organise/_organise-video-list.scss */
 .organise-video-list__video--list {
   display: block;
   width: 100%;
@@ -4364,25 +4402,25 @@ img[width], img[height] {
   padding: 12px 0;
 }
 
-/* line 31, ../../scss/specifics/organise/_organise-video-list.scss */
+/* line 29, ../../scss/specifics/organise/_organise-video-list.scss */
 .organise-video-list__video--last {
   margin-right: 0;
 }
 
-/* line 35, ../../scss/specifics/organise/_organise-video-list.scss */
+/* line 33, ../../scss/specifics/organise/_organise-video-list.scss */
 .organise-video-list__message {
   display: inline-block;
   margin: 2em auto;
   text-align: center;
 }
 
-/* line 41, ../../scss/specifics/organise/_organise-video-list.scss */
+/* line 39, ../../scss/specifics/organise/_organise-video-list.scss */
 .organise-video-list__list-controls {
   text-align: right;
   margin-bottom: 24px;
 }
 
-/* line 46, ../../scss/specifics/organise/_organise-video-list.scss */
+/* line 44, ../../scss/specifics/organise/_organise-video-list.scss */
 .organise-video-list__select {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -4391,39 +4429,43 @@ img[width], img[height] {
   appearance: none;
 }
 
-/* line 52, ../../scss/specifics/organise/_organise-video-list.scss */
+/* line 50, ../../scss/specifics/organise/_organise-video-list.scss */
 .organise-video-list__list-control-label {
   display: inline-block;
 }
-/* line 56, ../../scss/specifics/organise/_organise-video-list.scss */
+/* line 54, ../../scss/specifics/organise/_organise-video-list.scss */
 .organise-video-list__list-control-label + .organise-video-list__list-control-label {
   margin-left: 24px;
 }
-/* line 60, ../../scss/specifics/organise/_organise-video-list.scss */
+/* line 58, ../../scss/specifics/organise/_organise-video-list.scss */
 .organise-video-list__list-control-label > .btn-group {
   margin-bottom: 0;
 }
 
 /* line 4, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__title {
+  margin-bottom: 12px;
   font-weight: 800;
-  height: 3em;
-  margin-bottom: 1em;
-  margin-left: 2px;
+  font-size: 1em;
+  line-height: 1.5;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #2e2e32;
+  text-decoration: none;
+  border: none;
 }
 
-/* line 14, ../../scss/specifics/organise/_organise-video.scss */
+/* line 15, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__link {
   display: block;
   color: white;
 }
 
-/* line 19, ../../scss/specifics/organise/_organise-video.scss */
+/* line 20, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__link:hover {
   text-decoration: underline;
 }
 
-/* line 23, ../../scss/specifics/organise/_organise-video.scss */
+/* line 24, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__controls-container {
   display: block;
   height: 122px;
@@ -4433,7 +4475,7 @@ img[width], img[height] {
   background-size: cover;
 }
 
-/* line 32, ../../scss/specifics/organise/_organise-video.scss */
+/* line 33, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__overlay {
   position: relative;
   height: 100%;
@@ -4442,12 +4484,12 @@ img[width], img[height] {
   opacity: 0;
 }
 
-/* line 40, ../../scss/specifics/organise/_organise-video.scss */
+/* line 41, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__overlay:hover {
   opacity: 1;
 }
 
-/* line 44, ../../scss/specifics/organise/_organise-video.scss */
+/* line 45, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__controls-mask {
   transition: opacity 0.4s linear;
   display: block;
@@ -4460,7 +4502,7 @@ img[width], img[height] {
   opacity: 0.6;
 }
 
-/* line 56, ../../scss/specifics/organise/_organise-video.scss */
+/* line 57, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__controls {
   display: block;
   position: absolute;
@@ -4470,42 +4512,42 @@ img[width], img[height] {
   width: 100%;
 }
 
-/* line 65, ../../scss/specifics/organise/_organise-video.scss */
+/* line 66, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__controls:hover {
   cursor: pointer;
 }
 
-/* line 69, ../../scss/specifics/organise/_organise-video.scss */
+/* line 70, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__inline-controls {
   float: left;
   margin-right: 12px;
 }
 
-/* line 76, ../../scss/specifics/organise/_organise-video.scss */
+/* line 77, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__inline-title {
   font-weight: 800;
 }
 
-/* line 80, ../../scss/specifics/organise/_organise-video.scss */
+/* line 81, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__inline-control {
   display: inline-block;
 }
-/* line 83, ../../scss/specifics/organise/_organise-video.scss */
+/* line 84, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__inline-control + .organise-video__inline-control {
   margin-left: 4px;
 }
 
-/* line 88, ../../scss/specifics/organise/_organise-video.scss */
+/* line 89, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__inline-link {
   display: block;
 }
 
-/* line 92, ../../scss/specifics/organise/_organise-video.scss */
+/* line 93, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__inline-link:hover {
   cursor: pointer;
 }
 
-/* line 96, ../../scss/specifics/organise/_organise-video.scss */
+/* line 97, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video-delete {
   max-width: 700px;
   margin: 0 auto;
@@ -4514,17 +4556,17 @@ img[width], img[height] {
   background: white;
   font-size: 1em;
 }
-/* line 105, ../../scss/specifics/organise/_organise-video.scss */
+/* line 106, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video-delete .media__img {
   float: left;
   margin-right: 24px;
 }
-/* line 109, ../../scss/specifics/organise/_organise-video.scss */
+/* line 110, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video-delete .media__body {
   overflow: hidden;
 }
 
-/* line 114, ../../scss/specifics/organise/_organise-video.scss */
+/* line 115, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video-delete__title {
   font-size: 1em;
   border-bottom: solid 1px #999999;
@@ -4532,19 +4574,19 @@ img[width], img[height] {
   padding: 12px;
 }
 
-/* line 121, ../../scss/specifics/organise/_organise-video.scss */
+/* line 122, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video-delete__controls {
   padding: 24px 24px 48px;
 }
 
-/* line 124, ../../scss/specifics/organise/_organise-video.scss */
+/* line 125, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video-delete__msg {
   margin-bottom: 24px;
   font-size: 14px;
   line-height: 21px;
 }
 
-/* line 129, ../../scss/specifics/organise/_organise-video.scss */
+/* line 130, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video-delete_button {
   position: absolute;
   bottom: 0;

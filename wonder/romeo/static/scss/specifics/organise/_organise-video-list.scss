@@ -1,6 +1,4 @@
 .organise-video-list {
-  max-width: 100%;
-  text-align: center;
 }
 
 .organise-video-list__display-controls {
@@ -44,7 +42,7 @@
 }
 
 .organise-video-list__select {
-  @extend .small-font;
+
   @include vendor(appearance, none);
   
 }

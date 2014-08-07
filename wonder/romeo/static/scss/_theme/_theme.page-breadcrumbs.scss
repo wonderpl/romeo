@@ -1,0 +1,30 @@
+/**
+ * _theme.page-breadcrumbs.scss
+ */
+.page-breadcrumbs {
+  
+  > li + li {
+    padding-right: $half-spacing-unit / 2;
+    padding-left:  $half-spacing-unit;
+  }
+
+  > li + li::before {
+    content: "›" "\00A0";
+    vertical-align: middle;
+    position: relative;
+    top: -5px;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2.5em;
+    font-family: "Lucida Grande",sans-serif;
+    line-height: 1;
+  }
+}
+  .page-breadcrumbs__title {
+    font-weight: 500;
+    font-size: 1.125em;
+    font-family: $heading-font-family;
+  }
+  .page-breadcrumbs__title--selected {
+    color: $swatch-five;
+  }

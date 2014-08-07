@@ -772,10 +772,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <span class=\"browse-list__title\">Manage</span>\n" +
     "    </li>\n" +
     "    <li class=\"browse-list__item\">\n" +
-    "      <a class=\"browse-list__link\" ng-class=\"{ 'organise-navigation__link--active' : !customFilterFunction && !currentTag }\" ng-click=\"showAllVideos()\">All videos</a>\n" +
+    "      <a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : !customFilterFunction && !currentTag }\" ng-click=\"showAllVideos()\">All videos</a>\n" +
     "    </li>\n" +
     "    <li class=\"browse-list__item\">\n" +
-    "      <a class=\"browse-list__link\" ng-class=\"{ 'organise-navigation__link--active' : customFilterFunction === 'isRecent' }\" ng-click=\"showRecentVideos()\">Recently added videos</a>\n" +
+    "      <a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : customFilterFunction === 'isRecent' }\" ng-click=\"showRecentVideos()\">Recently added videos</a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
     "\n" +
@@ -843,8 +843,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <p>Go and <a href=\"#/video\">upload</a> a video.</p>\n" +
     "  </div>\n" +
     "\n" +
-    "  <ul class=\"organise-video-list__videos\" ng-show=\"filteredVideos\">\n" +
-    "    <li class=\"organise-video-list__video\"\n" +
+    "  <ul class=\"layout\" ng-show=\"filteredVideos\">\n" +
+    "    <li class=\"layout__item  one-third\"\n" +
     "      ng-repeat=\"video in filteredVideos | orderBy: sortOption | filter : customFilter\"\n" +
     "      ng-class=\"{\n" +
     "        'organise-video-list__video--last' : ($index + 1) % 3 == 0,\n" +
@@ -885,11 +885,11 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  </ul>\n" +
     "\n" +
     "  <a ng-href=\"#/video/(~video.id~)\">\n" +
-    "    <span class=\"organise-video__inline-title\" ng-show=\"isList\" ng-bind=\"video.title\"></span>\n" +
+    "    <span class=\"organise-video__inline-title  trunc  trunc--two\" ng-show=\"isList\" ng-bind=\"video.title\"></span>\n" +
     "  </a>\n" +
     "\n" +
     "  <a ng-href=\"#/video/(~video.id~)\">\n" +
-    "    <span class=\"organise-video__title\" ng-hide=\"isList\" ng-bind=\"video.title\"></span>\n" +
+    "    <span class=\"organise-video__title  trunc  trunc--two\" ng-hide=\"isList\" ng-bind=\"video.title\"></span>\n" +
     "  </a>\n" +
     "\n" +
     "  <div class=\"video-thumb-container\" ng-hide=\"isList\">\n" +

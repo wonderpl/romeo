@@ -2,13 +2,14 @@
 }
 
 .organise-video__title {
-  @extend .truncate;
-  @extend .truncate--two;
-  @extend .small-font;
+  margin-bottom: $half-spacing-unit;
   font-weight: 800;
-  height: 3em;
-  margin-bottom: 1em;
-  margin-left: 2px;
+  font-size: 1em;
+  line-height: 1.5;
+  font-family: $heading-font-family;
+  color: $swatch-three;
+  text-decoration: none;
+  border: none;
 }
 
 .organise-video__link {
