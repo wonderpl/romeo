@@ -133,8 +133,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
 
     var data = { title : $scope.video.title };
 
-    // this is a cludge
-    // having to create a new video record at different points
+    // refactor
     if ($scope.video.id) {
       persistVideoData(data);
       UploadService.uploadVideo(files[0], $scope.video.id);

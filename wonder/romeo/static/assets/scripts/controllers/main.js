@@ -19,13 +19,6 @@ function MainController ($scope, $rootScope, $timeout, $location, $modal, $eleme
 
   $scope.profile = '';
 
-  /*
-  * Cached Selectors ( not sure which of these are still needed )
-  */
-  $scope.wonder = angular.element(document.getElementById('wonder'));
-  $scope.wrapper = angular.element(document.getElementById('wrapper'));
-  $scope.html = angular.element(document.querySelector('html'));
-  $scope.body = angular.element(document.body);
   $scope.currentRoute = $location;
 
   $rootScope.isUnique = function (arr, string) {
@@ -45,25 +38,10 @@ function MainController ($scope, $rootScope, $timeout, $location, $modal, $eleme
   $rootScope.logOut = function () {
       localStorageService.remove('session_url');
       $location.path('/login');
-      $scope.wonder.removeClass('aside');
-      $scope.wrapper.removeClass('aside');
-      $scope.html.removeClass('aside');
-      $scope.body.removeClass('aside');
   };
 
   $rootScope.toggleNav = function () {
-      $scope.wonder.toggleClass('aside');
-      $scope.wrapper.toggleClass('aside');
-      $scope.html.toggleClass('aside');
-      $scope.body.toggleClass('aside');
-  };
 
-  $scope.toggleQuickShare = function (e) {
-      $timeout(function () {
-          $scope.$apply(function () {
-              $scope.showQuickShare = !$scope.showQuickShare;
-          });
-      });
   };
 
   $rootScope.$on('notify', function (event, data) {
@@ -87,7 +65,8 @@ function MainController ($scope, $rootScope, $timeout, $location, $modal, $eleme
     $scope.upload.status = 'processing';
   });
 
-  $scope.$on('video-upload-success', function (event) {
+  $scope.$on('video-upload-success', function (event, data) {
+    $scope.upload.href = '#/video/' + data.id + '/edit';
     $scope.upload.status = 'upload complete';
   });
 
@@ -97,31 +76,6 @@ function MainController ($scope, $rootScope, $timeout, $location, $modal, $eleme
   $rootScope.$on('$routeChangeError', function(error){
       console.log('route fail', arguments);
       AuthService.redirect();
-  });
-
-  /*
-  * Route changed successfully
-  */
-  $rootScope.$on('$locationChangeSuccess', function (event, newRoute, oldRoute) {
-
-      var newRoutePart = newRoute.replace(/http:\/\/localhost:5000\/#\/(\w*)\/.+/, '$1');
-      var oldRoutePart = oldRoute.replace(/http:\/\/localhost:5000\/#\/(\w*)\/.+/, '$1');
-
-      $element.removeClass('route-' + oldRoutePart);
-      $element.addClass('route-' + newRoutePart);
-
-      $scope.wonder.removeClass('aside');
-      $scope.wrapper.removeClass('aside');
-      $scope.html.removeClass('aside');
-      $scope.body.removeClass('aside');
-
-      if ( !$rootScope.isEmpty($rootScope.Videos) ) {
-          $rootScope.$broadcast('get videos');
-      }
-
-      if ( !$rootScope.isEmpty($rootScope.Tags) ) {
-          $rootScope.$broadcast('get tags');
-      }
   });
 
   /*

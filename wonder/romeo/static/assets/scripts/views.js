@@ -453,17 +453,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
-  $templateCache.put('loading.html',
-    "\n" +
-    "\n" +
-    "<div id=\"page-loading\" class=\"page section\" ng-controller=\"LoadingCtrl\">\n" +
-    "\t<div class=\"inner\">\n" +
-    "\t\t<h1>One moment please...</h1>\n" +
-    "\t</div>\n" +
-    "</div>"
-  );
-
-
   $templateCache.put('login.html',
     "\n" +
     "\n" +
@@ -1086,27 +1075,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('upload-progress.html',
     "<section class=\"upload-progress\">\n" +
     "  <span ng-show=\"upload && upload.progress && upload.progress > 0 && upload.progress < 100\">(~ upload.progress ~)%</span>\n" +
-    "  <span>(~ upload.status ~)</span>\n" +
+    "  <span ng-hide=\"upload.href\">(~ upload.status ~)</span>\n" +
+    "  <a ng-href=\"(~ upload.href ~)\" ng-show=\"upload.href\">(~ upload.status ~)</a>\n" +
     "</section>"
-  );
-
-
-  $templateCache.put('upload-quick-share.html',
-    "\n" +
-    "<div id=\"quick-share\" class=\"f-serif\" ng-class=\"{ show: showQuickShare }\">\n" +
-    "\t<form ng-submit=\"submitQuickShareForm\">\n" +
-    "\t\t<div id=\"quick-share-recipients\">\n" +
-    "\t\t\t<tags-input ng-model=\"shareAddresses\" placeholder=\"Your recipient(s) email addresses\"></tags-input>\n" +
-    "\t\t</div>\n" +
-    "\t\t<div id=\"quick-share-body\">\n" +
-    "\t\t\t<textarea class=\"message f-serif\" name=\"message\">Hey, you should totally check out my new video on Wonder PL.</textarea>\n" +
-    "\t\t\t<div class=\"link\"><a href=\"#\">http://wndr.pl/s?v=554D4B</a></div>\n" +
-    "\t\t\t<div class=\"controls\">\n" +
-    "\t\t\t\t<button>(~ file.upload.progress <= 50 ? 'Send ( when video is ready )' : 'Send' ~) </button>\n" +
-    "\t\t\t</div>\n" +
-    "\t\t</div>\n" +
-    "\t</form>\n" +
-    "</div>"
   );
 
 

@@ -11,7 +11,14 @@ angular.module('RomeoApp.directives')
       upload : '='
     },
     controller : function ($scope, $element) {
-
+      $scope.$watch(
+        function() { return $scope.upload; },
+        function(newValue, oldValue) {
+          if (newValue && newValue !== oldValue) {
+            console.log(newValue);
+          }
+        }
+      );
     }
   };
 }]);
