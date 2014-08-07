@@ -10,6 +10,7 @@ function LoginController ($scope, $location, AuthService) {
   $scope.username = $scope.username || '';
   $scope.password = $scope.username || '';
   $scope.href = '';
+  $scope.tandc = false;
 
   $scope.handleRedirect = function (response) {
     $scope.isLoading = false;

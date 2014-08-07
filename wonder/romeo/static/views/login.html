@@ -8,16 +8,15 @@
 
 				<label class="login-view__label">Password <input type="password" name="password" ng-model="password" autocomplete="off"  class="login-view__input" /></label>
 
+        <label class="login-view__label">I agree with the <a href="http://wonderpl.com/tos">terms and conditions</a> of this closed beta <input type="checkbox" name="tandc" ng-model="tandc" required class="login-view__input" /></label>
+
+
         <span class="login-view__errors" ng-bind="errors"></span>
 
-				<label class="login-view__label hide-text">
+        <img class="login-view__loading-indicator" src="/static/assets/img/loading.gif" ng-show="isLoading" />
+        <button type="submit" class="btn btn--positive login-view__submit" ng-class="{'btn--disabled': !tandc}" ng-disabled="!tandc" ng-click="isLoading = true;">
           Login
-          <img class="login-view__loading-indicator" src="/static/assets/img/loading.gif" ng-show="isLoading" />
-          <button type="submit" class="btn btn--positive login-view__submit" ng-click="isLoading = true;">
-            Login
-          </button>
-        </label>
-
+        </button>
 		</form>
 
 </div>

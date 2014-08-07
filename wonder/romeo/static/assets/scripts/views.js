@@ -464,16 +464,15 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "\t\t\t\t<label class=\"login-view__label\">Password <input type=\"password\" name=\"password\" ng-model=\"password\" autocomplete=\"off\"  class=\"login-view__input\" /></label>\n" +
     "\n" +
+    "        <label class=\"login-view__label\">I agree with the <a href=\"http://wonderpl.com/tos\">terms and conditions</a> of this closed beta <input type=\"checkbox\" name=\"tandc\" ng-model=\"tandc\" required class=\"login-view__input\" /></label>\n" +
+    "\n" +
+    "\n" +
     "        <span class=\"login-view__errors\" ng-bind=\"errors\"></span>\n" +
     "\n" +
-    "\t\t\t\t<label class=\"login-view__label hide-text\">\n" +
+    "        <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading\" />\n" +
+    "        <button type=\"submit\" class=\"btn btn--positive login-view__submit\" ng-class=\"{'btn--disabled': !tandc}\" ng-disabled=\"!tandc\" ng-click=\"isLoading = true;\">\n" +
     "          Login\n" +
-    "          <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading\" />\n" +
-    "          <button type=\"submit\" class=\"btn btn--positive login-view__submit\" ng-click=\"isLoading = true;\">\n" +
-    "            Login\n" +
-    "          </button>\n" +
-    "        </label>\n" +
-    "\n" +
+    "        </button>\n" +
     "\t\t</form>\n" +
     "\n" +
     "</div>"
