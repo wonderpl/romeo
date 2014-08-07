@@ -42,3 +42,7 @@ SQS_REGION = 'us-east-1'
 # Ooyala
 OOYALA_API_KEY = 'YzYW8xOshpVwePawyVliU0L_tBj_.yPTX2'
 OOYALA_SECRET = _decrypt('!\xad\xb5\xe8\xac\xf0\xc2\xed\xa2\t\t0K\x88\xf1,\xba\x88\xe4\xbc\x1aE:2\xc0M\xd6\xd7\xa2/\xbd\xc9\x96\xef\x87\xae\xa6]\x83*')
+
+GOOGLE_ANALYTICS_ACCOUNT = 'UA-46520786-2'
+
+FACEBOOK_APP_ID = '517447921656577'

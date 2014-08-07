@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta property="fb:app_id" content="{{ config.FACEBOOK_APP_ID }}">
 
     <title>{% block title %}Romeo{% endblock %}</title>
 
@@ -18,6 +19,9 @@
     <link rel="stylesheet" href="{{ ASSET_URL }}"/>
     {% endassets %}
 
+    <script>
+      var wonder = {romeo: {settings: {{ settings|tojson}} } };
+    </script>
 </head>
 <body ng-app="RomeoApp" ng-controller="MainCtrl" class="page-(~ getCurrentRoute() ~)">
 
@@ -108,6 +112,7 @@
         %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
     {% endblock %}
 
+    {% include "ga.html" %}
     </div>
 
 </body>

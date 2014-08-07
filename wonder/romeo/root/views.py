@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for
+from flask import current_app, Blueprint, render_template, url_for
 from flask.ext.login import current_user
 from wonder.romeo.core.rest import api_resource, Resource
 
@@ -12,7 +12,11 @@ def home():
 
 @rootapp.route('/app')
 def app():
-    return render_template('root/app.html')
+    settings = dict(
+        google_analytics_account_id=current_app.config['GOOGLE_ANALYTICS_ACCOUNT'],
+        facebook_app_id=current_app.config['FACEBOOK_APP_ID'],
+    )
+    return render_template('root/app.html', settings=settings)
 
 
 @rootapp.route('/status/')
