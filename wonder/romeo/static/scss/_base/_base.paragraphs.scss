@@ -1,0 +1,7 @@
+/**
+ * _base.paragraph.scss
+ */
+.lede,
+.lead {
+  @include font-size($base-font-size * 1.125);
+}

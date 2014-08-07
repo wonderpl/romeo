@@ -1,0 +1,19 @@
+/**
+ * _object.box.scss
+ */
+.box {
+  @extend .cf;
+  display: block;
+  padding: $base-spacing-unit;
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.box--small {
+  padding: $half-spacing-unit;
+}
+.box--large {
+  padding: $base-spacing-unit * 2;
+}

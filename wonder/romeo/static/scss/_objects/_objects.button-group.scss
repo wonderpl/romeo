@@ -1,0 +1,40 @@
+/**
+ * _objects.button-group.scss
+ */
+.btn-group {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  font-family: nospace;
+
+  > .btn {
+    font-family: $heading-font-family;
+  }
+  > .btn + .btn {
+    margin-left: -0.0625em;
+  }
+
+  > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+    border-top-right-radius:    0;
+    border-bottom-right-radius: 0;
+  }
+  > .btn:last-child:not(:first-child),
+  > .dropdown-toggle:not(:first-child) {
+    border-top-left-radius:    0;
+    border-bottom-left-radius: 0;
+  }
+  > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+    border-radius: 0;
+  }
+
+  > .btn--active {
+    color: #fff;
+    background-color: $swatch-four
+  }
+  > .btn--position.btn--active {
+    background-color: $swatch-five;
+  }
+  > .btn--destructive.btn--active {
+    background-color: #F04223;
+  }
+}

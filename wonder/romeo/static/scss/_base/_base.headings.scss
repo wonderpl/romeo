@@ -1,0 +1,63 @@
+/**
+ * _base.headings.scss
+ */
+.heading {
+  display: block;
+  margin-bottom: $base-spacing-unit;
+  font-weight: 600;
+  font-family: $heading-font-family;
+  color: $swatch-three;
+}
+h5.heading,
+h6.heading { font-family: $small-heading-font-family; }
+
+.tera,.mega,.giga,.kilo,
+.alpha,.beta,.gamma,.delta {
+  text-rendering: optimizeLegibility;
+  -webkit-font-feature-settings: "liga","kern";
+     -moz-font-feature-settings: "liga=1,kern=1";
+     -moz-font-feature-settings: "liga","kern";
+      -ms-font-feature-settings: "liga" 1,"kern" 1;
+      -ms-font-feature-settings: "liga","kern";
+       -o-font-feature-settings: "liga","kern";
+          font-feature-settings: "liga","kern";
+}
+.tera {
+  @include font-size($tera-size);
+}
+.giga {
+  @include font-size($giga-size);
+}
+.mega {
+  @include font-size($mega-size);
+}
+.kilo {
+  @include font-size($kilo-size);
+}
+.alpha {
+  @include font-size($alpha-size);
+}
+.beta {
+  @include font-size($beta-size);
+  line-height: 1.5;
+}
+.gamma {
+  @include font-size($gamma-size);
+}
+.delta {
+  @include font-size($delta-size);
+}
+.epsilon {
+  @include font-size($epsilon-size);
+}
+.zeta {
+  @include font-size($zeta-size);
+}
+
+h5,
+h6 {
+  font-variant: small-caps;
+  text-transform: lowercase;
+  letter-spacing: 0.1em;
+}
+h6 { font-style: italic; }

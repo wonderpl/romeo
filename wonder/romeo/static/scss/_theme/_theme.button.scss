@@ -1,0 +1,105 @@
+/**
+ * _theme.button.scss
+ */
+.btn {
+  font-weight: 400;
+  font-size: 0.875em;
+  font-family: $heading-font-family;
+  color: $swatch-four;
+  border: 1px solid rgba($swatch-four,0.6);
+  border-radius: 40px;
+  transition: border 0.3s ease-in-out;
+
+  &,
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    text-decoration: none;
+    color: $swatch-four;
+    outline: none;
+  }
+  &:hover,
+  &:active,
+  &:focus {
+    border-color: rgba($swatch-four,0.8);
+  }
+}
+
+/**
+ * Positive actions
+ */
+.btn--positive {
+  color: $swatch-five;
+  border-color: rgba($swatch-five,0.6);
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: $swatch-five;
+    border-color: $swatch-five;
+  }
+}
+
+/**
+ * Destructive actions
+ */
+.btn--destructive {
+  color: #F04223;
+  border-color: rgba(#F04223,0.6);
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: #F04223;
+    border-color: #F04223;
+  }
+}
+
+
+.btn--utility {
+  padding: 8px 16px;
+  font-variant: small-caps;
+  font-weight: 600;
+  font-size: 0.75em;
+  text-transform: lowercase;
+  letter-spacing: 0.1em;
+  background-color: lighten($swatch-two,20%);
+  border: none;
+  -webkit-transition: background-color 0.3s ease-in-out;
+          transition: background-color 0.3s ease-in-out;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    background-color: lighten($swatch-two,15%);
+  }
+
+  & > .icon { color: $swatch-three; }
+}
+
+.btn--utility--active,
+.btn--utility--fill {
+  background-color: $swatch-five;
+
+  &,
+  &:hover,
+  & > .icon { color: $swatch-one; }
+}
+
+
+.btn--disabled {
+
+  &,
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    opacity: 0.3;
+    border: 1px solid rgba($swatch-four, 0.8);
+    cursor: not-allowed;
+  }
+}

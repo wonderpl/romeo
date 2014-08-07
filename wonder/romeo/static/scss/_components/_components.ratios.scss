@@ -1,0 +1,25 @@
+/**
+ * _components.ratio.scss
+ */
+.ratio {
+  position: relative;
+  height: 0;
+  
+  > object,
+  > embed,
+  > iframe
+  > .mov,
+  > .img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  > .img,
+  .ratio__src {
+    @extend %img--full;
+  }
+}
+
+.ratio--16x9 { padding-bottom: 56.25%; }
