@@ -48,6 +48,7 @@ angular.module('RomeoApp.controllers')
           title : 'Avatar updated',
           message : 'New avatar saved.'}
         );
+      loadUserDetails();
       });
     });
   }
@@ -67,6 +68,7 @@ angular.module('RomeoApp.controllers')
         title : 'Cover image updated',
         message : 'New cover image saved.'}
       );
+      loadUserDetails();
     });
   }
 

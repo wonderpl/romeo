@@ -4,14 +4,14 @@
     ng-class="{ 'profile-image__container--edit' : isEdit }"
     style="background-image:url('{{ image }}');">
 
-  <label class="profile-image__upload-label" for="profileImageUpload">
-    <div class="profile-image__dropzone"
-      ng-file-drop="uploadProfileImage($files)"
-      ng-file-drag-over-class="profile-image__dropzone--active"
-      ng-show="isEdit">
-    </div>
-  </label>
+    <label class="profile-image__upload-label" for="profileImageUpload">
+      <div class="profile-image__dropzone"
+        ng-file-drop="uploadProfileImage($files)"
+        ng-file-drag-over-class="profile-image__dropzone--active"
+        ng-show="isEdit">
+      </div>
+    </label>
 
-  <input class="profile-image__upload" type="file" id="profileImageUpload" ng-file-select="uploadProfileImage($files)" />
-
+    <input class="profile-image__upload" type="file" id="profileImageUpload" ng-file-select="uploadProfileImage($files)" />
+  </div>
 </section>

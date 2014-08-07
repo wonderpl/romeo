@@ -1010,16 +1010,16 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    ng-class=\"{ 'profile-image__container--edit' : isEdit }\"\n" +
     "    style=\"background-image:url('(~ image ~)');\">\n" +
     "\n" +
-    "  <label class=\"profile-image__upload-label\" for=\"profileImageUpload\">\n" +
-    "    <div class=\"profile-image__dropzone\"\n" +
-    "      ng-file-drop=\"uploadProfileImage($files)\"\n" +
-    "      ng-file-drag-over-class=\"profile-image__dropzone--active\"\n" +
-    "      ng-show=\"isEdit\">\n" +
-    "    </div>\n" +
-    "  </label>\n" +
+    "    <label class=\"profile-image__upload-label\" for=\"profileImageUpload\">\n" +
+    "      <div class=\"profile-image__dropzone\"\n" +
+    "        ng-file-drop=\"uploadProfileImage($files)\"\n" +
+    "        ng-file-drag-over-class=\"profile-image__dropzone--active\"\n" +
+    "        ng-show=\"isEdit\">\n" +
+    "      </div>\n" +
+    "    </label>\n" +
     "\n" +
-    "  <input class=\"profile-image__upload\" type=\"file\" id=\"profileImageUpload\" ng-file-select=\"uploadProfileImage($files)\" />\n" +
-    "\n" +
+    "    <input class=\"profile-image__upload\" type=\"file\" id=\"profileImageUpload\" ng-file-select=\"uploadProfileImage($files)\" />\n" +
+    "  </div>\n" +
     "</section>"
   );
 
