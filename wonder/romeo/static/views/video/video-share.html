@@ -1,12 +1,12 @@
 <section class="video-share">
   <div class="btn-center  btn-group">
-    <a href="" class="btn  btn--small" ng-class="{ 'btn--disabled' : !videoIsPublic }" ng-click="showEmbedCode = !showEmbedCode">
+    <a href="" class="btn  btn--small" ng-class="{ 'btn--disabled' : !videoIsPublic }" ng-click="!videoIsPublic || (showEmbedCode = !showEmbedCode)">
       <i class="icon  icon--medium  icon--code"></i>
     </a>
-    <a href="" class="btn  btn--small" ng-class="{ 'btn--disabled' : !videoIsPublic }" ng-click="shareTwitter()">
+    <a href="" class="btn  btn--small" ng-class="{ 'btn--disabled' : !videoIsPublic }" ng-click="!videoIsPublic || shareTwitter()">
       <i class="icon  icon--medium  icon--twitter"></i>
     </a>
-    <a href="" class="btn  btn--small" ng-class="{ 'btn--disabled' : !videoIsPublic }" ng-click="shareFacebook()">
+    <a href="" class="btn  btn--small" ng-class="{ 'btn--disabled' : !videoIsPublic }" ng-click="!videoIsPublic || shareFacebook()">
       <i class="icon  icon--medium  icon--facebook" ></i>
     </a>
   </div>

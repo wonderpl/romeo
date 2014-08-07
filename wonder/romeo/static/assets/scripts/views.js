@@ -1486,13 +1486,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('video-share.html',
     "<section class=\"video-share\">\n" +
     "  <div class=\"btn-center  btn-group\">\n" +
-    "    <a href=\"\" class=\"btn  btn--small\" ng-class=\"{ 'btn--disabled' : !videoIsPublic }\" ng-click=\"showEmbedCode = !showEmbedCode\">\n" +
+    "    <a href=\"\" class=\"btn  btn--small\" ng-class=\"{ 'btn--disabled' : !videoIsPublic }\" ng-click=\"!videoIsPublic || (showEmbedCode = !showEmbedCode)\">\n" +
     "      <i class=\"icon  icon--medium  icon--code\"></i>\n" +
     "    </a>\n" +
-    "    <a href=\"\" class=\"btn  btn--small\" ng-class=\"{ 'btn--disabled' : !videoIsPublic }\" ng-click=\"shareTwitter()\">\n" +
+    "    <a href=\"\" class=\"btn  btn--small\" ng-class=\"{ 'btn--disabled' : !videoIsPublic }\" ng-click=\"!videoIsPublic || shareTwitter()\">\n" +
     "      <i class=\"icon  icon--medium  icon--twitter\"></i>\n" +
     "    </a>\n" +
-    "    <a href=\"\" class=\"btn  btn--small\" ng-class=\"{ 'btn--disabled' : !videoIsPublic }\" ng-click=\"shareFacebook()\">\n" +
+    "    <a href=\"\" class=\"btn  btn--small\" ng-class=\"{ 'btn--disabled' : !videoIsPublic }\" ng-click=\"!videoIsPublic || shareFacebook()\">\n" +
     "      <i class=\"icon  icon--medium  icon--facebook\" ></i>\n" +
     "    </a>\n" +
     "  </div>\n" +
