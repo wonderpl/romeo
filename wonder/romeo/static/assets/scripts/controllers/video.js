@@ -191,9 +191,11 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
 
   $scope.save = function () {
     if ($scope.video.id) {
+      $scope.$broadcast('video-saving', $scope.video);
       VideoService.update($scope.video.id, $scope.video).then(function (data) {
         angular.extend($scope.video, data);
         $scope.displaySection();
+        $scope.$broadcast('video-saved', $scope.video);
         $scope.$emit('notify', {
           status : 'success',
           title : 'Video Updated',

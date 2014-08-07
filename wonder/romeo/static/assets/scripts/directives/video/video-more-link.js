@@ -18,7 +18,6 @@ angular.module('RomeoApp.directives')
       var maxLength = 30;
 
       $scope.$watch('text', function (newValue, oldValue) {
-        console.log(newValue);
         if (newValue !== oldValue) {
           var newLength = newValue && newValue.length ? newValue.length : 0;
           $scope.remaining = maxLength - newLength;

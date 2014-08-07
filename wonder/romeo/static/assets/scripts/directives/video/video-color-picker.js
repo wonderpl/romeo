@@ -19,7 +19,6 @@ angular.module('RomeoApp.directives')
     }
   }
 
-
   return {
     restrict : 'E',
     replace : true,
@@ -28,41 +27,28 @@ angular.module('RomeoApp.directives')
       playerParameters : '=',
       videoId : '@'
     },
-    link : function (scope, elem, attrs) {
-
-    },
     controller : function ($scope) {
+
+      function persistChanges () {
+        VideoService.setPlayerParameters($scope.videoId, {
+          hideLogo : $scope.hideLogo,
+          rgb : JSON.stringify($scope.color)
+        }).then(null, function () {
+          $scope.$emit('notify', {
+            status : 'error',
+            title : 'Video Configuration Save Error',
+            message : 'Your video player control changes have not been saved.'}
+          );
+        });
+      }
+
+      $scope.$on('video-saving', function ($event, data) {
+        persistChanges();
+      });
 
       $scope.toggleHideLogo = function () {
         shimChangesToIFrame($scope.hideLogo);
-        saveLogoSetting($scope.hideLogo);
       };
-
-      function saveLogoSetting (hideLogo) {
-        VideoService.setPlayerParameters($scope.videoId, {
-          hideLogo : $scope.hideLogo,
-          rgb : JSON.stringify($scope.color)
-        });
-      }
-
-      function saveColor (color) {
-        VideoService.setPlayerParameters($scope.videoId, {
-          hideLogo : $scope.hideLogo,
-          rgb : JSON.stringify($scope.color)
-        });
-      }
-
-      var promise;
-
-      $scope.$watch(
-        function() { return $scope.color; },
-        function(newValue, oldValue) {
-          if (newValue && newValue !== oldValue) {
-            $timeout.cancel(promise);
-            promise = $timeout(function () { saveColor(newValue); }, 1000);
-          }
-        }
-      );
 
       $scope.$watch(
         function() { return $scope.playerParameters; },

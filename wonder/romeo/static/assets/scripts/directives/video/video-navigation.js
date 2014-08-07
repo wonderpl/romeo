@@ -27,7 +27,6 @@ angular.module('RomeoApp.directives')
       };
 
       $scope.displaySection = function (section) {
-        console.log(section);
         $rootScope.$emit('display-section', section);
       };
     },
