@@ -644,6 +644,8 @@ body {
 
 /* line 8, ../../scss/_base/_base.page.scss */
 html {
+  min-height: 100%;
+  position: relative;
   font-weight: 400;
   font-size: 1em;
   line-height: 1.5;
@@ -651,8 +653,9 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 
-/* line 15, ../../scss/_base/_base.page.scss */
+/* line 17, ../../scss/_base/_base.page.scss */
 body {
+  margin-bottom: 47px;
   color: #70797b;
   background-color: white;
 }
@@ -2208,14 +2211,17 @@ select {
 }
 /* line 30, ../../scss/_objects/_objects.button-group.scss */
 .btn-group > .btn--active {
-  color: #fff;
   background-color: #70797b;
 }
 /* line 34, ../../scss/_objects/_objects.button-group.scss */
+.btn-group > .btn--active, .btn-group > .btn--active:hover {
+  color: white;
+}
+/* line 38, ../../scss/_objects/_objects.button-group.scss */
 .btn-group > .btn--position.btn--active {
   background-color: #51b364;
 }
-/* line 37, ../../scss/_objects/_objects.button-group.scss */
+/* line 41, ../../scss/_objects/_objects.button-group.scss */
 .btn-group > .btn--destructive.btn--active {
   background-color: #F04223;
 }
@@ -5033,26 +5039,25 @@ label,
   width: 100%;
   min-width: 960px;
   background: white;
-  padding: 12px;
 }
 
-/* line 10, ../../scss/specifics/footer/_page-footer.scss */
+/* line 9, ../../scss/specifics/footer/_page-footer.scss */
 .page-footer__items {
   float: left;
 }
 
-/* line 14, ../../scss/specifics/footer/_page-footer.scss */
+/* line 13, ../../scss/specifics/footer/_page-footer.scss */
 .page-footer__item {
   display: inline-block;
   margin-right: 0.5em;
 }
 
-/* line 19, ../../scss/specifics/footer/_page-footer.scss */
+/* line 18, ../../scss/specifics/footer/_page-footer.scss */
 .page-footer__link {
   color: #70797b;
 }
 
-/* line 23, ../../scss/specifics/footer/_page-footer.scss */
+/* line 22, ../../scss/specifics/footer/_page-footer.scss */
 .page-footer__note {
   float: right;
   color: #70797b;
@@ -5218,7 +5223,7 @@ label,
 
 /* line 10, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover--img {
-  height: 520px;
+  height: 420px;
 }
 
 /* line 13, ../../scss/specifics/profile/_profile-cover.scss */
@@ -5280,15 +5285,15 @@ label,
 
 /* line 1, ../../scss/specifics/profile/_profile-image.scss */
 .profile-image {
-  margin-top: -50px;
+  margin-top: -60px;
   margin-bottom: 12px;
 }
 
 /* line 6, ../../scss/specifics/profile/_profile-image.scss */
 .profile-image__container {
   border: solid 1px white;
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   display: block;
   margin: 0 auto;
   border-radius: 50%;
@@ -5335,13 +5340,14 @@ label,
 
 /* line 4, ../../scss/specifics/profile/_profile-view.scss */
 .profile__name {
+  font-size: 50px;
   margin-bottom: 12px;
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #2e2e32;
   text-align: center;
 }
 
-/* line 11, ../../scss/specifics/profile/_profile-view.scss */
+/* line 12, ../../scss/specifics/profile/_profile-view.scss */
 .profile__description {
   margin-bottom: 24px;
   color: #2e2e32;
