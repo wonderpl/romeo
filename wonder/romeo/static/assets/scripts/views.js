@@ -572,19 +572,19 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('modal-create-new-collection.html',
     "<div class=\"modal__title  split\">\n" +
-    "  <span class=\"split__title  t--block  w--800\">Create a collection</span>\n" +
+    "  <span class=\"split__title  t--block  w--600\">Create a collection</span>\n" +
     "  <a class=\"modal__link\" ng-click=\"close()\"><i class=\"icon icon--medium icon--circle-cross\"></i></a>\n" +
     "</div>\n" +
     "<div class=\"modal__content\">\n" +
     "  <div class=\"media\">\n" +
     "    <div class=\"media__img\">\n" +
-    "    <i class=\"icon  icon--large  icon--collection-add\"></i>\n" +
+    "      <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"modal-collection-thumb\">\n" +
     "    </div>\n" +
     "    <div class=\"media__body\">\n" +
     "      <form name=\"newCollectionForm\" class=\"modal-form\">\n" +
     "        <fieldset class=\"modal-form__fieldset\">\n" +
     "          <legend class=\"is-hidden\">Enter collection details</legend>\n" +
-    "          <ul class=\"form-fields\">\n" +
+    "          <ul class=\"form-fields  \">\n" +
     "            <li>\n" +
     "              <input type=\"text\" ng-model=\"collection.label\" placeholder=\"Name\" class=\"form-input  modal-input  video-new-collection__new-collection-name\" name=\"collectionLabel\" validate-collection-title required />\n" +
     "              <span class=\"video-new-collection__error\" ng-show=\"newCollectionForm.collectionLabel.$error.exists && isSubmitted\">Error: there is already a collection with that name</span>\n" +
@@ -593,7 +593,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "              <textarea ng-model=\"collection.description\" placeholder=\"Collection description (optional)&hellip;\" class=\"video-new-collection__new-collection-description\"></textarea>\n" +
     "            </li>\n" +
     "            <li>\n" +
-    "              <ul class=\"check-list\">\n" +
+    "              <ul class=\"nav  nav--blocks  modal-check-list\">\n" +
     "                <li>\n" +
     "                  <label class=\"video-new-collection__label\">\n" +
     "                    <input type=\"radio\" name=\"scope\" ng-model=\"collection.scope\" value=\"public\" />\n" +
@@ -1681,8 +1681,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        <video-download video-id=\"video.id\" ng-show=\"video.id && $root.isCollaborator && canDownload\"></video-download>\n" +
     "\n" +
     "        <div class=\"video-view__save-controls\" ng-show=\"isEdit\">\n" +
-    "          <a ng-click=\"cancel()\" class=\"btn\">cancel</a>\n" +
-    "          <a ng-click=\"save()\" class=\"btn btn--positive\">save changes</a>\n" +
+    "          <a ng-click=\"cancel()\" class=\"btn  btn--small\">cancel</a>\n" +
+    "          <a ng-click=\"save()\" class=\"btn  btn--small  btn--positive\">save changes</a>\n" +
     "        </div>\n" +
     "\n" +
     "      </section>\n" +

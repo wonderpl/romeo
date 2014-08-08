@@ -3135,26 +3135,37 @@ label,
 
 /* line 42, ../../scss/_theme/_theme.modal.scss */
 .modal__title {
-  font-size: 1.125em;
+  font-size: 22px;
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
   border-bottom: 1px solid #b7bcbd;
 }
 
 /* line 47, ../../scss/_theme/_theme.modal.scss */
 .modal__link {
+  display: block;
   color: #70797b;
   text-decoration: none;
   border: none;
   cursor: pointer;
 }
 
-/* line 54, ../../scss/_theme/_theme.modal.scss */
+/* line 55, ../../scss/_theme/_theme.modal.scss */
 .modal__actions {
   text-align: right;
 }
-/* line 57, ../../scss/_theme/_theme.modal.scss */
+/* line 58, ../../scss/_theme/_theme.modal.scss */
 .modal__actions > .btn + .btn {
   margin-left: 6px;
+}
+
+/* line 63, ../../scss/_theme/_theme.modal.scss */
+.modal-collection-thumb {
+  display: block;
+  width: 96px;
+  height: 96px;
+  background-image: url("http://localhost:5001/static/assets/img/video-collection__tag.png");
+  background-repeat: no-repeat;
+  background-position: top left;
 }
 
 /**
@@ -3182,6 +3193,15 @@ label,
   -moz-appearance: none;
   -ms-appearance: none;
   appearance: none;
+}
+
+/* line 29, ../../scss/_theme/_theme.modal-form.scss */
+.modal-check-list {
+  margin-bottom: 0;
+}
+/* line 32, ../../scss/_theme/_theme.modal-form.scss */
+.modal-check-list > li + li {
+  margin-left: 24px;
 }
 
 /**
@@ -4944,6 +4964,90 @@ label,
 /* line 102, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__assigned-tag {
   display: inline-block;
+}
+
+/* line 1, ../../scss/specifics/video/_video-new-collection.scss */
+.video-new-collection {
+  max-width: 700px;
+  margin: 0 auto;
+  transition: max-height 0.4s, opacity 0.4s ease-in-out;
+  position: relative;
+  padding-bottom: 1em;
+  background: white;
+  font-size: 1em;
+}
+
+/* line 11, ../../scss/specifics/video/_video-new-collection.scss */
+.video-new-collection__new-title {
+  font-size: 1em;
+  border-bottom: solid 1px #999999;
+  color: #70797b;
+  padding: 12px;
+}
+
+/* line 18, ../../scss/specifics/video/_video-new-collection.scss */
+.video-new-collection__new-controls {
+  padding-left: 140px;
+  background: url("/static/assets/img/video-collection__tag.png") 20px 10px no-repeat;
+}
+
+/* line 23, ../../scss/specifics/video/_video-new-collection.scss */
+.video-new-collection__new-collection-name {
+  display: block;
+  margin: 0;
+  padding-left: 12px;
+  padding-bottom: 6px;
+  font-weight: 600;
+  font-size: 18px;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #2e2e32;
+  border: none;
+  border-bottom: solid 1px #b7bcbd;
+  width: 100%;
+}
+
+/* line 37, ../../scss/specifics/video/_video-new-collection.scss */
+.video-new-collection__new-collection-description {
+  display: block;
+  width: 100%;
+  min-height: 96px;
+  margin-bottom: 12px;
+  padding-top: 6px;
+  padding-left: 12px;
+  font-size: 16px;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  border: none;
+  border-bottom: solid 1px #b7bcbd;
+  border-radius: 0;
+  resize: none;
+}
+
+/* line 52, ../../scss/specifics/video/_video-new-collection.scss */
+.video-new-collection__scope-options {
+  margin-bottom: 24px;
+}
+
+/* line 56, ../../scss/specifics/video/_video-new-collection.scss */
+.video-new-collection__scope-option {
+  display: inline-block;
+}
+
+/* line 60, ../../scss/specifics/video/_video-new-collection.scss */
+.video-new-collection__label {
+  padding-left: 1px;
+  font-size: 16px;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #2e2e32;
+}
+
+/* line 67, ../../scss/specifics/video/_video-new-collection.scss */
+.video-new-collection__error {
+  display: block;
+  text-align: left;
+  margin: 0.5em 0;
+  color: red;
+  font-weight: 800;
+  padding-left: 0.5em;
 }
 
 /* line 1, ../../scss/specifics/video/_video-add-collaborators.scss */
