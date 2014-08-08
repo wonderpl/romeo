@@ -204,7 +204,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
         $scope.$broadcast('video-saved', $scope.video);
         $scope.$emit('notify', {
           status : 'success',
-          title : 'Video Updated',
+          title : 'Video Details Updated',
           message : 'Your changes have been saved.'}
         );
       });
@@ -254,8 +254,8 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
     $location.path(url, false);
     $scope.hasProcessed = true;
     $scope.$emit('notify', {
-      status : 'success',
-      title : 'Video Upload Complete',
+      status : 'info',
+      title : 'Your Video is Ready',
       message : 'Video processing complete.'}
     );
   }

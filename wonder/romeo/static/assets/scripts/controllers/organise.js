@@ -53,7 +53,7 @@ angular.module('RomeoApp.controllers')
         TagService.updateTag($scope.tag).then(function () {
           $scope.$emit('notify', {
             status : 'success',
-            title : 'Tag updated',
+            title : 'Collection updated',
             message : 'Your changes have been saved.'}
           );
         });
@@ -65,8 +65,8 @@ angular.module('RomeoApp.controllers')
         TagService.deleteTag($scope.tag.id).then(function () {
           refresh();
           $scope.$emit('notify', {
-            status : 'warning',
-            title : 'Tag deleted',
+            status : 'success',
+            title : 'Collection deleted',
             message : $scope.tag.label + ' deleted.'}
           );
         });
@@ -92,7 +92,7 @@ angular.module('RomeoApp.controllers')
         VideoService.delete(video.id).then(function () {
           refresh();
           $scope.$emit('notify', {
-            status : 'warning',
+            status : 'success',
             title : 'Video deleted',
             message : "'" + video.title + "' deleted."}
           );
@@ -150,7 +150,7 @@ angular.module('RomeoApp.controllers')
         VideoService.get($scope.video.id).then(function (data) {
           angular.extend($scope.video, data);
           $scope.$emit('notify', {
-            status : 'info',
+            status : 'success',
             title : 'Collection Updated',
             message : 'Video removed from collection.'}
           );
@@ -171,7 +171,7 @@ angular.module('RomeoApp.controllers')
         VideoService.get($scope.video.id).then(function (data) {
           angular.extend($scope.video, data);
           $scope.$emit('notify', {
-            status : 'info',
+            status : 'success',
             title : 'Collection Updated',
             message : 'Video added to collection.'}
           );

@@ -40,7 +40,7 @@ angular.module('RomeoApp.controllers')
     $scope.$emit('notify', {
       status : 'info',
       title : 'Uploading New Avatar',
-      message : 'Image uploading to server. Your page will update when transfer is complete.'}
+      message : 'Image uploading.'}
     );
     AccountService.updateAvatar(file).then(function (data) {
       console.log(data);
@@ -48,8 +48,8 @@ angular.module('RomeoApp.controllers')
         $scope.profile = data;
         $scope.$emit('notify', {
           status : 'success',
-          title : 'Avatar updated',
-          message : 'New avatar saved.'}
+          title : 'Avatar Updated',
+          message : 'New image saved.'}
         );
       $scope.uploadingProfileImage = false;
       loadUserDetails();
@@ -63,14 +63,14 @@ angular.module('RomeoApp.controllers')
     $scope.uploadingProfileCover = true;
     $scope.$emit('notify', {
       status : 'info',
-      title : 'Uploading New Cover Image',
-      message : 'Image uploading to server. Your page will update when transfer is complete.'}
+      title : 'Uploading New Cover Photo',
+      message : 'Image uploading.'}
     );
     AccountService.updateCoverImage(file).then(function (data) {
       $scope.profile = JSON.parse(data);
       $scope.$emit('notify', {
         status : 'success',
-        title : 'Cover image updated',
+        title : 'Cover Image Updated',
         message : 'New cover image saved.'}
       );
       $scope.uploadingProfileCover = false;
@@ -87,7 +87,7 @@ angular.module('RomeoApp.controllers')
       $scope.isEdit = false;
       $scope.$emit('notify', {
         status : 'success',
-        title : 'User Profile Updated',
+        title : 'Profile Updated',
         message : 'Profile details saved.'}
       );
     });
