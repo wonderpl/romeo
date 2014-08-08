@@ -243,8 +243,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        ng-class=\"{ 'video-edit-collections__option--modal' : isModal }\">\n" +
     "        <span class=\"video-edit-collections__option-title\">Create New Collection</span>\n" +
     "        <span class=\"video-edit-collections__option-count\"></span>\n" +
-    "      </li>\n" +
-    "      <li class=\"video-edit-collections__option\"\n" +
+    "      </li><!--\n" +
+    "      --><li class=\"video-edit-collections__option\"\n" +
     "        data-videos=\"(~ tag.video_count ~)\"\n" +
     "        ng-class=\"{\n" +
     "          'video-edit-collections__option--selected' : hasTag(tag.id),\n" +

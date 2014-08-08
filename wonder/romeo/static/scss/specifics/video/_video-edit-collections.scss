@@ -10,13 +10,18 @@
 
 .video-edit-collections__option {
   display: inline-block;
-  width: 300px;
+  width: 344px;
+  min-height: 112px;
   padding: 30px 0 30px 120px;
-  min-height: 100px;
-  border: solid 1px transparent;
-  margin-bottom: 5px;
+  border: solid 2px transparent;
+  border-radius: 3px;
+  margin-bottom: $half-spacing-unit;
   vertical-align: top;
   background: url('/static/assets/img/video-collection__tag.png') 10px 0 no-repeat transparent;
+
+  &:nth-child(even) {
+    margin-left: $half-spacing-unit;
+  }
 }
 .video-edit-collections__option--private {
   background-image: url('/static/assets/img/video-collection__tag--private.png');
@@ -28,28 +33,45 @@
   margin-right: 12px;
 }
 
-.video-edit-collections__option--selected {
-  background: url('/static/assets/img/video-collection__tag--selected.png') 10px 0 no-repeat $dark-green;
-  color: $white;
+.video-edit-collections__option--selected,
+.video-edit-collections__option--selected:hover,
+.video-edit-collections__option:hover.video-edit-collections__option--selected {
+  background-image: url('/static/assets/img/video-collection__tag--selected.png');
+  background-position: 10px 0;
+  background-repeat: no-repeat;
+  background-color: $swatch-five !important;
+  color: $white !important;
+
+  .video-edit-collections__option-title,
+  .video-edit-collections__option-count {
+    color: $swatch-one;
+  }
 }
 
-.video-edit-collections__option--private.video-edit-collections__option--selected {
-  background: url('/static/assets/img/video-collection__tag--private--selected.png') 10px 0 no-repeat $dark-green;
+.video-edit-collections__option--selected.video-edit-collections__option--private,
+.video-edit-collections__option--selected:hover.video-edit-collections__option--private {
+  background-image: url('/static/assets/img/video-collection__tag--private--selected.png');
+  background-position: 10px 0;
+  background-repeat: no-repeat;
 }
 
 .video-edit-collections__option-title {
   display: block;
-  font-weight: 800;
+  font-weight: 600;
+  font-family: $heading-font-family;
+  color: $swatch-three;
 }
 
 .video-edit-collections__option-count {
   display: block;
+  font-family: $heading-font-family;
+  color: $swatch-two;
 }
 
 .video-edit-collections__option:hover {
   cursor: pointer;
   border-color: $dark-green;
-  background: url('/static/assets/img/video-collection__tag--active.png') 10px 0 no-repeat transparent;
+  background-image: url('/static/assets/img/video-collection__tag--active.png');
   color: $black;
 }
 
