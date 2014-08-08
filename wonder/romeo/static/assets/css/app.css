@@ -5085,6 +5085,9 @@ label,
   display: block;
   width: 20em;
   font-size: 1em;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-variant: normal;
+  text-transform: normal;
   padding: 0.3em;
 }
 
