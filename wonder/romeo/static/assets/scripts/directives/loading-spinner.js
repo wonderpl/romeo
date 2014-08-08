@@ -9,7 +9,7 @@ function LoadingSpinnerDirective ($templateCache, $timeout) {
   return {
     restrict: 'A',
     compile: function(element) {
-      $(element).append('<div class="spinner" style="display: none;"><div class="spinner--wrapper"><img src="/static/assets/img/loading_white_46x46.png" class="spinner--img" /></div></div>');
+      $(element).append('<div class="spinner" style="display: none;"><div class="spinner--img"></div></div>');
       $interval = 0;
       return {
         post: function postLink(scope, element, attrs, ctrl) {
@@ -34,7 +34,8 @@ function LoadingSpinnerDirective ($templateCache, $timeout) {
               var elem = $(element).find('.spinner--img');
               $interval = window.setInterval(
                 function() {
-                  $(elem).css('top', parseInt($(elem).css('top')) < -820 ? '0px' : '-=46px');
+                  var cssAttr = 'background-position-y';
+                  $(elem).css(cssAttr, parseInt($(elem).css(cssAttr)) < -820 ? '0px' : '-=46px');
                 }, 600
               );
             }
