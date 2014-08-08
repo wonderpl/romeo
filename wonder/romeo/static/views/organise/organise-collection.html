@@ -3,15 +3,15 @@
     <div class="media__img  collection-view__thumb">
       <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="collection-view__thumb__icon">
     </div>
-  
+
     <div class="media__body collection-view__content">
       <h3 class="heading  w--800  no-spacing  organise-collection__title">
         <div ng-hide="isEdit">
           {{ tag.label }}
           <span class="organise-collection__visibility organise-collection__visibility--private  icon-text"><i class="icon  icon-text__icon" ng-class="tag.public ? 'icon--eye' : 'icon--lock'"></i>{{ tag.public ? 'public' : 'private' }}</span>
         </div>
-        <div medium-editor
-          options="{ disableToolbar : true, forcePlainText : true, disableReturn : true, placeholder : '' }"
+        <div class="editable" medium-editor
+          options="{ disableToolbar : true, disableReturn : true, placeholder : '' }"
           ng-model="tag.label"
           ng-show="isEdit">
         </div>

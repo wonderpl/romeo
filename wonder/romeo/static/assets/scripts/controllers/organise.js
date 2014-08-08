@@ -54,7 +54,7 @@ angular.module('RomeoApp.controllers')
           $scope.$emit('notify', {
             status : 'success',
             title : 'Tag updated',
-            message : 'New tag information saved.'}
+            message : 'Your changes have been saved.'}
           );
         });
       }
@@ -208,5 +208,22 @@ angular.module('RomeoApp.controllers')
     function loadTag (id) {
       $scope.tag = getTagById(id);
     }
+
+    $('.editable').on('input', function(e) {
+      console.log(e);
+      console.log(e.currentTarget);
+      console.log($(e.currentTarget).text());
+      $(e.currentTarget).text().replace(/&nbsp;/g, '');
+    });
+
+    // $scope.$watch(function () {
+    //   return $scope.tag ? $scope.tag.label : null;
+    // },
+    // function (newValue, oldValue) {
+    //   if (newValue && newValue !== oldValue) {
+    //     $scope.tag.label = $scope.tag.label.replace(/&nbsp;/g, '');
+    //     console.log(newValue);
+    //   }
+    // });
 
 }]);
