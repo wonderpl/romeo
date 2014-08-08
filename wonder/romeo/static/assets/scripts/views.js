@@ -835,7 +835,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <select class=\"organise-video-list__select  btn  btn--small\"\n" +
     "        ng-model=\"sortOption\"\n" +
     "        ng-init=\"sortOption=''\">\n" +
-    "        <option value=\"\">none</option>\n" +
+    "        <option value=\"\">Oldest</option>\n" +
     "        <option value=\"date_updated\">Newest</option>\n" +
     "      </select>\n" +
     "    </label>\n" +

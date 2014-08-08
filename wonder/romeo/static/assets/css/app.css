@@ -3068,7 +3068,7 @@ label,
 }
 /* line 13, ../../scss/_theme/_theme.modal.scss */
 .modal-bg.show {
-  position: absolute !important;
+  position: fixed !important;
   left: 0;
   z-index: 6000;
   visibility: visible;
