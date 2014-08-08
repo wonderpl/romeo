@@ -1,15 +1,29 @@
 
 
 <div ng-controller="LoginCtrl" autocomplete="off" class="login-view">
+	<form ng-submit="login()">
+		<label class="login-view__label">Username <input type="text" ng-model="username" autocomplete="off" class="login-view__input" /></label>
 
-		<form ng-submit="login()">
+		<label class="login-view__label">Password <input type="password" name="password" ng-model="password" autocomplete="off"  class="login-view__input" /></label>
 
-				<label class="login-view__label">Username <input type="text" ng-model="username" autocomplete="off" class="login-view__input" /></label>
-
-				<label class="login-view__label">Password <input type="password" name="password" ng-model="password" autocomplete="off"  class="login-view__input" /></label>
-
-        <label class="login-view__label">I agree with the <a href="http://wonderpl.com/tos">terms and conditions</a> of this closed beta <input type="checkbox" name="tandc" ng-model="tandc" required class="login-view__input" /></label>
-
+        
+        <label class="login-view__label">
+            <input type="checkbox" name="tandc" ng-model="tandc" required class="login-view__input" />  I agree with the standard Wonder Place Ltd terms and conditions  and the following conditions of the Closed Beta Program:
+        </label>
+        <div class="login__terms">
+            The Program is proprietary to, and a valuable trade secret of, Wonder Place Ltd. It is entrusted to Tester only for the purpose set forth in this Agreement. Tester shall maintain the Program in the strictest confidence. Tester will not, without Company's prior written consent:
+        </div>
+        <div class="login__terms">
+            (a) disclose any information about the Program, its design and performance specifications, its code, and the existence of the beta test and its results to anyone other than Tester's employees who are performing the testing and who shall be subject to nondisclosure restrictions at least as protective as those set forth in this Agreement;
+        </div>
+        <div class="login__terms"
+            (b) copy any portion of the Program or documentation, except to the extent necessary to perform beta testing; or
+        </div>
+        <div class="login__terms">
+            (c) reverse engineer, decompile or disassemble Software or any portion of it.
+        </div>
+       
+        
 
         <span class="login-view__errors" ng-bind="errors"></span>
 
@@ -17,6 +31,5 @@
         <button type="submit" class="btn btn--positive login-view__submit" ng-class="{'btn--disabled': !tandc}" ng-disabled="!tandc" ng-click="isLoading = true;">
           Login
         </button>
-		</form>
-
+	</form>
 </div>

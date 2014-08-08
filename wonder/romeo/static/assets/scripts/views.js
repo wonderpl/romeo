@@ -458,15 +458,29 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "\n" +
     "<div ng-controller=\"LoginCtrl\" autocomplete=\"off\" class=\"login-view\">\n" +
+    "\t<form ng-submit=\"login()\">\n" +
+    "\t\t<label class=\"login-view__label\">Username <input type=\"text\" ng-model=\"username\" autocomplete=\"off\" class=\"login-view__input\" /></label>\n" +
     "\n" +
-    "\t\t<form ng-submit=\"login()\">\n" +
+    "\t\t<label class=\"login-view__label\">Password <input type=\"password\" name=\"password\" ng-model=\"password\" autocomplete=\"off\"  class=\"login-view__input\" /></label>\n" +
     "\n" +
-    "\t\t\t\t<label class=\"login-view__label\">Username <input type=\"text\" ng-model=\"username\" autocomplete=\"off\" class=\"login-view__input\" /></label>\n" +
-    "\n" +
-    "\t\t\t\t<label class=\"login-view__label\">Password <input type=\"password\" name=\"password\" ng-model=\"password\" autocomplete=\"off\"  class=\"login-view__input\" /></label>\n" +
-    "\n" +
-    "        <label class=\"login-view__label\">I agree with the <a href=\"http://wonderpl.com/tos\">terms and conditions</a> of this closed beta <input type=\"checkbox\" name=\"tandc\" ng-model=\"tandc\" required class=\"login-view__input\" /></label>\n" +
-    "\n" +
+    "        \n" +
+    "        <label class=\"login-view__label\">\n" +
+    "            <input type=\"checkbox\" name=\"tandc\" ng-model=\"tandc\" required class=\"login-view__input\" />  I agree with the standard Wonder Place Ltd terms and conditions  and the following conditions of the Closed Beta Program:\n" +
+    "        </label>\n" +
+    "        <div class=\"login__terms\">\n" +
+    "            The Program is proprietary to, and a valuable trade secret of, Wonder Place Ltd. It is entrusted to Tester only for the purpose set forth in this Agreement. Tester shall maintain the Program in the strictest confidence. Tester will not, without Company's prior written consent:\n" +
+    "        </div>\n" +
+    "        <div class=\"login__terms\">\n" +
+    "            (a) disclose any information about the Program, its design and performance specifications, its code, and the existence of the beta test and its results to anyone other than Tester's employees who are performing the testing and who shall be subject to nondisclosure restrictions at least as protective as those set forth in this Agreement;\n" +
+    "        </div>\n" +
+    "        <div class=\"login__terms\"\n" +
+    "            (b) copy any portion of the Program or documentation, except to the extent necessary to perform beta testing; or\n" +
+    "        </div>\n" +
+    "        <div class=\"login__terms\">\n" +
+    "            (c) reverse engineer, decompile or disassemble Software or any portion of it.\n" +
+    "        </div>\n" +
+    "       \n" +
+    "        \n" +
     "\n" +
     "        <span class=\"login-view__errors\" ng-bind=\"errors\"></span>\n" +
     "\n" +
@@ -474,8 +488,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        <button type=\"submit\" class=\"btn btn--positive login-view__submit\" ng-class=\"{'btn--disabled': !tandc}\" ng-disabled=\"!tandc\" ng-click=\"isLoading = true;\">\n" +
     "          Login\n" +
     "        </button>\n" +
-    "\t\t</form>\n" +
-    "\n" +
+    "\t</form>\n" +
     "</div>"
   );
 
