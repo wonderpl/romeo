@@ -76,7 +76,7 @@ angular.module('RomeoApp.services').factory('AuthService',
     };
 
     Auth.collaboratorCheck = function () {
-      var query = $window.location.search();
+      var query = $location.search();
       var token = query ? query.token : null;
       var dfd = new $q.defer();
       console.group('Login: Auth.collaboratorCheck - Checking token: ');
@@ -84,8 +84,7 @@ angular.module('RomeoApp.services').factory('AuthService',
           console.dir($location);
           console.log('Login: Auth.collaboratorCheck - $location.search()');
           console.dir($location.search());
-          console.log('Login: Auth.collaboratorCheck - $window.location.search()');
-          console.dir($window.location.search());
+        
           console.log('Login: Auth.collaboratorCheck - token');
           console.dir(token);
       console.groupEnd();
