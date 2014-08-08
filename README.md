@@ -44,6 +44,16 @@ DEBUG_TB_INTERCEPT_REDIRECTS = False
 DOLLY_WS_BASE = DOLLY_WS_SECURE_BASE = 'http://localhost:5000/ws/'
 ```
 
+#### Database
+
+To apply latest schema changes:
+
+    alembic upgrade head
+
+To reset auth tokens after loading a database dump:
+
+    PYTHONPATH=path/to/dolly-web ./manage.py reset_dolly_tokens
+
 Test
 ----
 
