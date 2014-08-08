@@ -13,3 +13,4 @@ alembic >= 0.5
 requests >= 2
 pillow >= 2
 raven >= 4
+python-twitter >= 1.3
