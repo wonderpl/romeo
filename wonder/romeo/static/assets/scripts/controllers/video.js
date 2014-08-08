@@ -14,7 +14,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
 
   function initialiseNewScope () {
 
-    $scope.video = $scope.video || {};
+    initialiseVideoScope();
     $scope.titlePlaceholder = 'Untitled Video';
     $scope.straplinePlaceholder = 'Subtitle';
     $scope.descriptionPlaceholder = 'Additional content including but not limited to: recipes, ingredients, lyrics, stories, etc.';
@@ -36,6 +36,16 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
     TagService.getTags().then(function (data) {
       $scope.tags = data.tag.items;
     });
+  }
+
+  function initialiseVideoScope() {
+    $scope.video = $scope.video || {};
+  }
+
+  function resetVideoScopeData(id) {
+    $scope.video = null;
+    initialiseVideoScope();
+    getVideo(id);
   }
 
   /*
@@ -147,6 +157,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
       VideoService.create(data).then(function (data) {
         persistVideoData(data);
         UploadService.uploadVideo(files[0], data.id);
+        resetVideoScopeData(data.id);
       });
     }
     $scope.showPreviewSelector = true;
@@ -216,9 +227,10 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
       );
     } else {
       VideoService.create($scope.video).then(function (data) {
-        angular.extend($scope.video, data);
-        var url = '/video/' + $scope.video.id + '/edit';
-        $location.path(url, false);
+        console.dir(data);
+        resetVideoScopeData(data.id);
+        var url = '/video/' + data.id + '/edit';
+        $location.path(url, true);
         $scope.$emit('notify', {
           status : 'success',
           title : 'Video Created',
