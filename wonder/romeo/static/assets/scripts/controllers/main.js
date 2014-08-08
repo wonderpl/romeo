@@ -71,7 +71,7 @@ function MainController ($window, $scope, $rootScope, $timeout, $location, $moda
   });
 
   $scope.$on('video-upload-success', function (event, data) {
-    $scope.upload.href = '#/video/' + data.id + '/edit';
+    $scope.upload.href = 'video/' + data.id + '/edit';
     $scope.upload.status = 'upload complete';
   });
 

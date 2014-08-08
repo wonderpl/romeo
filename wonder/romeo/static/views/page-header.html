@@ -8,7 +8,7 @@
       <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="page-logo__img" alt="Wonder PL">
     </a>
     </ng-switch>
-    <upload-progress upload="upload" ng-if="isLoggedIn"></upload-progress>
+    <upload-progress upload="upload" ng-if="isLoggedIn && upload"></upload-progress>
     <ul class="nav  nav-menu" ng-if="isLoggedIn">
       <li class="nav-menu__item"><a href="#/organise" class="nav-menu__link">Manage</a></li>
       <li class="nav-menu__item"><a href="#/video" class="nav-menu__link">Upload</a></li>

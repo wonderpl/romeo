@@ -1,5 +1,5 @@
 angular.module('RomeoApp.directives')
-  .directive('uploadProgress', ['$templateCache', function ($templateCache) {
+  .directive('uploadProgress', ['$templateCache', '$location', function ($templateCache, $location) {
 
   'use strict';
 
@@ -15,10 +15,16 @@ angular.module('RomeoApp.directives')
         function() { return $scope.upload; },
         function(newValue, oldValue) {
           if (newValue && newValue !== oldValue) {
+            $scope.isDimissed = false;
             console.log(newValue);
           }
         }
       );
+      $scope.redirect = function (url) {
+        console.log(url);
+        $scope.isDimissed = true;
+        $location.path(url);
+      };
     }
   };
 }]);

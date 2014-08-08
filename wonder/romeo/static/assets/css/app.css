@@ -5189,6 +5189,11 @@ label,
   padding: 1em;
 }
 
+/* line 6, ../../scss/specifics/upload/_upload-progress.scss */
+.upload-progress__link {
+  cursor: pointer;
+}
+
 /* line 1, ../../scss/specifics/footer/_page-footer.scss */
 .page-footer {
   position: fixed;
