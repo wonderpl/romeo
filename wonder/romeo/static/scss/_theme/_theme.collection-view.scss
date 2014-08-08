@@ -1,0 +1,33 @@
+/**
+ * _theme.collection-view.scss
+ */
+.collection-view {
+
+}
+  .collection-view__thumb__icon {
+    width: 96px;
+    height: 96px;
+    background-image: url('/static/assets/img/video-collection__tag--private.png');
+    background-repeat: no-repeat;
+    background-position: top left;
+  }
+
+.collection-view--public {
+  
+  .collection-view__thumb__icon {
+    background-image: url('/static/assets/img/video-collection__tag.png');
+  }
+}
+
+
+.collection-view__actions {
+  text-align: right;
+}
+
+.collection-view-action-list {
+  margin-bottom: $half-spacing-unit;
+
+  > li + li {
+    margin-left: $half-spacing-unit / 2;
+  }
+}
