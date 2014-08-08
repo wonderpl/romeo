@@ -44,6 +44,7 @@
 }
 
 .video-view__container {
+  @extend %ratio--16x9;
   position: relative;
   width: 100%;
   max-height: 540px;

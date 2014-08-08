@@ -1008,7 +1008,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <div class=\"profile-image__container\"\n" +
     "    ng-class=\"{ 'profile-image__container--edit' : isEdit }\"\n" +
-    "    style=\"background-image:url('(~ image ~)');\">\n" +
+    "    ng-style=\"profileImageStyle\">\n" +
     "\n" +
     "    <label class=\"profile-image__upload-label\" for=\"profileImageUpload\">\n" +
     "      <div class=\"profile-image__dropzone\"\n" +
@@ -1078,9 +1078,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
     "      ng-model=\"profile.display_name\">\n" +
     "    </h2>\n" +
-    "  \n" +
+    "\n" +
     "    <h2 class=\"profile__name  no-spacing\" ng-hide=\"isEdit\" ng-bind=\"profile.display_name\"></h2>\n" +
-    "  \n" +
+    "\n" +
     "    <div class=\"profile__description\"\n" +
     "      ng-show=\"isEdit\"\n" +
     "      medium-editor\n" +
@@ -1088,7 +1088,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      options=\"{ buttons : ['bold', 'italic', 'header1', 'header2', 'unorderedlist', 'quote'], firstHeader : 'h2', secondHeader : 'h3' }\"\n" +
     "      ng-model=\"profile.description\">\n" +
     "    </div>\n" +
-    "  \n" +
+    "\n" +
     "    <div class=\"profile__description\" ng-hide=\"isEdit\" ng-bind-html=\"profile.description\"></div>\n" +
     "  </div>\n" +
     "\n" +
@@ -1460,19 +1460,27 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        </a>\n" +
     "      </li>\n" +
     "      <li class=\"sub-navigation__mode\" ng-hide=\"isEdit || !isOwner\"> <!-- ng-show=\"video.status=='published'\" -->\n" +
-    "        <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"displaySection('edit')\">\n" +
+    "        <a\n" +
+    "          class=\"sub-navigation__link btn  btn--utility icon-text\"\n" +
+    "          ng-click=\"displaySection('edit')\">\n" +
     "          <i class=\"icon  icon--edit  icon-text__icon\"></i>\n" +
     "          Edit Video\n" +
     "        </a>\n" +
     "      </li>\n" +
     "      <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\">\n" +
-    "        <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"displaySection('')\">\n" +
+    "        <a\n" +
+    "          class=\"sub-navigation__link btn  btn--utility icon-text\"\n" +
+    "          ng-click=\"displaySection('')\"\n" +
+    "          ng-class=\"{ 'sub-navigation__link--active' : isReview }\">\n" +
     "          <i class=\"icon  icon--eye  icon-text__icon\"></i>\n" +
     "          Review\n" +
     "        </a>\n" +
     "      </li>\n" +
     "      <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\">\n" +
-    "        <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"displaySection('comments')\">\n" +
+    "        <a\n" +
+    "          class=\"sub-navigation__link btn  btn--utility icon-text\"\n" +
+    "          ng-click=\"displaySection('comments')\"\n" +
+    "          ng-class=\"{ 'sub-navigation__link--active' : isComments }\">\n" +
     "          <i class=\"icon  icon--speech-bubble  icon-text__icon\"></i>\n" +
     "          Comments\n" +
     "        </a>\n" +
@@ -1590,7 +1598,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<div ng-controller=\"VideoCtrl\" class=\"cf\">\n" +
     "\n" +
     "  <div class=\"video-view__nav-placeholder\" ng-hide=\"$root.isCollaborator\">\n" +
-    "    <video-navigation is-edit=\"isEdit\" is-owner=\"isOwner\" is-comments=\"isComments\" video-id=\"video.id\"></video-navigation>\n" +
+    "    <video-navigation is-edit=\"isEdit\" is-review=\"isReview\" is-owner=\"isOwner\" is-comments=\"isComments\" video-id=\"video.id\"></video-navigation>\n" +
     "  </div>\n" +
     "\n" +
     "  <div class=\"configurable-layout configurable-layout-(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +

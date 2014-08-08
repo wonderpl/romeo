@@ -9,6 +9,7 @@ angular.module('RomeoApp.directives')
     template : $templateCache.get('video-navigation.html'),
     scope : {
       isEdit : '=',
+      isReview : '=',
       isOwner : '=',
       isComments : '=',
       videoId : '='

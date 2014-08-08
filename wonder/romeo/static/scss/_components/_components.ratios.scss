@@ -4,7 +4,7 @@
 .ratio {
   position: relative;
   height: 0;
-  
+
   > object,
   > embed,
   > iframe
@@ -22,4 +22,5 @@
   }
 }
 
-.ratio--16x9 { padding-bottom: 56.25%; }
+.ratio--16x9,
+%ratio--16x9 { padding-bottom: 56.25%; }

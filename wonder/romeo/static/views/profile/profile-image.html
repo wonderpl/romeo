@@ -2,7 +2,7 @@
 
   <div class="profile-image__container"
     ng-class="{ 'profile-image__container--edit' : isEdit }"
-    style="background-image:url('{{ image }}');">
+    ng-style="profileImageStyle">
 
     <label class="profile-image__upload-label" for="profileImageUpload">
       <div class="profile-image__dropzone"

@@ -17,9 +17,9 @@
       options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
       ng-model="profile.display_name">
     </h2>
-  
+
     <h2 class="profile__name  no-spacing" ng-hide="isEdit" ng-bind="profile.display_name"></h2>
-  
+
     <div class="profile__description"
       ng-show="isEdit"
       medium-editor
@@ -27,7 +27,7 @@
       options="{ buttons : ['bold', 'italic', 'header1', 'header2', 'unorderedlist', 'quote'], firstHeader : 'h2', secondHeader : 'h3' }"
       ng-model="profile.description">
     </div>
-  
+
     <div class="profile__description" ng-hide="isEdit" ng-bind-html="profile.description"></div>
   </div>
 

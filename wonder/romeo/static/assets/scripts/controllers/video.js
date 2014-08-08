@@ -384,6 +384,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
   }
 
   function displayReviewSection () {
+    console.log('displayReviewSection()');
     $scope.isReview = true;
     $scope.isComments = false;
     $scope.isEdit = false;

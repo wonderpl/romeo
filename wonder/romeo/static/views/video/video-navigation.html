@@ -17,19 +17,27 @@
         </a>
       </li>
       <li class="sub-navigation__mode" ng-hide="isEdit || !isOwner"> <!-- ng-show="video.status=='published'" -->
-        <a class="sub-navigation__link btn  btn--utility  icon-text" ng-click="displaySection('edit')">
+        <a
+          class="sub-navigation__link btn  btn--utility icon-text"
+          ng-click="displaySection('edit')">
           <i class="icon  icon--edit  icon-text__icon"></i>
           Edit Video
         </a>
       </li>
       <li class="sub-navigation__mode" ng-hide="isEdit">
-        <a class="sub-navigation__link btn  btn--utility  icon-text" ng-click="displaySection('')">
+        <a
+          class="sub-navigation__link btn  btn--utility icon-text"
+          ng-click="displaySection('')"
+          ng-class="{ 'sub-navigation__link--active' : isReview }">
           <i class="icon  icon--eye  icon-text__icon"></i>
           Review
         </a>
       </li>
       <li class="sub-navigation__mode" ng-hide="isEdit">
-        <a class="sub-navigation__link btn  btn--utility  icon-text" ng-click="displaySection('comments')">
+        <a
+          class="sub-navigation__link btn  btn--utility icon-text"
+          ng-click="displaySection('comments')"
+          ng-class="{ 'sub-navigation__link--active' : isComments }">
           <i class="icon  icon--speech-bubble  icon-text__icon"></i>
           Comments
         </a>
