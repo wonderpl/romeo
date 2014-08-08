@@ -1,11 +1,11 @@
 
 angular
   .module('RomeoApp.directives')
-  .directive('organiseVideoList', ['$templateCache', OrganiseVideoList]);
+  .directive('organiseVideoList', ['$templateCache', '$cookies', OrganiseVideoList]);
 
 
 
-function OrganiseVideoList ($templateCache) {
+function OrganiseVideoList ($templateCache, $cookies) {
   'use strict';
 
   function isVideoRecent (timestamp) {
@@ -25,7 +25,15 @@ function OrganiseVideoList ($templateCache) {
       customFilterFunction : '='
     },
     controller : function ($scope) {
-      $scope.isList = false;
+
+      $scope.$watch('isList', function (newValue, oldValue) {
+        if (newValue !== oldValue) {
+          $cookies.isList = newValue.toString();
+        }
+      });
+
+      $scope.isList = $cookies.isList === 'true' ? true : false;
+
       function filterVideosByTagId (tagId) {
         var filteredVideos = [];
         var videos = $scope.videos || [];
