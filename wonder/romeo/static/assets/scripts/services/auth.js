@@ -79,6 +79,13 @@ angular.module('RomeoApp.services').factory('AuthService',
       var query = $location.search();
       var token = query ? query.token : null;
       var dfd = new $q.defer();
+      console.group('Login: Auth.collaboratorCheck - Checking token: ');
+          console.log('Login: Auth.collaboratorCheck - $location');
+          console.dir($location);
+          console.log('Login: Auth.collaboratorCheck - token');
+          console.dir(token);
+      console.groupEnd();
+
       if (token) {
         console.log('Login: Auth.collaboratorCheck - Have token (' + token + ') in url, check it');
         Auth.loginAsCollaborator(token).then(dfd.resolve, dfd.reject);
