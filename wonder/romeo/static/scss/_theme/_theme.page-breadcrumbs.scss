@@ -2,14 +2,9 @@
  * _theme.page-breadcrumbs.scss
  */
 .page-breadcrumbs {
-  
-  > li + li {
-    padding-right: $half-spacing-unit / 2;
-    padding-left:  $half-spacing-unit;
-  }
 
-  > li + li::before {
-    content: "›" "\00A0";
+  > li::before {
+    content: "";
     vertical-align: middle;
     position: relative;
     top: -5px;
@@ -18,6 +13,15 @@
     font-size: 2.5em;
     font-family: "Lucida Grande",sans-serif;
     line-height: 1;
+  }
+
+  > li + li {
+    padding-right: $half-spacing-unit / 2;
+    padding-left:  $half-spacing-unit;
+  }
+
+  > li + li::before {
+    content: "›" "\00A0";
   }
 }
   .page-breadcrumbs__title {

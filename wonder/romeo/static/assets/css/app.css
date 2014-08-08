@@ -2827,13 +2827,8 @@ select {
  * _theme.page-breadcrumbs.scss
  */
 /* line 6, ../../scss/_theme/_theme.page-breadcrumbs.scss */
-.page-breadcrumbs > li + li {
-  padding-right: 6px;
-  padding-left: 12px;
-}
-/* line 11, ../../scss/_theme/_theme.page-breadcrumbs.scss */
-.page-breadcrumbs > li + li::before {
-  content: "›" "\00A0";
+.page-breadcrumbs > li::before {
+  content: "";
   vertical-align: middle;
   position: relative;
   top: -5px;
@@ -2843,15 +2838,24 @@ select {
   font-family: "Lucida Grande",sans-serif;
   line-height: 1;
 }
-
+/* line 18, ../../scss/_theme/_theme.page-breadcrumbs.scss */
+.page-breadcrumbs > li + li {
+  padding-right: 6px;
+  padding-left: 12px;
+}
 /* line 23, ../../scss/_theme/_theme.page-breadcrumbs.scss */
+.page-breadcrumbs > li + li::before {
+  content: "›" "\00A0";
+}
+
+/* line 27, ../../scss/_theme/_theme.page-breadcrumbs.scss */
 .page-breadcrumbs__title {
   font-weight: 500;
   font-size: 1.125em;
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* line 28, ../../scss/_theme/_theme.page-breadcrumbs.scss */
+/* line 32, ../../scss/_theme/_theme.page-breadcrumbs.scss */
 .page-breadcrumbs__title--selected {
   color: #51b364;
 }
