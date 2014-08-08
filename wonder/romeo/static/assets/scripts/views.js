@@ -1681,8 +1681,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        <video-download video-id=\"video.id\" ng-show=\"video.id && $root.isCollaborator && canDownload\"></video-download>\n" +
     "\n" +
     "        <div class=\"video-view__save-controls\" ng-show=\"isEdit\">\n" +
-    "          <a ng-click=\"cancel()\" class=\"button\">cancel</a>\n" +
-    "          <a ng-click=\"save()\" class=\"button button--primary\">save changes</a>\n" +
+    "          <a ng-click=\"cancel()\" class=\"btn\">cancel</a>\n" +
+    "          <a ng-click=\"save()\" class=\"btn btn--positive\">save changes</a>\n" +
     "        </div>\n" +
     "\n" +
     "      </section>\n" +
