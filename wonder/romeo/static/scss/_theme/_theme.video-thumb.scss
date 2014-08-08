@@ -13,6 +13,10 @@
     height: $base-line-height * 2;
     margin-bottom: $half-spacing-unit;
   }
+  .organise-video-list__video--list .video-thumb-link__title {
+    height: $base-line-height;
+    margin-bottom: 0;
+  }
 
 .video-thumb {
   

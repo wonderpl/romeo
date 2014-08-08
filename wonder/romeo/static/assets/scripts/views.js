@@ -882,24 +882,24 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <ul class=\"nav  nav--block  organise-video__inline-controls\" ng-show=\"isList\">\n" +
     "    <li class=\"organise-video__inline-control\">\n" +
-    "      <a class=\"organise-video__inline-link organise-video__inline-link--edit\" ng-href=\"#/video/(~video.id~)/edit\"><i class=\"icon  icon--edit\"></i></a>\n" +
+    "      <a class=\"organise-video__inline-link organise-video__inline-link--edit\" ng-href=\"#/video/(~video.id~)/edit\" title=\"Edit\"><i class=\"icon  icon--edit\"></i></a>\n" +
     "    </li>\n" +
     "    <li class=\"organise-video__inline-control\">\n" +
-    "      <a class=\"organise-video__inline-link organise-video__inline-link--view\" ng-href=\"#/video/(~video.id~)\"><i class=\"icon  icon--eye\"></i></a>\n" +
+    "      <a class=\"organise-video__inline-link organise-video__inline-link--view\" ng-href=\"#/video/(~video.id~)\" title=\"Review\"><i class=\"icon  icon--eye\"></i></a>\n" +
     "    </li>\n" +
     "    <li class=\"organise-video__inline-control\">\n" +
-    "      <a class=\"organise-video__inline-link organise-video__inline-link--stats\"><i class=\"icon  icon--bar-graph\"></i></a>\n" +
+    "      <a class=\"organise-video__inline-link organise-video__inline-link--stats\"><i class=\"icon  icon--bar-graph\" title=\"Stats\"></i></a>\n" +
     "    </li>\n" +
     "    <li class=\"organise-video__inline-control\">\n" +
-    "      <a class=\"organise-video__inline-link organise-video__inline-link--add-remove\" ng-click=\"addRemove(video)\"><i class=\"icon  icon--collection\"></i></a>\n" +
+    "      <a class=\"organise-video__inline-link organise-video__inline-link--add-remove\" ng-click=\"addRemove(video)\" title=\"Add/Remove from collection\"><i class=\"icon  icon--collection\"></i></a>\n" +
     "    </li>\n" +
     "    <li class=\"organise-video__inline-control\">\n" +
-    "      <a class=\"organise-video__inline-link organise-video__inline-link--delete\" ng-click=\"showDelete(video)\"><i class=\"icon  icon--trash\"></i></a>\n" +
+    "      <a class=\"organise-video__inline-link organise-video__inline-link--delete\" ng-click=\"showDelete(video)\" title=\"Delete video\" ><i class=\"icon  icon--trash\"></i></a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
     "\n" +
     "  <a ng-href=\"#/video/(~video.id~)\" class=\"video-thumb-link\">\n" +
-    "    <span class=\"heading  w--800  trunc  trunc--two  video-thumb-link__title\" ng-show=\"isList\" ng-bind=\"video.title\"></span>\n" +
+    "    <span class=\"heading  w--800  trunc  video-thumb-link__title\" ng-show=\"isList\" ng-bind=\"video.title\"></span>\n" +
     "  </a>\n" +
     "\n" +
     "  <a ng-href=\"#/video/(~video.id~)\" class=\"video-thumb-link\">\n" +
