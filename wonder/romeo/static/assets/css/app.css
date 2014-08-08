@@ -5071,23 +5071,31 @@ label,
   display: block;
   margin-bottom: 1em;
   font-variant: small-caps;
+  font-weight: 600;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: lowercase;
+  letter-spacing: 0.1em;
 }
 
-/* line 21, ../../scss/specifics/video/_video-add-collaborators.scss */
+/* line 24, ../../scss/specifics/video/_video-add-collaborators.scss */
 .video-add-collaborators__label--inline {
   display: inline;
   margin-right: 1em;
+  font-weight: normal;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: 0;
 }
 
-/* line 26, ../../scss/specifics/video/_video-add-collaborators.scss */
+/* line 32, ../../scss/specifics/video/_video-add-collaborators.scss */
 .video-add-collaborators__input {
   display: block;
   width: 20em;
+  font-weight: normal;
   font-size: 1em;
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-variant: normal;
   text-transform: normal;
+  letter-spacing: 0;
   padding: 0.3em;
 }
 
