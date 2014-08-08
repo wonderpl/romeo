@@ -1262,7 +1262,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('video-download.html',
-    "<a class=\"btn  btn--utility  icon-text  f--left\" ng-click=\"download()\"><i class=\"icon  icon--download  icon-text__icon\"></i>Download source file</a>"
+    "<a class=\"btn  btn--utility  icon-text\" ng-click=\"download()\"><i class=\"icon  icon--download  icon-text__icon\"></i>Download source file</a>"
   );
 
 
@@ -1443,9 +1443,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('video-navigation.html',
     "<section class=\"sub-navigation video-view-control-panel sub-navigation--(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
     "  <div class=\"wrapper\">\n" +
-    "    <video-download video-id=\"videoId\" ng-show=\"videoId\"></video-download>\n" +
-    "\n" +
     "    <ul class=\"sub-navigation__modes\">\n" +
+    "      <li class=\"sub-navigation__mode  f--left\">\n" +
+    "        <video-download video-id=\"videoId\" ng-show=\"videoId\"></video-download>\n" +
+    "      </li>\n" +
     "      <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
     "        <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"save()\">\n" +
     "          <i class=\"icon  icon--check  icon-text__icon\"></i>\n" +
