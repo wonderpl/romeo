@@ -88,12 +88,13 @@ angular.module('RomeoApp.controllers')
 
     $scope.$on('delete-video', function ($event, video) {
       if (video) {
+        console.log(video);
         VideoService.delete(video.id).then(function () {
           refresh();
           $scope.$emit('notify', {
             status : 'warning',
             title : 'Video deleted',
-            message : 'Video (' + video.id + ') deleted.'}
+            message : "'" + video.title + "' deleted."}
           );
         });
       }
