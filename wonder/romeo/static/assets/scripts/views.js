@@ -248,7 +248,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        data-videos=\"(~ tag.video_count ~)\"\n" +
     "        ng-class=\"{\n" +
     "          'video-edit-collections__option--selected' : hasTag(tag.id),\n" +
-    "          'video-edit-collections__option--modal' : isModal\n" +
+    "          'video-edit-collections__option--modal' : isModal,\n" +
+    "          'video-edit-collections__option--private' : !tag.public\n" +
     "        }\"\n" +
     "        ng-repeat=\"tag in availableTags\"\n" +
     "        ng-click=\"addTag(tag.id, $event)\">\n" +
@@ -741,16 +742,16 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('organise-collection.html',
     "<section class=\"organise-collection\">\n" +
-    "  <div class=\"media\">\n" +
-    "    <div class=\"media__img\">\n" +
-    "      <i class=\"icon  icon--huge  icon--collection-add\"></i>\n" +
+    "  <div class=\"media collection-view\" ng-class=\"{ 'collection-view--public' : tag.public }\">\n" +
+    "    <div class=\"media__img  collection-view__thumb\">\n" +
+    "      <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"collection-view__thumb__icon\">\n" +
     "    </div>\n" +
     "  \n" +
-    "    <div class=\"media__body\">\n" +
+    "    <div class=\"media__body collection-view__content\">\n" +
     "      <h3 class=\"heading  w--800  no-spacing  organise-collection__title\">\n" +
     "        <div ng-hide=\"isEdit\">\n" +
     "          (~ tag.label ~)\n" +
-    "          <span class=\"organise-collection__visibility organise-collection__visibility--private\">(~ tag.public ? 'public' : 'private' ~)</span>\n" +
+    "          <span class=\"organise-collection__visibility organise-collection__visibility--private  icon-text\"><i class=\"icon  icon-text__icon\" ng-class=\"tag.public ? 'icon--eye' : 'icon--lock'\"></i>(~ tag.public ? 'public' : 'private' ~)</span>\n" +
     "        </div>\n" +
     "        <div medium-editor\n" +
     "          options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true, placeholder : '' }\"\n" +
@@ -758,21 +759,20 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "          ng-show=\"isEdit\">\n" +
     "        </div>\n" +
     "      </h3>\n" +
-    "    \n" +
     "      <p class=\"organise-collection__description\" ng-bind=\"tag.description\" ng-hide=\"isEdit\"></p>\n" +
-    "    \n" +
     "      <p class=\"organise-collection__description\"\n" +
     "        medium-editor\n" +
     "        options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true, placeholder : '' }\"\n" +
     "        ng-model=\"tag.description\"\n" +
     "        ng-show=\"isEdit\">\n" +
     "      </p>\n" +
-    "    \n" +
-    "      <a class=\"button organise-collection__button organise-collection__button--edit\" ng-hide=\"isEdit\" ng-click=\"isEdit = !isEdit\">Edit</a>\n" +
-    "    \n" +
-    "      <a class=\"button button--primary organise-collection__button organise-collection__button--save\" ng-show=\"isEdit\" ng-click=\"save()\">Done</a>\n" +
-    "    \n" +
-    "      <a class=\"button organise-collection__button organise-collection__button--delete\" ng-show=\"isEdit\" ng-click=\"delete()\">Delete</a>\n" +
+    "      <div class=\"collection-view__actions\">\n" +
+    "        <ul class=\"nav  nav--blocks collection-view-action-list\">\n" +
+    "          <li class=\"collection-view-action-list__item\"><a class=\"btn  btn--small  organise-collection__button organise-collection__button--edit collection-view-action-list__link\" ng-hide=\"isEdit\" ng-click=\"isEdit = !isEdit\">Edit</a></li>\n" +
+    "          <li class=\"collection-view-action-list__item\"><a class=\"btn  btn--small  btn--positive organise-collection__button organise-collection__button--save collection-view-action-list__link\" ng-show=\"isEdit\" ng-click=\"save()\">Done</a></li>\n" +
+    "          <li class=\"collection-view-action-list__item\"><a class=\"btn  btn--small  btn--destructive organise-collection__button organise-collection__button--delete collection-view-action-list__link\" ng-show=\"isEdit\" ng-click=\"delete()\">Delete</a></li>\n" +
+    "        </ul>\n" +
+    "      </div>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "</section>"

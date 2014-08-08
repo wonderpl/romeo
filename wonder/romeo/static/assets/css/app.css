@@ -3152,7 +3152,54 @@ label,
  */
 /* line 4, ../../scss/_theme/_theme.organise-collection.scss */
 .organise-collection {
+  margin-bottom: 12px;
   border-bottom: 1px solid #b7bcbd;
+}
+
+/* line 9, ../../scss/_theme/_theme.organise-collection.scss */
+.organise-collection__title {
+  font-size: 1.375em;
+}
+
+/* line 12, ../../scss/_theme/_theme.organise-collection.scss */
+.organise-collection__visibility {
+  font-variant: small-caps;
+  font-size: 0.75em;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: lowercase;
+  letter-spacing: 0.1em;
+  color: #b7bcbd;
+}
+
+/**
+ * _theme.collection-view.scss
+ */
+/* line 7, ../../scss/_theme/_theme.collection-view.scss */
+.collection-view__thumb__icon {
+  width: 96px;
+  height: 96px;
+  background-image: url("/static/assets/img/video-collection__tag--private.png");
+  background-repeat: no-repeat;
+  background-position: top left;
+}
+
+/* line 17, ../../scss/_theme/_theme.collection-view.scss */
+.collection-view--public .collection-view__thumb__icon {
+  background-image: url("/static/assets/img/video-collection__tag.png");
+}
+
+/* line 23, ../../scss/_theme/_theme.collection-view.scss */
+.collection-view__actions {
+  text-align: right;
+}
+
+/* line 27, ../../scss/_theme/_theme.collection-view.scss */
+.collection-view-action-list {
+  margin-bottom: 12px;
+}
+/* line 30, ../../scss/_theme/_theme.collection-view.scss */
+.collection-view-action-list > li + li {
+  margin-left: 6px;
 }
 
 /**
@@ -4734,30 +4781,40 @@ label,
   background: url("/static/assets/img/video-collection__tag.png") 10px 0 no-repeat transparent;
 }
 
-/* line 22, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 21, ../../scss/specifics/video/_video-edit-collections.scss */
+.video-edit-collections__option--private {
+  background-image: url("/static/assets/img/video-collection__tag--private.png");
+}
+
+/* line 26, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option--modal {
   width: 230px;
   margin-right: 12px;
 }
 
-/* line 27, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 31, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option--selected {
   background: url("/static/assets/img/video-collection__tag--selected.png") 10px 0 no-repeat #51b364;
   color: white;
 }
 
-/* line 32, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 36, ../../scss/specifics/video/_video-edit-collections.scss */
+.video-edit-collections__option--private.video-edit-collections__option--selected {
+  background: url("/static/assets/img/video-collection__tag--private--selected.png") 10px 0 no-repeat #51b364;
+}
+
+/* line 40, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option-title {
   display: block;
   font-weight: 800;
 }
 
-/* line 37, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 45, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option-count {
   display: block;
 }
 
-/* line 41, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 49, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option:hover {
   cursor: pointer;
   border-color: #51b364;
@@ -4765,12 +4822,17 @@ label,
   color: black;
 }
 
-/* line 48, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 56, ../../scss/specifics/video/_video-edit-collections.scss */
+.video-edit-collections__option--private:hover {
+  background-image: url("/static/assets/img/video-collection__tag--private--active.png");
+}
+
+/* line 60, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__assigned-tag {
   color: #999999;
 }
 
-/* line 56, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 68, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__remove-tag {
   font-weight: 800;
   color: red;
@@ -4778,12 +4840,12 @@ label,
   padding: 1em 2em 0 0;
 }
 
-/* line 64, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 76, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__assigned-tags {
   display: inline-block;
 }
 
-/* line 68, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 80, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__assigned-tag {
   display: inline-block;
 }

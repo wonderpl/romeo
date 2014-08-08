@@ -1,14 +1,14 @@
 <section class="organise-collection">
-  <div class="media">
-    <div class="media__img">
-      <i class="icon  icon--huge  icon--collection-add"></i>
+  <div class="media collection-view" ng-class="{ 'collection-view--public' : tag.public }">
+    <div class="media__img  collection-view__thumb">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="collection-view__thumb__icon">
     </div>
   
-    <div class="media__body">
+    <div class="media__body collection-view__content">
       <h3 class="heading  w--800  no-spacing  organise-collection__title">
         <div ng-hide="isEdit">
           {{ tag.label }}
-          <span class="organise-collection__visibility organise-collection__visibility--private">{{ tag.public ? 'public' : 'private' }}</span>
+          <span class="organise-collection__visibility organise-collection__visibility--private  icon-text"><i class="icon  icon-text__icon" ng-class="tag.public ? 'icon--eye' : 'icon--lock'"></i>{{ tag.public ? 'public' : 'private' }}</span>
         </div>
         <div medium-editor
           options="{ disableToolbar : true, forcePlainText : true, disableReturn : true, placeholder : '' }"
@@ -16,21 +16,20 @@
           ng-show="isEdit">
         </div>
       </h3>
-    
       <p class="organise-collection__description" ng-bind="tag.description" ng-hide="isEdit"></p>
-    
       <p class="organise-collection__description"
         medium-editor
         options="{ disableToolbar : true, forcePlainText : true, disableReturn : true, placeholder : '' }"
         ng-model="tag.description"
         ng-show="isEdit">
       </p>
-    
-      <a class="button organise-collection__button organise-collection__button--edit" ng-hide="isEdit" ng-click="isEdit = !isEdit">Edit</a>
-    
-      <a class="button button--primary organise-collection__button organise-collection__button--save" ng-show="isEdit" ng-click="save()">Done</a>
-    
-      <a class="button organise-collection__button organise-collection__button--delete" ng-show="isEdit" ng-click="delete()">Delete</a>
+      <div class="collection-view__actions">
+        <ul class="nav  nav--blocks collection-view-action-list">
+          <li class="collection-view-action-list__item"><a class="btn  btn--small  organise-collection__button organise-collection__button--edit collection-view-action-list__link" ng-hide="isEdit" ng-click="isEdit = !isEdit">Edit</a></li>
+          <li class="collection-view-action-list__item"><a class="btn  btn--small  btn--positive organise-collection__button organise-collection__button--save collection-view-action-list__link" ng-show="isEdit" ng-click="save()">Done</a></li>
+          <li class="collection-view-action-list__item"><a class="btn  btn--small  btn--destructive organise-collection__button organise-collection__button--delete collection-view-action-list__link" ng-show="isEdit" ng-click="delete()">Delete</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>

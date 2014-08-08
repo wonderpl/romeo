@@ -2,5 +2,18 @@
  * _theme.collection.scss
  */
 .organise-collection {
+  margin-bottom: $half-spacing-unit;
   border-bottom: 1px solid $swatch-two;
+}
+
+.organise-collection__title {
+  font-size: 1.375em;
+}
+.organise-collection__visibility {
+  font-variant: small-caps;
+  font-size: 0.75em;
+  font-family: $heading-font-family;
+  text-transform: lowercase;
+  letter-spacing: 0.1em;
+  color: $swatch-two;
 }

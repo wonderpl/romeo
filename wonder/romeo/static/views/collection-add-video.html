@@ -38,7 +38,8 @@
         data-videos="{{ tag.video_count }}"
         ng-class="{
           'video-edit-collections__option--selected' : hasTag(tag.id),
-          'video-edit-collections__option--modal' : isModal
+          'video-edit-collections__option--modal' : isModal,
+          'video-edit-collections__option--private' : !tag.public
         }"
         ng-repeat="tag in availableTags"
         ng-click="addTag(tag.id, $event)">
