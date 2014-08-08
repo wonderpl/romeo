@@ -60,3 +60,7 @@ npm-debug.log
 
 # OSX
 .DS_Store
+
+# email tests
+email.html
+email.txt

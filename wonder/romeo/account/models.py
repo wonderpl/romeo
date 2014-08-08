@@ -1,13 +1,19 @@
+from urlparse import urljoin
 from sqlalchemy import (
-    Column, Integer, String, Boolean, ForeignKey, DateTime, Enum, CHAR, event, func)
+    Column, Integer, String, Boolean, ForeignKey, PrimaryKeyConstraint, DateTime, Enum, CHAR, event, func)
 from sqlalchemy.orm import relationship, backref
 from werkzeug.routing import RequestRedirect
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask import url_for, flash, session
+from flask import url_for, flash, session, current_app
 from flask.ext.login import UserMixin
 from wonder.romeo import db, login_manager
+from wonder.romeo.core import dolly
 from wonder.romeo.core.db import genid
 
+
+CONNECTION_STATE = 'pending', 'accepted'
+
+ACCOUNT_TYPES = 'collaborator', 'content_owner'
 
 EXTERNAL_SYSTEMS = 'email', 'facebook', 'twitter', 'google', 'apns', 'dolly'
 EXTERNAL_SYSTEM_CHOICES = zip(EXTERNAL_SYSTEMS, map(str.capitalize, EXTERNAL_SYSTEMS))
@@ -18,9 +24,33 @@ class Account(db.Model):
 
     id = Column(Integer, primary_key=True)
     date_added = Column(DateTime(), nullable=False, default=func.now())
+    account_type = Column(Enum(*ACCOUNT_TYPES, name='account_type'), nullable=False,
+                          default=ACCOUNT_TYPES[0])
     name = Column(String(128), nullable=False)
+    payment_token = Column(String(256), nullable=True)
     dolly_user = Column(CHAR(22))
     dolly_token = Column(String(128))
+
+    def set_account_type(self, account_type):
+        self.account_type = account_type
+        if account_type == 'content_owner' and not self.dolly_user:
+            first_user = AccountUser.query.filter_by(account_id=self.id).value('id')
+            dollydata = dolly.login(first_user)
+            self.dolly_user = dollydata['user_id']
+            self.dolly_token = dollydata['access_token']
+
+
+def _image_field_accessors(field):
+    def getter(self, size=None):
+        filename = getattr(self, '%s_filename' % field)
+        if filename:
+            path = self.get_image_filepath(self.account_id, filename, field)
+            return urljoin(current_app.config['MEDIA_BASE_URL'], path)
+
+    def setter(self, filename):
+        setattr(self, '%s_filename' % field, filename)
+
+    return getter, setter
 
 
 class AccountUser(db.Model):
@@ -33,9 +63,19 @@ class AccountUser(db.Model):
     password_hash = Column(String(128))
     active = Column(Boolean, nullable=False, default=True, server_default='true')
     display_name = Column(String(256))
-    avatar_url = Column(String(256))
+    location = Column(CHAR(2))
+    title = Column(String(256))
+    description = Column(String(1024))
+    website_url = Column(String(256))
+    search_keywords = Column(String(1024))
+    avatar_filename = Column(String(256))
+    profile_cover_filename = Column(String(256))
+    contactable = Column(Boolean, nullable=False, default=True, server_default='true')
 
     account = relationship(Account, backref=backref('users', cascade='all, delete-orphan'))
+
+    avatar = property(*_image_field_accessors('avatar'))
+    profile_cover = property(*_image_field_accessors('profile_cover'))
 
     @classmethod
     def get_from_credentials(cls, username, password):
@@ -43,6 +83,14 @@ class AccountUser(db.Model):
             cls.active == True, func.lower(cls.username) == username.lower()).first()
         if user and user.check_password(password):
             return user
+
+    @classmethod
+    def get_image_filepath(cls, account_id, filename, imagetype, size=None, base='i'):
+        return '/'.join(filter(None, (base, str(account_id), imagetype, (size or 'original'), filename)))
+
+    @property
+    def href(self):
+        return url_for('api.user', user_id=self.id)
 
     @property
     def name(self):
@@ -63,8 +111,7 @@ class AccountUser(db.Model):
 
 
 class AccountUserAuthToken(db.Model):
-
-    __tablename__ = "account_user_auth_token"
+    __tablename__ = 'account_user_auth_token'
 
     id = Column(Integer, primary_key=True)
     account_user_id = Column('account_user', ForeignKey(AccountUser.id), nullable=False)
@@ -76,6 +123,26 @@ class AccountUserAuthToken(db.Model):
     expires = Column(DateTime(), nullable=True)
 
     account_user = relationship(AccountUser, backref='auth_tokens')
+
+
+class AccountUserConnection(db.Model):
+    __tablename__ = 'account_user_connection'
+    __table_args__ = (
+        PrimaryKeyConstraint('account_user', 'connection'),
+    )
+
+    account_user_id = Column('account_user', ForeignKey(AccountUser.id), nullable=False)
+    connection_id = Column('connection', ForeignKey(AccountUser.id), nullable=False)
+    date_added = Column(DateTime(), nullable=False, default=func.now())
+    state = Column(Enum(*CONNECTION_STATE, name='connection_state'), nullable=False, default='pending')
+    message = Column(String(1024), nullable=True)
+
+    account_user = relationship(AccountUser, backref='connections', foreign_keys=[account_user_id])
+    connection = relationship(AccountUser, foreign_keys=[connection_id])
+
+    @property
+    def href(self):
+        return url_for('api.userconnection', user_id=self.account_user_id, connection_id=self.connection_id)
 
 
 class CollaborationMixin(object):

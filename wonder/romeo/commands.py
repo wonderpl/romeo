@@ -17,7 +17,7 @@ def send_test_email(email_type, recipient, output=None):
     from wonder.romeo import db
     from wonder.romeo.video import forms as video_forms
     from wonder.romeo.account import forms as account_forms
-    from wonder.romeo.account.models import Account, AccountUser
+    from wonder.romeo.account.models import Account, AccountUser, AccountUserConnection
     from wonder.romeo.video.models import Video, VideoThumbnail, VideoCollaborator, VideoComment
 
     current_app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
@@ -34,11 +34,18 @@ def send_test_email(email_type, recipient, output=None):
         video.thumbnails = [VideoThumbnail(url='http://lorempixel.com/640/360/technics/2/',
                                            width=640, height=360)]
         video.collaborators = [VideoCollaborator(email=recipient, name='Vidkun Quisling')]
-        account = Account(name='test')
-        account.users = [AccountUser(username=recipient, password_hash='',
-                                     display_name='Maynard Cohen',
-                                     avatar_url='http://lorempixel.com/60/60/people/9/')]
+        account = Account(id=88888888, name='test')
+        user0 = AccountUser(username=recipient, password_hash='',
+                            display_name='Maynard Cohen',
+                            avatar='cohen')
+        user1 = AccountUser(username='noreply+paulhayes@wonderpl.com', password_hash='',
+                            display_name='Paul Hayes',
+                            avatar='hayes')
+        account.users = [user0, user1]
         account.videos = [video]
+        user0.connections = [AccountUserConnection(connection=user1)]
+        user1.connections = [AccountUserConnection(
+            connection=user0, message="Connect, collaborate, ... profit!")]
         db.session.add(account)
         db.session.flush()
         video.comments = [VideoComment(comment='I like this!', timestamp=10,
@@ -53,6 +60,10 @@ def send_test_email(email_type, recipient, output=None):
         emails = dict(
             welcome=(account_forms.send_welcome_email,
                      (account.users[0].id,)),
+            connect=(account_forms.send_connection_invite_email,
+                     (account.users[1].id, account.users[0].id)),
+            acceptance=(account_forms.send_connection_acceptance_email,
+                        (account.users[1].id, account.users[0].id)),
             processed_error=(video_forms.send_processed_email,
                              (video.id, 'Duplicate video content')),
             processed=(video_forms.send_processed_email,

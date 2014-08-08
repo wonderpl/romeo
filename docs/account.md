@@ -26,6 +26,7 @@ Set-Cookie: session=XXX
  "account": {
   "id": 27250600,
   "href": "/api/account/27250600",
+  "account_type": "collaborator",
   "name": "romeo account name",
   "display_name": "dolly user name",
   "description": "dolly profile description",
@@ -55,6 +56,41 @@ Content-Type: application/json
 }
 ```
 
+### Registration
+
+To create a new account using a username & password, `POST` to `/api/register`:
+
+```http
+POST /api/register HTTP/1.1
+Content-Type: application/json
+
+{
+ "username": "user@email.com",
+ "password": "xxx",
+ "display_name": "display name",
+ "location": "GB"
+}
+```
+
+On success the response will be the same as a login response.
+
+On error, the `form_errors` property will describe the issue:
+
+```http
+HTTP/1.1 400 BAD REQUEST
+Content-Type: application/json
+
+{
+ "error": "invalid_request",
+ "form_errors": {
+  "username": [ "Username already registered." ],
+  "password": [ "Field must be at least 8 characters long." ],
+  "display_name": [ "This field is required." ],
+  "location": [ "Not a valid choice" ]
+ }
+}
+```
+
 ### Social Login/Registration
 
 To log in with an OAuth token from Twitter `POST` to `/api/login/external` with the
@@ -67,7 +103,8 @@ Content-Type: application/json
 {
  "external_system": "twitter",
  "external_token": "xxx",
- "username": "user@system.com"
+ "username": "user@system.com",
+ "location": "GB"
 }
 ```
 
@@ -76,6 +113,7 @@ Property        | Required | Value                   | Description
 external_system | Yes      | `twitter`               | Specifies the social/oauth platform
 external_token  | Yes      | The OAuth access token  | For Twitter, combine the key & secret with a `:`
 username        | No       | Email address           | Sets username when registering
+location        | No       | 2-letter country code   | The user's location
 
 On success the response will be the same as a login response, containing account and
 user resource information.
@@ -106,7 +144,8 @@ Content-Type: application/json
  "form_errors": {
   "external_system": [ "Not a valid choice." ],
   "external_token": [ "Invalid token." ],
-  "username": [ "Username already registered." ]
+  "username": [ "Username already registered." ],
+  "location": [ "This field is required." ]
  }
 }
 ```
@@ -201,6 +240,7 @@ Content-Type: application/json
 {
  "id": 27250600,
  "href": "/api/account/27250600",
+ "account_type": "collaborator",
  "name": "romeo account name",
  "display_name": "dolly user name",
  "description": "dolly profile description",
@@ -250,6 +290,49 @@ Content-Type: application/json
 }
 ```
 
+### Content Upload
+
+To upload a video or image file directly to S3 for an account you must first request upload
+arguments which provide a target URL and access key & signature field values.
+
+```http
+GET /api/account/<account_id>/upload_args?type=<file_type> HTTP/1.1
+```
+
+Parameter | Required | Value                                | Description
+:-------- | :------- | :----------------------------------- | :----------
+type      | No       | `video`, `avatar` or `profile_cover` | Specifies the upload file type, defaults to `video`
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+ "action": "http://media.dev.wonderpl.com.s3.amazonaws.com/",
+ "fields": [
+  {
+   "name": "key",
+   "value": "path/to/file"
+  },
+  {
+   "name": "policy",
+   "value": "xxx"
+  },
+  {
+   "name": "AWSAccessKeyId",
+   "value": "xxx"
+  },
+  {
+   "name": "signature",
+   "value": "xxx"
+  }
+ ]
+}
+```
+
+Use the provided field names & values with multipart `POST` to the specified `action` URL.
+See the [S3 documentation](http://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-HTTPPOSTForms.html) for further detail.
+
 ### User
 
 Get details for a specific account user.
@@ -265,6 +348,190 @@ Content-Type: application/json
 {
  "id": 56945137,
  "href": "/api/user/56945137",
- "username": "paulegan@rockpack.com"
+ "username": "paulegan@rockpack.com",
+ "location": "GB",
+ "display_name": "name for display",
+ "title": "job/role/industry",
+ "description": "profile description",
+ "website_url": "http://company.com",
+ "search_keywords": "some,comma separated,keywords",
+ "profile_cover": "http://path/to/profile/cover.jpg",
+ "avatar": "http://path/to/avatar/image.jpg",
+ "contactable": true
+}
+```
+
+To change one or more properties use a `PATCH` request with the required changes.
+
+```http
+PATCH /api/user/<user_id> HTTP/1.1
+Content-Type: application/json
+
+{
+ "title": "Secret Agent",
+ "contactable": false
+}
+```
+
+For the `profile_cover` and `avatar` images you can first use the `upload_args` service,
+upload the content to S3, and then specify the new filename in the JSON `PATCH` request.
+Alternatively you can use a multipart `PATCH` request to send the image data directly to
+the server.
+
+```http
+PATCH /api/user/<user_id> HTTP/1.1
+Content-Type: multipart/form-data; boundary=---xxx
+
+---xxx
+Content-Disposition: form-data; name="avatar"; filename="img.png"
+Content-Type: application/octet-stream
+
+....PNG...
+```
+
+On success the updated resource record will be returned and on error a `form_errors` object
+will detail the issue.
+
+```http
+HTTP/1.1 400 BAD REQUEST
+Content-Type: application/json
+
+{
+ "error": "invalid_request",
+ "form_errors": {
+  "location": [ "Not a valid choice" ],
+  "website_url": [ "Invalid URL." ],
+  "avatar": [ "Path not found." ]
+ }
+}
+```
+
+### User Connections
+
+To request a new connection `POST` the target user id to current user's connections resource.
+If no connection exists then the state will be set to `pending` and a confirmation email will
+be sent to the target user. If the reverse connection already exists then the state will be
+set to `accepted` and both users will receive an acceptance email.
+
+```http
+POST /api/user/<user_id>/connections HTTP/1.1
+Content-Type: application/json
+
+{
+ "user": 97220269,
+ "message": "Optional message."
+}
+```
+
+For a new connection a `201` is returned but if it already exists it'll be a `204`.
+
+```http
+HTTP/1.1 201 CREATED
+Location: /api/user/66792515/connections/97220269
+Content-Type: application/json
+
+{
+ "id": 97220269,
+ "href": "/api/user/66792515/connections/97220269"
+}
+```
+
+On error the `form_errors` property will describe the issue:
+
+```http
+HTTP/1.1 400 BAD REQUEST
+Content-Type: application/json
+
+{
+ "error": "invalid_request",
+ "form_errors": {
+  "user": [ "User not contactable." ]
+ }
+}
+```
+
+To retrieve a list of user connections including collaborators, accepted & pending
+connections:
+
+```http
+GET /api/user/<user_id>/connections HTTP/1.1
+```
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+ "connection": {
+  "total": 2,
+  "items": [
+   {
+    "id": 42,
+    "href": "/api/user/45567553/connections/42",
+    "state": "pending",
+    "user": {
+     "id": 123,
+     "href": /api/user/123,
+     "display_name": "name",
+     "email": null,
+     "avatar": null
+    }
+   },
+   {
+    "id": 43,
+    "href": "/api/user/45567553/connections/43",
+    "state": "collaborator",
+    "collaborator": {
+     "id": 9,
+     "href": /api/video/9123435/collaborators/9
+    }
+   }
+  ]
+ }
+}
+```
+
+### Payment
+
+Accounts of type `collaborator` cannot upload or copy videos. These services will
+return a `403` in this case.
+
+To upgrade from `collaborator` to a `content_owner` account payment is required.
+Initiate the payment process using [Stripe's API](https://stripe.com/docs/tutorials/checkout)
+and `POST` the `stripeToken` to the payment sub-resource.
+
+```http
+POST /api/account/<account_id>/payment HTTP/1.1
+Content-Type: application/json
+
+{"stripeToken": "xxx"}
+```
+
+### Locations
+
+To retrieve a list of locations for use with the account services:
+
+```http
+GET /api/locations HTTP/1.1
+```
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+ "country": {
+  "total": 250,
+  "items": [
+   {
+    "code": "AD",
+    "name": "Andorra"
+   },
+   {
+    "code": "ZW",
+    "name": "Zimbabwe"
+   }
+  ]
+ }
 }
 ```

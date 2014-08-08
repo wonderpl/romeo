@@ -25,6 +25,7 @@ class VideoWorkflowTestCase(DataTestCase, TestCase):
         class account:
             id = 1001
             name = 'test'
+            account_type = 'content_owner'
             dolly_user = 'dudu'
 
     class AccountUserData(DataSet):

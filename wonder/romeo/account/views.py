@@ -6,15 +6,17 @@ import twitter
 from xml.etree import cElementTree as ElementTree
 from itsdangerous import URLSafeSerializer, BadSignature
 from flask import (Blueprint, current_app, request, render_template, url_for,
-                   session, redirect, jsonify, abort)
+                   session, redirect, jsonify)
 from flask.ext.login import login_user, logout_user, current_user
+from flask.ext.restful import abort
 from flask.ext.restful.reqparse import RequestParser
 from wonder.common.i18n import lazy_gettext as _
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.rest import Resource, api_resource
 from wonder.romeo.core.dolly import DollyUser
-from .forms import RegistrationForm, ExternalLoginForm, LoginForm, ChangePasswordForm
-from .models import UserProxy, AccountUser
+from .forms import (RegistrationForm, ExternalLoginForm, LoginForm,
+                    AccountUserForm, AccountUserConnectionForm, AccountPaymentForm)
+from .models import UserProxy, AccountUser, AccountUserConnection
 
 
 CALLBACK_JS_FUNCTION_RE = re.compile('^[\w.]+$')
@@ -24,7 +26,8 @@ accountapp = Blueprint('account', __name__)
 
 
 def get_dollyuser(account):
-    return DollyUser(account.dolly_user, account.dolly_token)
+    if account.dolly_user:
+        return DollyUser(account.dolly_user, account.dolly_token)
 
 
 def dolly_account_view(f):
@@ -34,7 +37,7 @@ def dolly_account_view(f):
         if account_id == current_user.account.id:
             return f(self, account, get_dollyuser(account))
         else:
-            abort(403)
+            abort(403, error='access_denied')
     return decorator
 
 
@@ -188,16 +191,102 @@ class ExternalLoginResource(BaseLoginResource):
     form_class = ExternalLoginForm
 
 
+def _user_item(user):
+    return dict(
+        (k, getattr(user, k))
+        for k in ('id', 'href', 'location', 'display_name',
+                  'title', 'description', 'website_url',
+                  'search_keywords', 'profile_cover', 'avatar', 'contactable')
+    )
+
+
+def user_view(current_user_only=True):
+    def decorator(f):
+        @wraps(f)
+        def wrapper(self, user_id, *args, **kwargs):
+            if current_user_only:
+                if user_id == current_user.id:
+                    user = current_user.user
+                else:
+                    abort(403, error='access_denied')
+            else:
+                user = AccountUser.query.filter_by(active=True, id=user_id).first_or_404()
+            return f(self, user, *args, **kwargs)
+        return wrapper
+    return decorator
+
+
 @api_resource('/user/<int:user_id>')
 class UserResource(Resource):
-    def get(self, user_id):
-        if not user_id == current_user.id:
-            abort(403)
-        return dict(
-            id=current_user.id,
-            href=url_for('api.user', user_id=current_user.id),
-            username=current_user.username,
+
+    @user_view()
+    def get(self, user):
+        return _user_item(user)
+
+    @commit_on_success
+    @user_view()
+    def patch(self, user):
+        form = AccountUserForm(obj=user)
+        # Exclude form fields that weren't specified in the request
+        for field in form.data:
+            if field not in (request.json or request.form or request.files):
+                delattr(form, field)
+
+        if form.validate():
+            user = form.save()
+            return _user_item(user)
+        else:
+            return dict(error='invalid_request', form_errors=form.errors), 400
+
+
+def _connection_item(connection):
+    user = connection.connection
+    return dict(
+        id=connection.connection_id,
+        href=connection.href,
+        state=connection.state,
+        user=dict(
+            id=user.id,
+            href=user.href,
+            display_name=user.display_name,
+            email=user.email if connection.state == 'accepted' else None,
+            avatar=user.avatar,
         )
+    )
+
+
+@api_resource('/user/<int:user_id>/connections')
+class UserConnectionsResource(Resource):
+
+    @user_view()
+    def get(self, user):
+        # TODO: include video collaborators here
+        items = map(_connection_item, user.connections)
+        return dict(connection=dict(items=items, total=len(items)))
+
+    @commit_on_success
+    @user_view()
+    def post(self, user):
+        form = AccountUserConnectionForm(account_user=user)
+        if form.validate():
+            connection = form.save()
+            if connection:
+                return (dict(id=connection.connection_id, href=connection.href),
+                        201, {'Location': connection.href})
+            else:
+                return None, 204
+        else:
+            return dict(error='invalid_request', form_errors=form.errors), 400
+
+
+@api_resource('/user/<int:user_id>/connections/<int:connection_id>')
+class UserConnectionResource(Resource):
+
+    @user_view()
+    def get(self, user, connection_id):
+        connection = AccountUserConnection.query.filter_by(
+            account_user_id=user.id, connection_id=connection_id).first_or_404()
+        return _connection_item(connection)
 
 
 @commit_on_success
@@ -207,16 +296,31 @@ def _update_users(account_id, **kwargs):
 
 
 def account_item(account, dollyuser):
-    userdata = dollyuser.get_userdata()
-    return dict(
+    item = dict(
         id=account.id,
         href=url_for('api.account', account_id=account.id),
+        account_type=account.account_type,
         name=account.name,
-        display_name=userdata['display_name'],
-        description=userdata['description'],
-        avatar=userdata['avatar_thumbnail_url'],
-        profile_cover=userdata['profile_cover_url'],
     )
+    if dollyuser:
+        # Take profile data from Dolly
+        userdata = dollyuser.get_userdata()
+        item.update(
+            display_name=userdata['display_name'],
+            description=userdata['description'],
+            avatar=userdata['avatar_thumbnail_url'],
+            profile_cover=userdata['profile_cover_url'],
+        )
+    else:
+        # Use first user
+        userdata = _user_item(account.users[0])
+        item.update(
+            display_name=userdata['display_name'],
+            description=userdata['description'],
+            avatar=userdata['avatar'],
+            profile_cover=userdata['profile_cover'],
+        )
+    return item
 
 
 @api_resource('/account/<int:account_id>')
@@ -234,6 +338,9 @@ class AccountResource(Resource):
 
     @dolly_account_view
     def patch(self, account, dollyuser):
+        if not dollyuser:
+            abort(403, error='access_denied', message='"content_owner" account required')
+
         args = self.account_parser.parse_args()
         for arg, value in args.items():
             if value:
@@ -250,3 +357,18 @@ class AccountResource(Resource):
                     elif arg == 'set_display_name':
                         _update_users(account.id, display_name=value)
         return self.get(account.id)
+
+
+@api_resource('/account/<int:account_id>/payment')
+class AccountPaymentResource(Resource):
+
+    @commit_on_success
+    @dolly_account_view
+    def post(self, account, dollyuser):
+        request.json['payment_token'] = request.json.get('stripeToken')
+        form = AccountPaymentForm(csrf_enabled=False)
+        if form.validate():
+            form.save()
+            return None, 204
+        else:
+            return dict(error='invalid_request', form_errors=form.errors), 400

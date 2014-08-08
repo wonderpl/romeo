@@ -1,23 +1,27 @@
 {% extends "base.html" %}
 
-{% block title %}You have accepted an invitation to connect on Wonder PL{% endblock %}
+{% block title %}{% if recipient.is_initiator %}Your invitation to connect has been accepted{% else %}You have accepted an invitation to connect{% endif %} on Wonder PL{% endblock %}
 
 {% block body %}
 
-{% if sender.avatar_url %}
+{% if sender.avatar %}
   <div style="width:100%;overflow:hidden;text-align:center;">
-    <img src="{{ sender.avatar_url }}" alt="" width="66" height="66" style="display:block;max-width:none;width:66px;height:auto;margin:0 auto;border-radius:100%;"/>
+    <img src="{{ sender.avatar }}" alt="" width="66" height="66" style="display:block;max-width:none;width:66px;height:auto;margin:0 auto;border-radius:100%;"/>
   </div>
   <br>
 {% endif %}
 
 <div style="font-weight:bold;font-size:28px;line-height:1.35;font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif;color:#2e2e32">
-  Hello {{ collaborator.name }},
+  Hello {{ recipient.name }},
 </div>
 <br>
 
 <div>
+  {% if recipient.is_initiator %}
+  <b>{{ sender.display_name }}</b> has accepted your invitation to connect with them.
+  {% else %}
   You have accepted an invitation to connect from <b>{{ sender.display_name }}</b>.
+  {% endif %}
 </div>
 <br>
 
@@ -27,7 +31,7 @@
 <br><br>
 
 <div>
-  {% sender.email_address %}
+  {{ sender.email }}
 </div>
 <br>
 

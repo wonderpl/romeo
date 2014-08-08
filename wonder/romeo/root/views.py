@@ -1,6 +1,7 @@
 from flask import current_app, Blueprint, render_template, url_for
 from flask.ext.login import current_user
 from wonder.romeo.core.rest import api_resource, Resource
+from wonder.romeo.core.util import COUNTRY_CODES
 
 rootapp = Blueprint('root', __name__)
 
@@ -55,3 +56,13 @@ class BaseResource(Resource):
         else:
             status = dict(auth_status='logged_out')
         return status
+
+
+@api_resource('/locations')
+class LocationsResource(Resource):
+
+    decorators = []
+
+    def get(self):
+        items = [dict(code=c, name=n) for c, n in COUNTRY_CODES if c not in ('A1', 'A2', 'O1', 'EU')]
+        return dict(country=dict(items=items, total=len(items)))

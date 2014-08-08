@@ -1,4 +1,3 @@
-import os
 import re
 from urlparse import urljoin
 from itsdangerous import URLSafeSerializer
@@ -70,10 +69,6 @@ class Video(db.Model):
         return name + '.mp4'
 
     @classmethod
-    def get_random_filename(cls):
-        return os.urandom(8).encode('hex')
-
-    @classmethod
     def get_video_filepath(cls, account_id, filename, base='video'):
         """Return unique video file name."""
         return '/'.join((base, str(account_id), filename))
@@ -83,7 +78,7 @@ class Video(db.Model):
         return '/'.join((base, (size or 'original'), filename))
 
     @classmethod
-    def get_image_filepath(cls, filename, imagetype, account_id, size=None, base='i'):
+    def get_image_filepath(cls, account_id, filename, imagetype, size=None, base='i'):
         return '/'.join(filter(None, (base, str(account_id), imagetype, (size or 'original'), filename)))
 
     def get_thumbnail_url(self, size=None):
@@ -94,8 +89,7 @@ class Video(db.Model):
 
     def get_player_logo_url(self, size=None):
         if self.player_logo_filename:
-            path = self.get_image_filepath(self.player_logo_filename, 'logo',
-                                           self.account_id, size=size)
+            path = self.get_image_filepath(self.account_id, self.player_logo_filename, 'logo', size=size)
             return urljoin(current_app.config['MEDIA_BASE_URL'], path)
 
     def set_player_logo(self, filename):
@@ -171,7 +165,7 @@ class VideoThumbnail(db.Model):
     @classmethod
     def from_cover_image(cls, cover_image, account_id, size=None, dim=None):
         width, height = dim if dim else (0, 0)
-        path = Video.get_image_filepath(cover_image, 'cover', account_id, size)
+        path = Video.get_image_filepath(account_id, cover_image, 'cover', size)
         url = urljoin(current_app.config['MEDIA_BASE_URL'], path)
         return cls(url=url, width=width, height=height)
 
@@ -319,7 +313,7 @@ class VideoComment(db.Model):
             VideoComment,
             AccountUser.display_name.label('name'),
             AccountUser.username.label('email'),
-            AccountUser.avatar_url,
+            AccountUser.avatar_filename,
         )
 
         collab_comments = video_comments.join(

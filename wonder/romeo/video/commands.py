@@ -4,6 +4,7 @@ from werkzeug import generate_password_hash
 from wonder.romeo import manager, db
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.s3 import video_bucket
+from wonder.romeo.core.util import get_random_filename
 from wonder.romeo.core import dolly, ooyala
 from wonder.romeo.account.models import Account, AccountUser
 from wonder.romeo.account.views import get_dollyuser
@@ -229,7 +230,7 @@ def migrate_video_files(account):
         key = video_bucket.get_key(metadata['path'])
         assert key.size < 5 * 2 ** 30   # can't copy files bigger than this
 
-        video.filename = Video.get_random_filename()
+        video.filename = get_random_filename()
         dst = Video.get_video_filepath(account, video.filename)
         key.copy(video_bucket.name, dst)
         key.delete()

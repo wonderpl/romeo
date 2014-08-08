@@ -1,15 +1,16 @@
-from functools import wraps
+from functools import wraps, partial
 from sqlalchemy import func
-from flask import Blueprint, current_app, request, Response, render_template, abort, url_for, json
-from flask.ext.login import current_user, login_required
+from flask import Blueprint, current_app, request, Response, render_template, url_for, json
+from flask.ext.login import current_user
+from flask.ext.restful import abort
 from flask.ext.restful.reqparse import RequestParser
 from wonder.romeo import db
 from wonder.romeo.core.dolly import get_categories, get_video_embed_content
 from wonder.romeo.core.rest import Resource, api_resource
 from wonder.romeo.core.db import commit_on_success
-from wonder.romeo.core.s3 import s3connection, video_bucket
+from wonder.romeo.core.s3 import s3connection, video_bucket, media_bucket
 from wonder.romeo.core.ooyala import ooyala_request, get_video_data
-from wonder.romeo.core.util import gravatar_url
+from wonder.romeo.core.util import gravatar_url, get_random_filename
 from wonder.romeo.account.views import dolly_account_view, get_dollyuser, account_item
 from .models import (Video, VideoTag, VideoTagVideo, VideoThumbnail,
                      VideoPlayerParameter, VideoComment, VideoCollaborator)
@@ -113,7 +114,7 @@ def tag_view(f):
         if tag.account_id == current_user.account_id:
             return f(self, tag)
         else:
-            abort(403)
+            abort(403, error='access_denied', message='"content_owner" account required')
     return decorator
 
 
@@ -155,14 +156,19 @@ class TagResource(Resource):
 
 
 @api_resource('/account/<int:account_id>/upload_args')
-class VideoUploadArgsResource(Resource):
+class UploadArgsResource(Resource):
 
     @dolly_account_view
     def get(self, account, dollyuser):
-        key = Video.get_video_filepath(account.id, Video.get_random_filename())
-        upload_args = s3connection.build_post_form_args(
-            video_bucket.name, key, 3600, storage_class=None)
-        return upload_args
+        filetype = request.args.get('type')
+        if filetype in ('profile_cover', 'avatar'):
+            get_filepath = partial(current_user.get_image_filepath, imagetype=filetype)
+            bucket = media_bucket.name
+        else:
+            get_filepath = Video.get_video_filepath
+            bucket = video_bucket.name
+        key = get_filepath(account.id, get_random_filename())
+        return s3connection.build_post_form_args(bucket, key, 3600, storage_class=None)
 
 
 @api_resource('/account/<int:account_id>/videos')
@@ -177,6 +183,9 @@ class AccountVideosResource(Resource):
     @commit_on_success
     @dolly_account_view
     def post(self, account, dollyuser):
+        if account.account_type != 'content_owner':
+            abort(403, error='access_denied')
+
         form = VideoForm(account_id=account.id)
         if not form.category.data:
             delattr(form, 'category')
@@ -247,7 +256,7 @@ def video_view(with_collaborator_permission=None):
                     video.account_id == current_user.account_id):
                 return f(self, video, *args, **kwargs)
             else:
-                abort(403)
+                abort(403, error='access_denied')
         return wrapper
     return decorator
 
@@ -340,7 +349,7 @@ class VideoShareUrlResource(Resource):
             # Not published
             return dict(error='invalid_request'), 400
 
-        url = get_dollyuser(current_user.account).get_share_link(video.dolly_instance)
+        url = get_dollyuser(video.account).get_share_link(video.dolly_instance)
         if request.args.get('target') in ('facebook', 'twitter'):
             url += '?utm_source=' + request.args['target']
 

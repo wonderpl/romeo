@@ -29,6 +29,7 @@ function twitterAuth(result) {
       .fail(function (response) {
         if (response.responseJSON.error == 'registration_required') {
           result.credentials.username = prompt('Please provide your email address (to be used as your username)', '');
+          result.credentials.location = currentLocation;
           twitterAuth(result);
         } else if (response.responseJSON.form_errors && response.responseJSON.form_errors.username) {
           result.credentials.username = prompt(response.responseJSON.form_errors.username[0], result.credentials.username);
@@ -39,5 +40,10 @@ function twitterAuth(result) {
       });
   }
 }
+var currentLocation = null;
+function setLocation(locationCode) {
+  currentLocation = locationCode;
+}
 </script>
+<script src="https://secure.wonderpl.com/ws/location/?_callback=setLocation"></script>
 {% endblock %}

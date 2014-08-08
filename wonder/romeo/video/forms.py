@@ -14,13 +14,24 @@ from wonder.romeo.core.dolly import get_categories, push_video_data
 from wonder.romeo.core.ooyala import create_asset, ooyala_request, DuplicateException
 from wonder.romeo.core.email import send_email, email_template_env
 from wonder.romeo.core.s3 import upload_file, download_file, media_bucket, video_bucket
-from wonder.romeo.core.util import gravatar_url
+from wonder.romeo.core.util import gravatar_url, get_random_filename
 from wonder.romeo.account.models import AccountUser
 from .models import Video, VideoTag, VideoThumbnail, VideoComment, VideoCollaborator
 
 
-def _json_bool(form, field):
-    field.data = bool(field.raw_data[0]) if field.raw_data else False
+def JsonBoolean(default=False):
+    def validate(form, field):
+        # ensure data is set to a boolean value
+        field.data = bool(field.raw_data[0]) if field.raw_data else default
+    return validate
+
+
+def ImageData(imagetype=None):
+    def validate(self, field):
+        if field.data:
+            self._process_image_field(field, imagetype or field.name)
+            # TODO: save thumbnails
+    return validate
 
 
 class BaseForm(Form):
@@ -31,6 +42,10 @@ class BaseForm(Form):
         self.obj = kwargs.get('obj')
         self.account_id = account_id or getattr(self.obj, 'account_id', None)
 
+    def is_submitted(self):
+        # Include PATCH
+        return request and request.method in ('PUT', 'POST', 'PATCH')
+
     def populate_obj(self, obj):
         super(BaseForm, self).populate_obj(obj)
         obj.account_id = self.account_id
@@ -40,19 +55,42 @@ class BaseForm(Form):
             obj = self.obj
             self.populate_obj(obj)
         else:
-            obj = self.model()
+            obj = self.Meta.model()
             self.populate_obj(obj)
             db.session.add(obj)
             db.session.flush()  # Ensure we get the id before commit
         return obj
 
+    def _process_image_field(self, field, imagetype):
+        filepath = lambda n: self.Meta.model.get_image_filepath(self.account_id, n, imagetype)
+
+        if isinstance(field.data, basestring):
+            field.data = field.data.rsplit('/')[-1]
+            if not media_bucket.get_key(filepath(field.data)):
+                raise wtforms.ValidationError('%s not found.' % filepath(field.data))
+        else:
+            try:
+                image = Image.open(field.data)
+                content_type = Image.MIME[image.format]
+            except Exception as e:
+                raise wtforms.ValidationError(e.message)
+
+            stream = field.data.stream
+            stream.seek(0)
+
+            field.data = get_random_filename()
+            upload_file(media_bucket, filepath(field.data), stream, content_type)
+
+        return field
+
 
 class VideoTagForm(BaseForm):
-    model = VideoTag
-
     label = wtforms.StringField(validators=[wtforms.validators.Required()])
     description = wtforms.StringField()
-    public = wtforms.BooleanField(validators=[_json_bool])
+    public = wtforms.BooleanField(validators=[JsonBoolean()])
+
+    class Meta:
+        model = VideoTag
 
     def validate_label(self, field):
         if field.data:
@@ -64,17 +102,18 @@ class VideoTagForm(BaseForm):
 
 
 class VideoForm(BaseForm):
-    model = Video
-
     title = wtforms.StringField(validators=[wtforms.validators.Required()])
     strapline = wtforms.StringField()
     description = wtforms.StringField()
     category = wtforms.SelectField(validators=[wtforms.validators.Optional()])
     filename = wtforms.StringField()
-    player_logo = wtforms.FileField()
-    cover_image = wtforms.FileField()
+    player_logo = wtforms.FileField(validators=[ImageData('logo')])
+    cover_image = wtforms.FileField(validators=[ImageData('cover')])
     link_url = wtforms.StringField(validators=[wtforms.validators.Optional(), wtforms.validators.URL()])
     link_title = wtforms.StringField()
+
+    class Meta:
+        model = Video
 
     def __init__(self, *args, **kwargs):
         super(VideoForm, self).__init__(*args, **kwargs)
@@ -107,10 +146,6 @@ class VideoForm(BaseForm):
 
         return video
 
-    def is_submitted(self):
-        # Include PATCH
-        return request and request.method in ('PUT', 'POST', 'PATCH')
-
     def validate_category(self, field):
         if field.data in ('None', ''):
             field.data = None
@@ -121,32 +156,6 @@ class VideoForm(BaseForm):
             filepath = Video.get_video_filepath(self.account_id, field.data)
             if not video_bucket.get_key(filepath):
                 raise wtforms.ValidationError('%s not found.' % filepath)
-
-    def validate_cover_image(self, field):
-        if field.data:
-            assert self.obj
-            self._upload_image(field, 'cover')
-
-    def validate_player_logo(self, field):
-        if field.data:
-            self._upload_image(field, 'logo')
-            # TODO: save thumbnails
-
-    def _upload_image(self, field, imagetype):
-        try:
-            image = Image.open(field.data)
-            content_type = Image.MIME[image.format]
-        except Exception as e:
-            raise wtforms.ValidationError(e.message)
-
-        stream = field.data.stream
-        stream.seek(0)
-
-        field.data = Video.get_random_filename()
-        filepath = Video.get_image_filepath(field.data, imagetype, self.account_id)
-        upload_file(media_bucket, filepath, stream, content_type)
-
-        return field
 
 
 @background_on_sqs
@@ -213,12 +222,13 @@ class VideoLocaleForm(Form):
 
 
 class VideoCollaboratorForm(BaseForm):
-    model = VideoCollaborator
-
     email = wtforms.StringField(validators=[wtforms.validators.Required(), wtforms.validators.Email()])
     name = wtforms.StringField(validators=[wtforms.validators.Required()])
-    can_download = wtforms.BooleanField(validators=[_json_bool])
-    can_comment = wtforms.BooleanField(validators=[_json_bool])
+    can_download = wtforms.BooleanField(validators=[JsonBoolean()])
+    can_comment = wtforms.BooleanField(validators=[JsonBoolean()])
+
+    class Meta:
+        model = VideoCollaborator
 
     def __init__(self, video_id=None, *args, **kwargs):
         super(VideoCollaboratorForm, self).__init__(*args, **kwargs)
@@ -349,10 +359,11 @@ def send_comment_notifications(video_id, user_type, user_id):
 
 
 class VideoCommentForm(BaseForm):
-    model = VideoComment
-
     comment = wtforms.StringField(validators=[wtforms.validators.Required()])
     timestamp = wtforms.IntegerField()
+
+    class Meta:
+        model = VideoComment
 
     def __init__(self, video_id, user_type, user_id, *args, **kwargs):
         super(VideoCommentForm, self).__init__(*args, **kwargs)

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% macro accept_url() %}
+{{ url_for('root.app', _external=True) }}?accept_connection={{ sender.id }}
+{%- endmacro %}
+
+{% block title %}You have been sent an invitation to connect on Wonder PL{% endblock %}
+
+{% block body %}
+
+{% if sender.avatar %}
+  <div style="width:100%;overflow:hidden;text-align:center;">
+    <img src="{{ sender.avatar }}" alt="" width="66" height="66" style="display:block;max-width:none;width:66px;height:auto;margin:0 auto;border-radius:100%;"/>
+  </div>
+  <br>
+{% endif %}
+
+<div style="font-weight:bold;font-size:28px;line-height:1.35;font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif;color:#2e2e32">
+  Hello {{ recipient.name }},
+</div>
+<br>
+
+<div>
+  <b>{{ sender.name }}</b> has sent you an invitation to connect with them.
+</div>
+<br>
+
+<div>
+  {{ message|safe }}
+</div>
+<br><br>
+
+<div>
+  Would you like to Accept?
+</div>
+<br>
+
+<p class="btn-center" style="display:block;width:100%;text-align:center;"><a href="{{ accept_url() }}" class="btn" style="margin:0 auto;padding:10px 20px;font-weight:400;font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif;text-decoration:none;color:#fff !important;text-align:center;background-color:#51b364;border:none;border-radius:100px;cursor:pointer;" border="0">Accept</a></p><br>
+
+{% endblock %}

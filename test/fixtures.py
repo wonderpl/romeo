@@ -26,6 +26,8 @@ class AccountData(DataSet):
     class Account1:
         id = 1
         name = 'account1'
+        dolly_user = 'iii'
+        dolly_token = 'xxx'
 
 
 class AccountUserData(DataSet):

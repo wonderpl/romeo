@@ -1,5 +1,6 @@
 import sys
-from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import DataError
+from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from wonder.romeo import manager, db
 from wonder.romeo.core.db import commit_on_success
 from .models import Account, AccountUser
@@ -8,9 +9,9 @@ from .forms import register_user
 
 
 @manager.command
-def createuser(account, username, password='changeme'):
+def createuser(account, username, password='changeme', account_type='content_owner'):
     try:
-        register_user(account, username, password)
+        register_user(account, username, password, account_type=account_type)
     except Exception as e:
         if hasattr(e, 'response'):
             print >>sys.stderr, 'Error from dolly: %s' % e.response.content[-200:]
@@ -29,6 +30,21 @@ def set_user_password(username, password):
     else:
         user.set_password(password)
         db.session.commit()
+
+
+@manager.command
+def set_account_type(account, account_type):
+    filter = dict(id=account) if account.isdigit() else dict(name=account)
+    try:
+        account = Account.query.filter_by(**filter).one()
+    except (NoResultFound, MultipleResultsFound):
+        print >>sys.stderr, 'Invalid account id or name'
+    else:
+        try:
+            account.set_account_type(account_type)
+            db.session.commit()
+        except DataError as e:
+            print >>sys.stderr, e.orig.message.split('\n', 1)[0]
 
 
 @manager.command
