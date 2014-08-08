@@ -43,13 +43,43 @@
 
 .video-share__embed-code-container--active {
   max-height: 100em;
+  overflow: visible;
 }
 
 .video-share__embed-code-label {
-  background: $light-grey;
-  padding: 1em;
-  margin-bottom: 1em;
   display: inline-block;
+  padding: $half-spacing-unit;
+  position: relative;
+  background-color: #fff;
+  background-clip: content-box;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px 1px rgba(0, 0, 0, 0.12);
+
+  &:before,
+  &:after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: 100%;
+    left: 42.6%;
+    border: solid transparent;
+    pointer-events: none;
+  }
+  &:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: #fff;
+    border-width: 10px;
+    margin-left: -10px;
+  }
+  &:before {
+    border-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+    border-width: 11px;
+    margin-left: -11px;
+  }
 }
 
 .video-share__embed-code-field {
