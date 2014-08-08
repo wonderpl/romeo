@@ -1008,12 +1008,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <div class=\"profile-image__container\"\n" +
     "    ng-class=\"{ 'profile-image__container--edit' : isEdit }\"\n" +
-    "<<<<<<< HEAD\n" +
-    "    ng-style=\"profileImageStyle\">\n" +
-    "=======\n" +
-    "    style=\"background-image:url('(~ image ~)');\" loading-spinner=\"1\">\n" +
-    ">>>>>>> Adding loading spinner directive\n" +
-    "\n" +
+    "    ng-style=\"profileImageStyle\" loading-spinner=\"(~ uploading() ~)\">\n" +
+    "    \n" +
     "    <label class=\"profile-image__upload-label\" for=\"profileImageUpload\">\n" +
     "      <div class=\"profile-image__dropzone\"\n" +
     "        ng-file-drop=\"uploadProfileImage($files)\"\n" +
