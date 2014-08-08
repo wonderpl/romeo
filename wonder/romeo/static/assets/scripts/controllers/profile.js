@@ -14,6 +14,8 @@ angular.module('RomeoApp.controllers')
 // }
 
   $scope.isEdit = false;
+  $scope.uploadingProfileImage = false;
+  $scope.uploadingProfileCover = false;
 
   function loadUserDetails () {
     AccountService.getUser().then(function (data) {
@@ -34,6 +36,7 @@ angular.module('RomeoApp.controllers')
   function uploadProfileImage ($event, file) {
     console.log('uploadProfileImage()');
     console.log(file);
+    $scope.uploadingProfileImage = true;
     $scope.$emit('notify', {
       status : 'info',
       title : 'Uploading New Avatar',
@@ -48,6 +51,7 @@ angular.module('RomeoApp.controllers')
           title : 'Avatar updated',
           message : 'New avatar saved.'}
         );
+      $scope.uploadingProfileImage = false;
       loadUserDetails();
       });
     });
@@ -56,6 +60,7 @@ angular.module('RomeoApp.controllers')
   function uploadProfileCover ($event, file) {
     console.log('uploadProfileCover()');
     console.log(file);
+    $scope.uploadingProfileCover = true;
     $scope.$emit('notify', {
       status : 'info',
       title : 'Uploading New Cover Image',
@@ -68,6 +73,7 @@ angular.module('RomeoApp.controllers')
         title : 'Cover image updated',
         message : 'New cover image saved.'}
       );
+      $scope.uploadingProfileCover = false;
       loadUserDetails();
     });
   }

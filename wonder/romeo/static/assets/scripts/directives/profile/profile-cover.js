@@ -18,6 +18,9 @@ function ProfileCoverDirective ($templateCache, UploadService) {
       $scope.uploadProfileCover = function (files) {
         $scope.$emit('upload-profile-cover', files[0]);
       };
+      $scope.uploading = function() {
+        return $scope.uploadingProfileCover ? 'true' : 'false';
+      };
     }
   };
 }

@@ -987,7 +987,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('profile-cover.html',
     "<section class=\"profile-cover\" \n" +
     "  ng-class=\"{ 'profile-cover--edit' : isEdit, 'profile-cover--hero' : isHero, 'profile-cover--img' : image }\"\n" +
-    "  style=\"background-image:url('(~ image ~)');\">\n" +
+    "  style=\"background-image:url('(~ image ~)');\" loading-spinner=\"(~ uploading() ~)\">\n" +
     "\n" +
     "  <label class=\"profile-cover__upload-label\" for=\"profileCoverUpload\">\n" +
     "    <div class=\"profile-cover__dropzone\"\n" +
@@ -1009,7 +1009,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <div class=\"profile-image__container\"\n" +
     "    ng-class=\"{ 'profile-image__container--edit' : isEdit }\"\n" +
     "    ng-style=\"profileImageStyle\" loading-spinner=\"(~ uploading() ~)\">\n" +
-    "    \n" +
     "    <label class=\"profile-image__upload-label\" for=\"profileImageUpload\">\n" +
     "      <div class=\"profile-image__dropzone\"\n" +
     "        ng-file-drop=\"uploadProfileImage($files)\"\n" +

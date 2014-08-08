@@ -31,7 +31,9 @@ function ProfileImageDirective ($templateCache) {
           $scope.profileImageStyle = { 'background-image' : 'url(' + image + ')' };
         }
       });
-
+      $scope.uploading = function() {
+        return $scope.uploadingProfileImage ? 'true' : 'false';
+      };
     }
   };
 }
