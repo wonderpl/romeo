@@ -5786,7 +5786,12 @@ label,
   width: 20em;
 }
 
-/* line 18, ../../scss/specifics/login/_login-view.scss */
+/* line 17, ../../scss/specifics/login/_login-view.scss */
+.login-view__input_checkbox {
+  margin-right: 0.5em;
+}
+
+/* line 21, ../../scss/specifics/login/_login-view.scss */
 .login-view__errors {
   display: block;
   padding: 0 0 12px 0;
@@ -5795,14 +5800,19 @@ label,
   color: red;
 }
 
-/* line 26, ../../scss/specifics/login/_login-view.scss */
+/* line 29, ../../scss/specifics/login/_login-view.scss */
 .login-view__loading-indicator {
   height: 20px;
   width: 20px;
   margin: 10px;
 }
 
-/* line 32, ../../scss/specifics/login/_login-view.scss */
+/* line 35, ../../scss/specifics/login/_login-view.scss */
 .login-view__submit {
   vertical-align: top;
+}
+
+/* line 38, ../../scss/specifics/login/_login-view.scss */
+.login-view__terms {
+  margin-bottom: 12px;
 }

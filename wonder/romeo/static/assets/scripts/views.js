@@ -465,18 +465,18 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "        \n" +
     "        <label class=\"login-view__label\">\n" +
-    "            <input type=\"checkbox\" name=\"tandc\" ng-model=\"tandc\" required class=\"login-view__input\" />  I agree with the standard Wonder Place Ltd terms and conditions  and the following conditions of the Closed Beta Program:\n" +
+    "            <input type=\"checkbox\" name=\"tandc\" ng-model=\"tandc\" required class=\"login-view__input_checkbox\" />  I agree with the standard Wonder Place Ltd terms and conditions  and the following conditions of the Closed Beta Program:\n" +
     "        </label>\n" +
-    "        <div class=\"login__terms\">\n" +
+    "        <div class=\"login-view__terms\">\n" +
     "            The Program is proprietary to, and a valuable trade secret of, Wonder Place Ltd. It is entrusted to Tester only for the purpose set forth in this Agreement. Tester shall maintain the Program in the strictest confidence. Tester will not, without Company's prior written consent:\n" +
     "        </div>\n" +
-    "        <div class=\"login__terms\">\n" +
+    "        <div class=\"login-view__terms\">\n" +
     "            (a) disclose any information about the Program, its design and performance specifications, its code, and the existence of the beta test and its results to anyone other than Tester's employees who are performing the testing and who shall be subject to nondisclosure restrictions at least as protective as those set forth in this Agreement;\n" +
     "        </div>\n" +
-    "        <div class=\"login__terms\"\n" +
+    "        <div class=\"login-view__terms\"\n" +
     "            (b) copy any portion of the Program or documentation, except to the extent necessary to perform beta testing; or\n" +
     "        </div>\n" +
-    "        <div class=\"login__terms\">\n" +
+    "        <div class=\"login-view__terms\">\n" +
     "            (c) reverse engineer, decompile or disassemble Software or any portion of it.\n" +
     "        </div>\n" +
     "       \n" +

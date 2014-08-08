@@ -14,6 +14,9 @@
 .login-view__input {
 
 }
+.login-view__input_checkbox {
+  margin-right: 0.5em;
+}
 
 .login-view__errors {
   display: block;
@@ -31,4 +34,7 @@
 
 .login-view__submit {
   vertical-align: top;
+}
+.login-view__terms {
+  margin-bottom: $half-spacing-unit;
 }
