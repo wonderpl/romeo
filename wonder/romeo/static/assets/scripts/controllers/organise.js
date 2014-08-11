@@ -31,8 +31,16 @@ angular.module('RomeoApp.controllers')
 
     TagService.getTags().then(function(data){
       $scope.tags = data.tag.items;
-      if ($routeParams.id) {
-        loadTag($routeParams.id);
+      var id = $routeParams.id
+      if (id) {
+        console.log(id);
+        if (id === 'recent') {
+          $scope.customFilterFunction = 'isRecent';
+          loadTag();
+        } else {
+          loadTag(id);
+        }
+
       }
     });
 
@@ -43,9 +51,7 @@ angular.module('RomeoApp.controllers')
     });
 
     $scope.$on('show-recent', function ($event) {
-      $scope.customFilterFunction = 'isRecent';
-      redirect();
-      loadTag();
+      redirect('recent', true);
     });
 
     $scope.$on('save-tag', function ($event) {
@@ -215,15 +221,5 @@ angular.module('RomeoApp.controllers')
       console.log($(e.currentTarget).text());
       $(e.currentTarget).text().replace(/&nbsp;/g, '');
     });
-
-    // $scope.$watch(function () {
-    //   return $scope.tag ? $scope.tag.label : null;
-    // },
-    // function (newValue, oldValue) {
-    //   if (newValue && newValue !== oldValue) {
-    //     $scope.tag.label = $scope.tag.label.replace(/&nbsp;/g, '');
-    //     console.log(newValue);
-    //   }
-    // });
 
 }]);
