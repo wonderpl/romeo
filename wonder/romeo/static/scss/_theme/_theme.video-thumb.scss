@@ -10,7 +10,8 @@
   border: none;
 }
   .video-thumb-link__title {
-    height: $base-line-height * 2;
+    max-height: 42px;
+    line-height: 21px;
     margin-bottom: $half-spacing-unit;
   }
   .organise-video-list__video--list .video-thumb-link__title {
