@@ -42,7 +42,11 @@
   font-size: 0.875em;
   font-family: $heading-font-family;
   border-radius: 3px;
-  
+
+  border-style: solid;
+  border-width: 6px;
+  background: $white;
+
   > :last-child {
     margin-bottom: 0;
   }
@@ -58,8 +62,8 @@
   z-index: 5002;
   border-radius: none !important;
 }
-  
-.notice--success { background-color: #9DCA5A; }
-.notice--error   { background-color: #D74E45; }
-.notice--warning { background-color: #F09F5F; }
-.notice--info    { background-color: #5BB3C8; }
+
+.notice--success { border-color: #9DCA5A; }
+.notice--error   { border-color: #D74E45; }
+.notice--warning { border-color: #F09F5F; }
+.notice--info    { border-color: #5BB3C8; }
