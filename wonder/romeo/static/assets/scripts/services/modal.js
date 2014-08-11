@@ -50,8 +50,20 @@ function ModalService ($rootScope, $compile, $sanitize, $templateCache, $timeout
   };
 
   modal.hide = function () {
-    $el.removeClass('show');
-    $el_bg.removeClass('show');
+
+    $el.addClass('animate--flipOutX');
+    $el.removeClass('animate--flipInX');
+
+    $timeout(function() {
+
+      $el_bg.removeClass('show');
+
+      
+    },750);
+
+    $timeout(function() {
+      $el.removeClass('animate--flipOutX');
+    },1000);      
   };
 
   /*
@@ -83,7 +95,7 @@ function ModalService ($rootScope, $compile, $sanitize, $templateCache, $timeout
 
       if (show === true) {
           $el_bg.addClass('show');
-          $el.addClass('show');
+          $el.addClass('animate--flipInX');
       }
   };
 

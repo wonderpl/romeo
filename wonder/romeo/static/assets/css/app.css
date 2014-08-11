@@ -2287,7 +2287,7 @@ select {
 }
 
 /* line 20, ../../scss/_components/_components.animations.scss */
-.animate--flipInX, .modal.show {
+.animate--flipInX {
   -webkit-animation-name: flipInX;
   animation-name: flipInX;
   -webkit-animation-duration: 1s;
@@ -3289,28 +3289,29 @@ label,
   border-radius: 3px;
   box-shadow: 0 2px 12px 1px rgba(0, 0, 0, 0.1);
 }
-/* line 28, ../../scss/_theme/_theme.modal.scss */
-.modal.show {
+
+/* line 31, ../../scss/_theme/_theme.modal.scss */
+.show .modal {
   max-width: 50%;
   margin-right: auto;
   margin-left: auto;
 }
 
-/* line 38, ../../scss/_theme/_theme.modal.scss */
+/* line 40, ../../scss/_theme/_theme.modal.scss */
 .modal__title,
 .modal__content,
 .modal__footer {
   padding: 12px;
 }
 
-/* line 42, ../../scss/_theme/_theme.modal.scss */
+/* line 44, ../../scss/_theme/_theme.modal.scss */
 .modal__title {
   font-size: 22px;
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
   border-bottom: 1px solid #b7bcbd;
 }
 
-/* line 47, ../../scss/_theme/_theme.modal.scss */
+/* line 49, ../../scss/_theme/_theme.modal.scss */
 .modal__link {
   display: inline-block;
   color: #70797b;
@@ -3319,16 +3320,16 @@ label,
   cursor: pointer;
 }
 
-/* line 55, ../../scss/_theme/_theme.modal.scss */
+/* line 57, ../../scss/_theme/_theme.modal.scss */
 .modal__actions {
   text-align: right;
 }
-/* line 58, ../../scss/_theme/_theme.modal.scss */
+/* line 60, ../../scss/_theme/_theme.modal.scss */
 .modal__actions > .btn + .btn {
   margin-left: 6px;
 }
 
-/* line 63, ../../scss/_theme/_theme.modal.scss */
+/* line 65, ../../scss/_theme/_theme.modal.scss */
 .modal-collection-thumb {
   display: block;
   width: 96px;

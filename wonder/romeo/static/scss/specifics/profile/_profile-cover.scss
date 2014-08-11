@@ -9,6 +9,12 @@
 .profile-cover--img {
   height: 420px;
 }
+
+.configurable-layout-column--is-comments .profile-cover--img {
+  height: 100px;
+  background-image: none;
+}
+
 .profile-cover--hero {
   height: 140px;
 }
