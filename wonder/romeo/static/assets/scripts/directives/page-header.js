@@ -14,10 +14,15 @@ function PageHeaderDirective ($templateCache, $rootScope) {
       $scope.$watch(function () {
         return $rootScope.User.avatar;
       }, function (newValue, oldValue) {
-        if (newValue && newValue !== oldValue) {
-          $scope.profile = {
-            'background-image' : 'url(' + newValue + ')'
-          };
+        if (newValue !== oldValue) {
+          var blankProfileImage = '/static/assets/img/user-avatar.png';
+          var image;
+          if (newValue) {
+            image = newValue;
+          } else {
+            image = blankProfileImage;
+          }
+          $scope.profile = { 'background-image' : 'url(' + image + ')' };
         }
       });
     }
