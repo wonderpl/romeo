@@ -242,6 +242,8 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
           title : 'Video Updates Discarded',
           message : 'Your changes have been discarded.'}
         );
+        var url = '/video/' + data.id;
+        $location.path(url, true);
       });
     } else {
       $location.path('/organise');
