@@ -164,6 +164,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
         UploadService.uploadVideo(files[0], data.id);
       });
     }
+    $rootScope.isUploadingOrProcessingTemp = true;
     $scope.showPreviewSelector = true;
     $scope.showUpload = false;
   };
@@ -181,6 +182,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
   function videoUploadOnComplete (event) {
     // manaual ajax request doesn't return video object to extend what we have in scope
     $scope.video.status = 'processing';
+    $rootScope.isUploadingOrProcessingTemp = true;
     $scope.$emit('notify', {
       status : 'info',
       title : 'Video Upload Complete',
@@ -279,6 +281,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
     debug.log('videoUploadOnSuccess of video (' + $scope.video.id + ') ' + $scope.video.title);
     redirect(data, 'edit');
     $scope.hasProcessed = true;
+    $rootScope.isUploadingOrProcessingTemp = false;
     $scope.$emit('notify', {
       status : 'info',
       title : 'Your Video is Ready',
@@ -477,7 +480,8 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
       getPlayerParameters($scope.video.id);
       verifyUser($scope.video.id);
       assignCollaboratorPermissions();
-      if ($scope.video.status === 'processing' || $scope.video.status === 'uploading') {
+      console.log($scope.video);
+      if ($rootScope.isUploadingOrProcessingTemp) {
         $scope.displaySection('edit');
         $scope.showPreviewSelector = true;
         $scope.showUpload = false;
@@ -496,6 +500,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
   if ($routeParams.id) {
     getVideo($routeParams.id);
   } else {
+    $rootScope.isUploadingOrProcessingTemp = false;
     $scope.displaySection('edit');
   }
 
