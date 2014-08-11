@@ -42,7 +42,7 @@
 
           <div class="video-view__container" ng-class="{'video-view__container--fixed': isEdit}">
             <video-upload ng-show="showUpload && isEdit" ng-cloak></video-upload>
-            <video-player ng-show="hasProcessed || isReview" embed-url="embedUrl"></video-player>
+            <video-player ng-show="hasProcessed || isReview || isComments" embed-url="embedUrl"></video-player>
             <video-edit ng-show="showVideoEdit && isEdit"></video-edit>
             <video-color-picker player-parameters="playerParameters" video-id="{{ video.id }}" ng-show="showColorPicker && isEdit"></video-color-picker>
             <video-thumbnail ng-show="showPreviewSelector && isEdit"></video-thumbnail>
