@@ -15,7 +15,6 @@ function LoadingSpinnerDirective ($rootScope) {
       return {
         post: function postLink(scope, element, attrs, ctrl) {
           if (!$rootScope.loadingSpinnerInitialized ) {
-            console.info('Initialied loading spinner');
             $rootScope.loadingSpinnerInitialized = true;
             $rootScope.loadingSpinnerPosition = $rootScope.loadingSpinnerPosition ? $rootScope.loadingSpinnerPosition : 0;
             $rootScope.loadingSpinnerElements = $rootScope.loadingSpinnerElements ? $rootScope.loadingSpinnerElements : [];
@@ -32,12 +31,10 @@ function LoadingSpinnerDirective ($rootScope) {
 
           scope.$watch('loading', function (newValue, oldValue) {
             if (newValue !== oldValue) {
-              console.warn('Loading spinner postLink new value: ' + newValue);
               if (newValue) {
                 $rootScope.loadingSpinnerElements.push($(element).find('.spinner--img'));
                 $(element).find('.spinner').show();
               } else {
-                console.dir($rootScope.loadingSpinnerElements);
                 for (var i = 0; i< $rootScope.loadingSpinnerElements.length; ++i) {
                   if ($(element).find('.spinner--img') == $rootScope.loadingSpinnerElements[i]) {
                     $rootScope.loadingSpinnerElements = $rootScope.loadingSpinnerElements.splice(i, 1);
