@@ -105,6 +105,30 @@
   display: inline-block;
 }
 
+.modal__title {
+
+  .video-edit-collections__assigned-tags {
+    margin: 0;
+    float: left;
+    text-align: left;
+    font-size: 14px;
+    font-weight: bold;
+    vertical-align: middle;
+    display: inline-block;
+    padding-top: 8px;
+    margin-left: 12px;
+  }
+}
+
 .video-edit-collections__assigned-tag {
   display: inline-block;
+
+  & + & {
+    margin-left: $half-spacing-unit;
+  }
+}
+.video-edit-collections__remove-tag {
+  cursor: pointer;
+  padding-right: $half-spacing-unit / 2;
+  padding-left:  $half-spacing-unit / 2;
 }
