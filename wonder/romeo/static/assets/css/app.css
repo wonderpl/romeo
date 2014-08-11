@@ -4424,8 +4424,9 @@ label,
 .video-player__iframe-container {
   padding-bottom: 56.25%;
   height: 0;
+  position: relative;
 }
-/* line 14, ../../scss/specifics/video/_video-player.scss */
+/* line 15, ../../scss/specifics/video/_video-player.scss */
 .video-player__iframe-container > .video-player__frame {
   width: 100%;
   height: 100%;
@@ -6032,7 +6033,7 @@ label,
 /* line 13, ../../scss/specifics/profile/_profile-cover.scss */
 .configurable-layout-column--is-comments .profile-cover--img {
   height: 100px;
-  background-image: none;
+  background-image: none !important;
 }
 
 /* line 18, ../../scss/specifics/profile/_profile-cover.scss */
