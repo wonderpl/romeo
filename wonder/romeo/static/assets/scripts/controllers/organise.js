@@ -1,6 +1,6 @@
 angular.module('RomeoApp.controllers')
-  .controller('OrganiseCtrl', ['$scope', 'TagService', '$location', '$modal', '$routeParams', '$route', 'VideoService',
-  function($scope, TagService, $location, $modal, $routeParams, $route, VideoService) {
+  .controller('OrganiseCtrl', ['$rootScope', '$scope', 'TagService', '$location', '$modal', '$routeParams', '$route', 'VideoService', 'AccountService',
+  function($rootScope, $scope, TagService, $location, $modal, $routeParams, $route, VideoService, AccountService) {
 
     'use strict';
 
