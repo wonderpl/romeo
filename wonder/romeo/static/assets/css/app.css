@@ -4588,11 +4588,12 @@ label,
 
 /* line 10, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-indicators {
+  list-style: none;
   position: relative;
   margin: 0;
 }
 
-/* line 15, ../../scss/specifics/video/_video-indicators.scss */
+/* line 16, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-indicator {
   position: absolute;
   top: 0;
@@ -4600,12 +4601,12 @@ label,
   list-style: outside none;
 }
 
-/* line 22, ../../scss/specifics/video/_video-indicators.scss */
+/* line 23, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-indicator--resolved {
   z-index: 1;
 }
 
-/* line 26, ../../scss/specifics/video/_video-indicators.scss */
+/* line 27, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-link {
   display: block;
   height: 12px;
@@ -4615,23 +4616,23 @@ label,
   border: solid 1px transparent;
 }
 
-/* line 35, ../../scss/specifics/video/_video-indicators.scss */
+/* line 36, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-link--active {
   background-color: red;
 }
 
-/* line 39, ../../scss/specifics/video/_video-indicators.scss */
+/* line 40, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-link--resolved {
   background-color: #999999;
   border: solid 1px transparent;
 }
 
-/* line 44, ../../scss/specifics/video/_video-indicators.scss */
+/* line 45, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-link:hover {
   cursor: pointer;
 }
 
-/* line 48, ../../scss/specifics/video/_video-indicators.scss */
+/* line 49, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__scrubber {
   transition: left 0.4s linear;
   position: absolute;
@@ -4643,7 +4644,7 @@ label,
   background-color: red;
 }
 
-/* line 59, ../../scss/specifics/video/_video-indicators.scss */
+/* line 60, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__scrubber:before {
   content: '';
   display: block;
