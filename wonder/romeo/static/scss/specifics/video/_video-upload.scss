@@ -12,4 +12,18 @@
   border: 2px dashed #b4b2bc;
   vertical-align: middle;
   display: table-cell;
+
+  p {
+    font-size: 26px;
+    line-height: 32px;
+    font-family: $heading-font-family;
+  }
+}
+
+.video-upload__input {
+  margin-right: auto;
+  margin-left:  auto;
+  font-size: 16px;
+  color: $swatch-three;
+  text-align: center;
 }
