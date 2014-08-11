@@ -27,19 +27,18 @@
                 </ul>
               </li>
               <li class="text-col">
+                <span class="login-view__errors" ng-bind="errors"></span>
+                <div class="btn-center">
+                  <button type="submit" class="btn btn--positive login-view__submit" ng-class="{'btn--disabled': !tandc}" ng-disabled="!tandc" ng-click="isLoading = true;">Login <img class="login-view__loading-indicator" src="/static/assets/img/loading.gif" ng-show="isLoading" /></button>
+                </div>
+              </li>
+              <li>
                 <p class="smallprint  muted">The Program is proprietary to, and a valuable trade secret of, Wonder Place Ltd. It is entrusted to Tester only for the purpose set forth in this Agreement. Tester shall maintain the Program in the strictest confidence. Tester will not, without Company's prior written consent:</p>
                 <ol class="smallprint" type="a">
                   <li><p class="muted">disclose any information about the Program, its design and performance specifications, its code, and the existence of the beta test and its results to anyone other than Tester's employees who are performing the testing and who shall be subject to nondisclosure restrictions at least as protective as those set forth in this Agreement;</p></li>
                   <li><p class="muted">copy any portion of the Program or documentation, except to the extent necessary to perform beta testing; or</p></li>
                   <li><p class="muted">reverse engineer, decompile or disassemble Software or any portion of it.</p></li>
                 </ol>
-              </li>
-              <li class="text-col">
-                <span class="login-view__errors" ng-bind="errors"></span>
-                <img class="login-view__loading-indicator" src="/static/assets/img/loading.gif" ng-show="isLoading" />
-                <div class="btn-center">
-                  <button type="submit" class="btn btn--positive login-view__submit" ng-class="{'btn--disabled': !tandc}" ng-disabled="!tandc" ng-click="isLoading = true;">Login</button>
-                </div>
               </li>
             </ul>
           </fieldset>
