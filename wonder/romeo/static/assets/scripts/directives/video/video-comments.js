@@ -45,7 +45,7 @@ angular.module('RomeoApp.directives')
       isOwner: '='
     },
     link : function (scope, element, attrs) {
-
+      scope.oldScrollTop = 0;
       scope.$watch(function () {
           return Math.round(scope.currentTime);
         },
@@ -53,9 +53,9 @@ angular.module('RomeoApp.directives')
           if (newValue && newValue !== oldValue) {
             var comments = getCommentsByTime(newValue);
             var sortedComments = comments.length ? comments.sort(sortById) : [];
-            var el = sortedComments.length ? getCommentElementById(sortedComments[0].id) : null;
-            if (el) {
-              scrollToComment(el);
+            console.dir(sortedComments);
+            if (sortedComments.length > 0) {
+              scrollToComment('comment-' + sortedComments[0].id);
             }
           }
         }
@@ -74,17 +74,34 @@ angular.module('RomeoApp.directives')
       }
 
       function getCommentElementById (id) {
-        return element.find('#comment-' + id);
+        return element.find('#' + id);
       }
 
-      function scrollToComment (el) {
-        var list = element.find('.video-feedback__comments-list').first();
-        var position = el.position().top;
-        if (position > 0) {
-          list.animate({
-              scrollTop: position
-          }, 1000);
+      function findCommentsOffsets(container) {
+        var comments = {};
+        var commentElements = container.find('li.video-feedback__comment');
+        var startPosition = container.offset().top;
+        console.log('start position: ' + startPosition);
+        for (var i = 0; i < commentElements.length; ++i ) {
+          var id = commentElements[i].attr('id');
+          comments[id].position = getCommentElementById(commentElements[i].id).offset().top - startPosition;
+          console.log('comment' + id + ': ' +comments[id].position);
         }
+        return comments;
+      }
+
+      function scrollToComment (id) {
+        console.log(element.find('#' + id).position().top);
+        var container  = element.find('.video-feedback__comments-list').attr('id');
+        element.find('#' + container).scrollTop(0);
+        var pos = element.find('#' + id).position().top;
+        element.find('#' + container).scrollTop(scope.oldScrollTop);
+        element.find('#' + container).animate(
+        {
+          scrollTop: pos
+        }, 1000);
+        scope.oldScrollTop = pos;
+        
       }
 
     },

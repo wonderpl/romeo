@@ -7,7 +7,7 @@
 
   <ul class="configurable-layout configurable-layout-{{ isComments ? $root.layoutMode : 'column' }}" ng-class="{ 'configurable-layout-column--is-comments' : isComments }">
 
-    <li class="layout-block layout-block__quaternary" ng-hide="$root.layoutMode === 'column'">
+    <li class="layout-block layout-block__quaternary" ng-if="$root.layoutMode !== 'column'">
       <section class="cf video-view__comments" ng-show="showComments()">
         <video-collaborators notified="notified" comments="comments" ng-show="video.id && isComments && $root.layoutMode === 'column'" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>
         <video-comments notified="notified" is-owner="isOwner" comments="comments" video-id="{{ video.id }}" current-time="videoCurrentTime"></video-comments>
@@ -100,7 +100,7 @@
 
       </div>
 
-      <div ng-show="$root.layoutMode === 'column'" class="layout-block layout-block__tertiary layout-block-tertiary--{{ isComments ? $root.layoutMode : 'column' }}">
+      <div ng-if="$root.layoutMode === 'column'" class="layout-block layout-block__tertiary layout-block-tertiary--{{ isComments ? $root.layoutMode : 'column' }}">
         <section class="cf video-view__comments" ng-show="showComments()">
           <video-collaborators notified="notified" comments="comments" ng-show="video.id && isComments && $root.layoutMode === 'column'" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>
           <video-comments notified="notified" is-owner="isOwner" comments="comments" video-id="{{ video.id }}" current-time="videoCurrentTime"></video-comments>

@@ -50,7 +50,7 @@
       </label>
     </div>
 
-    <ul class="video-feedback__comments-list">
+    <ul class="video-feedback__comments-list" id="video-comments-list-{{ $root.layoutMode }}">
       <li id="comment-{{ comment.id }}"
         class="video-feedback__comment"
         ng-class="{ 'video-feedback__comment--active' : isTimeSync(comment.timestamp) }"

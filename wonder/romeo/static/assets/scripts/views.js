@@ -1299,7 +1299,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      </label>\n" +
     "    </div>\n" +
     "\n" +
-    "    <ul class=\"video-feedback__comments-list\">\n" +
+    "    <ul class=\"video-feedback__comments-list\" id=\"video-comments-list-(~ $root.layoutMode ~)\">\n" +
     "      <li id=\"comment-(~ comment.id ~)\"\n" +
     "        class=\"video-feedback__comment\"\n" +
     "        ng-class=\"{ 'video-feedback__comment--active' : isTimeSync(comment.timestamp) }\"\n" +
@@ -1681,7 +1681,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <ul class=\"configurable-layout configurable-layout-(~ isComments ? $root.layoutMode : 'column' ~)\" ng-class=\"{ 'configurable-layout-column--is-comments' : isComments }\">\n" +
     "\n" +
-    "    <li class=\"layout-block layout-block__quaternary\" ng-hide=\"$root.layoutMode === 'column'\">\n" +
+    "    <li class=\"layout-block layout-block__quaternary\" ng-if=\"$root.layoutMode !== 'column'\">\n" +
     "      <section class=\"cf video-view__comments\" ng-show=\"showComments()\">\n" +
     "        <video-collaborators notified=\"notified\" comments=\"comments\" ng-show=\"video.id && isComments && $root.layoutMode === 'column'\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
     "        <video-comments notified=\"notified\" is-owner=\"isOwner\" comments=\"comments\" video-id=\"(~ video.id ~)\" current-time=\"videoCurrentTime\"></video-comments>\n" +
@@ -1774,7 +1774,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "      </div>\n" +
     "\n" +
-    "      <div ng-show=\"$root.layoutMode === 'column'\" class=\"layout-block layout-block__tertiary layout-block-tertiary--(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
+    "      <div ng-if=\"$root.layoutMode === 'column'\" class=\"layout-block layout-block__tertiary layout-block-tertiary--(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
     "        <section class=\"cf video-view__comments\" ng-show=\"showComments()\">\n" +
     "          <video-collaborators notified=\"notified\" comments=\"comments\" ng-show=\"video.id && isComments && $root.layoutMode === 'column'\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
     "          <video-comments notified=\"notified\" is-owner=\"isOwner\" comments=\"comments\" video-id=\"(~ video.id ~)\" current-time=\"videoCurrentTime\"></video-comments>\n" +
