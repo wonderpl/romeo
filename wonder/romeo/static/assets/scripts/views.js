@@ -208,67 +208,53 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('collection-add-video.html',
-    "<section class=\"collection-add-video\" ng-class=\"{ 'collection-add-video--modal' : isModal }\">\n" +
-    "\n" +
-    "  <a class=\"modal__close\" ng-show=\"isModal\" ng-click=\"close()\">&times;</a>\n" +
-    "\n" +
-    "  <header class=\"video-extended-controls__section-header\"\n" +
-    "    ng-click=\"showCollection = !showCollection\">\n" +
-    "    <h4 class=\"video-extended-controls__section-header-title\">\n" +
-    "      <span ng-if=\"!video || !video.tags || !video.tags.items || video.tags.items.length === 0\">\n" +
-    "        Add video to collection\n" +
-    "      </span>\n" +
-    "      <span ng-if=\"video.tags.items.length === 1\">\n" +
-    "        In Collection:\n" +
-    "      </span>\n" +
-    "      <span ng-if=\"video.tags.items.length > 1\">\n" +
-    "        In Collections:\n" +
-    "      </span>\n" +
-    "    </h4>\n" +
-    "\n" +
-    "    <ul ng-show=\"video.tags.items.length\" class=\"video-edit-collections__assigned-tags\">\n" +
-    "      <li ng-repeat=\"tag in video.tags.items\" class=\"video-edit-collections__assigned-tag\">\n" +
-    "        <span class=\"\" ng-bind-html=\"tag.label\"></span>\n" +
-    "        <span class=\"video-edit-collections__remove-tag\" ng-click=\"removeTag(tag.id, $event)\">&times;</span>\n" +
-    "      </li>\n" +
-    "    </ul>\n" +
-    "\n" +
-    "  </header>\n" +
-    "\n" +
-    "  <section class=\"video-edit-collections\">\n" +
-    "\n" +
-    "    <ul class=\"video-edit-collections__options\">\n" +
-    "      <li class=\"video-edit-collections__option\"\n" +
-    "        ng-click=\"hideAddRemoveAndShowCreateCollection()\"\n" +
-    "        ng-class=\"{ 'video-edit-collections__option--modal' : isModal }\">\n" +
-    "        <span class=\"video-edit-collections__option-title\">Create New Collection</span>\n" +
-    "        <span class=\"video-edit-collections__option-count\"></span>\n" +
-    "      </li><!--\n" +
-    "      --><li class=\"video-edit-collections__option\"\n" +
-    "        data-videos=\"(~ tag.video_count ~)\"\n" +
-    "        ng-class=\"{\n" +
-    "          'video-edit-collections__option--selected' : hasTag(tag.id),\n" +
-    "          'video-edit-collections__option--modal' : isModal,\n" +
-    "          'video-edit-collections__option--private' : !tag.public\n" +
-    "        }\"\n" +
-    "        ng-repeat=\"tag in availableTags\"\n" +
-    "        ng-click=\"addTag(tag.id, $event)\">\n" +
-    "        <span class=\"video-edit-collections__option-title\" ng-bind-html=\"tag.label\"></span>\n" +
-    "        <ng-switch ng-show=\"tag.video_count\" on=\"tag.video_count\">\n" +
-    "          <span class=\"video-edit-collections__option-count\">\n" +
-    "            <ng-pluralize count=\"tag.video_count\"\n" +
-    "              when=\"{\n" +
-    "                '0'     : 'no videos',\n" +
-    "                '1'     : '1 video',\n" +
-    "                'other' : '(~ tag.video_count ~) videos'}\">\n" +
-    "            </ng-pluralize>\n" +
-    "          </span>\n" +
-    "      </li>\n" +
-    "    </ul>\n" +
-    "\n" +
-    "  </section>\n" +
-    "\n" +
-    "</section>"
+    "<div class=\"modal__title  split\" ng-click=\"showCollection = !showCollection\">\n" +
+    "  <span class=\"split__title  t--block  w--600\" ng-if=\"!video || !video.tags || !video.tags.items || video.tags.items.length === 0\">Add to a collection</span>\n" +
+    "  <span class=\"split__title  t--block  w--600\" ng-if=\"video.tags.items.length === 1\">In Collection:</span>\n" +
+    "  <span class=\"split__title  t--block  w--600\" ng-if=\"video.tags.items.length > 1\">In Collections</span>\n" +
+    "  <ul ng-show=\"video.tags.items.length\" class=\"video-edit-collections__assigned-tags\">\n" +
+    "    <li ng-repeat=\"tag in video.tags.items\" class=\"video-edit-collections__assigned-tag\">\n" +
+    "      <span class=\"\" ng-bind-html=\"tag.label\"></span>\n" +
+    "      <span class=\"video-edit-collections__remove-tag\" ng-click=\"removeTag(tag.id, $event)\">&times;</span>\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
+    "  <a class=\"modal__link\" ng-click=\"close()\"><i class=\"icon icon--medium icon--circle-cross\"></i></a>\n" +
+    "</div>\n" +
+    "<div class=\"modal__content\">\n" +
+    "  <ul class=\"video-edit-collections__options\">\n" +
+    "    <li class=\"video-edit-collections__option\"\n" +
+    "      ng-click=\"hideAddRemoveAndShowCreateCollection()\"\n" +
+    "      ng-class=\"{ 'video-edit-collections__option--modal' : isModal }\">\n" +
+    "      <span class=\"video-edit-collections__option-title\">Create New Collection</span>\n" +
+    "      <span class=\"video-edit-collections__option-count\"></span>\n" +
+    "    </li><!--\n" +
+    "    --><li class=\"video-edit-collections__option\"\n" +
+    "      data-videos=\"(~ tag.video_count ~)\"\n" +
+    "      ng-class=\"{\n" +
+    "        'video-edit-collections__option--selected' : hasTag(tag.id),\n" +
+    "        'video-edit-collections__option--modal' : isModal,\n" +
+    "        'video-edit-collections__option--private' : !tag.public\n" +
+    "      }\"\n" +
+    "      ng-repeat=\"tag in availableTags\"\n" +
+    "      ng-click=\"addTag(tag.id, $event)\">\n" +
+    "      <span class=\"video-edit-collections__option-title\" ng-bind-html=\"tag.label\"></span>\n" +
+    "      <ng-switch ng-show=\"tag.video_count\" on=\"tag.video_count\">\n" +
+    "        <span class=\"video-edit-collections__option-count\">\n" +
+    "          <ng-pluralize count=\"tag.video_count\"\n" +
+    "            when=\"{\n" +
+    "              '0'     : 'no videos',\n" +
+    "              '1'     : '1 video',\n" +
+    "              'other' : '(~ tag.video_count ~) videos'}\">\n" +
+    "          </ng-pluralize>\n" +
+    "        </span>\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
+    "</div>\n" +
+    "<div class=\"modal__footer\">\n" +
+    "  <div class=\"modal__actions\">\n" +
+    "    <a ng-click=\"close()\" class=\"btn  btn--small  btn--positive\">Okay</a>\n" +
+    "  </div>\n" +
+    "</div>"
   );
 
 
@@ -623,17 +609,26 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('modal-delete-video.html',
-    "<section class=\"organise-video-delete\">\n" +
-    "  <a class=\"modal__close\" ng-click=\"close()\">&times;</a>\n" +
-    "  <h5 class=\"organise-video-delete__title\">Delete video</h5>\n" +
-    "  <section class=\"organise-video-delete__controls\">\n" +
-    "    <div class=\"media__img\"><i class=\"icon icon--trash icon--large\"></i></div>\n" +
+    "<div class=\"modal__title  split\">\n" +
+    "  <span class=\"split__title  t--block  w--600\">Delete Video</span>\n" +
+    "  <a class=\"modal__link\" ng-click=\"close()\"><i class=\"icon icon--medium icon--circle-cross\"></i></a>\n" +
+    "</div>\n" +
+    "<div class=\"modal__content\">\n" +
+    "  <div class=\"media\">\n" +
+    "    <div class=\"media__img\">\n" +
+    "      <i class=\"icon icon--trash icon--large\"></i>\n" +
+    "    </div>\n" +
     "    <div class=\"media__body\">\n" +
     "      <p class=\"organise-video-delete__msg\">Are you sure you want to delete '(~video.title~)'?</p>\n" +
-    "      <a ng-click=\"delete(video)\" class=\"organise-video-delete_button button button--primary\">Okay</a>\n" +
     "    </div>\n" +
-    "  </section>\n" +
-    "</section>"
+    "  </div>\n" +
+    "</div>\n" +
+    "<div class=\"modal__footer\">\n" +
+    "  <div class=\"modal__actions\">\n" +
+    "    <a ng-click=\"close()\" class=\"btn  btn--small\">Cancel</a>\n" +
+    "    <a ng-click=\"delete(video)\" class=\"btn  btn--small  btn--positive\">Okay</a>\n" +
+    "  </div>\n" +
+    "</div>"
   );
 
 

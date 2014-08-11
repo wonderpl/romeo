@@ -1,11 +1,20 @@
-<section class="organise-video-delete">
-  <a class="modal__close" ng-click="close()">&times;</a>
-  <h5 class="organise-video-delete__title">Delete video</h5>
-  <section class="organise-video-delete__controls">
-    <div class="media__img"><i class="icon icon--trash icon--large"></i></div>
+<div class="modal__title  split">
+  <span class="split__title  t--block  w--600">Delete Video</span>
+  <a class="modal__link" ng-click="close()"><i class="icon icon--medium icon--circle-cross"></i></a>
+</div>
+<div class="modal__content">
+  <div class="media">
+    <div class="media__img">
+      <i class="icon icon--trash icon--large"></i>
+    </div>
     <div class="media__body">
       <p class="organise-video-delete__msg">Are you sure you want to delete '{{video.title}}'?</p>
-      <a ng-click="delete(video)" class="organise-video-delete_button button button--primary">Okay</a>
     </div>
-  </section>
-</section>
+  </div>
+</div>
+<div class="modal__footer">
+  <div class="modal__actions">
+    <a ng-click="close()" class="btn  btn--small">Cancel</a>
+    <a ng-click="delete(video)" class="btn  btn--small  btn--positive">Okay</a>
+  </div>
+</div>
