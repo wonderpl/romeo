@@ -55,6 +55,11 @@
   cursor: not-allowed;
 }
 
+.video-thumbnail__option input[type="file"]{
+  position: relative;
+  left: 73px;
+}
+
 .video-thumbnail__option:hover {
   border-color: $dark-green;
   color: $dark-green;

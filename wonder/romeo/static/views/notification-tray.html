@@ -5,7 +5,11 @@
         <p><b>{{ notification.title }}</b>:<br>
         {{ notification.message }}</p>
       </div>
-      <div class="flag__img"><a class="notice__dismiss" ng-click="removeNotification(notification.id); notification.show = false; notification.hide = true"><i class="icon  icon--cross"></a></i></div>
+      <div class="flag__img">
+        <!--<a class="notice__dismiss" ng-click="removeNotification(notification.id); notification.show = false; notification.hide = true">
+          <i class="icon  icon--cross"></i>
+        </a>-->
+      </div>
     </div>
   </li>
 </ul>

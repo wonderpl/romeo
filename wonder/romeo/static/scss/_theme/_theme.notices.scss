@@ -35,12 +35,13 @@
 .notice {
   margin-bottom: $base-spacing-unit;
   padding: $half-spacing-unit $base-spacing-unit;
-  font-size: 0.875em;
+  font-size: 1em;
   font-family: $heading-font-family;
   border-radius: 3px;
   border: 1px solid transparent;
 
   p > b {
+    font-size: 1.125em;
     color: $swatch-three;
   }
 
