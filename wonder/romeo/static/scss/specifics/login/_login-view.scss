@@ -1,14 +1,16 @@
 .login-view {
-  width: $containerWidth + px;
-  margin: 0 auto;
-  padding-top: 48px;
+  max-width: 63em;
+  margin-right: auto;
+  margin-left:  auto;
+  padding-right: $base-spacing-unit;
+  padding-left:  $base-spacing-unit;
 }
 
 .login-view__label {
-  display: block;
-  padding: 0 0 12px 0;
-  text-align: right;
-  width: 20em;
+  // display: block;
+  // padding: 0 0 12px 0;
+  // text-align: right;
+  // width: 20em;
 }
 
 .login-view__input {

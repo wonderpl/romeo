@@ -1,35 +1,50 @@
-
-
 <div ng-controller="LoginCtrl" autocomplete="off" class="login-view">
-	<form ng-submit="login()">
-		<label class="login-view__label">Username <input type="text" ng-model="username" autocomplete="off" class="login-view__input" /></label>
-
-		<label class="login-view__label">Password <input type="password" name="password" ng-model="password" autocomplete="off"  class="login-view__input" /></label>
-
-        
-        <label class="login-view__label">
-            <input type="checkbox" name="tandc" ng-model="tandc" required class="login-view__input_checkbox" />  I agree with the standard Wonder Place Ltd <a href="http://wonderpl.com/tos">terms and conditions</a> and the following conditions of the Closed Beta Program:
-        </label>
-        <div class="login-view__terms">
-            The Program is proprietary to, and a valuable trade secret of, Wonder Place Ltd. It is entrusted to Tester only for the purpose set forth in this Agreement. Tester shall maintain the Program in the strictest confidence. Tester will not, without Company's prior written consent:
-        </div>
-        <div class="login-view__terms">
-            (a) disclose any information about the Program, its design and performance specifications, its code, and the existence of the beta test and its results to anyone other than Tester's employees who are performing the testing and who shall be subject to nondisclosure restrictions at least as protective as those set forth in this Agreement;
-        </div>
-        <div class="login-view__terms">
-            (b) copy any portion of the Program or documentation, except to the extent necessary to perform beta testing; or
-        </div>
-        <div class="login-view__terms">
-            (c) reverse engineer, decompile or disassemble Software or any portion of it.
-        </div>
-       
-        
-
-        <span class="login-view__errors" ng-bind="errors"></span>
-
-        <img class="login-view__loading-indicator" src="/static/assets/img/loading.gif" ng-show="isLoading" />
-        <button type="submit" class="btn btn--positive login-view__submit" ng-class="{'btn--disabled': !tandc}" ng-disabled="!tandc" ng-click="isLoading = true;">
-          Login
-        </button>
-	</form>
+  <div class="center-container">
+    <div class="center-object">
+      <div class="wrapper">
+        <form ng-submit="login()">
+          <fieldset>
+            <legend class="accessibility">Log in details:</legend>
+            <ul class="form-fields  login-view__form">
+              <li class="text-col">
+                <div class="login-view__input  icon-text">
+                  <i class="icon  icon--head  icon-text__icon"></i>
+                  <label class="label login-view__label  accessibility" for="login-view__username">Username</label>
+                  <input type="text" ng-model="username" autocomplete="off" class="text-input" id="login-view__username" placeholder="Username" />
+                </div>
+                <div class="login-view__input  icon-text">
+                  <i class="icon  icon--lock  icon-text__icon"></i>
+                  <label class="label login-view__label  accessibility" for="login-view__password">Password</label>
+                  <input type="password" name="password" ng-model="password" autocomplete="off"  class="text-input" id="login-view__password" placeholder="Password" />
+                </div>
+              </li>
+              <li class="text-col">
+                <ul class="check-list">
+                  <li>
+                    <input type="checkbox" name="tandc" ng-model="tandc" required class="login-view__input_checkbox" id="tandc"/>
+                    <label class="t--inline  login-view__label" for="tandc">I agree with the standard Wonder Place Ltd <a href="http://wonderpl.com/tos">terms and conditions</a> and the following conditions of the Closed Beta Program:</label>
+                  </li>
+                </ul>
+              </li>
+              <li class="text-col">
+                <p class="smallprint  muted">The Program is proprietary to, and a valuable trade secret of, Wonder Place Ltd. It is entrusted to Tester only for the purpose set forth in this Agreement. Tester shall maintain the Program in the strictest confidence. Tester will not, without Company's prior written consent:</p>
+                <ol class="smallprint" type="a">
+                  <li><p class="muted">disclose any information about the Program, its design and performance specifications, its code, and the existence of the beta test and its results to anyone other than Tester's employees who are performing the testing and who shall be subject to nondisclosure restrictions at least as protective as those set forth in this Agreement;</p></li>
+                  <li><p class="muted">copy any portion of the Program or documentation, except to the extent necessary to perform beta testing; or</p></li>
+                  <li><p class="muted">reverse engineer, decompile or disassemble Software or any portion of it.</p></li>
+                </ol>
+              </li>
+              <li>
+                <span class="login-view__errors" ng-bind="errors"></span>
+                <img class="login-view__loading-indicator" src="/static/assets/img/loading.gif" ng-show="isLoading" />
+                <div class="btn-center">
+                  <button type="submit" class="btn btn--positive login-view__submit" ng-class="{'btn--disabled': !tandc}" ng-disabled="!tandc" ng-click="isLoading = true;">Login</button>
+                </div>
+              </li>
+            </ul>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

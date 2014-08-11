@@ -443,40 +443,55 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('login.html',
-    "\n" +
-    "\n" +
     "<div ng-controller=\"LoginCtrl\" autocomplete=\"off\" class=\"login-view\">\n" +
-    "\t<form ng-submit=\"login()\">\n" +
-    "\t\t<label class=\"login-view__label\">Username <input type=\"text\" ng-model=\"username\" autocomplete=\"off\" class=\"login-view__input\" /></label>\n" +
-    "\n" +
-    "\t\t<label class=\"login-view__label\">Password <input type=\"password\" name=\"password\" ng-model=\"password\" autocomplete=\"off\"  class=\"login-view__input\" /></label>\n" +
-    "\n" +
-    "        \n" +
-    "        <label class=\"login-view__label\">\n" +
-    "            <input type=\"checkbox\" name=\"tandc\" ng-model=\"tandc\" required class=\"login-view__input_checkbox\" />  I agree with the standard Wonder Place Ltd <a href=\"http://wonderpl.com/tos\">terms and conditions</a> and the following conditions of the Closed Beta Program:\n" +
-    "        </label>\n" +
-    "        <div class=\"login-view__terms\">\n" +
-    "            The Program is proprietary to, and a valuable trade secret of, Wonder Place Ltd. It is entrusted to Tester only for the purpose set forth in this Agreement. Tester shall maintain the Program in the strictest confidence. Tester will not, without Company's prior written consent:\n" +
-    "        </div>\n" +
-    "        <div class=\"login-view__terms\">\n" +
-    "            (a) disclose any information about the Program, its design and performance specifications, its code, and the existence of the beta test and its results to anyone other than Tester's employees who are performing the testing and who shall be subject to nondisclosure restrictions at least as protective as those set forth in this Agreement;\n" +
-    "        </div>\n" +
-    "        <div class=\"login-view__terms\">\n" +
-    "            (b) copy any portion of the Program or documentation, except to the extent necessary to perform beta testing; or\n" +
-    "        </div>\n" +
-    "        <div class=\"login-view__terms\">\n" +
-    "            (c) reverse engineer, decompile or disassemble Software or any portion of it.\n" +
-    "        </div>\n" +
-    "       \n" +
-    "        \n" +
-    "\n" +
-    "        <span class=\"login-view__errors\" ng-bind=\"errors\"></span>\n" +
-    "\n" +
-    "        <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading\" />\n" +
-    "        <button type=\"submit\" class=\"btn btn--positive login-view__submit\" ng-class=\"{'btn--disabled': !tandc}\" ng-disabled=\"!tandc\" ng-click=\"isLoading = true;\">\n" +
-    "          Login\n" +
-    "        </button>\n" +
-    "\t</form>\n" +
+    "  <div class=\"center-container\">\n" +
+    "    <div class=\"center-object\">\n" +
+    "      <div class=\"wrapper\">\n" +
+    "        <form ng-submit=\"login()\">\n" +
+    "          <fieldset>\n" +
+    "            <legend class=\"accessibility\">Log in details:</legend>\n" +
+    "            <ul class=\"form-fields  login-view__form\">\n" +
+    "              <li class=\"text-col\">\n" +
+    "                <div class=\"login-view__input  icon-text\">\n" +
+    "                  <i class=\"icon  icon--head  icon-text__icon\"></i>\n" +
+    "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__username\">Username</label>\n" +
+    "                  <input type=\"text\" ng-model=\"username\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__username\" placeholder=\"Username\" />\n" +
+    "                </div>\n" +
+    "                <div class=\"login-view__input  icon-text\">\n" +
+    "                  <i class=\"icon  icon--lock  icon-text__icon\"></i>\n" +
+    "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__password\">Password</label>\n" +
+    "                  <input type=\"password\" name=\"password\" ng-model=\"password\" autocomplete=\"off\"  class=\"text-input\" id=\"login-view__password\" placeholder=\"Password\" />\n" +
+    "                </div>\n" +
+    "              </li>\n" +
+    "              <li class=\"text-col\">\n" +
+    "                <ul class=\"check-list\">\n" +
+    "                  <li>\n" +
+    "                    <input type=\"checkbox\" name=\"tandc\" ng-model=\"tandc\" required class=\"login-view__input_checkbox\" id=\"tandc\"/>\n" +
+    "                    <label class=\"t--inline  login-view__label\" for=\"tandc\">I agree with the standard Wonder Place Ltd <a href=\"http://wonderpl.com/tos\">terms and conditions</a> and the following conditions of the Closed Beta Program:</label>\n" +
+    "                  </li>\n" +
+    "                </ul>\n" +
+    "              </li>\n" +
+    "              <li class=\"text-col\">\n" +
+    "                <p class=\"smallprint  muted\">The Program is proprietary to, and a valuable trade secret of, Wonder Place Ltd. It is entrusted to Tester only for the purpose set forth in this Agreement. Tester shall maintain the Program in the strictest confidence. Tester will not, without Company's prior written consent:</p>\n" +
+    "                <ol class=\"smallprint\" type=\"a\">\n" +
+    "                  <li><p class=\"muted\">disclose any information about the Program, its design and performance specifications, its code, and the existence of the beta test and its results to anyone other than Tester's employees who are performing the testing and who shall be subject to nondisclosure restrictions at least as protective as those set forth in this Agreement;</p></li>\n" +
+    "                  <li><p class=\"muted\">copy any portion of the Program or documentation, except to the extent necessary to perform beta testing; or</p></li>\n" +
+    "                  <li><p class=\"muted\">reverse engineer, decompile or disassemble Software or any portion of it.</p></li>\n" +
+    "                </ol>\n" +
+    "              </li>\n" +
+    "              <li>\n" +
+    "                <span class=\"login-view__errors\" ng-bind=\"errors\"></span>\n" +
+    "                <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading\" />\n" +
+    "                <div class=\"btn-center\">\n" +
+    "                  <button type=\"submit\" class=\"btn btn--positive login-view__submit\" ng-class=\"{'btn--disabled': !tandc}\" ng-disabled=\"!tandc\" ng-click=\"isLoading = true;\">Login</button>\n" +
+    "                </div>\n" +
+    "              </li>\n" +
+    "            </ul>\n" +
+    "          </fieldset>\n" +
+    "        </form>\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
     "</div>"
   );
 
