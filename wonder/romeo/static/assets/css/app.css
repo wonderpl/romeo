@@ -4045,53 +4045,60 @@ label,
   padding: 0;
 }
 
-/* line 25, ../../scss/specifics/video/_configurable-layout.scss */
+/* line 26, ../../scss/specifics/video/_configurable-layout.scss */
+.configurable-layout-column--is-comments .layout-block-primary--wide .video-view__title,
+.configurable-layout-column--is-comments .layout-block-primary--mirror .video-view__title {
+  font-size: 2em;
+  line-height: 1.5;
+}
+
+/* line 32, ../../scss/specifics/video/_configurable-layout.scss */
 .configurable-layout-column--is-comments .video-view__title {
   font-size: 18px;
   line-height: 1.5;
 }
-/* line 31, ../../scss/specifics/video/_configurable-layout.scss */
+/* line 38, ../../scss/specifics/video/_configurable-layout.scss */
 .configurable-layout-column--is-comments .layout-block-primary--column .video-view {
   padding-right: 12.5%;
   padding-left: 12.5%;
 }
-/* line 39, ../../scss/specifics/video/_configurable-layout.scss */
+/* line 46, ../../scss/specifics/video/_configurable-layout.scss */
 .configurable-layout-column--is-comments .layout-block-secondary--column .video-view__comments {
   padding-right: 12.5%;
   padding-left: 12.5%;
 }
 
-/* line 47, ../../scss/specifics/video/_configurable-layout.scss */
+/* line 54, ../../scss/specifics/video/_configurable-layout.scss */
 .configurable-layout-mirror,
 .configurable-layout-wide {
   margin-left: -24px;
   padding-right: 24px;
   padding-left: 24px;
 }
-/* line 52, ../../scss/specifics/video/_configurable-layout.scss */
+/* line 59, ../../scss/specifics/video/_configurable-layout.scss */
 .configurable-layout-mirror > .layout-block,
 .configurable-layout-wide > .layout-block {
   padding-left: 24px;
 }
 
-/* line 60, ../../scss/specifics/video/_configurable-layout.scss */
+/* line 67, ../../scss/specifics/video/_configurable-layout.scss */
 .configurable-layout-mirror > .layout-block,
 .configurable-layout-wide > .layout-block {
   float: left;
 }
 
-/* line 69, ../../scss/specifics/video/_configurable-layout.scss */
+/* line 76, ../../scss/specifics/video/_configurable-layout.scss */
 .configurable-layout-mirror > .layout-block__quaternary,
 .configurable-layout-wide > .layout-block__quaternary {
   width: 33.3333%;
 }
-/* line 72, ../../scss/specifics/video/_configurable-layout.scss */
+/* line 79, ../../scss/specifics/video/_configurable-layout.scss */
 .configurable-layout-mirror .layout-block--group,
 .configurable-layout-wide .layout-block--group {
   width: 66.6666%;
 }
 
-/* line 81, ../../scss/specifics/video/_configurable-layout.scss */
+/* line 88, ../../scss/specifics/video/_configurable-layout.scss */
 .configurable-layout-mirror > .layout-block--group:before {
   content: "";
   display: block;
@@ -4102,11 +4109,11 @@ label,
   margin-left: -16px;
 }
 
-/* line 94, ../../scss/specifics/video/_configurable-layout.scss */
+/* line 101, ../../scss/specifics/video/_configurable-layout.scss */
 .configurable-layout-wide > .layout-block__quaternary {
   float: right;
 }
-/* line 97, ../../scss/specifics/video/_configurable-layout.scss */
+/* line 104, ../../scss/specifics/video/_configurable-layout.scss */
 .configurable-layout-wide > .layout-block__quaternary:before {
   content: "";
   display: block;
@@ -4430,8 +4437,9 @@ label,
 .video-player__iframe-container {
   padding-bottom: 56.25%;
   height: 0;
+  position: relative;
 }
-/* line 14, ../../scss/specifics/video/_video-player.scss */
+/* line 15, ../../scss/specifics/video/_video-player.scss */
 .video-player__iframe-container > .video-player__frame {
   width: 100%;
   height: 100%;
@@ -6059,7 +6067,7 @@ label,
 /* line 13, ../../scss/specifics/profile/_profile-cover.scss */
 .configurable-layout-column--is-comments .profile-cover--img {
   height: 100px;
-  background-image: none;
+  background-image: none !important;
 }
 
 /* line 18, ../../scss/specifics/profile/_profile-cover.scss */
@@ -6230,23 +6238,25 @@ label,
 /* line 23, ../../scss/specifics/login/_login-view.scss */
 .login-view__errors {
   display: block;
-  margin-bottom: 24px;
   color: red;
 }
 
 /* line 29, ../../scss/specifics/login/_login-view.scss */
 .login-view__loading-indicator {
-  height: 20px;
-  width: 20px;
-  margin: 10px;
+  height: 16px;
+  width: 16px;
+  position: relative;
+  line-height: 1;
+  top: 3px;
+  margin-left: 12px;
 }
 
-/* line 35, ../../scss/specifics/login/_login-view.scss */
+/* line 38, ../../scss/specifics/login/_login-view.scss */
 .login-view__submit {
   vertical-align: top;
 }
 
-/* line 38, ../../scss/specifics/login/_login-view.scss */
+/* line 41, ../../scss/specifics/login/_login-view.scss */
 .login-view__terms {
   margin-bottom: 12px;
 }
