@@ -6029,27 +6029,33 @@ label,
   height: 420px;
 }
 
-/* line 12, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 13, ../../scss/specifics/profile/_profile-cover.scss */
+.configurable-layout-column--is-comments .profile-cover--img {
+  height: 100px;
+  background-image: none;
+}
+
+/* line 18, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover--hero {
   height: 140px;
 }
 
-/* line 16, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 22, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__upload-label {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
 
-/* line 24, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 30, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover--edit:hover {
   cursor: pointer;
 }
-/* line 27, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 33, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover--edit:hover .profile-cover__upload-label {
   background-clip: padding-box;
   border: solid 2px #51b364;
 }
-/* line 33, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 39, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover--edit .profile-cover__upload-label {
   position: absolute;
   top: 0;
@@ -6058,7 +6064,7 @@ label,
   width: 100%;
   background: rgba(0, 0, 0, 0.7);
 }
-/* line 42, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 48, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover--edit .profile-cover__dropzone {
   width: 74px;
   height: 74px;
@@ -6075,7 +6081,7 @@ label,
   opacity: 1;
 }
 
-/* line 61, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 67, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__dropzone {
   position: absolute;
   left: -9999px;
@@ -6083,17 +6089,17 @@ label,
   opacity: 0;
 }
 
-/* line 68, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 74, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__dropzone:hover {
   cursor: pointer;
 }
 
-/* line 72, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 78, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__dropzone--active {
   border: solid 2px #51b364;
 }
 
-/* line 76, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 82, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__upload {
   display: none;
 }
@@ -6197,23 +6203,25 @@ label,
 /* line 23, ../../scss/specifics/login/_login-view.scss */
 .login-view__errors {
   display: block;
-  margin-bottom: 24px;
   color: red;
 }
 
 /* line 29, ../../scss/specifics/login/_login-view.scss */
 .login-view__loading-indicator {
-  height: 20px;
-  width: 20px;
-  margin: 10px;
+  height: 16px;
+  width: 16px;
+  position: relative;
+  line-height: 1;
+  top: 3px;
+  margin-left: 12px;
 }
 
-/* line 35, ../../scss/specifics/login/_login-view.scss */
+/* line 38, ../../scss/specifics/login/_login-view.scss */
 .login-view__submit {
   vertical-align: top;
 }
 
-/* line 38, ../../scss/specifics/login/_login-view.scss */
+/* line 41, ../../scss/specifics/login/_login-view.scss */
 .login-view__terms {
   margin-bottom: 12px;
 }

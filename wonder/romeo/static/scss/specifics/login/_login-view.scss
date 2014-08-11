@@ -22,14 +22,17 @@
 
 .login-view__errors {
   display: block;
-  margin-bottom: $base-spacing-unit;
+  //margin-bottom: $base-spacing-unit;
   color: $red;
 }
 
 .login-view__loading-indicator {
-  height: 20px;
-  width: 20px;
-  margin: 10px;
+  height: 16px;
+  width: 16px;
+  position: relative;
+  line-height: 1;
+  top: 3px;
+  margin-left: 12px;
 }
 
 .login-view__submit {

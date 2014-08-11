@@ -472,19 +472,18 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "                </ul>\n" +
     "              </li>\n" +
     "              <li class=\"text-col\">\n" +
+    "                <span class=\"login-view__errors\" ng-bind=\"errors\"></span>\n" +
+    "                <div class=\"btn-center\">\n" +
+    "                  <button type=\"submit\" class=\"btn btn--positive login-view__submit\" ng-class=\"{'btn--disabled': !tandc}\" ng-disabled=\"!tandc\" ng-click=\"isLoading = true;\">Login <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading\" /></button>\n" +
+    "                </div>\n" +
+    "              </li>\n" +
+    "              <li>\n" +
     "                <p class=\"smallprint  muted\">The Program is proprietary to, and a valuable trade secret of, Wonder Place Ltd. It is entrusted to Tester only for the purpose set forth in this Agreement. Tester shall maintain the Program in the strictest confidence. Tester will not, without Company's prior written consent:</p>\n" +
     "                <ol class=\"smallprint\" type=\"a\">\n" +
     "                  <li><p class=\"muted\">disclose any information about the Program, its design and performance specifications, its code, and the existence of the beta test and its results to anyone other than Tester's employees who are performing the testing and who shall be subject to nondisclosure restrictions at least as protective as those set forth in this Agreement;</p></li>\n" +
     "                  <li><p class=\"muted\">copy any portion of the Program or documentation, except to the extent necessary to perform beta testing; or</p></li>\n" +
     "                  <li><p class=\"muted\">reverse engineer, decompile or disassemble Software or any portion of it.</p></li>\n" +
     "                </ol>\n" +
-    "              </li>\n" +
-    "              <li class=\"text-col\">\n" +
-    "                <span class=\"login-view__errors\" ng-bind=\"errors\"></span>\n" +
-    "                <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading\" />\n" +
-    "                <div class=\"btn-center\">\n" +
-    "                  <button type=\"submit\" class=\"btn btn--positive login-view__submit\" ng-class=\"{'btn--disabled': !tandc}\" ng-disabled=\"!tandc\" ng-click=\"isLoading = true;\">Login</button>\n" +
-    "                </div>\n" +
     "              </li>\n" +
     "            </ul>\n" +
     "          </fieldset>\n" +
@@ -965,7 +964,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('page-footer.html',
     "<footer class=\"page-footer\" role=\"contentinfo\">\n" +
     "  <div class=\"wrapper\">\n" +
-    "    <ul class=\"nav  footer-nav\">\n" +
+    "    <!--<ul class=\"nav  footer-nav\">\n" +
     "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">iOS App</a></li>\n" +
     "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">Help</a></li>\n" +
     "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">API</a></li>\n" +
@@ -975,13 +974,16 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">LinkedIn</a></li>\n" +
     "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">Instagram</a></li>\n" +
     "    \n" +
-    "      <!--<li class=\"footer-nav__item\"><a class=\"footer-nav__link\" ng-click=\"testNotify('success')\">SUCCESS</a></li>\n" +
+    "      <li class=\"footer-nav__item\"><a class=\"footer-nav__link\" ng-click=\"testNotify('success')\">SUCCESS</a></li>\n" +
     "      <li class=\"footer-nav__item\"><a class=\"footer-nav__link\" ng-click=\"testNotify('warning')\">WARNING</a></li>\n" +
     "      <li class=\"footer-nav__item\"><a class=\"footer-nav__link\" ng-click=\"testNotify('error')\">ERROR</a></li>\n" +
-    "      <li class=\"footer-nav__item\"><a class=\"footer-nav__link\" ng-click=\"testNotify('info')\">INFO</a></li>-->\n" +
+    "      <li class=\"footer-nav__item\"><a class=\"footer-nav__link\" ng-click=\"testNotify('info')\">INFO</a></li>\n" +
     "    \n" +
     "      <li class=\"footer-nav__item  f--right\">&copy; 2014 Wonder PL, Ltd.</li>\n" +
-    "    </ul>\n" +
+    "    </ul>-->\n" +
+    "    <div class=\"t--center\">\n" +
+    "      <span class=\"t--block  smallprint\">&copy; 2014 Wonder PL, Ltd.</span>\n" +
+    "    </div>\n" +
     "  </div>\n" +
     "</footer>"
   );
