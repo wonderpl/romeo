@@ -10,6 +10,7 @@
 .video-player__iframe-container {
   padding-bottom: 56.25%;
   height: 0;
+  position: relative;
 
   > .video-player__frame {
     width: 100%;
