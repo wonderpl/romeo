@@ -22,7 +22,7 @@ function ProfileNavigationDirective ($templateCache) {
     link : function (scope, elem, attr) {
       var stickyClass = 'sub-navigation--sticky';
       $(window).scroll(function(e) {
-        if (e.currentTarget.scrollY > 43) {
+        if (e.currentTarget.scrollY > 57) {
           elem.addClass(stickyClass);
         } else {
           elem.removeClass(stickyClass);

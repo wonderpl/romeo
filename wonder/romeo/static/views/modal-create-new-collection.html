@@ -1,17 +1,17 @@
 <div class="modal__title  split">
-  <span class="split__title  t--block  w--800">Create a collection</span>
+  <span class="split__title  t--block  w--600">Create a collection</span>
   <a class="modal__link" ng-click="close()"><i class="icon icon--medium icon--circle-cross"></i></a>
 </div>
 <div class="modal__content">
   <div class="media">
     <div class="media__img">
-    <i class="icon  icon--large  icon--collection-add"></i>
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="modal-collection-thumb">
     </div>
     <div class="media__body">
       <form name="newCollectionForm" class="modal-form">
         <fieldset class="modal-form__fieldset">
           <legend class="is-hidden">Enter collection details</legend>
-          <ul class="form-fields">
+          <ul class="form-fields  ">
             <li>
               <input type="text" ng-model="collection.label" placeholder="Name" class="form-input  modal-input  video-new-collection__new-collection-name" name="collectionLabel" validate-collection-title required />
               <span class="video-new-collection__error" ng-show="newCollectionForm.collectionLabel.$error.exists && isSubmitted">Error: there is already a collection with that name</span>
@@ -20,7 +20,7 @@
               <textarea ng-model="collection.description" placeholder="Collection description (optional)&hellip;" class="video-new-collection__new-collection-description"></textarea>
             </li>
             <li>
-              <ul class="check-list">
+              <ul class="nav  nav--blocks  modal-check-list">
                 <li>
                   <label class="video-new-collection__label">
                     <input type="radio" name="scope" ng-model="collection.scope" value="public" />

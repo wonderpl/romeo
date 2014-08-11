@@ -40,11 +40,12 @@
     @extend .cf;
   }
   .modal__title {
-    font-size: 1.125em;
+    font-size: 22px;
     font-family: $heading-font-family;
     border-bottom: 1px solid $swatch-two;
   }
     .modal__link {
+      display: block;
       color: $swatch-four;
       text-decoration: none;
       border: none;
@@ -58,3 +59,12 @@
         margin-left: $half-spacing-unit / 2;
       }
     }
+
+.modal-collection-thumb {
+  display: block;
+  width: 96px;
+  height: 96px;
+  background-image: url('http://localhost:5001/static/assets/img/video-collection__tag.png');
+  background-repeat: no-repeat;
+  background-position: top left;
+}

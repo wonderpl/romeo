@@ -5,30 +5,32 @@
     ng-class="{ 'video-feedback__form--active' : inputActive }">
     <section class="video-feedback__input-container">
 
-      <div class="video-feedback__comment">
-        <a class="video-feedback__comment-profile-image" ng-style="{ 'background-image' : 'url(' + $root.User.avatar + ')' }" ng-show="$root.User"></a>
-        <a class="video-feedback__comment-profile-image" style="background-image: url('{{ $root.User.avatar_url }}');" ng-show="$root.isCollaborator"></a>
-        <div class="video-feedback__comment-details">
-          <span class="video-feedback__comment-name" ng-show="$root.User">{{ $root.User.display_name }}</span>
-          <span class="video-feedback__comment-name" ng-show="$root.isCollaborator">{{ $root.User.username }}</span>
-        </div>
-        <div class="video-feedback__comment-content">
-          <span class="video-feedback__comment-timestamp">
-            @<a class="video-feedback__comment-timestamp-link" ng-bind="(currentTime | time)"></a>
-          </span>
-          <div class="video-feedback__comment-text">
-            <textarea class="video-feedback__input js-video-feedback-input"
-              placeholder="Hit the space bar to pause the video and write your comments here&hellip;"
-              ng-model="commentText"
-              ng-class="{ 'video-feedback__input--active' : inputActive }"
-              ng-focus="inputActive = true"
-              ng-blur="inputActive = false"
-              focus="inputActive">
-            </textarea>
+      <div class="media  video-feedback__comment">
+        <a class="media__img  video-feedback__comment-profile-image" ng-style="{ 'background-image' : 'url(' + $root.User.avatar + ')' }" ng-show="$root.User"></a>
+        <a class="media__img  video-feedback__comment-profile-image" style="background-image: url('{{ $root.User.avatar_url }}');" ng-show="$root.isCollaborator"></a>
+        <div class="media__body">
+          <div class="video-feedback__comment-details">
+            <span class="video-feedback__comment-name" ng-show="$root.User">{{ $root.User.display_name }}</span>
+            <span class="video-feedback__comment-name" ng-show="$root.isCollaborator">{{ $root.User.username }}</span>
+          </div>
+          <div class="video-feedback__comment-content">
+            <span class="video-feedback__comment-timestamp">
+              @<a class="video-feedback__comment-timestamp-link" ng-bind="(currentTime | time)"></a>
+            </span>
+            <div class="video-feedback__comment-text">
+              <textarea class="video-feedback__input js-video-feedback-input"
+                placeholder="Hit the space bar to pause the video and write your comments here&hellip;"
+                ng-model="commentText"
+                ng-class="{ 'video-feedback__input--active' : inputActive }"
+                ng-focus="inputActive = true"
+                ng-blur="inputActive = false"
+                focus="inputActive">
+              </textarea>
+            </div>
           </div>
         </div>
       </div>
-      <a class="video-feedback__button button button--primary push-bottom"
+      <a class="video-feedback__button btn  btn--small btn--positive push-bottom"
         ng-click="addComment()">
         submit
       </a>
@@ -41,7 +43,7 @@
     <div class="video-feedback__comments-filter">
       <label>
         <span class="video-feedback__comments-filter-label">View:</span>
-        <select class="video-feedback__comments-filters button button--small" ng-model="filterResolved">
+        <select class="video-feedback__comments-filters btn btn--small" ng-model="filterResolved">
           <option class="video-feedback__comments-filter" value="" selected="selected">All</option>
           <option class="video-feedback__comments-filter" value="false">Unresolved</option>
         </select>
@@ -53,19 +55,21 @@
         class="video-feedback__comment"
         ng-class="{ 'video-feedback__comment--active' : isTimeSync(comment.timestamp) }"
         ng-repeat="comment in comments | orderBy : 'timestamp' | filter: { resolved : filterResolved }">
-          <div ng-class="{ 'video-feedback__comment--resolved' : comment.resolved }">
-            <a class="video-feedback__comment-profile-image" style="background-image: url('{{ comment.avatar_url }}');"></a>
-            <div class="video-feedback__comment-details">
-              <span class="video-feedback__comment-name" ng-bind="comment.username"></span>
-              <span class="video-feedback__comment-time-posted" ng-bind="comment.datetime | prettyDate"></span>
-              <span class="video-feedback__comment-resolved" ng-class="{ 'video-feedback__comment-resolved--active' : replyActive && comment.resolved }">resolved</span>
-            </div>
-            <div class="video-feedback__comment-content">
-              <span class="video-feedback__comment-timestamp" ng-show="!isNaN(comment.timestamp)">
-                @<a class="video-feedback__comment-timestamp-link" ng-click="videoSeek(comment.timestamp)" ng-bind="(comment.timestamp | time)"></a>
-              </span>
-              <div class="video-feedback__comment-text">
-                {{ comment.comment }}
+          <div class="media" ng-class="{ 'video-feedback__comment--resolved' : comment.resolved }">
+            <a class="media__img  video-feedback__comment-profile-image" style="background-image: url('{{ comment.avatar_url }}');"></a>
+            <div class="media__body">
+              <div class="video-feedback__comment-details">
+                <span class="video-feedback__comment-name" ng-bind="comment.username"></span>
+                <span class="video-feedback__comment-time-posted" ng-bind="comment.datetime | prettyDate"></span>
+                <span class="video-feedback__comment-resolved" ng-class="{ 'video-feedback__comment-resolved--active' : replyActive && comment.resolved }">resolved</span>
+              </div>
+              <div class="video-feedback__comment-content">
+                <span class="video-feedback__comment-timestamp" ng-show="!isNaN(comment.timestamp)">
+                  @<a class="video-feedback__comment-timestamp-link" ng-click="videoSeek(comment.timestamp)" ng-bind="(comment.timestamp | time)"></a>
+                </span>
+                <div class="video-feedback__comment-text">
+                  {{ comment.comment }}
+                </div>
               </div>
             </div>
           </div>

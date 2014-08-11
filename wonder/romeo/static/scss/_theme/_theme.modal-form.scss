@@ -25,3 +25,11 @@
           -ms-appearance: none;
               appearance: none;
     }
+
+.modal-check-list {
+  margin-bottom: 0;
+
+  > li + li {
+    margin-left: $base-spacing-unit;
+  }
+}
