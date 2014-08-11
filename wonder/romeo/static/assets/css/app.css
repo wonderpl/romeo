@@ -594,7 +594,7 @@ textarea:focus {
 /* line 13, ../../scss/_generic/_generic.clearfix.scss */
 .cf:after, .nav:after, .media:after, .split:after, .layout:after, .box:after, .wrapper:after, .page-header:after, .notice-tray:after, .video-thumb-list:after, .modal__title:after,
 .modal__content:after,
-.modal__footer:after, .configurable-layout:after, .configurable-layout-column .layout-block:after, .video-collaborators__header:after, .organise-video-list__list-control-label:after, .organise-video-delete:after, .video-thumb-container:after {
+.modal__footer:after, .configurable-layout:after, .configurable-layout-column .layout-block:after, .video-collaborators__header:after, .organise-video-list__list-control-label:after, .organise-video:after, .organise-video-delete:after, .video-thumb-container:after {
   content: "";
   /* [1] */
   display: table;
@@ -2968,33 +2968,41 @@ select {
   margin-bottom: 24px;
 }
 
-/* line 8, ../../scss/_theme/_theme.video-thumb.scss */
+/* line 10, ../../scss/_theme/_theme.video-thumb.scss */
+.organise-video-list__video--list .video-thumb-link {
+  display: block;
+  position: relative;
+  top: 12px;
+  z-index: -1;
+}
+
+/* line 18, ../../scss/_theme/_theme.video-thumb.scss */
 .video-thumb-link {
   text-decoration: none;
   border: none;
 }
 
-/* line 12, ../../scss/_theme/_theme.video-thumb.scss */
+/* line 22, ../../scss/_theme/_theme.video-thumb.scss */
 .video-thumb-link__title {
   max-height: 42px;
   line-height: 21px;
   margin-bottom: 12px;
 }
 
-/* line 17, ../../scss/_theme/_theme.video-thumb.scss */
+/* line 27, ../../scss/_theme/_theme.video-thumb.scss */
 .organise-video-list__video--list .video-thumb-link__title {
   height: 24px;
   margin-bottom: 0;
 }
 
-/* line 25, ../../scss/_theme/_theme.video-thumb.scss */
+/* line 35, ../../scss/_theme/_theme.video-thumb.scss */
 .video-thumb:hover .video-thumb-list {
   opacity: 1;
   visibility: visible;
   transition: opacity 0.3s ease-in-out;
 }
 
-/* line 36, ../../scss/_theme/_theme.video-thumb.scss */
+/* line 46, ../../scss/_theme/_theme.video-thumb.scss */
 .video-thumb-list {
   width: 100%;
   height: 100%;
@@ -3011,24 +3019,24 @@ select {
   pointer-events: none;
   transition: all 0.3s ease-in-out;
 }
-/* line 53, ../../scss/_theme/_theme.video-thumb.scss */
+/* line 63, ../../scss/_theme/_theme.video-thumb.scss */
 .video-thumb-list > li {
   display: block;
   width: 50%;
   float: left;
   text-align: center;
 }
-/* line 59, ../../scss/_theme/_theme.video-thumb.scss */
+/* line 69, ../../scss/_theme/_theme.video-thumb.scss */
 .video-thumb-list > li > a {
   display: block;
   pointer-events: auto;
 }
-/* line 64, ../../scss/_theme/_theme.video-thumb.scss */
+/* line 74, ../../scss/_theme/_theme.video-thumb.scss */
 .video-thumb-list > li:nth-of-type(-n+3) {
   width: 33.3333%;
 }
 
-/* line 67, ../../scss/_theme/_theme.video-thumb.scss */
+/* line 77, ../../scss/_theme/_theme.video-thumb.scss */
 .video-thumb-list__link {
   font-size: 0.75em;
   line-height: 1.5;
@@ -5720,7 +5728,7 @@ label,
   margin-bottom: 0;
 }
 
-/* line 4, ../../scss/specifics/organise/_organise-video.scss */
+/* line 5, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__title {
   margin-bottom: 12px;
   font-weight: 800;
@@ -5732,18 +5740,18 @@ label,
   border: none;
 }
 
-/* line 15, ../../scss/specifics/organise/_organise-video.scss */
+/* line 16, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__link {
   display: block;
   color: white;
 }
 
-/* line 20, ../../scss/specifics/organise/_organise-video.scss */
+/* line 21, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__link:hover {
   text-decoration: underline;
 }
 
-/* line 24, ../../scss/specifics/organise/_organise-video.scss */
+/* line 25, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__controls-container {
   display: block;
   height: 122px;
@@ -5753,7 +5761,7 @@ label,
   background-size: cover;
 }
 
-/* line 33, ../../scss/specifics/organise/_organise-video.scss */
+/* line 34, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__overlay {
   position: relative;
   height: 100%;
@@ -5762,12 +5770,12 @@ label,
   opacity: 0;
 }
 
-/* line 41, ../../scss/specifics/organise/_organise-video.scss */
+/* line 42, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__overlay:hover {
   opacity: 1;
 }
 
-/* line 45, ../../scss/specifics/organise/_organise-video.scss */
+/* line 46, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__controls-mask {
   transition: opacity 0.4s linear;
   display: block;
@@ -5780,7 +5788,7 @@ label,
   opacity: 0.6;
 }
 
-/* line 57, ../../scss/specifics/organise/_organise-video.scss */
+/* line 58, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__controls {
   display: block;
   position: absolute;
@@ -5790,57 +5798,57 @@ label,
   width: 100%;
 }
 
-/* line 66, ../../scss/specifics/organise/_organise-video.scss */
+/* line 67, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__controls:hover {
   cursor: pointer;
 }
 
-/* line 70, ../../scss/specifics/organise/_organise-video.scss */
+/* line 71, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__inline-controls {
   float: left;
   margin-bottom: 0;
   margin-right: 24px;
 }
-/* line 75, ../../scss/specifics/organise/_organise-video.scss */
+/* line 76, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__inline-controls > li + li {
   margin-left: 6px;
 }
 
-/* line 80, ../../scss/specifics/organise/_organise-video.scss */
+/* line 81, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__inline-link {
   color: #2e2e32;
   border: 0;
 }
-/* line 84, ../../scss/specifics/organise/_organise-video.scss */
+/* line 85, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__inline-link:hover {
   color: #b7bcbd;
 }
 
-/* line 91, ../../scss/specifics/organise/_organise-video.scss */
+/* line 92, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__inline-title {
   font-weight: 800;
 }
 
-/* line 95, ../../scss/specifics/organise/_organise-video.scss */
+/* line 96, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__inline-control {
   display: inline-block;
 }
-/* line 98, ../../scss/specifics/organise/_organise-video.scss */
+/* line 99, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__inline-control + .organise-video__inline-control {
   margin-left: 4px;
 }
 
-/* line 103, ../../scss/specifics/organise/_organise-video.scss */
+/* line 104, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__inline-link {
   display: block;
 }
 
-/* line 107, ../../scss/specifics/organise/_organise-video.scss */
+/* line 108, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video__inline-link:hover {
   cursor: pointer;
 }
 
-/* line 111, ../../scss/specifics/organise/_organise-video.scss */
+/* line 112, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video-delete {
   max-width: 700px;
   margin: 0 auto;
@@ -5849,17 +5857,17 @@ label,
   background: white;
   font-size: 1em;
 }
-/* line 120, ../../scss/specifics/organise/_organise-video.scss */
+/* line 121, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video-delete .media__img {
   float: left;
   margin-right: 24px;
 }
-/* line 124, ../../scss/specifics/organise/_organise-video.scss */
+/* line 125, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video-delete .media__body {
   overflow: hidden;
 }
 
-/* line 129, ../../scss/specifics/organise/_organise-video.scss */
+/* line 130, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video-delete__title {
   font-size: 1em;
   border-bottom: solid 1px #999999;
@@ -5867,19 +5875,19 @@ label,
   padding: 12px;
 }
 
-/* line 136, ../../scss/specifics/organise/_organise-video.scss */
+/* line 137, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video-delete__controls {
   padding: 24px 24px 48px;
 }
 
-/* line 139, ../../scss/specifics/organise/_organise-video.scss */
+/* line 140, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video-delete__msg {
   font-size: 16px;
   line-height: 1.5;
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* line 144, ../../scss/specifics/organise/_organise-video.scss */
+/* line 145, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video-delete_button {
   position: absolute;
   bottom: 0;
