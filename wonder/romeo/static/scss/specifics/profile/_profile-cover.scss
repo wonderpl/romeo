@@ -13,12 +13,21 @@
   height: 140px;
 }
 
+.profile-cover__upload-label {
+  -webkit-transition: all 0.3s ease-in-out;
+          transition: all 0.3s ease-in-out;
+}
+
 .profile-cover--edit {
 
+
   &:hover {
-    background-clip: border-box;
     cursor: pointer;
-    border: solid 2px $swatch-five;
+
+    .profile-cover__upload-label {
+      background-clip: padding-box;
+      border: solid 2px $swatch-five;
+    }
   }
 
   .profile-cover__upload-label {
@@ -38,6 +47,9 @@
     position: relative;
     left: auto;
     background-color: $swatch-one;
+    background-image: url('/static/assets/img/cover-upload.png');
+    background-repeat: no-repeat;
+    background-position: top left;
     border-radius: 50%;
     visibility: visible;
     opacity: 1;

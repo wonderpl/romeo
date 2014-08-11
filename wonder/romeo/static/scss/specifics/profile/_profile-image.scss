@@ -21,24 +21,34 @@
 }
 
 .profile-image__container--edit {
+
   .spinner {
     border-radius: 50%;
   }
-}
-
-.profile-image__container--edit:hover {
-  cursor: pointer;
-  border: solid 1px $swatch-five;
+  
+  &:hover {
+    cursor: pointer;
+    background-clip: padding-box;
+    border: solid 2px $swatch-five;
+  }
 }
 
 .profile-image__dropzone {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height : 100%;
-  width: 100%;
-  border-radius: 50%;
-  background: $black;
+  -webkit-transition: all 0.3s ease-in-out;
+          transition: all 0.3s ease-in-out;
+}
+
+.profile-image__container--edit {
+
+  .profile-image__dropzone {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height : 100%;
+    width: 100%;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.7);
+  }
 }
 
 .profile-image__dropzone:hover {
@@ -46,7 +56,7 @@
 }
 
 .profile-image__dropzone--active {
-  border: solid 1px $dark-green;
+  border: solid 2px $dark-green;
 }
 
 .profile-image__upload {
