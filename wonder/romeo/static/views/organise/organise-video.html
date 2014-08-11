@@ -8,7 +8,7 @@
       <a class="organise-video__inline-link organise-video__inline-link--view" ng-href="#/video/{{video.id}}" title="Review"><i class="icon  icon--eye"></i></a>
     </li>
     <li class="organise-video__inline-control">
-      <a class="organise-video__inline-link organise-video__inline-link--stats"><i class="icon  icon--bar-graph" title="Stats"></i></a>
+      <a class="organise-video__inline-link is-disabled organise-video__inline-link--stats"><i class="icon  icon--bar-graph" title="Stats"></i></a>
     </li>
     <li class="organise-video__inline-control">
       <a class="organise-video__inline-link organise-video__inline-link--add-remove" ng-click="addRemove(video)" title="Add/Remove from collection"><i class="icon  icon--collection"></i></a>
@@ -30,7 +30,7 @@
     <ul class="nav  nav--block  video-thumb-list">
       <li class="video-thumb-list__item"><a class="video-thumb-list__link" ng-href="#/video/{{video.id}}/edit"><i class="icon  icon--edit"></i><span class="t--block  t--center">Edit</span></a></li>
       <li class="video-thumb-list__item"><a class="video-thumb-list__link" ng-href="#/video/{{video.id}}"><i class="icon  icon--eye"></i><span class="t--block  t--center">Review</span></a></li>
-      <li class="video-thumb-list__item"><a class="video-thumb-list__link"><i class="icon  icon--bar-graph"></i><span class="t--block  t--center">Stats</span></a></li>
+      <li class="video-thumb-list__item"><a class="video-thumb-list__link is-disabled"><i class="icon  icon--bar-graph"></i><span class="t--block  t--center">Stats</span></a></li>
       <li class="video-thumb-list__item"><a class="video-thumb-list__link" ng-click="addRemove(video)"><i class="icon  icon--collection"></i><span class="t--block  t--center">Add / Remove</span></a></li>
       <li class="video-thumb-list__item"><a class="video-thumb-list__link" ng-click="showDelete(video)"><i class="icon  icon--trash"></i><span class="t--block  t--center">Delete</span></a></l>
     </ul>

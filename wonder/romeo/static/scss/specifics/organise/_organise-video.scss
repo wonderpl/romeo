@@ -82,6 +82,11 @@
   color: $swatch-three;
   border: 0;
 
+  &.is-disabled {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+  }
+
   &:hover {
     color: $swatch-two;
   }

@@ -21,6 +21,13 @@
   }
 }
 
+
+.configurable-layout-column--is-comments .layout-block-primary--wide .video-view__title,
+.configurable-layout-column--is-comments .layout-block-primary--mirror .video-view__title{
+  font-size: 2em;
+  line-height: 1.5;
+}
+
 .configurable-layout-column--is-comments {
   .video-view__title {
     font-size: 18px;

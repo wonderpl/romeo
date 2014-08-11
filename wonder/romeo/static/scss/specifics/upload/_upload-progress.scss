@@ -1,7 +1,28 @@
 .upload-progress {
   display: inline-block;
-  padding: 1em;
+//  margin-right: $base-spacing-unit;
+  padding-right: 12px;
+  font-size: 20px;
+  // border: 0 solid #B7BCBD;
+  // border-right-width: 1px;
+  // border-left-width: 1px;
+  // background-color: #eceeee;
+  // -webkit-animation: background-pulse 2s infinite;
+          // animation: background-pulse 2s infinite;
+  @extend .nav-menu__link;
 }
+
+// @-webkit-keyframes background-pulse {
+  // 0%   { background-color: transparent; }
+  // 50%  { background-color: #eceeee; }
+  // 100% { background-color: transparent; }
+// }
+// @keyframes background-pulse {
+  // 0%   { background-color: transparent; }
+  // 50%  { background-color: #eceeee; }
+  // 100% { background-color: transparent; }
+// }
+
 
 .upload-progress__link {
   cursor: pointer;

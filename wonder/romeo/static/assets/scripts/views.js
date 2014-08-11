@@ -748,7 +748,11 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        <p><b>(~ notification.title ~)</b>:<br>\n" +
     "        (~ notification.message ~)</p>\n" +
     "      </div>\n" +
-    "      <div class=\"flag__img\"><a class=\"notice__dismiss\" ng-click=\"removeNotification(notification.id); notification.show = false; notification.hide = true\"><i class=\"icon  icon--cross\"></a></i></div>\n" +
+    "      <div class=\"flag__img\">\n" +
+    "        <!--<a class=\"notice__dismiss\" ng-click=\"removeNotification(notification.id); notification.show = false; notification.hide = true\">\n" +
+    "          <i class=\"icon  icon--cross\"></i>\n" +
+    "        </a>-->\n" +
+    "      </div>\n" +
     "    </div>\n" +
     "  </li>\n" +
     "</ul>"
@@ -912,7 +916,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <a class=\"organise-video__inline-link organise-video__inline-link--view\" ng-href=\"#/video/(~video.id~)\" title=\"Review\"><i class=\"icon  icon--eye\"></i></a>\n" +
     "    </li>\n" +
     "    <li class=\"organise-video__inline-control\">\n" +
-    "      <a class=\"organise-video__inline-link organise-video__inline-link--stats\"><i class=\"icon  icon--bar-graph\" title=\"Stats\"></i></a>\n" +
+    "      <a class=\"organise-video__inline-link is-disabled organise-video__inline-link--stats\"><i class=\"icon  icon--bar-graph\" title=\"Stats\"></i></a>\n" +
     "    </li>\n" +
     "    <li class=\"organise-video__inline-control\">\n" +
     "      <a class=\"organise-video__inline-link organise-video__inline-link--add-remove\" ng-click=\"addRemove(video)\" title=\"Add/Remove from collection\"><i class=\"icon  icon--collection\"></i></a>\n" +
@@ -934,7 +938,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <ul class=\"nav  nav--block  video-thumb-list\">\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-href=\"#/video/(~video.id~)/edit\"><i class=\"icon  icon--edit\"></i><span class=\"t--block  t--center\">Edit</span></a></li>\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-href=\"#/video/(~video.id~)\"><i class=\"icon  icon--eye\"></i><span class=\"t--block  t--center\">Review</span></a></li>\n" +
-    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\"><i class=\"icon  icon--bar-graph\"></i><span class=\"t--block  t--center\">Stats</span></a></li>\n" +
+    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link is-disabled\"><i class=\"icon  icon--bar-graph\"></i><span class=\"t--block  t--center\">Stats</span></a></li>\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-click=\"addRemove(video)\"><i class=\"icon  icon--collection\"></i><span class=\"t--block  t--center\">Add / Remove</span></a></li>\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-click=\"showDelete(video)\"><i class=\"icon  icon--trash\"></i><span class=\"t--block  t--center\">Delete</span></a></l>\n" +
     "    </ul>\n" +
@@ -999,8 +1003,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <a href=\"#/\" class=\"page-logo  page-logo--header\" ng-switch-default=\"\" analytics-on analytics-label=\"Page logo\">\n" +
     "      <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"page-logo__img\" alt=\"Wonder PL\">\n" +
     "    </a>\n" +
-    "    </ng-switch>\n" +
     "    <upload-progress upload=\"upload\" ng-if=\"isLoggedIn && upload\"></upload-progress>\n" +
+    "    </ng-switch>\n" +
     "    <ul class=\"nav  nav-menu\" ng-if=\"isLoggedIn\">\n" +
     "      <li class=\"nav-menu__item\"><a href=\"#/organise\" class=\"nav-menu__link\">Manage</a></li>\n" +
     "      <li class=\"nav-menu__item\"><a href=\"#/video\" class=\"nav-menu__link\">Upload</a></li>\n" +
@@ -1127,7 +1131,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('upload-progress.html',
     "<section class=\"upload-progress\">\n" +
     "  <span ng-show=\"upload && upload.progress && upload.progress > 0 && upload.progress < 100\">(~ upload.progress ~)%</span>\n" +
-    "  <span ng-hide=\"upload.href\">(~ upload.status ~)</span>\n" +
+    "  <span ng-hide=\"upload.href\">(~ upload.status ~)&hellip;</span>\n" +
     "  <a class=\"upload-progress__link\" ng-click=\"redirect(upload.href)\" ng-show=\"upload.href && !isDimissed\">(~ upload.status ~)</a>\n" +
     "</section>"
   );
@@ -1151,7 +1155,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <header class=\"video-collaborators__header\">\n" +
     "    <h4 class=\"video-collaborators__title  no-spacing\">collaborators</h4>\n" +
-    "    <a class=\"button button--primary button--small video-collaborators__notify  f--right\"\n" +
+    "    <a class=\"btn  btn--small  btn--positive  video-collaborators__notify  f--right\"\n" +
     "      ng-click=\"notify(videoId)\"\n" +
     "      ng-class=\"{ 'button--disabled' : notified || !collaborators || !comments.length }\">Notify All</a>\n" +
     "  </header>\n" +

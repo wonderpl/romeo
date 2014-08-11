@@ -41,11 +41,11 @@ function NotificationTrayDirective ($templateCache, $timeout) {
         var current = new Date().getTime();
         var l = notifications.length;
         while (l--) {
-          if (current - notifications[l].timestamp > 5000 && notifications[l].status !== 'error' && notifications[l].active) {
+          if (current - notifications[l].timestamp > 2500 && notifications[l].active) {
             notifications[l].hide = true;
             notifications[l].show = false;
           }
-          if (current - notifications[l].timestamp > 6000 && notifications[l].hide) {
+          if (current - notifications[l].timestamp > 3000 && notifications[l].hide) {
             notifications[l].active = false;
             $scope.notifications.splice(l, 1);
           }
