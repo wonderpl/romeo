@@ -1606,7 +1606,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <p>Drag &amp; drop your video here</p>\n" +
     "    <img src=\"/static/assets/img/add-video.png\" />\n" +
     "    <p>or choose a video from your desktop</p>\n" +
-    "    <input type=\"file\" ng-file-select=\"onFileSelect($files)\" />\n" +
+    "    <input type=\"file\" ng-file-select=\"onFileSelect($files)\" class=\"video-upload__input\" />\n" +
     "  </div>\n" +
     "\n" +
     "  <div ng-file-drop-available=\"dropSupported=true\" ng-show=\"!dropSupported\">HTML5 Drop File is not supported!</div>\n" +

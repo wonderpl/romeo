@@ -4665,6 +4665,21 @@ label,
   vertical-align: middle;
   display: table-cell;
 }
+/* line 16, ../../scss/specifics/video/_video-upload.scss */
+.video-upload__dropzone p {
+  font-size: 26px;
+  line-height: 32px;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* line 23, ../../scss/specifics/video/_video-upload.scss */
+.video-upload__input {
+  margin-right: auto;
+  margin-left: auto;
+  font-size: 16px;
+  color: #2e2e32;
+  text-align: center;
+}
 
 /* line 1, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview {
