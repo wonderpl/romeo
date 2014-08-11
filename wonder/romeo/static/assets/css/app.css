@@ -2999,7 +2999,7 @@ select {
 
 /* line 22, ../../scss/_theme/_theme.video-thumb.scss */
 .video-thumb-link__title {
-  max-height: 42px;
+  height: 42px;
   line-height: 21px;
   margin-bottom: 12px;
 }
