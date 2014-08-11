@@ -56,6 +56,21 @@
   }
 }
 
+/**
+ * light buttons
+ */
+.btn--light {
+  color: $swatch-one;
+  border-color: rgba($swatch-one,0.6);
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $swatch-one;
+    border-color: $swatch-one;
+  }
+}
+
 
 .btn--utility {
   padding: 8px 16px;

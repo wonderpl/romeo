@@ -23,7 +23,7 @@
   </section>
 
   <section class="video-thumbnail__selector" ng-show="showThumbnailSelector">
-    <a class="video-preview__close-link" ng-click="closePreviewSelector()">×</a>
+    <a class="btn  btn--small  btn--blob  btn--light  video-preview__close-link" ng-click="closePreviewSelector()">×</a>
     <section class="video-preview__images-container">
       <ul class="video-preview__available-images js-preview-images" style="width: {{ previewImages.length * 500 }}px" ng-style="indexOffset">
         <li class="video-preview__available-image-container {{ $index }}"
@@ -37,13 +37,12 @@
       </ul>
     </section>
 
-    <section class="video-thumbnail__select-controls">
-      <a class="video-preview__select-control video-preview__previous-image-link inline-space-fix" ng-click="previewIndex = previewIndex - 1">&lt;</a>
-      <span class="video-preview__select-control video-preview__preview-index inline-space-fix">{{ previewIndex + 1 }}/{{ previewImages.length }}</span>
-      <a class="video-preview__select-control video-preview__next-image-link inline-space-fix" ng-click="previewIndex = previewIndex + 1">&gt;</a>
-
-      <a class="video-thumbnail__select-link button button--primary button--wide" ng-click="setBackground()">Ok</a>
+    <section class="btn-center btn-group" style="margin-bottom: 24px;">
+      <a class="btn btn--small btn--light" ng-click="previewIndex = previewIndex - 1">&lt;</a>
+      <span class="btn btn--small btn--light">{{ previewIndex + 1 }}/{{ previewImages.length }}</span>
+      <a class="btn btn--small btn--light" ng-click="previewIndex = previewIndex + 1">&gt;</a>
     </section>
+    <a class="btn btn--small btn--light" ng-click="setBackground()">Ok</a>
 
   </section>
 

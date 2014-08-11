@@ -1571,7 +1571,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  </section>\n" +
     "\n" +
     "  <section class=\"video-thumbnail__selector\" ng-show=\"showThumbnailSelector\">\n" +
-    "    <a class=\"video-preview__close-link\" ng-click=\"closePreviewSelector()\">×</a>\n" +
+    "    <a class=\"btn  btn--small  btn--blob  btn--light  video-preview__close-link\" ng-click=\"closePreviewSelector()\">×</a>\n" +
     "    <section class=\"video-preview__images-container\">\n" +
     "      <ul class=\"video-preview__available-images js-preview-images\" style=\"width: (~ previewImages.length * 500 ~)px\" ng-style=\"indexOffset\">\n" +
     "        <li class=\"video-preview__available-image-container (~ $index ~)\"\n" +
@@ -1585,13 +1585,12 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      </ul>\n" +
     "    </section>\n" +
     "\n" +
-    "    <section class=\"video-thumbnail__select-controls\">\n" +
-    "      <a class=\"video-preview__select-control video-preview__previous-image-link inline-space-fix\" ng-click=\"previewIndex = previewIndex - 1\">&lt;</a>\n" +
-    "      <span class=\"video-preview__select-control video-preview__preview-index inline-space-fix\">(~ previewIndex + 1 ~)/(~ previewImages.length ~)</span>\n" +
-    "      <a class=\"video-preview__select-control video-preview__next-image-link inline-space-fix\" ng-click=\"previewIndex = previewIndex + 1\">&gt;</a>\n" +
-    "\n" +
-    "      <a class=\"video-thumbnail__select-link button button--primary button--wide\" ng-click=\"setBackground()\">Ok</a>\n" +
+    "    <section class=\"btn-center btn-group\" style=\"margin-bottom: 24px;\">\n" +
+    "      <a class=\"btn btn--small btn--light\" ng-click=\"previewIndex = previewIndex - 1\">&lt;</a>\n" +
+    "      <span class=\"btn btn--small btn--light\">(~ previewIndex + 1 ~)/(~ previewImages.length ~)</span>\n" +
+    "      <a class=\"btn btn--small btn--light\" ng-click=\"previewIndex = previewIndex + 1\">&gt;</a>\n" +
     "    </section>\n" +
+    "    <a class=\"btn btn--small btn--light\" ng-click=\"setBackground()\">Ok</a>\n" +
     "\n" +
     "  </section>\n" +
     "\n" +

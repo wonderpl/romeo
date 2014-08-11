@@ -2193,7 +2193,7 @@ select {
 /**
  * Circular buttons.
  *
- * 1. Use a full-value percentage number to ensure all rounded corners are 
+ * 1. Use a full-value percentage number to ensure all rounded corners are
  *    equal which will result in a circle if all sides are equal.
  */
 /* line 91, ../../scss/_objects/_objects.button.scss */
@@ -3205,7 +3205,21 @@ label,
   border-color: #F04223;
 }
 
-/* line 60, ../../scss/_theme/_theme.button.scss */
+/**
+ * light buttons
+ */
+/* line 62, ../../scss/_theme/_theme.button.scss */
+.btn--light {
+  color: white;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+/* line 68, ../../scss/_theme/_theme.button.scss */
+.btn--light:hover, .btn--light:active, .btn--light:focus {
+  color: white;
+  border-color: white;
+}
+
+/* line 75, ../../scss/_theme/_theme.button.scss */
 .btn--utility {
   padding: 8px 16px;
   font-variant: small-caps;
@@ -3218,21 +3232,21 @@ label,
   -webkit-transition: background-color 0.3s ease-in-out;
   transition: background-color 0.3s ease-in-out;
 }
-/* line 74, ../../scss/_theme/_theme.button.scss */
+/* line 89, ../../scss/_theme/_theme.button.scss */
 .btn--utility:hover, .btn--utility:active, .btn--utility:focus {
   background-color: #dfe1e2;
 }
-/* line 78, ../../scss/_theme/_theme.button.scss */
+/* line 93, ../../scss/_theme/_theme.button.scss */
 .btn--utility > .icon {
   color: #2e2e32;
 }
 
-/* line 82, ../../scss/_theme/_theme.button.scss */
+/* line 97, ../../scss/_theme/_theme.button.scss */
 .btn--utility--active,
 .btn--utility--fill {
   background-color: #51b364;
 }
-/* line 87, ../../scss/_theme/_theme.button.scss */
+/* line 102, ../../scss/_theme/_theme.button.scss */
 .btn--utility--active, .btn--utility--active:hover, .btn--utility--active > .icon,
 .btn--utility--fill,
 .btn--utility--fill:hover,
@@ -3240,7 +3254,7 @@ label,
   color: white;
 }
 
-/* line 96, ../../scss/_theme/_theme.button.scss */
+/* line 111, ../../scss/_theme/_theme.button.scss */
 .btn--disabled, .btn--disabled:hover, .btn--disabled:active, .btn--disabled:focus {
   opacity: 0.3;
   border: 1px solid rgba(112, 121, 123, 0.8);
@@ -4858,28 +4872,17 @@ label,
 
 /* line 142, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__close-link {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  border: solid 1px #b7bcbd;
-  border-radius: 20px;
-  line-height: 1em;
-  text-align: center;
-  width: 1em;
-  height: 1em;
-  display: block;
-  color: #b7bcbd;
-  font-size: 2em;
-  transition: border-color 0.3s ease-in-out;
+  margin: 12px 12px 0 0;
+  float: right;
 }
 
-/* line 158, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 147, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__close-link:hover {
   cursor: pointer;
   border-color: #70797b;
 }
 
-/* line 163, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 152, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__available-images {
   /* transition is buggy after resizing container to hold images */
   text-align: left;
@@ -4887,7 +4890,7 @@ label,
   margin-left: 253px;
 }
 
-/* line 171, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 160, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__images-container {
   width: 960px;
   overflow: hidden;
@@ -4898,14 +4901,14 @@ label,
   background: rgba(0, 0, 0, 0.4);
 }
 
-/* line 181, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 170, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__available-image-container {
   display: inline-block;
   margin-right: 10px;
   background: black;
 }
 
-/* line 191, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 180, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__available-image {
   height: 250px;
   opacity: 0.4;
@@ -4913,7 +4916,7 @@ label,
   cursor: pointer;
 }
 
-/* line 198, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 187, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__available-image--active {
   opacity: 1;
 }
