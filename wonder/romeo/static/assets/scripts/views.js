@@ -975,10 +975,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">LinkedIn</a></li>\n" +
     "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">Instagram</a></li>\n" +
     "    \n" +
-    "      <li class=\"footer-nav__item\"><a class=\"footer-nav__link\" ng-click=\"testNotify('success')\">SUCCESS</a></li>\n" +
+    "      <!--<li class=\"footer-nav__item\"><a class=\"footer-nav__link\" ng-click=\"testNotify('success')\">SUCCESS</a></li>\n" +
     "      <li class=\"footer-nav__item\"><a class=\"footer-nav__link\" ng-click=\"testNotify('warning')\">WARNING</a></li>\n" +
     "      <li class=\"footer-nav__item\"><a class=\"footer-nav__link\" ng-click=\"testNotify('error')\">ERROR</a></li>\n" +
-    "      <li class=\"footer-nav__item\"><a class=\"footer-nav__link\" ng-click=\"testNotify('info')\">INFO</a></li>\n" +
+    "      <li class=\"footer-nav__item\"><a class=\"footer-nav__link\" ng-click=\"testNotify('info')\">INFO</a></li>-->\n" +
     "    \n" +
     "      <li class=\"footer-nav__item  f--right\">&copy; 2014 Wonder PL, Ltd.</li>\n" +
     "    </ul>\n" +
@@ -1325,11 +1325,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    ng-class=\"{ 'video-extended-controls__section--expanded' : addCollectionShow }\">\n" +
     "    <i class=\"icon  icon--medium  icon--plus  section-drawer__icon\" ng-click=\"addCollectionShow = !addCollectionShow\" ng-hide=\"addCollectionShow\"></i>\n" +
     "    <i class=\"icon  icon--medium  icon--minus  section-drawer__icon\" ng-click=\"addCollectionShow = !addCollectionShow\" ng-show=\"addCollectionShow\"></i>\n" +
-    "    <collection-add-video available-tags=\"tags\"\n" +
-    "      video=\"video\"\n" +
-    "      show-collection=\"addCollectionShow\"\n" +
-    "      class=\"video-extended-controls__section-contents\">\n" +
-    "    </collection-add-video>\n" +
+    "    <div>\n" +
+    "      <collection-add-video available-tags=\"tags\"\n" +
+    "        video=\"video\"\n" +
+    "        show-collection=\"addCollectionShow\"\n" +
+    "        class=\"video-extended-controls__section-contents\">\n" +
+    "      </collection-add-video>\n" +
+    "    </div>\n" +
     "    <span class=\"btn  btn--small  btn--positive\" ng-click=\"save(); addCollectionShow = !addCollectionShow\">Done</span>\n" +
     "  </section>\n" +
     "\n" +
