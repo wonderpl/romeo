@@ -36,7 +36,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
     $scope.showUpload = true;
     $scope.hasProcessed = false;
     $scope.videoHasLoaded = false;
-    $scope.embedUrl = '';
+    $scope.embedUrl = '/embed/88888888/?controls=1';
     $scope.currentTime = 0;
     $scope.notified = false;
     $scope.isOwner = false;
