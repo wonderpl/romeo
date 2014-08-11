@@ -2791,6 +2791,7 @@ select {
 /* line 13, ../../scss/_theme/_theme.notices.scss */
 .notice-tray > .notice {
   max-width: 50%;
+  margin-top: 12px;
   margin-right: auto;
   margin-left: auto;
   position: absolute;
@@ -2798,24 +2799,19 @@ select {
   visibility: hidden;
   pointer-events: auto;
 }
-/* line 22, ../../scss/_theme/_theme.notices.scss */
-.notice-tray > .notice:first-child {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-/* line 28, ../../scss/_theme/_theme.notices.scss */
+/* line 24, ../../scss/_theme/_theme.notices.scss */
 .notice-tray > .notice--active {
   position: static;
   visibility: visible;
 }
-/* line 32, ../../scss/_theme/_theme.notices.scss */
+/* line 28, ../../scss/_theme/_theme.notices.scss */
 .notice-tray > .notice--hide {
   position: absolute;
   left: -9999px;
   visibility: hidden;
 }
 
-/* line 39, ../../scss/_theme/_theme.notices.scss */
+/* line 35, ../../scss/_theme/_theme.notices.scss */
 .notice {
   margin-bottom: 24px;
   padding: 12px 24px;
@@ -2824,16 +2820,16 @@ select {
   border-radius: 3px;
   border: 1px solid transparent;
 }
-/* line 47, ../../scss/_theme/_theme.notices.scss */
+/* line 43, ../../scss/_theme/_theme.notices.scss */
 .notice p > b {
   color: #2e2e32;
 }
-/* line 51, ../../scss/_theme/_theme.notices.scss */
+/* line 47, ../../scss/_theme/_theme.notices.scss */
 .notice > :last-child {
   margin-bottom: 0;
 }
 
-/* line 55, ../../scss/_theme/_theme.notices.scss */
+/* line 51, ../../scss/_theme/_theme.notices.scss */
 .notice__dismiss {
   cursor: pointer;
   font-weight: bold;
@@ -2841,7 +2837,7 @@ select {
   border-bottom: 0;
 }
 
-/* line 62, ../../scss/_theme/_theme.notices.scss */
+/* line 58, ../../scss/_theme/_theme.notices.scss */
 .notice--full-page {
   width: 100%;
   height: 100%;
@@ -2855,25 +2851,25 @@ select {
   border: none !important;
 }
 
-/* line 75, ../../scss/_theme/_theme.notices.scss */
+/* line 71, ../../scss/_theme/_theme.notices.scss */
 .notice--success {
   background-color: #f9fcf4;
   border-color: #9DCA5A;
 }
 
-/* line 76, ../../scss/_theme/_theme.notices.scss */
+/* line 72, ../../scss/_theme/_theme.notices.scss */
 .notice--error {
   background-color: #fbeeed;
   border-color: #D74E45;
 }
 
-/* line 77, ../../scss/_theme/_theme.notices.scss */
+/* line 73, ../../scss/_theme/_theme.notices.scss */
 .notice--warning {
   background-color: #fdf3eb;
   border-color: #F09F5F;
 }
 
-/* line 78, ../../scss/_theme/_theme.notices.scss */
+/* line 74, ../../scss/_theme/_theme.notices.scss */
 .notice--info {
   background-color: #f4fafb;
   border-color: #5BB3C8;
