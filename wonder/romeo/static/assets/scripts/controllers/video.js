@@ -202,7 +202,11 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
         angular.extend($scope.video, data);
         var url = '/video/' + data.id;
         $location.path(url, true);
-        $scope.displaySection();
+        if ($scope.video.status === 'processing' || $scope.video.status === 'uploading') {
+          $scope.displaySection('edit');
+        } else {
+          $scope.displaySection();
+        }
         $scope.$broadcast('video-saved', $scope.video);
         $scope.$emit('notify', {
           status : 'success',
@@ -457,6 +461,11 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
       getPlayerParameters($scope.video.id);
       verifyUser($scope.video.id);
       assignCollaboratorPermissions();
+      if ($scope.video.status === 'processing' || $scope.video.status === 'uploading') {
+        $scope.displaySection('edit');
+        $scope.showPreviewSelector = true;
+        $scope.showUpload = false;
+      }
     });
   }
 
