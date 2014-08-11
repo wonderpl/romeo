@@ -3756,13 +3756,16 @@ label,
   display: block;
 }
 
-/* line 64, ../../scss/components/_sub-navigation.scss */
-.sub-navigation__link--active {
+/* line 69, ../../scss/components/_sub-navigation.scss */
+.sub-navigation__link--active, .sub-navigation__link--active:hover, .sub-navigation__link--active:active, .sub-navigation__link--active:focus {
   background-color: #51b364;
 }
-/* line 68, ../../scss/components/_sub-navigation.scss */
+/* line 73, ../../scss/components/_sub-navigation.scss */
 .sub-navigation__link--active,
-.sub-navigation__link--active > .icon {
+.sub-navigation__link--active > .icon, .sub-navigation__link--active:hover,
+.sub-navigation__link--active:hover > .icon, .sub-navigation__link--active:active,
+.sub-navigation__link--active:active > .icon, .sub-navigation__link--active:focus,
+.sub-navigation__link--active:focus > .icon {
   color: white;
 }
 
@@ -4164,7 +4167,7 @@ label,
 .video-feedback__form {
   text-align: right;
   transition: max-height 0.4s linear;
-  max-height: 6em;
+  max-height: 120px;
   overflow: hidden;
   border-bottom: solid 1px #b7bcbd;
 }

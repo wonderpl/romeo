@@ -23,7 +23,7 @@
 .video-feedback__form {
   text-align: right;
   transition: max-height 0.4s linear;
-  max-height: 6em;
+  max-height: $base-spacing-unit * 5;
   overflow: hidden;
   border-bottom: solid 1px $light-grey;
 }
