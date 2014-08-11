@@ -24,11 +24,12 @@
       ng-show="isEdit"
       medium-editor
       data-placeholder="{{ profile.description ? ' ' : 'description' }}"
-      options="{ buttons : ['bold', 'italic', 'header1', 'header2', 'unorderedlist', 'quote'], firstHeader : 'h2', secondHeader : 'h3' }"
+      options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
       ng-model="profile.description">
     </div>
 
     <div class="profile__description" ng-hide="isEdit" ng-bind-html="profile.description"></div>
+    <span class="error" ng-show="isEdit && errorDescritionToLong">Your description is to long, please make it shorter</span>
   </div>
 
 </section>

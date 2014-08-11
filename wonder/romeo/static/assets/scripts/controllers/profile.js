@@ -16,6 +16,7 @@ angular.module('RomeoApp.controllers')
   $scope.isEdit = false;
   $scope.uploadingProfileImage = false;
   $scope.uploadingProfileCover = false;
+  $scope.errorDescritionToLong = false;
 
   function loadUserDetails () {
     AccountService.getUser().then(function (data) {
@@ -32,6 +33,12 @@ angular.module('RomeoApp.controllers')
   $scope.$on('upload-profile-image', uploadProfileImage);
 
   $scope.$on('upload-profile-cover', uploadProfileCover);
+
+  $scope.$watch('profile.description', function(newValue, oldValue) {
+    if (newValue !== oldValue) {
+      $scope.errorDescritionToLong = (newValue.length > 100);
+    }
+  });
 
   function uploadProfileImage ($event, file) {
     console.log('uploadProfileImage()');
