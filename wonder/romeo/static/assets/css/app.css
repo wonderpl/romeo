@@ -3283,7 +3283,7 @@ label,
 
 /* line 47, ../../scss/_theme/_theme.modal.scss */
 .modal__link {
-  display: block;
+  display: inline-block;
   color: #70797b;
   text-decoration: none;
   border: none;
@@ -5176,9 +5176,33 @@ label,
   display: inline-block;
 }
 
-/* line 108, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 110, ../../scss/specifics/video/_video-edit-collections.scss */
+.modal__title .video-edit-collections__assigned-tags {
+  margin: 0;
+  float: left;
+  text-align: left;
+  font-size: 14px;
+  font-weight: bold;
+  vertical-align: middle;
+  display: inline-block;
+  padding-top: 8px;
+  margin-left: 12px;
+}
+
+/* line 123, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__assigned-tag {
   display: inline-block;
+}
+/* line 126, ../../scss/specifics/video/_video-edit-collections.scss */
+.video-edit-collections__assigned-tag + .video-edit-collections__assigned-tag {
+  margin-left: 12px;
+}
+
+/* line 130, ../../scss/specifics/video/_video-edit-collections.scss */
+.video-edit-collections__remove-tag {
+  cursor: pointer;
+  padding-right: 6px;
+  padding-left: 6px;
 }
 
 /* line 1, ../../scss/specifics/video/_video-new-collection.scss */
