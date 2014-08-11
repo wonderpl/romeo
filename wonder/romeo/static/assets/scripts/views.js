@@ -479,7 +479,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "                  <li><p class=\"muted\">reverse engineer, decompile or disassemble Software or any portion of it.</p></li>\n" +
     "                </ol>\n" +
     "              </li>\n" +
-    "              <li>\n" +
+    "              <li class=\"text-col\">\n" +
     "                <span class=\"login-view__errors\" ng-bind=\"errors\"></span>\n" +
     "                <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading\" />\n" +
     "                <div class=\"btn-center\">\n" +
