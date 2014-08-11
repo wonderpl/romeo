@@ -42,3 +42,42 @@ label,
   display: inline-block;
   font: inherit;
 }
+
+.login-view__form {
+
+  > li {
+    margin-bottom: 0;
+  }
+}
+
+
+.login-view__input {
+  margin: 0;
+  padding: $half-spacing-unit 0;
+  border: 0;
+
+  & + & {
+    border-top: 1px solid $swatch-two;
+  }
+
+  input {
+    width: 93.85964912280701;
+    width: calc(100% - 28px);
+    margin: 0;
+    padding: 0;
+    font-size: 0.875em;
+    color: $swatch-three;
+    border: 0;
+    appearance: none;
+
+    &:hover,
+    &:active,
+    &:focus {
+      outline: none;
+    }
+
+    &:active {
+      cursor: text;
+    }
+  }
+}

@@ -2,16 +2,30 @@
  * _base.forms.scss
  */
 fieldset{
+  margin: 0;
+  padding: 0;
   border: none;
 }
 
 legend {
-  padding:0;
+  margin: 0;
+  padding: 0;
 }
 
 input,
 textarea,
 select {
   font-size: 1em;
-  font-family: $base-font-family;
+  font-family: $heading-font-family;
+}
+
+.check-list {
+  list-style: none;
+  margin: 0;
+}
+
+.check-label,
+.check-list label,
+.check-list .label {
+  display: inline-block;
 }
