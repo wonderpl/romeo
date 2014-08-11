@@ -31,7 +31,7 @@ angular.module('RomeoApp.controllers')
 
     TagService.getTags().then(function(data){
       $scope.tags = data.tag.items;
-      var id = $routeParams.id
+      var id = $routeParams.id;
       if (id) {
         if (id === 'recent') {
           $scope.customFilterFunction = 'isRecent';
@@ -43,16 +43,19 @@ angular.module('RomeoApp.controllers')
     });
 
     $scope.$on('show-collection', function ($event, id) {
+      $event.stopPropagation = true;
       $scope.customFilterFunction = '';
       redirect(id);
       loadTag(id);
     });
 
     $scope.$on('show-recent', function ($event) {
+      $event.stopPropagation = true;
       redirect('recent', true);
     });
 
     $scope.$on('save-tag', function ($event) {
+      $event.stopPropagation = true;
       if ($scope.tag) {
         TagService.updateTag($scope.tag).then(function () {
           $scope.$emit('notify', {
@@ -65,6 +68,7 @@ angular.module('RomeoApp.controllers')
     });
 
     $scope.$on('delete-tag', function ($event) {
+      $event.stopPropagation = true;
       if ($scope.tag) {
         TagService.deleteTag($scope.tag.id).then(function () {
           redirect('/organise', true);
@@ -78,6 +82,7 @@ angular.module('RomeoApp.controllers')
     });
 
     $scope.$on('add-remove-video', function ($event, video) {
+      $event.stopPropagation = true;
       $scope.availableTags = $scope.tags;
       $scope.video = video;
       $scope.isModal = true;
@@ -85,12 +90,14 @@ angular.module('RomeoApp.controllers')
     });
 
     $scope.$on('show-create-collection', function ($event, isPublic) {
+      $event.stopPropagation = true;
       $scope.collection = {};
       $scope.collection.scope = isPublic ? 'public' : 'private';
       $modal.load('modal-create-new-collection.html', true, $scope, {});
     });
 
     $scope.$on('delete-video', function ($event, video) {
+      $event.stopPropagation = true;
       if (video) {
         console.log(video);
         VideoService.delete(video.id).then(function () {
