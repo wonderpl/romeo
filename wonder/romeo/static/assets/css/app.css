@@ -2822,16 +2822,26 @@ select {
   font-size: 0.875em;
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
   border-radius: 3px;
-  border-style: solid;
-  border-width: 6px;
-  background: white;
+  border: 1px solid transparent;
 }
-/* line 50, ../../scss/_theme/_theme.notices.scss */
+/* line 47, ../../scss/_theme/_theme.notices.scss */
+.notice p > b {
+  color: #2e2e32;
+}
+/* line 51, ../../scss/_theme/_theme.notices.scss */
 .notice > :last-child {
   margin-bottom: 0;
 }
 
-/* line 54, ../../scss/_theme/_theme.notices.scss */
+/* line 55, ../../scss/_theme/_theme.notices.scss */
+.notice__dismiss {
+  cursor: pointer;
+  font-weight: bold;
+  color: #2e2e32;
+  border-bottom: 0;
+}
+
+/* line 62, ../../scss/_theme/_theme.notices.scss */
 .notice--full-page {
   width: 100%;
   height: 100%;
@@ -2842,25 +2852,30 @@ select {
   left: 0;
   z-index: 5002;
   border-radius: none !important;
+  border: none !important;
 }
 
-/* line 66, ../../scss/_theme/_theme.notices.scss */
+/* line 75, ../../scss/_theme/_theme.notices.scss */
 .notice--success {
+  background-color: #f9fcf4;
   border-color: #9DCA5A;
 }
 
-/* line 67, ../../scss/_theme/_theme.notices.scss */
+/* line 76, ../../scss/_theme/_theme.notices.scss */
 .notice--error {
+  background-color: #fbeeed;
   border-color: #D74E45;
 }
 
-/* line 68, ../../scss/_theme/_theme.notices.scss */
+/* line 77, ../../scss/_theme/_theme.notices.scss */
 .notice--warning {
+  background-color: #fdf3eb;
   border-color: #F09F5F;
 }
 
-/* line 69, ../../scss/_theme/_theme.notices.scss */
+/* line 78, ../../scss/_theme/_theme.notices.scss */
 .notice--info {
+  background-color: #f4fafb;
   border-color: #5BB3C8;
 }
 
