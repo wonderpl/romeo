@@ -33,14 +33,12 @@ angular.module('RomeoApp.controllers')
       $scope.tags = data.tag.items;
       var id = $routeParams.id
       if (id) {
-        console.log(id);
         if (id === 'recent') {
           $scope.customFilterFunction = 'isRecent';
           loadTag();
         } else {
           loadTag(id);
         }
-
       }
     });
 
@@ -69,7 +67,7 @@ angular.module('RomeoApp.controllers')
     $scope.$on('delete-tag', function ($event) {
       if ($scope.tag) {
         TagService.deleteTag($scope.tag.id).then(function () {
-          refresh();
+          redirect('/organise', true);
           $scope.$emit('notify', {
             status : 'success',
             title : 'Collection deleted',
@@ -127,7 +125,8 @@ angular.module('RomeoApp.controllers')
           }
           $scope.close();
           loadTag(tag.id);
-          redirect('/organise', true);
+          refresh();
+          // redirect('/organise', true);
           $scope.$emit('notify', {
             status : 'success',
             title : 'New Collection Created',
