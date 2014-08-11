@@ -2,6 +2,7 @@
  * _theme.page-breadcrumbs.scss
  */
 .page-breadcrumbs {
+  padding-top: $half-spacing-unit;
 
   > li::before {
     content: "";
