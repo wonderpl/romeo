@@ -30,7 +30,14 @@ function OrganiseVideo ($templateCache, $modal) {
       function getThumbnail() {
         var thumbs = $scope.video.thumbnails.items;
         var thumbnail = ($scope.video.status == 'published' || $scope.video.status == 'ready') ? 'http://placehold.it/218x122' : '/static/assets/img/default-video-thumbnail.png';
-        if (thumbs.length > 0 && thumbs[0].width !== 0) {
+
+        if ($scope.video.status == 'uploading') {
+          thumbnail = '/static/assets/img/video-list-states/uploading.png';
+        } else if ($scope.video.status == 'processing') {
+          thumbnail = '/static/assets/img/video-list-states/processing.png';
+        } else if ($scope.video.status == 'error') {
+          thumbnail = '/static/assets/img/video-list-states/error.png';
+        } else if (thumbs.length > 0 && thumbs[0].width !== 0) {
           thumbnail = thumbs[0].url;
         }
 
