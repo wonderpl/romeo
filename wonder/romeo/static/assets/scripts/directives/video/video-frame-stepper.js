@@ -29,8 +29,12 @@ angular.module('RomeoApp.directives')
       };
 
       $scope.step = function (modifier) {
+        modifier = modifier || 0;
         var time = $scope.currentTime || 0;
-        $scope.$emit('video-seek', time + modifier);
+        var timestamp = time + modifier;
+        if (timestamp > 0) {
+          $scope.$emit('video-seek', timestamp);
+        }
       };
     }
   };

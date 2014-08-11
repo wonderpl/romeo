@@ -37,7 +37,7 @@ angular.module('RomeoApp.directives')
       var stickyClass = 'sub-navigation--sticky';
 
       $(window).scroll(function(e) {
-        if (e.currentTarget.scrollY > 43) {
+        if (e.currentTarget.scrollY > 45) {
           elem.addClass(stickyClass);
         } else {
           elem.removeClass(stickyClass);

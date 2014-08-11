@@ -266,6 +266,8 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
   function videoOnSeek (event, seconds) {
     if ($scope.player) {
       var state = $scope.player.getState();
+      console.log('state: ', state);
+      console.log('seconds: ', seconds);
       $scope.player.seek(seconds);
     }
   }
@@ -322,7 +324,6 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
       $scope.$apply();
     });
     bus.subscribe(OO.EVENTS.SEEKED, 'WonderUIModule', function (seconds) {
-      $scope.videoCurrentTime = seconds;
       $scope.player.pause();
     });
     bus.subscribe(OO.EVENTS.PAUSED, 'WonderUIModule', function () {

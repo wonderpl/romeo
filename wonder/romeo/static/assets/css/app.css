@@ -4414,21 +4414,23 @@ label,
 /* line 10, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-indicators {
   position: relative;
+  margin: 0;
 }
 
-/* line 14, ../../scss/specifics/video/_video-indicators.scss */
+/* line 15, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-indicator {
   position: absolute;
   top: 0;
   z-index: 2;
+  list-style: outside none;
 }
 
-/* line 20, ../../scss/specifics/video/_video-indicators.scss */
+/* line 22, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-indicator--resolved {
   z-index: 1;
 }
 
-/* line 24, ../../scss/specifics/video/_video-indicators.scss */
+/* line 26, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-link {
   display: block;
   height: 12px;
@@ -4438,23 +4440,23 @@ label,
   border: solid 1px transparent;
 }
 
-/* line 33, ../../scss/specifics/video/_video-indicators.scss */
+/* line 35, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-link--active {
-  border: solid 1px red;
+  background-color: red;
 }
 
-/* line 37, ../../scss/specifics/video/_video-indicators.scss */
+/* line 39, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-link--resolved {
   background-color: #999999;
   border: solid 1px transparent;
 }
 
-/* line 42, ../../scss/specifics/video/_video-indicators.scss */
+/* line 44, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__comment-link:hover {
   cursor: pointer;
 }
 
-/* line 46, ../../scss/specifics/video/_video-indicators.scss */
+/* line 48, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__scrubber {
   transition: left 0.4s linear;
   position: absolute;
@@ -4466,7 +4468,7 @@ label,
   background-color: red;
 }
 
-/* line 57, ../../scss/specifics/video/_video-indicators.scss */
+/* line 59, ../../scss/specifics/video/_video-indicators.scss */
 .video-indicators__scrubber:before {
   content: '';
   display: block;
