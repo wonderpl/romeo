@@ -2,7 +2,7 @@
 <div ng-controller="VideoCtrl" class="cf">
 
   <div class="video-view__nav-placeholder" ng-hide="$root.isCollaborator">
-    <video-navigation is-edit="isEdit" is-review="isReview" is-owner="isOwner" is-comments="isComments" video-id="video.id"></video-navigation>
+    <video-navigation is-edit="isEdit" is-review="isReview" is-owner="isOwner" is-comments="isComments" video-id="video.id" video-status="video.status"></video-navigation>
   </div>
 
   <ul class="configurable-layout configurable-layout-{{ isComments ? $root.layoutMode : 'column' }}" ng-class="{ 'configurable-layout-column--is-comments' : isComments }">
@@ -11,7 +11,7 @@
       <section class="cf video-view__comments" ng-show="showComments()">
         <video-collaborators notified="notified" comments="comments" ng-show="video.id && isComments && $root.layoutMode === 'column'" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>
         <video-comments notified="notified" is-owner="isOwner" comments="comments" video-id="{{ video.id }}" current-time="videoCurrentTime"></video-comments>
-      </section> 
+      </section>
     </li>
 
     <li class="layout-block  layout-block--group">
@@ -19,9 +19,9 @@
       <div class="layout-block layout-block__primary layout-block-primary--{{ isComments ? $root.layoutMode : 'column' }}" ng-class="{ 'layout-block--narrow' : isComments }">
 
         <section class="main-view video-view">
-  
+
           <profile-video-hero ng-show="isCollaborator" account="video.account"></profile-video-hero>
-  
+
           <h2 class="video-view__title"
             data-placeholder="{{ titlePlaceholder }}"
             medium-editor
@@ -36,10 +36,10 @@
             ng-model="video.strapline"
             ng-show="isEdit">
           </h3>
-  
+
           <h2 class="video-view__title" ng-hide="isEdit" ng-bind-html="video.title" ng-class="{ 'video-view__title--small' : isComments }"></h2>
           <h3 class="video-view__sub-title" ng-hide="isEdit||isComments" ng-bind-html="video.strapline"></h3>
-  
+
           <div class="video-view__container" ng-class="{'video-view__container--fixed': isEdit}">
             <video-upload ng-show="showUpload && isEdit" ng-cloak></video-upload>
             <video-player ng-show="hasProcessed" embed-url="embedUrl"></video-player>
@@ -47,14 +47,14 @@
             <video-color-picker player-parameters="playerParameters" video-id="{{ video.id }}" ng-show="showColorPicker && isEdit"></video-color-picker>
             <video-thumbnail ng-show="showPreviewSelector && isEdit"></video-thumbnail>
           </div>
-  
+
           <video-more-link
             text="video.link_title"
             url="video.link_url"
             is-edit="{{ isEdit }}"
             ng-show="(isEdit || video.link_title && video.link_url) && !isComments">
           </video-more-link>
-  
+
           <section class="video-view__description video-medium"
             ng-class="{ 'video-view__description--edit' : isEdit }"
             data-placeholder="{{ descriptionPlaceholder }}"
@@ -63,43 +63,43 @@
             ng-model="video.description"
             ng-show="isEdit">
           </section>
-  
+
           <section
             class="video-view__description video-medium"
             ng-bind-html="video.description"
             ng-hide="isComments || isEdit">
           </section>
-  
+
           <video-share
             video="video"
             has-tags="{{ video.tags && video.tags.items && video.tags.items.length > 0 }}"
             ng-hide="isComments"
             video-id="{{ video.id }}">
           </video-share>
-  
+
           <video-extended-controls ng-show="isEdit"></video-extended-controls>
-  
+
           <video-download video-id="video.id" ng-show="video.id && $root.isCollaborator && canDownload"></video-download>
-  
+
           <div class="video-view__save-controls" ng-show="isEdit">
             <a ng-click="cancel()" class="btn  btn--small">cancel</a>
             <a ng-click="save()" class="btn  btn--small  btn--positive">save changes</a>
           </div>
-  
+
         </section>
-  
+
       </div>
-  
+
       <div class="layout-block layout-block__secondary layout-block-secondary--{{ isComments ? $root.layoutMode : 'column' }}" ng-class="{ 'layout-block--narrow' : isComments }">
-  
+
         <section class="cf video-view__comments" ng-show="showComments()">
           <video-indicators comments="comments" current-time="videoCurrentTime" total-time="videoTotalTime"></video-indicators>
           <video-frame-stepper current-time="videoCurrentTime"></video-frame-stepper>
           <video-collaborators notified="notified" comments="comments" ng-show="video.id && isComments && $root.layoutMode !== 'column'" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>
         </section>
-  
+
       </div>
-  
+
       <div ng-show="$root.layoutMode === 'column'" class="layout-block layout-block__tertiary layout-block-tertiary--{{ isComments ? $root.layoutMode : 'column' }}">
         <section class="cf video-view__comments" ng-show="showComments()">
           <video-collaborators notified="notified" comments="comments" ng-show="video.id && isComments && $root.layoutMode === 'column'" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>

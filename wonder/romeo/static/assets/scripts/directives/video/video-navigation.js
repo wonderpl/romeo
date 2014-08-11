@@ -12,7 +12,8 @@ angular.module('RomeoApp.directives')
       isReview : '=',
       isOwner : '=',
       isComments : '=',
-      videoId : '='
+      videoId : '=',
+      videoStatus : '='
     },
     controller : function ($scope) {
 
