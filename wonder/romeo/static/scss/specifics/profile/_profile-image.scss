@@ -21,7 +21,9 @@
 }
 
 .profile-image__container--edit {
-
+  .spinner {
+    border-radius: 50%;
+  }
 }
 
 .profile-image__container--edit:hover {

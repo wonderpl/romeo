@@ -5872,13 +5872,18 @@ label,
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.16), 0 2px 12px 1px rgba(0, 0, 0, 0.2);
 }
 
-/* line 27, ../../scss/specifics/profile/_profile-image.scss */
+/* line 24, ../../scss/specifics/profile/_profile-image.scss */
+.profile-image__container--edit .spinner {
+  border-radius: 50%;
+}
+
+/* line 29, ../../scss/specifics/profile/_profile-image.scss */
 .profile-image__container--edit:hover {
   cursor: pointer;
   border: solid 1px #51b364;
 }
 
-/* line 32, ../../scss/specifics/profile/_profile-image.scss */
+/* line 34, ../../scss/specifics/profile/_profile-image.scss */
 .profile-image__dropzone {
   position: absolute;
   top: 0;
@@ -5889,17 +5894,17 @@ label,
   background: black;
 }
 
-/* line 42, ../../scss/specifics/profile/_profile-image.scss */
+/* line 44, ../../scss/specifics/profile/_profile-image.scss */
 .profile-image__dropzone:hover {
   cursor: pointer;
 }
 
-/* line 46, ../../scss/specifics/profile/_profile-image.scss */
+/* line 48, ../../scss/specifics/profile/_profile-image.scss */
 .profile-image__dropzone--active {
   border: solid 1px #51b364;
 }
 
-/* line 50, ../../scss/specifics/profile/_profile-image.scss */
+/* line 52, ../../scss/specifics/profile/_profile-image.scss */
 .profile-image__upload {
   display: none;
 }

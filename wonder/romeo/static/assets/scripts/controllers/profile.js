@@ -32,11 +32,14 @@ angular.module('RomeoApp.controllers')
 
   $scope.$on('upload-profile-image', uploadProfileImage);
 
+  $scope.$on('uploaded-image', doneUploadingImage);
+
   $scope.$on('upload-profile-cover', uploadProfileCover);
 
   $scope.$watch('profile.description', function(newValue, oldValue) {
     if (newValue !== oldValue) {
-      $scope.errorDescritionToLong = (newValue.length > 100);
+      if (typeof newValue !== 'undefined')
+        $scope.errorDescritionToLong = (newValue.length > 100);
     }
   });
 
@@ -62,6 +65,10 @@ angular.module('RomeoApp.controllers')
       loadUserDetails();
       });
     });
+  }
+  function doneUploadingImage($event, data) {
+    $scope.profile = JSON.parse(data);
+    loadUserDetails();
   }
 
   function uploadProfileCover ($event, file) {

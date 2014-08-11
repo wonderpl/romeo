@@ -2,7 +2,8 @@
 
   <div class="profile-image__container"
     ng-class="{ 'profile-image__container--edit' : isEdit }"
-    ng-style="profileImageStyle" loading-spinner="{{ uploading() }}">
+    ng-style="profileImageStyle"
+    loading-spinner>
     <label class="profile-image__upload-label" for="profileImageUpload">
       <div class="profile-image__dropzone"
         ng-file-drop="uploadProfileImage($files)"
