@@ -256,10 +256,14 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
 
   $rootScope.$on('video-cancel', function (event) {
     event.stopPropagation = true;
-    $scope.cancel();
+    cancel();
   });
 
-  $scope.cancel = function () {
+  $scope.buttomCancel = function() {
+    cancel();
+  };
+
+  function cancel() {
     if ($scope.video.id) {
       debug.log('Cancelled editing of video (' + $scope.video.id + ') ' + $scope.video.title);
       VideoService.get($scope.video.id).then(function (data) {
