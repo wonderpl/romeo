@@ -209,7 +209,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
       }
     });
 
-  $rootScope.$on('video-save', function (event) {
+  $scope.$on('video-save', function (event) {
     event.stopPropagation = true;
     $scope.save();
   });
@@ -254,12 +254,12 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
     }
   };
 
-  $rootScope.$on('video-cancel', function (event) {
+  $scope.$on('video-cancel', function (event) {
     event.stopPropagation = true;
     cancel();
   });
 
-  $scope.buttomCancel = function() {
+  $scope.bottomCancel = function() {
     cancel();
   };
 

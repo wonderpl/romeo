@@ -21,11 +21,11 @@ angular.module('RomeoApp.directives')
       // $scope.isCollaborator = $root.isCollaborator;
 
       $scope.save = function () {
-        $rootScope.$emit('video-save');
+        $scope.$emit('video-save');
       };
 
       $scope.cancel = function () {
-        $rootScope.$emit('video-cancel');
+        $scope.$emit('video-cancel');
       };
 
       $scope.displaySection = function (section) {
