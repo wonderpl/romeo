@@ -4877,7 +4877,12 @@ label,
   left: 130px;
 }
 
-/* line 11, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 12, ../../scss/specifics/video/_video-edit-collections.scss */
+.modal__content .video-edit-collections__options {
+  max-width: 496px;
+}
+
+/* line 17, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option {
   display: inline-block;
   width: 344px;
@@ -4889,23 +4894,23 @@ label,
   vertical-align: top;
   background: url("/static/assets/img/video-collection__tag.png") 10px 0 no-repeat transparent;
 }
-/* line 22, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 28, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option:nth-child(even) {
   margin-left: 12px;
 }
 
-/* line 26, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 32, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option--private {
   background-image: url("/static/assets/img/video-collection__tag--private.png");
 }
 
-/* line 31, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 37, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option--modal {
   width: 230px;
   margin-right: 12px;
 }
 
-/* line 38, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 44, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option--selected,
 .video-edit-collections__option--selected:hover,
 .video-edit-collections__option:hover.video-edit-collections__option--selected {
@@ -4915,7 +4920,7 @@ label,
   background-color: #51b364 !important;
   color: white !important;
 }
-/* line 46, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 52, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option--selected .video-edit-collections__option-title,
 .video-edit-collections__option--selected .video-edit-collections__option-count,
 .video-edit-collections__option--selected:hover .video-edit-collections__option-title,
@@ -4925,7 +4930,7 @@ label,
   color: white;
 }
 
-/* line 52, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 58, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option--selected.video-edit-collections__option--private,
 .video-edit-collections__option--selected:hover.video-edit-collections__option--private {
   background-image: url("/static/assets/img/video-collection__tag--private--selected.png");
@@ -4933,7 +4938,7 @@ label,
   background-repeat: no-repeat;
 }
 
-/* line 58, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 64, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option-title {
   display: block;
   font-weight: 600;
@@ -4941,14 +4946,14 @@ label,
   color: #2e2e32;
 }
 
-/* line 65, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 71, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option-count {
   display: block;
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #b7bcbd;
 }
 
-/* line 71, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 77, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option:hover {
   cursor: pointer;
   border-color: #51b364;
@@ -4956,17 +4961,17 @@ label,
   color: black;
 }
 
-/* line 78, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 84, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option--private:hover {
   background-image: url("/static/assets/img/video-collection__tag--private--active.png");
 }
 
-/* line 82, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 88, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__assigned-tag {
   color: #999999;
 }
 
-/* line 90, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 96, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__remove-tag {
   font-weight: 800;
   color: red;
@@ -4974,12 +4979,12 @@ label,
   padding: 1em 2em 0 0;
 }
 
-/* line 98, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 104, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__assigned-tags {
   display: inline-block;
 }
 
-/* line 102, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 108, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__assigned-tag {
   display: inline-block;
 }
@@ -5685,9 +5690,9 @@ label,
 
 /* line 139, ../../scss/specifics/organise/_organise-video.scss */
 .organise-video-delete__msg {
-  margin-bottom: 24px;
-  font-size: 14px;
-  line-height: 21px;
+  font-size: 16px;
+  line-height: 1.5;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* line 144, ../../scss/specifics/organise/_organise-video.scss */
