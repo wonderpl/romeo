@@ -38,6 +38,9 @@
   width: 230px;
   margin-right: 12px;
 }
+.video-edit-collections__option-create--modal {
+  display: none; /* TODO fix after beta release */
+}
 
 .video-edit-collections__option--selected,
 .video-edit-collections__option--selected:hover,
