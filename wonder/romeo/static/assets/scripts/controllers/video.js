@@ -7,9 +7,24 @@ angular
 function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService, $routeParams, VideoService, $sce, TagService, CommentsService, $timeout, AccountService) {
 
   'use strict';
+  var debug = new DebugClass('VideoCtrl');
 
   function persistVideoData (data) {
+    debug.info('persistVideoData (' + data.id + ') ' + data.title);
     angular.extend($scope.video, data);
+  }
+
+  function redirect(data, /* optional */ action) {
+    var url = '/video/' + data.id;
+    if (action)
+      url += '/' + action;
+    debug.info('redirect new url ' + url);
+    $location.path(url, true);
+  }
+
+  function persistDataAndRedirect(data, /* optional */ action) {
+    persistVideoData(data);
+    redirect(data, action);
   }
 
   function initialiseNewScope () {
@@ -179,6 +194,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
   }
 
   $scope.loadVideo = function (id) {
+    debug.log('loadVideo with id: ' + id);
     var url = '//' + $location.host() + ':' + $location.port() + '/embed/' + id + '/?controls=1';
     $scope.embedUrl = $sce.trustAsResourceUrl(url);
     $scope.videoHasLoaded = true;
@@ -191,17 +207,19 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
       }
     });
 
-  $rootScope.$on('video-save', function () {
+  $rootScope.$on('video-save', function (event) {
+    event.stopPropagation = true;
     $scope.save();
   });
 
   $scope.save = function () {
     if ($scope.video.id) {
+      debug.log('save video with id ' + $scope.video.id);
       $scope.$broadcast('video-saving', $scope.video);
       VideoService.update($scope.video.id, $scope.video).then(function (data) {
-        angular.extend($scope.video, data);
-        var url = '/video/' + data.id;
-        $location.path(url, true);
+        debug.log('saving video succeeded with id ' + data.id);
+        persistDataAndRedirect(data);
+        $scope.displaySection();
         if ($scope.video.status === 'processing' || $scope.video.status === 'uploading') {
           $scope.displaySection('edit');
         } else {
@@ -221,10 +239,10 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
         message : 'Title is a required field.'}
       );
     } else {
+      debug.log('save - create video with title ' + $scope.video.title);
       VideoService.create($scope.video).then(function (data) {
-        angular.extend($scope.video, data);
-        var url = '/video/' + data.id + '/edit';
-        $location.path(url, true);
+        debug.log('save - creating video succeeded with id ' + data.id + ' and title ' + data.title);
+        persistDataAndRedirect(data, 'edit');
         $scope.$emit('notify', {
           status : 'success',
           title : 'Video Created',
@@ -234,33 +252,32 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
     }
   };
 
-  $rootScope.$on('video-cancel', function () {
-    $scope.cancel();
+  $rootScope.$on('video-cancel', function (event) {
+    event.stopPropagation = true;
+    cancel();
   });
 
-  $scope.cancel = function () {
+  function cancel() {
     if ($scope.video.id) {
+      debug.log('Cancelled editing of video (' + $scope.video.id + ') ' + $scope.video.title);
       VideoService.get($scope.video.id).then(function (data) {
-        angular.extend($scope.video, data);
-        console.log('Cancelled editing of video (' + data.id + ') ' + data.title);
+        persistDataAndRedirect(data);
         $scope.displaySection();
         $scope.$emit('notify', {
           status : 'info',
           title : 'Video Updates Discarded',
           message : 'Your changes have been discarded.'}
         );
-        var url = '/video/' + data.id;
-        $location.path(url, true);
       });
     } else {
       $location.path('/organise');
     }
-  };
+  }
 
   $scope.$on('video-upload-success', videoUploadOnSuccess);
   function videoUploadOnSuccess (event, data) {
-    var url = '/video/' + $scope.video.id + '/edit';
-    $location.path(url, false);
+    debug.log('videoUploadOnSuccess of video (' + $scope.video.id + ') ' + $scope.video.title);
+    redirect(data, 'edit');
     $scope.hasProcessed = true;
     $scope.$emit('notify', {
       status : 'info',
@@ -273,8 +290,8 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
   function videoOnSeek (event, seconds) {
     if ($scope.player) {
       var state = $scope.player.getState();
-      console.log('state: ', state);
-      console.log('seconds: ', seconds);
+      debug.log('state: ', state);
+      debug.log('seconds: ', seconds);
       $scope.player.seek(seconds);
     }
   }
@@ -289,8 +306,8 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
   // return duration in seconds instead of millseconds
   function durationHack (duration) {
     var isMilliseconds = (parseFloat(duration) === parseInt(duration, 10));
-    console.log('getDuration(): ', duration);
-    console.log('duration is milliseconds: ', isMilliseconds);
+    debug.log('getDuration(): ', duration);
+    debug.log('duration is milliseconds: ', isMilliseconds);
     return isMilliseconds ? duration : duration*1000;
   }
 
@@ -337,7 +354,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
       $scope.$broadcast('player-paused');
     });
     bus.subscribe(OO.EVENTS.ERROR, 'WonderUIModule', function (code) {
-      console.log('player error ', code);
+      debug.log('player error ', code);
       $scope.$emit('notify', {
         status : 'error',
         title : 'Video Player Error',
@@ -355,7 +372,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
 
     section = section || '';
 
-    updateSectionUrl(section);
+    //updateSectionUrl(section);
 
     if ($rootScope.isCollaborator) {
       displayCollaboratorSection();
@@ -370,8 +387,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
 
   function updateSectionUrl (section) {
     if ($scope.video && $scope.video.id) {
-      var url = '/video/' + $scope.video.id + '/' + section;
-      $location.path(url, false);
+      redirect($scope.video, section);
     }
   }
 
@@ -394,7 +410,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
   }
 
   function displayReviewSection () {
-    console.log('displayReviewSection()');
+    debug.log('displayReviewSection()');
     $scope.isReview = true;
     $scope.isComments = false;
     $scope.isEdit = false;
