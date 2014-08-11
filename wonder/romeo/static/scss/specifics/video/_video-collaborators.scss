@@ -8,17 +8,18 @@
 }
 
 .video-collaborators--mirror {
-  width: 50%;
+  width: 100%;
   float: left;
 }
 
 .video-collaborators--wide {
-  width: 50%;
+  width: 100%;
   float: right;
 }
 
 .video-collaborators__header {
   padding-bottom: 1em;
+  @extend .cf;
 }
 
 .video-collaborators__collaborator {
@@ -28,9 +29,11 @@
 
 .video-collaborators__title {
   font-variant: small-caps;
+  font-family: $heading-font-family;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
   color: $grey;
   float: left;
-  margin-top: 0.5em;
 }
 
 .video-collaborators__none-message {
@@ -54,6 +57,7 @@
   display: inline-block;
   margin-top: 0.5em;
   margin-right: 0.5em;
+  font-family: $heading-font-family;
 }
 
 .video-collaborators__collaborator-name-container {

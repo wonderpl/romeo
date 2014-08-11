@@ -1,23 +1,44 @@
 .layout-control {
+  display: block;
+  width: 100%;
+  padding-top:    6px;
+  padding-bottom: 6px;
   position: fixed;
   bottom: 0;
-  display: block;
+  left:   0;
+  z-index: 2;
   text-align: right;
   background: $swatch-one;
-  width: 960px;
-  margin: 0 auto;
-  padding: 12px;
-  z-index: 2;
-  -webkit-box-shadow: 0 -4px 4px -4px $swatch-four;
-     -moz-box-shadow: 0 -4px 4px -4px $swatch-four;
-          box-shadow: 0 -4px 4px -4px $swatch-four;
+  background-clip: padding-box;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  box-shadow: 0 -4px 4px -4px rgba(0,0,0,0.05);
 }
 
-.layout-control--wide,
+.layout-control--column {
+
+  .btn-group {
+    .btn:nth-child(2n) {
+      @extend .btn--active;
+    }
+  }
+}
+.layout-control--wide {
+
+  .btn-group {
+
+    .btn:last-of-type {
+      @extend .btn--active;
+    }
+  }
+}
 .layout-control--mirror {
-  width: 100%;
-  margin: 0;
-  left: 0;
+
+  .btn-group {
+
+    .btn:first-of-type {
+      @extend .btn--active;
+    }
+  }  
 }
 
 .layout-control__option {
