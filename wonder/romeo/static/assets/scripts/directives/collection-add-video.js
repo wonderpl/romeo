@@ -63,6 +63,10 @@ angular.module('RomeoApp.directives')
         });
       };
 
+      $scope.showAddLabel = function() {
+        return (!$scope.video || !$scope.video.tags || !$scope.video.tags.items || $scope.video.tags.items.length === 0);
+      };
+
       $scope.saveNewCollection = function () {
 
         var label = $scope.collection.label;

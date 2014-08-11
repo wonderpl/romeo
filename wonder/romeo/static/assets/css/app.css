@@ -5008,6 +5008,11 @@ label,
   margin: 12px;
 }
 
+/* line 66, ../../scss/specifics/video/_video-extended-controls.scss */
+.video-extended-controls .icon {
+  pointer-events: auto;
+}
+
 /* line 5, ../../scss/specifics/video/_video-edit-categories.scss */
 .video-edit-categories__category {
   display: inline-block;

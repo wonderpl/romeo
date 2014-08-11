@@ -9,17 +9,14 @@
     <span class="btn  btn--small  btn--positive" ng-click="save(); addCategoryShow = !addCategoryShow">Done</span>
   </section>
 
-  <section class="video-extended-controls__section"
-    ng-class="{ 'video-extended-controls__section--expanded' : addCollectionShow }">
+  <section class="video-extended-controls__section" ng-class="{ 'video-extended-controls__section--expanded' : addCollectionShow }">
     <i class="icon  icon--medium  icon--plus  section-drawer__icon" ng-click="addCollectionShow = !addCollectionShow" ng-hide="addCollectionShow"></i>
     <i class="icon  icon--medium  icon--minus  section-drawer__icon" ng-click="addCollectionShow = !addCollectionShow" ng-show="addCollectionShow"></i>
-    <div>
-      <collection-add-video available-tags="tags"
-        video="video"
-        show-collection="addCollectionShow"
-        class="video-extended-controls__section-contents">
-      </collection-add-video>
-    </div>
+    <collection-add-video available-tags="tags"
+      video="video"
+      show-collection="addCollectionShow"
+      class="video-extended-controls__section-contents">
+    </collection-add-video>
     <span class="btn  btn--small  btn--positive" ng-click="save(); addCollectionShow = !addCollectionShow">Done</span>
   </section>
 

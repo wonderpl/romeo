@@ -1,5 +1,57 @@
 <div>
-  <div class="modal__title  split" ng-click="showCollection = !showCollection">
+  <header class="video-extended-controls__section-header" ng-click="showCollection = !showCollection" ng-if="!isModal">
+    <h4 class="video-extended-controls__section-header-title">
+      <span ng-show="showAddLabel()">
+        Add video to collection
+      </span>
+      <span ng-if="video.tags.items.length === 1">
+        In Collection:
+      </span>
+      <span ng-if="video.tags.items.length > 1">
+        In Collections:
+      </span>
+    </h4>
+
+    <ul ng-show="video.tags.items.length" class="video-edit-collections__assigned-tags">
+      <li ng-repeat="tag in video.tags.items" class="video-edit-collections__assigned-tag">
+        <span class="" ng-bind-html="tag.label"></span>
+        <span class="video-edit-collections__remove-tag" ng-click="removeTag(tag.id, $event)">&times;</span>
+      </li>
+    </ul>
+
+  </header>
+
+  <section class="video-edit-collections" ng-show="showCollection" ng-if="!isModal">
+    <ul class="video-edit-collections__options">
+      <li class="video-edit-collections__option" ng-click="hideAddRemoveAndShowCreateCollection()" ng-class="{ 'video-edit-collections__option--modal' : isModal }">
+        <span class="video-edit-collections__option-title">Create New Collection</span>
+        <span class="video-edit-collections__option-count"></span>
+      </li>
+
+      <li class="video-edit-collections__option video-edit-collections__option--private" data-videos="{{ tag.video_count }}"
+        ng-class="{
+          'video-edit-collections__option--selected' : hasTag(tag.id),
+          'video-edit-collections__option--modal' : isModal,
+          'video-edit-collections__option--private' : !tag.public
+        }"
+        ng-repeat="tag in availableTags"
+        ng-click="addTag(tag.id, $event)">
+        <span class="video-edit-collections__option-title" ng-bind-html="tag.label"></span>
+        <ng-switch ng-show="tag.video_count" on="tag.video_count">
+          <span class="video-edit-collections__option-count">
+            <ng-pluralize count="tag.video_count"
+              when="{
+                '0'     : 'no videos',
+                '1'     : '1 video',
+                'other' : '{{ tag.video_count }} videos'}">
+            </ng-pluralize>
+          </span>
+      </li>
+    </ul>
+  </section>
+
+
+  <div class="modal__title  split" ng-click="showCollection = !showCollection"  ng-if="isModal">
     <span class="split__title  t--block  w--600" ng-if="!video || !video.tags || !video.tags.items || video.tags.items.length === 0">Add to a collection</span>
     <span class="split__title  t--block  w--600" ng-if="video.tags.items.length === 1">In Collection:</span>
     <span class="split__title  t--block  w--600" ng-if="video.tags.items.length > 1">In Collections</span>
@@ -11,15 +63,15 @@
     </ul>
     <a class="modal__link" ng-click="close()"><i class="icon icon--medium icon--circle-cross"></i></a>
   </div>
-  <div class="modal__content">
+  <div class="modal__content" ng-if="isModal">
     <ul class="video-edit-collections__options">
-      <li class="video-edit-collections__option"
+      <!-- li class="video-edit-collections__option"
         ng-click="hideAddRemoveAndShowCreateCollection()"
-        ng-class="{ 'video-edit-collections__option--modal video-edit-collections__option-create--modal' : isModal }">
+        ng-class="{ 'video-edit-collections__option--modal' : isModal }" >
         <span class="video-edit-collections__option-title">Create New Collection</span>
         <span class="video-edit-collections__option-count"></span>
-      </li><!--
-      --><li class="video-edit-collections__option"
+      </li -->
+      <li class="video-edit-collections__option"
         data-videos="{{ tag.video_count }}"
         ng-class="{
           'video-edit-collections__option--selected' : hasTag(tag.id),
@@ -41,7 +93,7 @@
       </li>
     </ul>
   </div>
-  <div class="modal__footer">
+  <div class="modal__footer" ng-if="isModal">
     <div class="modal__actions">
       <a ng-click="close()" class="btn  btn--small  btn--positive">Okay</a>
     </div>
