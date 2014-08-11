@@ -200,6 +200,8 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
       $scope.$broadcast('video-saving', $scope.video);
       VideoService.update($scope.video.id, $scope.video).then(function (data) {
         angular.extend($scope.video, data);
+        var url = '/video/' + data.id;
+        $location.path(url, true);
         $scope.displaySection();
         $scope.$broadcast('video-saved', $scope.video);
         $scope.$emit('notify', {
@@ -236,6 +238,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
     if ($scope.video.id) {
       VideoService.get($scope.video.id).then(function (data) {
         angular.extend($scope.video, data);
+        console.log('Cancelled editing of video (' + data.id + ') ' + data.title);
         $scope.displaySection();
         $scope.$emit('notify', {
           status : 'info',
