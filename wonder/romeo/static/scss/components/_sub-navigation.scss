@@ -61,3 +61,12 @@
   //height: 52px;
 }
 
+.sub-navigation__link--active {
+  background-color: $swatch-five;
+
+  &,
+  > .icon {
+    color: $swatch-one;
+  }
+}
+

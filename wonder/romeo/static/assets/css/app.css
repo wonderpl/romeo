@@ -3732,6 +3732,16 @@ label,
   display: block;
 }
 
+/* line 64, ../../scss/components/_sub-navigation.scss */
+.sub-navigation__link--active {
+  background-color: #51b364;
+}
+/* line 68, ../../scss/components/_sub-navigation.scss */
+.sub-navigation__link--active,
+.sub-navigation__link--active > .icon {
+  color: white;
+}
+
 /* line 1, ../../scss/components/_video-player-config.scss */
 .video-player-config {
   background-color: #fff;
