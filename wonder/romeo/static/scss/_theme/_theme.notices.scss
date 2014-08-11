@@ -12,17 +12,13 @@
 
   > .notice {
     max-width: 50%;
+    margin-top: $half-spacing-unit;
     margin-right: auto;
     margin-left:  auto;
     position: absolute;
     left: -9999px;
     visibility: hidden;
     pointer-events: auto;
-
-    &:first-child {
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-    }
   }
 
   > .notice--active {
