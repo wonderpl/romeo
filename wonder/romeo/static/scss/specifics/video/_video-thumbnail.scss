@@ -117,7 +117,8 @@
 }
 
 .video-preview__previous-image-link {
-  @extend .no-selection;
+  //@extend .no-selection;
+  user-select: none;
   border: solid 1px $light-grey;
   border-top-left-radius: 24px;
   border-bottom-left-radius: 24px;
@@ -129,7 +130,8 @@
 }
 
 .video-preview__next-image-link {
-  @extend .no-selection;
+  user-select: none;
+  //@extend .no-selection;
   border: solid 1px $light-grey;
   border-top-right-radius: 24px;
   border-bottom-right-radius: 24px;
@@ -156,7 +158,9 @@
 
 .video-preview__available-images {
   /* transition is buggy after resizing container to hold images */
-  @extend .enable-hardware-acceleration;
+  //@extend .enable-hardware-acceleration;
+  -webkit-transform: translate3d(0,0,0);
+          transform: translate3d(0,0,0);
   text-align: left;
   transition: margin-left 0.4s ease-in-out;
   margin-left: 253px;

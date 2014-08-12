@@ -4881,51 +4881,55 @@ label,
 
 /* line 119, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__previous-image-link {
+  user-select: none;
   border: solid 1px #b7bcbd;
   border-top-left-radius: 24px;
   border-bottom-left-radius: 24px;
   cursor: pointer;
 }
 
-/* line 127, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 128, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__previous-image-link:hover {
   border-color: #70797b;
 }
 
-/* line 131, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 132, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__next-image-link {
+  user-select: none;
   border: solid 1px #b7bcbd;
   border-top-right-radius: 24px;
   border-bottom-right-radius: 24px;
   cursor: pointer;
 }
 
-/* line 139, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 141, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__next-image-link:hover {
   border-color: #70797b;
 }
 
-/* line 147, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 149, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__close-link {
   margin: 12px 12px 0 0;
   float: right;
 }
 
-/* line 152, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 154, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__close-link:hover {
   cursor: pointer;
   border-color: #70797b;
 }
 
-/* line 157, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 159, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__available-images {
   /* transition is buggy after resizing container to hold images */
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
   text-align: left;
   transition: margin-left 0.4s ease-in-out;
   margin-left: 253px;
 }
 
-/* line 165, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 169, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__images-container {
   width: 960px;
   overflow: hidden;
@@ -4936,14 +4940,14 @@ label,
   background: rgba(0, 0, 0, 0.4);
 }
 
-/* line 175, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 179, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__available-image-container {
   display: inline-block;
   margin-right: 10px;
   background: black;
 }
 
-/* line 185, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 189, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__available-image {
   height: 250px;
   opacity: 0.4;
@@ -4951,7 +4955,7 @@ label,
   cursor: pointer;
 }
 
-/* line 192, ../../scss/specifics/video/_video-thumbnail.scss */
+/* line 196, ../../scss/specifics/video/_video-thumbnail.scss */
 .video-preview__available-image--active {
   opacity: 1;
 }
@@ -4969,18 +4973,21 @@ label,
   padding-bottom: 1.5em;
   position: relative;
   transition: max-height 0.4s ease-in-out;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
   max-height: 4.5em;
   /* 72*/
   overflow: hidden;
 }
 
-/* line 18, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 20, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__section--expanded {
   max-height: 500em;
 }
 
-/* line 22, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 24, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__indicator {
+  user-select: none;
   display: block;
   padding-top: 1.5rem;
   position: absolute;
@@ -4993,14 +5000,14 @@ label,
   color: #b7bcbd;
 }
 
-/* line 44, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 47, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__section-contents {
   max-width: 960px;
   margin: 0 auto;
   text-align: left;
 }
 
-/* line 50, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 53, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__section-header {
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #2e2e32;
@@ -5008,19 +5015,19 @@ label,
   margin-bottom: 24px;
 }
 
-/* line 57, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 60, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__section-header-title {
   display: inline-block;
   font-weight: 600;
   font-size: 1.5em;
 }
 
-/* line 63, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 66, ../../scss/specifics/video/_video-extended-controls.scss */
 .collection-add-video--modal {
   margin: 12px;
 }
 
-/* line 66, ../../scss/specifics/video/_video-extended-controls.scss */
+/* line 69, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls .icon {
   pointer-events: auto;
 }
@@ -5636,6 +5643,7 @@ label,
 }
 /* line 11, ../../scss/specifics/video/_video-medium.scss */
 .video-medium ul {
+  font-family: "FreightText Pro", Georgia, Cambria, "Times New Roman", Times, serif;
   list-style: disc inside;
 }
 /* line 15, ../../scss/specifics/video/_video-medium.scss */
@@ -5722,6 +5730,7 @@ label,
   height: 24px;
   position: fixed;
   bottom: 0;
+  z-index: 10;
   width: 100%;
   min-width: 960px;
   background: white;
@@ -5730,23 +5739,23 @@ label,
   box-shadow: 0 -4px 4px -4px rgba(0, 0, 0, 0.05);
 }
 
-/* line 13, ../../scss/specifics/footer/_page-footer.scss */
+/* line 14, ../../scss/specifics/footer/_page-footer.scss */
 .page-footer__items {
   float: left;
 }
 
-/* line 17, ../../scss/specifics/footer/_page-footer.scss */
+/* line 18, ../../scss/specifics/footer/_page-footer.scss */
 .page-footer__item {
   display: inline-block;
   margin-right: 0.5em;
 }
 
-/* line 22, ../../scss/specifics/footer/_page-footer.scss */
+/* line 23, ../../scss/specifics/footer/_page-footer.scss */
 .page-footer__link {
   color: #70797b;
 }
 
-/* line 26, ../../scss/specifics/footer/_page-footer.scss */
+/* line 27, ../../scss/specifics/footer/_page-footer.scss */
 .page-footer__note {
   float: right;
   color: #70797b;
