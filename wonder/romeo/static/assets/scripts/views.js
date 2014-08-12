@@ -877,14 +877,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <li class=\"browse-list__item\">\n" +
     "      <span class=\"browse-list__title\">Collections not visible in app</span>\n" +
     "    </li>\n" +
-    "    <li class=\"browse-list__item\" ng-repeat=\"tag in tags | filter : { public : false }\">\n" +
-    "      <a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : currentTag.id === tag.id }\" ng-bind-html=\"tag.label\" ng-click=\"loadCollection(tag.id)\"></a>\n" +
-    "    </li>\n" +
     "    <li class=\"browse-list__item\">\n" +
     "      <a class=\"browse-list__link  browse-list__link--create  split\" ng-click=\"createPrivateCollection()\">\n" +
     "        <span class=\"split__title\">Add a new private collection</span>\n" +
     "        <i class=\"icon  icon--plus\"></i>\n" +
     "      </a>\n" +
+    "    </li>\n" +
+    "    <li class=\"browse-list__item\" ng-repeat=\"tag in tags | filter : { public : false }\">\n" +
+    "      <a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : currentTag.id === tag.id }\" ng-bind-html=\"tag.label\" ng-click=\"loadCollection(tag.id)\"></a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
     "\n" +
@@ -892,14 +892,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <li class=\"browse-list__item\">\n" +
     "      <span class=\"browse-list__title\">Collections visible in app</span>\n" +
     "    </li>\n" +
-    "    <li class=\"browse-list__item\" ng-repeat=\"tag in tags | filter : { public : true }\">\n" +
-    "      <a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : currentTag.id === tag.id }\" ng-bind-html=\"tag.label\" ng-click=\"loadCollection(tag.id)\"></a>\n" +
-    "    </li>\n" +
     "    <li class=\"browse-list__item\">\n" +
     "      <a class=\"browse-list__link  browse-list__link--create  split\" ng-click=\"createPublicCollection()\">\n" +
     "        <span class=\"split__title\">Add a new public collection</span>\n" +
     "        <i class=\"icon  icon--plus\"></i>\n" +
     "      </a>\n" +
+    "    </li>\n" +
+    "    <li class=\"browse-list__item\" ng-repeat=\"tag in tags | filter : { public : true }\">\n" +
+    "      <a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : currentTag.id === tag.id }\" ng-bind-html=\"tag.label\" ng-click=\"loadCollection(tag.id)\"></a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
     "</div>"
