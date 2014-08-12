@@ -7,6 +7,7 @@ angular
 
 function OrganiseVideoList ($templateCache, $cookies) {
   'use strict';
+  var debug = new DebugClass('OrganiseVideoList');
 
   function isVideoRecent (timestamp) {
     var currentTimestamp = new Date().getTime();
@@ -51,14 +52,15 @@ function OrganiseVideoList ($templateCache, $cookies) {
         return filteredVideos;
       }
       $scope.$watch('videos', function (newValue, oldValue) {
+        debug.log('Video changed but array the same');
         if (newValue !== oldValue) {
-          console.log('video data changed');
+          debug.log('video data changed');
           $scope.filteredVideos = $scope.tag ? filterVideosByTagId($scope.tag.id) : newValue;
         }
       });
       $scope.$watch('tag', function (newValue, oldValue) {
         if (newValue !== oldValue) {
-          console.log('tag data changed');
+          debug.log('tag data changed');
           $scope.filteredVideos = newValue ? filterVideosByTagId(newValue.id) : $scope.videos;
         }
       });

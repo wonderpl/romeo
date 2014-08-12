@@ -4,6 +4,7 @@ angular
 
 function OrganiseVideo ($templateCache, $modal) {
   'use strict';
+  var debug = new DebugClass('OrganiseVideo');
   return {
     restrict : 'E',
     replace : true,
@@ -27,6 +28,11 @@ function OrganiseVideo ($templateCache, $modal) {
       $scope.close = function () {
         $modal.hide();
       };
+      $scope.$watch('video.status', function(newValue, oldValue) {
+        debug.log('Video status ' + $scope.video.title + (newValue === oldValue ? ' is the same as before ' : ' changed to ') + newValue);
+        $scope.thumbnail = getThumbnail();
+      });
+
       function getThumbnail() {
         var thumbs = $scope.video.thumbnails.items;
         var thumbnail = ($scope.video.status == 'published' || $scope.video.status == 'ready') ? 'http://placehold.it/218x122' : '/static/assets/img/default-video-thumbnail.png';

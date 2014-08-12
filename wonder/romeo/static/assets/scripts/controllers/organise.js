@@ -1,8 +1,8 @@
 angular.module('RomeoApp.controllers')
   .controller('OrganiseCtrl', ['$rootScope', '$scope', 'TagService', '$location', '$modal', '$routeParams', '$route', 'VideoService', 'AccountService',
   function($rootScope, $scope, TagService, $location, $modal, $routeParams, $route, VideoService, AccountService) {
-
     'use strict';
+    var debug = new DebugClass('OrganiseCtrl');
 
     function refresh () {
       $route.reload();
@@ -99,7 +99,7 @@ angular.module('RomeoApp.controllers')
     $scope.$on('delete-video', function ($event, video) {
       $event.stopPropagation = true;
       if (video) {
-        console.log(video);
+        debug.log(video);
         VideoService.delete(video.id).then(function () {
           refresh();
           $scope.$emit('notify', {
@@ -222,10 +222,35 @@ angular.module('RomeoApp.controllers')
     }
 
     $('.editable').on('input', function(e) {
-      console.log(e);
-      console.log(e.currentTarget);
-      console.log($(e.currentTarget).text());
+      debug.log(e);
+      debug.log(e.currentTarget);
+      debug.log($(e.currentTarget).text());
       $(e.currentTarget).text().replace(/&nbsp;/g, '');
     });
 
+    // Listen to upload events to update video list if the status changes
+    // This feels dirty!
+    $rootScope.$on('video-upload-complete', function (event, data) {
+      debug.info('Recieved video-upload-complete message');
+      setVideoStatus('processing');
+    });
+
+    $rootScope.$on('video-upload-success', function (event, data) {
+      debug.info('Recieved video-upload-success message');
+      setVideoStatus('ready');
+    });
+
+    $rootScope.$on('video-upload-start', function (event, data) {
+      debug.info('Recieved video-upload-start message');
+    });
+
+    function setVideoStatus(status) {
+      for (var i = 0; i < $scope.videos.length; ++i) {
+        var video = $scope.videos[i];
+        if (video.id == $rootScope.uploadingVideoId) {
+          video.status = status;
+          break;
+        }
+      }
+    }
 }]);
