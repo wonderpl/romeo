@@ -1,9 +1,13 @@
 .page-footer {
+  height: $base-spacing-unit;
   position: fixed;
   bottom: 0;
   width: 100%;
   min-width: 960px;
-  background: $white;
+  background: white;
+  background-clip: padding-box;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -4px 4px -4px rgba(0, 0, 0, 0.05);
 }
 
 .page-footer__items {
