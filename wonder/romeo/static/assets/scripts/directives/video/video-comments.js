@@ -45,13 +45,13 @@ angular.module('RomeoApp.directives')
       isOwner: '='
     },
     link : function (scope, element, attrs) {
-      scope.oldScrollTop = 0;
       scope.$watch(function () {
-          return Math.round(scope.currentTime);
+          return Math.round(scope.currentTime) || scope.currentTime === 0.0;
         },
         function(newValue, oldValue) {
-          if (newValue && newValue !== oldValue) {
-            var comments = getCommentsByTime(newValue);
+          if (newValue !== oldValue) {
+
+            var comments = getCommentsByTime((newValue < 1) ? 0.0 : newValue);
             var sortedComments = comments.length ? comments.sort(sortById) : [];
             console.dir(sortedComments);
             if (sortedComments.length > 0) {
@@ -77,30 +77,16 @@ angular.module('RomeoApp.directives')
         return element.find('#' + id);
       }
 
-      function findCommentsOffsets(container) {
-        var comments = {};
-        var commentElements = container.find('li.video-feedback__comment');
-        var startPosition = container.offset().top;
-        console.log('start position: ' + startPosition);
-        for (var i = 0; i < commentElements.length; ++i ) {
-          var id = commentElements[i].attr('id');
-          comments[id].position = getCommentElementById(commentElements[i].id).offset().top - startPosition;
-          console.log('comment' + id + ': ' +comments[id].position);
-        }
-        return comments;
-      }
-
       function scrollToComment (id) {
         console.log(element.find('#' + id).position().top);
         var container  = element.find('.video-feedback__comments-list').attr('id');
-        element.find('#' + container).scrollTop(0);
-        var pos = element.find('#' + id).position().top;
-        element.find('#' + container).scrollTop(scope.oldScrollTop);
+        var oldScrollTop = element.find('#' + container).scrollTop(); // Get current scroll position
+        var pos = 0;
+        pos = element.find('#' + id).position().top + oldScrollTop;
         element.find('#' + container).animate(
         {
           scrollTop: pos
         }, 1000);
-        scope.oldScrollTop = pos;
         
       }
 
