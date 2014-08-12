@@ -644,8 +644,6 @@ body {
 
 /* line 8, ../../scss/_base/_base.page.scss */
 html {
-  min-height: 100%;
-  position: relative;
   font-weight: 400;
   font-size: 1em;
   line-height: 1.5;
@@ -653,9 +651,8 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 
-/* line 17, ../../scss/_base/_base.page.scss */
+/* line 15, ../../scss/_base/_base.page.scss */
 body {
-  margin-bottom: 47px;
   color: #70797b;
   background-color: white;
 }
@@ -2639,6 +2636,21 @@ select {
  * _theme.structure.scss
  */
 /* line 4, ../../scss/_theme/_theme.structure.scss */
+.page-content {
+  min-height: 100%;
+  /**
+   * equal to footer height
+   */
+  margin-bottom: 24px;
+}
+/* line 11, ../../scss/_theme/_theme.structure.scss */
+.page-content:after {
+  content: "";
+  display: block;
+  height: 24px;
+}
+
+/* line 19, ../../scss/_theme/_theme.structure.scss */
 .wrapper {
   margin-right: auto;
   margin-left: auto;
@@ -2647,7 +2659,7 @@ select {
   position: relative;
 }
 
-/* line 13, ../../scss/_theme/_theme.structure.scss */
+/* line 28, ../../scss/_theme/_theme.structure.scss */
 .wrapper--fixed {
   width: 63em;
 }
@@ -5707,30 +5719,34 @@ label,
 
 /* line 1, ../../scss/specifics/footer/_page-footer.scss */
 .page-footer {
+  height: 24px;
   position: fixed;
   bottom: 0;
   width: 100%;
   min-width: 960px;
   background: white;
+  background-clip: padding-box;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -4px 4px -4px rgba(0, 0, 0, 0.05);
 }
 
-/* line 9, ../../scss/specifics/footer/_page-footer.scss */
+/* line 13, ../../scss/specifics/footer/_page-footer.scss */
 .page-footer__items {
   float: left;
 }
 
-/* line 13, ../../scss/specifics/footer/_page-footer.scss */
+/* line 17, ../../scss/specifics/footer/_page-footer.scss */
 .page-footer__item {
   display: inline-block;
   margin-right: 0.5em;
 }
 
-/* line 18, ../../scss/specifics/footer/_page-footer.scss */
+/* line 22, ../../scss/specifics/footer/_page-footer.scss */
 .page-footer__link {
   color: #70797b;
 }
 
-/* line 22, ../../scss/specifics/footer/_page-footer.scss */
+/* line 26, ../../scss/specifics/footer/_page-footer.scss */
 .page-footer__note {
   float: right;
   color: #70797b;

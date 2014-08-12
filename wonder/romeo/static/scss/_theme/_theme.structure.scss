@@ -1,6 +1,21 @@
 /**
  * _theme.structure.scss
  */
+.page-content {
+  min-height: 100%;
+  /**
+   * equal to footer height
+   */
+  margin-bottom: $base-spacing-unit;
+
+  &:after {
+    content: "";
+    display: block;
+    height: $base-spacing-unit;
+  }
+}
+
+
 .wrapper {
   margin-right: auto;
   margin-left:  auto;
