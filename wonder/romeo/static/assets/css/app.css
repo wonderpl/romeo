@@ -4031,7 +4031,7 @@ label,
   position: fixed;
   bottom: 0;
   left: 0;
-  z-index: 2;
+  z-index: 20;
   text-align: right;
   background: white;
   background-clip: padding-box;
@@ -5141,7 +5141,7 @@ label,
 
 /* line 5, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__options {
-  max-width: 700px;
+  max-width: 704px;
   margin: 0 auto;
   left: 130px;
 }
@@ -5624,7 +5624,6 @@ label,
 
 /* line 64, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators__collaborator-name-container {
-  width: 150px;
   display: inline-block;
 }
 
