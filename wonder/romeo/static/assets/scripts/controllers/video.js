@@ -128,6 +128,11 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
   );
 
   $scope.onPreviewImageSelect = function (files) {
+    $scope.$emit('notify', {
+      status : 'info',
+      title : 'Uploading Image',
+      message : 'Thumbnail uploading.'}
+    );
     VideoService.saveCustomPreview($scope.video.id, files[0]).then(function(data){
       angular.extend($scope.video, data);
       $scope.loadVideo($scope.video.id);
