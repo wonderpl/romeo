@@ -153,7 +153,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
     $scope.showThumbnailSelector = false;
     $scope.showVideoEdit = true;
     $scope.loadVideo($scope.video.id);
-  }
+  };
 
   $scope.onFileSelect = function(files) {
 
