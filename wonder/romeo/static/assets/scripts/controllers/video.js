@@ -148,6 +148,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
   };
 
   $scope.onSetPreviewImage = function() {
+    debug.log('onSetPreviewImage');
     getVideo($scope.video.id);
     $scope.showPreviewSelector = false;
     $scope.showThumbnailSelector = false;
@@ -492,7 +493,9 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
       getPlayerParameters($scope.video.id);
       verifyUser($scope.video.id);
       assignCollaboratorPermissions();
-      console.log($scope.video);
+
+      debug.dir($scope.video);
+
       if ($rootScope.isUploadingOrProcessingTemp) {
         $scope.displaySection('edit');
         $scope.showPreviewSelector = true;
