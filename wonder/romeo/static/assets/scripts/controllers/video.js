@@ -168,7 +168,13 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
 
     var data = { title : $scope.video.title };
 
-    // refactor
+    $scope.$emit('notify', {
+      status : 'info',
+      title : 'Uploading Video',
+      message : 'Upload started for video ' + $scope.video.title + '.'}
+    );
+
+    //@TODO refactor
     if ($scope.video.id) {
       persistVideoData(data);
       UploadService.uploadVideo(files[0], $scope.video.id);
