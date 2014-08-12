@@ -5,6 +5,13 @@
   margin-bottom: $base-spacing-unit;
 }
 
+.organise-video-list__video--list .video-thumb-wrapper {
+  padding-top:    $half-spacing-unit / 2;
+  padding-bottom: $half-spacing-unit / 2;
+  margin-bottom: 0;
+  border-bottom: 1px solid $swatch-two;
+}
+
 .organise-video-list__video--list {
 
   .video-thumb-link {
