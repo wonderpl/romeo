@@ -3094,6 +3094,113 @@ select {
 }
 
 /**
+ * _theme.medium-editor.scss
+ */
+/* line 4, ../../scss/_theme/_theme.medium-editor.scss */
+.medium-editor-toolbar {
+  background-color: #fff;
+  background-clip: content-box;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px 1px rgba(0, 0, 0, 0.12);
+  -webkit-transition: top 0.075s ease-out, left 0.075s ease-out;
+  transition: top 0.075s ease-out, left 0.075s ease-out;
+}
+/* line 14, ../../scss/_theme/_theme.medium-editor.scss */
+.medium-editor-toolbar:before, .medium-editor-toolbar:after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 50%;
+  border: 0 solid transparent;
+  pointer-events: none;
+}
+/* line 24, ../../scss/_theme/_theme.medium-editor.scss */
+.medium-editor-toolbar:before {
+  border-color: rgba(0, 0, 0, 0);
+  border-width: 11px;
+  margin-left: -11px;
+}
+/* line 29, ../../scss/_theme/_theme.medium-editor.scss */
+.medium-editor-toolbar:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-width: 10px;
+  margin-left: -10px;
+}
+
+/* line 36, ../../scss/_theme/_theme.medium-editor.scss */
+.medium-editor-toolbar-actions {
+  list-style: none;
+  margin: 0;
+}
+/* line 40, ../../scss/_theme/_theme.medium-editor.scss */
+.medium-editor-toolbar-actions > li {
+  margin: 0;
+  padding: 0;
+  float: left;
+}
+
+/* line 50, ../../scss/_theme/_theme.medium-editor.scss */
+.medium-toolbar-arrow-under:before, .medium-toolbar-arrow-under:after {
+  top: 100%;
+}
+/* line 53, ../../scss/_theme/_theme.medium-editor.scss */
+.medium-toolbar-arrow-under:before {
+  border-top-color: rgba(0, 0, 0, 0.1);
+}
+/* line 54, ../../scss/_theme/_theme.medium-editor.scss */
+.medium-toolbar-arrow-under:after {
+  border-top-color: #fff;
+}
+
+/* line 60, ../../scss/_theme/_theme.medium-editor.scss */
+.medium-toolbar-arrow-over:before, .medium-toolbar-arrow-over:after {
+  bottom: 100%;
+}
+/* line 63, ../../scss/_theme/_theme.medium-editor.scss */
+.medium-toolbar-arrow-over:before {
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+/* line 64, ../../scss/_theme/_theme.medium-editor.scss */
+.medium-toolbar-arrow-over:after {
+  border-bottom-color: #fff;
+}
+
+/* line 67, ../../scss/_theme/_theme.medium-editor.scss */
+.medium-editor-action {
+  display: block;
+  min-width: 50px;
+  height: 50px;
+  margin: 0;
+  padding: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #70797b;
+  text-decoration: none;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  -webkit-transition: background-color 0.2s ease-in;
+  transition: background-color 0.2s ease-in;
+}
+/* line 83, ../../scss/_theme/_theme.medium-editor.scss */
+.medium-editor-action:hover {
+  color: #2e2e32;
+}
+
+/* line 87, ../../scss/_theme/_theme.medium-editor.scss */
+.medium-editor-button-active {
+  background-color: rgba(183, 188, 189, 0.12);
+}
+
+/* line 90, ../../scss/_theme/_theme.medium-editor.scss */
+.medium-editor-action-bold {
+  font-weight: bolder;
+}
+
+/**
  * _theme.forms.scss
  */
 /* line 4, ../../scss/_theme/_theme.forms.scss */
@@ -5131,7 +5238,7 @@ label,
 .video-edit-categories__selected-category {
   display: inline-block;
   color: #999999;
-  font-size: 14px;
+  font-size: 24px;
 }
 /* line 79, ../../scss/specifics/video/_video-edit-categories.scss */
 .video-edit-categories__selected-category:first-of-type {
@@ -5268,9 +5375,11 @@ label,
 /* line 107, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__assigned-tags {
   display: inline-block;
+  margin-left: 12px;
+  margin-bottom: 0;
 }
 
-/* line 113, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 115, ../../scss/specifics/video/_video-edit-collections.scss */
 .modal__title .video-edit-collections__assigned-tags {
   margin: 0;
   float: left;
@@ -5283,16 +5392,16 @@ label,
   margin-left: 12px;
 }
 
-/* line 126, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 128, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__assigned-tag {
   display: inline-block;
 }
-/* line 129, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 131, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__assigned-tag + .video-edit-collections__assigned-tag {
   margin-left: 12px;
 }
 
-/* line 133, ../../scss/specifics/video/_video-edit-collections.scss */
+/* line 135, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__remove-tag {
   cursor: pointer;
   padding-right: 6px;
