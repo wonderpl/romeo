@@ -81,16 +81,9 @@ angular.module('RomeoApp.directives')
         console.log(scope.previewImages[scope.previewIndex]);
 
         VideoService.setPreviewImage(scope.video.id, data).then(function() {
-          onSetPreviewImage();
+          $scope.onSetPreviewImage();
         });
       };
-
-      function onSetPreviewImage () {
-        scope.showPreviewSelector = false;
-        scope.showThumbnailSelector = false;
-        scope.showVideoEdit = true;
-        scope.loadVideo(scope.video.id);
-      }
     }
   };
 }]);

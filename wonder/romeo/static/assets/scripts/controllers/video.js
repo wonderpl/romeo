@@ -147,6 +147,14 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
     });
   };
 
+  $scope.onSetPreviewImage = function() {
+    getVideo($scope.video.id);
+    $scope.showPreviewSelector = false;
+    $scope.showThumbnailSelector = false;
+    $scope.showVideoEdit = true;
+    $scope.loadVideo($scope.video.id);
+  }
+
   $scope.onFileSelect = function(files) {
 
     $scope.video.title = $scope.video.title || stripExtension(files[0].name);
