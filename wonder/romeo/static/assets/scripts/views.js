@@ -209,15 +209,15 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('collection-add-video.html',
     "<div>\n" +
-    "  <header class=\"video-extended-controls__section-header\" ng-click=\"showCollection = !showCollection\" ng-if=\"!isModal\">\n" +
+    "  <header class=\"video-extended-controls__section-header\" ng-if=\"!isModal\">\n" +
     "    <h4 class=\"video-extended-controls__section-header-title\">\n" +
-    "      <span ng-show=\"showAddLabel()\">\n" +
+    "      <span ng-show=\"showAddLabel()\" ng-click=\"showHideCollectionCtrl()\">\n" +
     "        Add video to collection\n" +
     "      </span>\n" +
-    "      <span ng-if=\"video.tags.items.length === 1\">\n" +
+    "      <span ng-if=\"video.tags.items.length === 1\" ng-click=\"showHideCollectionCtrl()\">\n" +
     "        In Collection:\n" +
     "      </span>\n" +
-    "      <span ng-if=\"video.tags.items.length > 1\">\n" +
+    "      <span ng-if=\"video.tags.items.length > 1\" ng-click=\"showHideCollectionCtrl()\">\n" +
     "        In Collections:\n" +
     "      </span>\n" +
     "    </h4>\n" +
@@ -1380,8 +1380,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  </section>\n" +
     "\n" +
     "  <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCollectionShow }\">\n" +
-    "    <i class=\"icon  icon--medium  icon--plus  section-drawer__icon\" ng-click=\"addCollectionShow = !addCollectionShow\" ng-hide=\"addCollectionShow\"></i>\n" +
-    "    <i class=\"icon  icon--medium  icon--minus  section-drawer__icon\" ng-click=\"addCollectionShow = !addCollectionShow\" ng-show=\"addCollectionShow\"></i>\n" +
+    "    <i class=\"icon  icon--medium  icon--plus  section-drawer__icon\" ng-click=\"showHideCollectionExtended()\" ng-hide=\"addCollectionShow\"></i>\n" +
+    "    <i class=\"icon  icon--medium  icon--minus  section-drawer__icon\" ng-click=\"showHideCollectionExtended()\" ng-show=\"addCollectionShow\"></i>\n" +
     "    <collection-add-video available-tags=\"tags\"\n" +
     "      video=\"video\"\n" +
     "      show-collection=\"addCollectionShow\"\n" +

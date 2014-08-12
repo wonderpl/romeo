@@ -284,6 +284,11 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
     cancel();
   };
 
+  $scope.$on('show-hide-collection', function() {
+    $scope.addCollectionShow = !$scope.addCollectionShow;
+    debug.info('Show hide collection, state: ' + $scope.addCollectionShow);
+  });
+
   function cancel() {
     if ($scope.video.id) {
       debug.log('Cancelled editing of video (' + $scope.video.id + ') ' + $scope.video.title);

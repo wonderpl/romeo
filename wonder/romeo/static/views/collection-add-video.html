@@ -1,13 +1,13 @@
 <div>
-  <header class="video-extended-controls__section-header" ng-click="showCollection = !showCollection" ng-if="!isModal">
+  <header class="video-extended-controls__section-header" ng-if="!isModal">
     <h4 class="video-extended-controls__section-header-title">
-      <span ng-show="showAddLabel()">
+      <span ng-show="showAddLabel()" ng-click="showHideCollectionCtrl()">
         Add video to collection
       </span>
-      <span ng-if="video.tags.items.length === 1">
+      <span ng-if="video.tags.items.length === 1" ng-click="showHideCollectionCtrl()">
         In Collection:
       </span>
-      <span ng-if="video.tags.items.length > 1">
+      <span ng-if="video.tags.items.length > 1" ng-click="showHideCollectionCtrl()">
         In Collections:
       </span>
     </h4>

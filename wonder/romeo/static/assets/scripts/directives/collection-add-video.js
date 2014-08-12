@@ -111,6 +111,10 @@ angular.module('RomeoApp.directives')
         return (getTagByLabel(label) !== null);
       };
 
+      $scope.showHideCollectionCtrl = function() {
+        $scope.$emit('show-hide-collection');
+      };
+
       function getTagByLabel (label) {
         var tag = null;
         var tags = $scope.tags || [];
