@@ -9,7 +9,7 @@
   padding-top:    $half-spacing-unit / 2;
   padding-bottom: $half-spacing-unit / 2;
   margin-bottom: 0;
-  border-bottom: 1px solid $swatch-two;
+  border-bottom: 1px solid lighten($swatch-two,20%);
 }
 
 .organise-video-list__video--list {
