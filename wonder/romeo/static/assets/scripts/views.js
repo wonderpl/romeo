@@ -86,13 +86,40 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      Allow to download source\n" +
     "    </label>\n" +
     "\n" +
+    "    <div class=\"video-add-collaborators__messages\">\n" +
+    "      <p ng-show=\"collaboratorAdded\">New collaborator has been added.</p>\n" +
+    "      <p class=\"video-add-collaborators__message--error\" ng-show=\"errors\">An error occured. Collaborator not added.</p>\n" +
+    "    </div>\n" +
+    "    <a class=\"btn btn--small btn--positive f--right\" ng-click=\"add()\">Send Request</a>\n" +
+    "\n" +
     "  </section>\n" +
     "\n" +
-    "  <div class=\"video-add-collaborators__messages\">\n" +
-    "    <p ng-show=\"collaboratorAdded\">New collaborator has been added.</p>\n" +
-    "    <p class=\"video-add-collaborators__message--error\" ng-show=\"errors\">An error occured. Collaborator not added.</p>\n" +
-    "  </div>\n" +
-    "  <a class=\"btn btn--small btn--positive\" ng-click=\"add()\">Send Request</a>\n" +
+    "  <section class=\"video-collaborators video-collaborators--(~ $root.layoutMode ~)\">\n" +
+    "\n" +
+    "    <header class=\"video-collaborators__header\">\n" +
+    "      <h4 class=\"video-collaborators__title  no-spacing\">collaborators</h4>\n" +
+    "    </header>\n" +
+    "  \n" +
+    "    <p class=\"video-collaborators__none-message\" ng-hide=\"collaborators\">You have no collaborators!</p>\n" +
+    "  \n" +
+    "    <ul class=\"nav  nav--stacked  video-collaborators__collaborators\" ng-show=\"collaborators\">\n" +
+    "      <li class=\"video-collaborators__collaborator\" ng-repeat=\"collaborator in collaborators\">\n" +
+    "        <span class=\"video-collaborators__collaborator-image\" style=\"background-image: url('(~ collaborator.avatar_url ~)');\"></span>\n" +
+    "        <div class=\"video-collaborators__collaborator-name-container\">\n" +
+    "          <span class=\"video-collaborators__collaborator-name truncate\" ng-bind=\"collaborator.username\"></span>\n" +
+    "        </div>\n" +
+    "      </li>\n" +
+    "  <!--     <li class=\"video-collaborators__collaborator\">\n" +
+    "        <span class=\"video-collaborators__collaborator-image\" style=\"background-image: url('http://media.dev.wonderpl.com/images/avatar/thumbnail_medium/kHmU0Pn5E1dVK3K68Okjgw.jpg');\"></span>\n" +
+    "        <span class=\"video-collaborators__collaborator-name\">Tom Aitkens</span>\n" +
+    "      </li>\n" +
+    "      <li class=\"video-collaborators__collaborator\">\n" +
+    "        <span class=\"video-collaborators__collaborator-image\" style=\"background-image: url('http://media.dev.wonderpl.com/images/avatar/thumbnail_medium/kHmU0Pn5E1dVK3K68Okjgw.jpg');\"></span>\n" +
+    "        <span class=\"video-collaborators__collaborator-name\">Tom Aitkens 2</span>\n" +
+    "      </li> -->\n" +
+    "    </ul>\n" +
+    "  \n" +
+    "  </section>\n" +
     "\n" +
     "</section>\n" +
     "\n" +
@@ -1376,7 +1403,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      show-category=\"addCategoryShow\"\n" +
     "      class=\"video-extended-controls__section-contents\">\n" +
     "    </category-add-video>\n" +
-    "    <span class=\"btn  btn--small  btn--positive\" ng-click=\"save(); addCategoryShow = !addCategoryShow\">Done</span>\n" +
+    "    <span class=\"btn  btn--small  btn--positive  f--right\" ng-click=\"save(); addCategoryShow = !addCategoryShow\">Done</span>\n" +
     "  </section>\n" +
     "\n" +
     "  <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCollectionShow }\">\n" +
@@ -1387,7 +1414,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      show-collection=\"addCollectionShow\"\n" +
     "      class=\"video-extended-controls__section-contents\">\n" +
     "    </collection-add-video>\n" +
-    "    <span class=\"btn  btn--small  btn--positive\" ng-click=\"save(); addCollectionShow = !addCollectionShow\">Done</span>\n" +
+    "    <span class=\"btn  btn--small  btn--positive  f--right\" ng-click=\"save(); addCollectionShow = !addCollectionShow\">Done</span>\n" +
     "  </section>\n" +
     "\n" +
     "  <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCollaboratorShow }\">\n" +
@@ -1507,7 +1534,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "        <p class=\"video-more__hint\"><strong>Hint:</strong> Drive traffic to your website by adding a link</p>\n" +
     "\n" +
-    "        <input class=\"btn  btn--positive\" type=\"submit\" value=\"Okay\" />\n" +
+    "        <input class=\"btn  btn--small  btn--positive\" type=\"submit\" value=\"Okay\" />\n" +
     "\n" +
     "      </form>\n" +
     "\n" +

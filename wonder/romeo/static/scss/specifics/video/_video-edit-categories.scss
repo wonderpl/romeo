@@ -74,11 +74,15 @@
 .video-edit-categories__selected-category {
   display: inline-block;
   color: $grey;
+  font-size: 24px;
+
+  &:first-of-type {
+    margin-left: $half-spacing-unit;
+  }
 }
 
 .video-edit-categories__remove-category {
   font-weight: 800;
   color: $red;
-  text-shadow: 0 0 2px $shadow-red;
   padding: 1em 2em 0 0;
 }

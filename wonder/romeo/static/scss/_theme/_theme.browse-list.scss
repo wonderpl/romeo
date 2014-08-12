@@ -15,6 +15,9 @@
     .browse-list__link {
       font-family: $heading-font-family;
     }
+    .browse-list__link--create {
+      font-weight: 600;
+    }
     .browse-list__title {
       font-variant: small-caps;
       font-weight: bold;
