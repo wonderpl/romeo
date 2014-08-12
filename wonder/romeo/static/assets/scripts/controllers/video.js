@@ -182,6 +182,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
       VideoService.create(data).then(function (data) {
         persistVideoData(data);
         UploadService.uploadVideo(files[0], data.id);
+        $rootScope.uploadingVideoId = data.id;
       });
     }
     $rootScope.isUploadingOrProcessingTemp = true;
@@ -306,6 +307,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
     redirect(data, 'edit');
     $scope.hasProcessed = true;
     $rootScope.isUploadingOrProcessingTemp = false;
+    $rootScope.uploadingVideoId = 0;
     $scope.$emit('notify', {
       status : 'info',
       title : 'Your Video is Ready',
@@ -507,7 +509,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
 
       debug.dir($scope.video);
 
-      if ($rootScope.isUploadingOrProcessingTemp) {
+      if ($rootScope.isUploadingOrProcessingTemp && (data.status === 'processing' || data.status === 'uploading')) {
         $scope.displaySection('edit');
         $scope.showPreviewSelector = true;
         $scope.showUpload = false;
@@ -526,7 +528,9 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
   if ($routeParams.id) {
     getVideo($routeParams.id);
   } else {
-    $rootScope.isUploadingOrProcessingTemp = false;
+    if ($rootScope.isUploadingOrProcessingTemp) {
+      getVideo($rootScope.uploadingVideoId);
+    }
     $scope.displaySection('edit');
   }
 
