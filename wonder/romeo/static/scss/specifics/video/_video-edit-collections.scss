@@ -89,6 +89,7 @@
 }
 
 .video-edit-collections__assigned-tag {
+  font-size: 24px;
   color: $grey;
 }
 
@@ -99,7 +100,6 @@
 .video-edit-collections__remove-tag {
   font-weight: 800;
   color: $red;
-  text-shadow: 0 0 2px $shadow-red;
   padding: 1em 2em 0 0;
 }
 
