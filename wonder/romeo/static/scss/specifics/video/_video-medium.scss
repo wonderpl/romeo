@@ -9,7 +9,7 @@
   i { font-style: italic; }
   p { font-size: 20px; line-height: 28px; }
   ul {
-    @extend .regular-font;
+    font-family: $base-font-family;
     list-style: disc inside;
   }
   blockquote {
