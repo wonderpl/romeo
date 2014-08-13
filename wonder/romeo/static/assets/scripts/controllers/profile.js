@@ -1,8 +1,8 @@
 angular.module('RomeoApp.controllers')
   .controller('ProfileCtrl', ['$scope', 'AccountService', 'UploadService', '$timeout',
   function($scope, AccountService, UploadService, $timeout) {
-
   'use strict';
+  var debug = new DebugClass('ProfileCtrl');
 
 // {
 //  "href": "/api/account/27250600",
@@ -43,9 +43,21 @@ angular.module('RomeoApp.controllers')
     }
   });
 
+  $scope.$watch('profile.profile_cover', function(newValue, oldValue) {
+    if (newValue !== oldValue) {
+      debug.log('Profile cover changed to: ' + newValue);
+    }
+  });
+
+  $scope.$watch('profile.avatar', function(newValue, oldValue) {
+    if (newValue !== oldValue) {
+      debug.log('Profile avatar changed to: ' + newValue);
+    }
+  });
+
   function uploadProfileImage ($event, file) {
-    console.log('uploadProfileImage()');
-    console.log(file);
+    debug.log('uploadProfileImage()');
+    debug.log(file);
     $scope.uploadingProfileImage = true;
     $scope.$emit('notify', {
       status : 'info',
@@ -53,27 +65,31 @@ angular.module('RomeoApp.controllers')
       message : 'Image uploading.'}
     );
     AccountService.updateAvatar(file).then(function (data) {
-      console.log(data);
       $timeout(function () {
-        $scope.profile = data;
+        //$scope.profile = data;
         $scope.$emit('notify', {
           status : 'success',
           title : 'Avatar Updated',
           message : 'New image saved.'}
         );
       $scope.uploadingProfileImage = false;
-      loadUserDetails();
+      doneUploadingImage($events, data);
       });
     });
   }
   function doneUploadingImage($event, data) {
-    $scope.profile = JSON.parse(data);
-    loadUserDetails();
+    //$scope.profile = JSON.parse(data);
+    //loadUserDetails();
+    var profile = JSON.parse(data);
+    debug.log('doneUploadingImage');
+    debug.dir(profile);
+    $scope.profile.profile_cover = profile.profile_cover;
+    $scope.profile.avatar = profile.avatar;
   }
 
   function uploadProfileCover ($event, file) {
-    console.log('uploadProfileCover()');
-    console.log(file);
+    debug.log('uploadProfileCover()');
+    debug.log(file);
     $scope.uploadingProfileCover = true;
     $scope.$emit('notify', {
       status : 'info',
@@ -81,14 +97,14 @@ angular.module('RomeoApp.controllers')
       message : 'Image uploading.'}
     );
     AccountService.updateCoverImage(file).then(function (data) {
-      $scope.profile = JSON.parse(data);
+      //$scope.profile = JSON.parse(data);
       $scope.$emit('notify', {
         status : 'success',
         title : 'Cover Image Updated',
         message : 'New cover image saved.'}
       );
       $scope.uploadingProfileCover = false;
-      loadUserDetails();
+      doneUploadingImage(null, data);
     });
   }
 
