@@ -148,8 +148,15 @@
 }
 
 .video-preview__close-link {
-  margin: 12px 12px 0 0;
+  width: 24px;
+  height: 24px;
+  margin: 12px;
+  padding: 2px;
   float: right;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 1;
+  border-radius: 100%;
 }
 
 .video-preview__close-link:hover {
@@ -168,6 +175,7 @@
 }
 
 .video-preview__images-container {
+  margin-bottom: $base-spacing-unit;
   width: 960px;
   overflow: hidden;
   display: block;

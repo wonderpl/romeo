@@ -177,10 +177,12 @@
   cursor: pointer;
   color: $dark-green;
 
+  &,
   &:hover,
   &:active,
   &:focus {
     text-decoration: none;
+    border: 0;
   }
 }
 
@@ -190,6 +192,14 @@
   right: 12px;
   cursor: pointer;
   color: $dark-green;
+
+  &,
+  &:hover,
+  &:active,
+  &:focus {
+    text-decoration: none;
+    border: 0;
+  }
 }
 
 
