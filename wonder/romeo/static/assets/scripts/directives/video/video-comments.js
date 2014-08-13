@@ -158,6 +158,8 @@ angular.module('RomeoApp.directives')
         CommentsService.addComment($scope.videoId, commentData).then(function(data) {
           angular.extend(data, commentData);
           var comment = createComment(data);
+          if (comment.timestamp)
+            comment.timestamp = Math.round(comment.timestamp); // Make sure we have an int for the timestamp otherwise comment scrolling breaks
           $scope.comments.push(comment);
           $scope.commentText = '';
           $scope.notified = false;
