@@ -104,10 +104,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  \n" +
     "    <ul class=\"nav  nav--stacked  video-collaborators__collaborators\" ng-show=\"collaborators\">\n" +
     "      <li class=\"video-collaborators__collaborator\" ng-repeat=\"collaborator in collaborators\">\n" +
-    "        <span class=\"video-collaborators__collaborator-image\" style=\"background-image: url('(~ collaborator.avatar_url ~)');\"></span>\n" +
-    "        <div class=\"video-collaborators__collaborator-name-container\">\n" +
-    "          <span class=\"video-collaborators__collaborator-name truncate\" ng-bind=\"collaborator.username\"></span>\n" +
-    "        </div>\n" +
+    "        <div class=\"media\">\n" +
+    "          <div class=\"media__img\">\n" +
+    "            <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"video-collaborators__collaborator-image\" style=\"style=\"background-image: url('(~ collaborator.avatar_url ~)');\"\">\n" +
+    "          </div>\n" +
+    "          <div class=\"media__body\">\n" +
+    "            <span class=\"video-collaborators__collaborator-name truncate\" ng-bind=\"collaborator.username\"></span>\n" +
+    "          </div>\n" +
     "      </li>\n" +
     "  <!--     <li class=\"video-collaborators__collaborator\">\n" +
     "        <span class=\"video-collaborators__collaborator-image\" style=\"background-image: url('http://media.dev.wonderpl.com/images/avatar/thumbnail_medium/kHmU0Pn5E1dVK3K68Okjgw.jpg');\"></span>\n" +

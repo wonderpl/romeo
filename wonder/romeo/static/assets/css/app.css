@@ -5758,18 +5758,15 @@ label,
   border-radius: 50%;
   background-size: contain;
   vertical-align: middle;
-  margin-right: 0.5em;
 }
 
-/* line 57, ../../scss/specifics/video/_video-collaborators.scss */
+/* line 56, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators__collaborator-name {
   display: inline-block;
-  margin-top: 0.5em;
-  margin-right: 0.5em;
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* line 64, ../../scss/specifics/video/_video-collaborators.scss */
+/* line 61, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators__collaborator-name-container {
   display: inline-block;
 }
