@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% macro video_url() %}
-{{ video.web_url }}
+{{ video.web_url.replace('http:', 'https:') }}
 {%- endmacro %}
 
 {% block title %}{% if error %}There was an error processing your video {% else %}Your video is ready{% endif %}{% endblock %}
