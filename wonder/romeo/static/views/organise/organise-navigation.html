@@ -1,43 +1,19 @@
 <div class="layout__item  one-third  organise-navigation">
   <ul class="nav  nav--stacked  browse-list">
-    <li class="browse-list__item">
-      <span class="browse-list__title">Manage</span>
-    </li>
-    <li class="browse-list__item">
-      <a class="browse-list__link" ng-class="{ 'browse-list__link--active' : !customFilterFunction && !currentTag }" ng-click="showAllVideos()">All videos</a>
-    </li>
-    <li class="browse-list__item">
-      <a class="browse-list__link" ng-class="{ 'browse-list__link--active' : customFilterFunction === 'isRecent' }" ng-click="showRecentVideos()">Recently added videos</a>
-    </li>
+    <li class="browse-list__item"><span class="browse-list__title">Manage</span></li>
+    <li class="browse-list__item"><a class="browse-list__link" ng-class="{ 'browse-list__link--active' : !customFilterFunction && !currentTag }" ng-click="showAllVideos()">All videos</a></li>
+    <li class="browse-list__item"><a class="browse-list__link" ng-class="{ 'browse-list__link--active' : customFilterFunction === 'isRecent' }" ng-click="showRecentVideos()">Recently added videos</a></li>
   </ul>
 
   <ul class="nav  nav--stacked  browse-list">
-    <li class="browse-list__item">
-      <span class="browse-list__title">Collections not visible in app</span>
-    </li>
-    <li class="browse-list__item">
-      <a class="browse-list__link  browse-list__link--create  split" ng-click="createPrivateCollection()">
-        <span class="split__title">Add a new private collection</span>
-        <i class="icon  icon--plus"></i>
-      </a>
-    </li>
-    <li class="browse-list__item" ng-repeat="tag in tags | filter : { public : false }">
-      <a class="browse-list__link" ng-class="{ 'browse-list__link--active' : currentTag.id === tag.id }" ng-bind-html="tag.label" ng-click="loadCollection(tag.id)"></a>
-    </li>
+    <li class="browse-list__item"><span class="browse-list__title">Collections not visible in app</span></li>
+    <li class="browse-list__item"><a class="browse-list__link  browse-list__link--create" ng-click="createPrivateCollection()"><span class="icon-text"><i class="icon  icon-text__icon  icon--plus"></i>Add a new private collection</span></a></li>
+    <li class="browse-list__item" ng-repeat="tag in tags | filter : { public : false }"><a class="browse-list__link" ng-class="{ 'browse-list__link--active' : currentTag.id === tag.id }" ng-bind-html="tag.label" ng-click="loadCollection(tag.id)"></a></li>
   </ul>
 
   <ul class="nav  nav--stacked  browse-list">
-    <li class="browse-list__item">
-      <span class="browse-list__title">Collections visible in app</span>
-    </li>
-    <li class="browse-list__item">
-      <a class="browse-list__link  browse-list__link--create  split" ng-click="createPublicCollection()">
-        <span class="split__title">Add a new public collection</span>
-        <i class="icon  icon--plus"></i>
-      </a>
-    </li>
-    <li class="browse-list__item" ng-repeat="tag in tags | filter : { public : true }">
-      <a class="browse-list__link" ng-class="{ 'browse-list__link--active' : currentTag.id === tag.id }" ng-bind-html="tag.label" ng-click="loadCollection(tag.id)"></a>
-    </li>
+    <li class="browse-list__item"><span class="browse-list__title">Collections visible in app</span></li>
+    <li class="browse-list__item"><a class="browse-list__link  browse-list__link--create" ng-click="createPublicCollection()"><span class="icon-text"><i class="icon  icon-text__icon  icon--plus"></i>Add a new public collection</span></a></li>
+    <li class="browse-list__item" ng-repeat="tag in tags | filter : { public : true }"><a class="browse-list__link" ng-class="{ 'browse-list__link--active' : currentTag.id === tag.id }" ng-bind-html="tag.label" ng-click="loadCollection(tag.id)"></a></li>
   </ul>
 </div>

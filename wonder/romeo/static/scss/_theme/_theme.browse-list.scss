@@ -2,49 +2,54 @@
  * _theme.browse-list.scss
  */
 .browse-list {
+  margin: 0;
+  margin-bottom: $base-spacing-unit;
+  font-family: $heading-font-family;
 
   > li {
-
+    margin-bottom: 4px;
   }  
 }
 
-  .browse-list__item {
+  .browse-list__title {
     margin-bottom: 6px;
+    font-variant: small-caps;
+    font-weight: 600;
+    font-size: 1.125em;
+    text-transform: lowercase;
+    letter-spacing: 0.1em;
+    color: $swatch-two;
   }
-    .browse-list__title,
     .browse-list__link {
-      font-family: $heading-font-family;
-    }
-    .browse-list__link--create {
-      font-weight: 600;
-    }
-    .browse-list__title {
-      font-variant: small-caps;
-      font-weight: bold;
-      text-transform: lowercase;
-      letter-spacing: 0.1em;
-      color: $swatch-two;
-    }
-    .browse-list__link {
-      margin: -4px -6px;
+      display: block;
+      margin: -4px -6px -4px 18px;
       padding: 4px 6px;
+      font-size: 0.875em;
+      line-height: 1.75;
       color: $swatch-four;
+      text-decoration: none;
       border: none;
       cursor: pointer;
-      -webkit-transition: background-color 0.3s ease-in-out;
-              transition: background-color 0.3s ease-in-out;
+      -webkit-transition: background-color 0.15s ease-in-out;
+              transition: background-color 0.15s ease-in-out;
 
       &:hover {
-        background-color: rgba($swatch-two,0.25);
+        color: $swatch-three;
+        background-color: rgba($swatch-two,0.12);
         border-radius: 3px;
       }
     }
-    .browse-list__link--active {
-      color: $swatch-five;
-      font-weight: bold;
-      cursor: auto;
+    .browse-list__link--create { font-weight: 600; }
 
-      &:hover {
+    .browse-list__link--active {
+      font-weight: bold;
+
+      &,
+      &:hover,
+      &:active,
+      &:focus {
+        color: $swatch-five;
         background-color: transparent;
+        cursor: default;
       }
     }

@@ -2891,56 +2891,63 @@ select {
 /**
  * _theme.browse-list.scss
  */
-/* line 11, ../../scss/_theme/_theme.browse-list.scss */
-.browse-list__item {
-  margin-bottom: 6px;
-}
-
-/* line 15, ../../scss/_theme/_theme.browse-list.scss */
-.browse-list__title,
-.browse-list__link {
+/* line 4, ../../scss/_theme/_theme.browse-list.scss */
+.browse-list {
+  margin: 0;
+  margin-bottom: 24px;
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-
-/* line 18, ../../scss/_theme/_theme.browse-list.scss */
-.browse-list__link--create {
-  font-weight: 600;
+/* line 9, ../../scss/_theme/_theme.browse-list.scss */
+.browse-list > li {
+  margin-bottom: 4px;
 }
 
-/* line 21, ../../scss/_theme/_theme.browse-list.scss */
+/* line 14, ../../scss/_theme/_theme.browse-list.scss */
 .browse-list__title {
+  margin-bottom: 6px;
   font-variant: small-caps;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 1.125em;
   text-transform: lowercase;
   letter-spacing: 0.1em;
   color: #b7bcbd;
 }
 
-/* line 28, ../../scss/_theme/_theme.browse-list.scss */
+/* line 23, ../../scss/_theme/_theme.browse-list.scss */
 .browse-list__link {
-  margin: -4px -6px;
+  display: block;
+  margin: -4px -6px -4px 18px;
   padding: 4px 6px;
+  font-size: 0.875em;
+  line-height: 1.75;
   color: #70797b;
+  text-decoration: none;
   border: none;
   cursor: pointer;
-  -webkit-transition: background-color 0.3s ease-in-out;
-  transition: background-color 0.3s ease-in-out;
+  -webkit-transition: background-color 0.15s ease-in-out;
+  transition: background-color 0.15s ease-in-out;
 }
-/* line 37, ../../scss/_theme/_theme.browse-list.scss */
+/* line 36, ../../scss/_theme/_theme.browse-list.scss */
 .browse-list__link:hover {
-  background-color: rgba(183, 188, 189, 0.25);
+  color: #2e2e32;
+  background-color: rgba(183, 188, 189, 0.12);
   border-radius: 3px;
 }
 
 /* line 42, ../../scss/_theme/_theme.browse-list.scss */
-.browse-list__link--active {
-  color: #51b364;
-  font-weight: bold;
-  cursor: auto;
+.browse-list__link--create {
+  font-weight: 600;
 }
-/* line 47, ../../scss/_theme/_theme.browse-list.scss */
-.browse-list__link--active:hover {
+
+/* line 44, ../../scss/_theme/_theme.browse-list.scss */
+.browse-list__link--active {
+  font-weight: bold;
+}
+/* line 50, ../../scss/_theme/_theme.browse-list.scss */
+.browse-list__link--active, .browse-list__link--active:hover, .browse-list__link--active:active, .browse-list__link--active:focus {
+  color: #51b364;
   background-color: transparent;
+  cursor: default;
 }
 
 /**
