@@ -53,6 +53,7 @@ wonder/romeo/static/gen
 
 # node packages
 node_modules/
+npm-debug.log
 
 # webstorm
 .idea/
