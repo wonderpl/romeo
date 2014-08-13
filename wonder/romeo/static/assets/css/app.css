@@ -4598,7 +4598,7 @@ label,
 /* line 5, ../../scss/specifics/video/_video-view.scss */
 .video-view__title {
   margin-bottom: 12px;
-  padding-top: 24px;
+  margin-top: 24px;
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 48px;
   line-height: 58px;
