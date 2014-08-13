@@ -470,7 +470,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
           validateToken(token);
         } else {
           alert('not authorised');
-          $location.path('/login?redirect=not_authorised');
+          $location.path('/');
         }
       }
     });
@@ -486,7 +486,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
     }).error(function () {
       alert('token invalid');
       $rootScope.isCollaborator = false;
-      $location.path('/login?redirect=token_invalid');
+      $location.path('/');
     });
   }
 

@@ -155,7 +155,7 @@ angular.module('RomeoApp.services').factory('AuthService',
     Auth.redirect = function() {
         debug.error('Login: Auth.redirect - Login method told to redirect to login page');
         debug.trace();
-        $location.path('/login?redirect=Auth_redirect');
+        $location.path('/login');
     };
 
     /*
