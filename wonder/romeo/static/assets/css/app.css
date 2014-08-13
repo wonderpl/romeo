@@ -5403,15 +5403,15 @@ label,
 
 /* line 115, ../../scss/specifics/video/_video-edit-collections.scss */
 .modal__title .video-edit-collections__assigned-tags {
+  display: inline-block;
+  vertical-align: middle;
   margin: 0;
+  margin-left: 12px;
+  padding-top: 0;
+  position: relative;
+  top: -2px;
   float: left;
   text-align: left;
-  font-size: 14px;
-  font-weight: bold;
-  vertical-align: middle;
-  display: inline-block;
-  padding-top: 8px;
-  margin-left: 12px;
 }
 
 /* line 128, ../../scss/specifics/video/_video-edit-collections.scss */
