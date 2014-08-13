@@ -109,7 +109,7 @@
 }
 
 .video-feedback__comment-text {
-  margin-left: $base-spacing-unit * 2;
+  margin-left: ($base-spacing-unit * 2) + 4px;
   margin-bottom: $half-spacing-unit;
 }
 
