@@ -106,7 +106,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <li class=\"video-collaborators__collaborator\" ng-repeat=\"collaborator in collaborators\">\n" +
     "        <div class=\"media\">\n" +
     "          <div class=\"media__img\">\n" +
-    "            <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"video-collaborators__collaborator-image\" style=\"style=\"background-image: url('(~ collaborator.avatar_url ~)');\"\">\n" +
+    "            <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"video-collaborators__collaborator-image\" style=\"background-image: url('(~ collaborator.avatar_url ~)');\">\n" +
     "          </div>\n" +
     "          <div class=\"media__body\">\n" +
     "            <span class=\"video-collaborators__collaborator-name truncate\" ng-bind=\"collaborator.username\"></span>\n" +
@@ -1405,7 +1405,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <i class=\"icon  icon--medium  icon--minus  section-drawer__icon\" ng-click=\"addCollaboratorShow = !addCollaboratorShow\" ng-show=\"addCollaboratorShow\"></i>\n" +
     "    <add-collaborator class=\"video-extended-controls__section-contents\"\n" +
     "      video=\"video\"\n" +
-    "      show-collaborator=\"addCollaboratorShow\">\n" +
+    "      show-collaborator=\"addCollaboratorShow\"\n" +
+    "      collaborators=\"collaborators\">\n" +
     "    </add-collaborator>\n" +
     "  </section>\n" +
     "</section>"
@@ -1761,7 +1762,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "            video-id=\"(~ video.id ~)\">\n" +
     "          </video-share>\n" +
     "\n" +
-    "          <video-extended-controls ng-show=\"isEdit\"></video-extended-controls>\n" +
+    "          <video-extended-controls ng-show=\"isEdit\" collaborators=\"collaborators\"></video-extended-controls>\n" +
     "\n" +
     "          <video-download video-id=\"video.id\" ng-show=\"video.id && $root.isCollaborator && canDownload\"></video-download>\n" +
     "\n" +

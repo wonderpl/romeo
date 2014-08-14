@@ -5708,30 +5708,36 @@ label,
   width: 22%;
 }
 
-/* line 10, ../../scss/specifics/video/_video-collaborators.scss */
+/* line 9, ../../scss/specifics/video/_video-collaborators.scss */
+.video-extended-controls__section .video-collaborators--column {
+  float: none;
+  width: auto;
+}
+
+/* line 15, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators--mirror {
   width: 100%;
   float: left;
 }
 
-/* line 15, ../../scss/specifics/video/_video-collaborators.scss */
+/* line 20, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators--wide {
   width: 100%;
   float: right;
 }
 
-/* line 20, ../../scss/specifics/video/_video-collaborators.scss */
+/* line 25, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators__header {
   padding-bottom: 1em;
 }
 
-/* line 25, ../../scss/specifics/video/_video-collaborators.scss */
+/* line 30, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators__collaborator {
   text-align: left;
   margin-bottom: 0.5em;
 }
 
-/* line 30, ../../scss/specifics/video/_video-collaborators.scss */
+/* line 35, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators__title {
   padding-top: 4px;
   font-variant: small-caps;
@@ -5742,7 +5748,7 @@ label,
   float: left;
 }
 
-/* line 40, ../../scss/specifics/video/_video-collaborators.scss */
+/* line 45, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators__none-message {
   font-variant: small-caps;
   color: #999999;
@@ -5750,7 +5756,7 @@ label,
   text-transform: lowercase;
 }
 
-/* line 47, ../../scss/specifics/video/_video-collaborators.scss */
+/* line 52, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators__collaborator-image {
   height: 33px;
   width: 33px;
@@ -5760,13 +5766,13 @@ label,
   vertical-align: middle;
 }
 
-/* line 56, ../../scss/specifics/video/_video-collaborators.scss */
+/* line 61, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators__collaborator-name {
   display: inline-block;
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* line 61, ../../scss/specifics/video/_video-collaborators.scss */
+/* line 66, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators__collaborator-name-container {
   display: inline-block;
 }

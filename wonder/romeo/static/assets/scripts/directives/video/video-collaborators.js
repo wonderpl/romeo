@@ -10,7 +10,8 @@ angular.module('RomeoApp.directives')
     scope : {
       videoId : '@',
       notified : '=',
-      comments : '='
+      comments : '=',
+      collaborators: '='
     },
     controller : function ($scope) {
 
