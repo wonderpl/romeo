@@ -845,7 +845,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<ol class=\"nav  page-breadcrumbs\">\n" +
     "  <li class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title\">All Videos</span></li>\n" +
     "  <li ng-show=\"!filter && tag\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title  page-breadcrumbs__title--selected\" ng-bind-html=\"tag.label\"></span></li>\n" +
-    "  <li ng-show=\"filter\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title\">Recent Videos</span></li>\n" +
+    "  <li ng-show=\"filterByRecent\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title\">Recent Videos</span></li>\n" +
     "</ol>"
   );
 
@@ -893,8 +893,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<div class=\"layout__item  one-third  organise-navigation\">\n" +
     "  <ul class=\"nav  nav--stacked  browse-list\">\n" +
     "    <li class=\"browse-list__item\"><span class=\"browse-list__title\">Manage</span></li>\n" +
-    "    <li class=\"browse-list__item\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : !customFilterFunction && !currentTag }\" ng-click=\"showAllVideos()\">All videos</a></li>\n" +
-    "    <li class=\"browse-list__item\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : customFilterFunction === 'isRecent' }\" ng-click=\"showRecentVideos()\">Recently added videos</a></li>\n" +
+    "    <li class=\"browse-list__item\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : !filterByRecent && !currentTag }\" ng-click=\"showAllVideos()\">All videos</a></li>\n" +
+    "    <li class=\"browse-list__item\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : filterByRecent }\" ng-click=\"showRecentVideos()\">Recently added videos</a></li>\n" +
     "  </ul>\n" +
     "\n" +
     "  <ul class=\"nav  nav--stacked  browse-list\">\n" +
@@ -945,7 +945,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <ul class=\"layout\" ng-show=\"filteredVideos\">\n" +
     "    <li class=\"layout__item  one-third\"\n" +
-    "      ng-repeat=\"video in filteredVideos | orderBy: sortOption | filter : customFilter\"\n" +
+    "      ng-repeat=\"video in filteredVideos | orderBy: sortOption\"\n" +
     "      ng-class=\"{\n" +
     "        'organise-video-list__video--last' : ($index + 1) % 3 == 0,\n" +
     "        'organise-video-list__video--list' : isList\n" +
@@ -1010,12 +1010,12 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('organise.html',
     "<main role=\"main\" class=\"page-content\" ng-controller=\"OrganiseCtrl\">\n" +
     "  <div class=\"wrapper  wrapper--fixed\">\n" +
-    "    <organise-breadcrumb tag=\"tag\" filter=\"customFilterFunction\"></organise-breadcrumb>\n" +
+    "    <organise-breadcrumb tag=\"tag\" filter-by-recent=\"filterByRecent\"></organise-breadcrumb>\n" +
     "    <div class=\"layout\">\n" +
-    "      <organise-navigation tags=\"tags\" current-tag=\"tag\" custom-filter-function=\"customFilterFunction\"></organise-navigation>\n" +
+    "      <organise-navigation tags=\"tags\" current-tag=\"tag\" filter-by-recent=\"filterByRecent\"></organise-navigation>\n" +
     "      <div class=\"layout__item  two-thirds\">\n" +
     "        <organise-collection ng-show=\"tag\" tag=\"tag\" is-edit=\"isEdit\"></organise-collection>  \n" +
-    "        <organise-video-list videos=\"videos\" tag=\"tag\" custom-filter-function=\"customFilterFunction\"></organise-video-list>\n" +
+    "        <organise-video-list videos=\"videos\" tag=\"tag\" filter-by-recent=\"filterByRecent\"></organise-video-list>\n" +
     "      </div>\n" +
     "    </div>\n" +
     "  </div>\n" +

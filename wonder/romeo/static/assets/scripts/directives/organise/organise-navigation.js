@@ -12,7 +12,7 @@ function OrganiseNavigationDirective ($templateCache) {
     scope : {
       tags : '=',
       currentTag : '=',
-      customFilterFunction : '='
+      filterByRecent : '='
     },
     controller : function ($scope) {
       function showCreateCollection (isPublic) {

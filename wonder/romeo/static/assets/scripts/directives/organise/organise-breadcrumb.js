@@ -10,7 +10,7 @@ function OrganiseBreadcrumbDirective ($templateCache) {
     template : $templateCache.get('organise-breadcrumb.html'),
     scope : {
       tag : '=',
-      filter : '='
+      filterByRecent : '='
     },
     controller : function ($scope) {
 

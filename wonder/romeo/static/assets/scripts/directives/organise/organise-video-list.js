@@ -23,7 +23,7 @@ function OrganiseVideoList ($templateCache, $cookies) {
     scope : {
       videos : '=',
       tag : '=',
-      customFilterFunction : '='
+      filterByRecent: '='
     },
     controller : function ($scope) {
 
@@ -34,32 +34,33 @@ function OrganiseVideoList ($templateCache, $cookies) {
       });
 
       $scope.$watch('videos', function (newValue, oldValue) {
-        
         if (! angular.equals(newValue, oldValue)) {
           debug.log('video data changed');
-          $scope.filteredVideos = $scope.tag ? filterVideosByTagId($scope.tag.id) : newValue;
+          $scope.filteredVideos = getFilteredVideoList();
         }
       });
 
       $scope.$watch('tag', function (newValue, oldValue) {
         if (! angular.equals(newValue, oldValue)) {
           debug.log('tag data changed');
-          $scope.filteredVideos = newValue ? filterVideosByTagId(newValue.id) : $scope.videos;
+          $scope.filteredVideos = getFilteredVideoList();
         }
       });
 
-      $scope.$watch('customFilterFunction', function (newValue, oldValue) {
-        if (! angular.equals(newValue, oldValue)) {
-          debug.log('customFilter changed');
-          $scope.customFilter = function (video) {
-            if (newValue) {
-              return $scope[newValue](video);
-            } else {
-              return true;
-            }
-          };
+      $scope.$watch('filterByRecent', function (newValue, oldValue) {
+        if (!angular.equals(newValue, oldValue)) {
+          debug.log('filterByRecent changed');
+          $scope.filteredVideos = getFilteredVideoList();
         }
       });
+
+      function getFilteredVideoList() {
+        if ($scope.filterByRecent)
+          return filterVideosByRecent();
+        else if ($scope.tag)
+          return filterVideosByTagId($scope.tag.id);
+        return $scope.videos;
+      }
 
       $scope.isList = $cookies.isList === 'true' ? true : false;
 
@@ -71,6 +72,16 @@ function OrganiseVideoList ($templateCache, $cookies) {
               filteredVideos.push(video);
             }
           });
+        });
+        return filteredVideos;
+      }
+
+      function filterVideosByRecent() {
+        var filteredVideos = [];
+        angular.forEach($scope.videos, function (video, key) {
+          if ($scope.isRecent(video)) {
+            filteredVideos.push(video);
+          }
         });
         return filteredVideos;
       }

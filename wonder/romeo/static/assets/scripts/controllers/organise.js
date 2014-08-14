@@ -27,7 +27,7 @@ angular.module('RomeoApp.controllers')
         var id = $routeParams.id;
         if (id) {
           if (id === 'recent') {
-            $scope.customFilterFunction = 'isRecent';
+            $scope.filterByRecent = true;
             setCollection();
           } else {
             setCollection(id);
@@ -47,14 +47,17 @@ angular.module('RomeoApp.controllers')
 
     $scope.$on('show-collection', function ($event, id) {
       $event.stopPropagation = true;
-      $scope.customFilterFunction = '';
-      redirect(id);
+      $scope.filterByRecent = false;
+      redirect(id, false);
       setCollection(id);
     });
 
     $scope.$on('show-recent', function ($event) {
       $event.stopPropagation = true;
-      redirect('recent', true);
+      $scope.filterByRecent = true;
+      $scope.tag = null;
+      redirect('recent', false);
+      setCollection();
     });
 
     $scope.$on('save-tag', function ($event) {
