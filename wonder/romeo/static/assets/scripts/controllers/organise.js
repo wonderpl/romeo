@@ -83,6 +83,7 @@ angular.module('RomeoApp.controllers')
             title : 'Collection deleted',
             message : $scope.tag.label + ' deleted.'}
           );
+          setCollection();
           refresh();
         });
       }
