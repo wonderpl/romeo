@@ -194,20 +194,8 @@ function DebugClass(name) {
     var debugName = name;
     var show = false;
 
-    function getCookie(cname) {
-        var name = cname + "=";
-        var ca = document.cookie.split(';');
-        for(var i=0; i<ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0)==' ') c = c.substring(1);
-            if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
-        }
-        return "";
-    }
-
     if (typeof console !== 'undefined') {
-        var cookie = getCookie('debug');
-        if (cookie && (cookie == 'all' || cookie.indexOf(debugName) != -1)) {
+        if ($cookies.debug && ($cookies.debug == 'all' || $cookies.debug.indexOf(debugName) != -1)) {
             show = true;
         }
     }
