@@ -844,7 +844,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('organise-breadcrumb.html',
     "<ol class=\"nav  page-breadcrumbs\">\n" +
     "  <li class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title\">All Videos</span></li>\n" +
-    "  <li ng-show=\"!filter && tag\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title  page-breadcrumbs__title--selected\" ng-bind-html=\"tag.label\"></span></li>\n" +
+    "  <li ng-show=\"!filterByRecent && tag\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title  page-breadcrumbs__title--selected\" ng-bind-html=\"tag.label\"></span></li>\n" +
     "  <li ng-show=\"filterByRecent\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title\">Recent Videos</span></li>\n" +
     "</ol>"
   );
