@@ -7,6 +7,11 @@ angular.module('RomeoApp.services')
 
   'use strict';
 
+  var cachedId;
+
+  // move this
+  var cachedkey;
+
   function getParametersSuccess (id, file, response) {
 
     console.log('getParametersSuccess()');
@@ -35,11 +40,6 @@ angular.module('RomeoApp.services')
     .done(uploadVideoDone)
     .fail(uploadVideoFail);
   }
-
-  var cachedId;
-
-  // move this
-  var cachedkey;
 
   function cacheKey (key) {
     cachedkey = key;
@@ -83,10 +83,11 @@ angular.module('RomeoApp.services')
     console.log(textStatus);
     console.log(jqXHR);
 
-    $rootScope.$broadcast('video-upload-complete');
-
     // update video with key
-    updateVideo({ filename: cachedkey }, cachedId).then(function () {
+    updateVideo({ filename: cachedkey, status: 'processing' }, cachedId).then(function () {
+      // Make sure we've updated status on server before broadcasting succes
+      $rootScope.$broadcast('video-upload-complete'); 
+
       // poll video service with video id
       pollVideoForReady(cachedId);
     });
