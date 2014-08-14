@@ -207,6 +207,7 @@ angular.module('RomeoApp.controllers')
             title : 'Collection Updated',
             message : 'Video removed from collection.'}
           );
+          redirect('/organise', false);
         });
       });
     };
