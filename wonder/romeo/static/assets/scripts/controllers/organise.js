@@ -5,48 +5,51 @@ angular.module('RomeoApp.controllers')
     var debug = new DebugClass('OrganiseCtrl');
 
     function refresh () {
-      $route.reload();
+      getAllVideos();
+      getAllCollections();
     }
 
-    function redirect (path, force) {
-      $scope.isEdit = false;
-      path = path ? '/' + path : '';
-      var url = '/organise' + path;
-      if (force === true) {
-        $location.path(url);
-      } else {
-        $location.path(url, false);
-      }
-    }
+    function getAllVideos() {
+      VideoService.getAll().then(function (data) {
+        $scope.videos = data.video.items;
 
-    VideoService.getAll().then(function (data) {
-      $scope.videos = data.video.items;
-
-      // Map over all videos removing html entities from the title
-      var elem = $('<div/>');
-      for (var i = 0; $scope.videos.length > i; ++i) {
-        $scope.videos[i].title = elem.html($scope.videos[i].title).text();
-      }
-    });
-
-    TagService.getTags().then(function(data){
-      $scope.tags = data.tag.items;
-      var id = $routeParams.id;
-      if (id) {
-        if (id === 'recent') {
-          $scope.customFilterFunction = 'isRecent';
-          loadTag();
-        } else {
-          loadTag(id);
+        // Map over all videos removing html entities from the title
+        var elem = $('<div/>');
+        for (var i = 0; $scope.videos.length > i; ++i) {
+          $scope.videos[i].title = elem.html($scope.videos[i].title).text();
         }
-      }
-    });
+      });
+    }
+
+    function getAllCollections() {
+      TagService.getTags().then(function(data){
+        $scope.tags = data.tag.items;
+        var id = $routeParams.id;
+        if (id) {
+          if (id === 'recent') {
+            $scope.customFilterFunction = 'isRecent';
+            setCollection();
+          } else {
+            setCollection(id);
+          }
+        }
+      });
+    }
+
+    function setCollection(id) {
+      $scope.tag = getTagById(id);
+    }
+
+    refresh(); // Call this on page load to load all the data 
+
+
+    // Scope listners:
 
     $scope.$on('show-collection', function ($event, id) {
       $event.stopPropagation = true;
       $scope.customFilterFunction = '';
       redirect(id);
-      loadTag(id);
+      setCollection(id);
     });
 
     $scope.$on('show-recent', function ($event) {
@@ -63,6 +66,7 @@ angular.module('RomeoApp.controllers')
             title : 'Collection updated',
             message : 'Your changes have been saved.'}
           );
+          refresh();
         });
       }
     });
@@ -71,12 +75,12 @@ angular.module('RomeoApp.controllers')
       $event.stopPropagation = true;
       if ($scope.tag) {
         TagService.deleteTag($scope.tag.id).then(function () {
-          redirect('/organise', true);
           $scope.$emit('notify', {
             status : 'success',
             title : 'Collection deleted',
             message : $scope.tag.label + ' deleted.'}
           );
+          refresh();
         });
       }
     });
@@ -101,18 +105,19 @@ angular.module('RomeoApp.controllers')
       if (video) {
         debug.log(video);
         VideoService.delete(video.id).then(function () {
-          refresh();
           $scope.$emit('notify', {
             status : 'success',
             title : 'Video deleted',
             message : "'" + video.title + "' deleted."}
           );
+          refresh();
         });
       }
     });
 
-    $scope.saveNewCollection = function () {
+    // Scope methods:
 
+    $scope.saveNewCollection = function () {
       var label = $scope.collection.label;
       var description = $scope.collection.description;
       var isPublic = $scope.collection.scope === 'public';
@@ -130,18 +135,51 @@ angular.module('RomeoApp.controllers')
             $scope.addTag(tag.id);
             $scope.addVideoToCollection = false;
           }
-          $scope.close();
-          loadTag(tag.id);
-          refresh();
-          // redirect('/organise', true);
+          $scope.close(); // Close modal window
           $scope.$emit('notify', {
             status : 'success',
             title : 'New Collection Created',
             message : 'Collection details saved.'}
           );
+          setCollection(tag.id);
+          refresh();
         });
       });
     };
+
+    // Root Scope broadcast event listners
+
+    $rootScope.$on('video-upload-complete', function (event, data) {
+      debug.info('Recieved video-upload-complete message');
+      getAllVideos();
+    });
+
+    $rootScope.$on('video-upload-success', function (event, data) {
+      debug.info('Recieved video-upload-success message');
+      getAllVideos();
+    });
+
+    $rootScope.$on('video-upload-start', function (event, data) {
+      debug.info('Recieved video-upload-start message');
+      getAllVideos();
+      //$timeout(getAllVideos, 100); // Give any pending web service call some time to finish
+    });
+
+
+
+
+    // OLD code :
+
+    function redirect (path, force) {
+      $scope.isEdit = false;
+      path = path ? '/' + path : '';
+      var url = '/organise' + path;
+      if (force === true) {
+        $location.path(url, true);
+      } else {
+        $location.path(url, false);
+      }
+    }
 
     $scope.close = function () {
       $modal.hide();
@@ -217,40 +255,10 @@ angular.module('RomeoApp.controllers')
       return tag;
     }
 
-    function loadTag (id) {
-      $scope.tag = getTagById(id);
-    }
-
     $('.editable').on('input', function(e) {
       debug.log(e);
       debug.log(e.currentTarget);
       debug.log($(e.currentTarget).text());
       $(e.currentTarget).text().replace(/&nbsp;/g, '');
     });
-
-    // Listen to upload events to update video list if the status changes
-    // This feels dirty!
-    $rootScope.$on('video-upload-complete', function (event, data) {
-      debug.info('Recieved video-upload-complete message');
-      setVideoStatus('processing');
-    });
-
-    $rootScope.$on('video-upload-success', function (event, data) {
-      debug.info('Recieved video-upload-success message');
-      setVideoStatus('ready');
-    });
-
-    $rootScope.$on('video-upload-start', function (event, data) {
-      debug.info('Recieved video-upload-start message');
-    });
-
-    function setVideoStatus(status) {
-      for (var i = 0; i < $scope.videos.length; ++i) {
-        var video = $scope.videos[i];
-        if (video.id == $rootScope.uploadingVideoId) {
-          video.status = status;
-          break;
-        }
-      }
-    }
 }]);
