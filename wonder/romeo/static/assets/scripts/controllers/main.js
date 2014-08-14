@@ -15,7 +15,7 @@ function MainController ($window, $scope, $rootScope, $timeout, $location, $moda
 
   $rootScope.isComments = false;
 
-  $rootScope.layoutMode = $cookies.layout ? $cookies.layout : 'wide';
+  $rootScope.layoutMode = $cookies.layout ? $cookies.layout : ($rootScope.isCollaborator) ? 'column' : 'wide';
 
   $scope.profile = '';
 
