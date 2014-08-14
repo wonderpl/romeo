@@ -900,13 +900,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <ul class=\"nav  nav--stacked  browse-list\">\n" +
     "    <li class=\"browse-list__item\"><span class=\"browse-list__title\">Collections not visible in app</span></li>\n" +
     "    <li class=\"browse-list__item\"><a class=\"browse-list__link  browse-list__link--create\" ng-click=\"createPrivateCollection()\"><span class=\"icon-text\"><i class=\"icon  icon-text__icon  icon--plus\"></i>Add a new private collection</span></a></li>\n" +
-    "    <li class=\"browse-list__item\" ng-repeat=\"tag in tags | filter : { public : false }\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : currentTag.id === tag.id }\" ng-bind-html=\"tag.label\" ng-click=\"loadCollection(tag.id)\"></a></li>\n" +
+    "    <li class=\"browse-list__item\" ng-repeat=\"tag in tags | orderBy : 'label' | filter : { public : false }\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : currentTag.id === tag.id }\" ng-bind-html=\"tag.label\" ng-click=\"loadCollection(tag.id)\"></a></li>\n" +
     "  </ul>\n" +
     "\n" +
     "  <ul class=\"nav  nav--stacked  browse-list\">\n" +
     "    <li class=\"browse-list__item\"><span class=\"browse-list__title\">Collections visible in app</span></li>\n" +
     "    <li class=\"browse-list__item\"><a class=\"browse-list__link  browse-list__link--create\" ng-click=\"createPublicCollection()\"><span class=\"icon-text\"><i class=\"icon  icon-text__icon  icon--plus\"></i>Add a new public collection</span></a></li>\n" +
-    "    <li class=\"browse-list__item\" ng-repeat=\"tag in tags | filter : { public : true }\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : currentTag.id === tag.id }\" ng-bind-html=\"tag.label\" ng-click=\"loadCollection(tag.id)\"></a></li>\n" +
+    "    <li class=\"browse-list__item\" ng-repeat=\"tag in tags | filter : { public : true } | orderBy : 'label'\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : currentTag.id === tag.id }\" ng-bind-html=\"tag.label\" ng-click=\"loadCollection(tag.id)\"></a></li>\n" +
     "  </ul>\n" +
     "</div>"
   );
@@ -939,7 +939,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  </section>\n" +
     "\n" +
     "  <div ng-hide=\"filteredVideos\" class=\"organise-video-list__message\">\n" +
-    "    <p>Great, you've made a collection, but it's empty!</p>\n" +
+    "    <p>There are no videos here right now</p>\n" +
     "    <p>Go and <a href=\"#/video\">upload</a> a video.</p>\n" +
     "  </div>\n" +
     "\n" +
@@ -995,7 +995,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <div class=\"ratio  ratio--16x9  video-thumb\" ng-hide=\"isList\">\n" +
     "    <ul class=\"nav  nav--block  video-thumb-list\">\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-href=\"#/video/(~video.id~)/edit\"><i class=\"icon  icon--edit\"></i><span class=\"t--block  t--center\">Edit</span></a></li>\n" +
-    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-href=\"#/video/(~video.id~)\"><i class=\"icon  icon--eye\"></i><span class=\"t--block  t--center\">Review</span></a></li>\n" +
+    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-href=\"#/video/(~video.id~)\"><i class=\"icon  icon--eye\"></i><span class=\"t--block  t--center\">Preview</span></a></li>\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link is-disabled\"><i class=\"icon  icon--bar-graph\"></i><span class=\"t--block  t--center\">Stats</span></a></li>\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-click=\"addRemove(video)\"><i class=\"icon  icon--collection\"></i><span class=\"t--block  t--center\">Add / Remove</span></a></li>\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-click=\"showDelete(video)\"><i class=\"icon  icon--trash\"></i><span class=\"t--block  t--center\">Delete</span></a></l>\n" +
@@ -1278,7 +1278,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "            </span>\n" +
     "            <div class=\"video-feedback__comment-text\">\n" +
     "              <textarea class=\"video-feedback__input js-video-feedback-input\"\n" +
-    "                placeholder=\"Hit the space bar to pause the video and write your comments here&hellip;\"\n" +
+    "                placeholder=\"Hit the space bar to timestamp your comment and pause the video&hellip;\"\n" +
     "                ng-model=\"commentText\"\n" +
     "                ng-class=\"{ 'video-feedback__input--active' : inputActive }\"\n" +
     "                ng-focus=\"inputActive = true\"\n" +
@@ -1553,7 +1553,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "          class=\"sub-navigation__link btn  btn--utility icon-text\"\n" +
     "          ng-click=\"displaySection('edit')\">\n" +
     "          <i class=\"icon  icon--edit  icon-text__icon\"></i>\n" +
-    "          Edit Video\n" +
+    "          Edit\n" +
     "        </a>\n" +
     "      </li>\n" +
     "      <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\">\n" +
@@ -1562,7 +1562,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "          ng-click=\"displaySection('')\"\n" +
     "          ng-class=\"{ 'sub-navigation__link--active' : isReview }\">\n" +
     "          <i class=\"icon  icon--eye  icon-text__icon\"></i>\n" +
-    "          Review\n" +
+    "          Preview\n" +
     "        </a>\n" +
     "      </li>\n" +
     "      <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\">\n" +
