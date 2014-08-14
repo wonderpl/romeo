@@ -29,8 +29,10 @@ function OrganiseVideo ($templateCache, $modal) {
         $modal.hide();
       };
       $scope.$watch('video.status', function(newValue, oldValue) {
-        debug.log('Video status ' + $scope.video.title + (newValue === oldValue ? ' is the same as before ' : ' changed to ') + newValue);
-        $scope.thumbnail = getThumbnail();
+        if (! angular.equals(newValue, oldValue)) {
+          debug.log('Video status ' + $scope.video.title + ' changed to ' + newValue);
+          $scope.thumbnail = getThumbnail();
+        }
       });
 
       function getThumbnail() {
