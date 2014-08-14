@@ -306,8 +306,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
     }
   }
 
-  $scope.$on('video-upload-success', videoUploadOnSuccess);
-  function videoUploadOnSuccess (event, data) {
+  $scope.$on('video-upload-success', function (event, data) {
     debug.log('videoUploadOnSuccess of video (' + $scope.video.id + ') ' + $scope.video.title);
     redirect(data, 'edit');
     $scope.hasProcessed = true;
@@ -318,7 +317,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
       title : 'Your Video is Ready',
       message : 'Video processing complete.'}
     );
-  }
+  });
 
   $scope.$on('video-seek', videoOnSeek);
   function videoOnSeek (event, seconds) {
@@ -455,7 +454,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService
   function getPlayerParameters (id) {
     VideoService.getPlayerParameters(id).then(function (data) {
       $scope.playerParameters = {};
-      $scope.playerParameters.rgb = data.rgb ? JSON.parse(data.rgb) : null;
+      $scope.playerParameters.rgb = data.rgb ? angular.fromJson(data.rgb) : null;
       $scope.playerParameters.hideLogo = data.hideLogo === 'True' ? true : false;
     });
   }

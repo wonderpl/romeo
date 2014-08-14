@@ -78,9 +78,8 @@ angular.module('RomeoApp.controllers')
     });
   }
   function doneUploadingImage($event, data) {
-    //$scope.profile = JSON.parse(data);
-    //loadUserDetails();
-    var profile = JSON.parse(data);
+    //Only update the profile cover and avatar, leaving the rest of the profile in it's current state
+    var profile = angular.fromJson(data);
     debug.log('doneUploadingImage');
     debug.dir(profile);
     $scope.profile.profile_cover = profile.profile_cover;
@@ -97,7 +96,6 @@ angular.module('RomeoApp.controllers')
       message : 'Image uploading.'}
     );
     AccountService.updateCoverImage(file).then(function (data) {
-      //$scope.profile = JSON.parse(data);
       $scope.$emit('notify', {
         status : 'success',
         title : 'Cover Image Updated',
