@@ -98,6 +98,8 @@ angular.module('RomeoApp.services')
       VideoService.get(id).then(function (response) {
         $rootScope.$broadcast('video-upload-poll', response);
         if (videoIsReady(response)) {
+          $rootScope.isUploadingOrProcessingTemp = false;
+          $rootScope.uploadingVideoId = 0;
           // broadcast completion to the world
           $rootScope.$broadcast('video-upload-success', response);
         } else {
@@ -144,6 +146,8 @@ angular.module('RomeoApp.services')
       console.log('uploadVideo()');
       console.log(file);
       console.log(id);
+      $rootScope.isUploadingOrProcessingTemp = true;
+      $rootScope.uploadingVideoId = id;
       $rootScope.$broadcast('video-upload-start');
       return getUploadParameters()
         .then(getParametersSuccess.bind(this, id, file), getParametersFail);
