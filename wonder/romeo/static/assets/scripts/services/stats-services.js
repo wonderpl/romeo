@@ -1,14 +1,9 @@
 /*  Stats services
 /* ================================== */
 
-(function (w, d, ng, ns, m) {
-
-    'use strict';
-
-    var app = ng.module(ns + '.' + m /* module name */,
-        [] /* module dependencies */);
-
-    app.factory('StatsService', ['DataService', function (DataService) {
+angular.module('RomeoApp.services')
+    .factory('StatsService', ['DataService', function (DataService) {
+        'use strict';
 
         var Stats;
         var apiUrl = '/static/api/stats.json';
@@ -93,7 +88,9 @@
 
     }]);
 
-    app.factory('AnalyticsFields', function () {
+angular.module('RomeoApp.services')
+    .factory('AnalyticsFields', function () {
+        'use strict';
         return [
             {
                 'field': 'plays',
@@ -154,7 +151,9 @@
         ];
     });
 
-    app.factory('OverviewService', ['DataService', function (DataService) {
+angular.module('RomeoApp.services')
+    .factory('OverviewService', ['DataService', function (DataService) {
+        'use strict';
 
         return {
             get: function (videoId, fromDate, toDate) {
@@ -173,7 +172,9 @@
 
     }]);
 
-    app.factory('PerformanceService', ['DataService', function (DataService) {
+angular.module('RomeoApp.services')
+    .factory('PerformanceService', ['DataService', function (DataService) {
+        'use strict';
 
         return {
             get: function (videoId, fromDate, toDate) {
@@ -197,7 +198,9 @@
 
     }]);
 
-    app.factory('GeographicService', ['DataService', function (DataService) {
+angular.module('RomeoApp.services')
+    .factory('GeographicService', ['DataService', function (DataService) {
+        'use strict';
         return {
             get: function (videoId, selectedRegion, fromDate, toDate) {
                 // var url = _.template('/api/video/${ id }/analytics/performance', {id: videoId });
@@ -218,7 +221,9 @@
         };
     }]);
 
-    app.factory('EngagementService', ['DataService', function (DataService) {
+angular.module('RomeoApp.services')
+    .factory('EngagementService', ['DataService', function (DataService) {
+        'use strict';
         return {
             get: function (videoId, fromDate, toDate) {
 
@@ -236,4 +241,3 @@
         };
     }]);
 
-})(window, document, window.angular, 'RomeoApp', 'services');
