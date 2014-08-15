@@ -236,4 +236,4 @@
         };
     }]);
 
-})(window, document, window.angular, 'RomeoApp', 'services');
+})(window, document, window.angular, 'RomeoApp', 'stats-services');

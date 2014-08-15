@@ -502,4 +502,4 @@
         return Enum;
     });
 
-})(window, document, window.angular, 'RomeoApp', 'stats-services');
+})(window, document, window.angular, 'RomeoApp', 'services');
