@@ -1,10 +1,10 @@
-angular.module('fileUpload', [ 'angularFileUpload' ]);
+//angular.module('fileUpload', [ 'angularFileUpload' ]);
 
 angular
   .module('RomeoApp.controllers')
-  .controller('VideoCtrl', ['$rootScope', '$http', '$scope', '$location', '$upload', 'UploadService', '$routeParams', 'VideoService', '$sce', 'TagService', 'CommentsService', '$timeout', 'AccountService', 'AuthService', VideoCtrl]);
+  .controller('VideoCtrl', ['$rootScope', '$http', '$scope', '$location', 'UploadService', '$routeParams', 'VideoService', '$sce', 'TagService', 'CommentsService', '$timeout', 'AccountService', 'AuthService', VideoCtrl]);
 
-function VideoCtrl ($rootScope, $http, $scope, $location, $upload, UploadService, $routeParams, VideoService, $sce, TagService, CommentsService, $timeout, AccountService) {
+function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeParams, VideoService, $sce, TagService, CommentsService, $timeout, AccountService) {
 
   'use strict';
   var debug = new DebugClass('VideoCtrl');

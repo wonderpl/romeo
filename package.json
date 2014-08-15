@@ -38,7 +38,20 @@
     "karma-phantomjs-launcher": "~0.1.2",
     "karma-requirejs": "~0.2.1",
     "karma-script-launcher": "~0.1.0",
+    "karma-junit-reporter": "~0.2.2",
     "phantomjs": "~1.9.7-1",
-    "requirejs": "~2.1.11"
+    "requirejs": "~2.1.11",
+    "protractor": "~1.0.0"
+  },
+  "scripts": {
+    "pretest": "npm install",
+    "test": "karma start test-front/karma.conf.js",
+    "test-single-run": "karma start test-front/karma.conf.js  --single-run",
+
+    "preupdate-webdriver": "npm install",
+    "update-webdriver": "webdriver-manager update",
+
+    "preprotractor": "npm run update-webdriver",
+    "protractor": "protractor test-front/protractor-conf.js"
   }
 }
