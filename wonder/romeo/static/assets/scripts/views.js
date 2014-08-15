@@ -531,7 +531,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <div class=\"wrapper\">\n" +
     "        <form ng-submit=\"login()\">\n" +
     "          <fieldset>\n" +
-    "            <legend class=\"accessibility\">Log in details:</legend>\n" +
+    "            <legend class=\"accessibility\">Log in details</legend>\n" +
     "            <ul class=\"form-fields  login-view__form\">\n" +
     "              <li class=\"text-col\">\n" +
     "                <div class=\"login-view__input  icon-text\">\n" +
@@ -1237,7 +1237,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <div class=\"wrapper\">\n" +
     "        <form ng-submit=\"signUp()\">\n" +
     "          <fieldset>\n" +
-    "            <legend class=\"accessibility\">Log in details:</legend>\n" +
+    "            <legend class=\"accessibility\">Sign up details</legend>\n" +
     "            <ul class=\"form-fields  login-view__form\">\n" +
     "              <li class=\"text-col\">\n" +
     "                <div class=\"login-view__input  icon-text\">\n" +
