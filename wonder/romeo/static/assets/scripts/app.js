@@ -9,7 +9,7 @@
     var app = ng.module(ns /* module name */,
         [ns + '.controllers',
                 ns + '.services',
-                ns + '.stats-services',
+                ns + '.directives',
                 ns + '.filters',
                 ns + '.analytics',
             'ngRoute',
