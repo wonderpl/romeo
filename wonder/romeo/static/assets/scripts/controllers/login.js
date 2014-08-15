@@ -34,4 +34,12 @@ function LoginController ($scope, $location, AuthService) {
     });
   };
 
+  $scope.showSignup = function () {
+    alert('Show Signup');
+    $location.url('/signup');
+  };
+  $scope.showTwitterSignin = function () {
+    $location.url('/signin');
+  };
+
 }

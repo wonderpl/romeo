@@ -147,6 +147,14 @@
             templateUrl: 'login.html'
         });
 
+        $routeProvider.when('/signin', {
+            templateUrl: 'signin.html'
+        });
+
+        $routeProvider.when('/signup', {
+            templateUrl: 'signup.html'
+        });
+
 /******* DEPRECATED **************************************************/
 
 

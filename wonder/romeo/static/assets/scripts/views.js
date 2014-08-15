@@ -556,7 +556,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "              <li class=\"text-col\">\n" +
     "                <span class=\"login-view__errors\" ng-bind=\"errors\"></span>\n" +
     "                <div class=\"btn-center\">\n" +
+    "                  <a class=\"btn btn--positive login-view__submit\" ng-click=\"isLoading = true; showSignup();\">Sign up <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading\" /></a>\n" +
     "                  <button type=\"submit\" class=\"btn btn--positive login-view__submit\" ng-class=\"{'btn--disabled': !tandc}\" ng-disabled=\"!tandc\" ng-click=\"isLoading = true;\">Login <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading\" /></button>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <p>Or</p>\n" +
+    "                <div class=\"btn-center\"> \n" +
+    "                  <a class=\"btn btn--positive login-view__submit\" ng-click=\"isLoading = true; showTwitterSignin();\">Sign in with Twitter<img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading\" /></a>\n" +
     "                </div>\n" +
     "              </li>\n" +
     "              <li>\n" +
@@ -1183,6 +1189,102 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  </div>\n" +
     "\n" +
     "</section>"
+  );
+
+
+  $templateCache.put('signin.html',
+    "<div ng-controller=\"LoginCtrl\" autocomplete=\"off\" class=\"login-view\">\n" +
+    "  <div class=\"center-container\">\n" +
+    "    <div class=\"center-object\">\n" +
+    "      <div class=\"wrapper\">\n" +
+    "        <form ng-submit=\"login()\">\n" +
+    "          <fieldset>\n" +
+    "            <legend class=\"accessibility\">Twitter Log in details:</legend>\n" +
+    "            <ul class=\"form-fields  login-view__form\">\n" +
+    "              <li class=\"text-col\">\n" +
+    "                <h2>Twitter login</h2>\n" +
+    "                <div class=\"login-view__input  icon-text\">\n" +
+    "                  <i class=\"icon  icon--twitter  icon-text__icon\"></i>\n" +
+    "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__username\">Username</label>\n" +
+    "                  <input type=\"text\" ng-model=\"username\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__username\" placeholder=\"Username\" />\n" +
+    "                </div>\n" +
+    "                <div class=\"login-view__input  icon-text\">\n" +
+    "                  <i class=\"icon  icon--lock  icon-text__icon\"></i>\n" +
+    "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__password\">Password</label>\n" +
+    "                  <input type=\"password\" name=\"password\" ng-model=\"password\" autocomplete=\"off\"  class=\"text-input\" id=\"login-view__password\" placeholder=\"Password\" />\n" +
+    "                </div>\n" +
+    "              </li>\n" +
+    "              <li class=\"text-col\">\n" +
+    "                <span class=\"login-view__errors\" ng-bind=\"errors\"></span>\n" +
+    "                <div class=\"btn-center\">\n" +
+    "                  <button type=\"submit\" class=\"btn btn--positive login-view__submit\" ng-click=\"isLoading = true;\">Login <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading\" /></button>\n" +
+    "                </div>\n" +
+    "              </li>\n" +
+    "            </ul>\n" +
+    "          </fieldset>\n" +
+    "        </form>\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('signup.html',
+    "<div ng-controller=\"LoginCtrl\" autocomplete=\"off\" class=\"login-view\">\n" +
+    "  <div class=\"center-container\">\n" +
+    "    <div class=\"center-object\">\n" +
+    "      <div class=\"wrapper\">\n" +
+    "        <form ng-submit=\"login()\">\n" +
+    "          <fieldset>\n" +
+    "            <legend class=\"accessibility\">Log in details:</legend>\n" +
+    "            <ul class=\"form-fields  login-view__form\">\n" +
+    "              <li class=\"text-col\">\n" +
+    "                <div class=\"login-view__input  icon-text\">\n" +
+    "                  <i class=\"icon  icon--head  icon-text__icon\"></i>\n" +
+    "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__username\">Username</label>\n" +
+    "                  <input type=\"text\" ng-model=\"username\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__username\" placeholder=\"Username\" />\n" +
+    "                </div>\n" +
+    "                <div class=\"login-view__input  icon-text\">\n" +
+    "                  <i class=\"icon icon--mail icon-text__icon\"></i>\n" +
+    "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__username\">Email</label>\n" +
+    "                  <input type=\"text\" ng-model=\"email\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__email\" placeholder=\"Email\" />\n" +
+    "                </div>\n" +
+    "                <div class=\"login-view__input  icon-text\">\n" +
+    "                  <i class=\"icon  icon--lock  icon-text__icon\"></i>\n" +
+    "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__password\">Password</label>\n" +
+    "                  <input type=\"password\" name=\"password\" ng-model=\"password\" autocomplete=\"off\"  class=\"text-input\" id=\"login-view__password\" placeholder=\"Password\" />\n" +
+    "                </div>\n" +
+    "              </li>\n" +
+    "              <li class=\"text-col\">\n" +
+    "                <ul class=\"check-list\">\n" +
+    "                  <li>\n" +
+    "                    <input type=\"checkbox\" name=\"tandc\" ng-model=\"tandc\" required class=\"login-view__input_checkbox\" id=\"tandc\"/>\n" +
+    "                    <label class=\"t--inline  login-view__label\" for=\"tandc\">I agree with the standard Wonder Place Ltd <a href=\"http://wonderpl.com/tos\">terms and conditions</a> and the following conditions of the Closed Beta Program:</label>\n" +
+    "                  </li>\n" +
+    "                </ul>\n" +
+    "              </li>\n" +
+    "              <li class=\"text-col\">\n" +
+    "                <span class=\"login-view__errors\" ng-bind=\"errors\"></span>\n" +
+    "                <div class=\"btn-center\">\n" +
+    "                  <button type=\"submit\" class=\"btn btn--positive login-view__submit\" ng-class=\"{'btn--disabled': !tandc}\" ng-disabled=\"!tandc\" ng-click=\"isLoading = true;\">Sign up  <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading\" /></button>\n" +
+    "                </div>\n" +
+    "              </li>\n" +
+    "              <li>\n" +
+    "                <p class=\"smallprint  muted\">The Program is proprietary to, and a valuable trade secret of, Wonder Place Ltd. It is entrusted to Tester only for the purpose set forth in this Agreement. Tester shall maintain the Program in the strictest confidence. Tester will not, without Company's prior written consent:</p>\n" +
+    "                <ol class=\"smallprint\" type=\"a\">\n" +
+    "                  <li><p class=\"muted\">disclose any information about the Program, its design and performance specifications, its code, and the existence of the beta test and its results to anyone other than Tester's employees who are performing the testing and who shall be subject to nondisclosure restrictions at least as protective as those set forth in this Agreement;</p></li>\n" +
+    "                  <li><p class=\"muted\">copy any portion of the Program or documentation, except to the extent necessary to perform beta testing; or</p></li>\n" +
+    "                  <li><p class=\"muted\">reverse engineer, decompile or disassemble Software or any portion of it.</p></li>\n" +
+    "                </ol>\n" +
+    "              </li>\n" +
+    "            </ul>\n" +
+    "          </fieldset>\n" +
+    "        </form>\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "</div>"
   );
 
 
