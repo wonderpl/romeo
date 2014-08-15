@@ -1,21 +1,21 @@
-<div ng-controller="LoginCtrl" autocomplete="off" class="login-view">
+<div ng-controller="SignupCtrl" autocomplete="off" class="login-view">
   <div class="center-container">
     <div class="center-object">
       <div class="wrapper">
-        <form ng-submit="login()">
+        <form ng-submit="signUp()">
           <fieldset>
             <legend class="accessibility">Log in details:</legend>
             <ul class="form-fields  login-view__form">
               <li class="text-col">
                 <div class="login-view__input  icon-text">
                   <i class="icon  icon--head  icon-text__icon"></i>
-                  <label class="label login-view__label  accessibility" for="login-view__username">Username</label>
-                  <input type="text" ng-model="username" autocomplete="off" class="text-input" id="login-view__username" placeholder="Username" />
+                  <label class="label login-view__label  accessibility" for="login-view__username">Name</label>
+                  <input type="text" ng-model="name" autocomplete="off" class="text-input" id="login-view__username" placeholder="Name" />
                 </div>
                 <div class="login-view__input  icon-text">
                   <i class="icon icon--mail icon-text__icon"></i>
                   <label class="label login-view__label  accessibility" for="login-view__username">Email</label>
-                  <input type="text" ng-model="email" autocomplete="off" class="text-input" id="login-view__email" placeholder="Email" />
+                  <input type="text" ng-model="username" autocomplete="off" class="text-input" id="login-view__email" placeholder="Email" />
                 </div>
                 <div class="login-view__input  icon-text">
                   <i class="icon  icon--lock  icon-text__icon"></i>

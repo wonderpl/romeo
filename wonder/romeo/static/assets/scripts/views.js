@@ -1231,24 +1231,24 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('signup.html',
-    "<div ng-controller=\"LoginCtrl\" autocomplete=\"off\" class=\"login-view\">\n" +
+    "<div ng-controller=\"SignupCtrl\" autocomplete=\"off\" class=\"login-view\">\n" +
     "  <div class=\"center-container\">\n" +
     "    <div class=\"center-object\">\n" +
     "      <div class=\"wrapper\">\n" +
-    "        <form ng-submit=\"login()\">\n" +
+    "        <form ng-submit=\"signUp()\">\n" +
     "          <fieldset>\n" +
     "            <legend class=\"accessibility\">Log in details:</legend>\n" +
     "            <ul class=\"form-fields  login-view__form\">\n" +
     "              <li class=\"text-col\">\n" +
     "                <div class=\"login-view__input  icon-text\">\n" +
     "                  <i class=\"icon  icon--head  icon-text__icon\"></i>\n" +
-    "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__username\">Username</label>\n" +
-    "                  <input type=\"text\" ng-model=\"username\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__username\" placeholder=\"Username\" />\n" +
+    "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__username\">Name</label>\n" +
+    "                  <input type=\"text\" ng-model=\"name\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__username\" placeholder=\"Name\" />\n" +
     "                </div>\n" +
     "                <div class=\"login-view__input  icon-text\">\n" +
     "                  <i class=\"icon icon--mail icon-text__icon\"></i>\n" +
     "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__username\">Email</label>\n" +
-    "                  <input type=\"text\" ng-model=\"email\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__email\" placeholder=\"Email\" />\n" +
+    "                  <input type=\"text\" ng-model=\"username\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__email\" placeholder=\"Email\" />\n" +
     "                </div>\n" +
     "                <div class=\"login-view__input  icon-text\">\n" +
     "                  <i class=\"icon  icon--lock  icon-text__icon\"></i>\n" +
