@@ -1,0 +1,73 @@
+// Settings -------- Global variables, site-wide settings, config switches, etc.
+// Tools ----------- Site-wide mixins and functions.
+// Generic --------- Low-specificity, far-reaching rulesets (e.g. resets).
+// Base ------------ Unclassed HTML elements (e.g. a {}, blockquote {}, address {}).
+// Object ---------- Objects, abstractions, and design patterns (e.g. .media {}).
+// Components ------ Discrete, complete chunks of UI (e.g. .carousel {}).
+// Theme ----------- Backgrounds, colours and other styling edits.
+// Trumps ---------- High-specificity, very explicit selectors. Overrides and helper classes (e.g. .hidden {}).
+
+@import
+  "parts/_settings/settings.defaults",
+  "parts/_settings/settings.colors",
+  "parts/_settings/settings.responsive",
+  "parts/_settings/settings.timings",
+
+  "parts/_tools/tools.functions",
+  "parts/_tools/tools.mixins",
+  "parts/_tools/tools.responsive",
+  //"parts/_tools/tools.debug",
+
+  "parts/_generic/generic.font-face",
+  "parts/_generic/generic.normalize",
+  "parts/_generic/generic.normalize-opentype",
+  "parts/_generic/generic.reset",
+  "parts/_generic/generic.box-sizing",
+  "parts/_generic/generic.shared",
+
+  "parts/_base/base.page",
+  "parts/_base/base.headings",
+  "parts/_base/base.paragraphs",
+  "parts/_base/base.anchors",
+  "parts/_base/base.images",
+  "parts/_base/base.lists",
+  "parts/_base/base.forms",
+
+  // "parts/_objects/objects.buttons",
+  "parts/_objects/objects.layout",
+  // "parts/_objects/objects.media",
+  "parts/_objects/objects.list-ui",
+  "parts/_objects/objects.list-inline",
+  "parts/_objects/objects.text-cols",
+  "parts/_objects/objects.rules",
+  "parts/_objects/objects.buttons",
+  "parts/_objects/objects.icons",
+  "parts/_objects/objects.icon-text",
+
+  "parts/_components/components.animations",
+  "parts/_components/components.page-structure",
+  "parts/_components/components.page-sections",
+  "parts/_components/components.banner",
+  "parts/_components/components.page-header",
+  "parts/_components/components.page-footer",
+  "parts/_components/components.page-logo",
+  // "parts/_components/components.nav-menu",
+  "parts/_components/components.organize-breadcrumbs",
+  "parts/_components/components.browse-list",
+  "parts/_components/components.avatars",
+  "parts/_components/components.collection-title",
+  "parts/_components/components.collection-description",
+  "parts/_components/components.organize-collection-sort.scss",
+  "parts/_components/components.ratios",
+  "parts/_components/components.truncate-text",
+  "parts/_components/components.video-thumb",
+  "parts/_components/components.arrows",
+
+  "parts/_trumps/trumps.clearfix",
+  "parts/_trumps/trumps.text-styles",
+  "parts/_trumps/trumps.widths",
+  "parts/_trumps/trumps.widths-responsive",
+  // "parts/_trumps/trumps.widths",
+  // "parts/_trumps/trumps.spacing",
+
+  "parts/_theme/theme.organize";
