@@ -31,6 +31,17 @@ describe('Sign up', function(){
     expect(scope.tandc).toNotBe('');
   });
 
+  it('should have validation error if only username is set', function() {
+    var email = 'example@example.com';
+    expect(scope).toBeDefined();
+    expect(scope.username).toBe('');
+    scope.username = email;
+    expect(scope.username).toBe(email);
+    expect(scope.validate()).toBe(false);
+    excpect(scope.errorMessage).toEqual('Password required');
+
+  });
+
   // it('should have Login controller', inject(function($controller) {
   //   var LoginCtrl = $controller('LoginCtrl', { $scope: {} });
   //   expect(LoginCtrl).toBeDefined();
