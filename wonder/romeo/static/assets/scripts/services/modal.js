@@ -5,6 +5,8 @@ angular
 
 function ModalService ($rootScope, $compile, $sanitize, $templateCache, $timeout) {
 
+  'use strict';
+
   /*
   * Create some elements and add some classes / ID's to them
   */
@@ -58,12 +60,12 @@ function ModalService ($rootScope, $compile, $sanitize, $templateCache, $timeout
 
       $el_bg.removeClass('show');
 
-      
+
     },750);
 
     $timeout(function() {
       $el.removeClass('animate--flipOutX');
-    },1000);      
+    },1000);
   };
 
   /*
