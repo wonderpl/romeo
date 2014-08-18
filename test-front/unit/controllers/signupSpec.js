@@ -5,14 +5,14 @@
 describe('Sign up', function(){
   var scope, httpBackend, ctrl;
   var user;
-  beforeEach(module('RomeoApp', 'mockedObject', 'mockedFeed'));
+  beforeEach(module('RomeoApp', 'RomeoApp.controllers', 'RomeoApp.services', 'mockedObject', 'mockedFeed'));
 
   describe('Validate form data', function() {
     beforeEach(inject(function($rootScope, $controller, userJSON) {
       scope = {};
       user = userJSON.validUser; // Mocked from from test-front/mock/defaultUserObject.js
 
-      ctrl =  $controller('SignupCtrl', {
+      ctrl = $controller('SignupCtrl', {
         '$scope': scope
       });
     }));
@@ -33,7 +33,7 @@ describe('Sign up', function(){
     it('should have validation error (name required) if form is empty', function() {
       expect(scope).toBeDefined();
       expect(scope.username).toBe('');
-      expect(scope.validate()).toBe(false);
+      expect(scope.signUp()).toBe(false);
       expect(scope.errorMessage).toEqual('Name required');
     });
 
@@ -44,7 +44,7 @@ describe('Sign up', function(){
       scope.name = user.name;
       expect(scope.name).toBe(user.name);
 
-      expect(scope.validate()).toBe(false);
+      expect(scope.signUp()).toBe(false);
       expect(scope.errorMessage).toEqual('Email required');
     });
 
@@ -59,7 +59,7 @@ describe('Sign up', function(){
       scope.username = user.name;
       expect(scope.username).toBe(user.name);
 
-      expect(scope.validate()).toBe(false);
+      expect(scope.signUp()).toBe(false);
       expect(scope.errorMessage).toEqual('Email required');
     });
 
@@ -74,7 +74,7 @@ describe('Sign up', function(){
       scope.username = user.email;
       expect(scope.username).toBe(user.email);
 
-      expect(scope.validate()).toBe(false);
+      expect(scope.signUp()).toBe(false);
       expect(scope.errorMessage).toEqual('Password required');
     });
 
@@ -89,7 +89,7 @@ describe('Sign up', function(){
       scope.password = user.password;
       expect(scope.password).toBe(user.password);
 
-      expect(scope.validate()).toBe(false);
+      expect(scope.signUp()).toBe(false);
       expect(scope.errorMessage).toEqual('Name required');
     });
 
@@ -108,7 +108,7 @@ describe('Sign up', function(){
       scope.name = user.name;
       expect(scope.name).toBe(user.name);
 
-      expect(scope.validate()).toBe(false);
+      expect(scope.signUp()).toBe(false);
       expect(scope.errorMessage).toEqual('You have to agree to the Terms and Conditions');
     });
 
@@ -131,25 +131,28 @@ describe('Sign up', function(){
       scope.tandc = true;
       expect(scope.tandc).toBe(true);
 
-      expect(scope.validate()).toBe(true);
+      expect(scope.signUp()).toBe(true);
       expect(scope.errorMessage).toBeUndefined();
     });
   });
 
   describe('Register web service call', function() {
-    beforeEach(inject(function($rootScope, $httpBackend, $controller, userJSON, registerJSON) {
+    beforeEach(inject(function($rootScope, $httpBackend, $controller, userJSON, registerJSON, AuthService) {
       httpBackend = $httpBackend;
-      scope = {};
       user = userJSON.validUser; // Mocked from from test-front/mock/defaultUserObject.js
+      scope = { username: user.email, name: user.name, password: user.password };
 
-      // Get mocked register api JSON 
-      // from test-front/mock/api-feed/register.js
-      // on POST to web service
-      $httpBackend.when('POST','api/register').respond(registerJSON);
+      //AuthService = { register: function() {}};
+
+      // // Get mocked register api JSON 
+      // // from test-front/mock/api-feed/register.js
+      // // on POST to web service
+      // $httpBackend.when('POST','api/register').respond(registerJSON);
 
       ctrl =  $controller('SignupCtrl', {
         '$scope': scope
       });
+      scope.tandc = true;
     }));
 
     afterEach(function() {
@@ -166,6 +169,7 @@ describe('Sign up', function(){
     it('should set is loading to true when sign up is called', function() {
       expect(scope.isLoading).toBe(false);
       scope.signUp();
+
       expect(scope.isLoading).toBe(true);
     });
   });

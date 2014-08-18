@@ -1,6 +1,7 @@
 angular
   .module('RomeoApp.controllers')
-  .controller('SignupCtrl', function($scope, $location, AuthService) {
+  .controller('SignupCtrl', ['$scope', 'AuthService',
+    function($scope, AuthService) {
   	'use strict';
 
 	  $scope.username = $scope.username || '';
@@ -10,11 +11,41 @@ angular
 	  $scope.tandc = false;
     $scope.isLoading = false;
 
+    $scope.handleRedirect = function (response) {
+      $scope.isLoading = false;
+      var params = $location.search();
+      if (params.redirect) {
+        console.log('redirect to ->' + params.redirect);
+      } else {
+        $location.url('/organise');
+      }
+    };
+
   	$scope.signUp = function() {
-      $scope.isLoading = true;
-  		return ; //AuthService.
+      if ( validate() ) {
+        $scope.isLoading = true;
+        var user = {
+          "username": $scope.username,
+          "password": $scope.password,
+          "name": $scope.name,
+          "location": $scope.location
+        };
+        
+        AuthService.registration(user).then(
+          $scope.handleRedirect,
+          function (response) {
+            console.log(response);
+            $scope.isLoading = false;
+            if (response.data.error) {
+              $scope.errorMessage = 'login error';
+            }
+          });
+        return true;
+      }
+  		return false;
   	};
-    $scope.validate = function() {
+
+    function validate() {
       if (! $scope.name) {
         $scope.errorMessage = 'Name required';
       } else if (! $scope.username || $scope.username.indexOf('@') == -1) {
@@ -27,5 +58,5 @@ angular
         $scope.errorMessage = void(0);
       }
       return (typeof $scope.errorMessage === 'undefined');
-    };
-  });
+    }
+  }]);

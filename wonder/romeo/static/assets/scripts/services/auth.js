@@ -43,9 +43,19 @@ angular.module('RomeoApp.services').factory('AuthService',
     // }
     //
     // On success the response will be the same as a login response.
-    Auth.register = function(user) {
-        return true;
+    Auth.registration = function(data) {
+        return $http({
+            method: 'post',
+            url: '/api/register',
+            data: data
+        }).success(function (data) {
+            $rootScope.User = data.account;
+            return Auth.setSession(data.account);
+        }).error(function () {
+            // debugger;
+        });
     };
+
 
     /*
     * Returns a BOOLEAN.  If there is no session url in local storage, we aren't letting them in.
@@ -198,6 +208,7 @@ angular.module('RomeoApp.services').factory('AuthService',
 
     return {
         login: Auth.login,
+        registration: Auth.registration,
         loginAsCollaborator: Auth.loginAsCollaborator,
         isLoggedIn: Auth.isLoggedIn,
         loginCheck: Auth.loginCheck,
