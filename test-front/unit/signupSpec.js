@@ -1,4 +1,4 @@
-'use strict';
+/* jshint ignore:start */
 
 /* jasmine specs for signup go here */
 
@@ -65,9 +65,52 @@ describe('Sign up', function(){
     expect(scope.errorMessage).toEqual('Name required');
   });
 
-  // it('should have Login controller', inject(function($controller) {
-  //   var LoginCtrl = $controller('LoginCtrl', { $scope: {} });
-  //   expect(LoginCtrl).toBeDefined();
-  // }));
+  it('should have validation error if T & C not set', function() {
+    var email = 'example@example.com';
+    var password = 'password123';
+    var name = 'John Doe';
+    expect(scope).toBeDefined();
+
+    expect(scope.username).toBe('');
+    scope.username = email;
+    expect(scope.username).toBe(email);
+
+    expect(scope.password).toBe('');
+    scope.password = password;
+    expect(scope.password).toBe(password);
+
+    expect(scope.name).toBe('');
+    scope.name = name;
+    expect(scope.name).toBe(name);
+
+    expect(scope.validate()).toBe(false);
+    expect(scope.errorMessage).toEqual('You have to agree to the Terms and Conditions');
+  });
+
+  it('should have validat if form has valid data', function() {
+    var email = 'example@example.com';
+    var password = 'password123';
+    var name = 'John Doe';
+    expect(scope).toBeDefined();
+
+    expect(scope.username).toBe('');
+    scope.username = email;
+    expect(scope.username).toBe(email);
+
+    expect(scope.password).toBe('');
+    scope.password = password;
+    expect(scope.password).toBe(password);
+
+    expect(scope.name).toBe('');
+    scope.name = name;
+    expect(scope.name).toBe(name);
+
+    expect(scope.tandc).toBe(false);
+    scope.tandc = true;
+    expect(scope.tandc).toBe(true);
+
+    expect(scope.validate()).toBe(true);
+    expect(scope.errorMessage).toBeUndefined();
+  });
 
 });

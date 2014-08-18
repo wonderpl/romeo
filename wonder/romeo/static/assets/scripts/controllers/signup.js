@@ -17,9 +17,13 @@ angular
         $scope.errorMessage = 'Email required';
       } else if (! $scope.password) {
         $scope.errorMessage = 'Password required';
-      } else {
+      } else if (! $scope.name) {
         $scope.errorMessage = 'Name required';
+      } else if (! $scope.tandc) {
+        $scope.errorMessage = 'You have to agree to the Terms and Conditions';
+      } else {
+        $scope.errorMessage = void(0);
       }
-      return false;
+      return (typeof $scope.errorMessage === 'undefined');
     };
   });
