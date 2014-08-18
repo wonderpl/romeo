@@ -12,4 +12,8 @@ angular
   	$scope.signUp = function() {
   		return; //AuthService.
   	};
+    $scope.validate = function() {
+      $scope.errorMessage = 'Password required';
+      return false;
+    };
   });

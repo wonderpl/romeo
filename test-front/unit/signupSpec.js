@@ -38,7 +38,7 @@ describe('Sign up', function(){
     scope.username = email;
     expect(scope.username).toBe(email);
     expect(scope.validate()).toBe(false);
-    excpect(scope.errorMessage).toEqual('Password required');
+    expect(scope.errorMessage).toEqual('Password required');
 
   });
 
