@@ -1,0 +1,48 @@
+<section class="search__form">
+
+  <p class="search__form-title">Find interesting people to work with.</p>
+
+  <form method="post" name="searchForm">
+
+    <label class="search__label label">
+      Search
+      <input type="text" class="search__input" ng-model="expression.q" name="q" required="required" />
+    </label>
+
+    <label class="search__label label">
+      Video
+      <input type="checkbox" class="search__checkbox" ng-model="expression.video" name="video" />
+    </label>
+
+    <label class="search__label label">
+      Content Owner
+      <input type="checkbox" class="search__checkbox" ng-model="expression.content_owner" name="content_owner" />
+    </label>
+
+    <label class="search__label label">
+      Collaborator
+      <input type="checkbox" class="search__checkbox" ng-model="expression.collaborator" name="collaborator" />
+    </label>
+
+    <label class="search__label label">
+      Start
+      <input type="number" name="start" ng-model="expression.start" min="0" />
+    </label>
+
+    <label class="search__label label">
+      Size
+      <input type="number" name="size" step="25" ng-model="expression.size" min="25" max="200" />
+    </label>
+
+    <label class="search__label label">
+      Submit
+      <button class="search__submit btn btn--small btn--positive" ng-click="search()" ng-disabled="searchForm.$invalid">Search</button>
+    </label>
+
+    <p ng-if="results">{{ results.video.total + results.content_owner.total + results.collaborator.total }} items found</p>
+
+    <p ng-if="expression && !results">No items found!</p>
+
+  </form>
+
+</section>

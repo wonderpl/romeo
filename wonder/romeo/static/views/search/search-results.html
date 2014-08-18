@@ -1,0 +1,28 @@
+<section class="search__results">
+
+  <p ng-if="!expression">results</p>
+  <p ng-if="expression">results for: {{ expression | json }}</p>
+
+  <section ng-if="results.video.items" class="search__video-results search__results-container">
+    <ul class="search__videos">
+      <li ng-repeat="item in results.video.items" class="search__video search__result-item">
+        <a ng-href="{{ item.href }}">{{ item.title }}</a>
+      </li>
+    </ul>
+  </section>
+  <section ng-if="results.content_owner.items" class="search__user-results search__results-container">
+    <ul class="search__content_owners">
+      <li ng-repeat="item in results.content_owner.items" class="search__content_owner search__result-item">
+        <a ng-href="{{ item.href }}">{{ item.display_name }}</a>
+      </li>
+    </ul>
+  </section>
+  <section ng-if="results.collaborator.items" class="search__collaborator-results search__results-container">
+    <ul class="search__collaborators">
+      <li ng-repeat="item in results.collaborator.items" class="search__collaborator search__result-item">
+        <a ng-href="{{ item.href }}">{{ item.username }}</a>
+      </li>
+    </ul>
+  </section>
+
+</section>

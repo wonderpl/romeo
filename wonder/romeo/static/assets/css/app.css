@@ -6447,3 +6447,33 @@ label,
 .login-view__terms {
   margin-bottom: 12px;
 }
+
+/* line 5, ../../scss/specifics/search/_search.scss */
+.wire, .search__form, .search__results, .search__result-item {
+  border: dotted 1px red;
+}
+
+/* line 9, ../../scss/specifics/search/_search.scss */
+.search__form {
+  padding: 12px;
+  margin: 12px;
+}
+
+/* line 15, ../../scss/specifics/search/_search.scss */
+.search__results {
+  padding: 12px;
+  margin: 12px;
+}
+
+/* line 21, ../../scss/specifics/search/_search.scss */
+.search__results-container {
+  border: solid 1px #51b364;
+  padding: 12px;
+  margin: 12px;
+}
+
+/* line 27, ../../scss/specifics/search/_search.scss */
+.search__result-item {
+  display: inline-block;
+  width: 200px;
+}

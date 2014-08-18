@@ -76,37 +76,19 @@
             resolve: authChecks
         });
 
-
         // Account management
         $routeProvider.when('/profile', {
             templateUrl: 'profile.html',
             resolve: authChecks
         });
 
+        $routeProvider.when('/search', {
+            templateUrl: 'search.html',
+            resolve: authChecks
+        });
 
 
 /******* DEPRECATED **************************************************/
-
-        // Manage
-        $routeProvider.when('/manage', {
-            templateUrl: 'manage.html',
-            resolve: authChecks
-        });
-
-        $routeProvider.when('/manage/:filter/:id', {
-            templateUrl: 'manage.html',
-            resolve: authChecks
-        });
-
-        $routeProvider.when('/manage/:filter', {
-            templateUrl: 'manage.html',
-            resolve: authChecks
-        });
-
-        $routeProvider.when('/manage', {
-            templateUrl: 'manage.html',
-            resolve: authChecks
-        });
 
         // Analytics
         // Types can be
@@ -120,18 +102,6 @@
 
         $routeProvider.when('/analytics/:videoID', {
             templateUrl: 'analytics.html',
-            resolve: authChecks
-        });
-
-        // Video upload
-        $routeProvider.when('/upload/', {
-            templateUrl: 'upload.html',
-            resolve: authChecks
-        });
-
-        // Account management
-        $routeProvider.when('/account', {
-            templateUrl: 'account.html',
             resolve: authChecks
         });
 

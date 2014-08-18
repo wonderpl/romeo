@@ -1,0 +1,31 @@
+.search {
+
+}
+
+.wire {
+  border: dotted 1px red;
+}
+
+.search__form {
+  @extend .wire;
+  padding: 12px;
+  margin: 12px;
+}
+
+.search__results {
+  @extend .wire;
+  padding: 12px;
+  margin: 12px;
+}
+
+.search__results-container {
+  border: solid 1px $swatch-five;
+  padding: 12px;
+  margin: 12px;
+}
+
+.search__result-item {
+  @extend .wire;
+  display: inline-block;
+  width: 200px;
+}

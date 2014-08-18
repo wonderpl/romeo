@@ -1070,6 +1070,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <upload-progress upload=\"upload\" ng-if=\"isLoggedIn && upload\"></upload-progress>\n" +
     "    </ng-switch>\n" +
     "    <ul class=\"nav  nav-menu\" ng-if=\"isLoggedIn\">\n" +
+    "      <li class=\"nav-menu__item\"><a href=\"#/search\" class=\"nav-menu__link\">Search</a></li>\n" +
     "      <li class=\"nav-menu__item\"><a href=\"#/organise\" class=\"nav-menu__link\">Manage</a></li>\n" +
     "      <li class=\"nav-menu__item\"><a href=\"#/video\" class=\"nav-menu__link\">Upload</a></li>\n" +
     "      <li class=\"nav-menu__item\"><a href=\"#/profile\" class=\"nav-menu__link  avatar  avatar--small\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"(~ user.name ~)\" class=\"avatar__img\" ng-style=\"profile\"></a></li>\n" +
@@ -1187,6 +1188,101 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <div class=\"profile__description\" ng-hide=\"isEdit\" ng-bind-html=\"profile.description\"></div>\n" +
     "    <span class=\"error\" ng-show=\"isEdit && errorDescritionToLong\">Your description is to long, please make it shorter</span>\n" +
     "  </div>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('search-form.html',
+    "<section class=\"search__form\">\n" +
+    "\n" +
+    "  <p class=\"search__form-title\">Find interesting people to work with.</p>\n" +
+    "\n" +
+    "  <form method=\"post\" name=\"searchForm\">\n" +
+    "\n" +
+    "    <label class=\"search__label label\">\n" +
+    "      Search\n" +
+    "      <input type=\"text\" class=\"search__input\" ng-model=\"expression.q\" name=\"q\" required=\"required\" />\n" +
+    "    </label>\n" +
+    "\n" +
+    "    <label class=\"search__label label\">\n" +
+    "      Video\n" +
+    "      <input type=\"checkbox\" class=\"search__checkbox\" ng-model=\"expression.video\" name=\"video\" />\n" +
+    "    </label>\n" +
+    "\n" +
+    "    <label class=\"search__label label\">\n" +
+    "      Content Owner\n" +
+    "      <input type=\"checkbox\" class=\"search__checkbox\" ng-model=\"expression.content_owner\" name=\"content_owner\" />\n" +
+    "    </label>\n" +
+    "\n" +
+    "    <label class=\"search__label label\">\n" +
+    "      Collaborator\n" +
+    "      <input type=\"checkbox\" class=\"search__checkbox\" ng-model=\"expression.collaborator\" name=\"collaborator\" />\n" +
+    "    </label>\n" +
+    "\n" +
+    "    <label class=\"search__label label\">\n" +
+    "      Start\n" +
+    "      <input type=\"number\" name=\"start\" ng-model=\"expression.start\" min=\"0\" />\n" +
+    "    </label>\n" +
+    "\n" +
+    "    <label class=\"search__label label\">\n" +
+    "      Size\n" +
+    "      <input type=\"number\" name=\"size\" step=\"25\" ng-model=\"expression.size\" min=\"25\" max=\"200\" />\n" +
+    "    </label>\n" +
+    "\n" +
+    "    <label class=\"search__label label\">\n" +
+    "      Submit\n" +
+    "      <button class=\"search__submit btn btn--small btn--positive\" ng-click=\"search()\" ng-disabled=\"searchForm.$invalid\">Search</button>\n" +
+    "    </label>\n" +
+    "\n" +
+    "    <p ng-if=\"results\">(~ results.video.total + results.content_owner.total + results.collaborator.total ~) items found</p>\n" +
+    "\n" +
+    "    <p ng-if=\"expression && !results\">No items found!</p>\n" +
+    "\n" +
+    "  </form>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('search-results.html',
+    "<section class=\"search__results\">\n" +
+    "\n" +
+    "  <p ng-if=\"!expression\">results</p>\n" +
+    "  <p ng-if=\"expression\">results for: (~ expression | json ~)</p>\n" +
+    "\n" +
+    "  <section ng-if=\"results.video.items\" class=\"search__video-results search__results-container\">\n" +
+    "    <ul class=\"search__videos\">\n" +
+    "      <li ng-repeat=\"item in results.video.items\" class=\"search__video search__result-item\">\n" +
+    "        <a ng-href=\"(~ item.href ~)\">(~ item.title ~)</a>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </section>\n" +
+    "  <section ng-if=\"results.content_owner.items\" class=\"search__user-results search__results-container\">\n" +
+    "    <ul class=\"search__content_owners\">\n" +
+    "      <li ng-repeat=\"item in results.content_owner.items\" class=\"search__content_owner search__result-item\">\n" +
+    "        <a ng-href=\"(~ item.href ~)\">(~ item.display_name ~)</a>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </section>\n" +
+    "  <section ng-if=\"results.collaborator.items\" class=\"search__collaborator-results search__results-container\">\n" +
+    "    <ul class=\"search__collaborators\">\n" +
+    "      <li ng-repeat=\"item in results.collaborator.items\" class=\"search__collaborator search__result-item\">\n" +
+    "        <a ng-href=\"(~ item.href ~)\">(~ item.username ~)</a>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </section>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('search.html',
+    "<section class=\"search\" ng-controller=\"SearchCtrl\">\n" +
+    "\n" +
+    "  <search-form expression=\"search.expression\" results=\"search.results\"></search-form>\n" +
+    "\n" +
+    "  <search-results expression=\"search.expression\" results=\"search.results\"></search-results>\n" +
     "\n" +
     "</section>"
   );
