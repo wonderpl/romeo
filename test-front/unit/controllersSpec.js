@@ -10,8 +10,8 @@ describe('controllers', function(){
     controller = void(0); // Set to undefined
   });
 
-  it('should have sign up controller', inject(function($controller) {
-    controller = $controller('SignupCtrl', { $scope: {} });
+  it('should have Analytics controller', inject(function($controller) {
+    controller = $controller('AnalyticsCtrl', { $scope: {}, $element: angular.element('<div></div>') });
     expect(controller).toBeDefined();
   }));
 
@@ -20,9 +20,33 @@ describe('controllers', function(){
     expect(controller).toBeDefined();
   }));
 
-  it('should have Twitter sign in controller', inject(function($controller) {
-    //controller = $controller('SigninCtrl', { $scope: {} });
+  it('should have Main controller', inject(function($rootScope, $controller) {
+    controller = $controller('MainCtrl', { $scope: $rootScope.$new(), $element: angular.element('<div></div>') });
     expect(controller).toBeDefined();
   }));
+
+  // // @TODO: Need investigation
+  // it('should have Organise controller', inject(function($controller, _$location_) {
+  //   $location = _$location_;
+  //   controller = $controller('OrganiseCtrl', { $scope: {} });
+  //   expect(controller).toBeDefined();
+  // }));
+
+  // // @TODO: Need investigation
+  // it('should have Profile controller', inject(function($controller) {
+  //   controller = $controller('ProfileCtrl', { $scope: {} });
+  //   expect(controller).toBeDefined();
+  // }));
+
+  it('should have sign up controller', inject(function($controller) {
+    controller = $controller('SignupCtrl', { $scope: {} });
+    expect(controller).toBeDefined();
+  }));
+
+  // // @TODO: Need investigation
+  // it('should have Video controller', inject(function($controller) {
+  //   controller = $controller('VideoCtrl', { $scope: {} });
+  //   expect(controller).toBeDefined();
+  // }));
 
 });
