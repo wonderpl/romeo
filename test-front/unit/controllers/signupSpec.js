@@ -3,19 +3,28 @@
 /* jasmine specs for signup go here */
 
 describe('Sign up', function(){
-  var scope, httpBackend, ctrl;
+  var scope, $httpBackend, ctrl;
   var user;
-  beforeEach(module('RomeoApp', 'RomeoApp.controllers', 'RomeoApp.services', 'mockedObject', 'mockedFeed'));
+  beforeEach(module('RomeoApp', 'mockedObject', 'mockedFeed'));
+  
+  beforeEach(inject(function($rootScope, $controller, $injector, $location, userJSON) {
+    scope = $rootScope.$new();
+    $httpBackend = $injector.get('$httpBackend');
+    user = userJSON.validUser; // Mocked from from test-front/mock/defaultUserObject.js
+  }));
+
+  afterEach(function() {
+    $httpBackend.verifyNoOutstandingExpectation();
+    $httpBackend.verifyNoOutstandingRequest();
+  });
 
   describe('Validate form data', function() {
-    beforeEach(inject(function($rootScope, $controller, userJSON) {
-      scope = {};
-      user = userJSON.validUser; // Mocked from from test-front/mock/defaultUserObject.js
-
+    beforeEach(inject(function($rootScope, $controller, $location) {
       ctrl = $controller('SignupCtrl', {
         '$scope': scope
       });
     }));
+
 
     it('should have good defaults', function() {
       expect(scope).toBeDefined();
@@ -131,23 +140,24 @@ describe('Sign up', function(){
       scope.tandc = true;
       expect(scope.tandc).toBe(true);
 
+      var requestData = user;
+      requestData.location = 'GB';
+      requestData.username = requestData.email;
+      requestData.email = void(0);
+      $httpBackend.expectPOST('/api/register', requestData).respond(200, '');
+
       expect(scope.signUp()).toBe(true);
+
+      $httpBackend.flush();
       expect(scope.errorMessage).toBeUndefined();
     });
   });
 
   describe('Register web service call', function() {
-    beforeEach(inject(function($rootScope, $httpBackend, $controller, userJSON, registerJSON, AuthService) {
-      httpBackend = $httpBackend;
-      user = userJSON.validUser; // Mocked from from test-front/mock/defaultUserObject.js
-      scope = { username: user.email, name: user.name, password: user.password };
-
-      //AuthService = { register: function() {}};
-
-      // // Get mocked register api JSON 
-      // // from test-front/mock/api-feed/register.js
-      // // on POST to web service
-      // $httpBackend.when('POST','api/register').respond(registerJSON);
+    beforeEach(inject(function($rootScope, $injector, $controller, userJSON, registerJSON, AuthService) {
+      scope.username = user.email;
+      scope.name = user.name;
+      scope.password = user.password;
 
       ctrl =  $controller('SignupCtrl', {
         '$scope': scope
@@ -155,22 +165,33 @@ describe('Sign up', function(){
       scope.tandc = true;
     }));
 
-    afterEach(function() {
-      httpBackend.verifyNoOutstandingExpectation();
-      httpBackend.verifyNoOutstandingRequest();
-    });
-
     it('should have signUp method', function() {
       expect(scope).toBeDefined();
 
       expect(scope.signUp).toBeDefined();
     });
 
-    it('should set is loading to true when sign up is called', function() {
-      expect(scope.isLoading).toBe(false);
-      scope.signUp();
+    // it('should set is loading to true when sign up is called and back to false once finished loading', function() {
+    //   expect(scope.isLoading).toBe(false);
+    //   // Debug
+    //   expect(scope.username).toEqual(user.email);
+    //   expect(scope.password).toEqual(user.password);
+    //   expect(scope.name).toEqual(user.name);
+    //   expect(scope.tandc).toBe(true);
 
-      expect(scope.isLoading).toBe(true);
-    });
+    //   var requestData = {};
+    //   requestData.username = user.email;
+    //   requestData.location = 'GB';
+    //   requestData.name = user.name;
+    //   requestData.password = user.password;
+
+
+    //   $httpBackend.expectPOST('/api/register', requestData).respond(200, '');
+    //   scope.signUp();
+    //   expect(scope.isLoading).toBe(true);
+
+    //   $httpBackend.flush();
+    //   expect(scope.isLoading).toBe(false);
+    // });
   });
 });

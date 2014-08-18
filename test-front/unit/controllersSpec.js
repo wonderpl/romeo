@@ -38,8 +38,8 @@ describe('controllers', function(){
   //   expect(controller).toBeDefined();
   // }));
 
-  it('should have sign up controller', inject(function($controller) {
-    controller = $controller('SignupCtrl', { $scope: {} });
+  it('should have sign up controller', inject(function($controller, $rootScope) {
+    controller = $controller('SignupCtrl', { $scope: $rootScope.$new() });
     expect(controller).toBeDefined();
   }));
 

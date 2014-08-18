@@ -1,7 +1,7 @@
 angular
   .module('RomeoApp.controllers')
-  .controller('SignupCtrl', ['$scope', 'AuthService',
-    function($scope, AuthService) {
+  .controller('SignupCtrl', ['$scope', 'AuthService', '$location',
+    function($scope, AuthService, $location) {
   	'use strict';
 
 	  $scope.username = $scope.username || '';
@@ -21,7 +21,7 @@ angular
       }
     };
 
-  	$scope.signUp = function() {
+  	$scope.signUp = function(event) {
       if ( validate() ) {
         $scope.isLoading = true;
         var user = {
@@ -30,7 +30,7 @@ angular
           "name": $scope.name,
           "location": $scope.location
         };
-        
+
         AuthService.registration(user).then(
           $scope.handleRedirect,
           function (response) {
@@ -44,6 +44,11 @@ angular
       }
   		return false;
   	};
+
+    $scope.$on('save', function (event) {
+      event.stopPropagation = true;
+      $scope.signUp();
+    });
 
     function validate() {
       if (! $scope.name) {
