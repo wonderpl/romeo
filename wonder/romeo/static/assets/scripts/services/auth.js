@@ -32,6 +32,21 @@ angular.module('RomeoApp.services').factory('AuthService',
         });
     };
 
+    // POST /api/register HTTP/1.1
+    // Content-Type: application/json
+    //
+    // {
+    //  "username": "user@email.com",
+    //  "password": "xxx",
+    //  "name": "display name",
+    //  "location": "GB"
+    // }
+    //
+    // On success the response will be the same as a login response.
+    Auth.register = function(user) {
+        return true;
+    };
+
     /*
     * Returns a BOOLEAN.  If there is no session url in local storage, we aren't letting them in.
     */
