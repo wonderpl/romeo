@@ -13,12 +13,12 @@ angular
   		return; //AuthService.
   	};
     $scope.validate = function() {
-      if (! $scope.username) {
+      if (! $scope.name) {
+        $scope.errorMessage = 'Name required';
+      } else if (! $scope.username || $scope.username.indexOf('@') == -1) {
         $scope.errorMessage = 'Email required';
       } else if (! $scope.password) {
         $scope.errorMessage = 'Password required';
-      } else if (! $scope.name) {
-        $scope.errorMessage = 'Name required';
       } else if (! $scope.tandc) {
         $scope.errorMessage = 'You have to agree to the Terms and Conditions';
       } else {

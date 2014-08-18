@@ -4,21 +4,22 @@
 
 describe('Sign up', function(){
   var scope, httpBackend, ctrl;
+  var user =  { email: 'example@example.com', name: 'John Doe', password: 'password123' };
   beforeEach(module('RomeoApp'));
 
   beforeEach(inject(function($rootScope, $httpBackend, $controller) {
-    httpBackend = $httpBackend;
-    scope = $rootScope.$new();
+    //httpBackend = $httpBackend;
+    scope = {}; //$rootScope.$new();
 
     ctrl =  $controller('SignupCtrl', {
       '$scope': scope
     });
   }));
 
-  afterEach(function() {
-    httpBackend.verifyNoOutstandingExpectation();
-    httpBackend.verifyNoOutstandingRequest();
-  });
+  // afterEach(function() {
+  //   httpBackend.verifyNoOutstandingExpectation();
+  //   httpBackend.verifyNoOutstandingRequest();
+  // });
 
   it('should have good defaults', function() {
     expect(scope).toBeDefined();
@@ -31,89 +32,102 @@ describe('Sign up', function(){
     expect(scope.tandc).toNotBe('');
   });
 
-  it('should have validation error if form is empty', function() {
+  it('should have validation error (name required) if form is empty', function() {
     expect(scope).toBeDefined();
     expect(scope.username).toBe('');
+    expect(scope.validate()).toBe(false);
+    expect(scope.errorMessage).toEqual('Name required');
+  });
+
+  it('should have validation error (email required) if only name is set', function() {
+    expect(scope).toBeDefined();
+
+    expect(scope.name).toBe('');
+    scope.name = user.name;
+    expect(scope.name).toBe(user.name);
+
     expect(scope.validate()).toBe(false);
     expect(scope.errorMessage).toEqual('Email required');
   });
 
-  it('should have validation error if only username isn\'t a valid email address', function() {
-    var email = 'example';
+  it('should have validation error (email required) if username isn\'t a valid email address', function() {
     expect(scope).toBeDefined();
+
+    expect(scope.name).toBe('');
+    scope.name = user.name;
+    expect(scope.name).toBe(user.name);
+
     expect(scope.username).toBe('');
-    scope.username = email;
-    expect(scope.username).toBe(email);
+    scope.username = user.name;
+    expect(scope.username).toBe(user.name);
+    
     expect(scope.validate()).toBe(false);
     expect(scope.errorMessage).toEqual('Email required');
   });
 
-  it('should have validation error if only username is set', function() {
-    var email = 'example@example.com';
+  it('should have validation error (password required) if only name and username is set', function() {
     expect(scope).toBeDefined();
+
+    expect(scope.name).toBe('');
+    scope.name = user.name;
+    expect(scope.name).toBe(user.name);
+
     expect(scope.username).toBe('');
-    scope.username = email;
-    expect(scope.username).toBe(email);
+    scope.username = user.email;
+    expect(scope.username).toBe(user.email);
+
     expect(scope.validate()).toBe(false);
     expect(scope.errorMessage).toEqual('Password required');
   });
 
-  it('should have validation error if name isn\'t set', function() {
-    var email = 'example@example.com';
-    var password = 'password123';
+  it('should have validation error (name required) if name isn\'t set', function() {
     expect(scope).toBeDefined();
 
     expect(scope.username).toBe('');
-    scope.username = email;
-    expect(scope.username).toBe(email);
+    scope.username = user.email;
+    expect(scope.username).toBe(user.email);
 
     expect(scope.password).toBe('');
-    scope.password = password;
-    expect(scope.password).toBe(password);
+    scope.password = user.password;
+    expect(scope.password).toBe(user.password);
 
     expect(scope.validate()).toBe(false);
     expect(scope.errorMessage).toEqual('Name required');
   });
 
-  it('should have validation error if T & C not set', function() {
-    var email = 'example@example.com';
-    var password = 'password123';
-    var name = 'John Doe';
+  it('should have validation error (terms and condition) if T & C not set', function() {
     expect(scope).toBeDefined();
 
     expect(scope.username).toBe('');
-    scope.username = email;
-    expect(scope.username).toBe(email);
+    scope.username = user.email;
+    expect(scope.username).toBe(user.email);
 
     expect(scope.password).toBe('');
-    scope.password = password;
-    expect(scope.password).toBe(password);
+    scope.password = user.password;
+    expect(scope.password).toBe(user.password);
 
     expect(scope.name).toBe('');
-    scope.name = name;
-    expect(scope.name).toBe(name);
+    scope.name = user.name;
+    expect(scope.name).toBe(user.name);
 
     expect(scope.validate()).toBe(false);
     expect(scope.errorMessage).toEqual('You have to agree to the Terms and Conditions');
   });
 
-  it('should have validat if form has valid data', function() {
-    var email = 'example@example.com';
-    var password = 'password123';
-    var name = 'John Doe';
+  it('should validate if form has valid data', function() {
     expect(scope).toBeDefined();
 
     expect(scope.username).toBe('');
-    scope.username = email;
-    expect(scope.username).toBe(email);
+    scope.username = user.email;
+    expect(scope.username).toBe(user.email);
 
     expect(scope.password).toBe('');
-    scope.password = password;
-    expect(scope.password).toBe(password);
+    scope.password = user.password;
+    expect(scope.password).toBe(user.password);
 
     expect(scope.name).toBe('');
-    scope.name = name;
-    expect(scope.name).toBe(name);
+    scope.name = user.name;
+    expect(scope.name).toBe(user.name);
 
     expect(scope.tandc).toBe(false);
     scope.tandc = true;
