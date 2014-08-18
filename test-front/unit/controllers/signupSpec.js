@@ -4,29 +4,35 @@
 
 describe('Sign up', function(){
   var scope, httpBackend, ctrl;
-  var user =  { email: 'example@example.com', name: 'John Doe', password: 'password123' };
-  beforeEach(module('RomeoApp'));
+  var user;
+  beforeEach(module('RomeoApp', 'mockedObject', 'mockedFeed'));
 
-  beforeEach(inject(function($rootScope, $httpBackend, $controller) {
-    //httpBackend = $httpBackend;
+  beforeEach(inject(function($rootScope, $httpBackend, $controller, userJSON, registerJSON) {
+    httpBackend = $httpBackend;
     scope = {}; //$rootScope.$new();
+    user = userJSON.validUser; // Mocked from from test-front/mock/defaultUserObject.js
+
+    // Get mocked register api JSON 
+    // from test-front/mock/api-feed/register.js
+    // on POST to web service
+    $httpBackend.when('POST','api/register').respond(registerJSON);
 
     ctrl =  $controller('SignupCtrl', {
       '$scope': scope
     });
   }));
 
-  // afterEach(function() {
-  //   httpBackend.verifyNoOutstandingExpectation();
-  //   httpBackend.verifyNoOutstandingRequest();
-  // });
+  afterEach(function() {
+    httpBackend.verifyNoOutstandingExpectation();
+    httpBackend.verifyNoOutstandingRequest();
+  });
 
   it('should have good defaults', function() {
     expect(scope).toBeDefined();
     expect(scope.username).toBe('');
     expect(scope.password).toBe('');
     expect(scope.name).toBe('');
-    
+
     expect(scope.location).toEqual('GB');
     expect(scope.location).toNotEqual('US');
 
