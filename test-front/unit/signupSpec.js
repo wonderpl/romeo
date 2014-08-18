@@ -36,7 +36,6 @@ describe('Sign up', function(){
     expect(scope.username).toBe('');
     expect(scope.validate()).toBe(false);
     expect(scope.errorMessage).toEqual('Email required');
-
   });
 
   it('should have validation error if only username is set', function() {
@@ -47,7 +46,23 @@ describe('Sign up', function(){
     expect(scope.username).toBe(email);
     expect(scope.validate()).toBe(false);
     expect(scope.errorMessage).toEqual('Password required');
+  });
 
+  it('should have validation error if only username is set', function() {
+    var email = 'example@example.com';
+    var password = 'password123';
+    expect(scope).toBeDefined();
+
+    expect(scope.username).toBe('');
+    scope.username = email;
+    expect(scope.username).toBe(email);
+
+    expect(scope.password).toBe('');
+    scope.password = password;
+    expect(scope.password).toBe(password);
+
+    expect(scope.validate()).toBe(false);
+    expect(scope.errorMessage).toEqual('Name required');
   });
 
   // it('should have Login controller', inject(function($controller) {
