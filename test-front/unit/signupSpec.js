@@ -31,6 +31,14 @@ describe('Sign up', function(){
     expect(scope.tandc).toNotBe('');
   });
 
+  it('should have validation error if form is empty', function() {
+    expect(scope).toBeDefined();
+    expect(scope.username).toBe('');
+    expect(scope.validate()).toBe(false);
+    expect(scope.errorMessage).toEqual('Email required');
+
+  });
+
   it('should have validation error if only username is set', function() {
     var email = 'example@example.com';
     expect(scope).toBeDefined();
