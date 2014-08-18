@@ -6,20 +6,23 @@ describe('controllers', function(){
   var scope, controller;
   beforeEach(module('RomeoApp'));
 
+  afterEach(function () {
+    controller = void(0); // Set to undefined
+  });
 
   it('should have sign up controller', inject(function($controller) {
-    var SignupCtrl = $controller('SignupCtrl', { $scope: {} });
-    expect(SignupCtrl).toBeDefined();
+    controller = $controller('SignupCtrl', { $scope: {} });
+    expect(controller).toBeDefined();
   }));
 
   it('should have Login controller', inject(function($controller) {
-    var LoginCtrl = $controller('LoginCtrl', { $scope: {} });
-    expect(LoginCtrl).toBeDefined();
+    controller = $controller('LoginCtrl', { $scope: {} });
+    expect(controller).toBeDefined();
   }));
 
-  // it('should have Twitter sign in controller', inject(function($controller) {
-  //   var VideoCtrl = $controller('SigninCtrl', { $scope: {} });
-  //   expect(VideoCtrl).toBeDefined();
-  // }));
+  it('should have Twitter sign in controller', inject(function($controller) {
+    //controller = $controller('SigninCtrl', { $scope: {} });
+    expect(controller).toBeDefined();
+  }));
 
 });
