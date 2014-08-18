@@ -38,6 +38,16 @@ describe('Sign up', function(){
     expect(scope.errorMessage).toEqual('Email required');
   });
 
+  it('should have validation error if only username isn\'t a valid email address', function() {
+    var email = 'example';
+    expect(scope).toBeDefined();
+    expect(scope.username).toBe('');
+    scope.username = email;
+    expect(scope.username).toBe(email);
+    expect(scope.validate()).toBe(false);
+    expect(scope.errorMessage).toEqual('Email required');
+  });
+
   it('should have validation error if only username is set', function() {
     var email = 'example@example.com';
     expect(scope).toBeDefined();
