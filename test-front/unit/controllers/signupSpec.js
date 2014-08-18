@@ -156,5 +156,17 @@ describe('Sign up', function(){
       httpBackend.verifyNoOutstandingExpectation();
       httpBackend.verifyNoOutstandingRequest();
     });
+
+    it('should have signUp method', function() {
+      expect(scope).toBeDefined();
+
+      expect(scope.signUp).toBeDefined();
+    });
+
+    it('should set is loading to true when sign up is called', function() {
+      expect(scope.isLoading).toBe(false);
+      scope.signUp();
+      expect(scope.isLoading).toBe(true);
+    });
   });
 });

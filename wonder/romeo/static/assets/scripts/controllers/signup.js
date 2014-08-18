@@ -8,10 +8,11 @@ angular
 	  $scope.name = $scope.name || '';
 	  $scope.location = 'GB';
 	  $scope.tandc = false;
+    $scope.isLoading = false;
 
   	$scope.signUp = function() {
       $scope.isLoading = true;
-  		return; //AuthService.
+  		return ; //AuthService.
   	};
     $scope.validate = function() {
       if (! $scope.name) {
