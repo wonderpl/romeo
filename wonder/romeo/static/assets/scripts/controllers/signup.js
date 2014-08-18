@@ -10,6 +10,7 @@ angular
 	  $scope.tandc = false;
 
   	$scope.signUp = function() {
+      $scope.isLoading = true;
   		return; //AuthService.
   	};
     $scope.validate = function() {

@@ -26,8 +26,10 @@ describe('Sign up', function(){
     expect(scope.username).toBe('');
     expect(scope.password).toBe('');
     expect(scope.name).toBe('');
+    
     expect(scope.location).toEqual('GB');
     expect(scope.location).toNotEqual('US');
+
     expect(scope.tandc).toBe(false);
     expect(scope.tandc).toNotBe('');
   });
@@ -60,7 +62,7 @@ describe('Sign up', function(){
     expect(scope.username).toBe('');
     scope.username = user.name;
     expect(scope.username).toBe(user.name);
-    
+
     expect(scope.validate()).toBe(false);
     expect(scope.errorMessage).toEqual('Email required');
   });
