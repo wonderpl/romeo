@@ -13,7 +13,13 @@ angular
   		return; //AuthService.
   	};
     $scope.validate = function() {
-      $scope.errorMessage = $scope.username ? 'Password required' : 'Email required';
+      if (! $scope.username) {
+        $scope.errorMessage = 'Email required';
+      } else if (! $scope.password) {
+        $scope.errorMessage = 'Password required';
+      } else {
+        $scope.errorMessage = 'Name required';
+      }
       return false;
     };
   });
