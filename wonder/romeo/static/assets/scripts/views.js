@@ -1194,81 +1194,121 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('search-form.html',
-    "<section class=\"search__form\">\n" +
+    "<section class=\"search__form\"  ng-class=\"{ 'search__form--active' : !results }\">\n" +
     "\n" +
     "  <p class=\"search__form-title\">Find interesting people to work with.</p>\n" +
     "\n" +
-    "  <form method=\"post\" name=\"searchForm\">\n" +
+    "  <div class=\"search__form-container\">\n" +
     "\n" +
-    "    <label class=\"search__label label\">\n" +
-    "      Search\n" +
-    "      <input type=\"text\" class=\"search__input\" ng-model=\"expression.q\" name=\"q\" required=\"required\" />\n" +
-    "    </label>\n" +
+    "    <form method=\"post\" name=\"searchForm\">\n" +
     "\n" +
-    "    <label class=\"search__label label\">\n" +
-    "      Video\n" +
-    "      <input type=\"checkbox\" class=\"search__checkbox\" ng-model=\"expression.video\" name=\"video\" />\n" +
-    "    </label>\n" +
+    "      <label class=\"search__label\" for=\"SearchQuery\">\n" +
+    "        <span class=\"hide-text\">Search</span>\n" +
+    "        <input id=\"SearchQuery\" type=\"text\" class=\"search__text-input search-text-input--center\" ng-model=\"expression.q\" name=\"q\" required=\"required\" placeholder=\"Search\" value=\"test\" />\n" +
+    "      </label>\n" +
     "\n" +
-    "    <label class=\"search__label label\">\n" +
-    "      Content Owner\n" +
-    "      <input type=\"checkbox\" class=\"search__checkbox\" ng-model=\"expression.content_owner\" name=\"content_owner\" />\n" +
-    "    </label>\n" +
+    "      <div class=\"search__more-link-container\">\n" +
+    "        <a class=\"search__more-link\" ng-click=\"moreOptions = !moreOptions\">(~ moreOptions ? 'Less' : 'More' ~) options</a>\n" +
+    "      </div>\n" +
     "\n" +
-    "    <label class=\"search__label label\">\n" +
-    "      Collaborator\n" +
-    "      <input type=\"checkbox\" class=\"search__checkbox\" ng-model=\"expression.collaborator\" name=\"collaborator\" />\n" +
-    "    </label>\n" +
+    "      <div class=\"search__options-container\" ng-class=\"{ 'search__options-container--active' : moreOptions }\">\n" +
     "\n" +
-    "    <label class=\"search__label label\">\n" +
-    "      Start\n" +
-    "      <input type=\"number\" name=\"start\" ng-model=\"expression.start\" min=\"0\" />\n" +
-    "    </label>\n" +
+    "        <label for=\"SearchVideo\" class=\"search__label\">\n" +
+    "          <input id=\"SearchVideo\" type=\"checkbox\" class=\"search__checkbox\" ng-model=\"expression.video\" name=\"video\" />\n" +
+    "          Video\n" +
+    "        </label>\n" +
     "\n" +
-    "    <label class=\"search__label label\">\n" +
-    "      Size\n" +
-    "      <input type=\"number\" name=\"size\" step=\"25\" ng-model=\"expression.size\" min=\"25\" max=\"200\" />\n" +
-    "    </label>\n" +
+    "        <label for=\"SearchContentOwner\" class=\"search__label\">\n" +
+    "          <input id=\"SearchContentOwner\" type=\"checkbox\" class=\"search__checkbox\" ng-model=\"expression.content_owner\" name=\"content_owner\" />\n" +
+    "          Content Owner\n" +
+    "        </label>\n" +
     "\n" +
-    "    <label class=\"search__label label\">\n" +
-    "      Submit\n" +
-    "      <button class=\"search__submit btn btn--small btn--positive\" ng-click=\"search()\" ng-disabled=\"searchForm.$invalid\">Search</button>\n" +
-    "    </label>\n" +
+    "        <label for=\"SearchCollaborator\" class=\"search__label\">\n" +
+    "          <input id=\"SearchCollaborator\" type=\"checkbox\" class=\"search__checkbox\" ng-model=\"expression.collaborator\" name=\"collaborator\" />\n" +
+    "          Collaborator\n" +
+    "        </label>\n" +
     "\n" +
-    "    <p ng-if=\"results\">(~ results.video.total + results.content_owner.total + results.collaborator.total ~) items found</p>\n" +
+    "        <label for=\"SearchStart\" class=\"search__label\">\n" +
+    "          Start\n" +
+    "          <input id=\"SearchStart\" class=\"search__text-input\" type=\"number\" name=\"start\" ng-model=\"expression.start\" min=\"0\" />\n" +
+    "        </label>\n" +
     "\n" +
-    "    <p ng-if=\"expression && !results\">No items found!</p>\n" +
+    "        <label for=\"SearchSize\" class=\"search__label\">\n" +
+    "          Size\n" +
+    "          <input id=\"SearchSize\" class=\"search__text-input\" type=\"number\" name=\"size\" step=\"25\" ng-model=\"expression.size\" min=\"25\" max=\"200\" />\n" +
+    "        </label>\n" +
     "\n" +
-    "  </form>\n" +
+    "      </div>\n" +
+    "\n" +
+    "      <label class=\"search__label hide-text\" for=\"SearchSubmit\">Submit</label>\n" +
+    "      <button id=\"SearchSubmit\" class=\"search__submit btn btn--small btn--positive\" ng-click=\"search()\" ng-disabled=\"searchForm.$invalid\">Search</button>\n" +
+    "\n" +
+    "    </form>\n" +
+    "\n" +
+    "  </div>\n" +
     "\n" +
     "</section>"
   );
 
 
   $templateCache.put('search-results.html',
-    "<section class=\"search__results\">\n" +
+    "<section class=\"search__results\" ng-class=\"{ 'search__results--active' : results }\">\n" +
     "\n" +
-    "  <p ng-if=\"!expression\">results</p>\n" +
-    "  <p ng-if=\"expression\">results for: (~ expression | json ~)</p>\n" +
+    "  <div class=\"heading search__results-heading\">\n" +
+    "    <span>Displaying results for <strong ng-bind=\"query\"></strong>. </span>\n" +
+    "    <a class=\"btn btn--small\" ng-click=\"reset()\">Reset</a>\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <section ng-if=\"results.content_owner.items\" class=\"search__user-results search__results-container\">\n" +
+    "    <span class=\"search__results-title\">Creators: </span>\n" +
+    "    <ul class=\"search__content_owners search__result-items\">\n" +
+    "      <li ng-repeat=\"item in results.content_owner.items\" class=\"search__content_owner cf search__result-item\">\n" +
+    "        <a ng-href=\"#/profile/(~ item.id ~)\">\n" +
+    "          <div class=\"search__avatar-container\">\n" +
+    "            <div class=\"search__avatar avatar\">\n" +
+    "              <img class=\"search__avatar-image avatar__image\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" style=\"background-image : url('(~ item.avatar ~)');\" />\n" +
+    "            </div>\n" +
+    "          </div>\n" +
+    "          <p class=\"search__user-name heading no-spacing trunc\" ng-bind=\"item.display_name\"></p>\n" +
+    "          <p class=\"search__user-description milli trunc\" ng-bind-html=\"item.description\"></p>\n" +
+    "        </a>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </section>\n" +
+    "\n" +
+    "  <section ng-if=\"results.collaborator.items\" class=\"search__collaborator-results search__results-container\">\n" +
+    "    <span class=\"search__results-title\">Collaborators: </span>\n" +
+    "    <ul class=\"search__collaborators search__result-items\">\n" +
+    "      <li ng-repeat=\"item in results.collaborator.items\" class=\"search__collaborator cf search__result-item\">\n" +
+    "        <a ng-href=\"#/profile/(~ item.id ~)\">\n" +
+    "          <div class=\"search__avatar-container\">\n" +
+    "            <div class=\"search__avatar avatar\">\n" +
+    "              <img class=\"search__avatar-image avatar__image\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" style=\"background-image : url('(~ item.avatar_url ~)');\" />\n" +
+    "            </div>\n" +
+    "          </div>\n" +
+    "          <p class=\"search__user-name heading no-spacing\" ng-bind=\"item.username\"></p>\n" +
+    "          <p class=\"search__user-description milli trunc\" ng-bind-html=\"item.description\"></p>\n" +
+    "        </a>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </section>\n" +
     "\n" +
     "  <section ng-if=\"results.video.items\" class=\"search__video-results search__results-container\">\n" +
-    "    <ul class=\"search__videos\">\n" +
-    "      <li ng-repeat=\"item in results.video.items\" class=\"search__video search__result-item\">\n" +
-    "        <a ng-href=\"(~ item.href ~)\">(~ item.title ~)</a>\n" +
-    "      </li>\n" +
-    "    </ul>\n" +
-    "  </section>\n" +
-    "  <section ng-if=\"results.content_owner.items\" class=\"search__user-results search__results-container\">\n" +
-    "    <ul class=\"search__content_owners\">\n" +
-    "      <li ng-repeat=\"item in results.content_owner.items\" class=\"search__content_owner search__result-item\">\n" +
-    "        <a ng-href=\"(~ item.href ~)\">(~ item.display_name ~)</a>\n" +
-    "      </li>\n" +
-    "    </ul>\n" +
-    "  </section>\n" +
-    "  <section ng-if=\"results.collaborator.items\" class=\"search__collaborator-results search__results-container\">\n" +
-    "    <ul class=\"search__collaborators\">\n" +
-    "      <li ng-repeat=\"item in results.collaborator.items\" class=\"search__collaborator search__result-item\">\n" +
-    "        <a ng-href=\"(~ item.href ~)\">(~ item.username ~)</a>\n" +
+    "    <span class=\"search__results-title\">Associated Videos: </span>\n" +
+    "    <ul class=\"search__videos search__result-items\">\n" +
+    "      <li ng-repeat=\"item in results.video.items\" class=\"search__video search__result-item cf\">\n" +
+    "\n" +
+    "        <a  ng-href=\"#/video/(~ item.id ~)\" class=\"media search__thumbnail-container\">\n" +
+    "          <div class=\"media__img search__thumbnail\">\n" +
+    "            <div class=\"ratio  ratio--16x9\">\n" +
+    "              <img class=\"ratio__src\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" style=\"background-image : url('(~ item.thumbnails.items[0].url ~)');\" />\n" +
+    "            </div>\n" +
+    "          </div>\n" +
+    "          <div class=\"media__body\">\n" +
+    "            <p class=\"search__video-title heading trunc no-spacing\" ng-bind=\"item.title\"></p>\n" +
+    "            <p class=\"search__video-description milli trunc--two\" ng-bind=\"item.description\"></p>\n" +
+    "          </div>\n" +
+    "        </a>\n" +
     "      </li>\n" +
     "    </ul>\n" +
     "  </section>\n" +
@@ -1282,7 +1322,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <search-form expression=\"search.expression\" results=\"search.results\"></search-form>\n" +
     "\n" +
-    "  <search-results expression=\"search.expression\" results=\"search.results\"></search-results>\n" +
+    "  <search-results query=\"query\" expression=\"search.expression\" results=\"search.results\"></search-results>\n" +
     "\n" +
     "</section>"
   );

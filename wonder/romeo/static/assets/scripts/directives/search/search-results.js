@@ -1,6 +1,6 @@
 
 angular.module('RomeoApp.directives')
-  .directive('searchResults', ['$templateCache', function ($templateCache) {
+  .directive('searchResults', ['$templateCache', '$location', function ($templateCache, $location) {
   'use strict';
   return {
     restrict : 'E',
@@ -8,10 +8,14 @@ angular.module('RomeoApp.directives')
     template : $templateCache.get('search-results.html'),
     scope : {
       expression : '=',
-      results : '='
+      results : '=',
+      query : '='
     },
     controller : function ($scope) {
-
+      $scope.reset = function () {
+        $scope.results = null;
+        $location.url($location.path());
+      };
     }
   };
 }]);

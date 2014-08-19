@@ -4,18 +4,17 @@
 .form-fields {
   list-style: none;
   margin: 0;
-  
+
   > li {
     margin-bottom: $base-spacing-unit;
     padding: $half-spacing-unit;
   }
-  
+
   > li:last-child {
     margin-bottom: 0;
   }
 }
 
-label,
 .label {
   display: block;
 }

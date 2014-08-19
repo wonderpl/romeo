@@ -1,0 +1,16 @@
+/**
+ * _trump.hide-text.scss
+ *
+ * http://stackoverflow.com/a/12783507
+ * http://www.zeldman.com/2012/03/01/replacing-the-9999px-hack-new-image-replacement/
+ *
+ */
+
+.hide-text {
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+
+  display: block;
+  height: 0;
+}

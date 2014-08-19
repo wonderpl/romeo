@@ -3225,60 +3225,59 @@ select {
   margin-bottom: 0;
 }
 
-/* line 19, ../../scss/_theme/_theme.forms.scss */
-label,
+/* line 18, ../../scss/_theme/_theme.forms.scss */
 .label {
   display: block;
 }
 
-/* line 22, ../../scss/_theme/_theme.forms.scss */
+/* line 21, ../../scss/_theme/_theme.forms.scss */
 .form-label {
   font-size: 0.75em;
   color: #272a2b;
   cursor: pointer;
 }
 
-/* line 27, ../../scss/_theme/_theme.forms.scss */
+/* line 26, ../../scss/_theme/_theme.forms.scss */
 .additional {
   display: block;
   font-weight: normal;
 }
 
-/* line 31, ../../scss/_theme/_theme.forms.scss */
+/* line 30, ../../scss/_theme/_theme.forms.scss */
 .check-list {
   list-style: none;
   margin: 0;
 }
 
-/* line 37, ../../scss/_theme/_theme.forms.scss */
+/* line 36, ../../scss/_theme/_theme.forms.scss */
 .check-label,
 .check-list label,
 .check-list .label {
   display: inline-block;
 }
 
-/* line 41, ../../scss/_theme/_theme.forms.scss */
+/* line 40, ../../scss/_theme/_theme.forms.scss */
 .spoken-form label {
   display: inline-block;
   font: inherit;
 }
 
-/* line 48, ../../scss/_theme/_theme.forms.scss */
+/* line 47, ../../scss/_theme/_theme.forms.scss */
 .login-view__form > li {
   margin-bottom: 0;
 }
 
-/* line 54, ../../scss/_theme/_theme.forms.scss */
+/* line 53, ../../scss/_theme/_theme.forms.scss */
 .login-view__input {
   margin: 0;
   padding: 12px 0;
   border: 0;
 }
-/* line 59, ../../scss/_theme/_theme.forms.scss */
+/* line 58, ../../scss/_theme/_theme.forms.scss */
 .login-view__input + .login-view__input {
   border-top: 1px solid #b7bcbd;
 }
-/* line 63, ../../scss/_theme/_theme.forms.scss */
+/* line 62, ../../scss/_theme/_theme.forms.scss */
 .login-view__input input {
   width: 93.85964912280701;
   width: calc(100% - 28px);
@@ -3289,11 +3288,11 @@ label,
   border: 0;
   appearance: none;
 }
-/* line 75, ../../scss/_theme/_theme.forms.scss */
+/* line 74, ../../scss/_theme/_theme.forms.scss */
 .login-view__input input:hover, .login-view__input input:active, .login-view__input input:focus {
   outline: none;
 }
-/* line 79, ../../scss/_theme/_theme.forms.scss */
+/* line 78, ../../scss/_theme/_theme.forms.scss */
 .login-view__input input:active {
   cursor: text;
 }
@@ -3792,6 +3791,22 @@ label,
 /* line 10, ../../scss/_trumps/_trumps.text-styles.scss */
 .t--left {
   text-align: left !important;
+}
+
+/**
+ * _trump.hide-text.scss
+ *
+ * http://stackoverflow.com/a/12783507
+ * http://www.zeldman.com/2012/03/01/replacing-the-9999px-hack-new-image-replacement/
+ *
+ */
+/* line 9, ../../scss/_trumps/_trumps.hide-text.scss */
+.hide-text {
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  height: 0;
 }
 
 /* line 1, ../../scss/components/_video-player-config.scss */
@@ -6449,31 +6464,206 @@ label,
 }
 
 /* line 5, ../../scss/specifics/search/_search.scss */
-.wire, .search__form, .search__results, .search__result-item {
-  border: dotted 1px red;
-}
-
-/* line 9, ../../scss/specifics/search/_search.scss */
 .search__form {
-  padding: 12px;
-  margin: 12px;
+  transition: all 0.4s ease-in-out;
+  padding: 0 12px;
+  margin: 0 12px;
+  width: 100%;
+  text-align: center;
+  max-height: 0;
+  overflow: hidden;
 }
 
 /* line 15, ../../scss/specifics/search/_search.scss */
-.search__results {
+.search__form--active {
+  max-height: 800px;
   padding: 12px;
   margin: 12px;
 }
 
 /* line 21, ../../scss/specifics/search/_search.scss */
+.search__form-container {
+  width: 400px;
+  margin: 0 auto;
+}
+
+/* line 26, ../../scss/specifics/search/_search.scss */
+.search__results {
+  transition: all 0.4s ease-in-out;
+  padding: 0 12px;
+  margin: 0 auto;
+  max-height: 0;
+  overflow: hidden;
+  max-width: 960px;
+}
+
+/* line 35, ../../scss/specifics/search/_search.scss */
+.search__result-items {
+  margin: 0;
+}
+
+/* line 39, ../../scss/specifics/search/_search.scss */
+.search__results-title {
+  padding-top: 4px;
+  font-variant: small-caps;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: lowercase;
+  color: #999999;
+}
+
+/* line 47, ../../scss/specifics/search/_search.scss */
+.search__results-heading {
+  text-align: center;
+}
+
+/* line 51, ../../scss/specifics/search/_search.scss */
+.search__results--active {
+  max-height: 900px;
+  padding: 12px;
+  margin: 12px auto;
+}
+
+/* line 57, ../../scss/specifics/search/_search.scss */
 .search__results-container {
-  border: solid 1px #51b364;
   padding: 12px;
   margin: 12px;
 }
 
-/* line 27, ../../scss/specifics/search/_search.scss */
+/* line 62, ../../scss/specifics/search/_search.scss */
 .search__result-item {
+  display: block;
+  padding-top: 12px;
+}
+
+/* line 67, ../../scss/specifics/search/_search.scss */
+.search__options-container {
+  transition: max-height 0.4s ease-in-out;
+  max-height: 0;
+  overflow: hidden;
+  text-align: left;
+  margin: 0 auto;
   display: inline-block;
-  width: 200px;
+}
+
+/* line 77, ../../scss/specifics/search/_search.scss */
+.search__label {
+  display: block;
+  margin-bottom: 1em;
+  font-variant: small-caps;
+  font-weight: 600;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: lowercase;
+  letter-spacing: 0.1em;
+}
+
+/* line 87, ../../scss/specifics/search/_search.scss */
+.search__label--inline {
+  display: inline;
+  margin-right: 1em;
+  font-weight: normal;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: 0;
+}
+
+/* line 95, ../../scss/specifics/search/_search.scss */
+.search__text-input {
+  display: block;
+  width: 20em;
+  font-weight: normal;
+  font-size: 1em;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-variant: normal;
+  text-transform: normal;
+  letter-spacing: 0;
+  padding: 0.3em;
+}
+
+/* line 107, ../../scss/specifics/search/_search.scss */
+.search-text-input--center {
+  margin: 0 auto;
+}
+
+/* line 111, ../../scss/specifics/search/_search.scss */
+.search__options-container--active {
+  max-height: 600px;
+}
+
+/* line 115, ../../scss/specifics/search/_search.scss */
+.search__more-link-container {
+  display: block;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+/* line 121, ../../scss/specifics/search/_search.scss */
+.search__more-link {
+  display: inline-block;
+}
+
+/* line 125, ../../scss/specifics/search/_search.scss */
+.search__more-link:hover {
+  cursor: pointer;
+}
+
+/* line 129, ../../scss/specifics/search/_search.scss */
+.search__user-results {
+  width: 34%;
+  float: left;
+  clear: left;
+}
+
+/* line 135, ../../scss/specifics/search/_search.scss */
+.search__collaborator-results {
+  width: 34%;
+  float: left;
+  clear: left;
+}
+
+/* line 141, ../../scss/specifics/search/_search.scss */
+.search__video-results {
+  width: 58%;
+  clear: right;
+  display: inline-block;
+}
+
+/* line 147, ../../scss/specifics/search/_search.scss */
+.search__avatar-container {
+  display: inline-block;
+  overflow: hidden;
+  width: 66px;
+  padding: 10px;
+  box-sizing: content-box;
+  float: left;
+  margin-right: 6px;
+}
+
+/* line 157, ../../scss/specifics/search/_search.scss */
+.search__thumbnail {
+  width: 33.3333%;
+  background-color: #999999;
+}
+
+/* line 162, ../../scss/specifics/search/_search.scss */
+.search__user-name {
+  padding-top: 12px;
+}
+
+/* line 166, ../../scss/specifics/search/_search.scss */
+.search__thumbnail-container {
+  border: none;
+}
+
+/* line 170, ../../scss/specifics/search/_search.scss */
+.search__video-description {
+  color: #2e2e32;
+}
+
+/* line 174, ../../scss/specifics/search/_search.scss */
+.search__user-description {
+  color: #2e2e32;
+}
+
+/* line 178, ../../scss/specifics/search/_search.scss */
+.search__avatar {
+  margin-bottom: 0;
 }

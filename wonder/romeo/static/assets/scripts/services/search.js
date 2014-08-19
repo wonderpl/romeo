@@ -1,5 +1,5 @@
 angular.module('RomeoApp.services')
-  .factory('SearchService', ['DataService', function (DataService) {
+  .factory('SearchService', ['$location', 'DataService', function ($location, DataService) {
 
   'use strict';
 
@@ -7,7 +7,11 @@ angular.module('RomeoApp.services')
 
   Search.search = function (expression) {
 
-    var query = encodeURIComponent(JSON.stringify(expression));
+    var query = typeof expression === 'string' ? expression : $.param(expression);
+
+    console.log(query);
+
+    $location.search(query);
 
     var url = '/api/search/?' + query;
     return DataService.request({
