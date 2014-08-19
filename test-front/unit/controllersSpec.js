@@ -45,6 +45,11 @@ describe('controllers', function(){
     expect(controller).toBeDefined();
   }));
 
+  it('should have twitter login controller', inject(function($controller) {
+    controller = $controller('TwitterLoginCtrl', { $scope: scope });
+    expect(controller).toBeDefined();
+  }));
+
   it('should have Video controller', inject(function($controller) {
     controller = $controller('VideoCtrl', { $scope: scope });
     expect(controller).toBeDefined();

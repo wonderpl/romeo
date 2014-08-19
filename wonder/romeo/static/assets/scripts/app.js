@@ -147,8 +147,8 @@
             templateUrl: 'login.html'
         });
 
-        $routeProvider.when('/signin', {
-            templateUrl: 'signin.html'
+        $routeProvider.when('/twitter-login', {
+            templateUrl: 'twitter-login.html'
         });
 
         $routeProvider.when('/signup', {

@@ -37,7 +37,7 @@ function LoginController ($scope, $location, AuthService) {
     $location.url('/signup');
   };
   $scope.showTwitterSignin = function () {
-    window.open('/auth/twitter_redirect?callback=/app#/twitter-sign-in', 'twitter_signin', 'width=560, height=360');
+    window.open('/auth/twitter_redirect?callback=/app#/twitter-login', 'twitter_signin', 'width=560, height=360');
   };
 
 }

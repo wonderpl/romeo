@@ -1192,44 +1192,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
-  $templateCache.put('signin.html',
-    "<div ng-controller=\"LoginCtrl\" autocomplete=\"off\" class=\"login-view\">\n" +
-    "  <div class=\"center-container\">\n" +
-    "    <div class=\"center-object\">\n" +
-    "      <div class=\"wrapper\">\n" +
-    "        <form ng-submit=\"login()\">\n" +
-    "          <fieldset>\n" +
-    "            <legend class=\"accessibility\">Twitter Log in details:</legend>\n" +
-    "            <ul class=\"form-fields  login-view__form\">\n" +
-    "              <li class=\"text-col\">\n" +
-    "                <h2>Twitter login</h2>\n" +
-    "                <div class=\"login-view__input  icon-text\">\n" +
-    "                  <i class=\"icon  icon--twitter  icon-text__icon\"></i>\n" +
-    "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__username\">Username</label>\n" +
-    "                  <input type=\"text\" ng-model=\"username\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__username\" placeholder=\"Username\" />\n" +
-    "                </div>\n" +
-    "                <div class=\"login-view__input  icon-text\">\n" +
-    "                  <i class=\"icon  icon--lock  icon-text__icon\"></i>\n" +
-    "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__password\">Password</label>\n" +
-    "                  <input type=\"password\" name=\"password\" ng-model=\"password\" autocomplete=\"off\"  class=\"text-input\" id=\"login-view__password\" placeholder=\"Password\" />\n" +
-    "                </div>\n" +
-    "              </li>\n" +
-    "              <li class=\"text-col\">\n" +
-    "                <span class=\"login-view__errors\" ng-bind=\"errors\"></span>\n" +
-    "                <div class=\"btn-center\">\n" +
-    "                  <button type=\"submit\" class=\"btn btn--positive login-view__submit\" ng-click=\"isLoading = true;\">Login <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading\" /></button>\n" +
-    "                </div>\n" +
-    "              </li>\n" +
-    "            </ul>\n" +
-    "          </fieldset>\n" +
-    "        </form>\n" +
-    "      </div>\n" +
-    "    </div>\n" +
-    "  </div>\n" +
-    "</div>"
-  );
-
-
   $templateCache.put('signup.html',
     "<div ng-controller=\"SignupCtrl\" autocomplete=\"off\" class=\"login-view\">\n" +
     "  <div class=\"center-container\">\n" +
@@ -1282,6 +1244,39 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "                  <li><p class=\"muted\">copy any portion of the Program or documentation, except to the extent necessary to perform beta testing; or</p></li>\n" +
     "                  <li><p class=\"muted\">reverse engineer, decompile or disassemble Software or any portion of it.</p></li>\n" +
     "                </ol>\n" +
+    "              </li>\n" +
+    "            </ul>\n" +
+    "          </fieldset>\n" +
+    "        </form>\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('twitter-login.html',
+    "<div ng-controller=\"TwitterLoginCtrl\" autocomplete=\"off\" class=\"login-view\">\n" +
+    "  <div class=\"center-container\">\n" +
+    "    <div class=\"center-object\">\n" +
+    "      <div class=\"wrapper\">\n" +
+    "        <form ng-submit=\"save()\">\n" +
+    "          <fieldset>\n" +
+    "            <legend class=\"accessibility\">Twitter Log in details:</legend>\n" +
+    "            <ul class=\"form-fields  login-view__form\">\n" +
+    "              <li class=\"text-col\">\n" +
+    "                <h2>Confirm Email</h2>\n" +
+    "                <div class=\"login-view__input  icon-text\">\n" +
+    "                  <i class=\"icon  icon--twitter  icon-text__icon\"></i>\n" +
+    "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__username\">Email</label>\n" +
+    "                  <input type=\"text\" ng-model=\"username\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__username\" placeholder=\"Email\" />\n" +
+    "                </div>\n" +
+    "              </li>\n" +
+    "              <li class=\"text-col\">\n" +
+    "                <span class=\"login-view__errors\" ng-bind=\"errors\"></span>\n" +
+    "                <div class=\"btn-center\">\n" +
+    "                  <button type=\"submit\" class=\"btn btn--positive login-view__submit\" ng-click=\"isLoading = true;\">Save <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading\" /></button>\n" +
+    "                </div>\n" +
     "              </li>\n" +
     "            </ul>\n" +
     "          </fieldset>\n" +

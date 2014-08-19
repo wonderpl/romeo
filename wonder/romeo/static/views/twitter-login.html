@@ -1,0 +1,29 @@
+<div ng-controller="TwitterLoginCtrl" autocomplete="off" class="login-view">
+  <div class="center-container">
+    <div class="center-object">
+      <div class="wrapper">
+        <form ng-submit="save()">
+          <fieldset>
+            <legend class="accessibility">Twitter Log in details:</legend>
+            <ul class="form-fields  login-view__form">
+              <li class="text-col">
+                <h2>Confirm Email</h2>
+                <div class="login-view__input  icon-text">
+                  <i class="icon  icon--twitter  icon-text__icon"></i>
+                  <label class="label login-view__label  accessibility" for="login-view__username">Email</label>
+                  <input type="text" ng-model="username" autocomplete="off" class="text-input" id="login-view__username" placeholder="Email" />
+                </div>
+              </li>
+              <li class="text-col">
+                <span class="login-view__errors" ng-bind="errors"></span>
+                <div class="btn-center">
+                  <button type="submit" class="btn btn--positive login-view__submit" ng-click="isLoading = true;">Save <img class="login-view__loading-indicator" src="/static/assets/img/loading.gif" ng-show="isLoading" /></button>
+                </div>
+              </li>
+            </ul>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
