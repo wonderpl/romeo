@@ -18,16 +18,14 @@ module.exports = function(config) {
       'wonder/romeo/static/assets/vendor/js/moment.js',
       'wonder/romeo/static/assets/vendor/js/spectrum.js',
       'wonder/romeo/static/assets/vendor/js/medium-editor.js',
-      'wonder/romeo/static/assets/scripts/filters/filters.js',
-      'wonder/romeo/static/assets/scripts/services/services.js',
-      'wonder/romeo/static/assets/scripts/directives/directives.js',
-      'wonder/romeo/static/assets/scripts/controllers/controllers.js',
-      'wonder/romeo/static/assets/scripts/filters/**/*.js',
-      'wonder/romeo/static/assets/scripts/services/**/*.js',
-      'wonder/romeo/static/assets/scripts/directives/**/*.js',
-      'wonder/romeo/static/assets/scripts/controllers/**/*.js',
-      'wonder/romeo/static/assets/vendor/js/angular-medium-editor.js',
+
       'wonder/romeo/static/assets/scripts/*.js',
+      'wonder/romeo/static/assets/scripts/services/*.js',
+      'wonder/romeo/static/assets/scripts/controllers/*.js',
+      'wonder/romeo/static/assets/scripts/filters/*.js',
+      'wonder/romeo/static/assets/scripts/directives/**/*.js',
+      'wonder/romeo/static/assets/vendor/js/angular-medium-editor.js',
+
       'test-front/mock/**/*.js',
       'test-front/unit/**/*.js'
     ],
@@ -41,8 +39,10 @@ module.exports = function(config) {
     plugins : [
             'karma-chrome-launcher',
             'karma-firefox-launcher',
+            'karma-phantomjs-launcher',
             'karma-jasmine',
-            'karma-junit-reporter'
+            'karma-junit-reporter',
+            'karma-htmlfile-reporter'
             ],
 
     junitReporter : {
