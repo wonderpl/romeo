@@ -6,47 +6,48 @@ describe('controllers', function(){
   var scope, controller;
   beforeEach(module('RomeoApp'));
 
+  beforeEach(inject(function($rootScope) {
+    scope = $rootScope.$new();
+  }));
+
   afterEach(function () {
     controller = void(0); // Set to undefined
   });
 
   it('should have Analytics controller', inject(function($controller) {
-    controller = $controller('AnalyticsCtrl', { $scope: {}, $element: angular.element('<div></div>') });
+    controller = $controller('AnalyticsCtrl', { $scope: scope, $element: angular.element('<div></div>') });
     expect(controller).toBeDefined();
   }));
 
   it('should have Login controller', inject(function($controller) {
-    controller = $controller('LoginCtrl', { $scope: {} });
+    controller = $controller('LoginCtrl', { $scope: scope });
     expect(controller).toBeDefined();
   }));
 
-  it('should have Main controller', inject(function($rootScope, $controller) {
-    controller = $controller('MainCtrl', { $scope: $rootScope.$new(), $element: angular.element('<div></div>') });
+  it('should have Main controller', inject(function($controller) {
+    controller = $controller('MainCtrl', { $scope: scope, $element: angular.element('<div></div>') });
     expect(controller).toBeDefined();
   }));
 
-  // // @TODO: Need investigation
-  // it('should have Organise controller', inject(function($controller, _$location_) {
-  //   $location = _$location_;
-  //   controller = $controller('OrganiseCtrl', { $scope: {} });
-  //   expect(controller).toBeDefined();
-  // }));
-
-  // // @TODO: Need investigation
-  // it('should have Profile controller', inject(function($controller) {
-  //   controller = $controller('ProfileCtrl', { $scope: {} });
-  //   expect(controller).toBeDefined();
-  // }));
-
-  it('should have sign up controller', inject(function($controller, $rootScope) {
-    controller = $controller('SignupCtrl', { $scope: $rootScope.$new() });
+  it('should have Organise controller', inject(function($controller, _$location_) {
+    $location = _$location_;
+    controller = $controller('OrganiseCtrl', { $scope: scope });
     expect(controller).toBeDefined();
   }));
 
-  // // @TODO: Need investigation
-  // it('should have Video controller', inject(function($controller) {
-  //   controller = $controller('VideoCtrl', { $scope: {} });
-  //   expect(controller).toBeDefined();
-  // }));
+  it('should have Profile controller', inject(function($controller) {
+    controller = $controller('ProfileCtrl', { $scope: scope });
+    expect(controller).toBeDefined();
+  }));
+
+  it('should have sign up controller', inject(function($controller) {
+    controller = $controller('SignupCtrl', { $scope: scope });
+    expect(controller).toBeDefined();
+  }));
+
+  it('should have Video controller', inject(function($controller) {
+    controller = $controller('VideoCtrl', { $scope: scope });
+    expect(controller).toBeDefined();
+  }));
 
 });
