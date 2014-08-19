@@ -4,7 +4,6 @@ angular
   .controller('LoginCtrl', LoginController);
 
 function LoginController ($scope, $location, AuthService) {
-
   'use strict';
 
   $scope.username = $scope.username || '';
@@ -35,11 +34,10 @@ function LoginController ($scope, $location, AuthService) {
   };
 
   $scope.showSignup = function () {
-    alert('Show Signup');
     $location.url('/signup');
   };
   $scope.showTwitterSignin = function () {
-    $location.url('/signin');
+    window.open('/auth/twitter_redirect?callback=/app#/twitter-sign-in', 'twitter_signin', 'width=560, height=360');
   };
 
 }
