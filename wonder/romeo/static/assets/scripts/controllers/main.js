@@ -1,8 +1,8 @@
 angular
   .module('RomeoApp.controllers')
-  .controller('MainCtrl', ['$window', '$scope', '$rootScope', '$timeout', '$location', '$modal', '$element', '$cookies', 'localStorageService', 'AuthService', MainController]);
+  .controller('MainCtrl', ['$window', '$scope', '$rootScope', '$timeout', '$location', 'modal', '$element', '$cookies', 'localStorageService', 'AuthService', MainController]);
 
-function MainController ($window, $scope, $rootScope, $timeout, $location, $modal, $element, $cookies, localStorageService, AuthService) {
+function MainController ($window, $scope, $rootScope, $timeout, $location, modal, $element, $cookies, localStorageService, AuthService) {
 
   'use strict';
 
@@ -37,7 +37,7 @@ function MainController ($window, $scope, $rootScope, $timeout, $location, $moda
   };
 
   $rootScope.closeModal = function () {
-      $modal.hide();
+      modal.hide();
   };
 
   $rootScope.logOut = function () {

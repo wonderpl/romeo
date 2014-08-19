@@ -1,6 +1,6 @@
 angular.module('RomeoApp.controllers')
-  .controller('OrganiseCtrl', ['$rootScope', '$scope', 'TagService', '$location', '$modal', '$routeParams', '$route', 'VideoService', 'AccountService',
-  function($rootScope, $scope, TagService, $location, $modal, $routeParams, $route, VideoService, AccountService) {
+  .controller('OrganiseCtrl', ['$rootScope', '$scope', 'TagService', '$location', 'modal', '$routeParams', '$route', 'VideoService', 'AccountService',
+  function($rootScope, $scope, TagService, $location, modal, $routeParams, $route, VideoService, AccountService) {
     'use strict';
     var debug = new DebugClass('OrganiseCtrl');
 
@@ -94,14 +94,14 @@ angular.module('RomeoApp.controllers')
       $scope.availableTags = $scope.tags;
       $scope.video = video;
       $scope.isModal = true;
-      $modal.load('collection-add-video.html', true, $scope);
+      modal.load('collection-add-video.html', true, $scope);
     });
 
     $scope.$on('show-create-collection', function ($event, isPublic) {
       $event.stopPropagation = true;
       $scope.collection = {};
       $scope.collection.scope = isPublic ? 'public' : 'private';
-      $modal.load('modal-create-new-collection.html', true, $scope, {});
+      modal.load('modal-create-new-collection.html', true, $scope, {});
     });
 
     $scope.$on('delete-video', function ($event, video) {
@@ -186,14 +186,14 @@ angular.module('RomeoApp.controllers')
     }
 
     $scope.close = function () {
-      $modal.hide();
+      modal.hide();
       $scope.collection = null;
       $scope.addVideoToCollection = false;
       refresh();
     };
 
     $scope.hideAddRemoveAndShowCreateCollection = function () {
-      $modal.hide();
+      modal.hide();
       $scope.collection = null;
       $scope.addVideoToCollection = true;
       $scope.$emit('show-create-collection', false);

@@ -1,6 +1,6 @@
 angular.module('RomeoApp.directives')
-  .directive('collectionAddVideo', ['$templateCache', 'VideoService', '$q', '$location', 'TagService', '$modal', '$route',
-  function ($templateCache, VideoService, $q, $location, TagService, $modal, $route) {
+  .directive('collectionAddVideo', ['$templateCache', 'VideoService', '$q', '$location', 'TagService', 'modal', '$route',
+  function ($templateCache, VideoService, $q, $location, TagService, modal, $route) {
 
   'use strict';
 
@@ -89,7 +89,7 @@ angular.module('RomeoApp.directives')
               $scope.addTag(tag.id);
             }
             $scope.addVideoToCollection = false;
-            $modal.hide();
+            modal.hide();
             $route.reload();
           });
         });
@@ -97,14 +97,14 @@ angular.module('RomeoApp.directives')
 
       $scope.close = function () {
         $scope.addVideoToCollection = false;
-        $modal.hide();
+        modal.hide();
       };
 
       $scope.hideAddRemoveAndShowCreateCollection = function () {
         $scope.addVideoToCollection = true;
         $scope.collection = {};
         $scope.collection.scope = 'private';
-        $modal.load('modal-create-new-collection.html', true, $scope, {});
+        modal.load('modal-create-new-collection.html', true, $scope, {});
       };
 
       $scope.hasTagLabel = function (label) {
