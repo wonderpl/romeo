@@ -1,8 +1,10 @@
 angular
   .module('RomeoApp.controllers')
-  .controller('TwitterLoginCtrl', ['$scope',
-  	function ($scope) {
+  .controller('TwitterLoginCtrl', ['$scope', 'AuthService',
+  	function ($scope, AuthService) {
   		'use strict';
+
+  		$scope.isLoading = false;
 
 		function loginOrSignup() {
 			AccountService.findUsernameByExternalToken('twitter', $scope.credentials.externalToken).then(function (data) {
