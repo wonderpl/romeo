@@ -85,55 +85,6 @@
     }]);
 
     /*
-    * Service for displaying tooltips
-    */
-    app.factory('$tooltip', [function () {
-
-        var el = d.createElement('div'),
-            $el,
-            text = d.createElement('span'),
-            $text,
-            b = d.body || d.documentElement,
-            $b;
-
-        el.setAttribute('id', 'tooltip');
-
-        el.appendChild(text);
-        b.appendChild(el);
-
-        $b = ng.element(b);
-        $el = ng.element(el);
-
-        var Tooltip = {};
-
-        Tooltip.show = function (txt, el) {
-            if ('getBoundingClientRect' in el) {
-                text.innerHTML = txt;
-
-                var targetpos = el.getBoundingClientRect(),
-                    elpos = $el[0].getBoundingClientRect();
-
-                $el.css({
-                    top: (targetpos.top - 32) + 'px',
-                    left: ((targetpos.left + (targetpos.width / 2)) - (elpos.width / 2)) + 'px'
-                });
-
-                $el.addClass('show');
-            }
-        };
-
-        Tooltip.hide = function () {
-            console.log('tooltip hidden');
-            $el.removeClass('show');
-        };
-
-        return {
-            show: Tooltip.show,
-            hide: Tooltip.hide
-        };
-    }]);
-
-    /*
     * This service does the heavy lifting of actually making requests to the web services.
     */
     app.factory('DataService',
