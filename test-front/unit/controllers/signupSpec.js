@@ -2,7 +2,7 @@
 
 /* jasmine specs for signup go here */
 
-describe('Sign up', function(){
+describe('Sign up', function() {
   var scope, $httpBackend, ctrl;
   var user;
   beforeEach(module('RomeoApp', 'mockedObject', 'mockedFeed'));
@@ -140,10 +140,11 @@ describe('Sign up', function(){
       scope.tandc = true;
       expect(scope.tandc).toBe(true);
 
-      var requestData = user;
+      var requestData = {};
+      requestData.username = user.email;
       requestData.location = 'GB';
-      requestData.username = requestData.email;
-      requestData.email = void(0);
+      requestData.name = user.name;
+      requestData.password = user.password;
       $httpBackend.expectPOST('/api/register', requestData).respond(200, '');
 
       expect(scope.signUp()).toBe(true);
@@ -158,10 +159,10 @@ describe('Sign up', function(){
       scope.username = user.email;
       scope.name = user.name;
       scope.password = user.password;
-
-      ctrl =  $controller('SignupCtrl', {
+      ctrl = $controller('SignupCtrl', {
         '$scope': scope
       });
+
       scope.tandc = true;
     }));
 
@@ -171,27 +172,21 @@ describe('Sign up', function(){
       expect(scope.signUp).toBeDefined();
     });
 
-    // it('should set is loading to true when sign up is called and back to false once finished loading', function() {
-    //   expect(scope.isLoading).toBe(false);
-    //   // Debug
-    //   expect(scope.username).toEqual(user.email);
-    //   expect(scope.password).toEqual(user.password);
-    //   expect(scope.name).toEqual(user.name);
-    //   expect(scope.tandc).toBe(true);
+    it('should set is loading to true when sign up is called and back to false once finished loading', function() {
+      expect(scope.isLoading).toBe(false);
 
-    //   var requestData = {};
-    //   requestData.username = user.email;
-    //   requestData.location = 'GB';
-    //   requestData.name = user.name;
-    //   requestData.password = user.password;
+      var requestData = {};
+      requestData.username = user.email;
+      requestData.location = 'GB';
+      requestData.name = user.name;
+      requestData.password = user.password;
 
+      $httpBackend.expectPOST('/api/register', requestData).respond(200, '');
+      scope.signUp();
+      expect(scope.isLoading).toBe(true);
 
-    //   $httpBackend.expectPOST('/api/register', requestData).respond(200, '');
-    //   scope.signUp();
-    //   expect(scope.isLoading).toBe(true);
-
-    //   $httpBackend.flush();
-    //   expect(scope.isLoading).toBe(false);
-    // });
+      $httpBackend.flush();
+      expect(scope.isLoading).toBe(false);
+    });
   });
 });
