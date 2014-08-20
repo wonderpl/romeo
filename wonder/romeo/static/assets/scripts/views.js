@@ -1549,7 +1549,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "              <li class=\"text-col\">\n" +
     "                <h2>Confirm Email</h2>\n" +
     "                <div class=\"login-view__input  icon-text\">\n" +
-    "                  <i class=\"icon  icon--twitter  icon-text__icon\"></i>\n" +
+    "                  <i class=\"icon  icon--mail  icon-text__icon\"></i>\n" +
     "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__username\">Email</label>\n" +
     "                  <input type=\"text\" ng-model=\"username\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__username\" placeholder=\"Email\" />\n" +
     "                </div>\n" +
