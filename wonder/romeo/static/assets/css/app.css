@@ -3805,8 +3805,6 @@ select {
   text-indent: 100%;
   white-space: nowrap;
   overflow: hidden;
-  display: block;
-  height: 0;
 }
 
 /* line 1, ../../scss/components/_video-player-config.scss */

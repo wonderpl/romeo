@@ -87,6 +87,9 @@
             resolve: authChecks
         });
 
+        $routeProvider.when('/faq', {
+            templateUrl: 'faq.html'
+        });
 
 /******* DEPRECATED **************************************************/
 

@@ -524,6 +524,168 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('faq.html',
+    "<section class=\"faq wrapper wrapper--fixed\">\n" +
+    "\n" +
+    "  <div class=\"page-content\">\n" +
+    "\n" +
+    "    <h2 class=\"heading\">Wonder Platform FAQs</h2>\n" +
+    "\n" +
+    "    <section>\n" +
+    "      <h3 class=\"heading\">Supported Video files</h3>\n" +
+    "\n" +
+    "      <article>\n" +
+    "        <h4 class=\"heading\">What type of video files can I upload to Wonder?</h4>\n" +
+    "        <p>H264 video files, Quicktime movies (.mov) and MP4 files (.mp4) are all accepted by Wonder. </p>\n" +
+    "        <p>Our technology is optimised for files that are 720p or 1080p, with a bitrate of at least 2 Megabits/second.</p>\n" +
+    "      </article>\n" +
+    "    </section>\n" +
+    "\n" +
+    "    <section>\n" +
+    "      <h3 class=\"heading\">Publishing</h3>\n" +
+    "\n" +
+    "      <article>\n" +
+    "        <h4 class=\"heading\">How do I publish a video?</h4>\n" +
+    "        <p>Your video is publically published when it is added to a Public Collection.</p>\n" +
+    "        <p>Creating a Public Collection is simple, just visit the Manage section of your account. </p>\n" +
+    "        <p>Highlight the video and use Add / Remove to Add it to the Collection</p>\n" +
+    "        <img src=\"/static/assets/img/faq/organise-item-menu.png\" alt=\"organise item menu\" title=\"click Add/Remove\" />\n" +
+    "        <p>You’ll receive an email notification once your video has been published and so will any collaborators you worked with.</p>\n" +
+    "      </article>\n" +
+    "    </section>\n" +
+    "\n" +
+    "    <section>\n" +
+    "      <h3 class=\"heading\">Video Player</h3>\n" +
+    "\n" +
+    "      <article>\n" +
+    "        <h4 class=\"heading\">Can I change the colour of the player controls of the video player?</h4>\n" +
+    "        <p>Absolutely! Changing the colour of the player controls is easy and instant for all of your embedded videos.</p>\n" +
+    "        <p>Select the edit function on your video</p>\n" +
+    "        <img src=\"/static/assets/img/faq/organise-item-menu.png\" alt=\"organise item menu\" title=\"click Edit\" />\n" +
+    "        <p>Hover over the player controls until a green box appears around them</p>\n" +
+    "        <img src=\"/static/assets/img/faq/video-controls-edit.png\" alt=\"video controls edit\" title=\"hover over video control bar\" />\n" +
+    "        <p>Click anywhere in the green box to make the colour pallette appear.</p>\n" +
+    "        <img src=\"/static/assets/img/faq/colour-picker.png\" alt=\"colour picker\" title=\"click to show colour picker\" />\n" +
+    "        <p>Select the colour or, if you know it, type in the RGB colour values.</p>\n" +
+    "        <p>Once you’ve selected your colour, click back in the green box to remove the colour palette and then click save changes in the top right hand corner</p>\n" +
+    "        <img src=\"/static/assets/img/faq/save-cancel.png\" alt=\"save/cancel changes\" title=\"click save changes\" />\n" +
+    "      </article>\n" +
+    "\n" +
+    "      <article>\n" +
+    "        <h4 class=\"heading\">Can I remove the Wonder logo from the player controls of the video player?</h4>\n" +
+    "        <p>Yes, you can.</p>\n" +
+    "        <p>Select the edit function on your video</p>\n" +
+    "        <img src=\"/static/assets/img/faq/organise-item-menu.png\" alt=\"organise item menu\" title=\"click Edit\" />\n" +
+    "        <p>Hover over the player controls until a green box appears around them</p>\n" +
+    "        <img src=\"/static/assets/img/faq/video-controls-edit.png\" alt=\"video controls edit\" title=\"hover over video control bar\" />\n" +
+    "        <p>Click anywhere in the green box to make the colour pallette appear.</p>\n" +
+    "        <img src=\"/static/assets/img/faq/colour-picker.png\" alt=\"colour picker\" title=\"click to show colour picker\" />\n" +
+    "        <p>Tick the ‘Hide Logo’ box</p>\n" +
+    "      </article>\n" +
+    "      <article>\n" +
+    "        <h4 class=\"heading\">Can I add my own logo to the video player?</h4>\n" +
+    "        <p>No, it is not possible to add your own logo to the player controls.</p>\n" +
+    "      </article>\n" +
+    "    </section>\n" +
+    "\n" +
+    "    <section>\n" +
+    "      <h3 class=\"heading\">Sharing</h3>\n" +
+    "\n" +
+    "      <article>\n" +
+    "        <h4 class=\"heading\">How do I get the embed code for my video?</h4>\n" +
+    "        <p>Once you have published your video to a public collection.  Highlight the Video thumbnail in the Manage view and select Review</p>\n" +
+    "        <img src=\"/static/assets/img/faq/organise-item-menu.png\" alt=\"organise item menu\" title=\"click Review\" />\n" +
+    "        <p>And then select the left-most icon, under the video, to show the embed code for your video.</p>\n" +
+    "        <img src=\"/static/assets/img/faq/embed-url.png\" alt=\"embed url control\" title=\"click angle-brackets icon\" />\n" +
+    "      </article>\n" +
+    "\n" +
+    "      <article>\n" +
+    "        <h4 class=\"heading\">How do I share my video on Facebook or Twitter?</h4>\n" +
+    "        <p>Once you have published your video to a public collection, highlight the Video thumbnail in the Manage view and select Review</p>\n" +
+    "        <img src=\"/static/assets/img/faq/organise-item-menu.png\" alt=\"organise item menu\" title=\"click Review\" />\n" +
+    "        <p>And then select the Social Network you want to share to, under the video.</p>\n" +
+    "        <p>You will be automatically prompted to login</p>\n" +
+    "        <img src=\"/static/assets/img/faq/share-controls.png\" alt=\"share to Twitter/Facebook controls\" title=\"click Twitter/Facebook\" />\n" +
+    "      </article>\n" +
+    "\n" +
+    "      <article>\n" +
+    "        <h3 class=\"heading\">Collaborating  (commenting &amp; downloading)</h3>\n" +
+    "        <h4 class=\"heading\">How do I invite other people to comment on my video?</h4>\n" +
+    "        <p>Whilst your video is uploading, you can invite people to comment on your video by scrolling under video to the collaborators menu.</p>\n" +
+    "        <img src=\"/static/assets/img/faq/add-collaborators.png\" alt=\"add collaborator controls\" title=\"click add collaborator to show controls\" />\n" +
+    "        <p>Just input their names and email addresses into the Collaborators section</p>\n" +
+    "        <p>Select the permissions that you want to give them and then send the request.</p>\n" +
+    "        <p>The email will only be sent when your video is ready to be viewed.</p>\n" +
+    "        <p>You can invite people to collaborate and comment anytime after your video has been uploaded by just going back to the Edit state.</p>\n" +
+    "      </article>\n" +
+    "\n" +
+    "      <article>\n" +
+    "        <h4 class=\"heading\">How do I invite more than 1 person to collaborate?</h4>\n" +
+    "        <p>Just repeat the process for each additional person you want to invite.</p>\n" +
+    "      </article>\n" +
+    "\n" +
+    "      <article>\n" +
+    "        <h4 class=\"heading\">How do I send a link to someone to download the video?</h4>\n" +
+    "        <p>You can invite people to download your video by scrolling under video to the collaborators menu.</p>\n" +
+    "        <p>Just input their names and email addresses into the Collaborators section</p>\n" +
+    "        <p>Grant them the permission to download the video and then send the request.</p>\n" +
+    "        <img src=\"/static/assets/img/faq/add-collaborators-download.png\" alt=\"add collaborator controls\" title=\"check relevant checkbox to allow collaborator permissions\" />\n" +
+    "      </article>\n" +
+    "    </section>\n" +
+    "\n" +
+    "    <section>\n" +
+    "      <h3 class=\"heading\">General</h3>\n" +
+    "\n" +
+    "      <article>\n" +
+    "        <h4 class=\"heading\">How do I download the original source file for my video?</h4>\n" +
+    "        <p>As long as your Video has been published, when you are in the Edit, Review or Comments screens, you can always find a ‘Download Source File’ icon in the top left hand corner.</p>\n" +
+    "        <img src=\"/static/assets/img/faq/download-control.png\" alt=\"download source control\" title=\"click download source\" />\n" +
+    "      </article>\n" +
+    "\n" +
+    "      <article>\n" +
+    "        <h4 class=\"heading\">Why is Recently Added Videos empty when I click on it?</h4>\n" +
+    "        <p>Recently Added Videos will only show videos that were uploaded and processed in the last 24 hours. If you uploaded your video more than 24 hours ago, it will be listed in ‘All Videos’ and in any Collection that you have published it to.</p>\n" +
+    "      </article>\n" +
+    "\n" +
+    "      <article>\n" +
+    "        <h4 class=\"heading\">What is the best format to shoot and upload your videos in?</h4>\n" +
+    "        <p>Frame rate: 24, 25, or 30 FPS (Constant)</p>\n" +
+    "        <p>Uploading videos with frame rates of 24 (or 23.976), 25, and 30 (or 29.97) produces the best quality videos. If you know what frame rate you shot your footage at, it’s best to encode your final video at the same frame rate.</p>\n" +
+    "        <p>If your footage is over 30 FPS (frames per second), you should encode your video at half that frame rate. EG, if you shot at 60 FPS, your final video should be encoded at 30 FPS. If you're uncertain what frame rate your video was shot at, set your frame rate to either \"Current\" or 30 FPS. If there is an option for keyframes, choose the same value you used for frame rate. NB. When given the option between “constant” and “variable” frame rate, always choose “constant”.</p>\n" +
+    "      </article>\n" +
+    "\n" +
+    "      <article>\n" +
+    "        <h4 class=\"heading\">Bit rate</h4>\n" +
+    "        <p>Bit rate (or data rate) controls the visual quality of the video and its file size. It is commonly measured in kilobits per seconds (kbit/s). If your video editing software gives you the option, choose a “variable” bit rate and set the target to a minimum of  2,000 kbit/s for standard definition (SD) video; 5,000 kbit/s for 720p HD video; or 10,000 kbit/s for 1080p HD video.</p>\n" +
+    "        <table class=\"table\">\n" +
+    "          <tr><th>Quality</th><th>Bitrate (kbit/s)</th></tr>\n" +
+    "          <tr><td>SD</td><td>2,000 – 5,000</td></tr>\n" +
+    "          <tr><td>720p</td><td>5,000 – 10,000</td></tr>\n" +
+    "          <tr><td>1080p</td><td>10,000 – 20,000</td></tr>\n" +
+    "        </table>\n" +
+    "      </article>\n" +
+    "\n" +
+    "      <article>\n" +
+    "        <h4 class=\"heading\">What copyright protections does my content have?</h4>\n" +
+    "        <p>We are a UK registered company and so are governed by the laws of the United Kingdom. This includes the <a href=\"http://www.legislation.gov.uk/ukpga/1988/48/contents\">copyright laws</a>. We also offer all of our creators a variety of copyright protection under the <a href=\"https://wiki.creativecommons.org/Main_Page\">Creative Commons Licensing</a> system, for more information about how we do this, have a look at our Legal Documentation(LINK).</p>\n" +
+    "      </article>\n" +
+    "\n" +
+    "      <article>\n" +
+    "        <h4 class=\"heading\">What about fair usage of other people’s content?</h4>\n" +
+    "        <p>UK Copyright law has very comprehensive guidance as to what defines ‘fair dealing’:</p>\n" +
+    "        <p>s29.—(1) Fair dealing with a literary, dramatic, musical, etc, work, for the purpose of research for a non-commercial purpose, does not infringe any copyright in the work, provided it is accompanied by a sufficient acknowledgement of the source.</p>\n" +
+    "        <p>s30.—(1) Fair dealing with a work for the purpose of criticism or review, of that or another work, or of a performance of a work, does not infringe copyright in the work, provided it is accompanied by a sufficient acknowledgement, and provided the work has actually been made available to the public.</p>\n" +
+    "        <p>CITATION NEEDED</p>\n" +
+    "        <p>Even when the owner of the video has allowed others to use it under the Creative Commons Licensing(LINK), which you will see by these symbols (PICTURE), you must always request permission to use someone elses content.</p>\n" +
+    "      </article>\n" +
+    "    </section>\n" +
+    "\n" +
+    "  </div>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
   $templateCache.put('login.html',
     "<div ng-controller=\"LoginCtrl\" autocomplete=\"off\" class=\"login-view\">\n" +
     "  <div class=\"center-container\">\n" +
@@ -1032,26 +1194,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('page-footer.html',
     "<footer class=\"page-footer\" role=\"contentinfo\">\n" +
     "  <div class=\"wrapper\">\n" +
-    "    <!--<ul class=\"nav  footer-nav\">\n" +
-    "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">iOS App</a></li>\n" +
-    "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">Help</a></li>\n" +
-    "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">API</a></li>\n" +
-    "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">Blog</a></li>\n" +
-    "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">Twitter</a></li>\n" +
-    "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">Facebook</a></li>\n" +
-    "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">LinkedIn</a></li>\n" +
-    "      <li class=\"footer-nav__item\"><a href=\"#\" class=\"footer-nav__link\">Instagram</a></li>\n" +
-    "    \n" +
-    "      <li class=\"footer-nav__item\"><a class=\"footer-nav__link\" ng-click=\"testNotify('success')\">SUCCESS</a></li>\n" +
-    "      <li class=\"footer-nav__item\"><a class=\"footer-nav__link\" ng-click=\"testNotify('warning')\">WARNING</a></li>\n" +
-    "      <li class=\"footer-nav__item\"><a class=\"footer-nav__link\" ng-click=\"testNotify('error')\">ERROR</a></li>\n" +
-    "      <li class=\"footer-nav__item\"><a class=\"footer-nav__link\" ng-click=\"testNotify('info')\">INFO</a></li>\n" +
-    "    \n" +
-    "      <li class=\"footer-nav__item  f--right\">&copy; 2014 Wonder PL, Ltd.</li>\n" +
-    "    </ul>-->\n" +
-    "    <div class=\"t--center\">\n" +
-    "      <span class=\"t--block  smallprint\">&copy; 2014 Wonder PL, Ltd.</span>\n" +
-    "    </div>\n" +
+    "    <ul class=\"f--left\">\n" +
+    "      <li class=\"t--iblock smallprint\"><a href=\"#/faq\">FAQ</a></li>\n" +
+    "    </ul>\n" +
+    "    <span class=\"f--right smallprint\">&copy; 2014 Wonder PL, Ltd.</span>\n" +
     "  </div>\n" +
     "</footer>"
   );
