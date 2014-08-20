@@ -1,17 +1,8 @@
 angular.module('RomeoApp.controllers')
-  .controller('SearchCtrl', ['$scope', '$location', 'SearchService', 'AccountService', function($scope, $location, SearchService, AccountService) {
+  .controller('SearchCtrl', ['$scope', '$location', 'SearchService', 
+    function($scope, $location, SearchService) {
   'use strict';
   var debug = new DebugClass('SearchCtrl');
-
-  debug.log('test');
-
-  function loadUserDetails () {
-    AccountService.getUser().then(function (data) {
-      $scope.profile = data;
-    });
-  }
-
-  loadUserDetails();
 
   var data = $location.search();
 

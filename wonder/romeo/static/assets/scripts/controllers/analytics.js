@@ -1,6 +1,6 @@
 angular.module('RomeoApp.controllers').controller('AnalyticsCtrl',
-    ['$scope', '$routeParams', '$element', 'Enum', 'AnalyticsFields', 'VideoService', 'AccountService',
-    function ($scope, $routeParams, $element, Enum, AnalyticsFields, VideoService, AccountService) {
+    ['$scope', '$routeParams', '$element', 'Enum', 'AnalyticsFields', 'VideoService',
+    function ($scope, $routeParams, $element, Enum, AnalyticsFields, VideoService) {
 
     'use strict';
 

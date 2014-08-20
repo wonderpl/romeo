@@ -23,10 +23,13 @@
 
         var sessionUrl;
         var authChecks = {
-            loggedin: function(ErrorService, AuthService, $q) {
+            loggedin: function(ErrorService, AuthService, AccountService, $q) {
                 var dfd = new $q.defer();
                 console.info('Login: App.authChecks.loggedid');
-                AuthService.loginCheck().then(dfd.resolve,
+                AuthService.loginCheck().then(function () {
+                    dfd.resolve();
+                    AccountService.getUser();
+                },
                     function () {
                         console.info('Login: App.authChecks.loggedid - User not logged in, check for token');
                         AuthService.collaboratorCheck().then(dfd.resolve, dfd.reject);

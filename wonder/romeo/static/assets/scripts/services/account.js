@@ -62,11 +62,6 @@ angular.module('RomeoApp.services').factory('AccountService',
     };
 
     /*
-    * Initialise the service
-    */
-    Account.getUser();
-
-    /*
     * Expose the methods to the service
     */
     return {
