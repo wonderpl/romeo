@@ -62,6 +62,7 @@
 
     {% block appjs %}
         {% assets filters="rjsmin", output="gen/app.%(version)s.js",
+            "assets/scripts/helpers.js",
             "assets/scripts/app.js",
 
             "assets/scripts/services.js",
