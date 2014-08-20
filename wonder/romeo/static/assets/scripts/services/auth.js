@@ -27,8 +27,9 @@ angular.module('RomeoApp.services').factory('AuthService',
                 'password': password
             }
         }).success(function (data) {
-            user = angular.fromJSON(data.account);
-            $rootScope.User = user;
+            user = data.account;
+            $rootScope.User = $rootScope.User;
+            $rootScope.isLoggedIn = Auth.isLoggedIn();
             return Auth.setSession(user);
         }).error(function () {
             // debugger;
