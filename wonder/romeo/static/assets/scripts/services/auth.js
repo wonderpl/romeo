@@ -222,6 +222,10 @@ angular.module('RomeoApp.services').factory('AuthService',
       });
     };
 
+    Auth.ExternalLogin = function (data) {
+        return $http.post('/api/login/external', data);
+    };
+
     return {
         login: Auth.login,
         registration: Auth.registration,
