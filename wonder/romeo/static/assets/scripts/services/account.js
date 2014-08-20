@@ -6,6 +6,7 @@ angular.module('RomeoApp.services').factory('AccountService',
     function (DataService, localStorageService, $rootScope, AuthService, $q, $timeout) {
 
     'use strict';
+    var debug = new DebugClass('AccountService');
 
     var Account = {},
         User = null,
@@ -17,25 +18,30 @@ angular.module('RomeoApp.services').factory('AccountService',
     Account.getUser = function() {
         var deferred = new $q.defer();
 
-        if ( ID === null ) {
-            AuthService.getSessionId().then(function(response){
-                ID = response;
-                DataService.request({url: ('/api/account/' + ID)}).then(function(response){
-                    User = response;
-                    $rootScope.User = response;
-                    // $rootScope.$broadcast('user updated', response);
-                    deferred.resolve(response);
-                });
-            });
-        } else {
-            DataService.request({url: ('/api/account/' + ID)}).then(function(response){
-                console.log('User added to rootscope');
+        AuthService.loginCheck().then(function(response){
+            if ( ID === null ) {
+                debug.log('New User added to rootscope');
+                debug.dir(response);
                 User = response;
                 $rootScope.User = response;
-                // $rootScope.$broadcast('user updated', response);
                 deferred.resolve(response);
-            });
-        }
+            } else {
+                AuthService.getSessionId().then(function (_id) {
+                    if (_id === ID) {
+                        User = $rootScope.User;
+                        deferred.resolve($rootScope.User);
+                        debug.log('User already on rootscope');
+                    } else {
+                        DataService.request({url: ('/api/account/' + ID)}).then(function(response){
+                            debug.log('User added to rootscope');
+                            User = response;
+                            $rootScope.User = response;
+                            deferred.resolve(response);
+                        });
+                    }
+                });
+            }
+        });
         return deferred.promise;
     };
 
