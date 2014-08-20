@@ -10,12 +10,6 @@ angular.module('RomeoApp.directives')
       expression : '=',
       results : '=',
       query : '='
-    },
-    controller : function ($scope) {
-      $scope.reset = function () {
-        $scope.results = null;
-        $location.url($location.path());
-      };
     }
   };
 }]);

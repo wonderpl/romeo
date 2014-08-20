@@ -676,7 +676,7 @@ h6.heading {
 }
 
 /* line 15, ../../scss/_base/_base.headings.scss */
-.tera, .mega, .giga, .kilo,
+.tera, .mega, .giga, .search__form-input, .kilo,
 .alpha, .beta, .gamma, .delta {
   text-rendering: optimizeLegibility;
   -webkit-font-feature-settings: "liga","kern";
@@ -696,7 +696,7 @@ h6.heading {
 }
 
 /* line 28, ../../scss/_base/_base.headings.scss */
-.giga {
+.giga, .search__form-input {
   font-size: 48px;
   font-size: 3rem;
   line-height: 1;
@@ -935,6 +935,40 @@ select {
 .check-list label,
 .check-list .label {
   display: inline-block;
+}
+
+/* line 33, ../../scss/_base/_base.forms.scss */
+.input--borderless, .search__form-input {
+  border: 0;
+}
+
+/**
+ * _base.lists.scss
+ */
+/**
+ * Remove vertical spacing from nested lists.
+ */
+/* line 10, ../../scss/_base/_base.lists.scss */
+li > ul,
+li > ol {
+  margin-bottom: 0;
+}
+
+/**
+ * Have a numbered 'ul' without the semantics implied by using an 'ol'.
+ */
+/*ul*/
+/* line 18, ../../scss/_base/_base.lists.scss */
+.numbered-list {
+  list-style-type: decimal;
+}
+
+/**
+ * Make a list sit flush against left margin
+ */
+/* line 25, ../../scss/_base/_base.lists.scss */
+.list--flush {
+  margin-left: 0;
 }
 
 /**
@@ -3225,59 +3259,60 @@ select {
   margin-bottom: 0;
 }
 
-/* line 18, ../../scss/_theme/_theme.forms.scss */
+/* line 19, ../../scss/_theme/_theme.forms.scss */
+label,
 .label {
   display: block;
 }
 
-/* line 21, ../../scss/_theme/_theme.forms.scss */
+/* line 22, ../../scss/_theme/_theme.forms.scss */
 .form-label {
   font-size: 0.75em;
   color: #272a2b;
   cursor: pointer;
 }
 
-/* line 26, ../../scss/_theme/_theme.forms.scss */
+/* line 27, ../../scss/_theme/_theme.forms.scss */
 .additional {
   display: block;
   font-weight: normal;
 }
 
-/* line 30, ../../scss/_theme/_theme.forms.scss */
+/* line 31, ../../scss/_theme/_theme.forms.scss */
 .check-list {
   list-style: none;
   margin: 0;
 }
 
-/* line 36, ../../scss/_theme/_theme.forms.scss */
+/* line 37, ../../scss/_theme/_theme.forms.scss */
 .check-label,
 .check-list label,
 .check-list .label {
   display: inline-block;
 }
 
-/* line 40, ../../scss/_theme/_theme.forms.scss */
+/* line 41, ../../scss/_theme/_theme.forms.scss */
 .spoken-form label {
   display: inline-block;
   font: inherit;
 }
 
-/* line 47, ../../scss/_theme/_theme.forms.scss */
+/* line 48, ../../scss/_theme/_theme.forms.scss */
 .login-view__form > li {
   margin-bottom: 0;
 }
 
-/* line 53, ../../scss/_theme/_theme.forms.scss */
+/* line 54, ../../scss/_theme/_theme.forms.scss */
 .login-view__input {
   margin: 0;
   padding: 12px 0;
   border: 0;
 }
-/* line 58, ../../scss/_theme/_theme.forms.scss */
+/* line 59, ../../scss/_theme/_theme.forms.scss */
 .login-view__input + .login-view__input {
   border-top: 1px solid #b7bcbd;
 }
-/* line 62, ../../scss/_theme/_theme.forms.scss */
+/* line 63, ../../scss/_theme/_theme.forms.scss */
 .login-view__input input {
   width: 93.85964912280701;
   width: calc(100% - 28px);
@@ -3288,11 +3323,11 @@ select {
   border: 0;
   appearance: none;
 }
-/* line 74, ../../scss/_theme/_theme.forms.scss */
+/* line 75, ../../scss/_theme/_theme.forms.scss */
 .login-view__input input:hover, .login-view__input input:active, .login-view__input input:focus {
   outline: none;
 }
-/* line 78, ../../scss/_theme/_theme.forms.scss */
+/* line 79, ../../scss/_theme/_theme.forms.scss */
 .login-view__input input:active {
   cursor: text;
 }
@@ -3574,6 +3609,49 @@ select {
   margin-left: 6px;
 }
 
+/* line 8, ../../scss/_theme/_theme.search.scss */
+.search__results-container {
+  border-top: solid 1px #b7bcbd;
+}
+
+/* line 13, ../../scss/_theme/_theme.search.scss */
+.search__results-container--left {
+  clear: left;
+}
+
+/* line 21, ../../scss/_theme/_theme.search.scss */
+.search__results-container--right {
+  clear: right;
+}
+
+/* line 27, ../../scss/_theme/_theme.search.scss */
+.search__item-description {
+  color: #2e2e32;
+}
+
+/* line 31, ../../scss/_theme/_theme.search.scss */
+.search__thumbnail {
+  background-color: #999999;
+}
+
+/* line 36, ../../scss/_theme/_theme.search.scss */
+.search__avatar-container {
+  overflow: hidden;
+  width: 66px;
+  padding: 10px;
+  box-sizing: content-box;
+  margin-right: 6px;
+}
+
+/* line 1, ../../scss/_theme/_theme.headings.scss */
+.content-heading {
+  padding-top: 4px;
+  font-variant: small-caps;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: lowercase;
+  color: #999999;
+}
+
 /**
  * _trump.widths.scss
  */
@@ -3593,7 +3671,7 @@ select {
 }
 
 /* line 14, ../../scss/_trumps/_trumps.widths.scss */
-.one-third,
+.one-third, .search__results-container--left,
 .two-sixths,
 .three-ninths,
 .four-twelfths {
@@ -3739,7 +3817,7 @@ select {
 }
 
 /* line 53, ../../scss/_trumps/_trumps.widths.scss */
-.seven-twelfths {
+.seven-twelfths, .search__results-container--right {
   width: 58.3333333%;
 }
 
@@ -3763,6 +3841,89 @@ select {
 /**
  * _trumps.text-styles.scss
  */
+/* line 4, ../../scss/_trumps/_trumps.spacing.scss */
+.t--push-top, .search__form-input {
+  margin-top: 24px;
+}
+
+/* line 5, ../../scss/_trumps/_trumps.spacing.scss */
+.t--push-right, .search__results-container--left {
+  margin-right: 24px;
+}
+
+/* line 6, ../../scss/_trumps/_trumps.spacing.scss */
+.t--push-bottom, .search__form-input, .search__results-container--left {
+  margin-bottom: 24px;
+}
+
+/* line 7, ../../scss/_trumps/_trumps.spacing.scss */
+.t--push-left {
+  margin-left: 24px;
+}
+
+/* line 9, ../../scss/_trumps/_trumps.spacing.scss */
+.t--push-top--half {
+  margin-top: 12px;
+}
+
+/* line 10, ../../scss/_trumps/_trumps.spacing.scss */
+.t--push-right--half {
+  margin-right: 12px;
+}
+
+/* line 11, ../../scss/_trumps/_trumps.spacing.scss */
+.t--push-bottom--half {
+  margin-bottom: 12px;
+}
+
+/* line 12, ../../scss/_trumps/_trumps.spacing.scss */
+.t--push-left--half {
+  margin-left: 12px;
+}
+
+/* line 14, ../../scss/_trumps/_trumps.spacing.scss */
+.t--pad-top, .search__results-container {
+  padding-top: 24px;
+}
+
+/* line 15, ../../scss/_trumps/_trumps.spacing.scss */
+.t--pad-right {
+  padding-right: 24px;
+}
+
+/* line 16, ../../scss/_trumps/_trumps.spacing.scss */
+.t--pad-bottom {
+  padding-bottom: 24px;
+}
+
+/* line 17, ../../scss/_trumps/_trumps.spacing.scss */
+.t--pad-left {
+  padding-left: 24px;
+}
+
+/* line 19, ../../scss/_trumps/_trumps.spacing.scss */
+.t--pad-top--half {
+  padding-top: 12px;
+}
+
+/* line 20, ../../scss/_trumps/_trumps.spacing.scss */
+.t--pad-right--half {
+  padding-right: 12px;
+}
+
+/* line 21, ../../scss/_trumps/_trumps.spacing.scss */
+.t--pad-bottom--half {
+  padding-bottom: 12px;
+}
+
+/* line 22, ../../scss/_trumps/_trumps.spacing.scss */
+.t--pad-left--half {
+  padding-left: 12px;
+}
+
+/**
+ * _trumps.text-styles.scss
+ */
 /* line 4, ../../scss/_trumps/_trumps.text-styles.scss */
 .t--block {
   display: block !important;
@@ -3774,7 +3935,7 @@ select {
 }
 
 /* line 6, ../../scss/_trumps/_trumps.text-styles.scss */
-.t--iblock {
+.t--iblock, .search__results-container--right, .search__avatar-container {
   display: inline-block !important;
 }
 
@@ -3791,20 +3952,6 @@ select {
 /* line 10, ../../scss/_trumps/_trumps.text-styles.scss */
 .t--left {
   text-align: left !important;
-}
-
-/**
- * _trump.hide-text.scss
- *
- * http://stackoverflow.com/a/12783507
- * http://www.zeldman.com/2012/03/01/replacing-the-9999px-hack-new-image-replacement/
- *
- */
-/* line 9, ../../scss/_trumps/_trumps.hide-text.scss */
-.hide-text {
-  text-indent: 100%;
-  white-space: nowrap;
-  overflow: hidden;
 }
 
 /* line 1, ../../scss/components/_video-player-config.scss */
@@ -4010,20 +4157,25 @@ select {
   margin-bottom: 0 !important;
 }
 
+/* line 8, ../../scss/components/_text-styles.scss */
+.no-spacing--full {
+  margin: 0 !important;
+}
+
 /**
  * Change display of certain text elements ad-hoc
  */
-/* line 12, ../../scss/components/_text-styles.scss */
+/* line 13, ../../scss/components/_text-styles.scss */
 .t--block {
   display: block;
 }
 
-/* line 13, ../../scss/components/_text-styles.scss */
+/* line 14, ../../scss/components/_text-styles.scss */
 .t--inline {
   display: inline;
 }
 
-/* line 14, ../../scss/components/_text-styles.scss */
+/* line 15, ../../scss/components/_text-styles.scss */
 .t--inline-block {
   display: inline-block;
 }
@@ -4031,17 +4183,17 @@ select {
 /**
  * Change alignment of text elements ad-hoc
  */
-/* line 19, ../../scss/components/_text-styles.scss */
+/* line 20, ../../scss/components/_text-styles.scss */
 .t--center {
   text-align: center;
 }
 
-/* line 20, ../../scss/components/_text-styles.scss */
+/* line 21, ../../scss/components/_text-styles.scss */
 .t--right {
   text-align: right;
 }
 
-/* line 21, ../../scss/components/_text-styles.scss */
+/* line 22, ../../scss/components/_text-styles.scss */
 .t--left {
   text-align: left;
 }
@@ -4049,18 +4201,18 @@ select {
 /**
  * text transform elements ad-hoc
  */
-/* line 26, ../../scss/components/_text-styles.scss */
+/* line 27, ../../scss/components/_text-styles.scss */
 .t--lowercase {
   text-transform: lowercase;
 }
 
-/* line 27, ../../scss/components/_text-styles.scss */
+/* line 28, ../../scss/components/_text-styles.scss */
 .t--uppercase {
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
 
-/* line 31, ../../scss/components/_text-styles.scss */
+/* line 32, ../../scss/components/_text-styles.scss */
 .t--smallcaps {
   font-variant: small-caps;
   text-transform: lowercase;
@@ -4070,22 +4222,22 @@ select {
 /**
  * change font weights ad-hoc
  */
-/* line 40, ../../scss/components/_text-styles.scss */
+/* line 41, ../../scss/components/_text-styles.scss */
 .w--200 {
   font-weight: 200;
 }
 
-/* line 41, ../../scss/components/_text-styles.scss */
+/* line 42, ../../scss/components/_text-styles.scss */
 .w--300 {
   font-weight: 300;
 }
 
-/* line 42, ../../scss/components/_text-styles.scss */
+/* line 43, ../../scss/components/_text-styles.scss */
 .w--400 {
   font-weight: 400;
 }
 
-/* line 43, ../../scss/components/_text-styles.scss */
+/* line 44, ../../scss/components/_text-styles.scss */
 .w--800 {
   font-weight: 800;
 }
@@ -4093,12 +4245,12 @@ select {
 /**
  * Change how text elements break words
  */
-/* line 48, ../../scss/components/_text-styles.scss */
+/* line 49, ../../scss/components/_text-styles.scss */
 .w--break {
   word-wrap: break-word;
 }
 
-/* line 49, ../../scss/components/_text-styles.scss */
+/* line 50, ../../scss/components/_text-styles.scss */
 .w--wrap {
   word-wrap: normal;
 }
@@ -4107,7 +4259,7 @@ select {
  * _layout-styles.scss
  */
 /* line 4, ../../scss/components/_layout-styles.scss */
-.f--left {
+.f--left, .search__results-container--left, .search__avatar-container {
   float: left;
 }
 
@@ -6459,209 +6611,4 @@ select {
 /* line 41, ../../scss/specifics/login/_login-view.scss */
 .login-view__terms {
   margin-bottom: 12px;
-}
-
-/* line 5, ../../scss/specifics/search/_search.scss */
-.search__form {
-  transition: all 0.4s ease-in-out;
-  padding: 0 12px;
-  margin: 0 12px;
-  width: 100%;
-  text-align: center;
-  max-height: 0;
-  overflow: hidden;
-}
-
-/* line 15, ../../scss/specifics/search/_search.scss */
-.search__form--active {
-  max-height: 800px;
-  padding: 12px;
-  margin: 12px;
-}
-
-/* line 21, ../../scss/specifics/search/_search.scss */
-.search__form-container {
-  width: 400px;
-  margin: 0 auto;
-}
-
-/* line 26, ../../scss/specifics/search/_search.scss */
-.search__results {
-  transition: all 0.4s ease-in-out;
-  padding: 0 12px;
-  margin: 0 auto;
-  max-height: 0;
-  overflow: hidden;
-  max-width: 960px;
-}
-
-/* line 35, ../../scss/specifics/search/_search.scss */
-.search__result-items {
-  margin: 0;
-}
-
-/* line 39, ../../scss/specifics/search/_search.scss */
-.search__results-title {
-  padding-top: 4px;
-  font-variant: small-caps;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  text-transform: lowercase;
-  color: #999999;
-}
-
-/* line 47, ../../scss/specifics/search/_search.scss */
-.search__results-heading {
-  text-align: center;
-}
-
-/* line 51, ../../scss/specifics/search/_search.scss */
-.search__results--active {
-  max-height: 900px;
-  padding: 12px;
-  margin: 12px auto;
-}
-
-/* line 57, ../../scss/specifics/search/_search.scss */
-.search__results-container {
-  padding: 12px;
-  margin: 12px;
-}
-
-/* line 62, ../../scss/specifics/search/_search.scss */
-.search__result-item {
-  display: block;
-  padding-top: 12px;
-}
-
-/* line 67, ../../scss/specifics/search/_search.scss */
-.search__options-container {
-  transition: max-height 0.4s ease-in-out;
-  max-height: 0;
-  overflow: hidden;
-  text-align: left;
-  margin: 0 auto;
-  display: inline-block;
-}
-
-/* line 77, ../../scss/specifics/search/_search.scss */
-.search__label {
-  display: block;
-  margin-bottom: 1em;
-  font-variant: small-caps;
-  font-weight: 600;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  text-transform: lowercase;
-  letter-spacing: 0.1em;
-}
-
-/* line 87, ../../scss/specifics/search/_search.scss */
-.search__label--inline {
-  display: inline;
-  margin-right: 1em;
-  font-weight: normal;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  letter-spacing: 0;
-}
-
-/* line 95, ../../scss/specifics/search/_search.scss */
-.search__text-input {
-  display: block;
-  width: 20em;
-  font-weight: normal;
-  font-size: 1em;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-variant: normal;
-  text-transform: normal;
-  letter-spacing: 0;
-  padding: 0.3em;
-}
-
-/* line 107, ../../scss/specifics/search/_search.scss */
-.search-text-input--center {
-  margin: 0 auto;
-}
-
-/* line 111, ../../scss/specifics/search/_search.scss */
-.search__options-container--active {
-  max-height: 600px;
-}
-
-/* line 115, ../../scss/specifics/search/_search.scss */
-.search__more-link-container {
-  display: block;
-  width: 100%;
-  margin-bottom: 12px;
-}
-
-/* line 121, ../../scss/specifics/search/_search.scss */
-.search__more-link {
-  display: inline-block;
-}
-
-/* line 125, ../../scss/specifics/search/_search.scss */
-.search__more-link:hover {
-  cursor: pointer;
-}
-
-/* line 129, ../../scss/specifics/search/_search.scss */
-.search__user-results {
-  width: 34%;
-  float: left;
-  clear: left;
-}
-
-/* line 135, ../../scss/specifics/search/_search.scss */
-.search__collaborator-results {
-  width: 34%;
-  float: left;
-  clear: left;
-}
-
-/* line 141, ../../scss/specifics/search/_search.scss */
-.search__video-results {
-  width: 58%;
-  clear: right;
-  display: inline-block;
-}
-
-/* line 147, ../../scss/specifics/search/_search.scss */
-.search__avatar-container {
-  display: inline-block;
-  overflow: hidden;
-  width: 66px;
-  padding: 10px;
-  box-sizing: content-box;
-  float: left;
-  margin-right: 6px;
-}
-
-/* line 157, ../../scss/specifics/search/_search.scss */
-.search__thumbnail {
-  width: 33.3333%;
-  background-color: #999999;
-}
-
-/* line 162, ../../scss/specifics/search/_search.scss */
-.search__user-name {
-  padding-top: 12px;
-}
-
-/* line 166, ../../scss/specifics/search/_search.scss */
-.search__thumbnail-container {
-  border: none;
-}
-
-/* line 170, ../../scss/specifics/search/_search.scss */
-.search__video-description {
-  color: #2e2e32;
-}
-
-/* line 174, ../../scss/specifics/search/_search.scss */
-.search__user-description {
-  color: #2e2e32;
-}
-
-/* line 178, ../../scss/specifics/search/_search.scss */
-.search__avatar {
-  margin-bottom: 0;
 }

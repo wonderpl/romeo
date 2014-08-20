@@ -4,7 +4,8 @@
 /**
  * Strip out unwanted vertical rhythm from text elements.
  */
-.no-spacing { margin-bottom: 0 !important; }
+.no-spacing       { margin-bottom: 0 !important; }
+.no-spacing--full { margin: 0 !important; }
 
 /**
  * Change display of certain text elements ad-hoc

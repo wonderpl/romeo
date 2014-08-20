@@ -9,8 +9,6 @@ angular.module('RomeoApp.services')
 
     var query = typeof expression === 'string' ? expression : $.param(expression);
 
-    console.log(query);
-
     $location.search(query);
 
     var url = '/api/search/?' + query;

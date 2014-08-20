@@ -1,58 +1,53 @@
-<section class="search__results" ng-class="{ 'search__results--active' : results }">
+<section class="search__results" ng-if="results">
 
-  <div class="heading search__results-heading">
-    <span>Displaying results for <strong ng-bind="query"></strong>. </span>
-    <a class="btn btn--small" ng-click="reset()">Reset</a>
-  </div>
-
-  <section ng-if="results.content_owner.items" class="search__user-results search__results-container">
-    <span class="search__results-title">Creators: </span>
-    <ul class="search__content_owners search__result-items">
-      <li ng-repeat="item in results.content_owner.items" class="search__content_owner cf search__result-item">
+  <section ng-if="results.content_owner.items" class="search__results-container search__results-container--left">
+    <span class="content-heading">Creators: </span>
+    <ul class="no-spacing--full">
+      <li ng-repeat="item in results.content_owner.items" class="cf t--block t--pad-top--half">
         <a ng-href="#/profile/{{ item.id }}">
           <div class="search__avatar-container">
             <div class="search__avatar avatar">
               <img class="search__avatar-image avatar__image" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" style="background-image : url('{{ item.avatar }}');" />
             </div>
           </div>
-          <p class="search__user-name heading no-spacing trunc" ng-bind="item.display_name"></p>
-          <p class="search__user-description milli trunc" ng-bind-html="item.description"></p>
+          <p class="heading no-spacing trunc t--pad-top--half" ng-bind="item.display_name"></p>
+          <p class="search__item-description milli trunc" ng-bind-html="item.description"></p>
         </a>
       </li>
     </ul>
   </section>
 
-  <section ng-if="results.collaborator.items" class="search__collaborator-results search__results-container">
-    <span class="search__results-title">Collaborators: </span>
-    <ul class="search__collaborators search__result-items">
-      <li ng-repeat="item in results.collaborator.items" class="search__collaborator cf search__result-item">
+  <section ng-if="results.collaborator.items" class="search__results-container search__results-container--left">
+    <span class="content-heading">Collaborators: </span>
+    <ul class="no-spacing--full">
+      <li ng-repeat="item in results.collaborator.items" class="cf t--block t--pad-top--half">
         <a ng-href="#/profile/{{ item.id }}">
           <div class="search__avatar-container">
-            <div class="search__avatar avatar">
-              <img class="search__avatar-image avatar__image" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" style="background-image : url('{{ item.avatar_url }}');" />
+            <div class="no-spacing avatar">
+              <img class="avatar__image" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" style="background-image : url('{{ item.avatar_url }}');" />
             </div>
           </div>
-          <p class="search__user-name heading no-spacing" ng-bind="item.username"></p>
-          <p class="search__user-description milli trunc" ng-bind-html="item.description"></p>
+          <p class="heading no-spacing trunc t--pad-top--half" ng-bind="item.username"></p>
+          <p class="search__item-description milli trunc" ng-bind-html="item.description"></p>
         </a>
       </li>
     </ul>
   </section>
 
-  <section ng-if="results.video.items" class="search__video-results search__results-container">
-    <span class="search__results-title">Associated Videos: </span>
-    <ul class="search__videos search__result-items">
-      <li ng-repeat="item in results.video.items" class="search__video search__result-item cf">
+  <section ng-if="results.video.items" class="search__results-container search__results-container--right">
+    <span class="content-heading">Associated Videos: </span>
+    <ul class="no-spacing--full">
+      <li ng-repeat="item in results.video.items" class="cf t--block t--pad-top--half">
 
-        <a  ng-href="#/video/{{ item.id }}" class="media search__thumbnail-container">
-          <div class="media__img search__thumbnail">
+        <a  ng-href="#/video/{{ item.id }}" class="media non-link">
+          <div class="media__img one-third search__thumbnail">
             <div class="ratio  ratio--16x9">
               <img class="ratio__src" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" style="background-image : url('{{ item.thumbnails.items[0].url }}');" />
             </div>
           </div>
           <div class="media__body">
-            <p class="search__video-title heading trunc no-spacing" ng-bind="item.title"></p>
-            <p class="search__video-description milli trunc--two" ng-bind="item.description"></p>
+            <p class="heading no-spacing trunc" ng-bind="item.title"></p>
+            <p class="search__item-description milli trunc--two" ng-bind="item.description"></p>
           </div>
         </a>
       </li>

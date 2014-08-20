@@ -86,8 +86,9 @@
         });
 
         $routeProvider.when('/search', {
-            templateUrl: 'search.html',
-            resolve: authChecks
+          templateUrl: 'search.html',
+          resolve: authChecks,
+          reloadOnSearch: false
         });
 
         $routeProvider.when('/faq', {

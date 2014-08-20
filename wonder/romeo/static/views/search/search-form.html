@@ -1,54 +1,5 @@
-<section class="search__form"  ng-class="{ 'search__form--active' : !results }">
+<section class="search__form">
 
-  <p class="search__form-title">Find interesting people to work with.</p>
-
-  <div class="search__form-container">
-
-    <form method="post" name="searchForm">
-
-      <label class="search__label" for="SearchQuery">
-        <span class="hide-text">Search</span>
-        <input id="SearchQuery" type="text" class="search__text-input search-text-input--center" ng-model="expression.q" name="q" required="required" placeholder="Search" value="test" />
-      </label>
-
-      <div class="search__more-link-container">
-        <a class="search__more-link" ng-click="moreOptions = !moreOptions">{{ moreOptions ? 'Less' : 'More' }} options</a>
-      </div>
-
-      <div class="search__options-container" ng-class="{ 'search__options-container--active' : moreOptions }">
-
-        <label for="SearchVideo" class="search__label">
-          <input id="SearchVideo" type="checkbox" class="search__checkbox" ng-model="expression.video" name="video" />
-          Video
-        </label>
-
-        <label for="SearchContentOwner" class="search__label">
-          <input id="SearchContentOwner" type="checkbox" class="search__checkbox" ng-model="expression.content_owner" name="content_owner" />
-          Content Owner
-        </label>
-
-        <label for="SearchCollaborator" class="search__label">
-          <input id="SearchCollaborator" type="checkbox" class="search__checkbox" ng-model="expression.collaborator" name="collaborator" />
-          Collaborator
-        </label>
-
-        <label for="SearchStart" class="search__label">
-          Start
-          <input id="SearchStart" class="search__text-input" type="number" name="start" ng-model="expression.start" min="0" />
-        </label>
-
-        <label for="SearchSize" class="search__label">
-          Size
-          <input id="SearchSize" class="search__text-input" type="number" name="size" step="25" ng-model="expression.size" min="25" max="200" />
-        </label>
-
-      </div>
-
-      <label class="search__label hide-text" for="SearchSubmit">Submit</label>
-      <button id="SearchSubmit" class="search__submit btn btn--small btn--positive" ng-click="search()" ng-disabled="searchForm.$invalid">Search</button>
-
-    </form>
-
-  </div>
+  <input type="text" class="search__form-input" ng-model="expression.q" autofocus placeholder="Type to search" />
 
 </section>

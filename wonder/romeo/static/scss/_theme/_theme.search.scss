@@ -1,0 +1,45 @@
+.search__form-input {
+  @extend .giga;
+  @extend .input--borderless;
+  @extend .t--push-top;
+  @extend .t--push-bottom;
+}
+
+.search__results-container {
+  @extend .t--pad-top;
+  border-top: solid 1px $light-grey;
+}
+
+.search__results-container--left {
+  @extend .one-third;
+  @extend .t--push-right;
+  @extend .t--push-bottom;
+  @extend .f--left;
+  clear: left;
+}
+
+.search__results-container--right {
+  @extend .seven-twelfths;
+  @extend .t--iblock;
+  clear: right;
+}
+
+.search__item-description {
+  color: $cold-black;
+}
+
+.search__thumbnail {
+  background-color: $grey;
+}
+
+// Shift out into _components.avatars.scss
+.search__avatar-container {
+  @extend .t--iblock;
+  @extend .f--left;
+  overflow: hidden;
+  width: 66px;
+  padding: 10px;
+  box-sizing: content-box;
+  margin-right: 6px;
+}
+

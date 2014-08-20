@@ -26,6 +26,7 @@
   "_base/base.images",
   "_base/base.tables",
   "_base/base.forms",
+  "_base/base.lists",
 
   "_objects/objects.nav",
   "_objects/objects.media",
@@ -64,11 +65,13 @@
   "_theme/theme.modal-form.scss",
   "_theme/theme.organise-collection",
   "_theme/theme.collection-view",
+  "_theme/theme.search",
+  "_theme/theme.headings",
 
   "_trumps/trumps.widths",
   "_trumps/trumps.hidden",
+  "_trumps/trumps.spacing",
   "_trumps/trumps.text-styles",
-  "_trumps/trumps.hide-text",
 
 //  "compass/reset",
 //  "compass/css3",
@@ -140,7 +143,5 @@
   "specifics/profile/_profile-view",
 
   "specifics/login/_login-view";
-
-@import "specifics/search/_search";
 
 //  "vendor/__vendor";
