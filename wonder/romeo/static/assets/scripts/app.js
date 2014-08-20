@@ -111,15 +111,17 @@
             resolve: authChecks
         });
 
-        $routeProvider.when('/login', {
-            templateUrl: 'login.html'
-        });
-
         $routeProvider.when('/loading', {
             templateUrl: 'loading.html'
         });
 
         $routeProvider.when('/logout', {
+            templateUrl: 'login.html'
+        });
+
+/******* DEPRECATED **************************************************/
+
+        $routeProvider.when('/login', {
             templateUrl: 'login.html'
         });
 
@@ -130,10 +132,6 @@
         $routeProvider.when('/signup', {
             templateUrl: 'signup.html'
         });
-
-/******* DEPRECATED **************************************************/
-
-
 
         $routeProvider.otherwise({redirectTo: '/organise'});
 
