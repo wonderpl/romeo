@@ -7,6 +7,8 @@ angular.module('RomeoApp.services')
 
   Search.search = function (expression) {
 
+    expression = expression || {};
+
     var query = typeof expression === 'string' ? expression : $.param(expression);
 
     $location.search(query);
