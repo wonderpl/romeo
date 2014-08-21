@@ -142,8 +142,8 @@
 
     }]);
 
-    app.run(['$route', '$rootScope', 'animLoop', '$location', 'ErrorService',
-      function($route, $rootScope, animLoop, $location, ErrorService) {
+    app.run(['$route', '$rootScope', '$location', 'ErrorService',
+      function($route, $rootScope, $location, ErrorService) {
 
       // http://joelsaupe.com/programming/angularjs-change-path-without-reloading/
       // $location.path('/sample/' + $scope.checkinId, false);
@@ -167,7 +167,6 @@
             }
         });
 
-        animLoop.setFPS(15);
     }]);
 
 })(window,document,navigator,window.angular,'RomeoApp');
