@@ -1,5 +1,5 @@
 angular.module('RomeoApp.directives')
-  .directive('videoColorPicker', ['$templateCache', 'VideoService', '$timeout', function ($templateCache, VideoService, $timeout) {
+  .directive('videoColorPicker', ['$templateCache', 'VideoService', function ($templateCache, VideoService) {
 
   'use strict';
 

@@ -1,4 +1,4 @@
-angular.module('RomeoApp.analytics').directive('plAnalyticsPerformanceChart', ['$rootScope', '$timeout', 'Enum', 'PerformanceService', '$document', function ($rootScope, $timeout, Enum, PerformanceService, $document) {
+angular.module('RomeoApp.analytics').directive('plAnalyticsPerformanceChart', ['$rootScope', 'Enum', 'PerformanceService', '$document', function ($rootScope, Enum, PerformanceService, $document) {
 
     'use strict';
 

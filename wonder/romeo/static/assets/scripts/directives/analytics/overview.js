@@ -1,4 +1,4 @@
-angular.module('RomeoApp.analytics').directive('plAnalyticsOverview', ['$rootScope', '$timeout', 'OverviewService', function ($rootScope, $timeout, OverviewService) {
+angular.module('RomeoApp.analytics').directive('plAnalyticsOverview', ['$rootScope', 'OverviewService', function ($rootScope, OverviewService) {
 
     'use strict';
 

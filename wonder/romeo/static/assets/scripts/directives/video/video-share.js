@@ -1,5 +1,5 @@
 angular.module('RomeoApp.directives')
-  .directive('videoShare', ['$templateCache', '$sce', 'VideoService', '$timeout', function ($templateCache, $sce, VideoService, $timeout) {
+  .directive('videoShare', ['$templateCache', '$sce', 'VideoService', function ($templateCache, $sce, VideoService) {
 
   'use strict';
 

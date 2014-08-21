@@ -1,4 +1,4 @@
-angular.module('RomeoApp.analytics').directive('plAnalyticsWidgetStatistic', ['$rootScope', '$timeout', function () {
+angular.module('RomeoApp.analytics').directive('plAnalyticsWidgetStatistic', ['$rootScope', function () {
 
     'use strict';
 

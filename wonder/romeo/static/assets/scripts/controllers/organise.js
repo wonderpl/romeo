@@ -166,7 +166,6 @@ angular.module('RomeoApp.controllers')
     $rootScope.$on('video-upload-start', function (event, data) {
       debug.info('Recieved video-upload-start message');
       getAllVideos();
-      //$timeout(getAllVideos, 100); // Give any pending web service call some time to finish
     });
 
 

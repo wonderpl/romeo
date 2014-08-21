@@ -1,6 +1,6 @@
 angular.module('RomeoApp.services')
-  .factory('DataService', ['$http', '$q', '$location', 'AuthService', 'ErrorService', '$timeout',
-    function ($http, $q, $location, AuthService, ErrorService, $timeout) {
+  .factory('DataService', ['$http', '$q', '$location', 'AuthService', 'ErrorService',
+    function ($http, $q, $location, AuthService, ErrorService) {
 
   'use strict';
 

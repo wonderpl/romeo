@@ -1,4 +1,4 @@
-angular.module('RomeoApp.analytics').directive('plAnalyticsFieldsKey', ['$rootScope', '$timeout', function ($rootScope, $timeout) {
+angular.module('RomeoApp.analytics').directive('plAnalyticsFieldsKey', ['$rootScope', function ($rootScope) {
 
     'use strict';
 

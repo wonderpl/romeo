@@ -1,4 +1,4 @@
-angular.module('RomeoApp.analytics').directive('plAnalyticsEngagementVideoSegment', ['$rootScope', '$timeout', 'EngagementService', '$document', function ($rootScope, $timeout, EngagementService, $document) {
+angular.module('RomeoApp.analytics').directive('plAnalyticsEngagementVideoSegment', ['$rootScope', 'EngagementService', '$document', function ($rootScope, EngagementService, $document) {
 
     'use strict';
 
