@@ -1,4 +1,4 @@
-angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.security', 'RomeoApp.profile.navigation', 'ngRoute'])
+angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.security', 'ngRoute'])
 
 .config(['$routeProvider', 'securityAuthorizationProvider', function ($routeProvider, securityAuthorizationProvider) {
         'use strict';
@@ -10,7 +10,7 @@ angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.security', 'R
         
         // Public  profile
         $routeProvider.when('/profile/:id', {
-            templateUrl: 'profile/profile.html',
+            templateUrl: 'profile/profile.tmpl.html',
         //    resolve: securityAuthorizationProvider.requireCollaborator
         });
 }])
@@ -25,13 +25,15 @@ angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.security', 'R
     isOwner: false,
     uploadingProfileImage: false,
     uploadingProfileCover: false,
-    errorDescritionToLong: false
+    errorDescritionToLong: false,
+    accountId: null
   };
 
-  function loadUserDetails () {
+  function loadUserDetails() {
     if ($routeParams.id) {
       DataService.request({url: ('/api/account/' + $routeParams.id)}).then(function(response){
           $scope.profile = response;
+          $scope.flags.accountId = $routeParams.id;
       }, function (response) {
         console.dir(response);
         $scope.$emit('notify', {
@@ -45,6 +47,9 @@ angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.security', 'R
       $scope.flags.isOwner = true;
       AccountService.getUser().then(function (user) {
         $scope.profile = user;
+        Auth.getSessionId().then(function (id) {
+          $scope.flags.accountId = id;
+        });
       });
     }
   }
@@ -61,26 +66,26 @@ angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.security', 'R
 
   $scope.$on('upload-profile-cover', uploadProfileCover);
 
-  $scope.$watch('profile.description', function(newValue, oldValue) {
+  $scope.$watch('profile.description', function (newValue, oldValue) {
     if (newValue !== oldValue) {
       if (typeof newValue !== 'undefined')
         $scope.flags.errorDescritionToLong = (newValue.length > 100);
     }
   });
 
-  $scope.$watch('profile.profile_cover', function(newValue, oldValue) {
+  $scope.$watch('profile.profile_cover', function (newValue, oldValue) {
     if (newValue !== oldValue) {
       debug.log('Profile cover changed to: ' + newValue);
     }
   });
 
-  $scope.$watch('profile.avatar', function(newValue, oldValue) {
+  $scope.$watch('profile.avatar', function (newValue, oldValue) {
     if (newValue !== oldValue) {
       debug.log('Profile avatar changed to: ' + newValue);
     }
   });
 
-  function uploadProfileImage ($event, file) {
+  function uploadProfileImage($event, file) {
     debug.log('uploadProfileImage()');
     debug.log(file);
     $scope.flags.uploadingProfileImage = true;
@@ -128,7 +133,7 @@ angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.security', 'R
     });
   }
 
-  function save () {
+  function save() {
     if (! $scope.flags.isOwner) {
       $scope.$emit('notify', {
         status : 'error',
@@ -150,11 +155,10 @@ angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.security', 'R
     });
   }
 
-  function cancel () {
+  function cancel() {
     $scope.flags.isEdit = false;
     loadUserDetails();
   }
-
 }]);
 
 

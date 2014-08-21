@@ -1,14 +1,13 @@
 
 angular
-  .module('RomeoApp.directives')
-  .directive('profileImage', ['$templateCache', 'AccountService', '$timeout', ProfileImageDirective]);
-
-function ProfileImageDirective ($templateCache, AccountService, $timeout) {
+  .module('RomeoApp.profile')
+  .directive('profileImage', ['$templateCache', 'AccountService', '$timeout',
+    function ($templateCache, AccountService, $timeout) {
   'use strict';
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('profile-image.html'),
+    template : $templateCache.get('profile/images/image.tmpl.html'),
     scope: {
       image : '=',
       isEdit : '='
@@ -28,18 +27,15 @@ function ProfileImageDirective ($templateCache, AccountService, $timeout) {
         );
         AccountService.updateAvatar(file).then(function (data) {
           console.log(data);
-          
           $scope.$emit('uploaded-image', data);
 
-          $timeout(function () {
-            $scope.profile = data;
-            $scope.$emit('notify', {
-              status : 'success',
-              title : 'Avatar Updated',
-              message : 'New image saved.'}
-            );
+          $scope.profile = data;
+          $scope.$emit('notify', {
+            status : 'success',
+            title : 'Avatar Updated',
+            message : 'New image saved.'}
+          );
           $scope.loading = false;
-          });
         });
       };
 
@@ -58,4 +54,4 @@ function ProfileImageDirective ($templateCache, AccountService, $timeout) {
       });
     }
   };
-}
+}]);

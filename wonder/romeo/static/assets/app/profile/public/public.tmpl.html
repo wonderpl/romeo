@@ -1,0 +1,13 @@
+<section class="public-profile__wrapper">
+	<ul class="public-profile__videos" ng-show="videos">
+		<li ng-repeat="video in videos">
+			{{video.title}}
+		</li>
+	</ul>
+
+	<ul class="public-profile__collaborators" ng-show="collaborators">
+		<li ng-repeat="user in collaborators">
+			{{user.display_name}}
+		</li>
+	</ul>
+</section>

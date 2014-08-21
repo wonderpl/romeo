@@ -30,9 +30,9 @@
     <div class="profile__description" ng-hide="flags.isEdit" ng-bind-html="profile.description"></div>
     <span class="error" ng-show="isEdit && errorDescritionToLong">Your description is to long, please make it shorter</span>
 
-    <div ng-if="! flags.isOwner">
+    <profile-public ng-if="! flags.isOwner">
       This should be the list of collaborators and public videos
-    </div>    
+    </profile-public>    
   </div>
 
 </section>

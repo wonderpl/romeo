@@ -1,14 +1,13 @@
 
 angular
-  .module('RomeoApp.directives')
-  .directive('profileCover', ['$templateCache', 'UploadService', 'AccountService', '$timeout', ProfileCoverDirective]);
-
-function ProfileCoverDirective ($templateCache, UploadService, AccountService, $timeout) {
+  .module('RomeoApp.profile')
+  .directive('profileCover', ['$templateCache', 'AccountService',
+function ($templateCache, AccountService) {
   'use strict';
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('profile-cover.html'),
+    template : $templateCache.get('profile/images/cover.tmpl.html'),
     scope : {
       image: '=',
       isEdit : '=',
@@ -41,4 +40,4 @@ function ProfileCoverDirective ($templateCache, UploadService, AccountService, $
     }
   };
 }
-
+]);
