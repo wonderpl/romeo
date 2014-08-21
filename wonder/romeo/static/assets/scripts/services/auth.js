@@ -2,8 +2,8 @@
 * Methods for logging in and out, and for accessing credentials used by the other services
 */
 angular.module('RomeoApp.services').factory('AuthService',
-    ['$rootScope', '$http', 'localStorageService', 'ErrorService', '$timeout', '$q', '$interval', '$location',
-    function ($rootScope, $http, localStorageService, ErrorService, $timeout, $q, $interval, $location) {
+    ['$rootScope', '$http', 'localStorageService', 'ErrorService', '$q', '$interval', '$location',
+    function ($rootScope, $http, localStorageService, ErrorService, $q, $interval, $location) {
 
     'use strict';
 
@@ -89,34 +89,32 @@ angular.module('RomeoApp.services').factory('AuthService',
 
     function _loginCheck() {
       var deferred = new $q.defer();
-      $timeout(function(){
-          if ( Auth.isLoggedIn() ) {
+      if ( Auth.isLoggedIn() ) {
+        deferred.resolve(user);
+        debug.log('LoginCheck: - Already logged in (loggedIn: ' + user + ', isCollaborator: ' + isCollaborator + ')');
+      }
+      else {
+        debug.log('LoginCheck: - Try to log in');
+        Auth.getSession().then(function(response){
+          debug.log('LoginCheck: - Got session, trying to retrive profile url');
+          debug.info('LoginCheck: url to load: ' + (response.href || response));
+          $http({method: 'GET', url: (response.href || response) }).then(function(response) {
+            user = angular.fromJson(response.data);
+            $rootScope.isLoggedIn = Auth.isLoggedIn();
+            Auth.setSession(user);
+            debug.log('LoginCheck: All good, access granted');
             deferred.resolve(user);
-            debug.log('LoginCheck: - Already logged in (loggedIn: ' + user + ', isCollaborator: ' + isCollaborator + ')');
-          }
-          else {
-            debug.log('LoginCheck: - Try to log in');
-            Auth.getSession().then(function(response){
-              debug.log('LoginCheck: - Got session, trying to retrive profile url');
-              debug.info('LoginCheck: url to load: ' + (response.href || response));
-              $http({method: 'GET', url: (response.href || response) }).then(function(response) {
-                user = angular.fromJson(response.data);
-                $rootScope.isLoggedIn = Auth.isLoggedIn();
-                Auth.setSession(user);
-                debug.log('LoginCheck: All good, access granted');
-                deferred.resolve(user);
-              }, function(response){
-                user = null;
-                $rootScope.isLoggedIn = Auth.isLoggedIn();
-                debug.warn("LoginCheck: Couldn't load profile with supplied session, not logged in");
-                deferred.reject('not logged in');
-              });
-            }, function(){
-                debug.warn("LoginCheck: No session available, not logged in");
-                deferred.reject('not logged in');
-            });
-          }
-      });
+          }, function(response){
+            user = null;
+            $rootScope.isLoggedIn = Auth.isLoggedIn();
+            debug.warn("LoginCheck: Couldn't load profile with supplied session, not logged in");
+            deferred.reject('not logged in');
+          });
+        }, function(){
+            debug.warn("LoginCheck: No session available, not logged in");
+            deferred.reject('not logged in');
+        });
+      }
       return deferred.promise;
     }
 
@@ -161,18 +159,16 @@ angular.module('RomeoApp.services').factory('AuthService',
     */
     Auth.getSession = function() {
         var deferred = new $q.defer();
-        $timeout(function() {
-            if ( session !== null ) {
-                debug.log('GetSession: - session already loaded');
-                deferred.resolve(session.account || session);
-            } else if ( localStorageService.get('session_url') !== null ) {
-                debug.log('GetSession: - Local storage session found');
-                deferred.resolve(localStorageService.get('session_url'));
-            } else {
-                debug.warn('GetSession: - No session');
-                deferred.reject('no session');
-            }
-        });
+        if ( session !== null ) {
+            debug.log('GetSession: - session already loaded');
+            deferred.resolve(session.account || session);
+        } else if ( localStorageService.get('session_url') !== null ) {
+            debug.log('GetSession: - Local storage session found');
+            deferred.resolve(localStorageService.get('session_url'));
+        } else {
+            debug.warn('GetSession: - No session');
+            deferred.reject('no session');
+        }
 
         return deferred.promise;
     };

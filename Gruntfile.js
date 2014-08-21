@@ -164,7 +164,14 @@ module.exports = function (grunt) {
         ngtemplates: {
             options: {
                 url: function (url) {
-                    var name = url.split('/');
+                    if (url.indexOf('wonder/romeo/static/assets/app/') > -1) {
+                        return url.replace('wonder/romeo/static/assets/app/', '');
+                    }
+                    else if (url.indexOf('wonder/romeo/static/assets/common/') > -1) {
+                        return url.replace('wonder/romeo/static/assets/common/', '');
+                    }
+                    var name;
+                    name = url.split('/');
                     return name[name.length - 1];
                 },
                 bootstrap: function (module, script) {
@@ -173,7 +180,7 @@ module.exports = function (grunt) {
             },
             RomeoApp: {
                 module: 'RomeoApp',
-                src: 'wonder/romeo/static/views/**/*.html',
+                src: ['wonder/romeo/static/views/**/*.html', 'wonder/romeo/static/assets/app/**/*.tmpl.html', 'wonder/romeo/static/assets/common/**/*.tmpl.html'],
                 dest: 'wonder/romeo/static/assets/scripts/views.js'
             }
         },
@@ -186,7 +193,7 @@ module.exports = function (grunt) {
                 tasks: ['compass:dist']
             },
             angular: {
-                files: ['wonder/romeo/static/views/**/*.html'],
+                files: ['wonder/romeo/static/views/**/*.html', 'wonder/romeo/static/assets/**/*.tmpl.html'],
                 tasks: ['ngtemplates']
             }
         }

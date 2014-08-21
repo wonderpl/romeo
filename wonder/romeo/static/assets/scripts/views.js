@@ -1266,28 +1266,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
-  $templateCache.put('profile-navigation.html',
-    "<section class=\"sub-navigation\">\n" +
-    "  <div class=\"wrapper\">\n" +
-    "    <ul class=\"sub-navigation__modes\">\n" +
-    "      <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\">\n" +
-    "        <a class=\"sub-navigation__link btn btn--utility\" ng-click=\"isEdit = true\">edit</a>\n" +
-    "      </li>\n" +
-    "      <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
-    "        <a class=\"sub-navigation__link btn btn--utility\" ng-click=\"save()\" ng-disabled=\"\">save</a>\n" +
-    "      </li>\n" +
-    "      <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
-    "        <a class=\"sub-navigation__link btn btn--utility\" ng-click=\"cancel()\">cancel</a>\n" +
-    "      </li>\n" +
-    "      <li class=\"sub-navigation__mode\">\n" +
-    "        <a class=\"sub-navigation__link btn btn--utility\" href=\"/logout\">logout</a>\n" +
-    "      </li>\n" +
-    "    </ul>\n" +
-    "  </div>\n" +
-    "</section>"
-  );
-
-
   $templateCache.put('profile-video-hero.html',
     "<section class=\"profile-video-hero\">\n" +
     "\n" +
@@ -1295,45 +1273,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <profile-image image=\"account.avatar\"></profile-image>\n" +
     "\n" +
     "  <h2 class=\"profile__name\" ng-bind=\"account.display_name\"></h2>\n" +
-    "\n" +
-    "</section>"
-  );
-
-
-  $templateCache.put('profile.html',
-    "<section class=\"profile\" ng-controller=\"ProfileCtrl\">\n" +
-    "\n" +
-    "  <div class=\"profile-view__nav-placeholder sub-navigation__placeholder\">\n" +
-    "    <profile-navigation is-edit=\"isEdit\"></profile-navigation>\n" +
-    "  </div>\n" +
-    "\n" +
-    "\n" +
-    "  <profile-cover image=\"profile.profile_cover\" is-edit=\"isEdit\"></profile-cover>\n" +
-    "\n" +
-    "  <profile-image image=\"profile.avatar\" is-edit=\"isEdit\"></profile-image>\n" +
-    "\n" +
-    "  <div class=\"wrapper wrapper--fixed\">\n" +
-    "    <h2 class=\"profile__name  no-spacing\"\n" +
-    "      ng-show=\"isEdit\"\n" +
-    "      medium-editor\n" +
-    "      data-placeholder=\"(~ profile.name ? ' ' : 'name' ~)\"\n" +
-    "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
-    "      ng-model=\"profile.display_name\">\n" +
-    "    </h2>\n" +
-    "\n" +
-    "    <h2 class=\"profile__name  no-spacing\" ng-hide=\"isEdit\" ng-bind=\"profile.display_name\"></h2>\n" +
-    "\n" +
-    "    <div class=\"profile__description\"\n" +
-    "      ng-show=\"isEdit\"\n" +
-    "      medium-editor\n" +
-    "      data-placeholder=\"(~ profile.description ? ' ' : 'description' ~)\"\n" +
-    "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
-    "      ng-model=\"profile.description\">\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <div class=\"profile__description\" ng-hide=\"isEdit\" ng-bind-html=\"profile.description\"></div>\n" +
-    "    <span class=\"error\" ng-show=\"isEdit && errorDescritionToLong\">Your description is to long, please make it shorter</span>\n" +
-    "  </div>\n" +
     "\n" +
     "</section>"
   );
@@ -2123,5 +2062,69 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "\n" +
     "\n"
+  );
+
+
+  $templateCache.put('profile/navigation/navigation.tmpl.html',
+    "<section class=\"sub-navigation\">\n" +
+    "  <div class=\"wrapper\">\n" +
+    "    <ul class=\"sub-navigation__modes\">\n" +
+    "      <li class=\"sub-navigation__mode\" ng-hide=\"flags.isEdit\">\n" +
+    "        <a class=\"sub-navigation__link btn btn--utility\" ng-click=\"flags.isEdit = true\">edit</a>\n" +
+    "      </li>\n" +
+    "      <li class=\"sub-navigation__mode\" ng-show=\"flags.isEdit\">\n" +
+    "        <a class=\"sub-navigation__link btn btn--utility\" ng-click=\"save()\" ng-disabled=\"\">save</a>\n" +
+    "      </li>\n" +
+    "      <li class=\"sub-navigation__mode\" ng-show=\"flags.isEdit\">\n" +
+    "        <a class=\"sub-navigation__link btn btn--utility\" ng-click=\"cancel()\">cancel</a>\n" +
+    "      </li>\n" +
+    "      <li class=\"sub-navigation__mode\">\n" +
+    "        <a class=\"sub-navigation__link btn btn--utility\" href=\"/logout\">logout</a>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </div>\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('profile/profile.tmpl.html',
+    "<section class=\"profile\" ng-controller=\"ProfileCtrl\">\n" +
+    "\n" +
+    "  <div class=\"profile-view__nav-placeholder sub-navigation__placeholder\" ng-show=\"flags.isOwner\">\n" +
+    "    <profile-navigation flags=\"flags\" ng-if=\"flags.isOwner\"></profile-navigation>\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <profile-cover image=\"profile.profile_cover\" is-edit=\"flags.isEdit\"></profile-cover>\n" +
+    "\n" +
+    "  <profile-image image=\"profile.avatar\" is-edit=\"flags.isEdit\"></profile-image>\n" +
+    "\n" +
+    "  <div class=\"wrapper wrapper--fixed\">\n" +
+    "    <h2 class=\"profile__name  no-spacing\"\n" +
+    "      ng-show=\"flags.isEdit\"\n" +
+    "      medium-editor\n" +
+    "      data-placeholder=\"(~ profile.name ? ' ' : 'name' ~)\"\n" +
+    "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
+    "      ng-model=\"profile.display_name\">\n" +
+    "    </h2>\n" +
+    "\n" +
+    "    <h2 class=\"profile__name  no-spacing\" ng-hide=\"flags.isEdit\" ng-bind=\"profile.display_name\"></h2>\n" +
+    "\n" +
+    "    <div class=\"profile__description\"\n" +
+    "      ng-show=\"flags.isEdit\"\n" +
+    "      medium-editor\n" +
+    "      data-placeholder=\"(~ profile.description ? ' ' : 'description' ~)\"\n" +
+    "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
+    "      ng-model=\"profile.description\">\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div class=\"profile__description\" ng-hide=\"flags.isEdit\" ng-bind-html=\"profile.description\"></div>\n" +
+    "    <span class=\"error\" ng-show=\"isEdit && errorDescritionToLong\">Your description is to long, please make it shorter</span>\n" +
+    "\n" +
+    "    <div ng-if=\"! flags.isOwner\">\n" +
+    "      This should be the list of collaborators and public videos\n" +
+    "    </div>    \n" +
+    "  </div>\n" +
+    "\n" +
+    "</section>"
   );
 } ]);

@@ -1,5 +1,5 @@
 
-angular.module('RomeoApp.directives')
+angular.module('RomeoApp.profile.navigation', [])
   .directive('profileNavigation', ['$templateCache', ProfileNavigationDirective]);
 
 function ProfileNavigationDirective ($templateCache) {
@@ -7,9 +7,9 @@ function ProfileNavigationDirective ($templateCache) {
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('profile-navigation.html'),
+    template : $templateCache.get('profile/navigation/navigation.tmpl.html'),
     scope : {
-      isEdit : '='
+      flags : '='
     },
     controller : function ($scope) {
       $scope.save = function () {

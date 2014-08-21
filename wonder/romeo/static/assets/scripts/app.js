@@ -12,6 +12,7 @@
                 ns + '.directives',
                 ns + '.filters',
                 ns + '.analytics',
+                ns + '.profile',
             'ngRoute',
             'ngCookies',
             'angularFileUpload',
@@ -76,12 +77,6 @@
         // Videos
         $routeProvider.when('/video/:id/edit', {
             templateUrl: 'video.html',
-            resolve: authChecks
-        });
-
-        // Account management
-        $routeProvider.when('/profile', {
-            templateUrl: 'profile.html',
             resolve: authChecks
         });
 

@@ -1,27 +1,52 @@
-angular.module('RomeoApp.controllers')
-  .controller('ProfileCtrl', ['$scope', 'AccountService', 'UploadService', '$timeout',
-  function($scope, AccountService, UploadService, $timeout) {
+angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.security', 'RomeoApp.profile.navigation', 'ngRoute'])
+
+.config(['$routeProvider', 'securityAuthorizationProvider', function ($routeProvider, securityAuthorizationProvider) {
+        'use strict';
+        // Account management
+        $routeProvider.when('/profile', {
+            templateUrl: 'profile/profile.tmpl.html',
+        //    resolve: securityAuthorizationProvider.requireCollaborator
+        });
+        
+        // Public  profile
+        $routeProvider.when('/profile/:id', {
+            templateUrl: 'profile/profile.html',
+        //    resolve: securityAuthorizationProvider.requireCollaborator
+        });
+}])
+
+.controller('ProfileCtrl', ['$scope', 'AccountService', 'DataService', '$location', 'UploadService', '$routeParams',
+  function($scope, AccountService, DataService, $location, UploadService, $routeParams) {
   'use strict';
   var debug = new DebugClass('ProfileCtrl');
 
-// {
-//  "href": "/api/account/27250600",
-//  "name": "romeo account name",
-//  "display_name": "dolly user name",
-//  "description": "dolly profile description",
-//  "profile_cover": "http://path/to/dolly/profile/cover.jpg",
-//  "avatar": "http://path/to/dolly/avatar/image.jpg"
-// }
-
-  $scope.isEdit = false;
-  $scope.uploadingProfileImage = false;
-  $scope.uploadingProfileCover = false;
-  $scope.errorDescritionToLong = false;
+  $scope.flags = {
+    isEdit: false,
+    isOwner: false,
+    uploadingProfileImage: false,
+    uploadingProfileCover: false,
+    errorDescritionToLong: false
+  };
 
   function loadUserDetails () {
-    AccountService.getUser().then(function (data) {
-      $scope.profile = data;
-    });
+    if ($routeParams.id) {
+      DataService.request({url: ('/api/account/' + $routeParams.id)}).then(function(response){
+          $scope.profile = response;
+      }, function (response) {
+        console.dir(response);
+        $scope.$emit('notify', {
+          status : 'error',
+          title : 'User not found',
+          message : 'Could not find the user you were looking for'}
+        );
+        $location.path('/organise', true);
+      });
+    } else {
+      $scope.flags.isOwner = true;
+      AccountService.getUser().then(function (user) {
+        $scope.profile = user;
+      });
+    }
   }
 
   loadUserDetails();
@@ -39,7 +64,7 @@ angular.module('RomeoApp.controllers')
   $scope.$watch('profile.description', function(newValue, oldValue) {
     if (newValue !== oldValue) {
       if (typeof newValue !== 'undefined')
-        $scope.errorDescritionToLong = (newValue.length > 100);
+        $scope.flags.errorDescritionToLong = (newValue.length > 100);
     }
   });
 
@@ -58,23 +83,20 @@ angular.module('RomeoApp.controllers')
   function uploadProfileImage ($event, file) {
     debug.log('uploadProfileImage()');
     debug.log(file);
-    $scope.uploadingProfileImage = true;
+    $scope.flags.uploadingProfileImage = true;
     $scope.$emit('notify', {
       status : 'info',
       title : 'Uploading New Avatar',
       message : 'Image uploading.'}
     );
     AccountService.updateAvatar(file).then(function (data) {
-      $timeout(function () {
-        //$scope.profile = data;
-        $scope.$emit('notify', {
-          status : 'success',
-          title : 'Avatar Updated',
-          message : 'New image saved.'}
-        );
-      $scope.uploadingProfileImage = false;
+      $scope.$emit('notify', {
+        status : 'success',
+        title : 'Avatar Updated',
+        message : 'New image saved.'}
+      );
+      $scope.flags.uploadingProfileImage = false;
       doneUploadingImage($events, data);
-      });
     });
   }
   function doneUploadingImage($event, data) {
@@ -89,7 +111,7 @@ angular.module('RomeoApp.controllers')
   function uploadProfileCover ($event, file) {
     debug.log('uploadProfileCover()');
     debug.log(file);
-    $scope.uploadingProfileCover = true;
+    $scope.flags.uploadingProfileCover = true;
     $scope.$emit('notify', {
       status : 'info',
       title : 'Uploading New Cover Photo',
@@ -101,18 +123,25 @@ angular.module('RomeoApp.controllers')
         title : 'Cover Image Updated',
         message : 'New cover image saved.'}
       );
-      $scope.uploadingProfileCover = false;
+      $scope.flags.uploadingProfileCover = false;
       doneUploadingImage(null, data);
     });
   }
 
   function save () {
+    if (! $scope.flags.isOwner) {
+      $scope.$emit('notify', {
+        status : 'error',
+        title : 'Access denied',
+        message : "Can't save changes to profile of other users"}
+      );
+    }
     var data = {
       display_name  : $scope.profile.display_name,
       description   : $scope.profile.description
     };
     AccountService.updateUser(data).then(function () {
-      $scope.isEdit = false;
+      $scope.flags.isEdit = false;
       $scope.$emit('notify', {
         status : 'success',
         title : 'Profile Updated',
@@ -122,7 +151,7 @@ angular.module('RomeoApp.controllers')
   }
 
   function cancel () {
-    $scope.isEdit = false;
+    $scope.flags.isEdit = false;
     loadUserDetails();
   }
 

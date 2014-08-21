@@ -1,35 +1,38 @@
 <section class="profile" ng-controller="ProfileCtrl">
 
-  <div class="profile-view__nav-placeholder sub-navigation__placeholder">
-    <profile-navigation is-edit="isEdit"></profile-navigation>
+  <div class="profile-view__nav-placeholder sub-navigation__placeholder" ng-show="flags.isOwner">
+    <profile-navigation flags="flags" ng-if="flags.isOwner"></profile-navigation>
   </div>
 
+  <profile-cover image="profile.profile_cover" is-edit="flags.isEdit"></profile-cover>
 
-  <profile-cover image="profile.profile_cover" is-edit="isEdit"></profile-cover>
-
-  <profile-image image="profile.avatar" is-edit="isEdit"></profile-image>
+  <profile-image image="profile.avatar" is-edit="flags.isEdit"></profile-image>
 
   <div class="wrapper wrapper--fixed">
     <h2 class="profile__name  no-spacing"
-      ng-show="isEdit"
+      ng-show="flags.isEdit"
       medium-editor
       data-placeholder="{{ profile.name ? ' ' : 'name' }}"
       options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
       ng-model="profile.display_name">
     </h2>
 
-    <h2 class="profile__name  no-spacing" ng-hide="isEdit" ng-bind="profile.display_name"></h2>
+    <h2 class="profile__name  no-spacing" ng-hide="flags.isEdit" ng-bind="profile.display_name"></h2>
 
     <div class="profile__description"
-      ng-show="isEdit"
+      ng-show="flags.isEdit"
       medium-editor
       data-placeholder="{{ profile.description ? ' ' : 'description' }}"
       options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
       ng-model="profile.description">
     </div>
 
-    <div class="profile__description" ng-hide="isEdit" ng-bind-html="profile.description"></div>
+    <div class="profile__description" ng-hide="flags.isEdit" ng-bind-html="profile.description"></div>
     <span class="error" ng-show="isEdit && errorDescritionToLong">Your description is to long, please make it shorter</span>
+
+    <div ng-if="! flags.isOwner">
+      This should be the list of collaborators and public videos
+    </div>    
   </div>
 
 </section>

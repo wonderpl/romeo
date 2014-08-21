@@ -2,8 +2,8 @@
 * Methods for interacting with the Account web services
 */
 angular.module('RomeoApp.services').factory('AccountService',
-    ['DataService', 'localStorageService', '$rootScope', 'AuthService', '$q', '$timeout',
-    function (DataService, localStorageService, $rootScope, AuthService, $q, $timeout) {
+    ['DataService', 'localStorageService', '$rootScope', 'AuthService', '$q',
+    function (DataService, localStorageService, $rootScope, AuthService, $q) {
 
     'use strict';
     var debug = new DebugClass('AccountService');
@@ -22,25 +22,25 @@ angular.module('RomeoApp.services').factory('AccountService',
             if ( ID === null ) {
                 debug.log('New User added to rootscope');
                 debug.dir(response);
+                AuthService.getSessionId().then(function(id){
+                    ID = id;
+                });
                 User = response;
-                $rootScope.User = response;
-                deferred.resolve(response);
             } else {
                 AuthService.getSessionId().then(function (_id) {
                     if (_id === ID) {
                         User = $rootScope.User;
-                        deferred.resolve($rootScope.User);
                         debug.log('User already on rootscope');
                     } else {
                         DataService.request({url: ('/api/account/' + ID)}).then(function(response){
                             debug.log('User added to rootscope');
                             User = response;
-                            $rootScope.User = response;
-                            deferred.resolve(response);
                         });
                     }
                 });
             }
+            $rootScope.User = User;
+            deferred.resolve(User);
         });
         return deferred.promise;
     };
@@ -72,6 +72,10 @@ angular.module('RomeoApp.services').factory('AccountService',
         return $http.get('/api/account/external/' + service + '/' + token);
     };
 
+    Account.user = function() {
+        return User;
+    }
+
     /*
     * Expose the methods to the service
     */
@@ -80,6 +84,6 @@ angular.module('RomeoApp.services').factory('AccountService',
         updateUser: Account.updateUser,
         updateCoverImage: Account.updateCoverImage,
         updateAvatar: Account.updateAvatar,
-        User: User
+        user: Account.user
     };
 }]);
