@@ -1,14 +1,4 @@
 <section class="video-extended-controls" ng-show="isEdit">
-  <section class="video-extended-controls__section" ng-class="{ 'video-extended-controls__section--expanded' : addCategoryShow }">
-    <i class="icon  icon--medium  icon--plus  section-drawer__icon" ng-click="addCategoryShow = !addCategoryShow" ng-hide="addCategoryShow"></i>
-    <i class="icon  icon--medium  icon--minus  section-drawer__icon" ng-click="addCategoryShow = !addCategoryShow" ng-show="addCategoryShow"></i>
-    <category-add-video selected-category="video.category"
-      show-category="addCategoryShow"
-      class="video-extended-controls__section-contents">
-    </category-add-video>
-    <span class="btn  btn--small  btn--positive  f--right" ng-click="save(); addCategoryShow = !addCategoryShow">Done</span>
-  </section>
-
   <section class="video-extended-controls__section" ng-class="{ 'video-extended-controls__section--expanded' : addCollectionShow }">
     <i class="icon  icon--medium  icon--plus  section-drawer__icon" ng-click="showHideCollectionExtended()" ng-hide="addCollectionShow"></i>
     <i class="icon  icon--medium  icon--minus  section-drawer__icon" ng-click="showHideCollectionExtended()" ng-show="addCollectionShow"></i>

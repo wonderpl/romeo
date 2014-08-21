@@ -1709,16 +1709,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('video-extended-controls.html',
     "<section class=\"video-extended-controls\" ng-show=\"isEdit\">\n" +
-    "  <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCategoryShow }\">\n" +
-    "    <i class=\"icon  icon--medium  icon--plus  section-drawer__icon\" ng-click=\"addCategoryShow = !addCategoryShow\" ng-hide=\"addCategoryShow\"></i>\n" +
-    "    <i class=\"icon  icon--medium  icon--minus  section-drawer__icon\" ng-click=\"addCategoryShow = !addCategoryShow\" ng-show=\"addCategoryShow\"></i>\n" +
-    "    <category-add-video selected-category=\"video.category\"\n" +
-    "      show-category=\"addCategoryShow\"\n" +
-    "      class=\"video-extended-controls__section-contents\">\n" +
-    "    </category-add-video>\n" +
-    "    <span class=\"btn  btn--small  btn--positive  f--right\" ng-click=\"save(); addCategoryShow = !addCategoryShow\">Done</span>\n" +
-    "  </section>\n" +
-    "\n" +
     "  <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCollectionShow }\">\n" +
     "    <i class=\"icon  icon--medium  icon--plus  section-drawer__icon\" ng-click=\"showHideCollectionExtended()\" ng-hide=\"addCollectionShow\"></i>\n" +
     "    <i class=\"icon  icon--medium  icon--minus  section-drawer__icon\" ng-click=\"showHideCollectionExtended()\" ng-show=\"addCollectionShow\"></i>\n" +
