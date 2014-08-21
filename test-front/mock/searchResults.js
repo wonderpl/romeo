@@ -1,4 +1,4 @@
-angular.module('mockedObject', []).value('searchResults', function () {
+angular.module('mockedSearchResults', []).value('searchResults', function () {
 
   'use strict';
 

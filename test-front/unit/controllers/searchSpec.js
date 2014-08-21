@@ -4,7 +4,7 @@ describe('Search Controller', function() {
 
   var scope, $httpBackend, ctrl;
   var results;
-  beforeEach(module('RomeoApp', 'mockedObject'));
+  beforeEach(module('RomeoApp', 'mockedSearchResults'));
 
   beforeEach(inject(function($rootScope, $controller, $injector, $location, searchResults) {
     scope = $rootScope.$new();
