@@ -2,8 +2,8 @@
 * Methods for interacting with the Comment web services
 */
 angular.module('RomeoApp.services')
-  .factory('UploadService', ['DataService', 'AuthService', '$q', '$timeout', 'VideoService', '$rootScope',
-  function (DataService, AuthService, $q, $timeout, VideoService, $rootScope) {
+  .factory('UploadService', ['DataService', 'AuthService', '$q', '$interval', 'VideoService', '$rootScope',
+  function (DataService, AuthService, $q, $interval, VideoService, $rootScope) {
 
   'use strict';
 
@@ -94,7 +94,7 @@ angular.module('RomeoApp.services')
   }
 
   function pollVideoForReady (id) {
-    $timeout(function(){
+    var promise = $interval(function(){
       VideoService.get(id).then(function (response) {
         $rootScope.$broadcast('video-upload-poll', response);
         if (videoIsReady(response)) {
@@ -102,8 +102,7 @@ angular.module('RomeoApp.services')
           $rootScope.uploadingVideoId = 0;
           // broadcast completion to the world
           $rootScope.$broadcast('video-upload-success', response);
-        } else {
-          pollVideoForReady(id);
+          $interval.cancel(promise);
         }
       });
     }, 10000);
