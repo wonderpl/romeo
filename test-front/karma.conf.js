@@ -26,6 +26,9 @@ module.exports = function(config) {
       'wonder/romeo/static/assets/scripts/directives/**/*.js',
       'wonder/romeo/static/assets/vendor/js/angular-medium-editor.js',
 
+      'wonder/romeo/static/assets/app/**/*.js',
+      'wonder/romeo/static/assets/common/**/*.js',
+
       'test-front/mock/**/*.js',
       'test-front/unit/**/*.js'
     ],
