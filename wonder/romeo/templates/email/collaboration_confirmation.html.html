@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% macro video_url() %}
+{{ video.web_url.replace('http:', 'https:') }}?token={{ collaborator.token }}
+{%- endmacro %}
+
+{% if can_comment %}
+{% set action = "comment on" %}
+{% elif can_download %}
+{% set action = "download" %}
+{% else %}
+{% set action = "view" %}
+{% endif%}
+
+{% block title %}You have been invited to {{ action }} a video on Wonder PL{% endblock %}
+
+{% block body %}
+
+{% if sender.avatar_url %}
+  <div style="width:100%;overflow:hidden;text-align:center;">
+    <img src="{{ sender.avatar_url }}" alt="" width="66" height="66" style="display:block;max-width:none;width:66px;height:auto;margin:0 auto;border-radius:100%;"/>
+  </div>
+  <br>
+{% endif %}
+
+<div style="font-weight:bold;font-size:28px;line-height:1.35;font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif;color:#2e2e32">
+  Hello {{ collaborator.name }},
+</div>
+<br>
+
+<div>
+  <b>{{ sender.display_name }}</b> has accepted your invitation to connect with them.
+</div>
+<br>
+
+<div>
+  Here's their email address, so you can contact them directly. They have also been sent your email.
+</div>
+<br><br>
+
+<div>
+  {% sender.email_address %}
+</div>
+<br>
+
+<div>If you are interested in learning more about Wonder PL and want to join our closed Beta Programme, please drop us a line at <a href="mailto:beta@wonderpl.com" style="color:#51b464 !important;">beta@wonderpl.com</a></div>
+{% endblock %}

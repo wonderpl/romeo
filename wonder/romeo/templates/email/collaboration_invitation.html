@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% macro video_url() %}
+{{ video.web_url.replace('http:', 'https:') }}?token={{ collaborator.token }}
+{%- endmacro %}
+
+{% if can_comment %}
+{% set action = "comment on" %}
+{% elif can_download %}
+{% set action = "download" %}
+{% else %}
+{% set action = "view" %}
+{% endif%}
+
+{% block title %}You have been invited to {{ action }} a video on Wonder PL{% endblock %}
+
+{% block body %}
+
+{% if sender.avatar_url %}
+  <div style="width:100%;overflow:hidden;text-align:center;">
+    <img src="{{ sender.avatar_url }}" alt="" width="66" height="66" style="display:block;max-width:none;width:66px;height:auto;margin:0 auto;border-radius:100%;"/>
+  </div>
+  <br>
+{% endif %}
+
+<div style="font-weight:bold;font-size:28px;line-height:1.35;font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif;color:#2e2e32">
+  Hello {{ collaborator.name }},
+</div>
+<br>
+
+<div>
+  <b>{{ sender.name }}</b> has sent you an invitation to connect with them.
+</div>
+<br>
+
+<div>
+  {% message %}
+</div>
+<br><br>
+
+<div>
+  Would you like to Accept?
+</div>
+<br>
+
+<p class="btn-center" style="display:block;width:100%;text-align:center;"><a href="{{ link }}" class="btn" style="margin:0 auto;padding:10px 20px;font-weight:400;font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif;text-decoration:none;color:#fff !important;text-align:center;background-color:#51b364;border:none;border-radius:100px;cursor:pointer;" border="0">Accept</a></p><br>
+
+<div>If you are interested in learning more about Wonder PL and want to join our closed Beta Programme, please drop us a line at <a href="mailto:beta@wonderpl.com" style="color:#51b464 !important;">beta@wonderpl.com</a></div>
+{% endblock %}

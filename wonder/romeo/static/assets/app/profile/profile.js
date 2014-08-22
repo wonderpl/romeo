@@ -7,7 +7,7 @@ angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.security', 'n
             templateUrl: 'profile/profile.tmpl.html',
         //    resolve: securityAuthorizationProvider.requireCollaborator
         });
-        
+
         // Public  profile
         $routeProvider.when('/profile/:id', {
             templateUrl: 'profile/profile.tmpl.html',
@@ -15,8 +15,8 @@ angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.security', 'n
         });
 }])
 
-.controller('ProfileCtrl', ['$scope', 'AccountService', 'DataService', '$location', 'UploadService', '$routeParams',
-  function($scope, AccountService, DataService, $location, UploadService, $routeParams) {
+.controller('ProfileCtrl', ['$scope', 'AccountService', 'DataService', '$location', 'UploadService', '$routeParams', 'AuthService',
+  function($scope, AccountService, DataService, $location, UploadService, $routeParams, AuthService) {
   'use strict';
   var debug = new DebugClass('ProfileCtrl');
 
@@ -47,7 +47,7 @@ angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.security', 'n
       $scope.flags.isOwner = true;
       AccountService.getUser().then(function (user) {
         $scope.profile = user;
-        Auth.getSessionId().then(function (id) {
+        AuthService.getSessionId().then(function (id) {
           $scope.flags.accountId = id;
         });
       });
