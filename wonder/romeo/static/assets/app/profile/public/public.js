@@ -22,7 +22,7 @@ function ($templateCache, AccountService) {
         {display_name: "Steven Spielberg"},
         {display_name: "Arnie"}
       ];
-      $scope.$watch('flags', function () {
+      $scope.$watch('flags', function (newValue, oldValue) {
         if (! angular.equals(newValue, oldValue)) {
           $scope.collaborators.push({display_name: newValue.accountId});
 

@@ -1,18 +1,39 @@
-<h2 class="profile__name no-spacing input--field"
-  ng-show="flags.isEdit"
-  medium-editor
-  data-placeholder="{{ profile.name ? ' ' : 'name' }}"
-  options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
-  ng-model="profile.display_name">
-</h2>
+<div class="profile__edit-details">
+  <h3 class="error" ng-hide="form.valid">{{ form.errorMsg() }}</h3>
 
-<div class="profile__description input--field"
-  ng-show="flags.isEdit"
-  medium-editor
-  ng-class="{ 'error' : ! form.valid.description }"
-  data-placeholder="{{ profile.description ? ' ' : 'description' }}"
-  options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
-  ng-model="profile.description">
+  <h2 class="profile__name no-spacing input--field"
+    medium-editor
+    ng-class="{ 'error' : form.errors.name }"
+    data-placeholder="{{ profile.name ? ' ' : 'name' }}"
+    options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
+    ng-model="profile.display_name">
+  </h2>
+
+  <div class="profile__description input--field"
+    medium-editor
+    ng-class="{ 'error' : form.errors.description }"
+    data-placeholder="{{ profile.description ? ' ' : 'description' }}"
+    options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
+    ng-model="profile.description">
+  </div>
+
+  <section class="profile__edit-details-extended text-col">
+
+
+    <span class="profile__link input--field"
+      medium-editor
+      ng-class="{ 'error' : form.errors.link }"
+      data-placeholder="{{ profile.link ? ' ' : 'Link http://' }}"
+      options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
+      ng-model="profile.link">
+    </span>
+
+    <span class="profile__location input--field"
+      medium-editor
+      ng-class="{ 'error' : form.errors.location }"
+      data-placeholder="{{ profile.location ? ' ' : 'Location (for example: London, UK)' }}"
+      options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
+      ng-model="profile.location">
+    </span>
+  </section>
 </div>
-
-<span class="error" ng-show="form.valid.description">Your description is to long, please make it shorter</span>

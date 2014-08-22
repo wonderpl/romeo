@@ -13,7 +13,14 @@ angular
         },
         controller : function ($scope) {
           $scope.save = function () {
-            $scope.$emit('profile-save');
+            if ($scope.flags.isFormValid)
+              $scope.$emit('profile-save');
+            else
+              $scope.$emit('notify', {
+                status : 'error',
+                title : 'Save failed',
+                message : "Couldn't save details, there was form errors"}
+              );
           };
           $scope.cancel = function () {
             $scope.$emit('profile-cancel');

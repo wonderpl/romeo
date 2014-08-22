@@ -9,27 +9,8 @@
   <profile-image image="profile.avatar" is-edit="flags.isEdit"></profile-image>
 
   <div class="wrapper wrapper--fixed">
-    <h2 class="profile__name no-spacing input--field"
-      ng-show="flags.isEdit"
-      medium-editor
-      data-placeholder="{{ profile.name ? ' ' : 'name' }}"
-      options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
-      ng-model="profile.display_name">
-    </h2>
-
-    <h2 class="profile__name no-spacing" ng-hide="flags.isEdit" ng-bind="profile.display_name"></h2>
-
-    <div class="profile__description input--field"
-      ng-show="flags.isEdit"
-      medium-editor
-      ng-class="{ 'error' : flags.errorDescritionToLong }"
-      data-placeholder="{{ profile.description ? ' ' : 'description' }}"
-      options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
-      ng-model="profile.description">
-    </div>
-
-    <div class="profile__description" ng-hide="flags.isEdit" ng-bind-html="profile.description"></div>
-    <span class="error" ng-show="flags.isEdit && flags.errorDescritionToLong">Your description is to long, please make it shorter</span>
+    <profile-edit-details data-profile="profile" data-flags="flags" ng-if="flags.isEdit"></profile-edit-details>
+    <profile-view-details data-profile="profile" ng-if="! flags.isEdit"></profile-view-details>
 
     <profile-public ng-if="! flags.isOwner">
       This should be the list of collaborators and public videos

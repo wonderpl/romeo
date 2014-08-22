@@ -1,0 +1,9 @@
+<div class="profile__view-details">
+	<h2 class="profile__name no-spacing" ng-bind="profile.display_name"></h2>
+
+	<div class="profile__description" ng-bind-html="profile.description"></div>
+	<ul>
+		<li ng-if="profile.location" data-location="{{ profile.location }}">{{ location }}</li>
+		<li ng-if="profile.link" data-link="{{ profile.link }}"><a href="{{ link }}">{{ link }}</a></li>
+	</ul>
+</div>
