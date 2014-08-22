@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome to Wonder PL{% endblock %}
+
+{% block body %}
+
+{% if sender.avatar_url %}
+  <div style="width:100%;overflow:hidden;text-align:center;">
+    <img src="{{ sender.avatar_url }}" alt="" width="66" height="66" style="display:block;max-width:none;width:66px;height:auto;margin:0 auto;border-radius:100%;"/>
+  </div>
+  <br>
+{% endif %}
+
+Hello <email recipient full name>,
+
+<div style="font-weight:bold;font-size:28px;line-height:1.35;font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif;color:#2e2e32">
+  Hello {{ collaborator.name }},
+</div>
+<br>
+
+<div>
+  Welcome to Wonder PL, the world’s first collaborative video publishing platform.
+</div>
+<br>
+
+<div>
+  “This is the easiest, most beautiful way to collaborate with brands and fellow free-thinking creatives to produce and share great videos.” Esteemed film maker
+</div>
+<br>
+
+<div>
+  Our platform may look simple, but appearances can be deceptive. There is no technologically superior publishing platform on the market.
+</div>
+<br>
+
+<div>
+  We give you the tools to work as a team as well as the data to target, engage and monetise your audience across the web.
+</div>
+<br>
+
+<div>
+  People create better videos together, so take advantage of our trial to meet fellow creatives with this code xxx.
+</div>
+<br>
+
+{% endblock %}

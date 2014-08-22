@@ -1,18 +1,6 @@
 {% extends "base.html" %}
 
-{% macro video_url() %}
-{{ video.web_url.replace('http:', 'https:') }}?token={{ collaborator.token }}
-{%- endmacro %}
-
-{% if can_comment %}
-{% set action = "comment on" %}
-{% elif can_download %}
-{% set action = "download" %}
-{% else %}
-{% set action = "view" %}
-{% endif%}
-
-{% block title %}You have been invited to {{ action }} a video on Wonder PL{% endblock %}
+{% block title %}Your invitation to connect has been accepted on Wonder PL{% endblock %}
 
 {% block body %}
 
@@ -43,5 +31,4 @@
 </div>
 <br>
 
-<div>If you are interested in learning more about Wonder PL and want to join our closed Beta Programme, please drop us a line at <a href="mailto:beta@wonderpl.com" style="color:#51b464 !important;">beta@wonderpl.com</a></div>
 {% endblock %}
