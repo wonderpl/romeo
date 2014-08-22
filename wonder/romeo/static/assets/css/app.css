@@ -6664,7 +6664,7 @@ label,
 }
 /* line 52, ../../scss/specifics/profile/_profile-edit.scss */
 .profile__contact_button button:focus {
-  outline-color: #66afe9;
+  outline-width: 0;
 }
 /* line 53, ../../scss/specifics/profile/_profile-edit.scss */
 .profile__contact_button .active {

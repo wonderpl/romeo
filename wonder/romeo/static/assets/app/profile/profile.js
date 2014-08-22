@@ -1,7 +1,15 @@
-angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.security', 'ngRoute'])
 
-.config(['$routeProvider', 'securityAuthorizationProvider', function ($routeProvider, securityAuthorizationProvider) {
-        'use strict';
+(function () {
+
+'use strict';
+var debug = new DebugClass('RomeoApp.profile');
+
+angular.module('RomeoApp.profile', ['RomeoApp.profile.directives', 'RomeoApp.services', 'RomeoApp.security', 'ngRoute']);
+// Define other profile sub modules
+angular.module('RomeoApp.profile.directives', []);
+// End other sub modules
+
+function ProfileRouteProvider($routeProvider, securityAuthorizationProvider) {
         // Account management
         $routeProvider.when('/profile', {
             templateUrl: 'profile/profile.tmpl.html',
@@ -13,23 +21,52 @@ angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.security', 'n
             templateUrl: 'profile/profile.tmpl.html',
         //    resolve: securityAuthorizationProvider.requireCollaborator
         });
-}])
+}
 
-.controller('ProfileCtrl', ['$scope', 'AccountService', 'DataService', '$location', 'UploadService', '$routeParams', 'AuthService',
-  function($scope, AccountService, DataService, $location, UploadService, $routeParams, AuthService) {
-  'use strict';
-  var debug = new DebugClass('ProfileCtrl');
+angular.module('RomeoApp.profile').config(['$routeProvider', 'securityAuthorizationProvider', ProfileRouteProvider]);
 
-  $scope.flags = {
-    isEdit: false,
-    isOwner: false,
-    uploadingProfileImage: false,
-    uploadingProfileCover: false,
-    errorDescritionToLong: false,
-    accountId: null
-  };
+function ProfileCtrl($scope, AccountService, AuthService, DataService, $location, UploadService, $routeParams) {
+  var ProfileController = {};
 
-  function loadUserDetails() {
+  function init() {
+    $scope.flags = {
+      isEdit: false,
+      isOwner: false,
+      uploadingProfileImage: false,
+      uploadingProfileCover: false,
+      isFormValid: true,
+      accountId: null
+    };
+
+    $scope.$on('profile-save', ProfileController.save);
+    $scope.$on('profile-cancel', ProfileController.cancel);
+    $scope.$on('upload-profile-image', ProfileController.uploadProfileImage);
+    $scope.$on('uploaded-image', ProfileController.doneUploadingImage);
+    $scope.$on('upload-profile-cover', ProfileController.uploadProfileCover);
+
+    $scope.$watch('profile.description', function (newValue, oldValue) {
+      if (newValue !== oldValue) {
+        if (typeof newValue !== 'undefined')
+          $scope.flags.errorDescritionToLong = (newValue.length > 100);
+      }
+    });
+
+    $scope.$watch('profile.profile_cover', function (newValue, oldValue) {
+      if (newValue !== oldValue) {
+        debug.log('Profile cover changed to: ' + newValue);
+      }
+    });
+
+    $scope.$watch('profile.avatar', function (newValue, oldValue) {
+      if (newValue !== oldValue) {
+        debug.log('Profile avatar changed to: ' + newValue);
+      }
+    });
+      
+    ProfileController.loadUserDetails();
+  }
+
+  ProfileController.loadUserDetails = function() {
     if ($routeParams.id) {
       DataService.request({url: ('/api/account/' + $routeParams.id)}).then(function(response){
           $scope.profile = response;
@@ -52,40 +89,9 @@ angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.security', 'n
         });
       });
     }
-  }
+  };
 
-  loadUserDetails();
-
-  $scope.$on('profile-save', save);
-
-  $scope.$on('profile-cancel', cancel);
-
-  $scope.$on('upload-profile-image', uploadProfileImage);
-
-  $scope.$on('uploaded-image', doneUploadingImage);
-
-  $scope.$on('upload-profile-cover', uploadProfileCover);
-
-  $scope.$watch('profile.description', function (newValue, oldValue) {
-    if (newValue !== oldValue) {
-      if (typeof newValue !== 'undefined')
-        $scope.flags.errorDescritionToLong = (newValue.length > 100);
-    }
-  });
-
-  $scope.$watch('profile.profile_cover', function (newValue, oldValue) {
-    if (newValue !== oldValue) {
-      debug.log('Profile cover changed to: ' + newValue);
-    }
-  });
-
-  $scope.$watch('profile.avatar', function (newValue, oldValue) {
-    if (newValue !== oldValue) {
-      debug.log('Profile avatar changed to: ' + newValue);
-    }
-  });
-
-  function uploadProfileImage($event, file) {
+  ProfileController.uploadProfileImage = function ($event, file) {
     debug.log('uploadProfileImage()');
     debug.log(file);
     $scope.flags.uploadingProfileImage = true;
@@ -101,19 +107,20 @@ angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.security', 'n
         message : 'New image saved.'}
       );
       $scope.flags.uploadingProfileImage = false;
-      doneUploadingImage($events, data);
+      ProfileController.doneUploadingImage($events, data);
     });
-  }
-  function doneUploadingImage($event, data) {
+  };
+
+  ProfileController.doneUploadingImage = function ($event, data) {
     //Only update the profile cover and avatar, leaving the rest of the profile in it's current state
     var profile = angular.fromJson(data);
     debug.log('doneUploadingImage');
     debug.dir(profile);
     $scope.profile.profile_cover = profile.profile_cover;
     $scope.profile.avatar = profile.avatar;
-  }
+  };
 
-  function uploadProfileCover ($event, file) {
+  ProfileController.uploadProfileCover = function ($event, file) {
     debug.log('uploadProfileCover()');
     debug.log(file);
     $scope.flags.uploadingProfileCover = true;
@@ -129,11 +136,11 @@ angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.security', 'n
         message : 'New cover image saved.'}
       );
       $scope.flags.uploadingProfileCover = false;
-      doneUploadingImage(null, data);
+      ProfileController.doneUploadingImage(null, data);
     });
-  }
+  };
 
-  function save() {
+  ProfileController.save = function () {
     if (! $scope.flags.isOwner) {
       $scope.$emit('notify', {
         status : 'error',
@@ -153,16 +160,20 @@ angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.security', 'n
         message : 'Profile details saved.'}
       );
     });
-  }
+  };
 
-  function cancel() {
+  ProfileController.cancel = function () {
     $scope.flags.isEdit = false;
-    loadUserDetails();
-  }
-}]);
+    ProfileController.loadUserDetails();
+  };
 
-// Define other profile sub modules
-angular.module('RomeoApp.profile.directives', []);
+  init();
+  return ProfileController;
+}
+
+angular.module('RomeoApp.profile').controller('ProfileCtrl', ['$scope', 'AccountService', 'AuthService', 'DataService', '$location', 'UploadService', '$routeParams', ProfileCtrl]);
+
+})();
 
 
 

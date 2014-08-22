@@ -49,6 +49,6 @@
 		font-weight: bold;
 		color: $light-grey;
 	}
-	button:focus { outline-color: #66afe9; }
+	button:focus { outline-width: 0; }
 	.active { color: $cold-black; }
 }
