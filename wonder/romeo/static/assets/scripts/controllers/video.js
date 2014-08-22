@@ -153,6 +153,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
       title : 'Uploading Image',
       message : 'Thumbnail uploading.'}
     );
+    updateImmediateCoverImage(files[0]);
     VideoService.saveCustomPreview($scope.video.id, files[0]).then(function(data){
       angular.extend($scope.video, data);
       $scope.loadVideo($scope.video.id);
@@ -171,6 +172,20 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
       );
     });
   };
+
+  function updateImmediateCoverImage (image) {
+    var frames = document.getElementsByClassName('video-player__frame');
+    if (frames.length) {
+      var frame = frames[0].contentWindow || frames[0].contentDocument.parentWindow;
+      if (frame) {
+        var wonderPoster = document.getElementById('wonder-poster');
+        if (wonderPoster) {
+          console.log(files[0]);
+          // wonderPoster.src = files[0];
+        }
+      }
+    }
+  }
 
   $scope.onSetPreviewImage = function() {
     debug.log('onSetPreviewImage');
@@ -562,6 +577,6 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
     }
     return false;
   };
-  // Call routing method on opening of controllers screen 
+  // Call routing method on opening of controllers screen
   videoRouting();
 }
