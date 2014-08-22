@@ -2027,6 +2027,28 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('profile/directives/edit-form.tmpl.html',
+    "<h2 class=\"profile__name no-spacing input--field\"\n" +
+    "  ng-show=\"flags.isEdit\"\n" +
+    "  medium-editor\n" +
+    "  data-placeholder=\"(~ profile.name ? ' ' : 'name' ~)\"\n" +
+    "  options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
+    "  ng-model=\"profile.display_name\">\n" +
+    "</h2>\n" +
+    "\n" +
+    "<div class=\"profile__description input--field\"\n" +
+    "  ng-show=\"flags.isEdit\"\n" +
+    "  medium-editor\n" +
+    "  ng-class=\"{ 'error' : ! form.valid.description }\"\n" +
+    "  data-placeholder=\"(~ profile.description ? ' ' : 'description' ~)\"\n" +
+    "  options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
+    "  ng-model=\"profile.description\">\n" +
+    "</div>\n" +
+    "\n" +
+    "<span class=\"error\" ng-show=\"form.valid.description\">Your description is to long, please make it shorter</span>"
+  );
+
+
   $templateCache.put('profile/images/cover.tmpl.html',
     "<section class=\"profile-cover\" \n" +
     "  ng-class=\"{ 'profile-cover--edit' : isEdit, 'profile-cover--hero' : isHero, 'profile-cover--img' : image }\"\n" +
@@ -2101,7 +2123,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <profile-image image=\"profile.avatar\" is-edit=\"flags.isEdit\"></profile-image>\n" +
     "\n" +
     "  <div class=\"wrapper wrapper--fixed\">\n" +
-    "    <h2 class=\"profile__name  no-spacing\"\n" +
+    "    <h2 class=\"profile__name no-spacing input--field\"\n" +
     "      ng-show=\"flags.isEdit\"\n" +
     "      medium-editor\n" +
     "      data-placeholder=\"(~ profile.name ? ' ' : 'name' ~)\"\n" +
@@ -2109,18 +2131,19 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      ng-model=\"profile.display_name\">\n" +
     "    </h2>\n" +
     "\n" +
-    "    <h2 class=\"profile__name  no-spacing\" ng-hide=\"flags.isEdit\" ng-bind=\"profile.display_name\"></h2>\n" +
+    "    <h2 class=\"profile__name no-spacing\" ng-hide=\"flags.isEdit\" ng-bind=\"profile.display_name\"></h2>\n" +
     "\n" +
-    "    <div class=\"profile__description\"\n" +
+    "    <div class=\"profile__description input--field\"\n" +
     "      ng-show=\"flags.isEdit\"\n" +
     "      medium-editor\n" +
+    "      ng-class=\"{ 'error' : flags.errorDescritionToLong }\"\n" +
     "      data-placeholder=\"(~ profile.description ? ' ' : 'description' ~)\"\n" +
     "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
     "      ng-model=\"profile.description\">\n" +
     "    </div>\n" +
     "\n" +
     "    <div class=\"profile__description\" ng-hide=\"flags.isEdit\" ng-bind-html=\"profile.description\"></div>\n" +
-    "    <span class=\"error\" ng-show=\"isEdit && errorDescritionToLong\">Your description is to long, please make it shorter</span>\n" +
+    "    <span class=\"error\" ng-show=\"flags.isEdit && flags.errorDescritionToLong\">Your description is to long, please make it shorter</span>\n" +
     "\n" +
     "    <profile-public ng-if=\"! flags.isOwner\">\n" +
     "      This should be the list of collaborators and public videos\n" +

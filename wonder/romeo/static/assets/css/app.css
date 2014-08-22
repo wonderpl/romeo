@@ -2666,6 +2666,26 @@ li > ol {
   background: url(/static/assets/img/loading_white_46x46.png) 0px 0px no-repeat;
 }
 
+/* line 1, ../../scss/_components/_components.form-fields.scss */
+.input--field:focus {
+  border-color: #66afe9;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  outline-color: #66afe9;
+}
+
+/* line 7, ../../scss/_components/_components.form-fields.scss */
+.input--field.error:focus {
+  border-color: #f00;
+  outline-color: #f00;
+}
+
+/* line 11, ../../scss/_components/_components.form-fields.scss */
+.input--field.success:focus {
+  border-color: #51b364;
+  outline-color: #51b364;
+}
+
 /**
  * _theme.structure.scss
  */
@@ -6558,7 +6578,12 @@ label,
   display: none;
 }
 
-/* line 4, ../../scss/specifics/profile/_profile-view.scss */
+/* line 1, ../../scss/specifics/profile/_profile-view.scss */
+.profile {
+  margin-bottom: 50px;
+}
+
+/* line 5, ../../scss/specifics/profile/_profile-view.scss */
 .profile__name {
   font-size: 50px;
   margin-bottom: 12px;
@@ -6567,7 +6592,7 @@ label,
   text-align: center;
 }
 
-/* line 12, ../../scss/specifics/profile/_profile-view.scss */
+/* line 13, ../../scss/specifics/profile/_profile-view.scss */
 .profile__description {
   margin-bottom: 24px;
   color: #2e2e32;

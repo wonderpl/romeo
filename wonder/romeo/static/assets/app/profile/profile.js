@@ -161,6 +161,8 @@ angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.security', 'n
   }
 }]);
 
+// Define other profile sub modules
+angular.module('RomeoApp.profile.directives', []);
 
 
 

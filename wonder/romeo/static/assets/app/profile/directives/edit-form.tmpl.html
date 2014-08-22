@@ -1,0 +1,18 @@
+<h2 class="profile__name no-spacing input--field"
+  ng-show="flags.isEdit"
+  medium-editor
+  data-placeholder="{{ profile.name ? ' ' : 'name' }}"
+  options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
+  ng-model="profile.display_name">
+</h2>
+
+<div class="profile__description input--field"
+  ng-show="flags.isEdit"
+  medium-editor
+  ng-class="{ 'error' : ! form.valid.description }"
+  data-placeholder="{{ profile.description ? ' ' : 'description' }}"
+  options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
+  ng-model="profile.description">
+</div>
+
+<span class="error" ng-show="form.valid.description">Your description is to long, please make it shorter</span>
