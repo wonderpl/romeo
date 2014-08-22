@@ -9,6 +9,7 @@ a {
 
   &:hover {
     border-color: $swatch-five;
+    cursor: pointer;
   }
   &:active {
     color: lighter($swatch-five, 30%);

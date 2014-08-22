@@ -818,13 +818,14 @@ a {
 /* line 10, ../../scss/_base/_base.anchors.scss */
 a:hover {
   border-color: #51b364;
+  cursor: pointer;
 }
-/* line 13, ../../scss/_base/_base.anchors.scss */
+/* line 14, ../../scss/_base/_base.anchors.scss */
 a:active {
   color: lighter(#51b364, 30%);
 }
 
-/* line 18, ../../scss/_base/_base.anchors.scss */
+/* line 19, ../../scss/_base/_base.anchors.scss */
 a.non-link {
   color: inherit;
   border: none;
