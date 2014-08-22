@@ -2047,24 +2047,50 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    ng-model=\"profile.description\">\n" +
     "  </div>\n" +
     "\n" +
-    "  <section class=\"profile__edit-details-extended text-col\">\n" +
+    "  <section class=\"profile__edit-details-extended\">\n" +
     "\n" +
-    "\n" +
-    "    <span class=\"profile__link input--field\"\n" +
+    "  <label><span class=\"required\">*</span> Job title:</label>\n" +
+    "    <div class=\"profile__job_title input--field\"\n" +
     "      medium-editor\n" +
-    "      ng-class=\"{ 'error' : form.errors.link }\"\n" +
-    "      data-placeholder=\"(~ profile.link ? ' ' : 'Link http://' ~)\"\n" +
+    "      me-required\n" +
+    "      ng-class=\"{ 'error' : form.errors.jobTitle }\"\n" +
     "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
-    "      ng-model=\"profile.link\">\n" +
-    "    </span>\n" +
+    "      ng-model=\"profile.jobTitle\">\n" +
+    "    </div>\n" +
     "\n" +
-    "    <span class=\"profile__location input--field\"\n" +
+    "  <label>Website or homepage:</label>\n" +
+    "    <div class=\"profile__website input--field\"\n" +
     "      medium-editor\n" +
+    "      ng-class=\"{ 'error' : form.errors.website }\"\n" +
+    "      data-placeholder=\"(~ profile.website ? ' ' : 'Link http://' ~)\"\n" +
+    "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
+    "      ng-model=\"profile.website\">\n" +
+    "    </div>\n" +
+    "\n" +
+    "  <label><span class=\"required\">*</span> Share your location:</label>\n" +
+    "    <div class=\"profile__location input--field\"\n" +
+    "      medium-editor\n" +
+    "      me-required\n" +
     "      ng-class=\"{ 'error' : form.errors.location }\"\n" +
     "      data-placeholder=\"(~ profile.location ? ' ' : 'Location (for example: London, UK)' ~)\"\n" +
     "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
     "      ng-model=\"profile.location\">\n" +
-    "    </span>\n" +
+    "    </div>\n" +
+    "\n" +
+    "  <label>Show contact button:</label>\n" +
+    "    <div class=\"profile__contact_button toggle--field\">\n" +
+    "    <button ng-class=\"{'active' : profile.contactable }\" ng-click=\"profile.contactable = true\">Yes</button>\n" +
+    "    <button ng-class=\"{'active' : !profile.contactable }\" ng-click=\"profile.contactable = false\">No</button>\n" +
+    "  </div>\n" +
+    "  <label><span class=\"required\">*</span> Searchable terms:</label>\n" +
+    "    <div class=\"profile__search_terms input--field2 milli\"\n" +
+    "      medium-editor\n" +
+    "      me-required\n" +
+    "      ng-class=\"{ 'error' : form.errors.searchTerms }\"\n" +
+    "      data-placeholder=\"(~ profile.searchTerms ? ' ' : 'Make yourself searchable by adding relevant terms.' ~)\"\n" +
+    "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
+    "      ng-model=\"profile.searchTerms\">\n" +
+    "    </div>\n" +
     "  </section>\n" +
     "</div>"
   );
@@ -2073,11 +2099,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('profile/directives/view-details.tmpl.html',
     "<div class=\"profile__view-details\">\n" +
     "\t<h2 class=\"profile__name no-spacing\" ng-bind=\"profile.display_name\"></h2>\n" +
+    "\t\n" +
+    "\t<div ng-show=\"profile.jobTitle\">(~ profile.jobTitle ~)</div>\n" +
     "\n" +
     "\t<div class=\"profile__description\" ng-bind-html=\"profile.description\"></div>\n" +
+    "\n" +
     "\t<ul>\n" +
     "\t\t<li ng-if=\"profile.location\" data-location=\"(~ profile.location ~)\">(~ location ~)</li>\n" +
-    "\t\t<li ng-if=\"profile.link\" data-link=\"(~ profile.link ~)\"><a href=\"(~ link ~)\">(~ link ~)</a></li>\n" +
+    "\t\t<li ng-if=\"profile.website\" data-website=\"(~ profile.website ~)\"><a href=\"(~ website ~)\">(~ website ~)</a></li>\n" +
     "\t</ul>\n" +
     "</div>"
   );
