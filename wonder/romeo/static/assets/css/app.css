@@ -6408,41 +6408,42 @@ label,
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center top;
+  background-color: black;
   position: relative;
 }
 
-/* line 9, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 10, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover--img {
   height: 420px;
 }
 
-/* line 13, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 14, ../../scss/specifics/profile/_profile-cover.scss */
 .configurable-layout-column--is-comments .profile-cover--img {
   height: 100px;
   background-image: none !important;
 }
 
-/* line 18, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 19, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover--hero {
   height: 140px;
 }
 
-/* line 22, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 23, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__upload-label {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
 
-/* line 30, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 31, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover--edit:hover {
   cursor: pointer;
 }
-/* line 33, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 34, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover--edit:hover .profile-cover__upload-label {
   background-clip: padding-box;
   border: solid 2px #51b364;
 }
-/* line 39, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 40, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover--edit .profile-cover__upload-label {
   position: absolute;
   top: 0;
@@ -6451,7 +6452,7 @@ label,
   width: 100%;
   background: rgba(0, 0, 0, 0.7);
 }
-/* line 48, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 49, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover--edit .profile-cover__dropzone {
   width: 74px;
   height: 74px;
@@ -6468,7 +6469,7 @@ label,
   opacity: 1;
 }
 
-/* line 67, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 68, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__dropzone {
   position: absolute;
   left: -9999px;
@@ -6476,17 +6477,17 @@ label,
   opacity: 0;
 }
 
-/* line 74, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 75, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__dropzone:hover {
   cursor: pointer;
 }
 
-/* line 78, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 79, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__dropzone--active {
   border: solid 2px #51b364;
 }
 
-/* line 82, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 83, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__upload {
   display: none;
 }
