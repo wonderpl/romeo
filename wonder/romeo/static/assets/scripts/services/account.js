@@ -67,14 +67,14 @@ angular.module('RomeoApp.services').factory('AccountService',
         return DataService.uploadImage( ('/api/account/' + ID), 'avatar', data);
     };
 
-    // 
+    //
     Account.getAccountByExternalToken = function (service, token) {
         return $http.get('/api/account/external/' + service + '/' + token);
     };
 
     Account.user = function() {
         return User;
-    }
+    };
 
     /*
     * Expose the methods to the service
