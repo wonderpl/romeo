@@ -29,6 +29,9 @@ angular.module('RomeoApp.controllers')
           if (id === 'recent') {
             $scope.filterByRecent = true;
             setCollection();
+          } else if (id === 'collaboration') {
+            $scope.filterByCollaboration = true;
+            setCollection();
           } else {
             setCollection(id);
           }
@@ -40,7 +43,7 @@ angular.module('RomeoApp.controllers')
       $scope.tag = getTagById(id);
     }
 
-    refresh(); // Call this on page load to load all the data 
+    refresh(); // Call this on page load to load all the data
 
 
     // Scope listners:
@@ -48,6 +51,7 @@ angular.module('RomeoApp.controllers')
     $scope.$on('show-collection', function ($event, id) {
       $event.stopPropagation = true;
       $scope.filterByRecent = false;
+      $scope.filterByCollaboration = false;
       redirect(id, false);
       setCollection(id);
     });
@@ -55,8 +59,18 @@ angular.module('RomeoApp.controllers')
     $scope.$on('show-recent', function ($event) {
       $event.stopPropagation = true;
       $scope.filterByRecent = true;
+      $scope.filterByCollaboration = false;
       $scope.tag = null;
       redirect('recent', false);
+      setCollection();
+    });
+
+    $scope.$on('show-collaboration', function ($event) {
+      $event.stopPropagation = true;
+      $scope.filterByRecent = false;
+      $scope.filterByCollaboration = true;
+      $scope.tag = null;
+      redirect('collaboration', false);
       setCollection();
     });
 

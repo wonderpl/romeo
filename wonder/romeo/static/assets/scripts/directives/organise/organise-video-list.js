@@ -23,7 +23,8 @@ function OrganiseVideoList ($templateCache, $cookies) {
     scope : {
       videos : '=',
       tag : '=',
-      filterByRecent: '='
+      filterByRecent: '=',
+      filterByCollaboration: '='
     },
     controller : function ($scope) {
 
@@ -54,11 +55,20 @@ function OrganiseVideoList ($templateCache, $cookies) {
         }
       });
 
+      $scope.$watch('filterByCollaboration', function (newValue, oldValue) {
+        if (!angular.equals(newValue, oldValue)) {
+          debug.log('filterByCollaboration changed');
+          $scope.filteredVideos = getFilteredVideoList();
+        }
+      });
+
       function getFilteredVideoList() {
         if ($scope.filterByRecent)
           return filterVideosByRecent();
         else if ($scope.tag)
           return filterVideosByTagId($scope.tag.id);
+        else if ($scope.filterByCollaboration)
+          return filterVideosByCollaboration();
         return $scope.videos;
       }
 
@@ -80,6 +90,16 @@ function OrganiseVideoList ($templateCache, $cookies) {
         var filteredVideos = [];
         angular.forEach($scope.videos, function (video, key) {
           if ($scope.isRecent(video)) {
+            filteredVideos.push(video);
+          }
+        });
+        return filteredVideos;
+      }
+
+      function filterVideosByCollaboration () {
+        var filteredVideos = [];
+        angular.forEach($scope.videos, function (video, key) {
+          if (video.isCollaboration) {
             filteredVideos.push(video);
           }
         });

@@ -1,11 +1,11 @@
 <main role="main" class="page-content" ng-controller="OrganiseCtrl">
   <div class="wrapper  wrapper--fixed">
-    <organise-breadcrumb tag="tag" filter-by-recent="filterByRecent"></organise-breadcrumb>
+    <organise-breadcrumb tag="tag" filter-by-recent="filterByRecent" filter-by-collaboration="filterByCollaboration"></organise-breadcrumb>
     <div class="layout">
-      <organise-navigation tags="tags" current-tag="tag" filter-by-recent="filterByRecent"></organise-navigation>
+      <organise-navigation tags="tags" current-tag="tag" filter-by-recent="filterByRecent" filter-by-collaboration="filterByCollaboration"></organise-navigation>
       <div class="layout__item  two-thirds">
-        <organise-collection ng-show="tag" tag="tag" is-edit="isEdit"></organise-collection>  
-        <organise-video-list videos="videos" tag="tag" filter-by-recent="filterByRecent"></organise-video-list>
+        <organise-collection ng-show="tag" ng-if="!$root.isCollaborator" tag="tag" is-edit="isEdit"></organise-collection>
+        <organise-video-list videos="videos" tag="tag" filter-by-recent="filterByRecent" filter-by-collaboration="filterByCollaboration"></organise-video-list>
       </div>
     </div>
   </div>

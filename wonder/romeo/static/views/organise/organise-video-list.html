@@ -25,7 +25,7 @@
 
   <div ng-hide="filteredVideos" class="organise-video-list__message">
     <p>There are no videos here right now</p>
-    <p>Go and <a href="#/video">upload</a> a video.</p>
+    <p ng-if="!filterByCollaboration">Go and <a href="#/video">upload</a> a video.</p>
   </div>
 
   <ul class="layout" ng-show="filteredVideos">

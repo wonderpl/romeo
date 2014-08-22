@@ -12,7 +12,8 @@ function OrganiseNavigationDirective ($templateCache) {
     scope : {
       tags : '=',
       currentTag : '=',
-      filterByRecent : '='
+      filterByRecent : '=',
+      filterByCollaboration : '='
     },
     controller : function ($scope) {
       function showCreateCollection (isPublic) {
@@ -32,6 +33,9 @@ function OrganiseNavigationDirective ($templateCache) {
       };
       $scope.showRecentVideos = function () {
         $scope.$emit('show-recent');
+      };
+      $scope.showCollaborationVideos = function () {
+        $scope.$emit('show-collaboration');
       };
     }
   };

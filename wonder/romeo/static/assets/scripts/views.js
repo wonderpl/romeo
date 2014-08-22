@@ -1012,8 +1012,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('organise-breadcrumb.html',
     "<ol class=\"nav  page-breadcrumbs\">\n" +
     "  <li class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title\">All Videos</span></li>\n" +
-    "  <li ng-show=\"!filterByRecent && tag\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title  page-breadcrumbs__title--selected\" ng-bind-html=\"tag.label\"></span></li>\n" +
-    "  <li ng-show=\"filterByRecent\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title\">Recent Videos</span></li>\n" +
+    "  <li ng-if=\"!filterByRecent && tag\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title  page-breadcrumbs__title--selected\" ng-bind-html=\"tag.label\"></span></li>\n" +
+    "  <li ng-if=\"filterByRecent\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title\">Recent Videos</span></li>\n" +
+    "  <li ng-if=\"filterByCollaboration\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title\">Collaboration Videos</span></li>\n" +
     "</ol>"
   );
 
@@ -1061,17 +1062,18 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<div class=\"layout__item  one-third  organise-navigation\">\n" +
     "  <ul class=\"nav  nav--stacked  browse-list\">\n" +
     "    <li class=\"browse-list__item\"><span class=\"browse-list__title\">Manage</span></li>\n" +
-    "    <li class=\"browse-list__item\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : !filterByRecent && !currentTag }\" ng-click=\"showAllVideos()\">All videos</a></li>\n" +
-    "    <li class=\"browse-list__item\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : filterByRecent }\" ng-click=\"showRecentVideos()\">Recently added videos</a></li>\n" +
+    "    <li class=\"browse-list__item\"ng-if=\"!$root.isCollaborator\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : !filterByCollaboration &&  !filterByRecent && !currentTag }\" ng-click=\"showAllVideos()\">All videos</a></li>\n" +
+    "    <li class=\"browse-list__item\"ng-if=\"!$root.isCollaborator\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : filterByRecent }\" ng-click=\"showRecentVideos()\">Recently added videos</a></li>\n" +
+    "    <li class=\"browse-list__item\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : filterByCollaboration }\" ng-click=\"showCollaborationVideos()\">Collaboration videos</a></li>\n" +
     "  </ul>\n" +
     "\n" +
-    "  <ul class=\"nav  nav--stacked  browse-list\">\n" +
+    "  <ul class=\"nav  nav--stacked  browse-list\" ng-if=\"!$root.isCollaborator\">\n" +
     "    <li class=\"browse-list__item\"><span class=\"browse-list__title\">Collections not visible in app</span></li>\n" +
     "    <li class=\"browse-list__item\"><a class=\"browse-list__link  browse-list__link--create\" ng-click=\"createPrivateCollection()\"><span class=\"icon-text\"><i class=\"icon  icon-text__icon  icon--plus\"></i>Add a new private collection</span></a></li>\n" +
     "    <li class=\"browse-list__item\" ng-repeat=\"tag in tags | orderBy : 'label' | filter : { public : false }\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : currentTag.id === tag.id }\" ng-bind-html=\"tag.label\" ng-click=\"loadCollection(tag.id)\"></a></li>\n" +
     "  </ul>\n" +
     "\n" +
-    "  <ul class=\"nav  nav--stacked  browse-list\">\n" +
+    "  <ul class=\"nav  nav--stacked  browse-list\"ng-if=\"!$root.isCollaborator\">\n" +
     "    <li class=\"browse-list__item\"><span class=\"browse-list__title\">Collections visible in app</span></li>\n" +
     "    <li class=\"browse-list__item\"><a class=\"browse-list__link  browse-list__link--create\" ng-click=\"createPublicCollection()\"><span class=\"icon-text\"><i class=\"icon  icon-text__icon  icon--plus\"></i>Add a new public collection</span></a></li>\n" +
     "    <li class=\"browse-list__item\" ng-repeat=\"tag in tags | filter : { public : true } | orderBy : 'label'\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : currentTag.id === tag.id }\" ng-bind-html=\"tag.label\" ng-click=\"loadCollection(tag.id)\"></a></li>\n" +
@@ -1108,7 +1110,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <div ng-hide=\"filteredVideos\" class=\"organise-video-list__message\">\n" +
     "    <p>There are no videos here right now</p>\n" +
-    "    <p>Go and <a href=\"#/video\">upload</a> a video.</p>\n" +
+    "    <p ng-if=\"!filterByCollaboration\">Go and <a href=\"#/video\">upload</a> a video.</p>\n" +
     "  </div>\n" +
     "\n" +
     "  <ul class=\"layout\" ng-show=\"filteredVideos\">\n" +
@@ -1178,12 +1180,12 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('organise.html',
     "<main role=\"main\" class=\"page-content\" ng-controller=\"OrganiseCtrl\">\n" +
     "  <div class=\"wrapper  wrapper--fixed\">\n" +
-    "    <organise-breadcrumb tag=\"tag\" filter-by-recent=\"filterByRecent\"></organise-breadcrumb>\n" +
+    "    <organise-breadcrumb tag=\"tag\" filter-by-recent=\"filterByRecent\" filter-by-collaboration=\"filterByCollaboration\"></organise-breadcrumb>\n" +
     "    <div class=\"layout\">\n" +
-    "      <organise-navigation tags=\"tags\" current-tag=\"tag\" filter-by-recent=\"filterByRecent\"></organise-navigation>\n" +
+    "      <organise-navigation tags=\"tags\" current-tag=\"tag\" filter-by-recent=\"filterByRecent\" filter-by-collaboration=\"filterByCollaboration\"></organise-navigation>\n" +
     "      <div class=\"layout__item  two-thirds\">\n" +
-    "        <organise-collection ng-show=\"tag\" tag=\"tag\" is-edit=\"isEdit\"></organise-collection>  \n" +
-    "        <organise-video-list videos=\"videos\" tag=\"tag\" filter-by-recent=\"filterByRecent\"></organise-video-list>\n" +
+    "        <organise-collection ng-show=\"tag\" ng-if=\"!$root.isCollaborator\" tag=\"tag\" is-edit=\"isEdit\"></organise-collection>\n" +
+    "        <organise-video-list videos=\"videos\" tag=\"tag\" filter-by-recent=\"filterByRecent\" filter-by-collaboration=\"filterByCollaboration\"></organise-video-list>\n" +
     "      </div>\n" +
     "    </div>\n" +
     "  </div>\n" +
