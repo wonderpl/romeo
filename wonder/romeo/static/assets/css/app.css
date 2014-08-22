@@ -6600,6 +6600,13 @@ label,
   text-align: center;
 }
 
+/* line 22, ../../scss/specifics/profile/_profile-view.scss */
+.profile__view-details--job-title,
+.profile__view-details--location,
+.profile__view-details--website {
+  text-align: center;
+}
+
 /* _profile-edit.scss */
 /* line 5, ../../scss/specifics/profile/_profile-edit.scss */
 .profile__edit-details-extended {
@@ -6670,6 +6677,30 @@ label,
 /* line 53, ../../scss/specifics/profile/_profile-edit.scss */
 .profile__contact_button .active {
   color: #2e2e32;
+}
+
+/* _profile-public.scss */
+/* line 2, ../../scss/specifics/profile/_profile-public.scss */
+.public-profile__collaborators {
+  list-style: none;
+  display: block;
+  width: 300px;
+  margin: 0 auto 12px;
+}
+/* line 8, ../../scss/specifics/profile/_profile-public.scss */
+.public-profile__collaborators > li {
+  display: inline-block;
+  width: 100px;
+}
+
+/* line 13, ../../scss/specifics/profile/_profile-public.scss */
+.public-profile__legend {
+  text-transform: uppercase;
+  color: #b7bcbd;
+  width: auto;
+  margin: 0 auto 12px;
+  text-align: center;
+  font-size: 12px;
 }
 
 /* line 1, ../../scss/specifics/login/_login-view.scss */

@@ -1,0 +1,20 @@
+/* _profile-public.scss */
+.public-profile__collaborators {
+	list-style: none;
+	display: block;
+	width: 300px;
+	margin: 0 auto $half-spacing-unit;
+
+	> li {
+		display: inline-block;
+		width: 100px;
+	}
+}
+.public-profile__legend {
+	text-transform: uppercase;
+	color: $light-grey;
+	width: auto;
+	margin: 0 auto $half-spacing-unit;
+	text-align: center;
+	font-size: 12px;
+}

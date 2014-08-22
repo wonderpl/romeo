@@ -71,6 +71,11 @@ function ProfileCtrl($scope, AccountService, AuthService, DataService, $location
       DataService.request({url: ('/api/account/' + $routeParams.id)}).then(function(response){
           $scope.profile = response;
           $scope.flags.accountId = $routeParams.id;
+
+        $scope.profile.location = 'London, UK';
+        $scope.profile.website = 'http://www.mini.me';
+
+        $scope.profile.jobTitle = 'Mastermind';
       }, function (response) {
         console.dir(response);
         $scope.$emit('notify', {

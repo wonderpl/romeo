@@ -2145,14 +2145,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<div class=\"profile__view-details\">\n" +
     "\t<h2 class=\"profile__name no-spacing\" ng-bind=\"profile.display_name\"></h2>\n" +
     "\t\n" +
-    "\t<div ng-show=\"profile.jobTitle\">(~ profile.jobTitle ~)</div>\n" +
+    "\t<div ng-show=\"profile.jobTitle\" class=\"profile__view-details--job-title\" style=\"text-align: center;\">(~ profile.jobTitle ~)</div>\n" +
     "\n" +
     "\t<div class=\"profile__description\" ng-bind-html=\"profile.description\"></div>\n" +
     "\n" +
-    "\t<ul>\n" +
-    "\t\t<li ng-if=\"profile.location\" data-location=\"(~ profile.location ~)\">(~ location ~)</li>\n" +
-    "\t\t<li ng-if=\"profile.website\" data-website=\"(~ profile.website ~)\"><a href=\"(~ website ~)\">(~ website ~)</a></li>\n" +
-    "\t</ul>\n" +
+    "\t<div ng-if=\"profile.location\" class=\"profile__view-details--location\" data-location=\"(~ profile.location ~)\">(~ profile.location ~)</div>\n" +
+    "\t<div ng-if=\"profile.website\" class=\"profile__view-details--website\" data-website=\"(~ profile.website ~)\"><a href=\"(~ website ~)\">(~ profile.website ~)</a></div>\n" +
+    "\n" +
     "</div>"
   );
 
@@ -2245,15 +2244,16 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('profile/public/public.tmpl.html',
     "<section class=\"public-profile__wrapper\">\n" +
-    "\t<ul class=\"public-profile__videos\" ng-show=\"videos\">\n" +
-    "\t\t<li ng-repeat=\"video in videos\">\n" +
-    "\t\t\t(~video.title~)\n" +
+    "\t<p class=\"public-profile__legend sans\">Collaborated with:</p>\n" +
+    "\t<ul class=\"public-profile__collaborators\" ng-show=\"collaborators\">\n" +
+    "\t\t<li ng-repeat=\"user in collaborators\">\n" +
+    "\t\t\t<a href=\"#/profile\" class=\"nav-menu__link  avatar \"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" title=\"(~user.display_name~)\" class=\"avatar__img\" ng-style=\"profile\" style=\"background-image: url((~user.avatar~));\"></a>\n" +
     "\t\t</li>\n" +
     "\t</ul>\n" +
     "\n" +
-    "\t<ul class=\"public-profile__collaborators\" ng-show=\"collaborators\">\n" +
-    "\t\t<li ng-repeat=\"user in collaborators\">\n" +
-    "\t\t\t(~user.display_name~)\n" +
+    "\t<ul class=\"public-profile__videos\" ng-show=\"videos\">\n" +
+    "\t\t<li ng-repeat=\"video in videos\">\n" +
+    "\t\t\t(~video.title~)\n" +
     "\t\t</li>\n" +
     "\t</ul>\n" +
     "</section>"
