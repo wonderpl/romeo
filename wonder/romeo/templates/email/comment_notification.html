@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% macro video_url() %}
-{{ video.web_url.replace('http:', 'https:') }}{% if token %}?token={{ token }}{% else %}/comments{% endif %}
+{{ video.web_url }}{% if token %}?token={{ token }}{% else %}/comments{% endif %}
 {% endmacro %}
 
 {% block title %}{{ sender.name }} has commented on "{{ video.title }}"{% endblock %}

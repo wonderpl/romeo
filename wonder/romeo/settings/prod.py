@@ -21,6 +21,7 @@ DOLLY_PUBSUB_SECRET = _decrypt('\x15\xc4\xd6?\xe7o\x7fS\x94$\xc5<?\x83-\xaf\xac=
 DEFAULT_EMAIL_SOURCE = 'Wonder PL <noreply@wonderpl.com>'
 
 SERVER_NAME = 'romeo.wonderpl.com'
+PREFERRED_URL_SCHEME = 'https'
 ASSETS_URL = 'https://d2sjb83b7sgvkt.cloudfront.net/static'
 SESSION_COOKIE_DOMAIN = SERVER_NAME
 SESSION_COOKIE_SECURE = True
