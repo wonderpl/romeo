@@ -175,6 +175,8 @@ def update_video_status(video, data, send_email=True):
 def check_ooyala_processing_status():
     videos = Video.query.filter(Video.status == 'processing', Video.external_id != None)
     videoids = dict(videos.values('external_id', 'id'))
+    if not videoids:
+        return
     params = dict(where="embed_code in ('%s')" % "', '".join(videoids))
     for asset in ooyala.ooyala_request('assets', params=params)['items']:
         if not asset['status'] == 'processing':
