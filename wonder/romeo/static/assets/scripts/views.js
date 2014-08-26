@@ -2214,14 +2214,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "<div class=\"modal__content\">\n" +
     "  <fieldset class=\"modal-form__fieldset\">\n" +
-    "    <label for=\"inviteEmail\" class=\"is-hidden\">Email Address:</label>\n" +
-    "    <input id=\"inviteEmail\" class=\"form-input  modal-input\" ng-model=\"invitation.address\" type=\"text\" placeholder=\"Email Address\" />\n" +
     "    <label for=\"inviteMessage\" class=\"is-hidden\">Invitation Message:</label>\n" +
     "    <textarea id=\"inviteMessage\" class=\"modal-textbox\" ng-model=\"invitation.message\" placeholder=\"Invitation Message\"></textarea>\n" +
     "  </fieldset>\n" +
-    "\n" +
     "  <button class=\"btn btn--positive\" ng-click=\"sendInvite()\">Send Invitation</button>\n" +
-    "\n" +
     "</div>"
   );
 
@@ -2271,9 +2267,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <profile-public ng-if=\"! flags.isOwner\">\n" +
     "      This should be the list of collaborators and public videos\n" +
     "    </profile-public>\n" +
-    "  </div>\n" +
     "\n" +
-    "  <profile-invite></profile-invite>\n" +
+    "    <profile-invite ng-if=\"!flags.isOwner\" data-profile=\"profile\"></profile-invite>\n" +
+    "  </div>\n" +
     "\n" +
     "</section>"
   );

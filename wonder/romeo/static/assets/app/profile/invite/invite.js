@@ -14,16 +14,21 @@
       controller : function ($scope) {
         $scope.sendInvite = function () {
           console.log($scope.invitation);
+          $scope.$emit('send-invitation-request', $scope.invitation);
           modal.hide();
         };
 
         $scope.invite = function () {
           modal.load('profile/invite/invite-modal.tmpl.html', true, $scope);
-          $scope.invitation = {};
+          console.log($scope.profile);
+          $scope.invitation = {
+            id: $scope.profile.id
+          };
         };
 
         $scope.close = function () {
           modal.hide();
+          $scope.invitation = null;
         };
       }
     };

@@ -25,7 +25,7 @@ function ProfileRouteProvider($routeProvider, securityAuthorizationProvider) {
 
 angular.module('RomeoApp.profile').config(['$routeProvider', 'securityAuthorizationProvider', ProfileRouteProvider]);
 
-function ProfileCtrl($scope, AccountService, AuthService, DataService, $location, UploadService, $routeParams, modal) {
+function ProfileCtrl($scope, AccountService, AuthService, DataService, UserService, $location, UploadService, $routeParams, modal) {
   var ProfileController = {};
 
   function init() {
@@ -43,6 +43,7 @@ function ProfileCtrl($scope, AccountService, AuthService, DataService, $location
     $scope.$on('upload-profile-image', ProfileController.uploadProfileImage);
     $scope.$on('uploaded-image', ProfileController.doneUploadingImage);
     $scope.$on('upload-profile-cover', ProfileController.uploadProfileCover);
+    $scope.$on('send-invitation-request', ProfileController.sendInvitationRequest);
 
     $scope.$watch('profile.description', function (newValue, oldValue) {
       if (newValue !== oldValue) {
@@ -176,11 +177,28 @@ function ProfileCtrl($scope, AccountService, AuthService, DataService, $location
     ProfileController.loadUserDetails();
   };
 
+  ProfileController.sendInvitationRequest = function (invite) {
+    UserService.connect(invite.id)
+    .then(function () {
+      $scope.$emit('notify', {
+        status : 'success',
+        title : 'Connect invitation sent',
+        message : 'Invitation to connect has been sent to ' + $scope.profile.display_name + '.'}
+      );
+    }, function () {
+      $scope.$emit('notify', {
+        status : 'error',
+        title : 'Invitation not sent',
+        message : 'Invitation to connect was not sent.'}
+      );
+    });
+  }
+
   init();
   return ProfileController;
 }
 
-angular.module('RomeoApp.profile').controller('ProfileCtrl', ['$scope', 'AccountService', 'AuthService', 'DataService', '$location', 'UploadService', '$routeParams', 'modal', ProfileCtrl]);
+angular.module('RomeoApp.profile').controller('ProfileCtrl', ['$scope', 'AccountService', 'AuthService', 'DataService', 'UserService', '$location', 'UploadService', '$routeParams', 'modal', ProfileCtrl]);
 
 })();
 
