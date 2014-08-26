@@ -2,7 +2,7 @@
  * _theme.modal-form.scss
  */
 .modal-form {
-  
+
   .form-fields {
 
     > li {
@@ -18,8 +18,23 @@
   }
     .modal-input {
       display: block;
+      width: 100%;
       border: 0;
       border-bottom: 1px solid $swatch-two;
+      margin-bottom: $base-spacing-unit;
+      -webkit-appearance: none;
+         -moz-appearance: none;
+          -ms-appearance: none;
+              appearance: none;
+    }
+
+    .modal-textbox {
+      display: block;
+      width: 100%;
+      border: none;
+      resize: none;
+      border-bottom: 1px solid $swatch-two;
+      margin-bottom: $base-spacing-unit;
       -webkit-appearance: none;
          -moz-appearance: none;
           -ms-appearance: none;

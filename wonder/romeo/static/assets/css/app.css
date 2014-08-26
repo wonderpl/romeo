@@ -3558,19 +3558,35 @@ label,
 /* line 19, ../../scss/_theme/_theme.modal-form.scss */
 .modal-input {
   display: block;
+  width: 100%;
   border: 0;
   border-bottom: 1px solid #b7bcbd;
+  margin-bottom: 24px;
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
   appearance: none;
 }
 
-/* line 29, ../../scss/_theme/_theme.modal-form.scss */
+/* line 31, ../../scss/_theme/_theme.modal-form.scss */
+.modal-textbox {
+  display: block;
+  width: 100%;
+  border: none;
+  resize: none;
+  border-bottom: 1px solid #b7bcbd;
+  margin-bottom: 24px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+}
+
+/* line 44, ../../scss/_theme/_theme.modal-form.scss */
 .modal-check-list {
   margin-bottom: 0;
 }
-/* line 32, ../../scss/_theme/_theme.modal-form.scss */
+/* line 47, ../../scss/_theme/_theme.modal-form.scss */
 .modal-check-list > li + li {
   margin-left: 24px;
 }

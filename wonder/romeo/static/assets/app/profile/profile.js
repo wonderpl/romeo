@@ -25,7 +25,7 @@ function ProfileRouteProvider($routeProvider, securityAuthorizationProvider) {
 
 angular.module('RomeoApp.profile').config(['$routeProvider', 'securityAuthorizationProvider', ProfileRouteProvider]);
 
-function ProfileCtrl($scope, AccountService, AuthService, DataService, $location, UploadService, $routeParams) {
+function ProfileCtrl($scope, AccountService, AuthService, DataService, $location, UploadService, $routeParams, modal) {
   var ProfileController = {};
 
   function init() {
@@ -43,6 +43,20 @@ function ProfileCtrl($scope, AccountService, AuthService, DataService, $location
     $scope.$on('upload-profile-image', ProfileController.uploadProfileImage);
     $scope.$on('uploaded-image', ProfileController.doneUploadingImage);
     $scope.$on('upload-profile-cover', ProfileController.uploadProfileCover);
+
+    $scope.sendInvite = function () {
+      console.log($scope.invitation);
+      modal.hide();
+    };
+
+    $scope.invite = function () {
+      modal.load('invite-collaboration.html', true, $scope);
+      $scope.invitation = {};
+    };
+
+    $scope.close = function () {
+      modal.hide();
+    };
 
     $scope.$watch('profile.description', function (newValue, oldValue) {
       if (newValue !== oldValue) {
@@ -62,7 +76,7 @@ function ProfileCtrl($scope, AccountService, AuthService, DataService, $location
         debug.log('Profile avatar changed to: ' + newValue);
       }
     });
-      
+
     ProfileController.loadUserDetails();
   }
 
@@ -180,7 +194,7 @@ function ProfileCtrl($scope, AccountService, AuthService, DataService, $location
   return ProfileController;
 }
 
-angular.module('RomeoApp.profile').controller('ProfileCtrl', ['$scope', 'AccountService', 'AuthService', 'DataService', '$location', 'UploadService', '$routeParams', ProfileCtrl]);
+angular.module('RomeoApp.profile').controller('ProfileCtrl', ['$scope', 'AccountService', 'AuthService', 'DataService', '$location', 'UploadService', '$routeParams', 'modal', ProfileCtrl]);
 
 })();
 

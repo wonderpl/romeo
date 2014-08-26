@@ -1,0 +1,17 @@
+
+<div class="modal__title  split">
+  <span class="split__title  t--block  w--600">Invite User</span>
+  <a class="modal__link" ng-click="close()"><i class="icon icon--medium icon--circle-cross"></i></a>
+</div>
+
+<div class="modal__content">
+  <fieldset class="modal-form__fieldset">
+    <label for="inviteEmail" class="is-hidden">Email Address:</label>
+    <input id="inviteEmail" class="form-input  modal-input" ng-model="invitation.address" type="text" placeholder="Email Address" />
+    <label for="inviteMessage" class="is-hidden">Invitation Message:</label>
+    <textarea id="inviteMessage" class="modal-textbox" ng-model="invitation.message" placeholder="Invitation Message"></textarea>
+  </fieldset>
+
+  <button class="btn btn--positive" ng-click="sendInvite()">Send Invitation</button>
+
+</div>
