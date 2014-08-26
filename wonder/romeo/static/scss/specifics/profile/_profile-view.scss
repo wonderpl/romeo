@@ -22,10 +22,29 @@
 {
   text-align: center;
 }
-.profile-details__website {
+.profile-details__optional {
+  list-style: none;
+  display: block;
+  width: auto;
+  text-align: center;
   margin-bottom: $half-spacing-unit;
   border-bottom: 2px $light-grey solid;
-  padding-bottom: $half-spacing-unit;
+  padding: 0 auto;
+  > li {
+    display: inline-block;
+    width: auto;
+    margin-bottom: $half-spacing-unit;
+  }
+  > li:before{
+    content: '\00B7';
+    font-size: 24px;
+    line-height: 0;
+    padding: 0 5px;
+  }
+  > li:first-child:before {
+    content: '';
+    padding: 0;
+  }
 }
 .profile-details__legend {
   text-transform: uppercase;
@@ -62,5 +81,5 @@
   color: #fff;
   background-color: rgba(0,0,0,.6);
   font-size: 40px;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: $heading-font-family;
 }

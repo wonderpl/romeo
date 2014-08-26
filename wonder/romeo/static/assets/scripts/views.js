@@ -2073,10 +2073,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('profile/directives/edit-details.tmpl.html',
-    "<div class=\"profile__edit-details\">\n" +
+    "<div class=\"profile-edit\">\n" +
     "  <h3 class=\"error\" ng-hide=\"form.valid\">(~ form.errorMsg() ~)</h3>\n" +
     "\n" +
-    "  <h2 class=\"profile__name no-spacing input--field\"\n" +
+    "  <h2 class=\"profile-edit__name no-spacing input--field\"\n" +
     "    medium-editor\n" +
     "    ng-class=\"{ 'error' : form.errors.name }\"\n" +
     "    data-placeholder=\"(~ profile.name ? ' ' : 'name' ~)\"\n" +
@@ -2084,7 +2084,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    ng-model=\"profile.display_name\">\n" +
     "  </h2>\n" +
     "\n" +
-    "  <div class=\"profile__description input--field\"\n" +
+    "  <div class=\"profile-edit__description input--field\"\n" +
     "    medium-editor\n" +
     "    ng-class=\"{ 'error' : form.errors.description }\"\n" +
     "    data-placeholder=\"(~ profile.description ? ' ' : 'description' ~)\"\n" +
@@ -2092,19 +2092,19 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    ng-model=\"profile.description\">\n" +
     "  </div>\n" +
     "\n" +
-    "  <section class=\"profile__edit-details-extended\">\n" +
+    "  <section class=\"profile-edit__extended\">\n" +
     "\n" +
     "  <label><span class=\"required\">*</span> Job title:</label>\n" +
-    "    <div class=\"profile__job_title input--field\"\n" +
+    "    <div class=\"profile-edit__job_title input--field\"\n" +
     "      medium-editor\n" +
     "      me-required\n" +
-    "      ng-class=\"{ 'error' : form.errors.jobTitle }\"\n" +
+    "      ng-class=\"{ 'error' : form.errors.title }\"\n" +
     "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
-    "      ng-model=\"profile.jobTitle\">\n" +
+    "      ng-model=\"profile.title\">\n" +
     "    </div>\n" +
     "\n" +
     "  <label>Website or homepage:</label>\n" +
-    "    <div class=\"profile__website input--field\"\n" +
+    "    <div class=\"profile-edit__website input--field\"\n" +
     "      medium-editor\n" +
     "      ng-class=\"{ 'error' : form.errors.website }\"\n" +
     "      data-placeholder=\"(~ profile.website ? ' ' : 'Link http://' ~)\"\n" +
@@ -2113,7 +2113,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </div>\n" +
     "\n" +
     "  <label><span class=\"required\">*</span> Share your location:</label>\n" +
-    "    <div class=\"profile__location input--field\"\n" +
+    "    <div class=\"profile-edit__location input--field\"\n" +
     "      medium-editor\n" +
     "      me-required\n" +
     "      ng-class=\"{ 'error' : form.errors.location }\"\n" +
@@ -2123,18 +2123,18 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </div>\n" +
     "\n" +
     "  <label>Show contact button:</label>\n" +
-    "    <div class=\"profile__contact_button toggle--field\">\n" +
+    "    <div class=\"profile-edit__contact-button toggle--field\">\n" +
     "    <button ng-class=\"{'active' : profile.contactable }\" ng-click=\"profile.contactable = true\">Yes</button>\n" +
     "    <button ng-class=\"{'active' : !profile.contactable }\" ng-click=\"profile.contactable = false\">No</button>\n" +
     "  </div>\n" +
     "  <label><span class=\"required\">*</span> Searchable terms:</label>\n" +
-    "    <div class=\"profile__search_terms input--field2 milli\"\n" +
+    "    <div class=\"profile-edit__search_terms lookup--field milli\"\n" +
     "      medium-editor\n" +
     "      me-required\n" +
-    "      ng-class=\"{ 'error' : form.errors.searchTerms }\"\n" +
-    "      data-placeholder=\"(~ profile.searchTerms ? ' ' : 'Make yourself searchable by adding relevant terms.' ~)\"\n" +
+    "      ng-class=\"{ 'error' : form.errors.search_keywords }\"\n" +
+    "      data-placeholder=\"(~ profile.search_keywords ? ' ' : 'Make yourself searchable by adding relevant terms.' ~)\"\n" +
     "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
-    "      ng-model=\"profile.searchTerms\">\n" +
+    "      ng-model=\"profile.search_keywords\">\n" +
     "    </div>\n" +
     "  </section>\n" +
     "</div>"
@@ -2145,12 +2145,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<div class=\"profile-details\">\n" +
     "\t<h2 class=\"profile-details__name no-spacing\" ng-bind=\"profile.display_name\"></h2>\n" +
     "\t\n" +
-    "\t<div ng-show=\"profile.jobTitle\" class=\"profile-details__job-title\" style=\"text-align: center;\">(~ profile.jobTitle ~)</div>\n" +
+    "\t<div ng-show=\"profile.title\" class=\"profile-details__job-title\" style=\"text-align: center;\">(~ profile.jobTitle ~)</div>\n" +
     "\n" +
     "\t<div class=\"profile-details__description\" ng-bind-html=\"profile.description\"></div>\n" +
     "\n" +
-    "\t<div ng-if=\"profile.location\" class=\"profile-details__location\" data-location=\"(~ profile.location ~)\">(~ profile.location ~)</div>\n" +
-    "\t<div class=\"profile-details__website\" data-website=\"(~ profile.website ~)\"><a href=\"(~ website ~)\">(~ profile.website ~)</a></div>\n" +
+    "\t<ul class=\"profile-details__optional\">\n" +
+    "\t\t<li class=\"profile-details__website\" data-website=\"(~ profile.website ~)\"><a href=\"(~ profile.website ~)\">(~ profile.website ~)</a></li>\n" +
+    "\t\t<li ng-if=\"profile.location\" class=\"profile-details__location\" data-location=\"(~ profile.location ~)\">(~ profile.location ~)</li>\n" +
+    "\t</ul>\n" +
     "\n" +
     "\t<p class=\"profile-details__legend f--sans\">Collaborated with:</p>\n" +
     "\t<ul class=\"profile-collaborators\" ng-show=\"collaborators\">\n" +

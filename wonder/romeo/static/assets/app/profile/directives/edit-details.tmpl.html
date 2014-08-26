@@ -1,7 +1,7 @@
-<div class="profile__edit-details">
+<div class="profile-edit">
   <h3 class="error" ng-hide="form.valid">{{ form.errorMsg() }}</h3>
 
-  <h2 class="profile__name no-spacing input--field"
+  <h2 class="profile-edit__name no-spacing input--field"
     medium-editor
     ng-class="{ 'error' : form.errors.name }"
     data-placeholder="{{ profile.name ? ' ' : 'name' }}"
@@ -9,7 +9,7 @@
     ng-model="profile.display_name">
   </h2>
 
-  <div class="profile__description input--field"
+  <div class="profile-edit__description input--field"
     medium-editor
     ng-class="{ 'error' : form.errors.description }"
     data-placeholder="{{ profile.description ? ' ' : 'description' }}"
@@ -17,19 +17,19 @@
     ng-model="profile.description">
   </div>
 
-  <section class="profile__edit-details-extended">
+  <section class="profile-edit__extended">
 
   <label><span class="required">*</span> Job title:</label>
-    <div class="profile__job_title input--field"
+    <div class="profile-edit__job_title input--field"
       medium-editor
       me-required
-      ng-class="{ 'error' : form.errors.jobTitle }"
+      ng-class="{ 'error' : form.errors.title }"
       options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
-      ng-model="profile.jobTitle">
+      ng-model="profile.title">
     </div>
 
   <label>Website or homepage:</label>
-    <div class="profile__website input--field"
+    <div class="profile-edit__website input--field"
       medium-editor
       ng-class="{ 'error' : form.errors.website }"
       data-placeholder="{{ profile.website ? ' ' : 'Link http://' }}"
@@ -38,7 +38,7 @@
     </div>
 
   <label><span class="required">*</span> Share your location:</label>
-    <div class="profile__location input--field"
+    <div class="profile-edit__location input--field"
       medium-editor
       me-required
       ng-class="{ 'error' : form.errors.location }"
@@ -48,18 +48,18 @@
     </div>
 
   <label>Show contact button:</label>
-    <div class="profile__contact_button toggle--field">
+    <div class="profile-edit__contact-button toggle--field">
     <button ng-class="{'active' : profile.contactable }" ng-click="profile.contactable = true">Yes</button>
     <button ng-class="{'active' : !profile.contactable }" ng-click="profile.contactable = false">No</button>
   </div>
   <label><span class="required">*</span> Searchable terms:</label>
-    <div class="profile__search_terms input--field2 milli"
+    <div class="profile-edit__search_terms lookup--field milli"
       medium-editor
       me-required
-      ng-class="{ 'error' : form.errors.searchTerms }"
-      data-placeholder="{{ profile.searchTerms ? ' ' : 'Make yourself searchable by adding relevant terms.' }}"
+      ng-class="{ 'error' : form.errors.search_keywords }"
+      data-placeholder="{{ profile.search_keywords ? ' ' : 'Make yourself searchable by adding relevant terms.' }}"
       options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
-      ng-model="profile.searchTerms">
+      ng-model="profile.search_keywords">
     </div>
   </section>
 </div>

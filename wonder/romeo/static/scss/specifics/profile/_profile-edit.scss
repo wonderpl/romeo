@@ -1,12 +1,10 @@
 /* _profile-edit.scss */
-.profile__edit-details {
+.profile-edit {
 
 }
-.profile__edit-details-extended {
+.profile-edit__extended {
 	width: 550px;
 	margin: 0 auto;
-	border-top: 2px $light-grey solid;
-	padding-top: $half-spacing-unit;
 
 	label {
 		clear: both;
@@ -26,16 +24,29 @@
 		padding: $half-spacing-unit;
 	}
 	.medium-editor-placeholder:after { padding: 12px; }
-	.input--field2 {
+	.lookup--field {
 		float: left;
 		color: #727272; /* $dark-grey; ? */
 		width: 325px;
 		margin-bottom: $half-spacing-unit;
 		padding: $half-spacing-unit;
 	}
-	.input--field2:focus { outline-color: #66afe9; }
+	.lookup--field:focus { outline-color: #66afe9; }
 }
-.profile__contact_button {
+.profile-edit__description {
+  margin-bottom: $base-spacing-unit;
+  padding-bottom: $base-spacing-unit;
+  border-bottom: 2px $light-grey solid;
+  text-align: center;
+}
+.profile-edit__name {
+  font-size: 50px;
+  margin-bottom: $half-spacing-unit;
+  font-family: $heading-font-family;
+  color: $swatch-three;
+  text-align: center;
+}
+.profile-edit__contact-button {
 	float: left;
 	margin-bottom: $half-spacing-unit;
 	padding: $half-spacing-unit;
