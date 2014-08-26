@@ -48,7 +48,41 @@ function LoginController ($scope, $location, AuthService) {
     $location.url('/signup');
   };
   $scope.showTwitterSignin = function () {
-    window.open('/auth/twitter_redirect?callback=/app#/twitter-login', 'twitter_signin', 'width=560, height=360');
+    window.open('/auth/twitter_redirect?callback=twitterAuthCallback', 'twitter_signin', 'width=560, height=360');
   };
+  $scope.twitterCallback = function(data) {
+    $scope.isLoading.twitter = false;
+    if (data.error) {
+      alert(data.error);
+    } else {
+      console.dir(data);
+      // First set the credentials recieved from twitter
+      AuthService.setExternalCredentials(data.credentials);
 
+      // Then call external login to see if we need to ask for email
+      AuthService.ExternalLogin().then(function (response) {
+          console.log('Success in request');
+          console.dir(response.data);
+          $location.url('/organise');
+        },
+        function (response) {
+          console.log('Error in request');
+          console.dir(response.data);
+          if (response.data.error == 'registration_required') {
+            $location.url('/twitter-login');
+          } else {
+            alert("Something went wrong with your sign in:\n" + data);
+          }
+        }
+      );
+    }
+  };
+}
+
+function twitterAuthCallback(result) {
+  'use strict';
+  console.log(result);
+  var scope = angular.element(document.getElementById('loginController')).scope();
+  scope.twitterCallback(result);
+  scope.$apply();
 }

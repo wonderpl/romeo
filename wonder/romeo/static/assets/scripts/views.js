@@ -732,7 +732,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('login.html',
-    "<div ng-controller=\"LoginCtrl\" autocomplete=\"off\" class=\"login-view\">\n" +
+    "<div ng-controller=\"LoginCtrl\" id=\"loginController\" autocomplete=\"off\" class=\"login-view\">\n" +
     "  <div class=\"center-container\">\n" +
     "    <div class=\"center-object\">\n" +
     "      <div class=\"wrapper\">\n" +
