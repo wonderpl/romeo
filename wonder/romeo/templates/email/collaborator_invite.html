@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% macro video_url() %}
-{{ video.web_url.replace('http:', 'https:') }}?token={{ collaborator.token }}
+{{ video.web_url }}?token={{ collaborator.token }}
 {%- endmacro %}
 
 {% if can_comment %}

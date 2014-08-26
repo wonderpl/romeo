@@ -1,4 +1,5 @@
 import sys
+from sqlalchemy.orm.exc import NoResultFound
 from wonder.romeo import manager, db
 from wonder.romeo.core.db import commit_on_success
 from .models import Account, AccountUser
@@ -16,6 +17,17 @@ def createuser(account, username, password='changeme'):
         else:
             print >>sys.stderr, e.message
     else:
+        db.session.commit()
+
+
+@manager.command
+def set_user_password(username, password):
+    try:
+        user = AccountUser.query.filter_by(username=username).one()
+    except NoResultFound:
+        print >>sys.stderr, 'Invalid username'
+    else:
+        user.set_password(password)
         db.session.commit()
 
 

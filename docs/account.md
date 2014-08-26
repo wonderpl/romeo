@@ -73,12 +73,27 @@ Property        | Required | Value                   | Description
 :-------------- | :------- | :---------------------- | :----------
 external_system | Yes      | `twitter`               | Specifies the social/oauth platform
 external_token  | Yes      | The OAuth access token  | For Twitter, combine the key & secret with a `:`
-username        | Yes      | Email address           | Email address used for login
+username        | No       | Email address           | Sets username when registering
 
 On success the response will be the same as a login response, containing account and
 user resource information.
 
-On error, the `form_errors` property will describe the issue:
+If registration is required and a username is not provided then a `registration_required`
+error will be returned:
+
+```http
+HTTP/1.1 400 BAD REQUEST
+Content-Type: application/json
+
+{
+ "error": "registration_required",
+ "form_errors": {
+  "username": [ "This field is required." ]
+ }
+}
+```
+
+On registration error, the `form_errors` property will describe the issue:
 
 ```http
 HTTP/1.1 400 BAD REQUEST
