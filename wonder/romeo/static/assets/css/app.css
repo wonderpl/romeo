@@ -778,7 +778,7 @@ h6 {
 /* line 5, ../../scss/_base/_base.paragraphs.scss */
 .lede,
 .lead,
-.profile__description {
+.profile-details__description {
   font-size: 18px;
   font-size: 1.125rem;
   line-height: 1.33333;
@@ -6585,7 +6585,7 @@ label,
 }
 
 /* line 5, ../../scss/specifics/profile/_profile-view.scss */
-.profile__name {
+.profile-details__name {
   font-size: 50px;
   margin-bottom: 12px;
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -6594,17 +6594,69 @@ label,
 }
 
 /* line 13, ../../scss/specifics/profile/_profile-view.scss */
-.profile__description {
+.profile-details__description {
   margin-bottom: 24px;
   color: #2e2e32;
   text-align: center;
 }
 
 /* line 22, ../../scss/specifics/profile/_profile-view.scss */
-.profile__view-details--job-title,
-.profile__view-details--location,
-.profile__view-details--website {
+.profile-details__job-title,
+.profile-details__location,
+.profile-details__website {
   text-align: center;
+}
+
+/* line 25, ../../scss/specifics/profile/_profile-view.scss */
+.profile-details__website {
+  margin-bottom: 12px;
+  border-bottom: 2px #b7bcbd solid;
+  padding-bottom: 12px;
+}
+
+/* line 30, ../../scss/specifics/profile/_profile-view.scss */
+.profile-details__legend {
+  text-transform: uppercase;
+  color: #b7bcbd;
+  width: auto;
+  text-align: center;
+  font-size: 12px;
+}
+
+/* line 37, ../../scss/specifics/profile/_profile-view.scss */
+.profile-collaborators {
+  list-style: none;
+  display: block;
+  width: 300px;
+  margin: 0 auto 12px;
+}
+/* line 43, ../../scss/specifics/profile/_profile-view.scss */
+.profile-collaborators > li {
+  display: inline-block;
+  width: 100px;
+}
+
+/* line 48, ../../scss/specifics/profile/_profile-view.scss */
+.profile-collaborators__link {
+  position: relative;
+  padding-right: 6px;
+  padding-left: 6px;
+  border: none;
+}
+
+/* line 54, ../../scss/specifics/profile/_profile-view.scss */
+.profile-collaborators__remove {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 5px 0;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.6);
+  font-size: 40px;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* _profile-edit.scss */
@@ -6680,29 +6732,6 @@ label,
 }
 
 /* _profile-public.scss */
-/* line 2, ../../scss/specifics/profile/_profile-public.scss */
-.public-profile__collaborators {
-  list-style: none;
-  display: block;
-  width: 300px;
-  margin: 0 auto 12px;
-}
-/* line 8, ../../scss/specifics/profile/_profile-public.scss */
-.public-profile__collaborators > li {
-  display: inline-block;
-  width: 100px;
-}
-
-/* line 13, ../../scss/specifics/profile/_profile-public.scss */
-.public-profile__legend {
-  text-transform: uppercase;
-  color: #b7bcbd;
-  width: auto;
-  margin: 0 auto 12px;
-  text-align: center;
-  font-size: 12px;
-}
-
 /* line 1, ../../scss/specifics/login/_login-view.scss */
 .login-view {
   max-width: 63em;

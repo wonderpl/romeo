@@ -2142,16 +2142,24 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('profile/directives/view-details.tmpl.html',
-    "<div class=\"profile__view-details\">\n" +
-    "\t<h2 class=\"profile__name no-spacing\" ng-bind=\"profile.display_name\"></h2>\n" +
+    "<div class=\"profile-details\">\n" +
+    "\t<h2 class=\"profile-details__name no-spacing\" ng-bind=\"profile.display_name\"></h2>\n" +
     "\t\n" +
-    "\t<div ng-show=\"profile.jobTitle\" class=\"profile__view-details--job-title\" style=\"text-align: center;\">(~ profile.jobTitle ~)</div>\n" +
+    "\t<div ng-show=\"profile.jobTitle\" class=\"profile-details__job-title\" style=\"text-align: center;\">(~ profile.jobTitle ~)</div>\n" +
     "\n" +
-    "\t<div class=\"profile__description\" ng-bind-html=\"profile.description\"></div>\n" +
+    "\t<div class=\"profile-details__description\" ng-bind-html=\"profile.description\"></div>\n" +
     "\n" +
-    "\t<div ng-if=\"profile.location\" class=\"profile__view-details--location\" data-location=\"(~ profile.location ~)\">(~ profile.location ~)</div>\n" +
-    "\t<div ng-if=\"profile.website\" class=\"profile__view-details--website\" data-website=\"(~ profile.website ~)\"><a href=\"(~ website ~)\">(~ profile.website ~)</a></div>\n" +
+    "\t<div ng-if=\"profile.location\" class=\"profile-details__location\" data-location=\"(~ profile.location ~)\">(~ profile.location ~)</div>\n" +
+    "\t<div class=\"profile-details__website\" data-website=\"(~ profile.website ~)\"><a href=\"(~ website ~)\">(~ profile.website ~)</a></div>\n" +
     "\n" +
+    "\t<p class=\"profile-details__legend f--sans\">Collaborated with:</p>\n" +
+    "\t<ul class=\"profile-collaborators\" ng-show=\"collaborators\">\n" +
+    "\t\t<li ng-repeat=\"user in collaborators\">\n" +
+    "\t\t\t<a href=\"#/profile/(~ user.accountId~)\" class=\"profile-collaborators__link avatar\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" title=\"(~user.display_name~)\" class=\"avatar__img\" style=\"background-image: url((~user.avatar~));\">\n" +
+    "\t\t\t<span ng-if=\"flags.isOwner\" class=\"profile-collaborators__remove\">X</span>\n" +
+    "\t\t\t</a>\n" +
+    "\t\t</li>\n" +
+    "\t</ul>\n" +
     "</div>"
   );
 
@@ -2231,7 +2239,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <div class=\"wrapper wrapper--fixed\">\n" +
     "    <profile-edit-details data-profile=\"profile\" data-flags=\"flags\" ng-if=\"flags.isEdit\"></profile-edit-details>\n" +
-    "    <profile-view-details data-profile=\"profile\" ng-if=\"! flags.isEdit\"></profile-view-details>\n" +
+    "    <profile-view-details data-profile=\"profile\" data-flags=\"flags\" ng-if=\"! flags.isEdit\"></profile-view-details>\n" +
     "\n" +
     "    <profile-public ng-if=\"! flags.isOwner\">\n" +
     "      This should be the list of collaborators and public videos\n" +
@@ -2244,13 +2252,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('profile/public/public.tmpl.html',
     "<section class=\"public-profile__wrapper\">\n" +
-    "\t<p class=\"public-profile__legend sans\">Collaborated with:</p>\n" +
-    "\t<ul class=\"public-profile__collaborators\" ng-show=\"collaborators\">\n" +
-    "\t\t<li ng-repeat=\"user in collaborators\">\n" +
-    "\t\t\t<a href=\"#/profile\" class=\"nav-menu__link  avatar \"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" title=\"(~user.display_name~)\" class=\"avatar__img\" ng-style=\"profile\" style=\"background-image: url((~user.avatar~));\"></a>\n" +
-    "\t\t</li>\n" +
-    "\t</ul>\n" +
-    "\n" +
     "\t<ul class=\"public-profile__videos\" ng-show=\"videos\">\n" +
     "\t\t<li ng-repeat=\"item in videos\" class=\"cf t--block t--pad-top--half ng-scope\">\n" +
     "\n" +

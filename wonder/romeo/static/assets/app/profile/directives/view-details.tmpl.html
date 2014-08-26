@@ -1,11 +1,19 @@
-<div class="profile__view-details">
-	<h2 class="profile__name no-spacing" ng-bind="profile.display_name"></h2>
+<div class="profile-details">
+	<h2 class="profile-details__name no-spacing" ng-bind="profile.display_name"></h2>
 	
-	<div ng-show="profile.jobTitle" class="profile__view-details--job-title" style="text-align: center;">{{ profile.jobTitle }}</div>
+	<div ng-show="profile.jobTitle" class="profile-details__job-title" style="text-align: center;">{{ profile.jobTitle }}</div>
 
-	<div class="profile__description" ng-bind-html="profile.description"></div>
+	<div class="profile-details__description" ng-bind-html="profile.description"></div>
 
-	<div ng-if="profile.location" class="profile__view-details--location" data-location="{{ profile.location }}">{{ profile.location }}</div>
-	<div ng-if="profile.website" class="profile__view-details--website" data-website="{{ profile.website }}"><a href="{{ website }}">{{ profile.website }}</a></div>
+	<div ng-if="profile.location" class="profile-details__location" data-location="{{ profile.location }}">{{ profile.location }}</div>
+	<div class="profile-details__website" data-website="{{ profile.website }}"><a href="{{ website }}">{{ profile.website }}</a></div>
 
+	<p class="profile-details__legend f--sans">Collaborated with:</p>
+	<ul class="profile-collaborators" ng-show="collaborators">
+		<li ng-repeat="user in collaborators">
+			<a href="#/profile/{{ user.accountId}}" class="profile-collaborators__link avatar"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" title="{{user.display_name}}" class="avatar__img" style="background-image: url({{user.avatar}});">
+			<span ng-if="flags.isOwner" class="profile-collaborators__remove">X</span>
+			</a>
+		</li>
+	</ul>
 </div>

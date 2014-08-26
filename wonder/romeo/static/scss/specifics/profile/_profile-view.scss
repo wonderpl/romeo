@@ -2,7 +2,7 @@
 	margin-bottom: 50px;
 }
 
-.profile__name {
+.profile-details__name {
   font-size: 50px;
   margin-bottom: $half-spacing-unit;
   font-family: $heading-font-family;
@@ -10,15 +10,57 @@
   text-align: center;
 }
 
-.profile__description {
+.profile-details__description {
   margin-bottom: $base-spacing-unit;
   @extend .lead;
   color: $swatch-three;
   text-align: center;
 }
-.profile__view-details--job-title,
-.profile__view-details--location,
-.profile__view-details--website
+.profile-details__job-title,
+.profile-details__location,
+.profile-details__website
 {
   text-align: center;
+}
+.profile-details__website {
+  margin-bottom: $half-spacing-unit;
+  border-bottom: 2px $light-grey solid;
+  padding-bottom: $half-spacing-unit;
+}
+.profile-details__legend {
+  text-transform: uppercase;
+  color: $light-grey;
+  width: auto;
+  text-align: center;
+  font-size: 12px;
+}
+.profile-collaborators {
+  list-style: none;
+  display: block;
+  width: 300px;
+  margin: 0 auto $half-spacing-unit;
+
+  > li {
+    display: inline-block;
+    width: 100px;
+  }
+}
+.profile-collaborators__link {
+  position: relative;
+  padding-right: 6px;
+  padding-left: 6px;
+  border: none;
+}
+.profile-collaborators__remove {
+  display:none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 5px 0;
+  color: #fff;
+  background-color: rgba(0,0,0,.6);
+  font-size: 40px;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }

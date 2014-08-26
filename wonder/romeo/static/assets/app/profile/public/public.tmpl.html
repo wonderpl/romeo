@@ -1,11 +1,4 @@
 <section class="public-profile__wrapper">
-	<p class="public-profile__legend sans">Collaborated with:</p>
-	<ul class="public-profile__collaborators" ng-show="collaborators">
-		<li ng-repeat="user in collaborators">
-			<a href="#/profile" class="nav-menu__link  avatar "><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" title="{{user.display_name}}" class="avatar__img" ng-style="profile" style="background-image: url({{user.avatar}});"></a>
-		</li>
-	</ul>
-
 	<ul class="public-profile__videos" ng-show="videos">
 		<li ng-repeat="item in videos" class="cf t--block t--pad-top--half ng-scope">
 
