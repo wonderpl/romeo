@@ -23,6 +23,8 @@ function MainController ($window, $scope, $rootScope, $location, modal, $element
 
   $window.onbeforeunload = function () {
 
+    $scope.upload = $scope.upload || {};
+
     return $scope.upload.status === 'uploading' ? 'Leaving this page will cancel your video upload.' : void(0);
   };
 
