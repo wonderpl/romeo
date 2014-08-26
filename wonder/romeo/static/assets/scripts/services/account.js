@@ -72,10 +72,6 @@ angular.module('RomeoApp.services').factory('AccountService',
         return $http.get('/api/account/external/' + service + '/' + token);
     };
 
-    Account.user = function() {
-        return User;
-    };
-
     /*
     * Expose the methods to the service
     */
@@ -83,7 +79,6 @@ angular.module('RomeoApp.services').factory('AccountService',
         getUser: Account.getUser,
         updateUser: Account.updateUser,
         updateCoverImage: Account.updateCoverImage,
-        updateAvatar: Account.updateAvatar,
-        user: Account.user
+        updateAvatar: Account.updateAvatar
     };
 }]);

@@ -224,6 +224,10 @@ angular.module('RomeoApp.services').factory('AuthService',
         return $http.post('/api/login/external', data);
     };
 
+    Auth.getUser = function () {
+        return user;
+    };
+
     return {
         login: Auth.login,
         registration: Auth.registration,
@@ -234,6 +238,7 @@ angular.module('RomeoApp.services').factory('AuthService',
         setSession: Auth.setSession,
         getSession: Auth.getSession,
         getSessionId: Auth.getSessionId,
-        redirect: Auth.redirect
+        redirect: Auth.redirect,
+        getUser: Auth.getUser
     };
 }]);
