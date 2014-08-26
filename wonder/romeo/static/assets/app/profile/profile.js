@@ -154,8 +154,12 @@ function ProfileCtrl($scope, AccountService, AuthService, DataService, $location
       );
     }
     var data = {
-      display_name  : $scope.profile.display_name,
-      description   : $scope.profile.description
+      display_name    : $scope.profile.display_name,
+      description     : $scope.profile.description,
+      title           : $scope.profile.title,
+      website         : $scope.profile.website,
+      location        : $scope.profile.location,
+      search_keywords : $scope.profile.search_keywords
     };
     AccountService.updateUser(data).then(function () {
       $scope.flags.isEdit = false;
