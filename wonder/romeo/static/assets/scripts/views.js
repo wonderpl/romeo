@@ -731,27 +731,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
-  $templateCache.put('invite-collaboration.html',
-    "\n" +
-    "<div class=\"modal__title  split\">\n" +
-    "  <span class=\"split__title  t--block  w--600\">Invite User</span>\n" +
-    "  <a class=\"modal__link\" ng-click=\"close()\"><i class=\"icon icon--medium icon--circle-cross\"></i></a>\n" +
-    "</div>\n" +
-    "\n" +
-    "<div class=\"modal__content\">\n" +
-    "  <fieldset class=\"modal-form__fieldset\">\n" +
-    "    <label for=\"inviteEmail\" class=\"is-hidden\">Email Address:</label>\n" +
-    "    <input id=\"inviteEmail\" class=\"form-input  modal-input\" ng-model=\"invitation.address\" type=\"text\" placeholder=\"Email Address\" />\n" +
-    "    <label for=\"inviteMessage\" class=\"is-hidden\">Invitation Message:</label>\n" +
-    "    <textarea id=\"inviteMessage\" class=\"modal-textbox\" ng-model=\"invitation.message\" placeholder=\"Invitation Message\"></textarea>\n" +
-    "  </fieldset>\n" +
-    "\n" +
-    "  <button class=\"btn btn--positive\" ng-click=\"sendInvite()\">Send Invitation</button>\n" +
-    "\n" +
-    "</div>"
-  );
-
-
   $templateCache.put('login.html',
     "<div ng-controller=\"LoginCtrl\" autocomplete=\"off\" class=\"login-view\">\n" +
     "  <div class=\"center-container\">\n" +
@@ -2227,6 +2206,31 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('profile/invite/invite-modal.tmpl.html',
+    "<div class=\"modal__title  split\">\n" +
+    "  <span class=\"split__title  t--block  w--600\">Invite User</span>\n" +
+    "  <a class=\"modal__link\" ng-click=\"close()\"><i class=\"icon icon--medium icon--circle-cross\"></i></a>\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"modal__content\">\n" +
+    "  <fieldset class=\"modal-form__fieldset\">\n" +
+    "    <label for=\"inviteEmail\" class=\"is-hidden\">Email Address:</label>\n" +
+    "    <input id=\"inviteEmail\" class=\"form-input  modal-input\" ng-model=\"invitation.address\" type=\"text\" placeholder=\"Email Address\" />\n" +
+    "    <label for=\"inviteMessage\" class=\"is-hidden\">Invitation Message:</label>\n" +
+    "    <textarea id=\"inviteMessage\" class=\"modal-textbox\" ng-model=\"invitation.message\" placeholder=\"Invitation Message\"></textarea>\n" +
+    "  </fieldset>\n" +
+    "\n" +
+    "  <button class=\"btn btn--positive\" ng-click=\"sendInvite()\">Send Invitation</button>\n" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('profile/invite/invite.tmpl.html',
+    "<a class=\"sub-navigation__link btn btn--utility\" ng-click=\"invite()\">invite</a>"
+  );
+
+
   $templateCache.put('profile/navigation/navigation.tmpl.html',
     "<section class=\"sub-navigation\">\n" +
     "  <div class=\"wrapper\">\n" +
@@ -2269,7 +2273,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </profile-public>\n" +
     "  </div>\n" +
     "\n" +
-    "  <a class=\"sub-navigation__link btn btn--utility\" ng-click=\"invite()\">invite</a>\n" +
+    "  <profile-invite></profile-invite>\n" +
     "\n" +
     "</section>"
   );

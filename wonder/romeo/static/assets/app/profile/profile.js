@@ -44,20 +44,6 @@ function ProfileCtrl($scope, AccountService, AuthService, DataService, $location
     $scope.$on('uploaded-image', ProfileController.doneUploadingImage);
     $scope.$on('upload-profile-cover', ProfileController.uploadProfileCover);
 
-    $scope.sendInvite = function () {
-      console.log($scope.invitation);
-      modal.hide();
-    };
-
-    $scope.invite = function () {
-      modal.load('invite-collaboration.html', true, $scope);
-      $scope.invitation = {};
-    };
-
-    $scope.close = function () {
-      modal.hide();
-    };
-
     $scope.$watch('profile.description', function (newValue, oldValue) {
       if (newValue !== oldValue) {
         if (typeof newValue !== 'undefined')
