@@ -2252,9 +2252,20 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t</ul>\n" +
     "\n" +
     "\t<ul class=\"public-profile__videos\" ng-show=\"videos\">\n" +
-    "\t\t<li ng-repeat=\"video in videos\">\n" +
-    "\t\t\t(~video.title~)\n" +
-    "\t\t</li>\n" +
+    "\t\t<li ng-repeat=\"item in videos\" class=\"cf t--block t--pad-top--half ng-scope\">\n" +
+    "\n" +
+    "        <a ng-href=\"#/video/34489679\" class=\"media non-link\" href=\"#/video/34489679\">\n" +
+    "          <div class=\"media__img one-third search__thumbnail\">\n" +
+    "            <div class=\"ratio  ratio--16x9\">\n" +
+    "              <img class=\"ratio__src\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" style=\"background-image : url((~ item.thumbnail ~));\">\n" +
+    "            </div>\n" +
+    "          </div>\n" +
+    "          <div class=\"media__body\">\n" +
+    "            <p class=\"heading no-spacing trunc ng-binding\" ng-bind=\"item.title\"></p>\n" +
+    "            <p class=\"search__item-description milli trunc--three ng-binding\" ng-bind=\"item.description\"></p>\n" +
+    "          </div>\n" +
+    "        </a>\n" +
+    "      </li>\n" +
     "\t</ul>\n" +
     "</section>"
   );

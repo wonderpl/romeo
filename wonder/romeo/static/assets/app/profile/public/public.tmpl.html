@@ -7,8 +7,19 @@
 	</ul>
 
 	<ul class="public-profile__videos" ng-show="videos">
-		<li ng-repeat="video in videos">
-			{{video.title}}
-		</li>
+		<li ng-repeat="item in videos" class="cf t--block t--pad-top--half ng-scope">
+
+        <a ng-href="#/video/34489679" class="media non-link" href="#/video/34489679">
+          <div class="media__img one-third search__thumbnail">
+            <div class="ratio  ratio--16x9">
+              <img class="ratio__src" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" style="background-image : url({{ item.thumbnail }});">
+            </div>
+          </div>
+          <div class="media__body">
+            <p class="heading no-spacing trunc ng-binding" ng-bind="item.title"></p>
+            <p class="search__item-description milli trunc--three ng-binding" ng-bind="item.description"></p>
+          </div>
+        </a>
+      </li>
 	</ul>
 </section>

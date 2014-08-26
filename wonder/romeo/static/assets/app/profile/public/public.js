@@ -13,9 +13,20 @@ function ($templateCache, AccountService) {
     },
     controller : function ($scope) {
       $scope.videos = [
-        {title: 'First video'},
-        {title: 'Pumping Iron'},
-        {title: 'Donald Ducks Xmas'}
+        {title: 'Jaws', description: 'When a gigantic great white shark begins to menace the small island community of Amity, a police chief, a marine scientist and grizzled fisherman set out to stop it.', thumbnails: {
+          items: [{
+            height: '180',
+            url: 'http://upload.wikimedia.org/wikipedia/commons/7/70/Menemsha.jpg'
+          }]
+        }},
+        {title: 'Pumping Iron', description: 'From Gold\'s Gym in Venice Beach California to the showdown in Pretoria, amateur and professional bodybuilders prepare for the 1975 Mr. Olympia and Mr. Universe contests in this part-scripted, part-documentary film. Five-time champion Arnold Schwarzenegger defends his Mr. Olympia title against Serge Nubret and the shy young deaf Lou Ferrigno, whose father is his coach; the ruthless champ psyches out the young lion.' },
+        {title: 'Donald Ducks Xmas', thumbnails: {
+          items: [{
+            height: '180',
+            url: 'http://abstractatus.com/images/2013/08/disney-christmas-desktop-backgrounds-wallpixy.jpg'
+          }]
+        }, description: 'The six short animated films from the Walt Disney Studios share themes of wintertime and Christmas.'
+      }
       ];
       $scope.collaborators = [
         {display_name: "Walt Disney", avatar: "http://upload.wikimedia.org/wikipedia/en/d/d4/Mickey_Mouse.png"},
@@ -29,6 +40,30 @@ function ($templateCache, AccountService) {
           // AccountService.getCollaborators(newValue.accountId).then()...
         }
       }, true);
+      $scope.$watch('videos', function (newValue, oldValue) {
+        if (newValue !== oldValue && newValue) {
+          setDefaultThumbnail(newValue);
+        }
+      });
+
+      function getThumbnail(video) {
+        var thumbs;
+        if (angular.isDefined(video.thumbnails) && angular.isDefined(video.thumbnails.items) ) {
+          thumbs = video.thumbnails.items;
+          for (var i = 0; i < thumbs.length; ++i) {
+            if (thumbs[i].height == 180) {
+              return thumbs[i].url;
+            }
+          }
+        }
+        return '';
+      }
+      function setDefaultThumbnail(videos) {
+        angular.forEach(videos, function (video, key) {
+          video.thumbnail = getThumbnail(video);
+        });
+      }
+      setDefaultThumbnail($scope.videos);
     }
   };
 }
