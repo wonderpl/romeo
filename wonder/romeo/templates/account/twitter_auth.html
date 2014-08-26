@@ -11,7 +11,6 @@ function twitterAuth(result) {
   if (result.error) {
     alert(result.error);
   } else {
-    result.credentials['username'] = prompt('Please provide your email address (to be used as your username)');
     $.ajax({
       url: "{{ url_for('api.externallogin') }}",
       type: "post",
@@ -28,7 +27,15 @@ function twitterAuth(result) {
         }
       })
       .fail(function (response) {
-        alert(JSON.stringify(response.responseJSON) || 'Oops!');
+        if (response.responseJSON.error == 'registration_required') {
+          result.credentials.username = prompt('Please provide your email address (to be used as your username)', '');
+          twitterAuth(result);
+        } else if (response.responseJSON.form_errors && response.responseJSON.form_errors.username) {
+          result.credentials.username = prompt(response.responseJSON.form_errors.username[0], result.credentials.username);
+          twitterAuth(result);
+        } else {
+          alert(JSON.stringify(response.responseJSON) || 'Oops!');
+        }
       });
   }
 }

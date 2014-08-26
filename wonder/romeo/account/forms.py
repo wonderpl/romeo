@@ -1,5 +1,6 @@
 import wtforms
-from flask import current_app, abort, json
+from flask import current_app, json
+from flask.ext.restful import abort
 from flask.ext.wtf import Form
 from sqlalchemy import func
 from sqlalchemy.exc import IntegrityError
@@ -120,12 +121,14 @@ class ExternalLoginForm(Form):
             return user
         else:
             if not self.username.data:
-                abort(400, description=_('This field is required.'))
+                abort(400, error='registration_required',
+                      form_errors=dict(username=[_('This field is required.')]))
             try:
                 user = register_user(self.user_data['name'], self.username.data, None)
             except IntegrityError as e:
                 if '(username)' in e.message:
-                    abort(400, description=_('The username is already registered.'))
+                    abort(400, error='invalid_request',
+                          form_errors=dict(username=[_('The username is already registered.')]))
                 raise
             user.auth_tokens = [
                 AccountUserAuthToken(
