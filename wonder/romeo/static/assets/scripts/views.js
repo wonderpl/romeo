@@ -2235,7 +2235,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <profile-cover image=\"profile.profile_cover\" is-edit=\"flags.isEdit\"></profile-cover>\n" +
     "\n" +
-    "  <profile-image image=\"profile.avatar\" is-edit=\"flags.isEdit\"></profile-image>\n" +
+    "  <profile-image profile=\"profile\" is-edit=\"flags.isEdit\"></profile-image>\n" +
     "\n" +
     "  <div class=\"wrapper wrapper--fixed\">\n" +
     "    <profile-edit-details data-profile=\"profile\" data-flags=\"flags\" ng-if=\"flags.isEdit\"></profile-edit-details>\n" +

@@ -1,8 +1,8 @@
 angular
   .module('RomeoApp.directives')
-  .directive('pageHeader', PageHeaderDirective);
+  .directive('pageHeader', ['$templateCache', 'AuthService', PageHeaderDirective]);
 
-function PageHeaderDirective ($templateCache, $rootScope) {
+function PageHeaderDirective ($templateCache, AuthService) {
 
   'use strict';
 
@@ -12,17 +12,10 @@ function PageHeaderDirective ($templateCache, $rootScope) {
     template : $templateCache.get('page-header.html'),
     controller : function ($scope) {
       $scope.$watch(function () {
-        return $rootScope.User.avatar;
+        return AuthService.getUser();
       }, function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-          var blankProfileImage = '/static/assets/img/user-avatar.png';
-          var image;
-          if (newValue) {
-            image = newValue;
-          } else {
-            image = blankProfileImage;
-          }
-          $scope.profile = { 'background-image' : 'url(' + image + ')' };
+        if (newValue !== oldValue && newValue) {
+          $scope.profile = { 'background-image' : 'url(' + (newValue.avatar || '/static/assets/img/user-avatar.png') + ')' };
         }
       });
     }

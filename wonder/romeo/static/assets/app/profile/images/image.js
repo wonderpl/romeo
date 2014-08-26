@@ -9,7 +9,7 @@ angular
     replace : true,
     template : $templateCache.get('profile/images/image.tmpl.html'),
     scope: {
-      image : '=',
+      profile : '=',
       isEdit : '='
     },
     controller : function ($scope) {
@@ -39,17 +39,9 @@ angular
         });
       };
 
-      $scope.$watch('image', function (newValue, oldValue) {
+      $scope.$watch('profile.avatar', function (newValue, oldValue) {
         if (newValue !== oldValue) {
-          var blankProfileImage = '/static/assets/img/user-avatar.png';
-          var image;
-          if (newValue) {
-            image = newValue;
-          } else {
-            image = blankProfileImage;
-          }
-
-          $scope.profileImageStyle = { 'background-image' : 'url(' + image + ')' };
+          $scope.profileImageStyle = { 'background-image' : 'url(' + (newValue || '/static/assets/img/user-avatar.png') + ')' };
         }
       });
     }
