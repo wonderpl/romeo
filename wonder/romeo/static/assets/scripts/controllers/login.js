@@ -10,6 +10,7 @@ function LoginController ($scope, $location, AuthService) {
   $scope.password = $scope.username || '';
   $scope.href = '';
   $scope.tandc = false;
+  $scope.isLoading = {};
 
   $scope.handleRedirect = function (response) {
     $scope.isLoading = false;
@@ -22,15 +23,25 @@ function LoginController ($scope, $location, AuthService) {
   };
 
   $scope.login = function () {
+    $scope.isLoading.login = true;
     return AuthService.login($scope.username, $scope.password).then(
     $scope.handleRedirect,
     function (response) {
       console.log(response);
-      $scope.isLoading = false;
+      $scope.isLoading.login = false;
       if (response.data.error) {
         $scope.errors = 'login error';
       }
     });
+  };
+
+  $scope.disableButtons = function () {
+    var state = false;
+    angular.forEach($scope.isLoading, function(value, key) {
+      if (value)
+        state = true;
+    });
+    return state;
   };
 
   $scope.showSignup = function () {
