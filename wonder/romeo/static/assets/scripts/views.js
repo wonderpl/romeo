@@ -732,11 +732,11 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('login.html',
-    "<div ng-controller=\"LoginCtrl\" autocomplete=\"off\" class=\"login-view\">\n" +
+    "<div ng-controller=\"LoginCtrl\" id=\"loginController\" autocomplete=\"off\" class=\"login-view\">\n" +
     "  <div class=\"center-container\">\n" +
     "    <div class=\"center-object\">\n" +
     "      <div class=\"wrapper\">\n" +
-    "        <form ng-submit=\"login()\">\n" +
+    "        <form ng-submit=\"submitted = false; loginForm.$valid && login();\" name=\"loginForm\">\n" +
     "          <fieldset>\n" +
     "            <legend class=\"accessibility\">Log in details</legend>\n" +
     "            <ul class=\"form-fields  login-view__form\">\n" +
@@ -744,12 +744,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "                <div class=\"login-view__input  icon-text\">\n" +
     "                  <i class=\"icon  icon--head  icon-text__icon\"></i>\n" +
     "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__username\">Username</label>\n" +
-    "                  <input type=\"text\" ng-model=\"username\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__username\" placeholder=\"Username\" />\n" +
+    "                  <input type=\"text\" ng-model=\"username\" name=\"username\" autocomplete=\"off\" class=\"text-input\" required id=\"login-view__username\" placeholder=\"Username\" />\n" +
+    "                  <span class=\"error\" ng-show=\"submitted && loginForm.username.$error.required\">Required!</span>\n" +
     "                </div>\n" +
     "                <div class=\"login-view__input  icon-text\">\n" +
     "                  <i class=\"icon  icon--lock  icon-text__icon\"></i>\n" +
     "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__password\">Password</label>\n" +
-    "                  <input type=\"password\" name=\"password\" ng-model=\"password\" autocomplete=\"off\"  class=\"text-input\" id=\"login-view__password\" placeholder=\"Password\" />\n" +
+    "                  <input type=\"password\" required name=\"password\" ng-model=\"password\" autocomplete=\"off\"  class=\"text-input\" id=\"login-view__password\" placeholder=\"Password\" />\n" +
+    "                  <span class=\"error\" ng-show=\"submitted && loginForm.password.$error.required\">Required!</span>\n" +
     "                </div>\n" +
     "              </li>\n" +
     "              <li class=\"text-col\">\n" +
@@ -763,13 +765,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "              <li class=\"text-col\">\n" +
     "                <span class=\"login-view__errors\" ng-bind=\"errors\"></span>\n" +
     "                <div class=\"btn-center\">\n" +
-    "                  <a class=\"btn btn--positive login-view__submit\" ng-click=\"isLoading = true; showSignup();\">Sign up <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading\" /></a>\n" +
-    "                  <button type=\"submit\" class=\"btn btn--positive login-view__submit\" ng-class=\"{'btn--disabled': !tandc}\" ng-disabled=\"!tandc\" ng-click=\"isLoading = true;\">Login <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading\" /></button>\n" +
+    "                  <button type=\"submit\" class=\"btn btn--positive login-view__submit\" ng-class=\"{'btn--disabled': !tandc || disableButtons()}\" ng-disabled=\"!tandc || disableButtons()\">Login <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading.login\" /></button>\n" +
     "                </div>\n" +
     "\n" +
     "                <p>Or</p>\n" +
     "                <div class=\"btn-center\"> \n" +
-    "                  <a class=\"btn btn--positive login-view__submit\" ng-click=\"isLoading = true; showTwitterSignin();\">Sign in with Twitter<img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading\" /></a>\n" +
+    "                  <a class=\"btn btn--positive login-view__submit\" ng-disabled=\"disableButtons()\" ng-class=\"{'btn--disabled': disableButtons()}\" ng-click=\"isLoading.twitter = true; showTwitterSignin();\">Sign in with Twitter<img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading.twitter\" /></a>\n" +
+    "\n" +
+    "                  <a class=\"btn btn--positive login-view__submit\" ng-disabled=\"disableButtons()\" ng-class=\"{'btn--disabled': disableButtons()}\" ng-click=\"isLoading.signup = true; showSignup();\">Sign up <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading.signup\" /></a>\n" +
     "                </div>\n" +
     "              </li>\n" +
     "              <li>\n" +

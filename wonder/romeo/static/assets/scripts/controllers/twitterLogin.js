@@ -1,22 +1,9 @@
 angular
   .module('RomeoApp.controllers')
-  .controller('TwitterLoginCtrl', ['$scope', 'AuthService', 'AccountService',
-  	function ($scope, AuthService, AccountService) {
+  .controller('TwitterLoginCtrl', ['$scope', '$location', 'AuthService', 'AccountService',
+  	function ($scope, $location, AuthService, AccountService) {
   		'use strict';
-
   		$scope.isLoading = false;
-
-		function loginOrSignup() {
-			AccountService.getAccountByExternalToken('twitter', $scope.credentials.externalToken).then(function (data) {
-				if (data.username) {
-					externalLogin(data.username);
-				}
-				// User have not registered, do it now
-			},
-			function () {
-				// User not found, register
-			});
-		}
 
 		$scope.save = function() {
 			$scope.errors = '';
@@ -24,25 +11,19 @@ angular
 		};
 
 		function externalLogin(username) {
-			AuthService.ExternalLogin({
-				external_system: "twitter",
-				external_token: $scope.credentials.externalToken,
-				username: username,
-				location: 'GB'
-			}).then(function () {
-				$location.redirect('/organise');
-			},
-			function (data) {
-				if (data.form_errors.external_system) {
-					$scope.errors = data.form_errors.external_system;
-				} else if (data.form_errors.external_token) {
-					$scope.errors = data.form_errors.external_token;
-				} else if (data.form_errors.username) {
-					$scope.errors = data.form_errors.username;
+			AuthService.ExternalLogin(username).then(function (response) {
+	        	$location.url('/organise');
+	        },
+	        function (response) {
+	        	if (response.data.error == 'registration_required') {
+	        		// Do nothing, just show this page
+	        	} else if (response.data.form_errors && response.data.form_errors.username) {
+					$scope.errors = response.data.form_errors.username[0];
 				} else {
-					$scope.errors = 'Invalid request';
-				}
-			});
+	        		alert("Something went wrong with your sign in:\n" + response.data);
+        		}
+	        }
+	      );
 		}
   }]
 );

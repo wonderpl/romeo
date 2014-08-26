@@ -13,7 +13,8 @@ angular.module('RomeoApp.services').factory('AuthService',
         loggedIn = false,
         isCollaborator = false,
         debug = new DebugClass('auth'),
-        checkingLogin = false;
+        checkingLogin = false,
+        externalCredentials;
 
     /*
     * POSTS the users login credentials to the server.  If successful, we add the session url to local storage.
@@ -220,12 +221,35 @@ angular.module('RomeoApp.services').factory('AuthService',
       });
     };
 
-    Auth.ExternalLogin = function (data) {
-        return $http.post('/api/login/external', data);
+    Auth.ExternalLogin = function (username) {
+        if (! externalCredentials) {
+            var dfd = new $q.defer();
+            debug.error('ExternalLogin was called before external credentials were set');
+            return new dfd.reject('Set credentials before calling external login');
+        }
+        var data = externalCredentials;
+        var request;
+        data.username = username;
+        debug.dir(data);
+        request = $http.post('/api/login/external', data);
+        request.then(function (response) {
+            debug.info('Logged in from external service');
+            debug.dir(response.data);
+            user = response.data.account;
+            $rootScope.isLoggedIn = Auth.isLoggedIn();
+            Auth.setSession(user);
+            $rootScope.User = user;
+        });
+        return request;
     };
 
     Auth.getUser = function () {
         return user;
+    };
+
+    Auth.setExternalCredentials = function (credentials) {
+        debug.info('setExternalCredentials ' + credentials);
+        externalCredentials = credentials;
     };
 
     return {
@@ -239,6 +263,8 @@ angular.module('RomeoApp.services').factory('AuthService',
         getSession: Auth.getSession,
         getSessionId: Auth.getSessionId,
         redirect: Auth.redirect,
-        getUser: Auth.getUser
+        getUser: Auth.getUser,
+        ExternalLogin: Auth.ExternalLogin,
+        setExternalCredentials: Auth.setExternalCredentials
     };
 }]);
