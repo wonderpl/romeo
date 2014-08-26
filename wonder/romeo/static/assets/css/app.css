@@ -6440,13 +6440,11 @@ label,
 
 /* line 1, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover {
-  -webkit-transition: background-color 0.4s ease-in-out;
-  transition: background-color 0.4s ease-in-out;
-  -webkit-transition: opacity 1s ease-in-out;
-  transition: opacity 1s ease-in-out;
+  -webkit-transition: opacity 1s, max-height 0.8s ease-in-out;
+  transition: opacity 1s, max-height 0.8s ease-in-out;
   width: 100%;
-  height: 180px;
-  background-color: white;
+  height: 420px;
+  max-height: 180px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center top;
@@ -6454,40 +6452,39 @@ label,
   opacity: 0;
 }
 
-/* line 15, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 13, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover--img {
   opacity: 1;
-  background-color: #70797b;
-  height: 420px;
+  max-height: 420px;
 }
 
-/* line 21, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 18, ../../scss/specifics/profile/_profile-cover.scss */
 .configurable-layout-column--is-comments .profile-cover--img {
   height: 100px;
   background-image: none !important;
 }
 
-/* line 26, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 23, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover--hero {
   height: 140px;
 }
 
-/* line 30, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 27, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__upload-label {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
 
-/* line 38, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 35, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover--edit:hover {
   cursor: pointer;
 }
-/* line 41, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 38, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover--edit:hover .profile-cover__upload-label {
   background-clip: padding-box;
   border: solid 2px #51b364;
 }
-/* line 47, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 44, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover--edit .profile-cover__upload-label {
   position: absolute;
   top: 0;
@@ -6496,7 +6493,7 @@ label,
   width: 100%;
   background: rgba(0, 0, 0, 0.7);
 }
-/* line 56, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 53, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover--edit .profile-cover__dropzone {
   width: 74px;
   height: 74px;
@@ -6513,7 +6510,7 @@ label,
   opacity: 1;
 }
 
-/* line 75, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 72, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__dropzone {
   position: absolute;
   left: -9999px;
@@ -6521,17 +6518,17 @@ label,
   opacity: 0;
 }
 
-/* line 82, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 79, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__dropzone:hover {
   cursor: pointer;
 }
 
-/* line 86, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 83, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__dropzone--active {
   border: solid 2px #51b364;
 }
 
-/* line 90, ../../scss/specifics/profile/_profile-cover.scss */
+/* line 87, ../../scss/specifics/profile/_profile-cover.scss */
 .profile-cover__upload {
   display: none;
 }
