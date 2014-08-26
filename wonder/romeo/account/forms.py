@@ -78,7 +78,7 @@ class RegistrationForm(Form):
         wtforms.validators.InputRequired(), wtforms.validators.Email(),
         email_validator(), username_validator()])
     password = wtforms.PasswordField(validators=[
-        wtforms.validators.InputRequired(), wtforms.validators.Length(min=6)])
+        wtforms.validators.InputRequired(), wtforms.validators.Length(min=8)])
     name = wtforms.TextField(validators=[
         wtforms.validators.InputRequired()])
     remember = wtforms.BooleanField()
