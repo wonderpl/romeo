@@ -21,9 +21,17 @@
                 </location-selector>
               </li>
               <li class="text-col">
+                <ul class="check-list">
+                  <li>
+                    <input type="checkbox" name="tandc" ng-model="tandc" required class="login-view__input_checkbox" id="tandc"/>
+                    <label class="t--inline  login-view__label" for="tandc">By creating an account, I accept Wonder's <a href="http://wonderpl.com/tos">Terms of Service</a> </label>
+                  </li>
+                </ul>
+              </li>
+              <li class="text-col">
                 <span class="login-view__errors" ng-bind="errors"></span>
                 <div class="btn-center">
-                  <button type="submit" class="btn btn--positive login-view__submit" ng-click="isLoading = true;">Save <img class="login-view__loading-indicator" src="/static/assets/img/loading.gif" ng-show="isLoading" /></button>
+                  <button type="submit" class="btn btn--positive login-view__submit" ng-click="isLoading = true;" ng-disabled="!tandc">Save <img class="login-view__loading-indicator" src="/static/assets/img/loading.gif" ng-show="isLoading" /></button>
                 </div>
               </li>
             </ul>

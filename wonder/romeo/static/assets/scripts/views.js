@@ -1399,9 +1399,17 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "                </location-selector>\n" +
     "              </li>\n" +
     "              <li class=\"text-col\">\n" +
+    "                <ul class=\"check-list\">\n" +
+    "                  <li>\n" +
+    "                    <input type=\"checkbox\" name=\"tandc\" ng-model=\"tandc\" required class=\"login-view__input_checkbox\" id=\"tandc\"/>\n" +
+    "                    <label class=\"t--inline  login-view__label\" for=\"tandc\">By creating an account, I accept Wonder's <a href=\"http://wonderpl.com/tos\">Terms of Service</a> </label>\n" +
+    "                  </li>\n" +
+    "                </ul>\n" +
+    "              </li>\n" +
+    "              <li class=\"text-col\">\n" +
     "                <span class=\"login-view__errors\" ng-bind=\"errors\"></span>\n" +
     "                <div class=\"btn-center\">\n" +
-    "                  <button type=\"submit\" class=\"btn btn--positive login-view__submit\" ng-click=\"isLoading = true;\">Save <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading\" /></button>\n" +
+    "                  <button type=\"submit\" class=\"btn btn--positive login-view__submit\" ng-click=\"isLoading = true;\" ng-disabled=\"!tandc\">Save <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading\" /></button>\n" +
     "                </div>\n" +
     "              </li>\n" +
     "            </ul>\n" +
