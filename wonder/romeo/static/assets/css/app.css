@@ -6839,15 +6839,16 @@ label,
   color: white;
   width: 200px;
   height: 100%;
+  z-index: 100;
 }
-/* line 11, ../common/directives/_global-navigation.scss */
+/* line 12, ../common/directives/_global-navigation.scss */
 #global-nav ul {
   display: block;
   list-style: none;
   margin: 0 24px;
 }
 
-/* line 17, ../common/directives/_global-navigation.scss */
+/* line 18, ../common/directives/_global-navigation.scss */
 .global-nav__item {
   display: block;
   padding: 0;
@@ -6855,7 +6856,7 @@ label,
   border-bottom: 1px #b7bcbd solid;
 }
 
-/* line 23, ../common/directives/_global-navigation.scss */
+/* line 24, ../common/directives/_global-navigation.scss */
 .global-nav__link {
   padding-right: 6px;
   padding-left: 6px;
@@ -6869,12 +6870,12 @@ label,
   text-decoration: none;
   border: none;
 }
-/* line 36, ../common/directives/_global-navigation.scss */
+/* line 37, ../common/directives/_global-navigation.scss */
 .global-nav__link > .avatar {
   display: inline-block;
   vertical-align: middle;
   margin: 0 5px 0 0;
   position: relative;
   left: auto;
-  z-index: 0;
+  z-index: 101;
 }
