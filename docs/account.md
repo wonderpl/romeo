@@ -24,6 +24,7 @@ Set-Cookie: session=XXX
 
 {
  "account": {
+  "id": 27250600,
   "href": "/api/account/27250600",
   "name": "romeo account name",
   "display_name": "dolly user name",
@@ -32,6 +33,7 @@ Set-Cookie: session=XXX
   "avatar": "http://path/to/dolly/avatar/image.jpg"
  },
  "user": {
+  "id": 56945137,
   "href": "/api/user/56945137",
   "username": "paulegan@rockpack.com"
  }
@@ -197,6 +199,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json
 
 {
+ "id": 27250600,
  "href": "/api/account/27250600",
  "name": "romeo account name",
  "display_name": "dolly user name",
@@ -260,6 +263,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json
 
 {
+ "id": 56945137,
  "href": "/api/user/56945137",
  "username": "paulegan@rockpack.com"
 }

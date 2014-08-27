@@ -7,7 +7,7 @@ from xml.etree import cElementTree as ElementTree
 from itsdangerous import URLSafeSerializer, BadSignature
 from flask import (Blueprint, current_app, request, render_template, url_for,
                    session, redirect, jsonify, abort)
-from flask.ext.login import login_user, logout_user, fresh_login_required, current_user
+from flask.ext.login import login_user, logout_user, current_user
 from flask.ext.restful.reqparse import RequestParser
 from wonder.common.i18n import lazy_gettext as _
 from wonder.romeo.core.db import commit_on_success
@@ -194,6 +194,7 @@ class UserResource(Resource):
         if not user_id == current_user.id:
             abort(403)
         return dict(
+            id=current_user.id,
             href=url_for('api.user', user_id=current_user.id),
             username=current_user.username,
         )
@@ -208,6 +209,7 @@ def _update_users(account_id, **kwargs):
 def account_item(account, dollyuser):
     userdata = dollyuser.get_userdata()
     return dict(
+        id=account.id,
         href=url_for('api.account', account_id=account.id),
         name=account.name,
         display_name=userdata['display_name'],
