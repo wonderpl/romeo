@@ -1409,7 +1409,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "              <li class=\"text-col\">\n" +
     "                <span class=\"login-view__errors\" ng-bind=\"errors\"></span>\n" +
     "                <div class=\"btn-center\">\n" +
-    "                  <button type=\"submit\" class=\"btn btn--positive login-view__submit\" ng-click=\"isLoading = true;\" ng-disabled=\"!tandc\">Save <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading\" /></button>\n" +
+    "                  <button type=\"submit\" class=\"btn btn--positive login-view__submit\" ng-click=\"isLoading = true;\" ng-disabled=\"!tandc\">Create account <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading\" /></button>\n" +
     "                </div>\n" +
     "              </li>\n" +
     "            </ul>\n" +
