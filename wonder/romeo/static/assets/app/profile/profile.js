@@ -4,9 +4,9 @@
 'use strict';
 var debug = new DebugClass('RomeoApp.profile');
 
-angular.module('RomeoApp.profile', ['RomeoApp.profile.directives', 'RomeoApp.services', 'RomeoApp.security', 'ngRoute']);
+angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
 // Define other profile sub modules
-angular.module('RomeoApp.profile.directives', []);
+//angular.module('RomeoApp.profile.directives', []);
 // End other sub modules
 
 function ProfileRouteProvider($routeProvider, securityAuthorizationProvider) {
@@ -192,7 +192,7 @@ function ProfileCtrl($scope, AccountService, AuthService, DataService, UserServi
         message : 'Invitation to connect was not sent.'}
       );
     });
-  }
+  };
 
   init();
   return ProfileController;

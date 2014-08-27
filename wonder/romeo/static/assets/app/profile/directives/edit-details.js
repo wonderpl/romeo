@@ -53,7 +53,7 @@ function editDetails($templateCache) {
     }
   };
 }
-angular.module('RomeoApp.profile.directives').directive('profileEditDetails', ['$templateCache', editDetails]);
+angular.module('RomeoApp.profile').directive('profileEditDetails', ['$templateCache', editDetails]);
 
 function required($templateCache) {
   return {
@@ -74,7 +74,7 @@ function required($templateCache) {
     }
   };
 }
-angular.module('RomeoApp.profile.directives').directive('me-required', ['$templateCache', required]);
+angular.module('RomeoApp.profile').directive('me-required', ['$templateCache', required]);
 
 
 })();

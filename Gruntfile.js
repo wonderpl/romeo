@@ -12,7 +12,11 @@ module.exports = function (grunt) {
             options: {
                 jshintrc: true
             },
-            files: ['wonder/romeo/static/assets/scripts/**/*.js']
+            files: [
+                'wonder/romeo/static/assets/scripts/**/*.js',
+                'wonder/romeo/static/assets/common/**/*.js',
+                'wonder/romeo/static/assets/app/**/*.js'
+            ]
         },
 
         /* Clean Files! */
@@ -72,7 +76,7 @@ module.exports = function (grunt) {
                 separator: '\n'
             },
             dist: {
-                src: 'wonder/romeo/static/assets/scripts/**/*.js',
+                src: ['wonder/romeo/static/assets/scripts/**/*.js', 'wonder/romeo/static/assets/common/**/*.js', 'wonder/romeo/static/assets/app/**/*.js'],
                 dest: 'dist/assets/scripts/app.js'
             },
             vendor: {
@@ -126,7 +130,7 @@ module.exports = function (grunt) {
         /* ============ */
         karma: {
             raw: {
-                configFile: 'karma.conf.js',
+                configFile: 'test-front/karma.conf.js',
                 options: {
                     browsers: ['PhantomJS']
                 }
@@ -195,7 +199,24 @@ module.exports = function (grunt) {
             angular: {
                 files: ['wonder/romeo/static/views/**/*.html', 'wonder/romeo/static/assets/**/*.tmpl.html'],
                 tasks: ['ngtemplates']
-            }
+            },
+            jshint: {
+                files: [
+                    'wonder/romeo/static/assets/scripts/**/*.js',
+                    'wonder/romeo/static/assets/common/**/*.js',
+                    'wonder/romeo/static/assets/app/**/*.js'
+                ],
+                tasks: ['jshint']
+            } //, @TODO enable karma unit tests as part of watch
+            // unittest: {
+            //     files: [
+            //         'wonder/romeo/static/assets/scripts/**/*.js',
+            //         'wonder/romeo/static/assets/common/**/*.js',
+            //         'wonder/romeo/static/assets/app/**/*.js',
+            //         'test-front/unit/**/*.js'
+            //     ],
+            //     tasks: ['karma:raw']
+            // }
         }
     });
 

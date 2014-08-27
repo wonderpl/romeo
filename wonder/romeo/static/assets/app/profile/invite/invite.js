@@ -34,6 +34,6 @@
     };
   }
 
-  angular.module('RomeoApp.profile.directives').directive('profileInvite', ['$templateCache', 'modal', profileInvite]);
+  angular.module('RomeoApp.profile').directive('profileInvite', ['$templateCache', 'modal', profileInvite]);
 
 })();

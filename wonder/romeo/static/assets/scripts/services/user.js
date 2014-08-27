@@ -1,8 +1,8 @@
 (function () {
+  'use strict';
   angular.module('RomeoApp.services')
     .factory('UserService', ['DataService', function (DataService) {
 
-    'use strict';
 
     var User = {};
 

@@ -1,4 +1,4 @@
-angular.module('RomeoApp.profile.directives')
+angular.module('RomeoApp.profile')
 
 .directive('profileViewDetails', ['$templateCache',
 	function($templateCache) {

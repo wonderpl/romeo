@@ -1,4 +1,4 @@
-angular.module('RomeoApp.directives', []).directive('colorPicker', function () {
+angular.module('RomeoApp.directives').directive('colorPicker', function () {
 
   'use strict';
 
