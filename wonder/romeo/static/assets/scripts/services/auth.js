@@ -16,6 +16,44 @@ angular.module('RomeoApp.services').factory('AuthService',
         checkingLogin = false,
         externalCredentials;
 
+    function _saveUserDetails(account) {
+        if (angular.isDefined(account)) {
+            user = account;
+            $rootScope.isLoggedIn = Auth.isLoggedIn();
+            $rootScope.User = user;
+            Auth.setSession(user);
+        }
+    }
+
+    function _loginCheck() {
+      var deferred = new $q.defer();
+      if ( Auth.isLoggedIn() ) {
+        deferred.resolve(user);
+        debug.log('LoginCheck: - Already logged in (loggedIn: ' + user + ', isCollaborator: ' + isCollaborator + ')');
+      }
+      else {
+        debug.log('LoginCheck: - Try to log in');
+        Auth.getSession().then(function(response){
+          debug.log('LoginCheck: - Got session, trying to retrive profile url');
+          debug.info('LoginCheck: url to load: ' + (response.href || response));
+          $http({method: 'GET', url: (response.href || response) }).then(function(response) {
+            _saveUserDetails(angular.fromJson(response.data));
+            debug.log('LoginCheck: All good, access granted');
+            deferred.resolve(user);
+          }, function(response){
+            user = null;
+            $rootScope.isLoggedIn = Auth.isLoggedIn();
+            debug.warn("LoginCheck: Couldn't load profile with supplied session, not logged in");
+            deferred.reject('not logged in');
+          });
+        }, function(){
+            debug.warn("LoginCheck: No session available, not logged in");
+            deferred.reject('not logged in');
+        });
+      }
+      return deferred.promise;
+    }
+
     /*
     * POSTS the users login credentials to the server.  If successful, we add the session url to local storage.
     */
@@ -28,9 +66,7 @@ angular.module('RomeoApp.services').factory('AuthService',
                 'password': password
             }
         }).success(function (data) {
-            user = data.account;
-            $rootScope.User = $rootScope.User;
-            $rootScope.isLoggedIn = Auth.isLoggedIn();
+            _saveUserDetails(data.account);
             return Auth.setSession(user);
         }).error(function () {
             // debugger;
@@ -54,7 +90,9 @@ angular.module('RomeoApp.services').factory('AuthService',
             url: '/api/register',
             data: data
         }).success(function (data) {
-            $rootScope.User = data.account;
+            debug.info('Registration successful');
+            debug.dir(data);
+            _saveUserDetails(data.account);
             return Auth.setSession(data.account);
         }).error(function () {
             // debugger;
@@ -87,37 +125,6 @@ angular.module('RomeoApp.services').factory('AuthService',
         }
         return checkingLogin;
     };
-
-    function _loginCheck() {
-      var deferred = new $q.defer();
-      if ( Auth.isLoggedIn() ) {
-        deferred.resolve(user);
-        debug.log('LoginCheck: - Already logged in (loggedIn: ' + user + ', isCollaborator: ' + isCollaborator + ')');
-      }
-      else {
-        debug.log('LoginCheck: - Try to log in');
-        Auth.getSession().then(function(response){
-          debug.log('LoginCheck: - Got session, trying to retrive profile url');
-          debug.info('LoginCheck: url to load: ' + (response.href || response));
-          $http({method: 'GET', url: (response.href || response) }).then(function(response) {
-            user = angular.fromJson(response.data);
-            $rootScope.isLoggedIn = Auth.isLoggedIn();
-            Auth.setSession(user);
-            debug.log('LoginCheck: All good, access granted');
-            deferred.resolve(user);
-          }, function(response){
-            user = null;
-            $rootScope.isLoggedIn = Auth.isLoggedIn();
-            debug.warn("LoginCheck: Couldn't load profile with supplied session, not logged in");
-            deferred.reject('not logged in');
-          });
-        }, function(){
-            debug.warn("LoginCheck: No session available, not logged in");
-            deferred.reject('not logged in');
-        });
-      }
-      return deferred.promise;
-    }
 
     Auth.collaboratorCheck = function () {
       var query = $location.search();
@@ -211,7 +218,7 @@ angular.module('RomeoApp.services').factory('AuthService',
         user = angular.fromJSON(data);
         isCollaborator = true;
         $rootScope.isCollaborator = true;
-        $rootScope.User = angular.fromJSON(data);
+        $rootScope.User = user;
         return Auth.setSession(data);
       }).error(function () {
         debug.warn('Login: Auth.loginAsCollaborator - Token invalid');
@@ -235,10 +242,8 @@ angular.module('RomeoApp.services').factory('AuthService',
         request.then(function (response) {
             debug.info('Logged in from external service');
             debug.dir(response.data);
-            user = response.data.account;
-            $rootScope.isLoggedIn = Auth.isLoggedIn();
-            Auth.setSession(user);
-            $rootScope.User = user;
+            _saveUserDetails(response.data.account);
+            Auth.setExternalCredentials(null);
         });
         return request;
     };
