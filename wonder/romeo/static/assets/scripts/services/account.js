@@ -2,8 +2,8 @@
 * Methods for interacting with the Account web services
 */
 angular.module('RomeoApp.services').factory('AccountService',
-    ['DataService', 'localStorageService', '$rootScope', 'AuthService', '$q',
-    function (DataService, localStorageService, $rootScope, AuthService, $q) {
+    ['DataService', 'localStorageService', 'AuthService', '$q',
+    function (DataService, localStorageService, AuthService, $q) {
 
     'use strict';
     var debug = new DebugClass('AccountService');
@@ -19,27 +19,17 @@ angular.module('RomeoApp.services').factory('AccountService',
         var deferred = new $q.defer();
 
         AuthService.loginCheck().then(function(response){
-            if ( ID === null ) {
-                debug.log('New User added to rootscope');
-                debug.dir(response);
-                AuthService.getSessionId().then(function(id){
-                    ID = id;
-                });
-                User = response;
-            } else {
-                AuthService.getSessionId().then(function (_id) {
-                    if (_id === ID) {
-                        User = $rootScope.User;
-                        debug.log('User already on rootscope');
-                    } else {
-                        DataService.request({url: ('/api/account/' + ID)}).then(function(response){
-                            debug.log('User added to rootscope');
-                            User = response;
-                        });
-                    }
-                });
-            }
-            $rootScope.User = User;
+            AuthService.getSessionId().then(function (_id) {
+                if ( ID === null )
+                    debug.log('New User added to AccountService');
+                else if (_id === ID)
+                    debug.log('User already in AccountService');
+                else
+                    debug.log('User loaded into AccountService');
+                
+                ID = _id;
+            });
+            User = AuthService.getUser();
             deferred.resolve(User);
         });
         return deferred.promise;

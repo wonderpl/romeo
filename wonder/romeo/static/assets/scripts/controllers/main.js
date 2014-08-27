@@ -9,13 +9,12 @@ function MainController ($window, $scope, $rootScope, $location, modal, $element
   /*
   * Empty state objects for when we have data
   */
-  $rootScope.User = {};
   $rootScope.Videos = {};
   $rootScope.Tags = {};
 
   $rootScope.isComments = false;
 
-  $rootScope.layoutMode = $cookies.layout ? $cookies.layout : ($rootScope.isCollaborator) ? 'column' : 'wide';
+  $rootScope.layoutMode = $cookies.layout ? $cookies.layout : (AuthService.isCollaborator()) ? 'column' : 'wide';
 
   $scope.profile = '';
 

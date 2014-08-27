@@ -2,8 +2,8 @@
 * Methods for logging in and out, and for accessing credentials used by the other services
 */
 angular.module('RomeoApp.services').factory('AuthService',
-    ['$rootScope', '$http', 'localStorageService', 'ErrorService', '$q', '$interval', '$location',
-    function ($rootScope, $http, localStorageService, ErrorService, $q, $interval, $location) {
+    ['$http', 'localStorageService', 'ErrorService', '$q', '$interval', '$location',
+    function ($http, localStorageService, ErrorService, $q, $interval, $location) {
 
     'use strict';
 
@@ -11,7 +11,7 @@ angular.module('RomeoApp.services').factory('AuthService',
         session = null,
         user = null,
         loggedIn = false,
-        isCollaborator = false,
+        collaborator = false,
         debug = new DebugClass('auth'),
         checkingLogin = false,
         externalCredentials;
@@ -19,8 +19,6 @@ angular.module('RomeoApp.services').factory('AuthService',
     function _saveUserDetails(account) {
         if (angular.isDefined(account)) {
             user = account;
-            $rootScope.isLoggedIn = Auth.isLoggedIn();
-            $rootScope.User = user;
             Auth.setSession(user);
         }
     }
@@ -29,7 +27,7 @@ angular.module('RomeoApp.services').factory('AuthService',
       var deferred = new $q.defer();
       if ( Auth.isLoggedIn() ) {
         deferred.resolve(user);
-        debug.log('LoginCheck: - Already logged in (loggedIn: ' + user + ', isCollaborator: ' + isCollaborator + ')');
+        debug.log('LoginCheck: - Already logged in (loggedIn: ' + user + ', collaborator: ' + collaborator + ')');
       }
       else {
         debug.log('LoginCheck: - Try to log in');
@@ -42,7 +40,6 @@ angular.module('RomeoApp.services').factory('AuthService',
             deferred.resolve(user);
           }, function(response){
             user = null;
-            $rootScope.isLoggedIn = Auth.isLoggedIn();
             debug.warn("LoginCheck: Couldn't load profile with supplied session, not logged in");
             deferred.reject('not logged in');
           });
@@ -105,6 +102,12 @@ angular.module('RomeoApp.services').factory('AuthService',
     */
     Auth.isLoggedIn = function() {
         return user !== null;
+    };
+    Auth.isCollaborator = function() {
+        return collaborator;
+    };
+    Auth.setCollaborator = function(value) {
+        collaborator = value;
     };
 
     /*
@@ -216,15 +219,12 @@ angular.module('RomeoApp.services').factory('AuthService',
       }).success(function (data) {
         debug.log('Login: Auth.loginAsCollaborator - Token validated');
         user = angular.fromJSON(data);
-        isCollaborator = true;
-        $rootScope.isCollaborator = true;
-        $rootScope.User = user;
+        collaborator = true;
         return Auth.setSession(data);
       }).error(function () {
         debug.warn('Login: Auth.loginAsCollaborator - Token invalid');
         alert('token invalid');
-        $rootScope.isCollaborator = false;
-        isCollaborator = false;
+        collaborator = false;
       });
     };
 
@@ -262,6 +262,8 @@ angular.module('RomeoApp.services').factory('AuthService',
         registration: Auth.registration,
         loginAsCollaborator: Auth.loginAsCollaborator,
         isLoggedIn: Auth.isLoggedIn,
+        isCollaborator: Auth.isCollaborator,
+        setCollaborator: Auth.setCollaborator,
         loginCheck: Auth.loginCheck,
         collaboratorCheck: Auth.collaboratorCheck,
         setSession: Auth.setSession,
