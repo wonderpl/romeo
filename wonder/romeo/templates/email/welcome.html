@@ -4,27 +4,25 @@
 
 {% block body %}
 
-{% if sender.avatar_url %}
+{% if avatar_url %}
   <div style="width:100%;overflow:hidden;text-align:center;">
-    <img src="{{ sender.avatar_url }}" alt="" width="66" height="66" style="display:block;max-width:none;width:66px;height:auto;margin:0 auto;border-radius:100%;"/>
+    <img src="{{ avatar_url }}" alt="" width="66" height="66" style="display:block;max-width:none;width:66px;height:auto;margin:0 auto;border-radius:100%;"/>
   </div>
   <br>
 {% endif %}
 
-Hello <email recipient full name>,
-
 <div style="font-weight:bold;font-size:28px;line-height:1.35;font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif;color:#2e2e32">
-  Hello {{ collaborator.name }},
+  Hello {{ user.name }},
 </div>
 <br>
 
 <div>
-  Welcome to Wonder PL, the world’s first collaborative video publishing platform.
+  Welcome to Wonder PL, the world's first collaborative video publishing platform.
 </div>
 <br>
 
 <div>
-  “This is the easiest, most beautiful way to collaborate with brands and fellow free-thinking creatives to produce and share great videos.” Esteemed film maker
+  "This is the easiest, most beautiful way to collaborate with brands and fellow free-thinking creatives to produce and share great videos." Esteemed film maker
 </div>
 <br>
 

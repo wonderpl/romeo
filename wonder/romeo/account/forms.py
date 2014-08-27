@@ -7,8 +7,10 @@ from sqlalchemy.exc import IntegrityError
 import twitter
 from wonder.common.forms import email_validator
 from wonder.common.i18n import lazy_gettext as _
+from wonder.common.sqs import background_on_sqs
 from wonder.romeo import db
 from wonder.romeo.core import dolly
+from wonder.romeo.core.email import send_email, email_template_env
 from .models import Account, AccountUser, AccountUserAuthToken, EXTERNAL_SYSTEM_CHOICES
 
 
@@ -60,7 +62,16 @@ def register_user(accountname, username, password):
         account.dolly_user = dollydata['user_id']
         account.dolly_token = dollydata['access_token']
 
+    send_welcome_email(user.id)
+
     return user
+
+
+@background_on_sqs
+def send_welcome_email(user_id):
+    user = AccountUser.query.get(user_id)
+    template = email_template_env.get_template('welcome.html')
+    send_email(user.email, template.render(user=user))
 
 
 def username_validator():

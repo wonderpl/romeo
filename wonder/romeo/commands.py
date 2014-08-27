@@ -16,6 +16,7 @@ def test():
 def send_test_email(email_type, recipient, output=None):
     from wonder.romeo import db
     from wonder.romeo.video import forms as video_forms
+    from wonder.romeo.account import forms as account_forms
     from wonder.romeo.account.models import Account, AccountUser
     from wonder.romeo.video.models import Video, VideoThumbnail, VideoCollaborator, VideoComment
 
@@ -26,7 +27,7 @@ def send_test_email(email_type, recipient, output=None):
         def _send_email(recipient, body):
             with open(output, 'w') as f:
                 f.write(body)
-        video_forms.send_email = _send_email
+        video_forms.send_email = account_forms.send_email = _send_email
 
     def _create_test_video():
         video = Video(title='test', status='ready')
@@ -50,6 +51,8 @@ def send_test_email(email_type, recipient, output=None):
         db.create_all()
         video, account = _create_test_video()
         emails = dict(
+            welcome=(account_forms.send_welcome_email,
+                     (account.users[0].id,)),
             processed_error=(video_forms.send_processed_email,
                              (video.id, 'Duplicate video content')),
             processed=(video_forms.send_processed_email,
