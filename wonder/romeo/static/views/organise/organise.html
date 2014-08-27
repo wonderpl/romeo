@@ -4,7 +4,7 @@
     <div class="layout">
       <organise-navigation tags="tags" current-tag="tag" filter-by-recent="filterByRecent" filter-by-collaboration="filterByCollaboration"></organise-navigation>
       <div class="layout__item  two-thirds">
-        <organise-collection ng-show="tag" ng-if="!$root.isCollaborator" tag="tag" is-edit="isEdit"></organise-collection>
+        <organise-collection ng-show="tag" ng-if="!collaborator()" tag="tag" is-edit="isEdit"></organise-collection>
         <organise-video-list videos="videos" tag="tag" filter-by-recent="filterByRecent" filter-by-collaboration="filterByCollaboration"></organise-video-list>
       </div>
     </div>

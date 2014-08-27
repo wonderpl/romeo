@@ -1,6 +1,6 @@
 angular.module('RomeoApp.controllers')
-  .controller('OrganiseCtrl', ['$rootScope', '$scope', 'TagService', '$location', 'modal', '$routeParams', '$route', 'VideoService',
-  function($rootScope, $scope, TagService, $location, modal, $routeParams, $route, VideoService) {
+  .controller('OrganiseCtrl', ['$rootScope', '$scope', 'TagService', '$location', 'modal', '$routeParams', '$route', 'VideoService', 'AuthService',
+  function($rootScope, $scope, TagService, $location, modal, $routeParams, $route, VideoService, AuthService) {
     'use strict';
     var debug = new DebugClass('OrganiseCtrl');
 
@@ -245,6 +245,10 @@ angular.module('RomeoApp.controllers')
           );
         });
       });
+    };
+
+    $scope.collaborator = function () {
+      return AuthService.isCollaborator();
     };
 
     function getTagById (id) {

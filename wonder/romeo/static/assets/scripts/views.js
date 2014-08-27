@@ -1110,18 +1110,18 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<div class=\"layout__item  one-third  organise-navigation\">\n" +
     "  <ul class=\"nav  nav--stacked  browse-list\">\n" +
     "    <li class=\"browse-list__item\"><span class=\"browse-list__title\">Manage</span></li>\n" +
-    "    <li class=\"browse-list__item\"ng-if=\"!$root.isCollaborator\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : !filterByCollaboration &&  !filterByRecent && !currentTag }\" ng-click=\"showAllVideos()\">All my videos</a></li>\n" +
-    "    <li class=\"browse-list__item\"ng-if=\"!$root.isCollaborator\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : filterByRecent }\" ng-click=\"showRecentVideos()\">My recently added videos</a></li>\n" +
+    "    <li class=\"browse-list__item\"ng-if=\"!isCollaborator()\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : !filterByCollaboration &&  !filterByRecent && !currentTag }\" ng-click=\"showAllVideos()\">All my videos</a></li>\n" +
+    "    <li class=\"browse-list__item\"ng-if=\"!isCollaborator()\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : filterByRecent }\" ng-click=\"showRecentVideos()\">My recently added videos</a></li>\n" +
     "    <li class=\"browse-list__item\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : filterByCollaboration }\" ng-click=\"showCollaborationVideos()\">Collaborating videos</a></li>\n" +
     "  </ul>\n" +
     "\n" +
-    "  <ul class=\"nav  nav--stacked  browse-list\" ng-if=\"!$root.isCollaborator\">\n" +
+    "  <ul class=\"nav  nav--stacked  browse-list\" ng-if=\"!isCollaborator()\">\n" +
     "    <li class=\"browse-list__item\"><span class=\"browse-list__title\">Collections not visible in app</span></li>\n" +
     "    <li class=\"browse-list__item\"><a class=\"browse-list__link  browse-list__link--create\" ng-click=\"createPrivateCollection()\"><span class=\"icon-text\"><i class=\"icon  icon-text__icon  icon--plus\"></i>Add a new private collection</span></a></li>\n" +
     "    <li class=\"browse-list__item\" ng-repeat=\"tag in tags | orderBy : 'label' | filter : { public : false }\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : currentTag.id === tag.id }\" ng-bind-html=\"tag.label\" ng-click=\"loadCollection(tag.id)\"></a></li>\n" +
     "  </ul>\n" +
     "\n" +
-    "  <ul class=\"nav  nav--stacked  browse-list\"ng-if=\"!$root.isCollaborator\">\n" +
+    "  <ul class=\"nav  nav--stacked  browse-list\"ng-if=\"!isCollaborator()\">\n" +
     "    <li class=\"browse-list__item\"><span class=\"browse-list__title\">Collections visible in app</span></li>\n" +
     "    <li class=\"browse-list__item\"><a class=\"browse-list__link  browse-list__link--create\" ng-click=\"createPublicCollection()\"><span class=\"icon-text\"><i class=\"icon  icon-text__icon  icon--plus\"></i>Add a new public collection</span></a></li>\n" +
     "    <li class=\"browse-list__item\" ng-repeat=\"tag in tags | filter : { public : true } | orderBy : 'label'\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : currentTag.id === tag.id }\" ng-bind-html=\"tag.label\" ng-click=\"loadCollection(tag.id)\"></a></li>\n" +
@@ -1232,7 +1232,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <div class=\"layout\">\n" +
     "      <organise-navigation tags=\"tags\" current-tag=\"tag\" filter-by-recent=\"filterByRecent\" filter-by-collaboration=\"filterByCollaboration\"></organise-navigation>\n" +
     "      <div class=\"layout__item  two-thirds\">\n" +
-    "        <organise-collection ng-show=\"tag\" ng-if=\"!$root.isCollaborator\" tag=\"tag\" is-edit=\"isEdit\"></organise-collection>\n" +
+    "        <organise-collection ng-show=\"tag\" ng-if=\"!collaborator()\" tag=\"tag\" is-edit=\"isEdit\"></organise-collection>\n" +
     "        <organise-video-list videos=\"videos\" tag=\"tag\" filter-by-recent=\"filterByRecent\" filter-by-collaboration=\"filterByCollaboration\"></organise-video-list>\n" +
     "      </div>\n" +
     "    </div>\n" +
@@ -1256,16 +1256,16 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('page-header.html',
     "<header class=\"page-header\" role=\"header\">\n" +
     "  <nav class=\"wrapper\" role=\"navigation\">\n" +
-    "    <ng-switch on=\"$root.isCollaborator\">\n" +
+    "    <ng-switch on=\"isCollaborator()\">\n" +
     "    <a href=\"\" class=\"page-logo  page-logo--header\" ng-switch-when=\"true\">\n" +
     "      <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"page-logo__img\" alt=\"Wonder PL\">\n" +
     "    </a>\n" +
     "    <a href=\"#/\" class=\"page-logo  page-logo--header\" ng-switch-default=\"\" analytics-on analytics-label=\"Page logo\">\n" +
     "      <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"page-logo__img\" alt=\"Wonder PL\">\n" +
     "    </a>\n" +
-    "    <upload-progress upload=\"upload\" ng-if=\"isLoggedIn && upload\"></upload-progress>\n" +
+    "    <upload-progress upload=\"upload\" ng-if=\"isLoggedIn() && upload\"></upload-progress>\n" +
     "    </ng-switch>\n" +
-    "    <ul class=\"nav  nav-menu\" ng-if=\"isLoggedIn\">\n" +
+    "    <ul class=\"nav  nav-menu\" ng-if=\"isLoggedIn()\">\n" +
     "      <li class=\"nav-menu__item\"><a href=\"#/search\" class=\"nav-menu__link\">Search</a></li>\n" +
     "      <li class=\"nav-menu__item\"><a href=\"#/organise\" class=\"nav-menu__link\">Manage</a></li>\n" +
     "      <li class=\"nav-menu__item\"><a href=\"#/video\" class=\"nav-menu__link\">Upload</a></li>\n" +
@@ -1544,12 +1544,12 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <section class=\"video-feedback__input-container\">\n" +
     "\n" +
     "      <div class=\"media  video-feedback__comment\">\n" +
-    "        <a class=\"media__img  video-feedback__comment-profile-image\" ng-style=\"{ 'background-image' : 'url(' + $root.User.avatar + ')' }\" ng-show=\"$root.User\"></a>\n" +
-    "        <a class=\"media__img  video-feedback__comment-profile-image\" style=\"background-image: url('(~ $root.User.avatar_url ~)');\" ng-show=\"$root.isCollaborator\"></a>\n" +
+    "        <a class=\"media__img  video-feedback__comment-profile-image\" ng-style=\"{ 'background-image' : 'url(' + user().avatar + ')' }\" ng-show=\"isLoggedIn()\"></a>\n" +
+    "        <a class=\"media__img  video-feedback__comment-profile-image\" style=\"background-image: url('(~ user().avatar_url ~)');\" ng-show=\"isCollaborator()\"></a>\n" +
     "        <div class=\"media__body\">\n" +
     "          <div class=\"video-feedback__comment-details\">\n" +
-    "            <span class=\"video-feedback__comment-name\" ng-show=\"$root.User\">(~ $root.User.display_name ~)</span>\n" +
-    "            <span class=\"video-feedback__comment-name\" ng-show=\"$root.isCollaborator\">(~ $root.User.username ~)</span>\n" +
+    "            <span class=\"video-feedback__comment-name\" ng-show=\"isLoggedIn()\">(~ user().display_name ~)</span>\n" +
+    "            <span class=\"video-feedback__comment-name\" ng-show=\"isCollaborator()\">(~ user().username ~)</span>\n" +
     "          </div>\n" +
     "          <div class=\"video-feedback__comment-content\">\n" +
     "            <span class=\"video-feedback__comment-timestamp\">\n" +
@@ -1955,7 +1955,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "<div ng-controller=\"VideoCtrl\" class=\"cf\">\n" +
     "\n" +
-    "  <div class=\"video-view__nav-placeholder\" ng-hide=\"$root.isCollaborator\">\n" +
+    "  <div class=\"video-view__nav-placeholder\" ng-hide=\"collaborator()\">\n" +
     "    <video-navigation is-edit=\"isEdit\" is-review=\"isReview\" is-owner=\"isOwner\" is-comments=\"isComments\" video-id=\"video.id\" video-status=\"video.status\"></video-navigation>\n" +
     "  </div>\n" +
     "\n" +
@@ -1974,7 +1974,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "        <section class=\"main-view video-view\">\n" +
     "\n" +
-    "          <profile-video-hero ng-show=\"isCollaborator\" account=\"video.account\"></profile-video-hero>\n" +
+    "          <profile-video-hero ng-show=\"collaborator()\" account=\"video.account\"></profile-video-hero>\n" +
     "\n" +
     "          <h2 class=\"video-view__title\"\n" +
     "            data-placeholder=\"(~ titlePlaceholder ~)\"\n" +
@@ -2033,7 +2033,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "          <video-extended-controls ng-show=\"isEdit\" collaborators=\"collaborators\"></video-extended-controls>\n" +
     "\n" +
-    "          <video-download video-id=\"video.id\" ng-show=\"video.id && $root.isCollaborator && canDownload\"></video-download>\n" +
+    "          <video-download video-id=\"video.id\" ng-show=\"video.id && collaborator() && canDownload\"></video-download>\n" +
     "\n" +
     "          <div class=\"video-view__save-controls\" ng-show=\"isEdit\">\n" +
     "            <a ng-click=\"bottomCancel()\" class=\"btn  btn--small\">cancel</a>\n" +
@@ -2064,7 +2064,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </li>\n" +
     "  </ul>\n" +
     "\n" +
-    "  <layout-control is-comments=\"isComments\" ng-show=\"(!$root.isCollaborator || ($root.isCollaborator && canComment)) && \"></layout-control>\n" +
+    "  <layout-control is-comments=\"isComments\" ng-show=\"(!collaborator() || (collaborator() && canComment)) && \"></layout-control>\n" +
     "\n" +
     "</div>\n" +
     "\n" +

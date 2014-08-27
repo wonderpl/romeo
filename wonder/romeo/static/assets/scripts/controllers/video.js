@@ -436,7 +436,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
 
     //updateSectionUrl(section);
 
-    if ($rootScope.isCollaborator) {
+    if (AuthService.isCollaborator()) {
       displayCollaboratorSection();
     } else if (section === 'edit') {
       displayEditSection();
@@ -510,10 +510,10 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
       url     : '/api/validate_token',
       data    : { 'token' : token }
     }).success(function (data) {
-      $rootScope.isCollaborator = true;
+      AuthService.setCollaborator(true);
     }).error(function () {
       alert('token invalid');
-      $rootScope.isCollaborator = false;
+      AuthService.setCollaborator(false);
       $location.path('/');
     });
   }
@@ -551,8 +551,8 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
   }
 
   function assignCollaboratorPermissions () {
-    if ($rootScope.User && $rootScope.isCollaborator) {
-      var permissions = $rootScope.User.permissions;
+    if (AuthService.getUser() && AuthService.isCollaborator()) {
+      var permissions = AuthService.getUser().permissions;
       var l = permissions.length;
       while (l--) {
         switch (permissions[l]) {
@@ -569,13 +569,17 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
 
   $scope.showComments = function () {
     if ($scope.video.id) {
-      if ($rootScope.isCollaborator) {
+      if (AuthService.isCollaborator()) {
         return $scope.canComment;
       } else {
         return $scope.isComments;
       }
     }
     return false;
+  };
+  
+  $scope.collaborator = function () {
+    return AuthService.isCollaborator();
   };
   // Call routing method on opening of controllers screen
   videoRouting();

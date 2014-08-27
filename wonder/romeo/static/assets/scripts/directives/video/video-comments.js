@@ -1,13 +1,13 @@
 angular.module('RomeoApp.directives')
-  .directive('videoComments', ['$rootScope', '$templateCache', 'CommentsService', '$timeout',
-  function ($rootScope, $templateCache, CommentsService, $timeout) {
+  .directive('videoComments', ['AuthService', '$templateCache', 'CommentsService', '$timeout',
+  function (AuthService, $templateCache, CommentsService, $timeout) {
 
   'use strict';
 
   function createComment (data) {
 
-    var avatar = $rootScope.User.avatar;
-    var username = $rootScope.User.display_name;
+    var avatar = AuthService.getUser().avatar;
+    var username = AuthService.getUser().display_name;
 
     var comment = {
       avatar_url  : avatar,
@@ -107,7 +107,7 @@ angular.module('RomeoApp.directives')
       }
 
       $scope.$watch(
-        function() { return $rootScope.User; },
+        function() { return AuthService.getUser(); },
         function(newValue, oldValue) {
           if (newValue && newValue !== oldValue && !jQuery.isEmptyObject(newValue)) {
             $scope.user = newValue;
@@ -174,6 +174,15 @@ angular.module('RomeoApp.directives')
 
       $scope.videoSeek = function (timestamp) {
         $scope.$emit('video-seek', timestamp);
+      };
+      $scope.isCollaborator = function () {
+        return AuthService.isCollaborator();
+      };
+      $scope.isLoggedIn = function () {
+        return AuthService.isLoggedIn();
+      };
+      $scope.user = function () {
+        return AuthService.getUser();
       };
     }
   };

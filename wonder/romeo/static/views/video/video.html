@@ -1,7 +1,7 @@
 
 <div ng-controller="VideoCtrl" class="cf">
 
-  <div class="video-view__nav-placeholder" ng-hide="$root.isCollaborator">
+  <div class="video-view__nav-placeholder" ng-hide="collaborator()">
     <video-navigation is-edit="isEdit" is-review="isReview" is-owner="isOwner" is-comments="isComments" video-id="video.id" video-status="video.status"></video-navigation>
   </div>
 
@@ -20,7 +20,7 @@
 
         <section class="main-view video-view">
 
-          <profile-video-hero ng-show="isCollaborator" account="video.account"></profile-video-hero>
+          <profile-video-hero ng-show="collaborator()" account="video.account"></profile-video-hero>
 
           <h2 class="video-view__title"
             data-placeholder="{{ titlePlaceholder }}"
@@ -79,7 +79,7 @@
 
           <video-extended-controls ng-show="isEdit" collaborators="collaborators"></video-extended-controls>
 
-          <video-download video-id="video.id" ng-show="video.id && $root.isCollaborator && canDownload"></video-download>
+          <video-download video-id="video.id" ng-show="video.id && collaborator() && canDownload"></video-download>
 
           <div class="video-view__save-controls" ng-show="isEdit">
             <a ng-click="bottomCancel()" class="btn  btn--small">cancel</a>
@@ -110,7 +110,7 @@
     </li>
   </ul>
 
-  <layout-control is-comments="isComments" ng-show="(!$root.isCollaborator || ($root.isCollaborator && canComment)) && "></layout-control>
+  <layout-control is-comments="isComments" ng-show="(!collaborator() || (collaborator() && canComment)) && "></layout-control>
 
 </div>
 

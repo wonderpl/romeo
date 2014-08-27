@@ -3,7 +3,6 @@ angular
   .directive('pageHeader', ['$templateCache', 'AuthService', PageHeaderDirective]);
 
 function PageHeaderDirective ($templateCache, AuthService) {
-
   'use strict';
 
   return {
@@ -15,9 +14,20 @@ function PageHeaderDirective ($templateCache, AuthService) {
         return AuthService.getUser();
       }, function (newValue, oldValue) {
         if (newValue !== oldValue && newValue) {
-          $scope.profile = { 'background-image' : 'url(' + (newValue.avatar || '/static/assets/img/user-avatar.png') + ')' };
+          setAvatar(newValue);
         }
       });
+      $scope.isCollaborator = function () {
+        return AuthService.isCollaborator();
+      };
+      $scope.isLoggedIn = function () {
+        return AuthService.isLoggedIn();
+      };
+      function setAvatar(account) {
+        var avatar = (account) ? account.avatar : null;
+        $scope.profile = { 'background-image' : 'url(' + (avatar || '/static/assets/img/user-avatar.png') + ')' };
+      }
+      setAvatar(AuthService.getUser());
     }
   };
 }
