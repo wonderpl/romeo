@@ -1,0 +1,7 @@
+<nav id="global-nav" class="global-nav">
+  <ul>
+    <li class="global-nav__item global-nav__item--home"><a href="#/">Home</a></li>
+    <li class="global-nav__item global-nav__item--profile" ng-if="account"><a href="#/profile" class="global-nav__link  avatar  avatar--small"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img" ng-style="profileStyle"> {{ account.display_name }}</a></li>
+    <li ng-repeat="page in pages" class="global-nav__item"><a href="{{ page.url }}">{{ page.title }}</a></li>
+  </ul>
+</nav>

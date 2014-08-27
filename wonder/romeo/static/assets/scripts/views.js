@@ -2250,6 +2250,17 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('directives/global-navigation.tmpl.html',
+    "<nav id=\"global-nav\" class=\"global-nav\">\n" +
+    "  <ul>\n" +
+    "    <li class=\"global-nav__item global-nav__item--home\"><a href=\"#/\">Home</a></li>\n" +
+    "    <li class=\"global-nav__item global-nav__item--profile\" ng-if=\"account\"><a href=\"#/profile\" class=\"global-nav__link  avatar  avatar--small\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" class=\"avatar__img\" ng-style=\"profileStyle\"> (~ account.display_name ~)</a></li>\n" +
+    "    <li ng-repeat=\"page in pages\" class=\"global-nav__item\"><a href=\"(~ page.url ~)\">(~ page.title ~)</a></li>\n" +
+    "  </ul>\n" +
+    "</nav>"
+  );
+
+
   $templateCache.put('directives/location-selector.tmpl.html',
     " <div class=\"location-selector icon-text\">\n" +
     "  <i class=\"icon icon--location icon-text__icon\"></i>\n" +
