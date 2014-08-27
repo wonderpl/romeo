@@ -62,6 +62,10 @@ angular.module('RomeoApp.services').factory('AccountService',
         return $http.get('/api/account/external/' + service + '/' + token);
     };
 
+    Account.getGeoIpLocation = function () {
+        return { country: 'UK', city: 'London' };
+    };
+
     /*
     * Expose the methods to the service
     */
@@ -69,6 +73,7 @@ angular.module('RomeoApp.services').factory('AccountService',
         getUser: Account.getUser,
         updateUser: Account.updateUser,
         updateCoverImage: Account.updateCoverImage,
-        updateAvatar: Account.updateAvatar
+        updateAvatar: Account.updateAvatar,
+        getGeoIpLocation: Account.getGeoIpLocation
     };
 }]);

@@ -1395,7 +1395,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "                  <i class=\"icon  icon--mail  icon-text__icon\"></i>\n" +
     "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__username\">Email Address</label>\n" +
     "                  <input type=\"text\" ng-model=\"username\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__username\" placeholder=\"Email Address\" />\n" +
-    "                <location-selector location=\"Barny bin\">\n" +
+    "                <location-selector>\n" +
     "                </location-selector>\n" +
     "              </li>\n" +
     "              <li class=\"text-col\">\n" +
@@ -2065,16 +2065,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </div>\n" +
     "\n" +
     "  <label><span class=\"required\">*</span> Share your location:</label>\n" +
-    "    <!-- div class=\"profile-edit__location input--field\"\n" +
-    "      medium-editor\n" +
-    "      me-required\n" +
-    "      ng-class=\"{ 'error' : form.errors.location }\"\n" +
-    "      data-placeholder=\"(~ profile.location ? ' ' : 'Location (for example: London, UK)' ~)\"\n" +
-    "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
-    "      ng-model=\"profile.location\">\n" +
-    "    </div -->\n" +
-    "    <location-selector location=\"Home\">\n" +
-    "                </location-selector>\n" +
+    "    <location-selector class=\"input--field\"></location-selector>\n" +
     "\n" +
     "  <label>Show contact button:</label>\n" +
     "    <div class=\"profile-edit__contact-button toggle--field\">\n" +
@@ -2255,7 +2246,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     " <div class=\"location-selector icon-text\">\n" +
     "  <i class=\"icon icon--location icon-text__icon\"></i>\n" +
     "  <label class=\"label location-selector__label  accessibility\" for=\"location-selector__location\">Location</label>\n" +
-    "  <input type=\"text\" ng-model=\"location\" autocomplete=\"off\" class=\"text-input\" id=\"location-selector__location\" placeholder=\"Location (for eaxmple London, UK)\" />\n" +
+    "  <input type=\"text\" ng-model=\"profile.location\" class=\"location-selector__location\" id=\"location-selector__location\" placeholder=\"Location (example London, UK)\" />\n" +
     "</div>"
   );
 } ]);
