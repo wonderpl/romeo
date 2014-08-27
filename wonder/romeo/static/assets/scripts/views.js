@@ -1110,9 +1110,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<div class=\"layout__item  one-third  organise-navigation\">\n" +
     "  <ul class=\"nav  nav--stacked  browse-list\">\n" +
     "    <li class=\"browse-list__item\"><span class=\"browse-list__title\">Manage</span></li>\n" +
-    "    <li class=\"browse-list__item\"ng-if=\"!$root.isCollaborator\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : !filterByCollaboration &&  !filterByRecent && !currentTag }\" ng-click=\"showAllVideos()\">All videos</a></li>\n" +
-    "    <li class=\"browse-list__item\"ng-if=\"!$root.isCollaborator\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : filterByRecent }\" ng-click=\"showRecentVideos()\">Recently added videos</a></li>\n" +
-    "    <li class=\"browse-list__item\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : filterByCollaboration }\" ng-click=\"showCollaborationVideos()\">Collaboration videos</a></li>\n" +
+    "    <li class=\"browse-list__item\"ng-if=\"!$root.isCollaborator\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : !filterByCollaboration &&  !filterByRecent && !currentTag }\" ng-click=\"showAllVideos()\">All my videos</a></li>\n" +
+    "    <li class=\"browse-list__item\"ng-if=\"!$root.isCollaborator\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : filterByRecent }\" ng-click=\"showRecentVideos()\">My recently added videos</a></li>\n" +
+    "    <li class=\"browse-list__item\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : filterByCollaboration }\" ng-click=\"showCollaborationVideos()\">Collaborating videos</a></li>\n" +
     "  </ul>\n" +
     "\n" +
     "  <ul class=\"nav  nav--stacked  browse-list\" ng-if=\"!$root.isCollaborator\">\n" +
