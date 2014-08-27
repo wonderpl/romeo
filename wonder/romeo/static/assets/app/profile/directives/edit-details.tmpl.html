@@ -38,14 +38,16 @@
     </div>
 
   <label><span class="required">*</span> Share your location:</label>
-    <div class="profile-edit__location input--field"
+    <!-- div class="profile-edit__location input--field"
       medium-editor
       me-required
       ng-class="{ 'error' : form.errors.location }"
       data-placeholder="{{ profile.location ? ' ' : 'Location (for example: London, UK)' }}"
       options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
       ng-model="profile.location">
-    </div>
+    </div -->
+    <location-selector location="Home">
+                </location-selector>
 
   <label>Show contact button:</label>
     <div class="profile-edit__contact-button toggle--field">

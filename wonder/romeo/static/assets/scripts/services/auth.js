@@ -256,6 +256,10 @@ angular.module('RomeoApp.services').factory('AuthService',
         debug.info('setExternalCredentials ' + credentials);
         externalCredentials = credentials;
     };
+    Auth.getExternalCredentials = function (credentials) {
+        debug.info('setExternalCredentials ' + credentials);
+        externalCredentials = credentials;
+    };
 
     return {
         login: Auth.login,
@@ -272,6 +276,7 @@ angular.module('RomeoApp.services').factory('AuthService',
         redirect: Auth.redirect,
         getUser: Auth.getUser,
         ExternalLogin: Auth.ExternalLogin,
-        setExternalCredentials: Auth.setExternalCredentials
+        setExternalCredentials: Auth.setExternalCredentials,
+        getExternalCredentials: Auth.getExternalCredentials
     };
 }]);

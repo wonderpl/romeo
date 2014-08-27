@@ -1385,12 +1385,18 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "            <legend class=\"accessibility\">Twitter Log in details:</legend>\n" +
     "            <ul class=\"form-fields  login-view__form\">\n" +
     "              <li class=\"text-col\">\n" +
-    "                <h2>Confirm Email</h2>\n" +
+    "                <h2>Nearly there</h2>\n" +
     "                <div class=\"login-view__input  icon-text\">\n" +
     "                  <i class=\"icon  icon--mail  icon-text__icon\"></i>\n" +
-    "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__username\">Email</label>\n" +
-    "                  <input type=\"text\" ng-model=\"username\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__username\" placeholder=\"Email\" />\n" +
+    "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__displayname\">Full name</label>\n" +
+    "                  <input type=\"text\" ng-model=\"display_name\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__displayname\" placeholder=\"Full name\" />\n" +
     "                </div>\n" +
+    "                <div class=\"login-view__input  icon-text\">\n" +
+    "                  <i class=\"icon  icon--mail  icon-text__icon\"></i>\n" +
+    "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__username\">Email Address</label>\n" +
+    "                  <input type=\"text\" ng-model=\"username\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__username\" placeholder=\"Email Address\" />\n" +
+    "                <location-selector location=\"Barny bin\">\n" +
+    "                </location-selector>\n" +
     "              </li>\n" +
     "              <li class=\"text-col\">\n" +
     "                <span class=\"login-view__errors\" ng-bind=\"errors\"></span>\n" +
@@ -2059,14 +2065,16 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </div>\n" +
     "\n" +
     "  <label><span class=\"required\">*</span> Share your location:</label>\n" +
-    "    <div class=\"profile-edit__location input--field\"\n" +
+    "    <!-- div class=\"profile-edit__location input--field\"\n" +
     "      medium-editor\n" +
     "      me-required\n" +
     "      ng-class=\"{ 'error' : form.errors.location }\"\n" +
     "      data-placeholder=\"(~ profile.location ? ' ' : 'Location (for example: London, UK)' ~)\"\n" +
     "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
     "      ng-model=\"profile.location\">\n" +
-    "    </div>\n" +
+    "    </div -->\n" +
+    "    <location-selector location=\"Home\">\n" +
+    "                </location-selector>\n" +
     "\n" +
     "  <label>Show contact button:</label>\n" +
     "    <div class=\"profile-edit__contact-button toggle--field\">\n" +
@@ -2240,5 +2248,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      </li>\n" +
     "\t</ul>\n" +
     "</section>"
+  );
+
+
+  $templateCache.put('directives/location-selector.tmpl.html',
+    " <div class=\"location-selector icon-text\">\n" +
+    "  <i class=\"icon icon--location icon-text__icon\"></i>\n" +
+    "  <label class=\"label location-selector__label  accessibility\" for=\"location-selector__location\">Location</label>\n" +
+    "  <input type=\"text\" ng-model=\"location\" autocomplete=\"off\" class=\"text-input\" id=\"location-selector__location\" placeholder=\"Location (for eaxmple London, UK)\" />\n" +
+    "</div>"
   );
 } ]);
