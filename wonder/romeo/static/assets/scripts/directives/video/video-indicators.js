@@ -1,6 +1,6 @@
 angular.module('RomeoApp.directives')
-  .directive('videoIndicators', ['$rootScope', '$templateCache', 'CommentsService',
-  function ($rootScope, $templateCache, CommentsService) {
+  .directive('videoIndicators', ['$templateCache', 'CommentsService',
+  function ($templateCache, CommentsService) {
 
   'use strict';
 

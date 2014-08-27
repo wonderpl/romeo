@@ -1,5 +1,4 @@
-angular.module('RomeoApp.analytics').directive('plAnalyticsWidgetStatistic', ['$rootScope', function () {
-
+angular.module('RomeoApp.analytics').directive('plAnalyticsWidgetStatistic', function () {
     'use strict';
 
     return {
@@ -10,4 +9,4 @@ angular.module('RomeoApp.analytics').directive('plAnalyticsWidgetStatistic', ['$
             datum: '='
         }
     };
-}]);
+});

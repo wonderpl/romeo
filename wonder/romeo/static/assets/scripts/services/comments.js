@@ -2,8 +2,8 @@
 * Methods for interacting with the Comment web services
 */
 angular.module('RomeoApp.services').factory('CommentsService',
-  ['DataService', '$rootScope', 'AuthService', '$q',
-  function (DataService, $rootScope, AuthService, $q) {
+  ['DataService', 'AuthService', '$q',
+  function (DataService, AuthService, $q) {
 
   'use strict';
 

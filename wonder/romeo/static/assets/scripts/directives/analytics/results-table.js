@@ -1,4 +1,4 @@
-angular.module('RomeoApp.analytics').directive('plAnalyticsResultsTable', ['$rootScope', function ($rootScope) {
+angular.module('RomeoApp.analytics').directive('plAnalyticsResultsTable', function () {
 
     'use strict';
 
@@ -9,4 +9,4 @@ angular.module('RomeoApp.analytics').directive('plAnalyticsResultsTable', ['$roo
 
         }
     };
-}]);
+});

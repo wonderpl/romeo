@@ -1,9 +1,9 @@
 angular
   .module('RomeoApp.services')
-  .factory('modal', ['$rootScope', '$compile', '$sanitize', '$templateCache', '$timeout', ModalService]);
+  .factory('modal', ['$compile', '$sanitize', '$templateCache', '$timeout', ModalService]);
 
 
-function ModalService ($rootScope, $compile, $sanitize, $templateCache, $timeout) {
+function ModalService ($compile, $sanitize, $templateCache, $timeout) {
 
   'use strict';
 

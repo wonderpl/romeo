@@ -1,6 +1,6 @@
 angular.module('RomeoApp.analytics').directive('plAnalyticsGeographicMap',
-    ['$rootScope', '$http', '$q', 'GeographicService', '$document',
-    function ($rootScope, $http, $q, GeographicService, $document) {
+    ['$http', '$q', 'GeographicService', '$document',
+    function ($http, $q, GeographicService, $document) {
 
     'use strict';
 

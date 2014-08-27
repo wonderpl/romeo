@@ -1,6 +1,5 @@
 angular.module('RomeoApp.directives')
-  .directive('videoNavigation', ['$templateCache', '$rootScope', function ($templateCache, $rootScope) {
-
+  .directive('videoNavigation', ['$templateCache', function ($templateCache) {
   'use strict';
 
   return {

@@ -1,4 +1,4 @@
-angular.module('RomeoApp.analytics').directive('plAnalyticsFieldsKey', ['$rootScope', function ($rootScope) {
+angular.module('RomeoApp.analytics').directive('plAnalyticsFieldsKey', function () {
 
     'use strict';
 
@@ -9,4 +9,4 @@ angular.module('RomeoApp.analytics').directive('plAnalyticsFieldsKey', ['$rootSc
 
         }
     };
-}]);
+});
