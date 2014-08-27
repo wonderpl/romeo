@@ -1841,7 +1841,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "          ng-click=\"displaySection('comments')\"\n" +
     "          ng-class=\"{ 'sub-navigation__link--active' : isComments }\">\n" +
     "          <i class=\"icon  icon--speech-bubble  icon-text__icon\"></i>\n" +
-    "          Comments\n" +
+    "          Collaborate\n" +
     "        </a>\n" +
     "      </li>\n" +
     "    </ul>\n" +
