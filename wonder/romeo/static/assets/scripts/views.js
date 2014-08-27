@@ -1,62 +1,5 @@
 angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   'use strict';
 
-  $templateCache.put('account.html',
-    "<div id=\"page-account\" class=\"section\" ng-controller=\"AccountCtrl\">\n" +
-    "\n" +
-    "    <div id=\"edit-profile-cover-image\" style=\"background-image: url((~ User.profile_cover ~));\">\n" +
-    "        <div class=\"edit-background\" ng-class=\"{ show: isEditable }\"></div>\n" +
-    "        <span class=\"upload-target\" ng-show=\"isEditable && !coverImageUploading\"></span>\n" +
-    "        <span class=\"account-upload-spinner\" ng-show=\"coverImageUploading\"></span>\n" +
-    "        <input type=\"file\" id=\"edit-profile-cover-image-choose-background\" ng-file-select=\"coverImageSelected($files)\" ng-show=\"isEditable\" />\n" +
-    "\n" +
-    "        <div id=\"edit-profile-avatar\" style=\"background-image: url((~ User.avatar ~));\">\n" +
-    "            <div class=\"edit-background\" ng-class=\"{ show: isEditable }\"></div>\n" +
-    "            <span class=\"upload-target\" ng-show=\"isEditable && !avatarUploading\"></span>\n" +
-    "            <span class=\"account-upload-spinner\" ng-show=\"avatarUploading\"></span>\n" +
-    "            <input type=\"file\" id=\"edit-profile-avatar-choose-avatar\" ng-file-select=\"avatarImageSelected($files)\" ng-show=\"isEditable\" />\n" +
-    "        </div>\n" +
-    "        <a ng-click=\"toggleEditable()\" ng-class=\"{ active: isEditable }\" class=\"wp-button\" id=\"toggle-editable-button\">(~ isEditable ? \"Stop Editing\" : \"Edit Profile\" ~)</a>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- <div class=\"background\" style=\"background-image: url((~ User.profile_cover ~));\">\n" +
-    "        <div ng-if=\"isEditable\" class=\"edit-text\"><input id=\"profile-picker\" type=\"file\" class=\"hidden-input\"/></div>\n" +
-    "    </div> -->\n" +
-    "\n" +
-    "<!--     <div class=\"avatar\" style=\"background-image: url((~ User.avatar ~));\">\n" +
-    "        <div ng-if=\"isEditable\" class=\"avatar-change\">\n" +
-    "            <label for=\"avatar-picker\" class=\"icon-export\">&nbsp;</label>\n" +
-    "            <input id=\"avatar-picker\" type=\"file\" class=\"hidden-input\" />\n" +
-    "        </div>\n" +
-    "    </div> -->\n" +
-    "    <!-- <div ng-if=\"isLoggedIn\" class=\"edit-icons\">\n" +
-    "\n" +
-    "    </div> -->\n" +
-    "    <div class=\"inner\" id=\"edit-profile-details\">\n" +
-    "        <div class=\"row\">\n" +
-    "            <input type=\"text\" id=\"edit-profile-name\" ng-model=\"User.display_name\" data-model=\"display_name\" placeholder=\"Your Full Name\" ng-class=\"{ disabled: !isEditable }\" auto-save-field disable-new-lines />\n" +
-    "        </div>\n" +
-    "        <div class=\"row\">\n" +
-    "            <input type=\"text\" id=\"edit-profile-username\" class=\"disabled\" value=\"@(~ User.name ~)\" data-model=\"name\" placeholder=\"Your Username\" auto-save-field disable-new-lines />\n" +
-    "        </div>\n" +
-    "        <div class=\"row\">\n" +
-    "            <textarea type=\"text\" id=\"edit-profile-description\" ng-model=\"User.description\" data-model=\"description\" placeholder=\"Describe yourself in a few words\" ng-class=\"{ disabled: !isEditable }\" auto-save-field disable-new-lines></textarea\n" +
-    "        </div>\n" +
-    "\n" +
-    "        <!--<div class=\"row\">\n" +
-    "            <pre id=\"edit-profile-name\" ng-class=\"{ disabled: !isEditable }\" placeholder=\"Your Full Name\" ng-paste=\"cleanPaste($event)\" data-model=\"display_name\" pl-content-editable-placeholder contenteditable auto-save-field disableNewLines>(~ User.display_name ~)</pre>\n" +
-    "        </div>\n" +
-    "        <div class=\"row\">\n" +
-    "            <pre id=\"edit-profile-username\" ng-class=\"{ disabled: !isEditable }\" placeholder=\"Your Username\" ng-paste=\"cleanPaste($event)\" data-model=\"name\" pl-content-editable-placeholder contenteditable auto-save-field disableNewLines>(~ User.name ~)</pre>\n" +
-    "        </div>\n" +
-    "        <div class=\"row\">\n" +
-    "            <pre id=\"edit-profile-description\" ng-class=\"{ disabled: !isEditable }\" placeholder=\"Describe yourself in a few words\" ng-paste=\"cleanPaste($event)\" data-model=\"description\" pl-content-editable-placeholder contenteditable auto-save-field disableNewLines>(~ User.description ~)</pre>\n" +
-    "        </div>-->\n" +
-    "    </div>\n" +
-    "</div>\n" +
-    "\n"
-  );
-
-
   $templateCache.put('add-collaborator.html',
     "<section class=\"add-collaborator\">\n" +
     "\n" +
@@ -1269,7 +1212,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <li class=\"nav-menu__item\"><a href=\"#/search\" class=\"nav-menu__link\">Search</a></li>\n" +
     "      <li class=\"nav-menu__item\"><a href=\"#/organise\" class=\"nav-menu__link\">Manage</a></li>\n" +
     "      <li class=\"nav-menu__item\"><a href=\"#/video\" class=\"nav-menu__link\">Upload</a></li>\n" +
-    "      <li class=\"nav-menu__item\"><a href=\"#/profile\" class=\"nav-menu__link  avatar  avatar--small\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"(~ user.name ~)\" class=\"avatar__img\" ng-style=\"profile\"></a></li>\n" +
+    "      <li class=\"nav-menu__item\"><a href=\"#/profile\" class=\"nav-menu__link  avatar  avatar--small\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"(~ display_name ~)\" class=\"avatar__img\" ng-style=\"profile\"></a></li>\n" +
     "    </ul>\n" +
     "  </nav>\n" +
     "</header>"

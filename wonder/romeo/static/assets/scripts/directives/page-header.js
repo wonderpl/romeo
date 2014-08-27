@@ -14,7 +14,7 @@ function PageHeaderDirective ($templateCache, AuthService) {
         return AuthService.getUser();
       }, function (newValue, oldValue) {
         if (newValue !== oldValue && newValue) {
-          setAvatar(newValue);
+          setAccountValues(newValue);
         }
       });
       $scope.isCollaborator = function () {
@@ -23,11 +23,12 @@ function PageHeaderDirective ($templateCache, AuthService) {
       $scope.isLoggedIn = function () {
         return AuthService.isLoggedIn();
       };
-      function setAvatar(account) {
+      function setAccountValues(account) {
         var avatar = (account) ? account.avatar : null;
         $scope.profile = { 'background-image' : 'url(' + (avatar || '/static/assets/img/user-avatar.png') + ')' };
+        $scope.display_name = account ? account.name : '';
       }
-      setAvatar(AuthService.getUser());
+      setAccountValues(AuthService.getUser());
     }
   };
 }
