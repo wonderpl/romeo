@@ -2,8 +2,6 @@
   'use strict';
   angular.module('RomeoApp.services')
     .factory('UserService', ['DataService', function (DataService) {
-
-
     var User = {};
 
     User.connect = function (id) {

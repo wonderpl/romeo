@@ -485,6 +485,8 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
       $scope.playerParameters = {};
       $scope.playerParameters.rgb = data.rgb ? angular.fromJson(data.rgb) : null;
       $scope.playerParameters.hideLogo = data.hideLogo === 'True' ? true : false;
+      $scope.playerParameters.showBuyButton = data.showBuyButton === 'True' ? true : false;
+      $scope.playerParameters.showDescriptionButton = data.showDescriptionButton === 'True' ? true : false;
     });
   }
 

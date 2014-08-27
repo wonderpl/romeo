@@ -23,6 +23,17 @@ label,
   font-size: 0.75em;
   color: darken($swatch-four, 30%);
   cursor: pointer;
+  .form-checkbox {
+    display: inline-block;
+  }
+  .form-checkbox--l {
+    float: left;
+    margin-top: 3px;
+    margin-right: $half-spacing-unit;
+  }
+}
+.form-label__text {
+  display: inline-block;
 }
 .additional {
   display: block;

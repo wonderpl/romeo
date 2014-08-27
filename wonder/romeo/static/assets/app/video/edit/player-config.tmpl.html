@@ -1,0 +1,20 @@
+<section class="player-config color-picker">
+
+  <input color-picker ng-model="config.color" />
+
+  <label class="form-label">
+    <span class="form-label__text">Hide logo</span>
+    <input class="form-checkbox--l" type="checkbox" ng-model="config.hideLogo" ng-change="applyChanges()" />
+  </label>
+
+  <label class="form-label">
+    <span class="form-label__text">Show buy button</span>
+    <input class="form-checkbox--l" type="checkbox" ng-model="config.showBuyButton" ng-change="applyChanges()" />
+  </label>
+
+  <label class="form-label">
+    <span class="form-label__text">Show description button</span>
+    <input class="form-checkbox--l" type="checkbox" ng-model="config.showDescriptionButton" ng-change="applyChanges()" />
+  </label>
+
+</section>

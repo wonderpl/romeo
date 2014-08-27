@@ -44,7 +44,9 @@
             <video-upload ng-show="showUpload && isEdit" ng-cloak></video-upload>
             <video-player ng-show="hasProcessed || isReview || isComments" embed-url="embedUrl"></video-player>
             <video-edit ng-show="showVideoEdit && isEdit"></video-edit>
-            <video-color-picker player-parameters="playerParameters" video-id="{{ video.id }}" ng-show="showColorPicker && isEdit"></video-color-picker>
+
+            <player-config player-parameters="playerParameters" video-id="{{ video.id }}" ng-show="showColorPicker && isEdit"></player-config>
+
             <video-thumbnail ng-show="showPreviewSelector && isEdit"></video-thumbnail>
           </div>
 

@@ -1481,6 +1481,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    Hide logo\n" +
     "    <input type=\"checkbox\" ng-model=\"hideLogo\" class=\"video-player-config__hide-logo-checkbox\" ng-change=\"toggleHideLogo()\" />\n" +
     "  </label>\n" +
+    "  <label>\n" +
+    "    Show buy button\n" +
+    "    <input type=\"checkbox\" class=\"video-player-config__hide-logo-checkbox\" />\n" +
+    "  <label>\n" +
+    "  <label>\n" +
+    "    Show description button\n" +
+    "    <input type=\"checkbox\" class=\"video-player-config__hide-logo-checkbox\" />\n" +
+    "  <label>\n" +
     "</section>\n"
   );
 
@@ -1948,7 +1956,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "            <video-upload ng-show=\"showUpload && isEdit\" ng-cloak></video-upload>\n" +
     "            <video-player ng-show=\"hasProcessed || isReview || isComments\" embed-url=\"embedUrl\"></video-player>\n" +
     "            <video-edit ng-show=\"showVideoEdit && isEdit\"></video-edit>\n" +
-    "            <video-color-picker player-parameters=\"playerParameters\" video-id=\"(~ video.id ~)\" ng-show=\"showColorPicker && isEdit\"></video-color-picker>\n" +
+    "\n" +
+    "            <player-config player-parameters=\"playerParameters\" video-id=\"(~ video.id ~)\" ng-show=\"showColorPicker && isEdit\"></player-config>\n" +
+    "\n" +
     "            <video-thumbnail ng-show=\"showPreviewSelector && isEdit\"></video-thumbnail>\n" +
     "          </div>\n" +
     "\n" +
@@ -2240,6 +2250,30 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      </li>\n" +
     "\t</ul>\n" +
     "</section>"
+  );
+
+
+  $templateCache.put('video/edit/player-config.tmpl.html',
+    "<section class=\"player-config color-picker\">\n" +
+    "\n" +
+    "  <input color-picker ng-model=\"config.color\" />\n" +
+    "\n" +
+    "  <label class=\"form-label\">\n" +
+    "    <span class=\"form-label__text\">Hide logo</span>\n" +
+    "    <input class=\"form-checkbox--l\" type=\"checkbox\" ng-model=\"config.hideLogo\" ng-change=\"applyChanges()\" />\n" +
+    "  </label>\n" +
+    "\n" +
+    "  <label class=\"form-label\">\n" +
+    "    <span class=\"form-label__text\">Show buy button</span>\n" +
+    "    <input class=\"form-checkbox--l\" type=\"checkbox\" ng-model=\"config.showBuyButton\" ng-change=\"applyChanges()\" />\n" +
+    "  </label>\n" +
+    "\n" +
+    "  <label class=\"form-label\">\n" +
+    "    <span class=\"form-label__text\">Show description button</span>\n" +
+    "    <input class=\"form-checkbox--l\" type=\"checkbox\" ng-model=\"config.showDescriptionButton\" ng-change=\"applyChanges()\" />\n" +
+    "  </label>\n" +
+    "\n" +
+    "</section>\n"
   );
 
 
