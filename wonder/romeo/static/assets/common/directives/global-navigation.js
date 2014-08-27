@@ -12,7 +12,9 @@
         function init() {
           setAccountData(AuthService.getUser());
           $scope.pages = $scope.pages || [
-            {title: 'Search', url: '#/search'}
+            {title: 'Search', url: '#/search'},
+            {title: 'Manage', url: '#/organise'},
+            {title: 'Upload', url: '#/upload'}
           ];
           console.dir($scope);
         } 

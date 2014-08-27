@@ -6828,3 +6828,51 @@ label,
 .login-view__terms {
   margin-bottom: 12px;
 }
+
+/* line 1, ../common/directives/_global-navigation.scss */
+#global-nav {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #2e2e32;
+  color: white;
+  width: 200px;
+  height: 100%;
+}
+/* line 11, ../common/directives/_global-navigation.scss */
+#global-nav ul {
+  display: block;
+  list-style: none;
+}
+
+/* line 16, ../common/directives/_global-navigation.scss */
+.global-nav__item {
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+
+/* line 21, ../common/directives/_global-navigation.scss */
+.global-nav__link {
+  padding-right: 6px;
+  padding-left: 6px;
+  font-variant: small-caps;
+  font-weight: bold;
+  line-height: 57px;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: lowercase;
+  letter-spacing: 0.1em;
+  color: white;
+  text-decoration: none;
+  border: none;
+}
+/* line 34, ../common/directives/_global-navigation.scss */
+.global-nav__link > .avatar {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+  position: relative;
+  left: auto;
+  z-index: 0;
+}
