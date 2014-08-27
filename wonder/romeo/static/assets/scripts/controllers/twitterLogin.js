@@ -4,14 +4,16 @@ angular
   	function ($scope, $location, AuthService, AccountService) {
   		'use strict';
   		$scope.isLoading = false;
-
+  		$scope.profile = $scope.profile || {};
+  		
 		$scope.save = function() {
 			$scope.errors = '';
-			externalLogin($scope.username);
+
+			externalLogin($scope.profile);
 		};
 
-		function externalLogin(username) {
-			AuthService.ExternalLogin(username).then(function (response) {
+		function externalLogin(profile) {
+			AuthService.ExternalLogin(profile).then(function (response) {
 	        	$location.url('/organise');
 	        },
 	        function (response) {

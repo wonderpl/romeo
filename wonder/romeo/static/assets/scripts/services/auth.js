@@ -228,7 +228,7 @@ angular.module('RomeoApp.services').factory('AuthService',
       });
     };
 
-    Auth.ExternalLogin = function (username) {
+    Auth.ExternalLogin = function (profile) {
         if (! externalCredentials) {
             var dfd = new $q.defer();
             debug.error('ExternalLogin was called before external credentials were set');
@@ -236,7 +236,13 @@ angular.module('RomeoApp.services').factory('AuthService',
         }
         var data = externalCredentials;
         var request;
-        data.username = username;
+        if (angular.isString(profile)){
+            data.username = profile;
+        }
+        else if (angular.isObject(profile)) {
+            angular.extend(data, profile);
+        }
+
         debug.dir(data);
         request = $http.post('/api/login/external', data);
         request.then(function (response) {
