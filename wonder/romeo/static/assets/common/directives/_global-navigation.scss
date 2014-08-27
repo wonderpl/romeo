@@ -11,6 +11,7 @@
   ul {
       display: block;
       list-style: none;
+      margin: 0 $base-spacing-unit;
   }
 }
 .global-nav__item {
@@ -24,7 +25,7 @@
   padding-left:  $half-spacing-unit / 2;
   font-variant: small-caps;
   font-weight: bold;
-  line-height: 57px;
+  line-height: 48px;
   font-family: $heading-font-family;
   text-transform: lowercase;
   letter-spacing: 0.1em;
@@ -35,7 +36,7 @@
   > .avatar {
     display: inline-block;
     vertical-align: middle;
-    margin: 0;
+    margin: 0 5px 0 0;
     position: relative;
     left: auto;
     z-index: 0;

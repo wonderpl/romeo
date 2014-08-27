@@ -6844,22 +6844,24 @@ label,
 #global-nav ul {
   display: block;
   list-style: none;
+  margin: 0 24px;
 }
 
-/* line 16, ../common/directives/_global-navigation.scss */
+/* line 17, ../common/directives/_global-navigation.scss */
 .global-nav__item {
   display: block;
   padding: 0;
   margin: 0;
+  border-bottom: 1px #b7bcbd solid;
 }
 
-/* line 21, ../common/directives/_global-navigation.scss */
+/* line 23, ../common/directives/_global-navigation.scss */
 .global-nav__link {
   padding-right: 6px;
   padding-left: 6px;
   font-variant: small-caps;
   font-weight: bold;
-  line-height: 57px;
+  line-height: 48px;
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: lowercase;
   letter-spacing: 0.1em;
@@ -6867,11 +6869,11 @@ label,
   text-decoration: none;
   border: none;
 }
-/* line 34, ../common/directives/_global-navigation.scss */
+/* line 36, ../common/directives/_global-navigation.scss */
 .global-nav__link > .avatar {
   display: inline-block;
   vertical-align: middle;
-  margin: 0;
+  margin: 0 5px 0 0;
   position: relative;
   left: auto;
   z-index: 0;

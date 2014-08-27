@@ -2257,7 +2257,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <li class=\"global-nav__item global-nav__item--profile\" ng-if=\"account\"><a href=\"#/profile\" class=\"global-nav__link\"><span class=\"avatar  avatar--small\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" class=\"avatar__img\" ng-style=\"profileStyle\"></span> (~ account.display_name ~)</a></li>\n" +
     "    <li ng-repeat=\"page in pages\" class=\"global-nav__item\"><a href=\"(~ page.url ~)\" class=\"global-nav__link\">(~ page.title ~)</a></li>\n" +
     "  </ul>\n" +
-    "  <a class=\"global-nav__close\" href=\"#view\">Return to Content</a>\n" +
+    "  <!-- a class=\"global-nav__close\" href=\"#view\">Return to Content</a -->\n" +
     "</nav>"
   );
 
