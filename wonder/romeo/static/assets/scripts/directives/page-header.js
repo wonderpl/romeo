@@ -1,8 +1,8 @@
 angular
   .module('RomeoApp.directives')
-  .directive('pageHeader', ['$templateCache', 'AuthService', PageHeaderDirective]);
+  .directive('pageHeader', ['$templateCache', 'AuthService', '$timeout', PageHeaderDirective]);
 
-function PageHeaderDirective ($templateCache, AuthService) {
+function PageHeaderDirective ($templateCache, AuthService, $timeout) {
   'use strict';
 
   return {
@@ -31,9 +31,19 @@ function PageHeaderDirective ($templateCache, AuthService) {
       setAccountValues(AuthService.getUser());
     },
     link: function ($scope, $element, $attrs) {
+      var hasBeenCalled = false;
       $element.on('click', '.page-logo--header', function(event) {
         event.stopPropagation();
-        $('body').toggleClass('js-nav');
+        if (hasBeenCalled) {
+          $('body').toggleClass('js-nav');
+        }
+        else {
+          $('body').addClass('js-nav--3dtransitions');
+          $timeout(function () {
+            $('body').toggleClass('js-nav');
+          }, 10);
+          hasBeenCalled = true;
+        }
         return false;
       });
     }

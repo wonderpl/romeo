@@ -25,7 +25,7 @@
       var wonder = {romeo: {settings: {{ settings|tojson}} } };
     </script>
 </head>
-<body ng-app="RomeoApp" ng-controller="MainCtrl" class="page-(~ getCurrentRoute() ~)">
+<body ng-app="RomeoApp" ng-controller="MainCtrl" class="page-(~ getCurrentRoute() ~) (~ 'js-ready' ~)">
 
   <global-navigation></global-navigation>
   <div class="container cf container--(~ $root.layoutMode ~)">

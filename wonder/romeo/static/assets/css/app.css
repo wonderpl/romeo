@@ -6844,11 +6844,9 @@ label,
   margin-bottom: 12px;
 }
 
-/* line 1, ../common/directives/_global-navigation.scss */
+/* line 11, ../common/directives/_global-navigation.scss */
 .global-nav-wrapper {
-  top: 0;
-  left: 0;
-  z-index: 1000;
+  position: relative;
   border: 0;
   clip: rect(0 0 0 0);
   height: 1px;
@@ -6859,34 +6857,37 @@ label,
   width: 1px;
 }
 
-/* line 7, ../common/directives/_global-navigation.scss */
+/* line 15, ../common/directives/_global-navigation.scss */
 #global-nav {
   position: absolute;
   top: 0;
   left: 0;
   background-color: #2e2e32;
   color: white;
-  width: 16em;
   min-height: 100%;
-  z-index: 1001;
+  width: 16em;
 }
-/* line 17, ../common/directives/_global-navigation.scss */
+/* line 24, ../common/directives/_global-navigation.scss */
 #global-nav ul {
   display: block;
   list-style: none;
-  margin: 0 24px 12px;
+  margin: 0 12px 12px;
 }
 
-/* line 23, ../common/directives/_global-navigation.scss */
+/* line 30, ../common/directives/_global-navigation.scss */
 .global-nav__item {
   display: block;
   padding: 0;
   margin: 0;
   border-bottom: 1px #b7bcbd solid;
+  overflow: hidden;
+  max-height: 50px;
 }
 
-/* line 29, ../common/directives/_global-navigation.scss */
+/* line 38, ../common/directives/_global-navigation.scss */
 .global-nav__link {
+  display: block;
+  width: 100%;
   padding-right: 6px;
   padding-left: 6px;
   font-variant: small-caps;
@@ -6898,8 +6899,9 @@ label,
   color: white;
   text-decoration: none;
   border: none;
+  overflow: hidden;
 }
-/* line 42, ../common/directives/_global-navigation.scss */
+/* line 54, ../common/directives/_global-navigation.scss */
 .global-nav__link > .avatar {
   display: inline-block;
   vertical-align: middle;
@@ -6912,28 +6914,93 @@ label,
 /*
  * Style for page & navigation when nav showing
  */
-/* line 54, ../common/directives/_global-navigation.scss */
-.js-nav {
-  position: relative;
-  overflow: hidden;
-}
-/* line 58, ../common/directives/_global-navigation.scss */
-.js-nav .global-nav-wrapper {
+/* line 67, ../common/directives/_global-navigation.scss */
+.js-ready .global-nav-wrapper {
+  position: fixed;
   width: 100%;
   clip: auto;
   height: 100%;
   margin: 0;
-  position: fixed;
   overflow: auto;
+  -webkit-transform: translate3d(-16em, 0, 0);
+  -moz-transform: translate3d(-16em, 0, 0);
+  -ms-transform: translate3d(-16em, 0, 0);
+  -o-transform: translate3d(-16em, 0, 0);
+  transform: translate3d(-16em, 0, 0);
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
-/* line 66, ../common/directives/_global-navigation.scss */
+
+/* line 80, ../common/directives/_global-navigation.scss */
+.js-nav--3dtransitions .container {
+  -webkit-transition: -webkit-transform 500ms ease;
+  -moz-transition: -moz-transform 500ms ease;
+  -o-transition: -o-transform 500ms ease;
+  transition: transform 500ms ease;
+  -webkit-transform: initial;
+  transform: initial;
+}
+/* line 85, ../common/directives/_global-navigation.scss */
+.js-nav--3dtransitions .global-nav-wrapper {
+  -webkit-transition: -webkit-transform 500ms ease;
+  -moz-transition: -moz-transform 500ms ease;
+  -o-transition: -o-transform 500ms ease;
+  transition: transform 500ms ease;
+  -webkit-transform: translate3d(-16em, 0, 0);
+  -moz-transform: translate3d(-16em, 0, 0);
+  -ms-transform: translate3d(-16em, 0, 0);
+  -o-transform: translate3d(-16em, 0, 0);
+  transform: translate3d(-16em, 0, 0);
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* line 89, ../common/directives/_global-navigation.scss */
+.js-nav {
+  overflow: hidden;
+}
+/* line 91, ../common/directives/_global-navigation.scss */
 .js-nav .container {
-  position: absolute;
-  left: 16em;
-  transition: left 300ms 100ms ease, transform 500ms ease;
+  -webkit-transition: -webkit-transform 500ms ease;
+  -moz-transition: -moz-transform 500ms ease;
+  -o-transition: -o-transform 500ms ease;
+  transition: transform 500ms ease;
+  -webkit-transform: translate3d(16em, 0, 0);
+  -moz-transform: translate3d(16em, 0, 0);
+  -ms-transform: translate3d(16em, 0, 0);
+  -o-transform: translate3d(16em, 0, 0);
+  transform: translate3d(16em, 0, 0);
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
   pointer-events: none;
 }
-/* line 72, ../common/directives/_global-navigation.scss */
+/* line 95, ../common/directives/_global-navigation.scss */
+.js-nav .global-nav-wrapper {
+  -webkit-transition: -webkit-transform 500ms ease;
+  -moz-transition: -moz-transform 500ms ease;
+  -o-transition: -o-transform 500ms ease;
+  transition: transform 500ms ease;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+/* line 98, ../common/directives/_global-navigation.scss */
 .js-nav .page-header ul {
   visibility: hidden;
 }

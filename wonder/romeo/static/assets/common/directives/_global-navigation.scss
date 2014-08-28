@@ -1,7 +1,15 @@
+@import "compass/css3";
+
+$global-nav-width: 16em;
+
+@mixin transition-transform($left) {
+  @include single-transition(transform, 500ms, ease);
+  @include transform((translate3d($left,0,0)), true);
+  @include backface-visibility(hidden);
+}
+
 .global-nav-wrapper {
-  top: 0;
-  left: 0;
-  z-index: 1000;
+    position: relative;
   @include visuallyhidden;
 }
 #global-nav {
@@ -10,14 +18,13 @@
   left: 0;
   background-color: $cold-black;
   color: $white;
-  width: 16em;
   min-height: 100%;
-  z-index: 1001;
+  width: $global-nav-width;
 
   ul {
       display: block;
       list-style: none;
-      margin: 0 $base-spacing-unit $half-spacing-unit;
+      margin: 0 $half-spacing-unit $half-spacing-unit;
   }
 }
 .global-nav__item {
@@ -25,8 +32,12 @@
   padding: 0;
   margin: 0;
   border-bottom: 1px $light-grey solid;
+  overflow: hidden;
+  max-height: 50px;
 }
 .global-nav__link {
+  display: block;
+  width: 100%;
   padding-right: $half-spacing-unit / 2;
   padding-left:  $half-spacing-unit / 2;
   font-variant: small-caps;
@@ -38,6 +49,7 @@
   color: $white;
   text-decoration: none;
   border: none;
+  overflow: hidden;
 
   > .avatar {
     display: inline-block;
@@ -51,23 +63,37 @@
 /*
  * Style for page & navigation when nav showing
  */
-.js-nav {
-  position: relative;
-  overflow: hidden;
-
+.js-ready {
   .global-nav-wrapper {
+    position: fixed;
     width: 100%;
     clip: auto;
     height: 100%;
     margin: 0;
-    position: fixed;
     overflow: auto;
+
+    @include transform((translate3d(-$global-nav-width,0,0)), true);
+    @include backface-visibility(hidden);
   }
+}
+.js-nav--3dtransitions {
   .container {
-    position: absolute;
-    left: 16em;
-    transition: left 300ms 100ms ease, transform 500ms ease;
+    @include single-transition(transform, 500ms, ease);
+    -webkit-transform: initial;
+    transform: initial;
+  }
+  .global-nav-wrapper {
+    @include transition-transform(-$global-nav-width);
+  }
+}
+.js-nav {
+  overflow: hidden;
+  .container {
+    @include transition-transform($global-nav-width);
     pointer-events: none;
+  }
+  .global-nav-wrapper {
+    @include transition-transform(0);
   }
   .page-header ul {
     visibility: hidden;

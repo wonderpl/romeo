@@ -14,17 +14,18 @@
           $scope.pages = $scope.pages || [
             {title: 'Upload a Video', url: '#/video'},
             {title: '* Uploads in progress', url: '#/video'},
-            {title: 'Stats', url: '#/organise'},
+            {title: '* Stats', url: '#/organise'},
             {title: 'Manage', url: '#/organise'},
             {title: 'Search', url: '#/search'},
-            {title: 'Settings', url: '#/profile'}
+            {title: '* Settings', url: '#/profile'}
           ];
-          console.dir($scope);
         } 
         function setAccountData(data) {
           $scope.account = data;
           if (data && data.avatar) {
             $scope.profileStyle = { 'background-image' : 'url(' + data.avatar + ')' };
+          } else {
+            $scope.profileStyle = { 'background-image' : 'url(/static/assets/img/user-avatar.png)' };
           }
         }
         $scope.$watch(function () {
