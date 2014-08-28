@@ -2250,7 +2250,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <nav id=\"global-nav\" class=\"global-nav\" role=\"navigation\">\n" +
     "    <ul>\n" +
     "      <li class=\"global-nav__item global-nav__item--home\"><a href=\"#/\" class=\"global-nav__link\">Home</a></li>\n" +
-    "      <li class=\"global-nav__item global-nav__item--profile\" ng-if=\"account\"><a href=\"#/profile\" class=\"global-nav__link\"><span class=\"avatar  avatar--small\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" class=\"avatar__img\" ng-style=\"profileStyle\"></span> (~ account.display_name ~)</a></li>\n" +
+    "      <li class=\"global-nav__item global-nav__item--profile trunc\" ng-if=\"account\"><a href=\"#/profile\" class=\"global-nav__link\"><span class=\"avatar  avatar--small\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" class=\"avatar__img\" ng-style=\"profileStyle\"></span> (~ account.display_name ~)</a></li>\n" +
     "      <li ng-repeat=\"page in pages\" class=\"global-nav__item\"><a href=\"(~ page.url ~)\" class=\"global-nav__link\">(~ page.title ~)</a></li>\n" +
     "    </ul>\n" +
     "  </nav>\n" +
