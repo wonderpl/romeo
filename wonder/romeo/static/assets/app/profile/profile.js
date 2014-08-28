@@ -89,9 +89,19 @@ function ProfileCtrl($scope, AccountService, AuthService, DataService, UserServi
     } else {
       $scope.flags.isOwner = true;
       $scope.profile = AuthService.getUser();
-      AuthService.getSessionId().then(function (id) {
-        $scope.flags.accountId = id;
-      });
+      if ($scope.profile) {
+        AuthService.getSessionId().then(function (id) {
+          $scope.flags.accountId = id;
+        });
+      }
+      else {
+        AccountService.getUser().then(function (account) {
+          $scope.profile = account;
+          AuthService.getSessionId().then(function (id) {
+            $scope.flags.accountId = id;
+          });
+        });
+      }
     }
   };
 
