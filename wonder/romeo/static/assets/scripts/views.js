@@ -1204,8 +1204,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </a>\n" +
     "    <upload-progress upload=\"upload\" ng-if=\"isLoggedIn() && upload\"></upload-progress>\n" +
     "    <ul class=\"nav  nav-menu\" ng-if=\"isLoggedIn()\">\n" +
-    "      <li class=\"nav-menu__item\"><a href=\"#/search\" class=\"nav-menu__link\">Search</a></li>\n" +
-    "      <li class=\"nav-menu__item\"><a href=\"#/organise\" class=\"nav-menu__link\">Manage</a></li>\n" +
     "      <li class=\"nav-menu__item\"><a href=\"#/video\" class=\"nav-menu__link\">Upload</a></li>\n" +
     "      <li class=\"nav-menu__item\"><a href=\"#/profile\" class=\"nav-menu__link  avatar  avatar--small\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"(~ display_name ~)\" class=\"avatar__img\" ng-style=\"profile\"></a></li>\n" +
     "    </ul>\n" +
