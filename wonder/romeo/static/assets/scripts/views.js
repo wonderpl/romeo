@@ -1199,15 +1199,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('page-header.html',
     "<header class=\"page-header\" role=\"header\">\n" +
     "  <nav class=\"wrapper\" role=\"navigation\">\n" +
-    "    <ng-switch on=\"isCollaborator()\">\n" +
-    "    <a href=\"\" class=\"page-logo  page-logo--header\" ng-switch-when=\"true\">\n" +
-    "      <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"page-logo__img\" alt=\"Wonder PL\">\n" +
-    "    </a>\n" +
-    "    <a href=\"#/\" class=\"page-logo  page-logo--header\" ng-switch-default=\"\" analytics-on analytics-label=\"Page logo\" onclick=\"$('#global-nav').fadeIn(100); return true;\">\n" +
+    "    <a href=\"#\" class=\"page-logo  page-logo--header\" >\n" +
     "      <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"page-logo__img\" alt=\"Wonder PL\">\n" +
     "    </a>\n" +
     "    <upload-progress upload=\"upload\" ng-if=\"isLoggedIn() && upload\"></upload-progress>\n" +
-    "    </ng-switch>\n" +
     "    <ul class=\"nav  nav-menu\" ng-if=\"isLoggedIn()\">\n" +
     "      <li class=\"nav-menu__item\"><a href=\"#/search\" class=\"nav-menu__link\">Search</a></li>\n" +
     "      <li class=\"nav-menu__item\"><a href=\"#/organise\" class=\"nav-menu__link\">Manage</a></li>\n" +
@@ -2251,14 +2246,15 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('directives/global-navigation.tmpl.html',
-    "<nav id=\"global-nav\" class=\"global-nav\" role=\"navigation\">\n" +
-    "  <ul>\n" +
-    "    <li class=\"global-nav__item global-nav__item--home\"><a href=\"#/\" class=\"global-nav__link\">Home</a></li>\n" +
-    "    <li class=\"global-nav__item global-nav__item--profile\" ng-if=\"account\"><a href=\"#/profile\" class=\"global-nav__link\"><span class=\"avatar  avatar--small\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" class=\"avatar__img\" ng-style=\"profileStyle\"></span> (~ account.display_name ~)</a></li>\n" +
-    "    <li ng-repeat=\"page in pages\" class=\"global-nav__item\"><a href=\"(~ page.url ~)\" class=\"global-nav__link\">(~ page.title ~)</a></li>\n" +
-    "  </ul>\n" +
-    "  <!-- a class=\"global-nav__close\" href=\"#view\">Return to Content</a -->\n" +
-    "</nav>"
+    "<div class=\"global-nav-wrapper\">\n" +
+    "  <nav id=\"global-nav\" class=\"global-nav\" role=\"navigation\">\n" +
+    "    <ul>\n" +
+    "      <li class=\"global-nav__item global-nav__item--home\"><a href=\"#/\" class=\"global-nav__link\">Home</a></li>\n" +
+    "      <li class=\"global-nav__item global-nav__item--profile\" ng-if=\"account\"><a href=\"#/profile\" class=\"global-nav__link\"><span class=\"avatar  avatar--small\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" class=\"avatar__img\" ng-style=\"profileStyle\"></span> (~ account.display_name ~)</a></li>\n" +
+    "      <li ng-repeat=\"page in pages\" class=\"global-nav__item\"><a href=\"(~ page.url ~)\" class=\"global-nav__link\">(~ page.title ~)</a></li>\n" +
+    "    </ul>\n" +
+    "  </nav>\n" +
+    "</div>"
   );
 
 

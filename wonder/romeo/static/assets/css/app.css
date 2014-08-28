@@ -6830,25 +6830,39 @@ label,
 }
 
 /* line 1, ../common/directives/_global-navigation.scss */
+.global-nav-wrapper {
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+/* line 7, ../common/directives/_global-navigation.scss */
 #global-nav {
-  display: none;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   background-color: #2e2e32;
   color: white;
-  width: 200px;
-  height: 100%;
-  z-index: 100;
+  width: 16em;
+  min-height: 100%;
+  z-index: 1001;
 }
-/* line 12, ../common/directives/_global-navigation.scss */
+/* line 17, ../common/directives/_global-navigation.scss */
 #global-nav ul {
   display: block;
   list-style: none;
-  margin: 0 24px;
+  margin: 0 24px 12px;
 }
 
-/* line 18, ../common/directives/_global-navigation.scss */
+/* line 23, ../common/directives/_global-navigation.scss */
 .global-nav__item {
   display: block;
   padding: 0;
@@ -6856,7 +6870,7 @@ label,
   border-bottom: 1px #b7bcbd solid;
 }
 
-/* line 24, ../common/directives/_global-navigation.scss */
+/* line 29, ../common/directives/_global-navigation.scss */
 .global-nav__link {
   padding-right: 6px;
   padding-left: 6px;
@@ -6870,12 +6884,41 @@ label,
   text-decoration: none;
   border: none;
 }
-/* line 37, ../common/directives/_global-navigation.scss */
+/* line 42, ../common/directives/_global-navigation.scss */
 .global-nav__link > .avatar {
   display: inline-block;
   vertical-align: middle;
   margin: 0 5px 0 0;
   position: relative;
   left: auto;
-  z-index: 101;
+  z-index: 1002;
+}
+
+/*
+ * Style for page & navigation when nav showing
+ */
+/* line 54, ../common/directives/_global-navigation.scss */
+.js-nav {
+  position: relative;
+  overflow: hidden;
+}
+/* line 58, ../common/directives/_global-navigation.scss */
+.js-nav .global-nav-wrapper {
+  width: 100%;
+  clip: auto;
+  height: 100%;
+  margin: 0;
+  position: fixed;
+  overflow: auto;
+}
+/* line 66, ../common/directives/_global-navigation.scss */
+.js-nav .container {
+  position: absolute;
+  left: 16em;
+  transition: left 300ms 100ms ease, transform 500ms ease;
+  pointer-events: none;
+}
+/* line 72, ../common/directives/_global-navigation.scss */
+.js-nav .page-header ul {
+  visibility: hidden;
 }

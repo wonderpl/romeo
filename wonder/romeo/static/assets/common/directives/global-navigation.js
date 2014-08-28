@@ -14,7 +14,7 @@
           $scope.pages = $scope.pages || [
             {title: 'Search', url: '#/search'},
             {title: 'Manage', url: '#/organise'},
-            {title: 'Upload', url: '#/upload'}
+            {title: 'Upload', url: '#/video'}
           ];
           console.dir($scope);
         } 
@@ -31,6 +31,11 @@
             setAccountData(newValue);
         });
         init();
+      },
+      link: function($scope, $element, $attrs) {
+        $element.on('click', function(event) {
+          $('body').toggleClass('js-nav');
+        });
       }
     };
   }

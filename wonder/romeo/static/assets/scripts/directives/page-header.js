@@ -29,6 +29,13 @@ function PageHeaderDirective ($templateCache, AuthService) {
         $scope.display_name = account ? account.name : '';
       }
       setAccountValues(AuthService.getUser());
+    },
+    link: function ($scope, $element, $attrs) {
+      $element.on('click', '.page-logo--header', function(event) {
+        event.stopPropagation();
+        $('body').toggleClass('js-nav');
+        return false;
+      });
     }
   };
 }
