@@ -122,6 +122,9 @@ angular.module('RomeoApp.services').factory('AuthService',
             checkingLogin.then(function () {
                 checkingLogin = false;
                 debug.info('LoginCheck: finished request');
+            }, function () {
+                checkingLogin = false;
+                debug.info('LoginCheck: Request failed');
             });
         } else {
             debug.info('LoginCheck: found request, return it');
