@@ -6844,7 +6844,6 @@ label,
   margin-bottom: 12px;
 }
 
-<<<<<<< HEAD
 /* line 1, ../common/directives/_global-navigation.scss */
 .global-nav-wrapper {
   top: 0;
@@ -6937,7 +6936,8 @@ label,
 /* line 72, ../common/directives/_global-navigation.scss */
 .js-nav .page-header ul {
   visibility: hidden;
-=======
+}
+
 /* line 1, ../app/video/edit/player-config.scss */
 .player-config {
   background-color: #fff;
@@ -6985,5 +6985,4 @@ label,
   z-index: 10;
   display: block;
   position: relative;
->>>>>>> [#75267098] Add Buy and Description controls
 }
