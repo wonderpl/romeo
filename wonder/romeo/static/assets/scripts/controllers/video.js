@@ -123,14 +123,14 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
   );
 
   $scope.$watch(
-    function() { return $scope.video.description; },
+    'video.description',
     function(newValue, oldValue) {
       if (newValue !== oldValue) {
-        $scope.descriptionPlaceholder = 'Additional content including but not limited to: recipes, ingredients, lyrics, stories, etc.';
-        if (trim(newValue)) {
-          $timeout(function() {
-            $scope.descriptionPlaceholder = '';
-          });
+        var val = $('<div></div>').html(newValue).text().replace(/\s/g, "");
+        if (val) {
+          $scope.descriptionPlaceholder = '';
+        } else {
+          $scope.descriptionPlaceholder = 'Additional content including but not limited to: recipes, ingredients, lyrics, stories, etc.';
         }
       }
     }
@@ -579,7 +579,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
     }
     return false;
   };
-  
+
   $scope.collaborator = function () {
     return AuthService.isCollaborator();
   };

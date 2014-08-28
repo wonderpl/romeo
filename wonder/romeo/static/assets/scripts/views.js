@@ -1957,7 +1957,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "            <video-player ng-show=\"hasProcessed || isReview || isComments\" embed-url=\"embedUrl\"></video-player>\n" +
     "            <video-edit ng-show=\"showVideoEdit && isEdit\"></video-edit>\n" +
     "\n" +
-    "            <player-config player-parameters=\"playerParameters\" video-id=\"(~ video.id ~)\" ng-show=\"showColorPicker && isEdit\"></player-config>\n" +
+    "            <player-config video=\"video\" player-parameters=\"playerParameters\" video-id=\"(~ video.id ~)\" ng-show=\"showColorPicker && isEdit\"></player-config>\n" +
     "\n" +
     "            <video-thumbnail ng-show=\"showPreviewSelector && isEdit\"></video-thumbnail>\n" +
     "          </div>\n" +
