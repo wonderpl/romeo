@@ -57,13 +57,8 @@ angular.module('RomeoApp.services').factory('AccountService',
         return DataService.uploadImage( ('/api/account/' + ID), 'avatar', data);
     };
 
-    //
-    Account.getAccountByExternalToken = function (service, token) {
-        return $http.get('/api/account/external/' + service + '/' + token);
-    };
-
     Account.getGeoIpLocation = function () {
-        return { country: 'UK', city: 'London' };
+        return DataService.request({method: 'JSONP', url: 'https://secure.wonderpl.com/ws/location/?_callback=JSON_CALLBACK'});
     };
 
     /*

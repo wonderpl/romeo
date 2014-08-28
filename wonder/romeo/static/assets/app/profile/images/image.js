@@ -16,9 +16,9 @@ angular
       function init() {
         $scope.loading = false;
         if ($scope.profile)
-          setAvater($scope.profile.avatar);
+          setAvatar($scope.profile.avatar);
       }
-      function setAvater(avatar) {
+      function setAvatar(avatar) {
         $scope.profileImageStyle = { 'background-image' : 'url(' + (avatar || '/static/assets/img/user-avatar.png') + ')' };
       }
       $scope.uploadProfileImage = function (files) {
@@ -45,11 +45,11 @@ angular
           $scope.loading = false;
         });
       };
-      $scope.$watch('profile', function (newValue, oldValue) {
+      $scope.$watch('profile.avatar', function (newValue, oldValue) {
         if (newValue !== oldValue) {
-          setAvater(newValue);
+          setAvatar(newValue);
         }
-      }, true);
+      });
       init();
     }
   };
