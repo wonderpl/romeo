@@ -13,7 +13,14 @@ angular
       isEdit : '='
     },
     controller : function ($scope) {
-      $scope.loading = false;
+      function init() {
+        $scope.loading = false;
+        if ($scope.profile)
+          setAvater($scope.profile.avatar);
+      }
+      function setAvater(avatar) {
+        $scope.profileImageStyle = { 'background-image' : 'url(' + (avatar || '/static/assets/img/user-avatar.png') + ')' };
+      }
       $scope.uploadProfileImage = function (files) {
         $scope.loading = true;
         var file = files[0];
@@ -38,12 +45,12 @@ angular
           $scope.loading = false;
         });
       };
-
-      $scope.$watch('profile.avatar', function (newValue, oldValue) {
+      $scope.$watch('profile', function (newValue, oldValue) {
         if (newValue !== oldValue) {
-          $scope.profileImageStyle = { 'background-image' : 'url(' + (newValue || '/static/assets/img/user-avatar.png') + ')' };
+          setAvater(newValue);
         }
-      });
+      }, true);
+      init();
     }
   };
 }]);
