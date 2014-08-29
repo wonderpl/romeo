@@ -20,6 +20,7 @@ angular.module('RomeoApp.controllers')
   }
 
   function search (expression) {
+    console.log($scope.country);
     return SearchService.search(expression).then(function (data) {
       $scope.search.results = data;
     }, assignMockData);
@@ -30,6 +31,13 @@ angular.module('RomeoApp.controllers')
     $scope.query = data ? data.q : null;
     search(data);
   });
+
+  $scope.$watch('search.country', function (newValue, oldValue) {
+    if (newValue && newValue !== oldValue) {
+      search(data);
+    }
+  }, true);
+
 
   $scope.$watch('search.expression', function (newValue, oldValue) {
     if ((newValue && !newValue.q) || (newValue && newValue.q && newValue.q.trim() === '')) {

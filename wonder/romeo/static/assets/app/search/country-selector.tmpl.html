@@ -1,0 +1,15 @@
+<div class="country-selector">
+
+  <div class="country-selector__selected-country" ng-click="showCountryList = !showCountryList">
+    <img ng-src="/static/assets/img/flags/flags-iso/flat/32/{{ country.code }}.png" height="32" width="32" />
+  </div>
+
+  <div class="country-selector__countries" ng-class="{ 'active' : showCountryList }">
+    <ul>
+      <li class="country-selector__option" ng-repeat="country in countries" ng-click="select(country.code); hideOptions()">
+        <img ng-src="/static/assets/img/flags/flags-iso/flat/32/{{ country.code }}.png" height="32" width="32" />
+      </li>
+    </ul>
+  </div>
+
+</div>

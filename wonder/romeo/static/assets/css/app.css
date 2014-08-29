@@ -7071,3 +7071,30 @@ label,
   display: block;
   position: relative;
 }
+
+/* line 1, ../app/search/country-selector.scss */
+.country-selector__countries {
+  transition: max-height 0.4s ease-in-out;
+  max-height: 0;
+  overflow: hidden;
+}
+/* line 5, ../app/search/country-selector.scss */
+.country-selector__countries.active {
+  max-height: 500px;
+}
+
+/* line 10, ../app/search/country-selector.scss */
+.country-selector__selected-country {
+  cursor: pointer;
+  display: inline-block;
+}
+
+/* line 15, ../app/search/country-selector.scss */
+.country-selector__option {
+  list-style: none outside;
+}
+
+/* line 19, ../app/search/country-selector.scss */
+.country-selector__option:hover {
+  cursor: pointer;
+}

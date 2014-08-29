@@ -1229,6 +1229,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <input type=\"text\" class=\"search__form-input\" ng-model=\"expression.q\" autofocus placeholder=\"Type to search\" />\n" +
     "\n" +
+    "  <country-selector country=\"country\"></country-selector>\n" +
+    "\n" +
     "</section>"
   );
 
@@ -1297,7 +1299,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('search.html',
     "<section class=\"search page-content wrapper wrapper--fixed\" ng-controller=\"SearchCtrl\">\n" +
     "\n" +
-    "  <search-form expression=\"search.expression\"></search-form>\n" +
+    "  <search-form expression=\"search.expression\" country=\"country\"></search-form>\n" +
     "\n" +
     "  <search-results query=\"query\" expression=\"search.expression\" results=\"search.results\"></search-results>\n" +
     "\n" +
@@ -2242,6 +2244,25 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      </li>\n" +
     "\t</ul>\n" +
     "</section>"
+  );
+
+
+  $templateCache.put('search/country-selector.tmpl.html',
+    "<div class=\"country-selector\">\n" +
+    "\n" +
+    "  <div class=\"country-selector__selected-country\" ng-click=\"showCountryList = !showCountryList\">\n" +
+    "    <img ng-src=\"/static/assets/img/flags/flags-iso/flat/32/(~ country.code ~).png\" height=\"32\" width=\"32\" />\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <div class=\"country-selector__countries\" ng-class=\"{ 'active' : showCountryList }\">\n" +
+    "    <ul>\n" +
+    "      <li class=\"country-selector__option\" ng-repeat=\"country in countries\" ng-click=\"select(country.code); hideOptions()\">\n" +
+    "        <img ng-src=\"/static/assets/img/flags/flags-iso/flat/32/(~ country.code ~).png\" height=\"32\" width=\"32\" />\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </div>\n" +
+    "\n" +
+    "</div>"
   );
 
 
