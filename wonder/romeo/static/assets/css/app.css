@@ -6933,12 +6933,11 @@ label,
 /* line 67, ../common/directives/_global-navigation.scss */
 .js-ready .global-nav-wrapper {
   position: fixed;
-  width: 100%;
+  width: 16em;
   clip: auto;
   height: 100%;
   margin: 0;
   overflow: auto;
-  display: none;
   -webkit-transform: translate3d(-16em, 0, 0);
   -moz-transform: translate3d(-16em, 0, 0);
   -ms-transform: translate3d(-16em, 0, 0);
@@ -6951,7 +6950,7 @@ label,
   backface-visibility: hidden;
 }
 
-/* line 81, ../common/directives/_global-navigation.scss */
+/* line 80, ../common/directives/_global-navigation.scss */
 .js-nav--3dtransitions .container {
   -webkit-transition: -webkit-transform 500ms ease;
   -moz-transition: -moz-transform 500ms ease;
@@ -6960,7 +6959,7 @@ label,
   -webkit-transform: initial;
   transform: initial;
 }
-/* line 86, ../common/directives/_global-navigation.scss */
+/* line 85, ../common/directives/_global-navigation.scss */
 .js-nav--3dtransitions .global-nav-wrapper {
   -webkit-transition: -webkit-transform 500ms ease;
   -moz-transition: -moz-transform 500ms ease;
@@ -6978,11 +6977,11 @@ label,
   backface-visibility: hidden;
 }
 
-/* line 90, ../common/directives/_global-navigation.scss */
+/* line 89, ../common/directives/_global-navigation.scss */
 .js-nav {
   overflow: hidden;
 }
-/* line 92, ../common/directives/_global-navigation.scss */
+/* line 91, ../common/directives/_global-navigation.scss */
 .js-nav .container {
   -webkit-transition: -webkit-transform 500ms ease;
   -moz-transition: -moz-transform 500ms ease;
@@ -7000,7 +6999,7 @@ label,
   backface-visibility: hidden;
   pointer-events: none;
 }
-/* line 96, ../common/directives/_global-navigation.scss */
+/* line 95, ../common/directives/_global-navigation.scss */
 .js-nav .global-nav-wrapper {
   -webkit-transition: -webkit-transform 500ms ease;
   -moz-transition: -moz-transform 500ms ease;
@@ -7016,9 +7015,9 @@ label,
   -ms-backface-visibility: hidden;
   -o-backface-visibility: hidden;
   backface-visibility: hidden;
-  display: block;
+  width: 100%;
 }
-/* line 100, ../common/directives/_global-navigation.scss */
+/* line 99, ../common/directives/_global-navigation.scss */
 .js-nav .page-header ul {
   visibility: hidden;
 }
