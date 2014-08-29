@@ -6938,6 +6938,7 @@ label,
   height: 100%;
   margin: 0;
   overflow: auto;
+  display: none;
   -webkit-transform: translate3d(-16em, 0, 0);
   -moz-transform: translate3d(-16em, 0, 0);
   -ms-transform: translate3d(-16em, 0, 0);
@@ -6950,7 +6951,7 @@ label,
   backface-visibility: hidden;
 }
 
-/* line 80, ../common/directives/_global-navigation.scss */
+/* line 81, ../common/directives/_global-navigation.scss */
 .js-nav--3dtransitions .container {
   -webkit-transition: -webkit-transform 500ms ease;
   -moz-transition: -moz-transform 500ms ease;
@@ -6959,7 +6960,7 @@ label,
   -webkit-transform: initial;
   transform: initial;
 }
-/* line 85, ../common/directives/_global-navigation.scss */
+/* line 86, ../common/directives/_global-navigation.scss */
 .js-nav--3dtransitions .global-nav-wrapper {
   -webkit-transition: -webkit-transform 500ms ease;
   -moz-transition: -moz-transform 500ms ease;
@@ -6977,11 +6978,11 @@ label,
   backface-visibility: hidden;
 }
 
-/* line 89, ../common/directives/_global-navigation.scss */
+/* line 90, ../common/directives/_global-navigation.scss */
 .js-nav {
   overflow: hidden;
 }
-/* line 91, ../common/directives/_global-navigation.scss */
+/* line 92, ../common/directives/_global-navigation.scss */
 .js-nav .container {
   -webkit-transition: -webkit-transform 500ms ease;
   -moz-transition: -moz-transform 500ms ease;
@@ -6999,7 +7000,7 @@ label,
   backface-visibility: hidden;
   pointer-events: none;
 }
-/* line 95, ../common/directives/_global-navigation.scss */
+/* line 96, ../common/directives/_global-navigation.scss */
 .js-nav .global-nav-wrapper {
   -webkit-transition: -webkit-transform 500ms ease;
   -moz-transition: -moz-transform 500ms ease;
@@ -7015,8 +7016,9 @@ label,
   -ms-backface-visibility: hidden;
   -o-backface-visibility: hidden;
   backface-visibility: hidden;
+  display: block;
 }
-/* line 98, ../common/directives/_global-navigation.scss */
+/* line 100, ../common/directives/_global-navigation.scss */
 .js-nav .page-header ul {
   visibility: hidden;
 }

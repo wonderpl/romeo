@@ -71,6 +71,7 @@ $global-nav-width: 16em;
     height: 100%;
     margin: 0;
     overflow: auto;
+    display: none;
 
     @include transform((translate3d(-$global-nav-width,0,0)), true);
     @include backface-visibility(hidden);
@@ -94,6 +95,7 @@ $global-nav-width: 16em;
   }
   .global-nav-wrapper {
     @include transition-transform(0);
+    display: block;
   }
   .page-header ul {
     visibility: hidden;
