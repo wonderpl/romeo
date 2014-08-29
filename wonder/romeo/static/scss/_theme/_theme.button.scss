@@ -104,7 +104,6 @@
 
 
 .btn--disabled {
-
   &,
   &:hover,
   &:active,
@@ -112,5 +111,7 @@
     opacity: 0.3;
     border: 1px solid rgba($swatch-four, 0.8);
     cursor: not-allowed;
+    color: $swatch-four;
+
   }
 }

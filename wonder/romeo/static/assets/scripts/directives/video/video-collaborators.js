@@ -7,16 +7,10 @@ angular.module('RomeoApp.directives')
     restrict : 'E',
     replace : true,
     template : $templateCache.get('video-collaborators.html'),
-    scope : {
-      videoId : '@',
-      notified : '=',
-      comments : '=',
-      collaborators: '='
-    },
+    scope : true,
     controller : function ($scope) {
-
       $scope.$watch(
-        'videoId',
+        'video.id',
         function(newValue, oldValue) {
           if (newValue && newValue !== oldValue) {
             CollaboratorsService.getCollaborators(newValue).then(function (data) {
@@ -27,9 +21,9 @@ angular.module('RomeoApp.directives')
       );
 
       $scope.notify = function () {
-        CommentsService.notify($scope.videoId).then(function () {
-          $scope.notified = true;
-          $scope.$emit('notify', {
+        $scope.flags.notified = true;
+
+        CommentsService.notify($scope.video.id).then(function () {          $scope.$emit('notify', {
             status : 'success',
             title : 'Collaborators Notified',
             message : 'All collaborators have been sent notification of recent comments.'}

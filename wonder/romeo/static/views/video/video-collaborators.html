@@ -3,8 +3,8 @@
   <header class="video-collaborators__header">
     <h4 class="video-collaborators__title  no-spacing">collaborators</h4>
     <a class="btn  btn--small  btn--positive  video-collaborators__notify  f--right"
-      ng-click="notify(videoId)"
-      ng-class="{ 'button--disabled' : notified || !collaborators || !comments.length }">Notify All</a>
+      ng-click="!flags.notified && notify(videoId)"
+      ng-class="{ 'btn--disabled' : flags.notified || !collaborators || !comments.length }">Notify All</a>
   </header>
 
   <p class="video-collaborators__none-message" ng-hide="collaborators">You have no collaborators!</p>
@@ -20,14 +20,6 @@
         </div>
       </div>
     </li>
-<!--     <li class="video-collaborators__collaborator">
-      <span class="video-collaborators__collaborator-image" style="background-image: url('http://media.dev.wonderpl.com/images/avatar/thumbnail_medium/kHmU0Pn5E1dVK3K68Okjgw.jpg');"></span>
-      <span class="video-collaborators__collaborator-name">Tom Aitkens</span>
-    </li>
-    <li class="video-collaborators__collaborator">
-      <span class="video-collaborators__collaborator-image" style="background-image: url('http://media.dev.wonderpl.com/images/avatar/thumbnail_medium/kHmU0Pn5E1dVK3K68Okjgw.jpg');"></span>
-      <span class="video-collaborators__collaborator-name">Tom Aitkens 2</span>
-    </li> -->
   </ul>
 
 </section>

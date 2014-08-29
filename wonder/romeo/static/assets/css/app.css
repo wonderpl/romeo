@@ -3469,11 +3469,12 @@ label,
   color: white;
 }
 
-/* line 111, ../../scss/_theme/_theme.button.scss */
+/* line 110, ../../scss/_theme/_theme.button.scss */
 .btn--disabled, .btn--disabled:hover, .btn--disabled:active, .btn--disabled:focus {
   opacity: 0.3;
   border: 1px solid rgba(112, 121, 123, 0.8);
   cursor: not-allowed;
+  color: #70797b;
 }
 
 /**

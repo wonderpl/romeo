@@ -53,20 +53,22 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
     $scope.titlePlaceholder = 'Untitled Video';
     $scope.straplinePlaceholder = 'Subtitle';
     $scope.descriptionPlaceholder = 'Additional content including but not limited to: recipes, ingredients, lyrics, stories, etc.';
-    $scope.showUpload = true;
-    $scope.hasProcessed = false;
-    $scope.videoHasLoaded = false;
     $scope.embedUrl = '/embed/88888888/?controls=1';
     $scope.currentTime = 0;
-    $scope.notified = false;
-    $scope.isOwner = false;
+
+    $scope.flags = {
+      showUpload: true,
+      hasProcessed: false,
+      videoHasLoaded: false,
+      notified: true,
+      isOwner: false,
+      isEdit: false,
+      isReview: false,
+      isComments: false
+    };
 
     $scope.videoCurrentTime = 0;
     $scope.videoTotalTime = 0;
-
-    $scope.isEdit = false;
-    $scope.isReview = false;
-    $scope.isComments = false;
 
     TagService.getTags().then(function (data) {
       $scope.tags = data.tag.items;
@@ -219,14 +221,14 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
     }
     $rootScope.isUploadingOrProcessingTemp = true;
     $scope.showPreviewSelector = true;
-    $scope.showUpload = false;
+    $scope.flags.showUpload = false;
   };
 
   $scope.closePreviewSelector = function () {
     $scope.showPreviewSelector = false;
     $scope.showThumbnailSelector = false;
     $scope.showVideoEdit = true;
-    if (!$scope.videoHasLoaded && $scope.hasProcessed) {
+    if (!$scope.flags.videoHasLoaded && $scope.flags.hasProcessed) {
       $scope.loadVideo($scope.video.id);
     }
   };
@@ -245,7 +247,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
   $scope.$on('video-upload-success', function (event, data) {
     debug.log('videoUploadOnSuccess of video (' + $scope.video.id + ') ' + $scope.video.title);
     redirect(data, 'edit');
-    $scope.hasProcessed = true;
+    $scope.flags.hasProcessed = true;
     $scope.$emit('notify', {
       status : 'info',
       title : 'Your Video is Ready',
@@ -261,7 +263,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
     debug.log('loadVideo with id: ' + id);
     var url = '//' + $location.host() + ':' + $location.port() + '/embed/' + id + '/?controls=1';
     $scope.embedUrl = $sce.trustAsResourceUrl(url);
-    $scope.videoHasLoaded = true;
+    $scope.flags.videoHasLoaded = true;
   };
 
   $scope.$watch('embedUrl',
@@ -454,28 +456,28 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
   }
 
   function displayCollaboratorSection () {
-    $scope.isReview = true;
-    $scope.isComments = true;
-    $scope.isEdit = false;
+    $scope.flags.isReview = true;
+    $scope.flags.isComments = true;
+    $scope.flags.isEdit = false;
   }
 
   function displayEditSection () {
-    $scope.isEdit = true;
-    $scope.isReview = false;
-    $scope.isComments = false;
+    $scope.flags.isEdit = true;
+    $scope.flags.isReview = false;
+    $scope.flags.isComments = false;
   }
 
   function displayComments () {
-    $scope.isComments = true;
-    $scope.isEdit = false;
-    $scope.isReview = false;
+    $scope.flags.isComments = true;
+    $scope.flags.isEdit = false;
+    $scope.flags.isReview = false;
   }
 
   function displayReviewSection () {
     debug.log('displayReviewSection()');
-    $scope.isReview = true;
-    $scope.isComments = false;
-    $scope.isEdit = false;
+    $scope.flags.isReview = true;
+    $scope.flags.isComments = false;
+    $scope.flags.isEdit = false;
   }
 
   initialiseNewScope();
@@ -492,8 +494,8 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
 
   function verifyUser (id) {
     VideoService.isOwner(id).then(function (data) {
-      $scope.isOwner = data.isOwner;
-      if (!$scope.isOwner) {
+      $scope.flags.isOwner = data.isOwner;
+      if (!$scope.flags.isOwner) {
         var query = $location.search();
         var token = query ? query.token : null;
         if (token) {
@@ -524,12 +526,12 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
     switch (status) {
       case 'ready':
       case 'published':
-        $scope.hasProcessed = true;
+        $scope.flags.hasProcessed = true;
         $scope.showVideoEdit = true;
         $scope.loadVideo($scope.video.id);
         break;
       case 'uploading':
-        $scope.showUpload = true;
+        $scope.flags.showUpload = true;
         break;
     }
   }
@@ -547,7 +549,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
       if ($rootScope.isUploadingOrProcessingTemp && (data.status === 'processing' || data.status === 'uploading')) {
         $scope.displaySection('edit');
         $scope.showPreviewSelector = true;
-        $scope.showUpload = false;
+        $scope.flags.showUpload = false;
       }
     });
   }
@@ -574,7 +576,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
       if (AuthService.isCollaborator()) {
         return $scope.canComment;
       } else {
-        return $scope.isComments;
+        return $scope.flags.isComments;
       }
     }
     return false;

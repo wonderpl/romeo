@@ -11,9 +11,7 @@ function LayoutControl ($templateCache, $rootScope, $cookies) {
     restrict : 'E',
     replace : true,
     template : $templateCache.get('layout-control.html'),
-    scope : {
-      'isComments' : '='
-    },
+    scope : true,
     controller : function ($scope) {
 
       $scope.reposition = function (mode) {

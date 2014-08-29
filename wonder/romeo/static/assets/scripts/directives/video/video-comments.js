@@ -37,16 +37,10 @@ angular.module('RomeoApp.directives')
     restrict : 'E',
     replace: true,
     template : $templateCache.get('video-comments.html'),
-    scope : {
-      videoId : '@',
-      currentTime : '=',
-      comments : '=',
-      notified : '=',
-      isOwner: '='
-    },
+    scope : true,
     link : function (scope, element, attrs) {
       scope.$watch(function () {
-          return Math.round(scope.currentTime) || scope.currentTime === 0.0;
+          return Math.round(scope.videoCurrentTime) || scope.videoCurrentTime === 0.0;
         },
         function(newValue, oldValue) {
           if (newValue !== oldValue) {
@@ -128,20 +122,20 @@ angular.module('RomeoApp.directives')
         if (!timestamp) {
           isTimeSync = false;
         } else {
-          isTimeSync = Math.round(timestamp) === Math.round($scope.currentTime);
+          isTimeSync = Math.round(timestamp) === Math.round($scope.videoCurrentTime);
         }
         return isTimeSync;
       };
 
       $scope.resolve = function (commentId) {
-        CommentsService.resolveComment($scope.videoId, commentId).then(function (data) {
+        CommentsService.resolveComment($scope.video.id, commentId).then(function (data) {
           var comment = getCommentById(commentId);
           angular.extend(comment, data);
         });
       };
 
       $scope.unresolve = function (commentId) {
-        CommentsService.unresolveComment($scope.videoId, commentId).then(function (data) {
+        CommentsService.unresolveComment($scope.video.id, commentId).then(function (data) {
           var comment = getCommentById(commentId);
           angular.extend(comment, data);
         });
@@ -152,22 +146,22 @@ angular.module('RomeoApp.directives')
         var datetime = new Date().getTime();
         var commentData = {
           comment: $scope.commentText,
-          timestamp: $scope.currentTime || 0,
+          timestamp: $scope.videoCurrentTime || 0,
           datetime: datetime.toString()
         };
-        CommentsService.addComment($scope.videoId, commentData).then(function(data) {
+        CommentsService.addComment($scope.video.id, commentData).then(function(data) {
           angular.extend(data, commentData);
           var comment = createComment(data);
           if (comment.timestamp)
             comment.timestamp = Math.round(comment.timestamp); // Make sure we have an int for the timestamp otherwise comment scrolling breaks
           $scope.comments.push(comment);
           $scope.commentText = '';
-          $scope.notified = false;
+          $scope.flags.notified = false;
         });
       };
 
       $scope.reply = function (timestamp) {
-        $scope.currentTime = timestamp;
+        $scope.videoCurrentTime = timestamp;
         $scope.inputActive = true;
         $scope.videoSeek(timestamp);
       };

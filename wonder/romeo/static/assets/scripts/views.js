@@ -1425,7 +1425,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('layout-control.html',
-    "<section ng-show=\"isComments\" class=\"layout-control layout-control--(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
+    "<section ng-show=\"flags.isComments\" class=\"layout-control layout-control--(~ flags.isComments ? $root.layoutMode : 'column' ~)\">\n" +
     "  <div class=\"wrapper\">\n" +
     "    <div class=\"btn-group\">\n" +
     "      <a class=\"btn btn--small\" ng-click=\"reposition('mirror')\"><i class=\"icon  icon--split-vertical-alt\"></i></a>\n" +
@@ -1443,8 +1443,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <header class=\"video-collaborators__header\">\n" +
     "    <h4 class=\"video-collaborators__title  no-spacing\">collaborators</h4>\n" +
     "    <a class=\"btn  btn--small  btn--positive  video-collaborators__notify  f--right\"\n" +
-    "      ng-click=\"notify(videoId)\"\n" +
-    "      ng-class=\"{ 'button--disabled' : notified || !collaborators || !comments.length }\">Notify All</a>\n" +
+    "      ng-click=\"!flags.notified && notify(videoId)\"\n" +
+    "      ng-class=\"{ 'btn--disabled' : flags.notified || !collaborators || !comments.length }\">Notify All</a>\n" +
     "  </header>\n" +
     "\n" +
     "  <p class=\"video-collaborators__none-message\" ng-hide=\"collaborators\">You have no collaborators!</p>\n" +
@@ -1460,14 +1460,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        </div>\n" +
     "      </div>\n" +
     "    </li>\n" +
-    "<!--     <li class=\"video-collaborators__collaborator\">\n" +
-    "      <span class=\"video-collaborators__collaborator-image\" style=\"background-image: url('http://media.dev.wonderpl.com/images/avatar/thumbnail_medium/kHmU0Pn5E1dVK3K68Okjgw.jpg');\"></span>\n" +
-    "      <span class=\"video-collaborators__collaborator-name\">Tom Aitkens</span>\n" +
-    "    </li>\n" +
-    "    <li class=\"video-collaborators__collaborator\">\n" +
-    "      <span class=\"video-collaborators__collaborator-image\" style=\"background-image: url('http://media.dev.wonderpl.com/images/avatar/thumbnail_medium/kHmU0Pn5E1dVK3K68Okjgw.jpg');\"></span>\n" +
-    "      <span class=\"video-collaborators__collaborator-name\">Tom Aitkens 2</span>\n" +
-    "    </li> -->\n" +
     "  </ul>\n" +
     "\n" +
     "</section>"
@@ -1511,7 +1503,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "          </div>\n" +
     "          <div class=\"video-feedback__comment-content\">\n" +
     "            <span class=\"video-feedback__comment-timestamp\">\n" +
-    "              @<a class=\"video-feedback__comment-timestamp-link\" ng-bind=\"(currentTime | time)\"></a>\n" +
+    "              @<a class=\"video-feedback__comment-timestamp-link\" ng-bind=\"(videoCurrentTime | time)\"></a>\n" +
     "            </span>\n" +
     "            <div class=\"video-feedback__comment-text\">\n" +
     "              <textarea class=\"video-feedback__input js-video-feedback-input\"\n" +
@@ -1576,12 +1568,12 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "            reply\n" +
     "          </a>\n" +
     "          <a class=\"video-feedback__resolve-link\"\n" +
-    "            ng-hide=\"comment.resolved || !isOwner\"\n" +
+    "            ng-hide=\"comment.resolved || !flags.isOwner\"\n" +
     "            ng-click=\"resolve(comment.id)\">\n" +
     "            resolve\n" +
     "          </a>\n" +
     "          <a class=\"video-feedback__resolve-link\"\n" +
-    "            ng-show=\"comment.resolved && isOwner\"\n" +
+    "            ng-show=\"comment.resolved && flags.isOwner\"\n" +
     "            ng-click=\"unresolve(comment.id)\">\n" +
     "            reopen\n" +
     "          </a>\n" +
@@ -1615,7 +1607,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('video-extended-controls.html',
-    "<section class=\"video-extended-controls\" ng-show=\"isEdit\">\n" +
+    "<section class=\"video-extended-controls\" ng-show=\"flags.isEdit\">\n" +
     "  <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addCollectionShow }\">\n" +
     "    <i class=\"icon  icon--medium  icon--plus  section-drawer__icon\" ng-click=\"showHideCollectionExtended()\" ng-hide=\"addCollectionShow\"></i>\n" +
     "    <i class=\"icon  icon--medium  icon--minus  section-drawer__icon\" ng-click=\"showHideCollectionExtended()\" ng-show=\"addCollectionShow\"></i>\n" +
@@ -1705,14 +1697,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <a class=\"video-more__link btn\"\n" +
     "    ng-click=\"(showMoreLinkConfigPanel = !showMoreLinkConfigPanel)\"\n" +
-    "    ng-show=\"isEdit\"\n" +
+    "    ng-show=\"flags.isEdit\"\n" +
     "    title=\"You can add a button, which will appear under your video in the Wonder App that takes you to any website.&#013;&#013;Simply add the text for the button (up-to 30 characters) and type in the URL you want to go to.\">\n" +
     "    (~ text ? text : 'Add a link (optional) &hellip;' ~)\n" +
     "  </a>\n" +
     "\n" +
-    "  <a class=\"video-more__link btn  btn--positive\" href=\"(~ url ~)\" ng-hide=\"isEdit\">(~ text ~)</a>\n" +
+    "  <a class=\"video-more__link btn  btn--positive\" href=\"(~ url ~)\" ng-hide=\"flags.isEdit\">(~ text ~)</a>\n" +
     "\n" +
-    "  <section class=\"video-more__form\" ng-class=\"{ 'video-more__form--active' : showMoreLinkConfigPanel }\" ng-show=\"isEdit\">\n" +
+    "  <section class=\"video-more__form\" ng-class=\"{ 'video-more__form--active' : showMoreLinkConfigPanel }\" ng-show=\"flags.isEdit\">\n" +
     "\n" +
     "    <section class=\"video-more__controls-container\">\n" +
     "\n" +
@@ -1843,7 +1835,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('video-thumbnail.html',
     "<section class=\"video-preview\" ng-class=\"{ 'video-preview--invert' : invertPreviewSelector }\">\n" +
     "\n" +
-    "  <iframe ng-hide=\"videoHasLoaded\" class=\"video-preview__frame\" src=\"/embed/88888888/?controls=1\"></iframe>\n" +
+    "  <iframe ng-hide=\"flags.videoHasLoaded\" class=\"video-preview__frame\" src=\"/embed/88888888/?controls=1\"></iframe>\n" +
     "\n" +
     "  <a class=\"video-thumbnail__option video-thumbnail__option--select\"\n" +
     "    ng-class=\"{ 'video-thumbnail__option--disabled' : video.status !== 'ready' }\"\n" +
@@ -1860,9 +1852,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <section class=\"video-thumbnail__option video-preview__option--cancel\"\n" +
     "    ng-hide=\"showThumbnailSelector\"\n" +
-    "    ng-class=\"{ 'video-preview__option--disabled' : !videoHasLoaded }\"\n" +
-    "    ng-click=\"!videoHasLoaded || closePreviewSelector()\">\n" +
-    "    <p ng-hide=\"!videoHasLoaded\">Cancel</p>\n" +
+    "    ng-class=\"{ 'video-preview__option--disabled' : !flags.videoHasLoaded }\"\n" +
+    "    ng-click=\"!flags.videoHasLoaded || closePreviewSelector()\">\n" +
+    "    <p ng-hide=\"!flags.videoHasLoaded\">Cancel</p>\n" +
     "  </section>\n" +
     "\n" +
     "  <section class=\"video-thumbnail__selector\" ng-show=\"showThumbnailSelector\">\n" +
@@ -1914,21 +1906,21 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<div ng-controller=\"VideoCtrl\" class=\"cf\">\n" +
     "\n" +
     "  <div class=\"video-view__nav-placeholder\" ng-hide=\"collaborator()\">\n" +
-    "    <video-navigation is-edit=\"isEdit\" is-review=\"isReview\" is-owner=\"isOwner\" is-comments=\"isComments\" video-id=\"video.id\" video-status=\"video.status\"></video-navigation>\n" +
+    "    <video-navigation is-edit=\"flags.isEdit\" is-review=\"flags.isReview\" is-owner=\"flags.isOwner\" is-comments=\"flags.isComments\" video-id=\"video.id\" video-status=\"video.status\"></video-navigation>\n" +
     "  </div>\n" +
     "\n" +
-    "  <ul class=\"configurable-layout configurable-layout-(~ isComments ? $root.layoutMode : 'column' ~)\" ng-class=\"{ 'configurable-layout-column--is-comments' : isComments }\">\n" +
+    "  <ul class=\"configurable-layout configurable-layout-(~ flags.isComments ? $root.layoutMode : 'column' ~)\" ng-class=\"{ 'configurable-layout-column--is-comments' : flags.isComments }\">\n" +
     "\n" +
     "    <li class=\"layout-block layout-block__quaternary\" ng-show=\"$root.layoutMode !== 'column'\">\n" +
     "      <section class=\"cf video-view__comments\" ng-show=\"showComments()\">\n" +
-    "        <video-collaborators notified=\"notified\" comments=\"comments\" ng-show=\"video.id && isComments && $root.layoutMode === 'column'\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
-    "        <video-comments notified=\"notified\" is-owner=\"isOwner\" comments=\"comments\" video-id=\"(~ video.id ~)\" current-time=\"videoCurrentTime\" ng-if=\"$root.layoutMode !== 'column'\"></video-comments>\n" +
+    "        <video-collaborators flags=\"flags\" comments=\"comments\" ng-show=\"video.id && flags.isComments && $root.layoutMode === 'column'\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
+    "        <video-comments flags=\"flags\" comments=\"comments\" video-id=\"(~ video.id ~)\" current-time=\"videoCurrentTime\" ng-if=\"$root.layoutMode !== 'column'\"></video-comments>\n" +
     "      </section>\n" +
     "    </li>\n" +
     "\n" +
     "    <li class=\"layout-block  layout-block--group\">\n" +
     "\n" +
-    "      <div class=\"layout-block layout-block__primary layout-block-primary--(~ isComments ? $root.layoutMode : 'column' ~)\" ng-class=\"{ 'layout-block--narrow' : isComments }\">\n" +
+    "      <div class=\"layout-block layout-block__primary layout-block-primary--(~ flags.isComments ? $root.layoutMode : 'column' ~)\" ng-class=\"{ 'layout-block--narrow' : flags.isComments }\">\n" +
     "\n" +
     "        <section class=\"main-view video-view\">\n" +
     "\n" +
@@ -1939,63 +1931,63 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "            medium-editor\n" +
     "            options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
     "            ng-model=\"video.title\"\n" +
-    "            ng-show=\"isEdit\">\n" +
+    "            ng-show=\"flags.isEdit\">\n" +
     "          </h2>\n" +
     "          <h3 class=\"video-view__sub-title\"\n" +
     "            data-placeholder=\"(~ straplinePlaceholder ~)\"\n" +
     "            medium-editor\n" +
     "            options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
     "            ng-model=\"video.strapline\"\n" +
-    "            ng-show=\"isEdit\">\n" +
+    "            ng-show=\"flags.isEdit\">\n" +
     "          </h3>\n" +
     "\n" +
-    "          <h2 class=\"video-view__title\" ng-hide=\"isEdit\" ng-bind-html=\"video.title\" ng-class=\"{ 'video-view__title--small' : isComments }\"></h2>\n" +
-    "          <h3 class=\"video-view__sub-title\" ng-hide=\"isEdit||isComments\" ng-bind-html=\"video.strapline\"></h3>\n" +
+    "          <h2 class=\"video-view__title\" ng-hide=\"flags.isEdit\" ng-bind-html=\"video.title\" ng-class=\"{ 'video-view__title--small' : flags.isComments }\"></h2>\n" +
+    "          <h3 class=\"video-view__sub-title\" ng-hide=\"flags.isEdit||flags.isComments\" ng-bind-html=\"video.strapline\"></h3>\n" +
     "\n" +
-    "          <div class=\"video-view__container\" ng-class=\"{'video-view__container--fixed': isEdit}\">\n" +
-    "            <video-upload ng-show=\"showUpload && isEdit\" ng-cloak></video-upload>\n" +
-    "            <video-player ng-show=\"hasProcessed || isReview || isComments\" embed-url=\"embedUrl\"></video-player>\n" +
-    "            <video-edit ng-show=\"showVideoEdit && isEdit\"></video-edit>\n" +
+    "          <div class=\"video-view__container\" ng-class=\"{'video-view__container--fixed': flags.isEdit}\">\n" +
+    "            <video-upload ng-show=\"flags.showUpload && flags.isEdit\" ng-cloak></video-upload>\n" +
+    "            <video-player ng-show=\"flags.hasProcessed || flags.isReview || flags.isComments\" embed-url=\"embedUrl\"></video-player>\n" +
+    "            <video-edit ng-show=\"showVideoEdit && flags.isEdit\"></video-edit>\n" +
     "\n" +
-    "            <player-config video=\"video\" player-parameters=\"playerParameters\" video-id=\"(~ video.id ~)\" ng-show=\"showColorPicker && isEdit\"></player-config>\n" +
+    "            <player-config video=\"video\" player-parameters=\"playerParameters\" video-id=\"(~ video.id ~)\" ng-show=\"showColorPicker && flags.isEdit\"></player-config>\n" +
     "\n" +
-    "            <video-thumbnail ng-show=\"showPreviewSelector && isEdit\"></video-thumbnail>\n" +
+    "            <video-thumbnail ng-show=\"showPreviewSelector && flags.isEdit\"></video-thumbnail>\n" +
     "          </div>\n" +
     "\n" +
     "          <video-more-link\n" +
     "            text=\"video.link_title\"\n" +
     "            url=\"video.link_url\"\n" +
-    "            is-edit=\"(~ isEdit ~)\"\n" +
-    "            ng-show=\"(isEdit || video.link_title && video.link_url) && !isComments\">\n" +
+    "            is-edit=\"(~ flags.isEdit ~)\"\n" +
+    "            ng-show=\"(flags.isEdit || video.link_title && video.link_url) && !flags.isComments\">\n" +
     "          </video-more-link>\n" +
     "\n" +
     "          <section class=\"video-view__description video-medium\"\n" +
-    "            ng-class=\"{ 'video-view__description--edit' : isEdit }\"\n" +
+    "            ng-class=\"{ 'video-view__description--edit' : flags.isEdit }\"\n" +
     "            data-placeholder=\"(~ descriptionPlaceholder ~)\"\n" +
     "            medium-editor\n" +
     "            options=\"{ buttons : ['bold', 'italic', 'header1', 'header2', 'unorderedlist', 'quote'], firstHeader : 'h2', secondHeader : 'h3' }\"\n" +
     "            ng-model=\"video.description\"\n" +
-    "            ng-show=\"isEdit\">\n" +
+    "            ng-show=\"flags.isEdit\">\n" +
     "          </section>\n" +
     "\n" +
     "          <section\n" +
     "            class=\"video-view__description video-medium\"\n" +
     "            ng-bind-html=\"video.description\"\n" +
-    "            ng-hide=\"isComments || isEdit\">\n" +
+    "            ng-hide=\"flags.isComments || flags.isEdit\">\n" +
     "          </section>\n" +
     "\n" +
     "          <video-share\n" +
     "            video=\"video\"\n" +
     "            has-tags=\"(~ video.tags && video.tags.items && video.tags.items.length > 0 ~)\"\n" +
-    "            ng-hide=\"isComments\"\n" +
+    "            ng-hide=\"flags.isComments\"\n" +
     "            video-id=\"(~ video.id ~)\">\n" +
     "          </video-share>\n" +
     "\n" +
-    "          <video-extended-controls ng-show=\"isEdit\" collaborators=\"collaborators\"></video-extended-controls>\n" +
+    "          <video-extended-controls ng-show=\"flags.isEdit\" collaborators=\"collaborators\"></video-extended-controls>\n" +
     "\n" +
     "          <video-download video-id=\"video.id\" ng-show=\"video.id && collaborator() && canDownload\"></video-download>\n" +
     "\n" +
-    "          <div class=\"video-view__save-controls\" ng-show=\"isEdit\">\n" +
+    "          <div class=\"video-view__save-controls\" ng-show=\"flags.isEdit\">\n" +
     "            <a ng-click=\"bottomCancel()\" class=\"btn  btn--small\">cancel</a>\n" +
     "            <a ng-click=\"save()\" class=\"btn  btn--small  btn--positive\">save changes</a>\n" +
     "          </div>\n" +
@@ -2004,27 +1996,27 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "      </div>\n" +
     "\n" +
-    "      <div class=\"layout-block layout-block__secondary layout-block-secondary--(~ isComments ? $root.layoutMode : 'column' ~)\" ng-class=\"{ 'layout-block--narrow' : isComments }\">\n" +
+    "      <div class=\"layout-block layout-block__secondary layout-block-secondary--(~ flags.isComments ? $root.layoutMode : 'column' ~)\" ng-class=\"{ 'layout-block--narrow' : flags.isComments }\">\n" +
     "\n" +
     "        <section class=\"cf video-view__comments\" ng-show=\"showComments()\">\n" +
     "          <video-indicators comments=\"comments\" current-time=\"videoCurrentTime\" total-time=\"videoTotalTime\"></video-indicators>\n" +
     "          <video-frame-stepper current-time=\"videoCurrentTime\"></video-frame-stepper>\n" +
-    "          <video-collaborators notified=\"notified\" comments=\"comments\" ng-show=\"video.id && isComments && $root.layoutMode !== 'column'\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
+    "          <video-collaborators flags=\"flags\" comments=\"comments\" ng-show=\"video.id && flags.isComments && $root.layoutMode !== 'column'\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
     "        </section>\n" +
     "\n" +
     "      </div>\n" +
     "\n" +
-    "      <div ng-show=\"$root.layoutMode === 'column'\" class=\"layout-block layout-block__tertiary layout-block-tertiary--(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
+    "      <div ng-show=\"$root.layoutMode === 'column'\" class=\"layout-block layout-block__tertiary layout-block-tertiary--(~ flags.isComments ? $root.layoutMode : 'column' ~)\">\n" +
     "        <section class=\"cf video-view__comments\" ng-show=\"showComments()\">\n" +
-    "          <video-collaborators notified=\"notified\" comments=\"comments\" ng-show=\"video.id && isComments && $root.layoutMode === 'column'\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
-    "          <video-comments notified=\"notified\" is-owner=\"isOwner\" comments=\"comments\" video-id=\"(~ video.id ~)\" current-time=\"videoCurrentTime\" ng-if=\"$root.layoutMode === 'column'\"></video-comments>\n" +
+    "          <video-collaborators flags=\"flags\" comments=\"comments\" ng-show=\"video.id && flags.isComments && $root.layoutMode === 'column'\" collaborators=\"collaborators\" video-id=\"(~ video.id ~)\"></video-collaborators>\n" +
+    "          <video-comments flags=\"flags\" comments=\"comments\" video-id=\"(~ video.id ~)\" current-time=\"videoCurrentTime\" ng-if=\"$root.layoutMode === 'column'\"></video-comments>\n" +
     "        </section>\n" +
     "      </div>\n" +
     "\n" +
     "    </li>\n" +
     "  </ul>\n" +
     "\n" +
-    "  <layout-control is-comments=\"isComments\" ng-show=\"(!collaborator() || (collaborator() && canComment)) && \"></layout-control>\n" +
+    "  <layout-control is-comments=\"flags.isComments\" ng-show=\"(!collaborator() || (collaborator() && canComment)) && \"></layout-control>\n" +
     "\n" +
     "</div>\n" +
     "\n" +

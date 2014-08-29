@@ -1,6 +1,6 @@
 <section class="video-preview" ng-class="{ 'video-preview--invert' : invertPreviewSelector }">
 
-  <iframe ng-hide="videoHasLoaded" class="video-preview__frame" src="/embed/88888888/?controls=1"></iframe>
+  <iframe ng-hide="flags.videoHasLoaded" class="video-preview__frame" src="/embed/88888888/?controls=1"></iframe>
 
   <a class="video-thumbnail__option video-thumbnail__option--select"
     ng-class="{ 'video-thumbnail__option--disabled' : video.status !== 'ready' }"
@@ -17,9 +17,9 @@
 
   <section class="video-thumbnail__option video-preview__option--cancel"
     ng-hide="showThumbnailSelector"
-    ng-class="{ 'video-preview__option--disabled' : !videoHasLoaded }"
-    ng-click="!videoHasLoaded || closePreviewSelector()">
-    <p ng-hide="!videoHasLoaded">Cancel</p>
+    ng-class="{ 'video-preview__option--disabled' : !flags.videoHasLoaded }"
+    ng-click="!flags.videoHasLoaded || closePreviewSelector()">
+    <p ng-hide="!flags.videoHasLoaded">Cancel</p>
   </section>
 
   <section class="video-thumbnail__selector" ng-show="showThumbnailSelector">

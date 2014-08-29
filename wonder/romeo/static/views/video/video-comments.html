@@ -15,7 +15,7 @@
           </div>
           <div class="video-feedback__comment-content">
             <span class="video-feedback__comment-timestamp">
-              @<a class="video-feedback__comment-timestamp-link" ng-bind="(currentTime | time)"></a>
+              @<a class="video-feedback__comment-timestamp-link" ng-bind="(videoCurrentTime | time)"></a>
             </span>
             <div class="video-feedback__comment-text">
               <textarea class="video-feedback__input js-video-feedback-input"
@@ -80,12 +80,12 @@
             reply
           </a>
           <a class="video-feedback__resolve-link"
-            ng-hide="comment.resolved || !isOwner"
+            ng-hide="comment.resolved || !flags.isOwner"
             ng-click="resolve(comment.id)">
             resolve
           </a>
           <a class="video-feedback__resolve-link"
-            ng-show="comment.resolved && isOwner"
+            ng-show="comment.resolved && flags.isOwner"
             ng-click="unresolve(comment.id)">
             reopen
           </a>
