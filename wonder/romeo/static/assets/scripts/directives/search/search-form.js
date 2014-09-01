@@ -7,13 +7,8 @@ angular.module('RomeoApp.directives')
     replace : true,
     template : $templateCache.get('search-form.html'),
     scope : {
-      expression : '=',
-      country : '='
-    },
-    controller : function ($scope) {
-      $scope.search = function ($event) {
-        $scope.$emit('search', $scope.expression);
-      };
+      q : '=',
+      location : '='
     }
   };
 }]);

@@ -1,3 +1,7 @@
+.search__form {
+  @extend .t--push-bottom;
+}
+
 .search__form-input {
   @extend .giga;
   @extend .input--borderless;

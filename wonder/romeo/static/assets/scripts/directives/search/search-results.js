@@ -7,9 +7,7 @@ angular.module('RomeoApp.directives')
     replace : true,
     template : $templateCache.get('search-results.html'),
     scope : {
-      expression : '=',
-      results : '=',
-      query : '='
+      results : '='
     }
   };
 }]);

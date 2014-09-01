@@ -1213,9 +1213,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('search-form.html',
     "<section class=\"search__form\">\n" +
     "\n" +
-    "  <input type=\"text\" class=\"search__form-input\" ng-model=\"expression.q\" autofocus placeholder=\"Type to search\" />\n" +
+    "  <input type=\"text\" class=\"search__form-input\" ng-model=\"q\" autofocus placeholder=\"Type to search\" />\n" +
     "\n" +
-    "  <country-selector country=\"country\"></country-selector>\n" +
+    "  <location-selector></location-selector>\n" +
     "\n" +
     "</section>"
   );
@@ -1285,9 +1285,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('search.html',
     "<section class=\"search page-content wrapper wrapper--fixed\" ng-controller=\"SearchCtrl\">\n" +
     "\n" +
-    "  <search-form expression=\"search.expression\" country=\"country\"></search-form>\n" +
+    "  <search-form q=\"q\" location=\"location\"></search-form>\n" +
     "\n" +
-    "  <search-results query=\"query\" expression=\"search.expression\" results=\"search.results\"></search-results>\n" +
+    "  <search-results results=\"results\"></search-results>\n" +
     "\n" +
     "</section>"
   );
@@ -2233,25 +2233,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
-  $templateCache.put('search/country-selector.tmpl.html',
-    "<div class=\"country-selector\">\n" +
-    "\n" +
-    "  <div class=\"country-selector__selected-country\" ng-click=\"showCountryList = !showCountryList\">\n" +
-    "    <img ng-src=\"/static/assets/img/flags/flags-iso/flat/32/(~ country.code ~).png\" height=\"32\" width=\"32\" />\n" +
-    "  </div>\n" +
-    "\n" +
-    "  <div class=\"country-selector__countries\" ng-class=\"{ 'active' : showCountryList }\">\n" +
-    "    <ul>\n" +
-    "      <li class=\"country-selector__option\" ng-repeat=\"country in countries\" ng-click=\"select(country.code); hideOptions()\">\n" +
-    "        <img ng-src=\"/static/assets/img/flags/flags-iso/flat/32/(~ country.code ~).png\" height=\"32\" width=\"32\" />\n" +
-    "      </li>\n" +
-    "    </ul>\n" +
-    "  </div>\n" +
-    "\n" +
-    "</div>"
-  );
-
-
   $templateCache.put('video/edit/player-config.tmpl.html',
     "<section class=\"player-config color-picker\">\n" +
     "\n" +
@@ -2292,7 +2273,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('directives/location-selector.tmpl.html',
     " <div class=\"location-selector icon-text\">\n" +
     "  <label class=\"label location-selector__label  accessibility\" for=\"location-selector__location\">Location</label>\n" +
-    "  <select class=\"location-selector__location js-select2\" ng-model=\"profile.location\">\n" +
+    "  <select class=\"location-selector js-select2\" ng-model=\"location\">\n" +
     "    <option ng-repeat=\"location in locations\" value=\"(~ location.code ~)\">(~ location.name ~)</option>\n" +
     "  </select>\n" +
     "</div>"

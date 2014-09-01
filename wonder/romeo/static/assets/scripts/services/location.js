@@ -1,5 +1,5 @@
 angular.module('RomeoApp.services')
-  .factory('CountriesService', ['$http', function ($http) {
+  .factory('LocationService', ['$http', function ($http) {
 
   'use strict';
 

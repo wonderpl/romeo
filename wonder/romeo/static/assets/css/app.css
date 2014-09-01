@@ -3662,32 +3662,32 @@ label,
   margin-left: 6px;
 }
 
-/* line 8, ../../scss/_theme/_theme.search.scss */
+/* line 12, ../../scss/_theme/_theme.search.scss */
 .search__results-container {
   border-top: solid 1px #b7bcbd;
 }
 
-/* line 13, ../../scss/_theme/_theme.search.scss */
+/* line 17, ../../scss/_theme/_theme.search.scss */
 .search__results-container--left {
   clear: left;
 }
 
-/* line 21, ../../scss/_theme/_theme.search.scss */
+/* line 25, ../../scss/_theme/_theme.search.scss */
 .search__results-container--right {
   clear: right;
 }
 
-/* line 27, ../../scss/_theme/_theme.search.scss */
+/* line 31, ../../scss/_theme/_theme.search.scss */
 .search__item-description {
   color: #2e2e32;
 }
 
-/* line 31, ../../scss/_theme/_theme.search.scss */
+/* line 35, ../../scss/_theme/_theme.search.scss */
 .search__thumbnail {
   background-color: #999999;
 }
 
-/* line 36, ../../scss/_theme/_theme.search.scss */
+/* line 40, ../../scss/_theme/_theme.search.scss */
 .search__avatar-container {
   overflow: hidden;
   width: 66px;
@@ -3703,6 +3703,11 @@ label,
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: lowercase;
   color: #999999;
+}
+
+/* line 1, ../../scss/_theme/_theme.location-selector.scss */
+.location-selector {
+  min-width: 50%;
 }
 
 /**
@@ -3905,7 +3910,7 @@ label,
 }
 
 /* line 6, ../../scss/_trumps/_trumps.spacing.scss */
-.t--push-bottom, .search__form-input, .search__results-container--left {
+.t--push-bottom, .search__form, .search__form-input, .search__results-container--left {
   margin-bottom: 24px;
 }
 
@@ -7068,31 +7073,4 @@ label,
   z-index: 10;
   display: block;
   position: relative;
-}
-
-/* line 1, ../app/search/country-selector.scss */
-.country-selector__countries {
-  transition: max-height 0.4s ease-in-out;
-  max-height: 0;
-  overflow: hidden;
-}
-/* line 5, ../app/search/country-selector.scss */
-.country-selector__countries.active {
-  max-height: 500px;
-}
-
-/* line 10, ../app/search/country-selector.scss */
-.country-selector__selected-country {
-  cursor: pointer;
-  display: inline-block;
-}
-
-/* line 15, ../app/search/country-selector.scss */
-.country-selector__option {
-  list-style: none outside;
-}
-
-/* line 19, ../app/search/country-selector.scss */
-.country-selector__option:hover {
-  cursor: pointer;
 }

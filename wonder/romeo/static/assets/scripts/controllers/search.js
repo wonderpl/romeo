@@ -7,51 +7,63 @@ angular.module('RomeoApp.controllers')
   var data = $location.search();
 
   if (!$.isEmptyObject(data)) {
-    search(data);
-    $scope.search = $scope.search || {};
-    $scope.search.expression = data;
-    $scope.query = data ? data.q : null;
+    if (data.q) {
+      search(data);
+    }
+    $scope.q = data.q;
+    $scope.location = data.location;
   }
 
   function clearSearch () {
-    $scope.search.results = null;
-    $scope.search.expression = null;
+    $scope.results = null;
+    $scope.q = null;
     $location.url($location.path());
   }
 
   function search (expression) {
-    console.log($scope.country);
+    console.log($scope.location);
     return SearchService.search(expression).then(function (data) {
-      $scope.search.results = data;
+      $scope.results = data;
     }, assignMockData);
   }
 
   $scope.$on('search', function ($event, data) {
     $event.stopPropagation();
-    $scope.query = data ? data.q : null;
-    search(data);
+    if (data.q) {
+      search({
+        q : data.q,
+        location: data.location
+      });
+    }
   });
 
-  $scope.$watch('search.country', function (newValue, oldValue) {
+  $scope.$watch('location', function (newValue, oldValue) {
     if (newValue && newValue !== oldValue) {
-      search(data);
+      if (data.q) {
+        search({
+          location: newValue,
+          q : $scope.q
+        });
+      }
     }
   }, true);
 
 
-  $scope.$watch('search.expression', function (newValue, oldValue) {
-    if ((newValue && !newValue.q) || (newValue && newValue.q && newValue.q.trim() === '')) {
+  $scope.$watch('q', function (newValue, oldValue) {
+    if (!newValue || newValue.trim() === '') {
       clearSearch();
-    } else if (newValue != oldValue && newValue && newValue.q) {
-      search(newValue);
+    } else if (newValue && newValue != oldValue) {
+      console.log($scope.location);
+      search({
+        location: $scope.location,
+        q : $scope.q
+      });
     }
   }, true);
 
   function assignMockData () {
 
-    $scope.search = $scope.search || {};
-
-    $scope.search.results = {
+    $scope.results = {
 
       "video": {
         "total": 2,
