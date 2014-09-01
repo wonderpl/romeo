@@ -12,4 +12,17 @@
         };
     }]);
 
+    
+    angular.module('RomeoApp.services').factory('Enum', function () {
+
+        function Enum() {
+            var states = Array.prototype.slice.apply(arguments, [0]);
+            for (var i = 0, j = states.length; i < j; i++) {
+                this[states[i].toUpperCase()] = i;
+            }
+        }
+
+        return Enum;
+    });
+
 })();
