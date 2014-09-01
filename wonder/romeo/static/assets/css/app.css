@@ -2457,6 +2457,13 @@ li > ol {
   }
 }
 
+/* line 131, ../../scss/_components/_components.animations.scss */
+.animate-spin, .show-modal-indicator:hover {
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+}
+
 /**
  * _components.avatars.scss
  */
@@ -3553,6 +3560,11 @@ label,
   background-image: url("http://localhost:5001/static/assets/img/video-collection__tag.png");
   background-repeat: no-repeat;
   background-position: top left;
+}
+
+/* line 74, ../../scss/_theme/_theme.modal.scss */
+.show-modal-indicator {
+  transition: transform 0.4s ease-in-out;
 }
 
 /**

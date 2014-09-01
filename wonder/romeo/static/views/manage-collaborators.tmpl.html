@@ -1,0 +1,21 @@
+<div class="modal__title  split">
+  <span class="split__title  t--block  w--600">Manage Collaborators</span>
+  <a class="modal__link" ng-click="close()"><i class="icon icon--medium icon--circle-cross"></i></a>
+</div>
+<div class="modal__content">
+  <p>manage collaborators</p>
+
+  <ul>
+    <li ng-repeat="collaborator in collaborators">
+      <span ng-bind="collaborator.username"></span>
+
+      <a class="link" ng-click="removeCollaborator(collaborator.id)">remove</a>
+    </li>
+  </ul>
+
+
+</div>
+<div class="modal__footer">
+  <div class="modal__actions">
+  </div>
+</div>

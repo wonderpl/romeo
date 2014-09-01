@@ -127,3 +127,9 @@
     opacity: 0;
   }
 }
+
+.animate-spin {
+  -webkit-transform:rotate(360deg);
+  -moz-transform:rotate(360deg);
+  -o-transform:rotate(360deg);
+}

@@ -722,6 +722,31 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('manage-collaborators.tmpl.html',
+    "<div class=\"modal__title  split\">\n" +
+    "  <span class=\"split__title  t--block  w--600\">Manage Collaborators</span>\n" +
+    "  <a class=\"modal__link\" ng-click=\"close()\"><i class=\"icon icon--medium icon--circle-cross\"></i></a>\n" +
+    "</div>\n" +
+    "<div class=\"modal__content\">\n" +
+    "  <p>manage collaborators</p>\n" +
+    "\n" +
+    "  <ul>\n" +
+    "    <li ng-repeat=\"collaborator in collaborators\">\n" +
+    "      <span ng-bind=\"collaborator.username\"></span>\n" +
+    "\n" +
+    "      <a class=\"link\" ng-click=\"removeCollaborator(collaborator.id)\">remove</a>\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
+    "\n" +
+    "\n" +
+    "</div>\n" +
+    "<div class=\"modal__footer\">\n" +
+    "  <div class=\"modal__actions\">\n" +
+    "  </div>\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('modal-add-to-collection.html',
     "<h2>Add videos to a collection</h2>\n" +
     "<div class=\"modal-content\">\n" +
@@ -1438,7 +1463,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<section class=\"video-collaborators video-collaborators--(~ $root.layoutMode ~)\">\n" +
     "\n" +
     "  <header class=\"video-collaborators__header\">\n" +
-    "    <h4 class=\"video-collaborators__title  no-spacing\">collaborators</h4>\n" +
+    "    <h4 class=\"video-collaborators__title  no-spacing\">collaborators <a class=\"show-modal-indicator\" ng-click=\"showCollaboratorsModal()\">[+]</a></h4>\n" +
     "    <a class=\"btn  btn--small  btn--positive  video-collaborators__notify  f--right\"\n" +
     "      ng-click=\"!flags.notified && notify(videoId)\"\n" +
     "      ng-class=\"{ 'btn--disabled' : flags.notified || !collaborators || !comments.length }\">Notify All</a>\n" +

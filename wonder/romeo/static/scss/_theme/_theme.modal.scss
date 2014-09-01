@@ -70,3 +70,12 @@
   background-repeat: no-repeat;
   background-position: top left;
 }
+
+.show-modal-indicator {
+  transition: transform 0.4s ease-in-out;
+}
+
+.show-modal-indicator:hover {
+  @extend .animate-spin;
+}
+
