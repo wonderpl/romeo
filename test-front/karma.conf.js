@@ -19,8 +19,13 @@ module.exports = function(config) {
       'wonder/romeo/static/assets/vendor/js/spectrum.js',
       'wonder/romeo/static/assets/vendor/js/medium-editor.js',
 
-      'wonder/romeo/static/assets/scripts/*.js',
+      'wonder/romeo/static/assets/scripts/helpers.js',
+      'wonder/romeo/static/assets/scripts/app.js',
+      'wonder/romeo/static/assets/scripts/services.js',
+      'wonder/romeo/static/assets/scripts/filters.js',
+      'wonder/romeo/static/assets/scripts/views.js',
       'wonder/romeo/static/assets/scripts/services/*.js',
+
       'wonder/romeo/static/assets/scripts/controllers/*.js',
       'wonder/romeo/static/assets/scripts/filters/*.js',
       'wonder/romeo/static/assets/scripts/directives/**/*.js',

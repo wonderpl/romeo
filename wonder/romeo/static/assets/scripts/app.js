@@ -15,6 +15,7 @@
     // * App modules
     angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
 
+    var debug = new DebugClass('App');
 
     var app = angular.module('RomeoApp' /* module name */,
         ['RomeoApp.controllers',
@@ -37,13 +38,13 @@
         var authChecks = {
             loggedin: function(ErrorService, AuthService, AccountService, $q) {
                 var dfd = new $q.defer();
-                console.info('Login: App.authChecks.loggedid');
+                debug.info('Login: App.authChecks.loggedid');
                 AuthService.loginCheck().then(function () {
                     dfd.resolve();
                     AccountService.getUser();
                 },
                     function () {
-                        console.info('Login: App.authChecks.loggedid - User not logged in, check for token');
+                        debug.info('Login: App.authChecks.loggedid - User not logged in, check for token');
                         AuthService.collaboratorCheck().then(dfd.resolve, dfd.reject);
                     });
 
@@ -166,7 +167,7 @@
       };
 
         $rootScope.$on('$routeChangeError', function(evt, next, last, error) {
-            console.log( error );
+            debug.log( error );
             if (error instanceof ErrorService.AuthError) {
                 $location.url($location.path());
                 $location.url('/login');

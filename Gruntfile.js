@@ -132,7 +132,8 @@ module.exports = function (grunt) {
             raw: {
                 configFile: 'test-front/karma.conf.js',
                 options: {
-                    browsers: ['PhantomJS']
+                    browsers: ['PhantomJS'],
+                    reporters: ['dots']
                 }
             },
             built: {
@@ -207,16 +208,16 @@ module.exports = function (grunt) {
                     'wonder/romeo/static/assets/app/**/*.js'
                 ],
                 tasks: ['jshint']
-            } //, @TODO enable karma unit tests as part of watch
-            // unittest: {
-            //     files: [
-            //         'wonder/romeo/static/assets/scripts/**/*.js',
-            //         'wonder/romeo/static/assets/common/**/*.js',
-            //         'wonder/romeo/static/assets/app/**/*.js',
-            //         'test-front/unit/**/*.js'
-            //     ],
-            //     tasks: ['karma:raw']
-            // }
+            }, // @TODO enable karma unit tests as part of watch
+            unittest: {
+                files: [
+                    'wonder/romeo/static/assets/scripts/**/*.js',
+                    'wonder/romeo/static/assets/common/**/*.js',
+                    'wonder/romeo/static/assets/app/**/*.js',
+                    'test-front/unit/**/*.js'
+                ],
+                tasks: ['karma:raw']
+            }
         }
     });
 
@@ -235,7 +236,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-processhtml');
 
     /* TASK ALIASES */
-    grunt.registerTask('build', [ 'clean', /*'karma:raw',*/ 'ngtemplates', 'jshint', 'compass:prod', 'copy', 'concat', 'uglify', 'processhtml' ]);
+    grunt.registerTask('build', [ 'clean', 'karma:raw', 'ngtemplates', 'jshint', 'compass:prod', 'copy', 'concat', 'uglify', 'processhtml' ]);
     grunt.registerTask('templates', [ 'ngtemplates' ]);
 
     /* Running GRUNT without any parameters will run the following tasks
