@@ -2,12 +2,10 @@
 /*  Romeo Filters
  /* ================================== */
 
-(function(w,d,ng,ns,m) {
-
+(function() {
     'use strict';
 
-    var app = ng.module(ns + '.' + m /* module name */,
-        [] /* module dependencies */);
+    var app = angular.module('RomeoApp.filters');
 
     app.filter('slugify', function() {
         return function(input) {
@@ -83,13 +81,13 @@
                 searchmatched,
                 searchterm = filter.searchtext.toLowerCase();
 
-            ng.forEach( items, function( value, key ) {
+            angular.forEach( items, function( value, key ) {
 
                 collectionmatched = ( filter.collection === null ) ? true : false;
                 searchmatched = false;
 
                 if ( collectionmatched === false ) {
-                    ng.forEach( value.collections, function(value2, key2){
+                    angular.forEach( value.collections, function(value2, key2){
                         if ( filter.collection === value2 ) {
                             collectionmatched = true;
                         }
@@ -117,4 +115,4 @@
         };
     });
 
-})(window,document,window.angular,'RomeoApp','filters');
+})();

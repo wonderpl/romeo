@@ -2,17 +2,27 @@
 /*  Romeo Prototype
  /* ================================== */
 
-(function(w,d,n,ng,ns) {
-
+(function() {
     'use strict';
 
-    var app = ng.module(ns /* module name */,
-        [ns + '.controllers',
-                ns + '.services',
-                ns + '.directives',
-                ns + '.filters',
-                ns + '.analytics',
-                ns + '.profile',
+    // Define all the sub modules of the app here so we can include files in any order
+    // * Common modules, modules in common should never depend on modules in App so they come first
+    angular.module('RomeoApp.filters', []);
+    angular.module('RomeoApp.services', []);
+    angular.module('RomeoApp.security', ['RomeoApp.services']);
+    angular.module('RomeoApp.directives', ['RomeoApp.services']);
+    angular.module('RomeoApp.controllers', ['RomeoApp.services', 'RomeoApp.directives', 'LocalStorageModule']);
+    // * App modules
+    angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
+
+
+    var app = angular.module('RomeoApp' /* module name */,
+        ['RomeoApp.controllers',
+            'RomeoApp.services',
+            'RomeoApp.directives',
+            'RomeoApp.filters',
+            'RomeoApp.analytics',
+            'RomeoApp.profile',
             'ngRoute',
             'ngCookies',
             'angular-medium-editor',
@@ -165,4 +175,4 @@
 
     }]);
 
-})(window,document,navigator,window.angular,'RomeoApp');
+})();
