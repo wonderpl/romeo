@@ -2186,7 +2186,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        <a class=\"sub-navigation__link btn btn--utility\" ng-click=\"cancel()\">cancel</a>\n" +
     "      </li>\n" +
     "      <li class=\"sub-navigation__mode\">\n" +
-    "        <a class=\"sub-navigation__link btn btn--utility\" href=\"/logout\">logout</a>\n" +
+    "        <a class=\"sub-navigation__link btn btn--utility\" ng-click=\"logout()\">logout</a>\n" +
     "      </li>\n" +
     "    </ul>\n" +
     "  </div>\n" +

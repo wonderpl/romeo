@@ -10,21 +10,18 @@ angular.module('RomeoApp.services').factory('CollaboratorsService',
 
   function addCollaborator (videoId, data) {
     var deferred = new $q.defer();
-    AuthService.getSessionId().then(function(response){
 
-      DataService.request({
-        url: '/api/video/' + videoId + '/collaborators',
-        method: 'POST',
-        data: data
-      }).then(function (data) {
-        console.log(data);
-        deferred.resolve(data);
-      }, function (response) {
-        console.log(response);
-        deferred.reject(response);
-      });
-
-    }, deferred.reject);
+    DataService.request({
+      url: '/api/video/' + videoId + '/collaborators',
+      method: 'POST',
+      data: data
+    }).then(function (data) {
+      console.log(data);
+      deferred.resolve(data);
+    }, function (response) {
+      console.log(response);
+      deferred.reject(response);
+    });
 
     return deferred.promise;
   }

@@ -4,10 +4,9 @@
 */
 angular
   .module('RomeoApp.services')
-  .factory('VideoService', VideoService);
+  .factory('VideoService', ['$rootScope', '$q', 'localStorageService', 'DataService', 'AccountService', VideoService]);
 
-
-function VideoService (DataService, localStorageService, $rootScope, AuthService, $q) {
+function VideoService ($rootScope, $q, localStorageService, DataService, AccountService) {
 
   'use strict';
 
@@ -48,9 +47,7 @@ function VideoService (DataService, localStorageService, $rootScope, AuthService
   */
   Video.getUploadArgs = function () {
       var deferred = new $q.defer();
-      AuthService.getSessionId().then(function(response){
-          deferred.resolve(DataService.request({url: '/api/account/' + response + '/upload_args'}));
-      });
+      deferred.resolve(DataService.request({url: '/api/account/' + AccountService.getAccountId() + '/upload_args'}));
       return deferred.promise;
   };
 
@@ -75,9 +72,7 @@ function VideoService (DataService, localStorageService, $rootScope, AuthService
   */
   Video.create = function (data) {
       var deferred = new $q.defer();
-      AuthService.getSessionId().then(function(response){
-          deferred.resolve(DataService.request({url: '/api/account/' + response + '/videos', method: 'POST', data: data}));
-      });
+      deferred.resolve(DataService.request({url: '/api/account/' + AccountService.getAccountId() + '/videos', method: 'POST', data: data}));
       return deferred.promise;
   };
 
@@ -163,40 +158,35 @@ function VideoService (DataService, localStorageService, $rootScope, AuthService
   */
   Video.getAll = function() {
       var deferred = new $q.defer();
-      AuthService.getSessionId().then(function(response){
-          DataService.request({ url: '/api/account/' + response + '/videos', method: 'GET'}).then(function(response){
 
-              Videos = response.video.items;
-              $rootScope.Videos = response.video.items;
+      DataService.request({ url: '/api/account/' + AccountService.getAccountId() + '/videos', method: 'GET'}).then(function (response) {
+          Videos = response.video.items;
+          $rootScope.Videos = response.video.items;
 
-              deferred.resolve(response);
-          });
+          deferred.resolve(response);
       });
       return deferred.promise;
   };
 
   Video.isOwner = function (videoId) {
     var deferred = new $q.defer();
-    AuthService.getSessionId().then(function(response){
-      DataService.request({ url: '/api/account/' + response + '/videos', method: 'GET'}).then(function(response){
-        var videos = response.video.items;
-        var l = videos.length;
-        while (l--) {
-          if (videos[l].id === videoId) {
-            deferred.resolve({
-              isOwner : true
-            });
-          }
+    DataService.request({ url: '/api/account/' + AccountService.getAccountId() + '/videos', method: 'GET'}).then(function (response) {
+      var videos = response.video.items;
+      var l = videos.length;
+      while (l--) {
+        if (videos[l].id === videoId) {
+          deferred.resolve({
+            isOwner : true
+          });
         }
-        deferred.resolve({
-          isOwner : false
-        });
-      }, function () {
-        deferred.reject(response);
+      }
+      deferred.resolve({
+        isOwner : false
       });
     }, function () {
-      deferred.reject();
+      deferred.reject(response);
     });
+
 
     return deferred.promise;
   };

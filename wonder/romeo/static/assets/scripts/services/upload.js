@@ -2,8 +2,8 @@
 * Methods for interacting with the Comment web services
 */
 angular.module('RomeoApp.services')
-  .factory('UploadService', ['DataService', 'AuthService', '$q', '$interval', 'VideoService', '$rootScope',
-  function (DataService, AuthService, $q, $interval, VideoService, $rootScope) {
+  .factory('UploadService', ['DataService', 'AccountService', '$q', '$interval', 'VideoService', '$rootScope',
+  function (DataService, AccountService, $q, $interval, VideoService, $rootScope) {
 
   'use strict';
 
@@ -86,7 +86,7 @@ angular.module('RomeoApp.services')
     // update video with key
     updateVideo({ filename: cachedkey, status: 'processing' }, cachedId).then(function () {
       // Make sure we've updated status on server before broadcasting succes
-      $rootScope.$broadcast('video-upload-complete'); 
+      $rootScope.$broadcast('video-upload-complete');
 
       // poll video service with video id
       pollVideoForReady(cachedId);
@@ -134,9 +134,7 @@ angular.module('RomeoApp.services')
   // Amazon S3 credentials
   function getUploadParameters () {
     var deferred = new $q.defer();
-    AuthService.getSessionId().then(function(response){
-        deferred.resolve(DataService.request({url: '/api/account/' + response + '/upload_args'}));
-    });
+    deferred.resolve(DataService.request({url: '/api/account/' + AccountService.getAccountId() + '/upload_args'}));
     return deferred.promise;
   }
 

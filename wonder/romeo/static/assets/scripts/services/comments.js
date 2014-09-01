@@ -2,8 +2,8 @@
 * Methods for interacting with the Comment web services
 */
 angular.module('RomeoApp.services').factory('CommentsService',
-  ['DataService', 'AuthService', '$q',
-  function (DataService, AuthService, $q) {
+  ['DataService', 'AccountService', '$q',
+  function (DataService, AccountService, $q) {
 
   'use strict';
 
@@ -24,40 +24,34 @@ angular.module('RomeoApp.services').factory('CommentsService',
 
   function notify (videoId) {
     var deferred = new $q.defer();
-    AuthService.getSessionId().then(function(response){
-      deferred.resolve(DataService.request({
-        url: '/api/video/' + videoId + '/comments/notification',
-        method: 'POST',
-      }));
-    });
+    deferred.resolve(DataService.request({
+      url: '/api/video/' + videoId + '/comments/notification',
+      method: 'POST',
+    }));
     return deferred.promise;
   }
 
   function resolveComment (videoId, commentId) {
     var deferred = new $q.defer();
-    AuthService.getSessionId().then(function(response){
-      deferred.resolve(DataService.request({
-        url: '/api/video/' + videoId + '/comments/' + commentId,
-        method: 'PATCH',
-        data: {
-          resolved : true
-        }
-      }));
-    });
+    deferred.resolve(DataService.request({
+      url: '/api/video/' + videoId + '/comments/' + commentId,
+      method: 'PATCH',
+      data: {
+        resolved : true
+      }
+    }));
     return deferred.promise;
   }
 
   function unresolveComment (videoId, commentId) {
     var deferred = new $q.defer();
-    AuthService.getSessionId().then(function(response){
-      deferred.resolve(DataService.request({
-        url: '/api/video/' + videoId + '/comments/' + commentId,
-        method: 'PATCH',
-        data: {
-          resolved : false
-        }
-      }));
-    });
+    deferred.resolve(DataService.request({
+      url: '/api/video/' + videoId + '/comments/' + commentId,
+      method: 'PATCH',
+      data: {
+        resolved : false
+      }
+    }));
     return deferred.promise;
   }
 

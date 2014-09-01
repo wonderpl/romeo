@@ -3,8 +3,8 @@
 */
 
 angular.module('RomeoApp.services').factory('TagService',
-    ['DataService', 'VideoService', '$rootScope', 'AuthService', '$q', '$timeout',
-    function (DataService, VideoService, $rootScope, AuthService, $q, $timeout) {
+    ['DataService', 'VideoService', '$rootScope', 'AccountService', '$q', '$timeout',
+    function (DataService, VideoService, $rootScope, AccountService, $q, $timeout) {
 
     'use strict';
 
@@ -16,21 +16,17 @@ angular.module('RomeoApp.services').factory('TagService',
     */
     Tag.getTags = function() {
         var deferred = new $q.defer();
-            AuthService.getSessionId().then(function(response){
-                DataService.request({url: '/api/account/' + response + '/tags'}).then(function(response){
-                    $rootScope.Tags = response.tag.items;
-                    Tags = response.tag.items;
-                    deferred.resolve(response);
-                });
-            });
+        DataService.request({url: '/api/account/' + AccountService.getAccountId() + '/tags'}).then(function(response){
+            $rootScope.Tags = response.tag.items;
+            Tags = response.tag.items;
+            deferred.resolve(response);
+        });
         return deferred.promise;
     };
 
     Tag.createTag = function(data){
         var deferred = new $q.defer();
-            AuthService.getSessionId().then(function(response){
-                deferred.resolve(DataService.request({url: '/api/account/' + response + '/tags', method: 'POST', data: data}));
-            });
+        deferred.resolve(DataService.request({url: '/api/account/' + AccountService.getAccountId() + '/tags', method: 'POST', data: data}));
         return deferred.promise;
     };
 

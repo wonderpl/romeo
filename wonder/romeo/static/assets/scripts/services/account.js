@@ -2,8 +2,8 @@
 * Methods for interacting with the Account web services
 */
 angular.module('RomeoApp.services').factory('AccountService',
-    ['$http', 'DataService', 'localStorageService', 'AuthService', '$q',
-    function ($http, DataService, localStorageService, AuthService, $q) {
+    ['$http', '$q', 'DataService', 'localStorageService', 'AuthService', 'SecurityService',
+    function ($http, $q, DataService, localStorageService, AuthService, SecurityService) {
 
     'use strict';
     var debug = new DebugClass('AccountService');
@@ -61,6 +61,16 @@ angular.module('RomeoApp.services').factory('AccountService',
         return $http({method: 'JSONP', url: 'https://secure.wonderpl.com/ws/location/?_callback=JSON_CALLBACK'});
     };
 
+    // New code using SecurityService
+
+    Account.getAccount = function () {
+        return SecurityService.getAccount();
+    };
+
+    Account.getAccountId = function () {
+        return SecurityService.getAccount() ? SecurityService.getAccount().id : 0;
+    };
+
     /*
     * Expose the methods to the service
     */
@@ -69,6 +79,8 @@ angular.module('RomeoApp.services').factory('AccountService',
         updateUser: Account.updateUser,
         updateCoverImage: Account.updateCoverImage,
         updateAvatar: Account.updateAvatar,
-        getGeoIpLocation: Account.getGeoIpLocation
+        getGeoIpLocation: Account.getGeoIpLocation,
+        getAccount: Account.getAccount,
+        getAccountId: Account.getAccountId
     };
 }]);
