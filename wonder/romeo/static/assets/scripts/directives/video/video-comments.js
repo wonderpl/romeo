@@ -1,13 +1,13 @@
 angular.module('RomeoApp.directives')
-  .directive('videoComments', ['AuthService', '$templateCache', 'CommentsService', '$timeout',
-  function (AuthService, $templateCache, CommentsService, $timeout) {
+  .directive('videoComments', ['$templateCache', '$timeout', 'UserService', 'SecurityService', 'CommentsService',
+  function ($templateCache, $timeout, UserService, SecurityService, CommentsService) {
 
   'use strict';
 
   function createComment (data) {
 
-    var avatar = AuthService.getUser().avatar;
-    var username = AuthService.getUser().display_name;
+    var avatar = UserService.getUser().avatar;
+    var username = UserService.getUser().display_name;
 
     var comment = {
       avatar_url  : avatar,
@@ -81,7 +81,7 @@ angular.module('RomeoApp.directives')
         {
           scrollTop: pos
         }, 1000);
-        
+
       }
 
     },
@@ -99,15 +99,6 @@ angular.module('RomeoApp.directives')
         }
         return comment;
       }
-
-      $scope.$watch(
-        function() { return AuthService.getUser(); },
-        function(newValue, oldValue) {
-          if (newValue && newValue !== oldValue && !jQuery.isEmptyObject(newValue)) {
-            $scope.user = newValue;
-          }
-        }
-      );
 
       $scope.$on('player-paused', videoOnPaused);
 
@@ -170,13 +161,13 @@ angular.module('RomeoApp.directives')
         $scope.$emit('video-seek', timestamp);
       };
       $scope.isCollaborator = function () {
-        return AuthService.isCollaborator();
+        return SecurityService.isCollaborator();
       };
       $scope.isLoggedIn = function () {
-        return AuthService.isLoggedIn();
+        return SecurityService.isAuthenticated();
       };
       $scope.user = function () {
-        return AuthService.getUser();
+        return UserService.getUser();
       };
     }
   };

@@ -1,7 +1,7 @@
 angular
   .module('RomeoApp.controllers')
-  .controller('SignupCtrl', ['$scope', 'AuthService', '$location',
-    function($scope, AuthService, $location) {
+  .controller('SignupCtrl', ['$scope', 'SecurityService', '$location',
+    function($scope, SecurityService, $location) {
   	'use strict';
 
 	  $scope.username = $scope.username || '';
@@ -31,7 +31,7 @@ angular
           "location": $scope.location
         };
 
-        AuthService.registration(user).then(
+        SecurityService.registration(user).then(
           $scope.handleRedirect,
           function (response) {
             console.log(response);

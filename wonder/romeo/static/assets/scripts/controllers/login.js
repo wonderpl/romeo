@@ -1,9 +1,9 @@
 
 angular
   .module('RomeoApp.controllers')
-  .controller('LoginCtrl', ['$scope', '$location', 'AuthService', 'SecurityService', LoginController]);
+  .controller('LoginCtrl', ['$scope', '$location', 'SecurityService', LoginController]);
 
-function LoginController ($scope, $location, AuthService, SecurityService) {
+function LoginController ($scope, $location, SecurityService) {
   'use strict';
 
   $scope.username = $scope.username || '';
@@ -60,10 +60,10 @@ function LoginController ($scope, $location, AuthService, SecurityService) {
     } else {
       console.dir(data);
       // First set the credentials recieved from twitter
-      AuthService.setExternalCredentials(data.credentials);
+      SecurityService.setExternalCredentials(data.credentials);
 
       // Then call external login to see if we need to ask for email
-      AuthService.ExternalLogin().then(function (response) {
+      SecurityService.ExternalLogin().then(function (response) {
           console.log('Success in request');
           console.dir(response.data);
           $location.url('/organise');

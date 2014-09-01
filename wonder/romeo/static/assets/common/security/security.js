@@ -2,17 +2,13 @@
     'use strict';
 
     function SecurityService($location, $q, $http, localStorageService) {
-        var debug = new DebugClass('SecurityService');
-        var currentUser = null;
-        var currentAccount = null;
-        var loginAttempts = 0;
-        var originalUrl = null;
-        var checkingLogin = null;
-
-        function redirect(url) {
-            originalUrl = $location.url();
-            $location.path(url || '/login');
-        }
+        var debug = new DebugClass('SecurityService'),
+            currentUser = null,
+            currentAccount = null,
+            loginAttempts = 0,
+            originalUrl = null,
+            checkingLogin = null,
+            externalCredentials = null;
 
         function getSession() {
             var deferred = new $q.defer();
@@ -76,17 +72,21 @@
         }
 
         var service = {
-            restoreUrl: function(url) {
+            restoreUrl: function (url) {
                 $location.path(originalUrl || url || '/organise');
                 originalUrl = null;
             },
+            redirect: function (url) {
+                originalUrl = $location.url();
+                $location.path(url || '/login');
+            },
             requireCollaborator: function () {
-                console.error('service require collaborator');
+                console.info('service require collaborator');
                 if (! service.isCollaborator() ) {
                     _loginCheck().then(function (res) {
                         // _saveAccountAndUserDetails(res);
                     }, function () {
-                        redirect();
+                        service.redirect();
                     });
                 }
                 return currentUser;
@@ -94,8 +94,8 @@
             requireCreator: function () {
                 requireCollaborator();
                 // We now know this is either a logged in user or we have been sent to login
-                if (service.isCollaborator() && !service.isCreator()) {
-                    // If the user isn't a creator but a valid user show modal
+                if (service.isAuthenticated() && !service.isCreator()) {
+                    // @TODO: If the user isn't a creator but a valid user show modal
                     alert('You need to pay for that');
                 }
 
@@ -108,7 +108,8 @@
             // Is the current user an collaborator or better?
             // All logged in users are at least collaborators
             isCollaborator: function() {
-              return service.isAuthenticated();
+              // @TODO: This is should be for account_type collaborator; not !content_owner
+              return service.isAuthenticated() && !angular.equals(currentUser.account_type, 'content_owner');
             },
             // Is the current user an creator?
             isCreator: function() {
@@ -151,6 +152,53 @@
             // Is the current users registration complete (for twitter users)?
             isProfileComplete: function(){
               return !!(currentUser && currentUser.user_name);
+            },
+            ExternalLogin: function (profile) {
+                if (! externalCredentials) {
+                    var dfd = new $q.defer();
+                    debug.error('ExternalLogin was called before external credentials were set');
+                    return new dfd.reject('Set credentials before calling external login');
+                }
+                var data = externalCredentials;
+                var request;
+                if (angular.isString(profile)){
+                    data.username = profile;
+                }
+                else if (angular.isObject(profile)) {
+                    angular.extend(data, profile);
+                }
+
+                debug.dir(data);
+                request = $http.post('/api/login/external', data);
+                request.then(function (response) {
+                    debug.info('Logged in from external service');
+                    debug.dir(response.data);
+                    _saveAccountAndUserDetails(response.data);
+                    service.setExternalCredentials(null);
+                });
+                return request;
+            },
+            setExternalCredentials: function (credentials) {
+                debug.info('setExternalCredentials ' + credentials);
+                externalCredentials = credentials;
+            },
+            getExternalCredentials: function (credentials) {
+                debug.info('setExternalCredentials ' + credentials);
+                externalCredentials = credentials;
+            },
+            registration: function(data) {
+                return $http({
+                    method: 'post',
+                    url: '/api/register',
+                    data: data
+                }).success(function (data) {
+                    debug.info('Registration successful');
+                    debug.dir(data);
+                    _saveUserDetails(data.account);
+                    return Auth.setSession(data.account);
+                }).error(function () {
+                    // debugger;
+                });
             }
         };
 

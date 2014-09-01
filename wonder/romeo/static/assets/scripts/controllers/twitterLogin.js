@@ -1,11 +1,11 @@
 angular
   .module('RomeoApp.controllers')
-  .controller('TwitterLoginCtrl', ['$scope', '$location', 'AuthService', 'AccountService',
-  	function ($scope, $location, AuthService, AccountService) {
+  .controller('TwitterLoginCtrl', ['$scope', '$location', 'SecurityService', 'AccountService',
+  	function ($scope, $location, SecurityService, AccountService) {
   		'use strict';
   		$scope.isLoading = false;
   		$scope.profile = $scope.profile || {};
-  		
+
 		$scope.save = function() {
 			$scope.errors = '';
 
@@ -13,7 +13,7 @@ angular
 		};
 
 		function externalLogin(profile) {
-			AuthService.ExternalLogin(profile).then(function (response) {
+			SecurityService.ExternalLogin(profile).then(function (response) {
 	        	$location.url('/organise');
 	        },
 	        function (response) {

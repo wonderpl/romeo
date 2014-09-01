@@ -6,13 +6,13 @@
     'use strict';
 
     // Define all the sub modules of the app here so we can include files in any order
-    // * Common modules, modules in common should never depend on modules in App so they come first
+    // -- Common modules, modules in common should never depend on modules in App so they come first
     angular.module('RomeoApp.filters', []);
     angular.module('RomeoApp.security', []);
     angular.module('RomeoApp.services', ['RomeoApp.security']);
     angular.module('RomeoApp.directives', ['RomeoApp.services']);
     angular.module('RomeoApp.controllers', ['RomeoApp.services', 'RomeoApp.directives', 'LocalStorageModule']);
-    // * App modules
+    // -- App modules
     angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
 
     var debug = new DebugClass('App');
@@ -35,24 +35,6 @@
     app.config(['$routeProvider', '$interpolateProvider', '$httpProvider', 'securityAuthorizationProvider',
       function( $routeProvider, $interpolateProvider, $httpProvider, securityAuthorizationProvider ){
 
-        var sessionUrl;
-        var authChecks = {
-            loggedin: function(ErrorService, AuthService, AccountService, $q) {
-                var dfd = new $q.defer();
-                debug.info('Login: App.authChecks.loggedid');
-                AuthService.loginCheck().then(function () {
-                    dfd.resolve();
-                    AccountService.getUser();
-                },
-                    function () {
-                        debug.info('Login: App.authChecks.loggedid - User not logged in, check for token');
-                        AuthService.collaboratorCheck().then(dfd.resolve, dfd.reject);
-                    });
-
-                return dfd.promise;
-            }
-        };
-
         // Change the interpolation symbols so they don't conflict with Jinja
         $interpolateProvider.startSymbol('(~');
         $interpolateProvider.endSymbol('~)');
@@ -72,7 +54,7 @@
         // Videos
         $routeProvider.when('/video', {
             templateUrl: 'video.html',
-            resolve: securityAuthorizationProvider.requireCollaborator
+            resolve: securityAuthorizationProvider.requireCreator
         });
 
         // Videos
@@ -90,7 +72,7 @@
         // Videos
         $routeProvider.when('/video/:id/edit', {
             templateUrl: 'video.html',
-            resolve: securityAuthorizationProvider.requireCollaborator
+            resolve: securityAuthorizationProvider.requireCreator
         });
 
         $routeProvider.when('/search', {
