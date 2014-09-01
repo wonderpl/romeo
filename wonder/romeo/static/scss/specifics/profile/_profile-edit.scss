@@ -33,9 +33,7 @@
 	}
 	.lookup--field:focus { outline-color: #66afe9; }
 	.location-selector__location {
-		background-color: inherit;
-		border-width: 0;
-		color: inherit;
+		width: 100%;
 	}
 	.location-selector__location:focus {
 		border-color: #66afe9;

@@ -14,7 +14,8 @@
       "assets/vendor/css/spectrum.css",
       "assets/vendor/css/medium-editor.css",
       "assets/vendor/css/medium-editor-default.css",
-      "assets/css/app.css"
+      "assets/css/app.css",
+      "bower/select2/select2.css"
     %}
     <link rel="stylesheet" href="{{ ASSET_URL }}"/>
     {% endassets %}
@@ -33,7 +34,7 @@
     <notification-tray notifications="notifications"></notification-tray>
 
     <page-header profile="profile"></page-header>
-    
+
     <div ng-view=""></div>
 
     <page-footer></page-footer>
@@ -57,7 +58,8 @@
             "assets/vendor/js/angulartics-0.16.1/angulartics-ga.min.js",
             "assets/vendor/js/moment.js",
             "assets/vendor/js/spectrum.js",
-            "assets/vendor/js/medium-editor.js"
+            "assets/vendor/js/medium-editor.js",
+            "bower/select2/select2.js"
         %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
     {% endblock %}
 
@@ -74,7 +76,7 @@
             "assets/common/security/*.js",
             "assets/common/services/*.js",
             "assets/common/directives/*.js",
-            
+
             "assets/scripts/services/*.js",
             "assets/scripts/controllers/*.js",
             "assets/scripts/filters/*.js",

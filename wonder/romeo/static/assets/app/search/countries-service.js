@@ -6,7 +6,7 @@ angular.module('RomeoApp.services')
   var Countries = {};
 
   Countries.getAll = function () {
-    return $http.get('/api/countries/');
+    return $http.get('/api/locations');
   };
 
   return Countries;

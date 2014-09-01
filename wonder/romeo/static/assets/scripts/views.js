@@ -2291,9 +2291,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('directives/location-selector.tmpl.html',
     " <div class=\"location-selector icon-text\">\n" +
-    "  <i class=\"icon icon--location icon-text__icon\"></i>\n" +
     "  <label class=\"label location-selector__label  accessibility\" for=\"location-selector__location\">Location</label>\n" +
-    "  <input type=\"text\" ng-model=\"profile.location\" class=\"location-selector__location\" id=\"location-selector__location\" placeholder=\"Location (example London, UK)\" />\n" +
+    "  <select class=\"location-selector__location js-select2\" ng-model=\"profile.location\">\n" +
+    "    <option ng-repeat=\"location in locations\" value=\"(~ location.code ~)\">(~ location.name ~)</option>\n" +
+    "  </select>\n" +
     "</div>"
   );
 } ]);

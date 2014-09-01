@@ -6762,11 +6762,9 @@ label,
 }
 /* line 35, ../../scss/specifics/profile/_profile-edit.scss */
 .profile-edit__extended .location-selector__location {
-  background-color: inherit;
-  border-width: 0;
-  color: inherit;
+  width: 100%;
 }
-/* line 40, ../../scss/specifics/profile/_profile-edit.scss */
+/* line 38, ../../scss/specifics/profile/_profile-edit.scss */
 .profile-edit__extended .location-selector__location:focus {
   border-color: #66afe9;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
@@ -6777,7 +6775,7 @@ label,
   outline-width: 5px;
 }
 
-/* line 50, ../../scss/specifics/profile/_profile-edit.scss */
+/* line 48, ../../scss/specifics/profile/_profile-edit.scss */
 .profile-edit__description {
   margin-bottom: 24px;
   padding-bottom: 24px;
@@ -6785,7 +6783,7 @@ label,
   text-align: center;
 }
 
-/* line 56, ../../scss/specifics/profile/_profile-edit.scss */
+/* line 54, ../../scss/specifics/profile/_profile-edit.scss */
 .profile-edit__name {
   font-size: 50px;
   margin-bottom: 12px;
@@ -6794,7 +6792,7 @@ label,
   text-align: center;
 }
 
-/* line 63, ../../scss/specifics/profile/_profile-edit.scss */
+/* line 61, ../../scss/specifics/profile/_profile-edit.scss */
 .profile-edit__contact-button {
   float: left;
   margin-bottom: 12px;
@@ -6802,7 +6800,7 @@ label,
   padding-left: 230px;
   width: 325px;
 }
-/* line 69, ../../scss/specifics/profile/_profile-edit.scss */
+/* line 67, ../../scss/specifics/profile/_profile-edit.scss */
 .profile-edit__contact-button button {
   background-color: #fff;
   border-width: 0;
@@ -6811,11 +6809,11 @@ label,
   font-weight: bold;
   color: #b7bcbd;
 }
-/* line 77, ../../scss/specifics/profile/_profile-edit.scss */
+/* line 75, ../../scss/specifics/profile/_profile-edit.scss */
 .profile-edit__contact-button button:focus {
   outline-width: 0;
 }
-/* line 78, ../../scss/specifics/profile/_profile-edit.scss */
+/* line 76, ../../scss/specifics/profile/_profile-edit.scss */
 .profile-edit__contact-button .active {
   color: #2e2e32;
 }
