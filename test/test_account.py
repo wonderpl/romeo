@@ -23,7 +23,7 @@ class AccountTestCase(unittest.TestCase):
     def test_login(self):
         credentials = dict(username='a@b.com', password='123')
         accountdata = dict(display_name='test', description= None, avatar_thumbnail_url='', profile_cover_url='')
-        self._create_test_user(**credentials)
+        userdata = self._create_test_user(**credentials)
         with patch('wonder.romeo.account.views.DollyUser') as DollyUser:
             DollyUser.return_value.get_userdata.return_value = accountdata
             with current_app.test_client() as client:
@@ -31,4 +31,4 @@ class AccountTestCase(unittest.TestCase):
                 self.assertEquals(r.status_code, 200)
                 data = json.loads(r.data)
                 #self.assertEquals(data['user']['username'], credentials['username'])
-                self.assertEquals(data['account']['display_name'], accountdata['display_name'])
+                self.assertEquals(data['account']['name'], userdata['account'])
