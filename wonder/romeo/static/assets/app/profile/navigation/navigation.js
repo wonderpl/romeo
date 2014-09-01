@@ -1,8 +1,8 @@
 
 angular
   .module('RomeoApp.profile')
-  .directive('profileNavigation', ['$templateCache',
-    function ($templateCache) {
+  .directive('profileNavigation', ['$templateCache', 'SecurityService',
+    function ($templateCache, SecurityService) {
       'use strict';
       return {
         restrict : 'E',
@@ -24,6 +24,9 @@ angular
           };
           $scope.cancel = function () {
             $scope.$emit('profile-cancel');
+          };
+          $scope.logout = function () {
+            SecurityService.logout();
           };
         },
         link : function (scope, elem, attr) {

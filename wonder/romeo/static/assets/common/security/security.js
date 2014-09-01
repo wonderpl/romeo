@@ -48,8 +48,7 @@
                 getSession().then(function (res){
                     debug.log('LoginCheck: - Got session, trying to retrive profile url ' + (res.href || res));
                     $http({method: 'GET', url: (res.href || res) }).then(function(res2) {
-                        currentUser = res2.data || res2;
-                        //_saveAccountAndUserDetails(res2);
+                        currentUser = angular.fromJson(res2.data);
                         debug.log('LoginCheck: All good, access granted');
                         checkingLogin.resolve(currentUser);
                     }, function (res){
@@ -84,9 +83,8 @@
             requireCollaborator: function () {
                 console.error('service require collaborator');
                 if (! service.isCollaborator() ) {
-                    console.dir(_loginCheck());
                     _loginCheck().then(function (res) {
-                        _saveAccountAndUserDetails(res);
+                        // _saveAccountAndUserDetails(res);
                     }, function () {
                         redirect();
                     });

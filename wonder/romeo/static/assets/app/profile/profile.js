@@ -8,19 +8,19 @@ function ProfileRouteProvider($routeProvider, securityAuthorizationProvider) {
         // Account management
         $routeProvider.when('/profile', {
             templateUrl: 'profile/profile.tmpl.html',
-        //    resolve: securityAuthorizationProvider.requireCollaborator
+            resolve: securityAuthorizationProvider.requireCollaborator
         });
 
         // Public  profile
         $routeProvider.when('/profile/:id', {
             templateUrl: 'profile/profile.tmpl.html',
-        //    resolve: securityAuthorizationProvider.requireCollaborator
+            resolve: securityAuthorizationProvider.requireCollaborator
         });
 }
 
 angular.module('RomeoApp.profile').config(['$routeProvider', 'securityAuthorizationProvider', ProfileRouteProvider]);
 
-function ProfileCtrl($scope, AccountService, AuthService, DataService, UserService, $location, UploadService, $routeParams, modal) {
+function ProfileCtrl($scope, AccountService, DataService, UserService, $location, UploadService, $routeParams, modal) {
   var ProfileController = {};
 
   function init() {
@@ -59,6 +59,13 @@ function ProfileCtrl($scope, AccountService, AuthService, DataService, UserServi
       }
     });
 
+    $scope.$watch(function () {
+      return UserService.getUser();
+    }, function (newValue, oldValue) {
+      if (newValue !== oldValue && $scope.flags.isOwner)
+        $scope.profile = newValue;
+    });
+
     ProfileController.loadUserDetails();
   }
 
@@ -83,19 +90,9 @@ function ProfileCtrl($scope, AccountService, AuthService, DataService, UserServi
       });
     } else {
       $scope.flags.isOwner = true;
-      $scope.profile = AuthService.getUser();
+      $scope.profile = UserService.getUser();
       if ($scope.profile) {
-        AuthService.getSessionId().then(function (id) {
-          $scope.flags.accountId = id;
-        });
-      }
-      else {
-        AccountService.getUser().then(function (account) {
-          $scope.profile = account;
-          AuthService.getSessionId().then(function (id) {
-            $scope.flags.accountId = id;
-          });
-        });
+        $scope.flags.accountId = $scope.profile.id;
       }
     }
   };
@@ -201,7 +198,7 @@ function ProfileCtrl($scope, AccountService, AuthService, DataService, UserServi
   return ProfileController;
 }
 
-angular.module('RomeoApp.profile').controller('ProfileCtrl', ['$scope', 'AccountService', 'AuthService', 'DataService', 'UserService', '$location', 'UploadService', '$routeParams', 'modal', ProfileCtrl]);
+angular.module('RomeoApp.profile').controller('ProfileCtrl', ['$scope', 'AccountService', 'DataService', 'UserService', '$location', 'UploadService', '$routeParams', 'modal', ProfileCtrl]);
 
 })();
 

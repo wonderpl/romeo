@@ -1,9 +1,9 @@
 
 angular
   .module('RomeoApp.controllers')
-  .controller('LoginCtrl', LoginController);
+  .controller('LoginCtrl', ['$scope', '$location', 'AuthService', 'SecurityService', LoginController]);
 
-function LoginController ($scope, $location, AuthService) {
+function LoginController ($scope, $location, AuthService, SecurityService) {
   'use strict';
 
   $scope.username = $scope.username || '';
@@ -24,15 +24,18 @@ function LoginController ($scope, $location, AuthService) {
 
   $scope.login = function () {
     $scope.isLoading.login = true;
-    return AuthService.login($scope.username, $scope.password).then(
-    $scope.handleRedirect,
-    function (response) {
-      console.log(response);
-      $scope.isLoading.login = false;
-      if (response.data.error) {
-        $scope.errors = 'login error';
-      }
-    });
+    return SecurityService.login($scope.username, $scope.password).then(
+      function (data) {
+        console.info('Login successful');
+        SecurityService.restoreUrl();
+      },
+      function (response) {
+        console.log(response);
+        $scope.isLoading.login = false;
+        if (response.data.error) {
+          $scope.errors = 'login error: ' + response.data.error;
+        }
+      });
   };
 
   $scope.disableButtons = function () {
