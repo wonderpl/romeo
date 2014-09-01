@@ -347,6 +347,10 @@ class VideoCollaborator(db.Model):
         serializer = URLSafeSerializer(current_app.secret_key)
         return serializer.dumps(dict(collaborator=self.id))
 
+    @property
+    def href(self):
+        return url_for('api.videocollaborator', video_id=self.video_id, collaborator_id=self.id)
+
 
 class VideoSeoEmbed(db.Model):
     __tablename__ = 'video_seo_embed'

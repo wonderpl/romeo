@@ -262,7 +262,7 @@ def send_collaborator_invite_email(collaborator_id, sending_user_id, **kwargs):
     sender = AccountUser.query.get(sending_user_id)
 
     # if the video isn't ready yet, wait 5 mins and try again
-    if collaborator.video.status not in ('ready', 'published'):
+    if collaborator.video.status not in ('ready', 'published') and not current_app.debug:
         kwargs['_delay_seconds'] = 300
         send_collaborator_invite_email(collaborator_id, sending_user_id, **kwargs)
         return

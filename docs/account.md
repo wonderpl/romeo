@@ -478,12 +478,27 @@ Content-Type: application/json
     }
    },
    {
-    "id": 43,
-    "href": "/api/user/45567553/connections/43",
+    "id": null,
+    "href": null,
+    "state": "collaborator",
+    "user": {
+     "id": 80036952,
+     "href": "/api/user/80036952",
+     "display_name": "Collaborator with account",
+     "avatar": "http://path/to/avatar/img",
+     "email": "noreply@rockpack.com"
+    }
+   },
+   {
+    "id": null,
+    "href": null,
     "state": "collaborator",
     "collaborator": {
-     "id": 9,
-     "href": /api/video/9123435/collaborators/9
+     "id": 3,
+     "href": "/api/video/40718477/collaborators/3",
+     "display_name": "Collaborator without account",
+     "avatar": "http://gravatar.com/avatar/xxx",
+     "email": "noreply@wonderpl.com"
     }
    }
   ]

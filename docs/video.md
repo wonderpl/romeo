@@ -563,8 +563,8 @@ Content-Type: application/json
     "datetime": "2014-06-25T18:38:36.311699",
     "comment": "This is a comment",
     "timestamp": 60,
-    "username": "Paul Egan",
-    "avatar_url": "http://path/to/small/avatar/img.png",
+    "display_name": "Paul Egan",
+    "avatar": "http://path/to/small/avatar/img.png",
     "resolved": false
    }
   ]
@@ -645,12 +645,26 @@ Content-Type: application/json
 
 {
  "collaborator": {
-  "total": 1,
+  "total": 2,
   "items": [
    {
-    "username": "Paul Egan",
-    "avatar_url": "http://path/to/small/avatar/img.png",
-    "permissions": ["can_comment"]
+    "id": 3,
+    "href": "/api/video/40718477/collaborators/3",
+    "display_name": "Collaborator without account",
+    "avatar": "http://gravatar.com/avatar/xxx",
+    "permissions": ["can_comment"],
+    "user": null
+   },
+   {
+    "id": 2,
+    "href": "/api/video/40718477/collaborators/2",
+    "display_name": "Collaborator with account",
+    "avatar": "http://path/to/avatar/img",
+    "permissions": [],
+    "user": {
+     "id": 80036952,
+     "href": "/api/user/80036952"
+    }
    }
   ]
  }

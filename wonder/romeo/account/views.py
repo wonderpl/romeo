@@ -14,6 +14,7 @@ from wonder.common.i18n import lazy_gettext as _
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.rest import Resource, api_resource
 from wonder.romeo.core.dolly import DollyUser
+from wonder.romeo.core.util import gravatar_url
 from .forms import (RegistrationForm, ExternalLoginForm, LoginForm,
                     AccountUserForm, AccountUserConnectionForm, AccountPaymentForm)
 from .models import UserProxy, AccountUser, AccountUserConnection
@@ -249,10 +250,36 @@ def _connection_item(connection):
             id=user.id,
             href=user.href,
             display_name=user.display_name,
-            email=user.email if connection.state == 'accepted' else None,
+            email=None if connection.state == 'pending' else user.email,
             avatar=user.avatar,
-        )
+        ) if user else None
     )
+
+
+def _unique_collaborator_users(user):
+    from wonder.romeo.video.views import collaborator_users
+    seen = dict()
+    for collaborator, user in collaborator_users(account_id=user.account_id):
+        if collaborator.email not in seen:
+            # map video collaborator to user connection
+            connection = dict(
+                connection=user,
+                connection_id=None,
+                href=None,
+                state='collaborator',
+            )
+            data = _connection_item(type('C', (object,), connection)())
+            if not user:
+                del data['user']
+                data['collaborator'] = dict(
+                    id=collaborator.id,
+                    href=collaborator.href,
+                    display_name=collaborator.name,
+                    email=collaborator.email,
+                    avatar=gravatar_url(collaborator.email),
+                )
+            seen[collaborator.email] = data
+    return seen.values()
 
 
 @api_resource('/user/<int:user_id>/connections')
@@ -260,8 +287,8 @@ class UserConnectionsResource(Resource):
 
     @user_view()
     def get(self, user):
-        # TODO: include video collaborators here
-        items = map(_connection_item, user.connections)
+        items = map(_connection_item, user.connections) +\
+            _unique_collaborator_users(user)
         return dict(connection=dict(items=items, total=len(items)))
 
     @commit_on_success

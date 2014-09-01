@@ -12,6 +12,7 @@ from wonder.romeo.core.s3 import s3connection, video_bucket, media_bucket
 from wonder.romeo.core.ooyala import ooyala_request, get_video_data
 from wonder.romeo.core.util import gravatar_url, get_random_filename
 from wonder.romeo.account.views import dolly_account_view, get_dollyuser, account_item
+from wonder.romeo.account.models import AccountUser
 from .models import (Video, VideoTag, VideoTagVideo, VideoThumbnail,
                      VideoPlayerParameter, VideoComment, VideoCollaborator)
 from .forms import (VideoTagForm, VideoForm, VideoCommentForm, VideoCollaboratorForm,
@@ -482,14 +483,36 @@ def collaborator_record(collaborator_id):
     return result
 
 
-def _collaborator_item(collaborator):
+def _collaborator_item(collaborator, user=None):
     return dict(
-        username=collaborator.name,
+        id=collaborator.id,
+        href=collaborator.href,
+        display_name=collaborator.name,
         # email=collaborator.email,
         permissions=filter(None, [f if getattr(collaborator, f) else None
                                   for f in dir(collaborator) if f.startswith('can_')]),
-        avatar_url=gravatar_url(collaborator.email),
+        avatar=user and user.avatar or gravatar_url(collaborator.email),
+        user=user and dict(id=user.id, href=user.href)
     )
+
+
+def collaborator_users(account_id=None, video_id=None):
+    assert account_id or video_id
+    if account_id:
+        query = VideoCollaborator.query.join(
+            Video,
+            (Video.id == VideoCollaborator.video_id) &
+            (Video.account_id == current_user.account_id)
+        )
+    else:
+        query = VideoCollaborator.query.filter_by(video_id=video_id)
+
+    query = query.outerjoin(
+        AccountUser,
+        func.lower(AccountUser.username) == func.lower(VideoCollaborator.email)
+    )
+
+    return query.with_entities(VideoCollaborator, AccountUser)
 
 
 @api_resource('/video/<int:video_id>/collaborators')
@@ -497,12 +520,12 @@ class VideoCollaboratorsResource(Resource):
 
     @video_view(with_collaborator_permission=True)
     def get(self, video):
-        query = VideoCollaborator.query.filter_by(video_id=video.id)
-        items = map(_collaborator_item, query.all())
+        items = [_collaborator_item(*c) for c in collaborator_users(video_id=video.id)]
         items.extend(
             dict(
-                username=user.name,
-                avatar_url=user.avatar_url or gravatar_url(user.email),
+                display_name=user.name,
+                avatar=user.avatar or gravatar_url(user.email),
+                user=dict(id=user.id, href=user.href),
             )
             for user in video.account.users
         )
@@ -521,6 +544,15 @@ class VideoCollaboratorsResource(Resource):
         return None, 204
 
 
+@api_resource('/video/<int:video_id>/collaborators/<int:collaborator_id>')
+class VideoCollaboratorResource(Resource):
+
+    @video_view(with_collaborator_permission=True)
+    def get(self, video, collaborator_id):
+        collaborator = VideoCollaborator.query.get_or_404(collaborator_id)
+        return _collaborator_item(collaborator)
+
+
 def video_comment_view(f):
     @wraps(f)
     def decorator(self, video, *args, **kwargs):
@@ -533,15 +565,15 @@ def video_comment_view(f):
     return video_view(with_collaborator_permission='comment')(decorator)
 
 
-def _comment_item(comment, username, email, avatar_url):
+def _comment_item(comment, username, email, avatar):
     return dict(
         id=comment.id,
         href=comment.href,
         comment=comment.comment,
         timestamp=comment.timestamp,
         datetime=comment.date_added.isoformat(),
-        username=username or email,
-        avatar_url=avatar_url or gravatar_url(email),
+        display_name=username or email,
+        avatar=avatar or gravatar_url(email),
         resolved=comment.resolved,
     )
 

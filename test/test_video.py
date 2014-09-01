@@ -317,7 +317,7 @@ class VideoCommentTestCase(DataTestCase, TestCase):
             r = client.get('/api/video/%d/comments' % video.id)
             comments = json.loads(r.data)['comment']['items']
             self.assertItemsEqual(
-                set(c['username'] for c in comments),
+                set(c['display_name'] for c in comments),
                 (self.data.AccountUserData.user.username,
                  self.data.VideoCollaboratorData.collab1.name))
             self.assertItemsEqual(
@@ -337,7 +337,7 @@ class VideoCommentTestCase(DataTestCase, TestCase):
             r = client.get('/api/video/%d/comments' % video.id)
             comments = json.loads(r.data)['comment']['items']
             self.assertEqual(comments[0]['comment'], comment['comment'])
-            self.assertEqual(comments[0]['username'], user.username)
+            self.assertEqual(comments[0]['display_name'], user.username)
 
     def test_resolve_comment(self):
         video = self.data.VideoData.video
@@ -406,7 +406,7 @@ class VideoCollaboratorTestCase(TestCase):
         with current_app.test_client() as client:
             r = client.post('/api/validate_token', data=dict(token=token))
             self.assertEquals(r.status_code, 200)
-            self.assertEquals(json.loads(r.data)['username'], 'test')
+            self.assertEquals(json.loads(r.data)['display_name'], 'test')
 
             with patch('wonder.romeo.core.dolly.DollyUser.get_userdata') as get_userdata:
                 get_userdata.return_value = dict(
