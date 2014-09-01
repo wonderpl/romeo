@@ -21,7 +21,7 @@ describe('services', function(){
 
   it('should have account service', inject(function(AccountService) {
   	expect(AccountService).toBeDefined();
-  	expect(AccountService.getUser).toBeDefined();
+  	expect(AccountService.getAccount).toBeDefined();
   }));
 
   it('should have auth service', inject(function(AuthService) {
