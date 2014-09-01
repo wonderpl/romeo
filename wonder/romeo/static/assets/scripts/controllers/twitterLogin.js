@@ -1,7 +1,7 @@
 angular
   .module('RomeoApp.controllers')
-  .controller('TwitterLoginCtrl', ['$scope', '$location', 'SecurityService', 'AccountService',
-  	function ($scope, $location, SecurityService, AccountService) {
+  .controller('TwitterLoginCtrl', ['$scope', '$location', 'SecurityService',
+  	function ($scope, $location, SecurityService) {
   		'use strict';
   		$scope.isLoading = false;
   		$scope.profile = $scope.profile || {};
