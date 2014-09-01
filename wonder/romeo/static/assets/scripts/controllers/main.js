@@ -1,8 +1,8 @@
 angular
   .module('RomeoApp.controllers')
-  .controller('MainCtrl', ['$window', '$scope', '$rootScope', '$location', 'modal', '$element', '$cookies', 'localStorageService', 'AuthService', MainController]);
+  .controller('MainCtrl', ['$window', '$scope', '$rootScope', '$location', 'modal', '$element', '$cookies', 'localStorageService', 'SecurityService', MainController]);
 
-function MainController ($window, $scope, $rootScope, $location, modal, $element, $cookies, localStorageService, AuthService) {
+function MainController ($window, $scope, $rootScope, $location, modal, $element, $cookies, localStorageService, SecurityService) {
 
   'use strict';
 
@@ -14,7 +14,7 @@ function MainController ($window, $scope, $rootScope, $location, modal, $element
 
   $rootScope.isComments = false;
 
-  $rootScope.layoutMode = $cookies.layout ? $cookies.layout : (AuthService.isCollaborator()) ? 'column' : 'wide';
+  $rootScope.layoutMode = $cookies.layout ? $cookies.layout : (SecurityService.isCollaborator()) ? 'column' : 'wide';
 
   $scope.profile = '';
 
@@ -81,7 +81,7 @@ function MainController ($window, $scope, $rootScope, $location, modal, $element
   */
   $rootScope.$on('$routeChangeError', function(error){
       console.log('route fail', arguments);
-      AuthService.redirect();
+      SecurityService.redirect();
   });
 
   /*

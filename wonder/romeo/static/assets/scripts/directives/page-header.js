@@ -1,8 +1,8 @@
 angular
   .module('RomeoApp.directives')
-  .directive('pageHeader', ['$templateCache', '$timeout', 'AuthService', 'UserService', PageHeaderDirective]);
+  .directive('pageHeader', ['$templateCache', '$timeout', 'SecurityService', 'UserService', PageHeaderDirective]);
 
-function PageHeaderDirective ($templateCache, $timeout, AuthService, UserService) {
+function PageHeaderDirective ($templateCache, $timeout, SecurityService, UserService) {
   'use strict';
 
   return {
@@ -18,10 +18,10 @@ function PageHeaderDirective ($templateCache, $timeout, AuthService, UserService
         }
       });
       $scope.isCollaborator = function () {
-        return AuthService.isCollaborator();
+        return SecurityService.isCollaborator();
       };
       $scope.isLoggedIn = function () {
-        return AuthService.isLoggedIn();
+        return SecurityService.isAuthenticated();
       };
       function setAccountValues(account) {
         var avatar = (account) ? account.avatar : null;

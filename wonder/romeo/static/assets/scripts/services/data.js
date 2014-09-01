@@ -1,6 +1,6 @@
 angular.module('RomeoApp.services')
-  .factory('DataService', ['$http', '$q', '$location', 'AuthService', 'ErrorService',
-    function ($http, $q, $location, AuthService, ErrorService) {
+  .factory('DataService', ['$http', '$q', '$location', 'SecurityService', 'ErrorService',
+    function ($http, $q, $location, SecurityService, ErrorService) {
 
   'use strict';
 
@@ -12,7 +12,7 @@ angular.module('RomeoApp.services')
   Data.request = function(options) {
       var deferred = new $q.defer();
 
-      AuthService.loginCheck().then(function(){
+      if (SecurityService.isAuthenticated()){
 
           $http(options).then(
           function(response){
@@ -22,10 +22,11 @@ angular.module('RomeoApp.services')
             deferred.reject(response);
           });
 
-      }, function(){
-          AuthService.redirect();
+      }
+      else {
+          SecurityService.redirect();
           deferred.reject();
-      });
+      }
 
       return deferred.promise;
   };

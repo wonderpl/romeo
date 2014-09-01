@@ -3,8 +3,8 @@
 * https://github.com/rockpack/romeo/blob/master/docs/video.md
 */
 angular.module('RomeoApp.services').factory('CollaboratorsService',
-  ['DataService', 'AuthService', '$q',
-  function (DataService, AuthService, $q) {
+  ['$q', 'DataService',
+  function ($q, DataService) {
 
   'use strict';
 

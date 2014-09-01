@@ -1,9 +1,9 @@
 
 angular
   .module('RomeoApp.directives')
-  .directive('organiseNavigation', ['$templateCache', 'AuthService', OrganiseNavigationDirective]);
+  .directive('organiseNavigation', ['$templateCache', 'SecurityService', OrganiseNavigationDirective]);
 
-function OrganiseNavigationDirective ($templateCache, AuthService) {
+function OrganiseNavigationDirective ($templateCache, SecurityService) {
   'use strict';
   return {
     restrict : 'E',
@@ -38,7 +38,7 @@ function OrganiseNavigationDirective ($templateCache, AuthService) {
         $scope.$emit('show-collaboration');
       };
       $scope.isCollaborator = function () {
-        return AuthService.isCollaborator();
+        return SecurityService.isCollaborator();
       };
     }
   };
