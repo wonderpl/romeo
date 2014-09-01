@@ -20,7 +20,7 @@ function ProfileRouteProvider($routeProvider, securityAuthorizationProvider) {
 
 angular.module('RomeoApp.profile').config(['$routeProvider', 'securityAuthorizationProvider', ProfileRouteProvider]);
 
-function ProfileCtrl($scope, AccountService, DataService, UserService, $location, UploadService, $routeParams, modal) {
+function ProfileCtrl($scope, $location, $routeParams, DataService, UserService, UploadService, modal) {
   var ProfileController = {};
 
   function init() {
@@ -71,7 +71,7 @@ function ProfileCtrl($scope, AccountService, DataService, UserService, $location
 
   ProfileController.loadUserDetails = function() {
     if ($routeParams.id) {
-      DataService.request({url: ('/api/account/' + $routeParams.id)}).then(function(response){
+      DataService.request({url: ('/api/user/' + $routeParams.id)}).then(function(response){
         $scope.profile = response;
         $scope.flags.accountId = $routeParams.id;
 
@@ -106,7 +106,7 @@ function ProfileCtrl($scope, AccountService, DataService, UserService, $location
       title : 'Uploading New Avatar',
       message : 'Image uploading.'}
     );
-    AccountService.updateAvatar(file).then(function (data) {
+    UserService.updateAvatar(file).then(function (data) {
       $scope.$emit('notify', {
         status : 'success',
         title : 'Avatar Updated',
@@ -135,7 +135,7 @@ function ProfileCtrl($scope, AccountService, DataService, UserService, $location
       title : 'Uploading New Cover Photo',
       message : 'Image uploading.'}
     );
-    AccountService.updateCoverImage(file).then(function (data) {
+    UserService.updateCoverImage(file).then(function (data) {
       $scope.$emit('notify', {
         status : 'success',
         title : 'Cover Image Updated',
@@ -162,7 +162,7 @@ function ProfileCtrl($scope, AccountService, DataService, UserService, $location
       location        : $scope.profile.location,
       search_keywords : $scope.profile.search_keywords
     };
-    AccountService.updateUser(data).then(function () {
+    UserService.updateUser(data).then(function () {
       $scope.flags.isEdit = false;
       $scope.$emit('notify', {
         status : 'success',
@@ -198,7 +198,7 @@ function ProfileCtrl($scope, AccountService, DataService, UserService, $location
   return ProfileController;
 }
 
-angular.module('RomeoApp.profile').controller('ProfileCtrl', ['$scope', 'AccountService', 'DataService', 'UserService', '$location', 'UploadService', '$routeParams', 'modal', ProfileCtrl]);
+angular.module('RomeoApp.profile').controller('ProfileCtrl', ['$scope', '$location', '$routeParams', 'DataService', 'UserService', 'UploadService', 'modal', ProfileCtrl]);
 
 })();
 

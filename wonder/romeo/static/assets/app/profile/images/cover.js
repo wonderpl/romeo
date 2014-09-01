@@ -1,8 +1,8 @@
 
 angular
   .module('RomeoApp.profile')
-  .directive('profileCover', ['$templateCache', 'AccountService',
-function ($templateCache, AccountService) {
+  .directive('profileCover', ['$templateCache', 'UserService',
+function ($templateCache, UserService) {
   'use strict';
   return {
     restrict : 'E',
@@ -25,7 +25,7 @@ function ($templateCache, AccountService) {
           title : 'Uploading New Cover Photo',
           message : 'Image uploading.'}
         );
-        AccountService.updateCoverImage(file).then(function (data) {
+        UserService.updateCoverImage(file).then(function (data) {
           $scope.$emit('uploaded-image', data);
           $scope.$emit('notify', {
             status : 'success',
@@ -34,7 +34,7 @@ function ($templateCache, AccountService) {
           );
           $scope.loading = false;
         });
-  
+
       };
 
     }

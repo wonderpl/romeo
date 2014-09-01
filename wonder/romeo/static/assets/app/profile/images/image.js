@@ -1,8 +1,8 @@
 
 angular
   .module('RomeoApp.profile')
-  .directive('profileImage', ['$templateCache', 'AccountService', '$timeout',
-    function ($templateCache, AccountService, $timeout) {
+  .directive('profileImage', ['$templateCache', 'UserService',
+    function ($templateCache, UserService) {
   'use strict';
   return {
     restrict : 'E',
@@ -32,11 +32,10 @@ angular
           title : 'Uploading New Avatar',
           message : 'Image uploading.'}
         );
-        AccountService.updateAvatar(file).then(function (data) {
+        UserService.updateAvatar(file).then(function (data) {
           console.log(data);
           $scope.$emit('uploaded-image', data);
 
-          $scope.profile = data;
           $scope.$emit('notify', {
             status : 'success',
             title : 'Avatar Updated',
