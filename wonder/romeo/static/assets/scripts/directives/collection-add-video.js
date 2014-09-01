@@ -63,8 +63,12 @@ angular.module('RomeoApp.directives')
         });
       };
 
-      $scope.showAddLabel = function() {
-        return (!$scope.video || !$scope.video.tags || !$scope.video.tags.items || $scope.video.tags.items.length === 0);
+      $scope.getTitle = function() {
+        if (!$scope.video || !$scope.video.tags || !$scope.video.tags.items || $scope.video.tags.items.length === 0)
+          return 'Add video to collection';
+        else if ($scope.video.tags.items.length === 1)
+          return 'In Collection:';
+        return 'In Collections:';
       };
 
       $scope.saveNewCollection = function () {

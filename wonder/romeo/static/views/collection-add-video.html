@@ -1,14 +1,8 @@
 <div>
   <header class="video-extended-controls__section-header" ng-if="!isModal">
     <h4 class="video-extended-controls__section-header-title">
-      <span ng-show="showAddLabel()" ng-click="showHideCollectionCtrl()">
-        Add video to collection
-      </span>
-      <span ng-if="video.tags.items.length === 1" ng-click="showHideCollectionCtrl()">
-        In Collection:
-      </span>
-      <span ng-if="video.tags.items.length > 1" ng-click="showHideCollectionCtrl()">
-        In Collections:
+      <span ng-click="showHideCollectionCtrl()">
+        {{ getTitle() }}
       </span>
     </h4>
 
@@ -52,9 +46,7 @@
 
 
   <div class="modal__title  split" ng-click="showCollection = !showCollection"  ng-if="isModal">
-    <span class="split__title  t--block  w--600" ng-if="!video || !video.tags || !video.tags.items || video.tags.items.length === 0">Add to a collection</span>
-    <span class="split__title  t--block  w--600" ng-if="video.tags.items.length === 1">In Collection:</span>
-    <span class="split__title  t--block  w--600" ng-if="video.tags.items.length > 1">In Collections</span>
+    <span class="split__title  t--block  w--600">{{ getTitle() }}</span>
     <ul ng-show="video.tags.items.length" class="video-edit-collections__assigned-tags">
       <li ng-repeat="tag in video.tags.items" class="video-edit-collections__assigned-tag">
         <span class="" ng-bind-html="tag.label"></span>
@@ -65,12 +57,6 @@
   </div>
   <div class="modal__content" ng-if="isModal">
     <ul class="video-edit-collections__options">
-      <!-- li class="video-edit-collections__option"
-        ng-click="hideAddRemoveAndShowCreateCollection()"
-        ng-class="{ 'video-edit-collections__option--modal' : isModal }" >
-        <span class="video-edit-collections__option-title">Create New Collection</span>
-        <span class="video-edit-collections__option-count"></span>
-      </li -->
       <li class="video-edit-collections__option"
         data-videos="{{ tag.video_count }}"
         ng-class="{

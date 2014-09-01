@@ -214,6 +214,7 @@ angular.module('RomeoApp.controllers')
 
     $scope.removeTag = function (id) {
       VideoService.removeFromCollection($scope.video.id, id).then(function () {
+        // Update video in modal
         VideoService.get($scope.video.id).then(function (data) {
           angular.extend($scope.video, data);
           $scope.$emit('notify', {
@@ -221,8 +222,9 @@ angular.module('RomeoApp.controllers')
             title : 'Collection Updated',
             message : 'Video removed from collection.'}
           );
-          redirect('/organise', false);
         });
+        // Update videos on collection list
+        getAllVideos();
       });
     };
 
