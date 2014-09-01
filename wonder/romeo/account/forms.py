@@ -221,8 +221,8 @@ class AccountUserForm(BaseForm):
     description = wtforms.TextField()
     website_url = wtforms.TextField(validators=[wtforms.validators.URL()])
     search_keywords = wtforms.TextField()
-    profile_cover = wtforms.FileField(validators=[ImageData('profile')])
-    avatar = wtforms.FileField(validators=[ImageData('avatar')])
+    profile_cover = wtforms.FileField(validators=[ImageData('profile_cover', thumbnails=True)])
+    avatar = wtforms.FileField(validators=[ImageData('avatar', thumbnails=True)])
     contactable = wtforms.BooleanField(validators=[JsonBoolean()])
 
     class Meta:

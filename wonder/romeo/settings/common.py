@@ -63,6 +63,14 @@ COVER_THUMBNAIL_SIZES = (
     (1920, 1080),
 )
 
+PROFILE_COVER_THUMBNAIL_SIZES = (
+    (1280, 720),
+)
+
+AVATAR_THUMBNAIL_SIZES = (
+    (120, 120),
+)
+
 GRAVATAR_BASE_URL = "http://www.gravatar.com/avatar/"
 GRAVATAR_SIZE = 60
 

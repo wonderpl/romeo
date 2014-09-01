@@ -8,6 +8,7 @@ from flask import current_app, request
 from flask.ext.login import current_user
 from flask.ext.wtf import Form
 from wonder.common.sqs import background_on_sqs
+from wonder.common.imaging import resize
 from wonder.romeo import db
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.dolly import get_categories, push_video_data
@@ -26,11 +27,10 @@ def JsonBoolean(default=False):
     return validate
 
 
-def ImageData(imagetype=None):
+def ImageData(imagetype=None, thumbnails=[]):
     def validate(self, field):
         if field.data:
-            self._process_image_field(field, imagetype or field.name)
-            # TODO: save thumbnails
+            self._process_image_field(field, imagetype or field.name, thumbnails)
     return validate
 
 
@@ -61,13 +61,15 @@ class BaseForm(Form):
             db.session.flush()  # Ensure we get the id before commit
         return obj
 
-    def _process_image_field(self, field, imagetype):
-        filepath = lambda n: self.Meta.model.get_image_filepath(self.account_id, n, imagetype)
+    def _process_image_field(self, field, imagetype, thumbnails):
+        filepath = lambda name, label: self.Meta.model.get_image_filepath(
+            self.account_id, name, imagetype, label)
 
         if isinstance(field.data, basestring):
             field.data = field.data.rsplit('/')[-1]
-            if not media_bucket.get_key(filepath(field.data)):
-                raise wtforms.ValidationError('%s not found.' % filepath(field.data))
+            original_path = filepath(field.data, 'original')
+            if not media_bucket.get_key(original_path):
+                raise wtforms.ValidationError('%s not found.' % original_path)
         else:
             try:
                 image = Image.open(field.data)
@@ -79,7 +81,16 @@ class BaseForm(Form):
             stream.seek(0)
 
             field.data = get_random_filename()
-            upload_file(media_bucket, filepath(field.data), stream, content_type)
+            upload_file(media_bucket, filepath(field.data, 'original'),
+                        stream, content_type)
+
+            if thumbnails is True:
+                thumbnails = '%s_THUMBNAIL_SIZES' % imagetype.upper()
+            if isinstance(thumbnails, basestring):
+                thumbnails = current_app.config[thumbnails]
+            for size, buf in resize(image, thumbnails, save_to_buffer='jpeg'):
+                upload_file(media_bucket, filepath(field.data, str(size[0])),
+                            buf, 'image/jpeg')
 
         return field
 
@@ -183,8 +194,8 @@ def publish_video_changes(video_id):
 @background_on_sqs
 @commit_on_success
 def create_cover_thumbnails(video_id, cover_filename=None):
-    def _thumbnail(size, dim):
-        return VideoThumbnail.from_cover_image(cover_filename, video.account_id, size, dim)
+    def _thumbnail(label, size):
+        return VideoThumbnail.from_cover_image(cover_filename, video.account_id, label, size)
 
     video = Video.query.get(video_id)
     assert video.external_id
@@ -196,22 +207,21 @@ def create_cover_thumbnails(video_id, cover_filename=None):
 
     imgdata = download_file(media_bucket, cover_filepath)
     image = Image.open(StringIO(imgdata))
-    content_type = Image.MIME[image.format]
     video.thumbnails = [_thumbnail(None, image.size)]
 
-    for size in current_app.config['COVER_THUMBNAIL_SIZES']:
-        if size < image.size:
-            buf = StringIO()
-            timage = image.copy()
-            timage.thumbnail(size, Image.ANTIALIAS)
-            timage.save(buf, image.format)
-            thumbnail = _thumbnail(str(size[0]), timage.size)
-            buf.seek(0)
-            upload_file(media_bucket, urlparse(thumbnail.url).path, buf, content_type)
-            video.thumbnails.append(thumbnail)
+    sizes = [size for size in current_app.config['COVER_THUMBNAIL_SIZES']
+             if size < image.size]
+    for size, buf in resize(image, sizes, save_to_buffer='jpeg'):
+        thumbnail = _thumbnail(str(size[0]), size)
+        upload_file(media_bucket, urlparse(thumbnail.url).path, buf, 'image/jpeg')
+        video.thumbnails.append(thumbnail)
 
-    ooyala_request('assets', video.external_id,
-                   'preview_image_files', method='post', data=imgdata)
+    try:
+        ooyala_request('assets', video.external_id,
+                       'preview_image_files', method='post', data=imgdata)
+    except Exception:
+        current_app.logger.exception('Unable to set preview image for %d (%s)',
+                                     video.id, video.external_id)
 
 
 class VideoLocaleForm(Form):

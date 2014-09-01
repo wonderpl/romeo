@@ -40,11 +40,14 @@ class Account(db.Model):
             self.dolly_token = dollydata['access_token']
 
 
-def _image_field_accessors(field):
-    def getter(self, size=None):
+def _image_field_accessors(field, default_thumbnail=True):
+    def getter(self, label=None):
         filename = getattr(self, '%s_filename' % field)
         if filename:
-            path = self.get_image_filepath(self.account_id, filename, field)
+            label = default_thumbnail
+            if label is True:
+                label = str(current_app.config['%s_THUMBNAIL_SIZES' % field.upper()][0][0])
+            path = self.get_image_filepath(self.account_id, filename, field, label)
             return urljoin(current_app.config['MEDIA_BASE_URL'], path)
 
     def setter(self, filename):
@@ -85,8 +88,8 @@ class AccountUser(db.Model):
             return user
 
     @classmethod
-    def get_image_filepath(cls, account_id, filename, imagetype, size=None, base='i'):
-        return '/'.join(filter(None, (base, str(account_id), imagetype, (size or 'original'), filename)))
+    def get_image_filepath(cls, account_id, filename, imagetype, label=None, base='i'):
+        return '/'.join(filter(None, (base, str(account_id), imagetype, (label or 'original'), filename)))
 
     @property
     def href(self):

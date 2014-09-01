@@ -74,22 +74,22 @@ class Video(db.Model):
         return '/'.join((base, str(account_id), filename))
 
     @classmethod
-    def get_cover_image_filepath(cls, filename, base='images/cover', size=None):
-        return '/'.join((base, (size or 'original'), filename))
+    def get_cover_image_filepath(cls, filename, base='images/cover', label=None):
+        return '/'.join((base, (label or 'original'), filename))
 
     @classmethod
-    def get_image_filepath(cls, account_id, filename, imagetype, size=None, base='i'):
-        return '/'.join(filter(None, (base, str(account_id), imagetype, (size or 'original'), filename)))
+    def get_image_filepath(cls, account_id, filename, imagetype, label=None, base='i'):
+        return '/'.join(filter(None, (base, str(account_id), imagetype, (label or 'original'), filename)))
 
-    def get_thumbnail_url(self, size=None):
-        # TODO: use size to pick appropriate thumbnail
+    def get_thumbnail_url(self, label=None):
+        # TODO: use label to pick appropriate thumbnail
         if self.thumbnails:
             thumbnails = sorted(self.thumbnails, key=lambda t: t.width, reverse=True)
             return thumbnails[0].url
 
-    def get_player_logo_url(self, size=None):
+    def get_player_logo_url(self, label=None):
         if self.player_logo_filename:
-            path = self.get_image_filepath(self.account_id, self.player_logo_filename, 'logo', size=size)
+            path = self.get_image_filepath(self.account_id, self.player_logo_filename, 'logo', label=label)
             return urljoin(current_app.config['MEDIA_BASE_URL'], path)
 
     def set_player_logo(self, filename):
@@ -163,9 +163,9 @@ class VideoThumbnail(db.Model):
     video = relationship(Video, backref=backref('thumbnails', cascade='all, delete-orphan'))
 
     @classmethod
-    def from_cover_image(cls, cover_image, account_id, size=None, dim=None):
-        width, height = dim if dim else (0, 0)
-        path = Video.get_image_filepath(account_id, cover_image, 'cover', size)
+    def from_cover_image(cls, cover_image, account_id, label=None, size=None):
+        width, height = size if size else (0, 0)
+        path = Video.get_image_filepath(account_id, cover_image, 'cover', label)
         url = urljoin(current_app.config['MEDIA_BASE_URL'], path)
         return cls(url=url, width=width, height=height)
 
