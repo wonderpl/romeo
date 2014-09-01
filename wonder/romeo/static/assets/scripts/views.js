@@ -730,14 +730,51 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<div class=\"modal__content\">\n" +
     "  <p>manage collaborators</p>\n" +
     "\n" +
-    "  <ul>\n" +
+    "  <ul ng-if=\"collaborators\">\n" +
     "    <li ng-repeat=\"collaborator in collaborators\">\n" +
-    "      <span ng-bind=\"collaborator.username\"></span>\n" +
-    "\n" +
-    "      <a class=\"link\" ng-click=\"removeCollaborator(collaborator.id)\">remove</a>\n" +
+    "      <span ng-bind=\"collaborator.display_name\"></span>\n" +
+    "      <a class=\"link\" ng-if=\"collaborator.id\" ng-click=\"removeCollaborator(collaborator.id)\">remove</a>\n" +
     "    </li>\n" +
     "  </ul>\n" +
     "\n" +
+    "  <p>invite new collaborator</p>\n" +
+    "\n" +
+    "  <section class=\"video-add-collaborators\">\n" +
+    "\n" +
+    "    <label class=\"video-add-collaborators__label\">\n" +
+    "      Name\n" +
+    "      <input class=\"video-add-collaborators__input\" ng-model=\"collaborator.display_name\" />\n" +
+    "    </label>\n" +
+    "    <label class=\"video-add-collaborators__label\">\n" +
+    "      Email\n" +
+    "      <input class=\"video-add-collaborators__input\" ng-model=\"collaborator.email\" />\n" +
+    "    </label>\n" +
+    "    <label class=\"video-add-collaborators__label\">Permissions</label>\n" +
+    "    <label class=\"video-add-collaborators__label--inline\">\n" +
+    "      <input class=\"video-add-collaborators__checkbox\" type=\"checkbox\" ng-model=\"collaborator.can_comment\" />\n" +
+    "      Allow to comment\n" +
+    "    </label>\n" +
+    "    <label class=\"video-add-collaborators__label--inline\">\n" +
+    "      <input class=\"video-add-collaborators__checkbox\" type=\"checkbox\" ng-model=\"collaborator.can_download\" />\n" +
+    "      Allow to download source\n" +
+    "    </label>\n" +
+    "\n" +
+    "    <div class=\"video-add-collaborators__messages\">\n" +
+    "      <p ng-show=\"collaboratorAdded\">New collaborator has been added.</p>\n" +
+    "      <p class=\"video-add-collaborators__message--error\" ng-show=\"errors\">An error occured. Collaborator not added.</p>\n" +
+    "    </div>\n" +
+    "    <a class=\"btn btn--small btn--positive f--right\" ng-click=\"addCollaborator()\">Send Request</a>\n" +
+    "\n" +
+    "  </section>\n" +
+    "\n" +
+    "  <p>invite connections to collaborate</p>\n" +
+    "\n" +
+    "  <ul>\n" +
+    "    <li ng-repeat=\"connection in connectionsWhoArentCollaborators\">\n" +
+    "      <span ng-bind=\"connection.display_name\"></span>\n" +
+    "      <a class=\"link\" ng-if=\"connection.id\" ng-click=\"inviteConnection(connection.id)\">invite</a>\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
     "\n" +
     "</div>\n" +
     "<div class=\"modal__footer\">\n" +
@@ -1273,10 +1310,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        <a ng-href=\"#/profile/(~ item.id ~)\">\n" +
     "          <div class=\"search__avatar-container\">\n" +
     "            <div class=\"no-spacing avatar\">\n" +
-    "              <img class=\"avatar__image\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" style=\"background-image : url('(~ item.avatar_url ~)');\" />\n" +
+    "              <img class=\"avatar__image\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" style=\"background-image : url('(~ item.avatar ~)');\" />\n" +
     "            </div>\n" +
     "          </div>\n" +
-    "          <p class=\"heading no-spacing trunc t--pad-top--half\" ng-bind=\"item.username\"></p>\n" +
+    "          <p class=\"heading no-spacing trunc t--pad-top--half\" ng-bind=\"item.display_name\"></p>\n" +
     "          <p class=\"search__item-description milli trunc\" ng-bind-html=\"item.description\"></p>\n" +
     "        </a>\n" +
     "      </li>\n" +
@@ -1303,7 +1340,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </ul>\n" +
     "  </section>\n" +
     "\n" +
-    "</section>"
+    "</section>\n"
   );
 
 

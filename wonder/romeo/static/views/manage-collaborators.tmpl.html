@@ -5,14 +5,51 @@
 <div class="modal__content">
   <p>manage collaborators</p>
 
-  <ul>
+  <ul ng-if="collaborators">
     <li ng-repeat="collaborator in collaborators">
-      <span ng-bind="collaborator.username"></span>
-
-      <a class="link" ng-click="removeCollaborator(collaborator.id)">remove</a>
+      <span ng-bind="collaborator.display_name"></span>
+      <a class="link" ng-if="collaborator.id" ng-click="removeCollaborator(collaborator.id)">remove</a>
     </li>
   </ul>
 
+  <p>invite new collaborator</p>
+
+  <section class="video-add-collaborators">
+
+    <label class="video-add-collaborators__label">
+      Name
+      <input class="video-add-collaborators__input" ng-model="collaborator.display_name" />
+    </label>
+    <label class="video-add-collaborators__label">
+      Email
+      <input class="video-add-collaborators__input" ng-model="collaborator.email" />
+    </label>
+    <label class="video-add-collaborators__label">Permissions</label>
+    <label class="video-add-collaborators__label--inline">
+      <input class="video-add-collaborators__checkbox" type="checkbox" ng-model="collaborator.can_comment" />
+      Allow to comment
+    </label>
+    <label class="video-add-collaborators__label--inline">
+      <input class="video-add-collaborators__checkbox" type="checkbox" ng-model="collaborator.can_download" />
+      Allow to download source
+    </label>
+
+    <div class="video-add-collaborators__messages">
+      <p ng-show="collaboratorAdded">New collaborator has been added.</p>
+      <p class="video-add-collaborators__message--error" ng-show="errors">An error occured. Collaborator not added.</p>
+    </div>
+    <a class="btn btn--small btn--positive f--right" ng-click="addCollaborator()">Send Request</a>
+
+  </section>
+
+  <p>invite connections to collaborate</p>
+
+  <ul>
+    <li ng-repeat="connection in connectionsWhoArentCollaborators">
+      <span ng-bind="connection.display_name"></span>
+      <a class="link" ng-if="connection.id" ng-click="inviteConnection(connection.id)">invite</a>
+    </li>
+  </ul>
 
 </div>
 <div class="modal__footer">

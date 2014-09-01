@@ -149,6 +149,16 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
     }
   );
 
+  $scope.removeCollaborator = function (id) {
+
+    console.log('removeCollaborator()');
+    console.log(id);
+  };
+
+  $scope.addCollaborator = function () {
+
+  };
+
   $scope.onPreviewImageSelect = function (files) {
     $scope.$emit('notify', {
       status : 'info',

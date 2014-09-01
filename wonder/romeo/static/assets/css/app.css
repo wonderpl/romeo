@@ -594,7 +594,7 @@ textarea:focus {
 /* line 13, ../../scss/_generic/_generic.clearfix.scss */
 .cf:after, .nav:after, .media:after, .split:after, .layout:after, .box:after, .wrapper:after, .page-header:after, .notice-tray:after, .video-thumb-list:after, .modal__title:after,
 .modal__content:after,
-.modal__footer:after, .configurable-layout:after, .configurable-layout-column .layout-block:after, .video-collaborators__header:after, .organise-video-list__list-control-label:after, .organise-video:after, .organise-video-delete:after, .video-thumb-container:after {
+.modal__footer:after, .configurable-layout:after, .configurable-layout-column .layout-block:after, .video-add-collaborators:after, .video-collaborators__header:after, .organise-video-list__list-control-label:after, .organise-video:after, .organise-video-delete:after, .video-thumb-container:after {
   content: "";
   /* [1] */
   display: table;
@@ -3520,21 +3520,27 @@ label,
   margin-left: auto;
 }
 
-/* line 40, ../../scss/_theme/_theme.modal.scss */
+/* line 38, ../../scss/_theme/_theme.modal.scss */
+.modal__content {
+  max-height: 500px;
+  overflow: auto;
+}
+
+/* line 45, ../../scss/_theme/_theme.modal.scss */
 .modal__title,
 .modal__content,
 .modal__footer {
   padding: 12px;
 }
 
-/* line 44, ../../scss/_theme/_theme.modal.scss */
+/* line 49, ../../scss/_theme/_theme.modal.scss */
 .modal__title {
   font-size: 22px;
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
   border-bottom: 1px solid #b7bcbd;
 }
 
-/* line 49, ../../scss/_theme/_theme.modal.scss */
+/* line 54, ../../scss/_theme/_theme.modal.scss */
 .modal__link {
   display: inline-block;
   color: #70797b;
@@ -3543,16 +3549,16 @@ label,
   cursor: pointer;
 }
 
-/* line 57, ../../scss/_theme/_theme.modal.scss */
+/* line 62, ../../scss/_theme/_theme.modal.scss */
 .modal__actions {
   text-align: right;
 }
-/* line 60, ../../scss/_theme/_theme.modal.scss */
+/* line 65, ../../scss/_theme/_theme.modal.scss */
 .modal__actions > .btn + .btn {
   margin-left: 6px;
 }
 
-/* line 65, ../../scss/_theme/_theme.modal.scss */
+/* line 70, ../../scss/_theme/_theme.modal.scss */
 .modal-collection-thumb {
   display: block;
   width: 96px;
@@ -3562,7 +3568,7 @@ label,
   background-position: top left;
 }
 
-/* line 74, ../../scss/_theme/_theme.modal.scss */
+/* line 79, ../../scss/_theme/_theme.modal.scss */
 .show-modal-indicator {
   transition: transform 0.4s ease-in-out;
 }
@@ -5754,18 +5760,18 @@ label,
   margin-bottom: 12px;
 }
 
-/* line 5, ../../scss/specifics/video/_video-add-collaborators.scss */
+/* line 6, ../../scss/specifics/video/_video-add-collaborators.scss */
 .video-add-collaborators__messages {
   margin-bottom: 12px;
 }
 
-/* line 9, ../../scss/specifics/video/_video-add-collaborators.scss */
+/* line 10, ../../scss/specifics/video/_video-add-collaborators.scss */
 .video-add-collaborators__message--error {
   font-weight: 800;
   color: red;
 }
 
-/* line 14, ../../scss/specifics/video/_video-add-collaborators.scss */
+/* line 15, ../../scss/specifics/video/_video-add-collaborators.scss */
 .video-add-collaborators__label {
   display: block;
   margin-bottom: 1em;
@@ -5776,7 +5782,7 @@ label,
   letter-spacing: 0.1em;
 }
 
-/* line 24, ../../scss/specifics/video/_video-add-collaborators.scss */
+/* line 25, ../../scss/specifics/video/_video-add-collaborators.scss */
 .video-add-collaborators__label--inline {
   display: inline;
   margin-right: 1em;
@@ -5785,7 +5791,7 @@ label,
   letter-spacing: 0;
 }
 
-/* line 32, ../../scss/specifics/video/_video-add-collaborators.scss */
+/* line 33, ../../scss/specifics/video/_video-add-collaborators.scss */
 .video-add-collaborators__input {
   display: block;
   width: 20em;

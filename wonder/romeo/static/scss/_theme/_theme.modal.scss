@@ -35,6 +35,11 @@
   }
 }
 
+  .modal__content {
+    max-height: 500px;
+    overflow: auto;
+  }
+
   .modal__title,
   .modal__content,
   .modal__footer {
