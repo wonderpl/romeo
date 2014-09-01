@@ -1,7 +1,8 @@
-from flask import current_app, Blueprint, render_template, url_for
+from flask import current_app, Blueprint, render_template
 from flask.ext.login import current_user
 from wonder.romeo.core.rest import api_resource, Resource
 from wonder.romeo.core.util import COUNTRY_CODES
+from wonder.romeo.account.views import login_items
 
 rootapp = Blueprint('root', __name__)
 
@@ -49,10 +50,7 @@ class BaseResource(Resource):
         if current_user.is_authenticated():
             status = dict(auth_status='logged_in')
             if current_user.id and current_user.account_id:
-                status.update(
-                    user=dict(href=url_for('api.user', user_id=current_user.id)),
-                    account=dict(href=url_for('api.account', account_id=current_user.account_id)),
-                )
+                status.update(login_items(current_user))
         else:
             status = dict(auth_status='logged_out')
         return status

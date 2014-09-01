@@ -158,6 +158,13 @@ class TokenValidatorResource(Resource):
         return None, 204
 
 
+def login_items(user):
+    return dict(
+        user=_user_item(user),
+        account=account_item(user.account, get_dollyuser(user.account), full=False)
+    )
+
+
 class BaseLoginResource(Resource):
 
     # disable login_required decorator
@@ -169,10 +176,7 @@ class BaseLoginResource(Resource):
         if form.validate_on_submit():
             user = form.save()
             if login_user(UserProxy(user.id, user), form.remember.data):
-                return dict(
-                    user=UserResource().get(current_user.id),
-                    account=AccountResource().get(current_user.account.id),
-                )
+                return login_items(user)
         logout_user()
         return dict(error='invalid_request', form_errors=form.errors), 400
 
@@ -322,31 +326,32 @@ def _update_users(account_id, **kwargs):
     AccountUser.query.filter_by(account_id=account_id, **args_are_null).update(kwargs)
 
 
-def account_item(account, dollyuser):
+def account_item(account, dollyuser, full=True):
     item = dict(
         id=account.id,
         href=url_for('api.account', account_id=account.id),
         account_type=account.account_type,
         name=account.name,
     )
-    if dollyuser:
-        # Take profile data from Dolly
-        userdata = dollyuser.get_userdata()
-        item.update(
-            display_name=userdata['display_name'],
-            description=userdata['description'],
-            avatar=userdata['avatar_thumbnail_url'],
-            profile_cover=userdata['profile_cover_url'],
-        )
-    else:
-        # Use first user
-        userdata = _user_item(account.users[0])
-        item.update(
-            display_name=userdata['display_name'],
-            description=userdata['description'],
-            avatar=userdata['avatar'],
-            profile_cover=userdata['profile_cover'],
-        )
+    if full:
+        if dollyuser:
+            # Take profile data from Dolly
+            userdata = dollyuser.get_userdata()
+            item.update(
+                display_name=userdata['display_name'],
+                description=userdata['description'],
+                avatar=userdata['avatar_thumbnail_url'],
+                profile_cover=userdata['profile_cover_url'],
+            )
+        else:
+            # Use first user
+            userdata = _user_item(account.users[0])
+            item.update(
+                display_name=userdata['display_name'],
+                description=userdata['description'],
+                avatar=userdata['avatar'],
+                profile_cover=userdata['profile_cover'],
+            )
     return item
 
 
