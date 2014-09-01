@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  function globalNavigation($templateCache, AuthService) {
+  function globalNavigation($templateCache, UserService) {
     return {
       restrict : 'E',
       replace : true,
@@ -10,7 +10,7 @@
       },
       controller: function ($scope) {
         function init() {
-          setAccountData(AuthService.getUser());
+          setAccountData(UserService.getUser());
           $scope.pages = $scope.pages || [
             {title: 'Upload a Video', url: '#/video'},
             {title: '* Uploads in progress', url: '#/video'},
@@ -19,7 +19,7 @@
             {title: 'Search', url: '#/search'},
             {title: '* Settings', url: '#/profile'}
           ];
-        } 
+        }
         function setAccountData(data) {
           $scope.account = data;
           if (data && data.avatar) {
@@ -29,7 +29,7 @@
           }
         }
         $scope.$watch(function () {
-          return AuthService.getUser();
+          return UserService.getUser();
         }, function (newValue, oldValue) {
           if (newValue !== oldValue)
             setAccountData(newValue);
@@ -43,5 +43,5 @@
       }
     };
   }
-  angular.module('RomeoApp.directives').directive('globalNavigation', ['$templateCache', 'AuthService', globalNavigation]);
+  angular.module('RomeoApp.directives').directive('globalNavigation', ['$templateCache', 'UserService', globalNavigation]);
 })();

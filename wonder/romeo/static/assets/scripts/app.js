@@ -19,6 +19,7 @@
 
     var app = angular.module('RomeoApp' /* module name */,
         ['RomeoApp.controllers',
+            'RomeoApp.security',
             'RomeoApp.services',
             'RomeoApp.directives',
             'RomeoApp.filters',
@@ -31,8 +32,8 @@
             'angulartics',
             'angulartics.google.analytics'] /* module dependencies */);
 
-    app.config(['$routeProvider', '$interpolateProvider', '$httpProvider',
-      function( $routeProvider, $interpolateProvider, $httpProvider ){
+    app.config(['$routeProvider', '$interpolateProvider', '$httpProvider', 'securityAuthorizationProvider',
+      function( $routeProvider, $interpolateProvider, $httpProvider, securityAuthorizationProvider ){
 
         var sessionUrl;
         var authChecks = {
@@ -59,42 +60,42 @@
         // Organise
         $routeProvider.when('/organise', {
             templateUrl: 'organise.html',
-            resolve: authChecks
+            resolve: securityAuthorizationProvider.requireCollaborator
         });
 
         // Organise
         $routeProvider.when('/organise/:id', {
             templateUrl: 'organise.html',
-            resolve: authChecks
+            resolve: securityAuthorizationProvider.requireCollaborator
         });
 
         // Videos
         $routeProvider.when('/video', {
             templateUrl: 'video.html',
-            resolve: authChecks
+            resolve: securityAuthorizationProvider.requireCollaborator
         });
 
         // Videos
         $routeProvider.when('/video/:id', {
             templateUrl: 'video.html',
-            resolve: authChecks
+            resolve: securityAuthorizationProvider.requireCollaborator
         });
 
         // Videos
         $routeProvider.when('/video/:id/comments', {
             templateUrl: 'video.html',
-            resolve: authChecks
+            resolve: securityAuthorizationProvider.requireCollaborator
         });
 
         // Videos
         $routeProvider.when('/video/:id/edit', {
             templateUrl: 'video.html',
-            resolve: authChecks
+            resolve: securityAuthorizationProvider.requireCollaborator
         });
 
         $routeProvider.when('/search', {
           templateUrl: 'search.html',
-          resolve: authChecks,
+          resolve: securityAuthorizationProvider.requireCollaborator,
           reloadOnSearch: false
         });
 
@@ -111,12 +112,12 @@
         // - /engagement/
         $routeProvider.when('/analytics/:videoID/:type', {
             templateUrl: 'analytics.html',
-            resolve: authChecks
+            resolve: securityAuthorizationProvider.requireCollaborator
         });
 
         $routeProvider.when('/analytics/:videoID', {
             templateUrl: 'analytics.html',
-            resolve: authChecks
+            resolve: securityAuthorizationProvider.requireCollaborator
         });
 
         $routeProvider.when('/loading', {
