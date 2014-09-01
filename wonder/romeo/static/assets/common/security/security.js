@@ -109,11 +109,11 @@
             // All logged in users are at least collaborators
             isCollaborator: function() {
               // @TODO: This is should be for account_type collaborator; not !content_owner
-              return service.isAuthenticated() && !angular.equals(currentUser.account_type, 'content_owner');
+              return service.isAuthenticated() && !angular.equals(currentAccount.account_type, 'content_owner');
             },
             // Is the current user an creator?
             isCreator: function() {
-              return !!(service.isAuthenticated() && angular.equals(currentUser.account_type, 'content_owner'));
+              return !!(service.isAuthenticated() && angular.equals(currentAccount.account_type, 'content_owner'));
             },
             logout: function(redirectTo) {
               $http.post('/api/logout').then(function() {
@@ -194,8 +194,7 @@
                 }).success(function (data) {
                     debug.info('Registration successful');
                     debug.dir(data);
-                    _saveUserDetails(data.account);
-                    return Auth.setSession(data.account);
+                    _saveAccountAndUserDetails(data);
                 }).error(function () {
                     // debugger;
                 });

@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  function globalNavigation($templateCache, UserService) {
+  function globalNavigation($templateCache, UserService, SecurityService) {
     return {
       restrict : 'E',
       replace : true,
@@ -10,15 +10,25 @@
       },
       controller: function ($scope) {
         function init() {
-          setAccountData(UserService.getUser());
-          $scope.pages = $scope.pages || [
-            {title: 'Upload a Video', url: '#/video'},
-            {title: '* Uploads in progress', url: '#/video'},
-            {title: '* Stats', url: '#/organise'},
+          var fullPageList = [
+            {title: 'Upload a Video', url: '#/video', requireCreator: true},
+            {title: '* Uploads in progress', url: '#/video', requireCreator: true},
+            {title: '* Stats', url: '#/organise', requireCreator: true},
             {title: 'Manage', url: '#/organise'},
             {title: 'Search', url: '#/search'},
             {title: '* Settings', url: '#/profile'}
           ];
+          setAccountData(UserService.getUser());
+          if (! SecurityService.isCreator() ) {
+            var smallerList = [];
+            for(var i = 0; i < fullPageList.length; ++i) {
+              if (! fullPageList[i].requireCreator)
+                smallerList[smallerList.length] = fullPageList[i];
+            }
+            fullPageList = smallerList;
+          }
+          $scope.pages = $scope.pages || fullPageList;
+
         }
         function setAccountData(data) {
           $scope.account = data;
@@ -43,5 +53,5 @@
       }
     };
   }
-  angular.module('RomeoApp.directives').directive('globalNavigation', ['$templateCache', 'UserService', globalNavigation]);
+  angular.module('RomeoApp.directives').directive('globalNavigation', ['$templateCache', 'UserService', 'SecurityService', globalNavigation]);
 })();

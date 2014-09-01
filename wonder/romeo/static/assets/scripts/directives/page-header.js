@@ -17,8 +17,8 @@ function PageHeaderDirective ($templateCache, $timeout, SecurityService, UserSer
           setAccountValues(newValue);
         }
       });
-      $scope.isCollaborator = function () {
-        return SecurityService.isCollaborator();
+      $scope.isCreator = function () {
+        return SecurityService.isCreator();
       };
       $scope.isLoggedIn = function () {
         return SecurityService.isAuthenticated();

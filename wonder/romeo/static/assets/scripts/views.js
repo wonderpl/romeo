@@ -42,17 +42,17 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <header class=\"video-collaborators__header\">\n" +
     "      <h4 class=\"video-collaborators__title  no-spacing\">collaborators</h4>\n" +
     "    </header>\n" +
-    "\n" +
+    "  \n" +
     "    <p class=\"video-collaborators__none-message\" ng-hide=\"collaborators\">You have no collaborators!</p>\n" +
-    "\n" +
+    "  \n" +
     "    <ul class=\"nav  nav--stacked  video-collaborators__collaborators\" ng-show=\"collaborators\">\n" +
     "      <li class=\"video-collaborators__collaborator\" ng-repeat=\"collaborator in collaborators\">\n" +
     "        <div class=\"media\">\n" +
     "          <div class=\"media__img\">\n" +
-    "            <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"video-collaborators__collaborator-image\" ng-style=\"{ 'background-image' : 'url(' + collaborator.avatar + ')' }\">\n" +
+    "            <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"video-collaborators__collaborator-image\" style=\"background-image: url('(~ collaborator.avatar_url ~)');\">\n" +
     "          </div>\n" +
     "          <div class=\"media__body\">\n" +
-    "            <span class=\"video-collaborators__collaborator-name truncate\" ng-bind=\"collaborator.display_name\"></span>\n" +
+    "            <span class=\"video-collaborators__collaborator-name truncate\" ng-bind=\"collaborator.username\"></span>\n" +
     "          </div>\n" +
     "      </li>\n" +
     "  <!--     <li class=\"video-collaborators__collaborator\">\n" +
@@ -64,7 +64,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        <span class=\"video-collaborators__collaborator-name\">Tom Aitkens 2</span>\n" +
     "      </li> -->\n" +
     "    </ul>\n" +
-    "\n" +
+    "  \n" +
     "  </section>\n" +
     "\n" +
     "</section>\n" +
@@ -1190,7 +1190,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </a>\n" +
     "    <upload-progress upload=\"upload\" ng-if=\"isLoggedIn() && upload\"></upload-progress>\n" +
     "    <ul class=\"nav  nav-menu\" ng-if=\"isLoggedIn()\">\n" +
-    "      <li class=\"nav-menu__item\"><a href=\"#/video\" class=\"nav-menu__link\">Upload</a></li>\n" +
+    "      <li class=\"nav-menu__item\" ng-if=\"isCreator()\"><a href=\"#/video\" class=\"nav-menu__link\">Upload</a></li>\n" +
     "      <li class=\"nav-menu__item\"><a href=\"#/profile\" class=\"nav-menu__link  avatar  avatar--small\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"(~ display_name ~)\" class=\"avatar__img\" ng-style=\"profile\"></a></li>\n" +
     "    </ul>\n" +
     "  </nav>\n" +
@@ -1213,9 +1213,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('search-form.html',
     "<section class=\"search__form\">\n" +
     "\n" +
-    "  <input type=\"text\" class=\"search__form-input\" ng-model=\"q\" autofocus placeholder=\"Type to search\" />\n" +
+    "  <input type=\"text\" class=\"search__form-input\" ng-model=\"expression.q\" autofocus placeholder=\"Type to search\" />\n" +
     "\n" +
-    "  <location-selector></location-selector>\n" +
+    "  <country-selector country=\"country\"></country-selector>\n" +
     "\n" +
     "</section>"
   );
@@ -1285,9 +1285,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('search.html',
     "<section class=\"search page-content wrapper wrapper--fixed\" ng-controller=\"SearchCtrl\">\n" +
     "\n" +
-    "  <search-form q=\"q\" location=\"location\"></search-form>\n" +
+    "  <search-form expression=\"search.expression\" country=\"country\"></search-form>\n" +
     "\n" +
-    "  <search-results results=\"results\"></search-results>\n" +
+    "  <search-results query=\"query\" expression=\"search.expression\" results=\"search.results\"></search-results>\n" +
     "\n" +
     "</section>"
   );
@@ -1318,11 +1318,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__password\">Password</label>\n" +
     "                  <input type=\"password\" name=\"password\" ng-model=\"password\" autocomplete=\"off\"  class=\"text-input\" id=\"login-view__password\" placeholder=\"Password\" />\n" +
     "                </div>\n" +
-    "                <div class=\"login-view__input login-view__input--location  icon-text\">\n" +
-    "                  <i class=\"icon  icon--globe  icon-text__icon\"></i>\n" +
-    "                  <location-selector>\n" +
-    "                  </location-selector>\n" +
-    "                </div>\n" +
+    "                <location-selector>\n" +
+    "                </location-selector>\n" +
     "              </li>\n" +
     "              <li class=\"text-col\">\n" +
     "                <ul class=\"check-list\">\n" +
@@ -1373,7 +1370,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "              <li class=\"text-col\">\n" +
     "                <h2>Nearly there</h2>\n" +
     "                <div class=\"login-view__input  icon-text\">\n" +
-    "                  <i class=\"icon  icon--head  icon-text__icon\"></i>\n" +
+    "                  <i class=\"icon  icon--mail  icon-text__icon\"></i>\n" +
     "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__displayname\">Full name</label>\n" +
     "                  <input type=\"text\" ng-model=\"profile.display_name\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__displayname\" placeholder=\"Full name\" />\n" +
     "                </div>\n" +
@@ -1381,12 +1378,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "                  <i class=\"icon  icon--mail  icon-text__icon\"></i>\n" +
     "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__username\">Email Address</label>\n" +
     "                  <input type=\"text\" ng-model=\"profile.username\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__username\" placeholder=\"Email Address\" />\n" +
-    "                </div>\n" +
-    "                <div class=\"login-view__input login-view__input--location  icon-text\">\n" +
-    "                  <i class=\"icon  icon--globe  icon-text__icon\"></i>\n" +
-    "                  <location-selector>\n" +
-    "                  </location-selector>\n" +
-    "                </div>\n" +
+    "                <location-selector>\n" +
+    "                </location-selector>\n" +
     "              </li>\n" +
     "              <li class=\"text-col\">\n" +
     "                <ul class=\"check-list\">\n" +
@@ -1450,10 +1443,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <li class=\"video-collaborators__collaborator\" ng-repeat=\"collaborator in collaborators\">\n" +
     "      <div class=\"media\">\n" +
     "        <div class=\"media__img\">\n" +
-    "          <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"video-collaborators__collaborator-image\" ng-style=\"{ 'background-image' : 'url(' + collaborator.avatar + ')' }\">\n" +
+    "          <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"video-collaborators__collaborator-image\" style=\"background-image: url('(~ collaborator.avatar_url ~)');\">\n" +
     "        </div>\n" +
     "        <div class=\"media__body\">\n" +
-    "          <span class=\"video-collaborators__collaborator-name truncate\" ng-bind=\"collaborator.display_name\"></span>\n" +
+    "          <span class=\"video-collaborators__collaborator-name truncate\" ng-bind=\"collaborator.username\"></span>\n" +
     "        </div>\n" +
     "      </div>\n" +
     "    </li>\n" +
@@ -1492,7 +1485,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "      <div class=\"media  video-feedback__comment\">\n" +
     "        <a class=\"media__img  video-feedback__comment-profile-image\" ng-style=\"{ 'background-image' : 'url(' + user().avatar + ')' }\" ng-show=\"isLoggedIn()\"></a>\n" +
-    "        <a class=\"media__img  video-feedback__comment-profile-image\" ng-style=\"{ 'background-image' : 'url(' + user().avatar + ')' }\" ng-show=\"isCollaborator()\"></a>\n" +
+    "        <a class=\"media__img  video-feedback__comment-profile-image\" style=\"background-image: url('(~ user().avatar_url ~)');\" ng-show=\"isCollaborator()\"></a>\n" +
     "        <div class=\"media__body\">\n" +
     "          <div class=\"video-feedback__comment-details\">\n" +
     "            <span class=\"video-feedback__comment-name\" ng-show=\"isLoggedIn()\">(~ user().display_name ~)</span>\n" +
@@ -1541,10 +1534,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        ng-class=\"{ 'video-feedback__comment--active' : isTimeSync(comment.timestamp) }\"\n" +
     "        ng-repeat=\"comment in comments | orderBy : 'timestamp' | filter: { resolved : filterResolved }\">\n" +
     "          <div class=\"media\" ng-class=\"{ 'video-feedback__comment--resolved' : comment.resolved }\">\n" +
-    "            <a class=\"media__img  video-feedback__comment-profile-image\" ng-style=\"{ 'background-image' : 'url(' + comment.avatar + ')' }\"></a>\n" +
+    "            <a class=\"media__img  video-feedback__comment-profile-image\" style=\"background-image: url('(~ comment.avatar_url ~)');\"></a>\n" +
     "            <div class=\"media__body\">\n" +
     "              <div class=\"video-feedback__comment-details\">\n" +
-    "                <span class=\"video-feedback__comment-name\" ng-bind=\"comment.display_name\"></span>\n" +
+    "                <span class=\"video-feedback__comment-name\" ng-bind=\"comment.username\"></span>\n" +
     "                <span class=\"video-feedback__comment-time-posted\" ng-bind=\"comment.datetime | prettyDate\"></span>\n" +
     "                <span class=\"video-feedback__comment-resolved\" ng-class=\"{ 'video-feedback__comment-resolved--active' : replyActive && comment.resolved }\">resolved</span>\n" +
     "              </div>\n" +
@@ -2242,6 +2235,25 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('search/country-selector.tmpl.html',
+    "<div class=\"country-selector\">\n" +
+    "\n" +
+    "  <div class=\"country-selector__selected-country\" ng-click=\"showCountryList = !showCountryList\">\n" +
+    "    <img ng-src=\"/static/assets/img/flags/flags-iso/flat/32/(~ country.code ~).png\" height=\"32\" width=\"32\" />\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <div class=\"country-selector__countries\" ng-class=\"{ 'active' : showCountryList }\">\n" +
+    "    <ul>\n" +
+    "      <li class=\"country-selector__option\" ng-repeat=\"country in countries\" ng-click=\"select(country.code); hideOptions()\">\n" +
+    "        <img ng-src=\"/static/assets/img/flags/flags-iso/flat/32/(~ country.code ~).png\" height=\"32\" width=\"32\" />\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </div>\n" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('video/edit/player-config.tmpl.html',
     "<section class=\"player-config color-picker\">\n" +
     "\n" +
@@ -2281,10 +2293,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('directives/location-selector.tmpl.html',
     " <div class=\"location-selector icon-text\">\n" +
+    "  <i class=\"icon icon--location icon-text__icon\"></i>\n" +
     "  <label class=\"label location-selector__label  accessibility\" for=\"location-selector__location\">Location</label>\n" +
-    "  <select class=\"location-selector js-select2\" ng-model=\"location\">\n" +
-    "    <option ng-repeat=\"location in locations\" value=\"(~ location.code ~)\">(~ location.name ~)</option>\n" +
-    "  </select>\n" +
+    "  <input type=\"text\" ng-model=\"profile.location\" class=\"location-selector__location\" id=\"location-selector__location\" placeholder=\"Location (example London, UK)\" />\n" +
     "</div>"
   );
 } ]);
