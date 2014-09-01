@@ -8,8 +8,8 @@
     // Define all the sub modules of the app here so we can include files in any order
     // * Common modules, modules in common should never depend on modules in App so they come first
     angular.module('RomeoApp.filters', []);
-    angular.module('RomeoApp.services', []);
-    angular.module('RomeoApp.security', ['RomeoApp.services']);
+    angular.module('RomeoApp.security', []);
+    angular.module('RomeoApp.services', ['RomeoApp.security']);
     angular.module('RomeoApp.directives', ['RomeoApp.services']);
     angular.module('RomeoApp.controllers', ['RomeoApp.services', 'RomeoApp.directives', 'LocalStorageModule']);
     // * App modules
