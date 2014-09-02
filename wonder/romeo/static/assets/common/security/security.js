@@ -10,23 +10,15 @@
             checkingLogin = null,
             externalCredentials = null;
 
-        function getSession() {
-            var deferred = new $q.defer();
-            if ( localStorageService.get('session_url') !== null ) {
-                debug.log('GetSession: - Local storage session found');
-                deferred.resolve(localStorageService.get('session_url'));
-            } else {
-                debug.warn('GetSession: - No session');
-                deferred.reject('no session');
-            }
-
-            return deferred.promise;
-        }
-
         function _saveAccountAndUserDetails(res) {
             var data = res.data || res;
-            currentUser = data.user;
-            currentAccount = data.account;
+            if (data.auth_status && data.auth_status !== "logged_in") {
+                _resetAccountAndUserDetails();
+            }
+            else {
+                currentUser = data.user;
+                currentAccount = data.account;
+            }
         }
 
         function _resetAccountAndUserDetails() {
@@ -36,39 +28,21 @@
 
         function _loginCheck() {
             if (checkingLogin === null) {
-                debug.log('LoginCheck: start request running');
-                checkingLogin = new $q.defer();
-                var promise = checkingLogin.promise;
+                debug.log('LoginCheck: - Hit API see if we are logged in');
+                checkingLogin = $http({method: 'GET', url: '/api' });
 
-                debug.log('LoginCheck: - Try to log in');
-                getSession().then(function (res){
-                    debug.log('LoginCheck: - Got session, trying to retrive profile url ' + (res.href || res));
-                    $http({method: 'GET', url: (res.href || res) }).then(function(res2) {
-                        currentUser = angular.fromJson(res2.data);
-                        debug.log('LoginCheck: All good, access granted');
-                        checkingLogin.resolve(currentUser);
-                    }, function (res){
-                        _resetAccountAndUserDetails();
-                        debug.info("LoginCheck: Couldn't load profile with supplied session, not logged in");
-                        checkingLogin.reject('not logged in');
-                    });
-                }, function (){
-                    debug.info("LoginCheck: No session available, not logged in");
-                    checkingLogin.reject('not logged in');
-                });
-
-
-                promise.then(function () {
-                    checkingLogin = null;
-                }, function () {
-                    checkingLogin = null;
-                    debug.info('LoginCheck: Request failed');
+                checkingLogin.then(function (res) {
+                    debug.info("LoginCheck: Logged in");
+                    _saveAccountAndUserDetails(res);
+                }, function (res){
+                    _resetAccountAndUserDetails();
+                    debug.info("LoginCheck: Not logged in");
                 });
             } else {
-                debug.info('LoginCheck: found request, return it');
+                debug.info('LoginCheck: Found request, return it');
             }
 
-            return checkingLogin.promise;
+            return checkingLogin;
         }
 
         var service = {
@@ -82,46 +56,55 @@
             },
             requireCollaborator: function () {
                 console.info('service require collaborator');
-                if (! service.isCollaborator() ) {
+                if (! service.isAuthenticated() ) {
                     _loginCheck().then(function (res) {
                         // _saveAccountAndUserDetails(res);
                     }, function () {
                         service.redirect();
                     });
                 }
-                return currentUser;
+                return checkingLogin;
             },
             requireCreator: function () {
-                requireCollaborator();
+                service.requireCollaborator();
+                var msg = 'You need to pay for that';
                 // We now know this is either a logged in user or we have been sent to login
+                if (checkingLogin !== null) {
+                    checkingLogin.then(function () {
+                        if (service.isAuthenticated() && !service.isCreator()) {
+                            // @TODO: If the user isn't a creator but a valid user show modal
+                            alert(msg);
+                        }
+                    });
+                }
                 if (service.isAuthenticated() && !service.isCreator()) {
                     // @TODO: If the user isn't a creator but a valid user show modal
-                    alert('You need to pay for that');
+                    alert(msg);
                 }
 
                 return currentUser;
             },
             // Is the current user authenticated?
-            isAuthenticated: function(){
+            isAuthenticated: function () {
               return !!currentUser;
             },
             // Is the current user an collaborator or better?
             // All logged in users are at least collaborators
-            isCollaborator: function() {
+            isCollaborator: function () {
               // @TODO: This is should be for account_type collaborator; not !content_owner
               return service.isAuthenticated() && !angular.equals(currentAccount.account_type, 'content_owner');
             },
             // Is the current user an creator?
-            isCreator: function() {
+            isCreator: function () {
               return !!(service.isAuthenticated() && angular.equals(currentAccount.account_type, 'content_owner'));
             },
-            logout: function(redirectTo) {
-              $http.post('/api/logout').then(function() {
+            logout: function (redirectTo) {
+              $http.post('/api/logout').then(function () {
                 _resetAccountAndUserDetails();
                 $location.path(redirectTo || '/login');
               });
             },
-            login: function(username, password) {
+            login: function (username, password) {
                 var deferred = new $q.defer();
                 if (loginAttempts >= 3) {
                     deferred.reject({ data: { error: 'Too many login attempts' } });
@@ -150,7 +133,7 @@
                 return currentAccount;
             },
             // Is the current users registration complete (for twitter users)?
-            isProfileComplete: function(){
+            isProfileComplete: function () {
               return !!(currentUser && currentUser.user_name);
             },
             ExternalLogin: function (profile) {
@@ -186,7 +169,7 @@
                 debug.info('setExternalCredentials ' + credentials);
                 externalCredentials = credentials;
             },
-            registration: function(data) {
+            registration: function (data) {
                 return $http({
                     method: 'post',
                     url: '/api/register',
@@ -204,28 +187,28 @@
         return service;
     }
 
-    var securityAuthorizationProvider = function() {
+    var securityAuthorizationProvider = function () {
       return {
-        requireCollaborator: ['securityAuthorization', function(securityAuthorization) {
+        requireCollaborator: ['securityAuthorization', function (securityAuthorization) {
             return securityAuthorization.requireCollaborator();
           }],
-        requireCreator: ['securityAuthorization', function(securityAuthorization) {
+        requireCreator: ['securityAuthorization', function (securityAuthorization) {
             return securityAuthorization.requireCreator();
           }],
 
-          $get: ['$location', 'SecurityService', function($location, security) {
+          $get: ['$location', 'SecurityService', function ($location, security) {
             var originalUrl = null;
             var service = {
 
               // Require that there is an authenticated user
               // (use this in a route resolve to prevent non-authenticated users from entering that route)
-              requireCollaborator: function() {
+              requireCollaborator: function () {
                 return security.requireCollaborator();
               },
 
               // Require that there is an creator logged in
               // (use this in a route resolve to prevent non-creators from entering that route)
-              requireCreator: function() {
+              requireCreator: function () {
                 return security.requireCreator();
               }
 
