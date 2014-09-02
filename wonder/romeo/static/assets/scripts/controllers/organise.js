@@ -4,6 +4,145 @@ angular.module('RomeoApp.controllers')
     'use strict';
     var debug = new DebugClass('OrganiseCtrl');
 
+    function init() {
+      refresh(); // Call this on page load to load all the data
+
+      // Scope listners:
+      $scope.$on('show-collection', function ($event, id) {
+        $event.stopPropagation = true;
+        $scope.filterByRecent = false;
+        $scope.filterByCollaboration = false;
+        redirect(id, false);
+        setCollection(id);
+      });
+
+      $scope.$on('show-recent', function ($event) {
+        $event.stopPropagation = true;
+        $scope.filterByRecent = true;
+        $scope.filterByCollaboration = false;
+        $scope.tag = null;
+        redirect('recent', false);
+        setCollection();
+      });
+
+      $scope.$on('show-collaboration', function ($event) {
+        $event.stopPropagation = true;
+        $scope.filterByRecent = false;
+        $scope.filterByCollaboration = true;
+        $scope.tag = null;
+        redirect('collaboration', false);
+        setCollection();
+      });
+
+      $scope.$on('save-tag', function ($event) {
+        $event.stopPropagation = true;
+        if ($scope.tag) {
+          TagService.updateTag($scope.tag).then(function () {
+            $scope.$emit('notify', {
+              status : 'success',
+              title : 'Collection updated',
+              message : 'Your changes have been saved.'}
+            );
+            refresh();
+          });
+        }
+      });
+
+      $scope.$on('delete-tag', function ($event) {
+        $event.stopPropagation = true;
+        if ($scope.tag) {
+          TagService.deleteTag($scope.tag.id).then(function () {
+            $scope.$emit('notify', {
+              status : 'success',
+              title : 'Collection deleted',
+              message : $scope.tag.label + ' deleted.'}
+            );
+            setCollection();
+            refresh();
+          });
+        }
+      });
+
+      $scope.$on('add-remove-video', function ($event, video) {
+        $event.stopPropagation = true;
+        $scope.availableTags = $scope.tags;
+        $scope.video = video;
+        $scope.isModal = true;
+        modal.load('collection-add-video.html', true, $scope);
+      });
+
+      $scope.$on('show-create-collection', function ($event, isPublic) {
+        $event.stopPropagation = true;
+        $scope.collection = {};
+        $scope.collection.scope = isPublic ? 'public' : 'private';
+        modal.load('modal-create-new-collection.html', true, $scope, {});
+      });
+
+      $scope.$on('delete-video', function ($event, video) {
+        $event.stopPropagation = true;
+        if (video) {
+          debug.log(video);
+          VideoService.delete(video.id).then(function () {
+            $scope.$emit('notify', {
+              status : 'success',
+              title : 'Video deleted',
+              message : "'" + video.title + "' deleted."}
+            );
+            refresh();
+          });
+        }
+      });
+
+      // Scope methods:
+
+      $scope.saveNewCollection = function () {
+        var label = $scope.collection.label;
+        var description = $scope.collection.description;
+        var isPublic = $scope.collection.scope === 'public';
+
+        var data = {
+          label       : label,
+          description : description,
+          public      : isPublic
+        };
+
+        TagService.createTag(data).then(function (tag) {
+          TagService.getTags().then(function (data) {
+            $scope.tags = data.tag.items;
+            if ($scope.addVideoToCollection) {
+              $scope.addTag(tag.id);
+              $scope.addVideoToCollection = false;
+            }
+            $scope.close(); // Close modal window
+            $scope.$emit('notify', {
+              status : 'success',
+              title : 'New Collection Created',
+              message : 'Collection details saved.'}
+            );
+            setCollection(tag.id);
+            refresh();
+          });
+        });
+      };
+
+      // Root Scope broadcast event listners
+
+      $rootScope.$on('video-upload-complete', function (event, data) {
+        debug.info('Recieved video-upload-complete message');
+        getAllVideos();
+      });
+
+      $rootScope.$on('video-upload-success', function (event, data) {
+        debug.info('Recieved video-upload-success message');
+        getAllVideos();
+      });
+
+      $rootScope.$on('video-upload-start', function (event, data) {
+        debug.info('Recieved video-upload-start message');
+        getAllVideos();
+      });
+    }
+
     function refresh () {
       getAllVideos();
       getAllCollections();
@@ -43,144 +182,6 @@ angular.module('RomeoApp.controllers')
       $scope.tag = getTagById(id);
     }
 
-    refresh(); // Call this on page load to load all the data
-
-
-    // Scope listners:
-
-    $scope.$on('show-collection', function ($event, id) {
-      $event.stopPropagation = true;
-      $scope.filterByRecent = false;
-      $scope.filterByCollaboration = false;
-      redirect(id, false);
-      setCollection(id);
-    });
-
-    $scope.$on('show-recent', function ($event) {
-      $event.stopPropagation = true;
-      $scope.filterByRecent = true;
-      $scope.filterByCollaboration = false;
-      $scope.tag = null;
-      redirect('recent', false);
-      setCollection();
-    });
-
-    $scope.$on('show-collaboration', function ($event) {
-      $event.stopPropagation = true;
-      $scope.filterByRecent = false;
-      $scope.filterByCollaboration = true;
-      $scope.tag = null;
-      redirect('collaboration', false);
-      setCollection();
-    });
-
-    $scope.$on('save-tag', function ($event) {
-      $event.stopPropagation = true;
-      if ($scope.tag) {
-        TagService.updateTag($scope.tag).then(function () {
-          $scope.$emit('notify', {
-            status : 'success',
-            title : 'Collection updated',
-            message : 'Your changes have been saved.'}
-          );
-          refresh();
-        });
-      }
-    });
-
-    $scope.$on('delete-tag', function ($event) {
-      $event.stopPropagation = true;
-      if ($scope.tag) {
-        TagService.deleteTag($scope.tag.id).then(function () {
-          $scope.$emit('notify', {
-            status : 'success',
-            title : 'Collection deleted',
-            message : $scope.tag.label + ' deleted.'}
-          );
-          setCollection();
-          refresh();
-        });
-      }
-    });
-
-    $scope.$on('add-remove-video', function ($event, video) {
-      $event.stopPropagation = true;
-      $scope.availableTags = $scope.tags;
-      $scope.video = video;
-      $scope.isModal = true;
-      modal.load('collection-add-video.html', true, $scope);
-    });
-
-    $scope.$on('show-create-collection', function ($event, isPublic) {
-      $event.stopPropagation = true;
-      $scope.collection = {};
-      $scope.collection.scope = isPublic ? 'public' : 'private';
-      modal.load('modal-create-new-collection.html', true, $scope, {});
-    });
-
-    $scope.$on('delete-video', function ($event, video) {
-      $event.stopPropagation = true;
-      if (video) {
-        debug.log(video);
-        VideoService.delete(video.id).then(function () {
-          $scope.$emit('notify', {
-            status : 'success',
-            title : 'Video deleted',
-            message : "'" + video.title + "' deleted."}
-          );
-          refresh();
-        });
-      }
-    });
-
-    // Scope methods:
-
-    $scope.saveNewCollection = function () {
-      var label = $scope.collection.label;
-      var description = $scope.collection.description;
-      var isPublic = $scope.collection.scope === 'public';
-
-      var data = {
-        label       : label,
-        description : description,
-        public      : isPublic
-      };
-
-      TagService.createTag(data).then(function (tag) {
-        TagService.getTags().then(function (data) {
-          $scope.tags = data.tag.items;
-          if ($scope.addVideoToCollection) {
-            $scope.addTag(tag.id);
-            $scope.addVideoToCollection = false;
-          }
-          $scope.close(); // Close modal window
-          $scope.$emit('notify', {
-            status : 'success',
-            title : 'New Collection Created',
-            message : 'Collection details saved.'}
-          );
-          setCollection(tag.id);
-          refresh();
-        });
-      });
-    };
-
-    // Root Scope broadcast event listners
-
-    $rootScope.$on('video-upload-complete', function (event, data) {
-      debug.info('Recieved video-upload-complete message');
-      getAllVideos();
-    });
-
-    $rootScope.$on('video-upload-success', function (event, data) {
-      debug.info('Recieved video-upload-success message');
-      getAllVideos();
-    });
-
-    $rootScope.$on('video-upload-start', function (event, data) {
-      debug.info('Recieved video-upload-start message');
-      getAllVideos();
-    });
 
 
 
@@ -279,6 +280,13 @@ angular.module('RomeoApp.controllers')
       return tag;
     }
 
+    //@TODO: Temporary fix until we can remove MainController and
+    // use resolve on RouteProvider to validate logged in state
+    SecurityService.requireAuthenticated().then(function () {
+      init();
+    });
+
+    //@FIXME: BAD!! Never touch DOM in controller
     $('.editable').on('input', function(e) {
       debug.log(e);
       debug.log(e.currentTarget);
