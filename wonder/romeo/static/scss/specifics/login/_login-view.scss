@@ -41,3 +41,20 @@
 .login-view__terms {
   margin-bottom: $half-spacing-unit;
 }
+.login-view__input--location .icon {
+  float: left;
+}
+.login-view__form .location-selector__label {
+  position: static;
+  visibility: visible;
+  float: left;
+  margin-right: 1em;
+  font-size: 0.9em;
+  font-weight: 600;
+  padding: 0 4px;
+  color: #a9a9a9;
+}
+.login-view__form .location-selector {
+  color: $grey;
+  font-family: $heading-font-family;
+}

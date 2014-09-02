@@ -1318,6 +1318,11 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__password\">Password</label>\n" +
     "                  <input type=\"password\" name=\"password\" ng-model=\"password\" autocomplete=\"off\"  class=\"text-input\" id=\"login-view__password\" placeholder=\"Password\" />\n" +
     "                </div>\n" +
+    "                <div class=\"login-view__input login-view__input--location  icon-text\">\n" +
+    "                  <i class=\"icon  icon--globe  icon-text__icon\"></i>\n" +
+    "                  <location-selector>\n" +
+    "                  </location-selector>\n" +
+    "                </div>\n" +
     "              </li>\n" +
     "              <li class=\"text-col\">\n" +
     "                <ul class=\"check-list\">\n" +
@@ -1368,7 +1373,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "              <li class=\"text-col\">\n" +
     "                <h2>Nearly there</h2>\n" +
     "                <div class=\"login-view__input  icon-text\">\n" +
-    "                  <i class=\"icon  icon--mail  icon-text__icon\"></i>\n" +
+    "                  <i class=\"icon  icon--head  icon-text__icon\"></i>\n" +
     "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__displayname\">Full name</label>\n" +
     "                  <input type=\"text\" ng-model=\"profile.display_name\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__displayname\" placeholder=\"Full name\" />\n" +
     "                </div>\n" +
@@ -1376,8 +1381,12 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "                  <i class=\"icon  icon--mail  icon-text__icon\"></i>\n" +
     "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__username\">Email Address</label>\n" +
     "                  <input type=\"text\" ng-model=\"profile.username\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__username\" placeholder=\"Email Address\" />\n" +
-    "                <location-selector>\n" +
-    "                </location-selector>\n" +
+    "                </div>\n" +
+    "                <div class=\"login-view__input login-view__input--location  icon-text\">\n" +
+    "                  <i class=\"icon  icon--globe  icon-text__icon\"></i>\n" +
+    "                  <location-selector>\n" +
+    "                  </location-selector>\n" +
+    "                </div>\n" +
     "              </li>\n" +
     "              <li class=\"text-col\">\n" +
     "                <ul class=\"check-list\">\n" +

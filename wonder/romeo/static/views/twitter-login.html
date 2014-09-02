@@ -9,7 +9,7 @@
               <li class="text-col">
                 <h2>Nearly there</h2>
                 <div class="login-view__input  icon-text">
-                  <i class="icon  icon--mail  icon-text__icon"></i>
+                  <i class="icon  icon--head  icon-text__icon"></i>
                   <label class="label login-view__label  accessibility" for="login-view__displayname">Full name</label>
                   <input type="text" ng-model="profile.display_name" autocomplete="off" class="text-input" id="login-view__displayname" placeholder="Full name" />
                 </div>
@@ -17,8 +17,12 @@
                   <i class="icon  icon--mail  icon-text__icon"></i>
                   <label class="label login-view__label  accessibility" for="login-view__username">Email Address</label>
                   <input type="text" ng-model="profile.username" autocomplete="off" class="text-input" id="login-view__username" placeholder="Email Address" />
-                <location-selector>
-                </location-selector>
+                </div>
+                <div class="login-view__input login-view__input--location  icon-text">
+                  <i class="icon  icon--globe  icon-text__icon"></i>
+                  <location-selector>
+                  </location-selector>
+                </div>
               </li>
               <li class="text-col">
                 <ul class="check-list">

@@ -6864,6 +6864,29 @@ label,
   margin-bottom: 12px;
 }
 
+/* line 44, ../../scss/specifics/login/_login-view.scss */
+.login-view__input--location .icon {
+  float: left;
+}
+
+/* line 47, ../../scss/specifics/login/_login-view.scss */
+.login-view__form .location-selector__label {
+  position: static;
+  visibility: visible;
+  float: left;
+  margin-right: 1em;
+  font-size: 0.9em;
+  font-weight: 600;
+  padding: 0 4px;
+  color: #a9a9a9;
+}
+
+/* line 57, ../../scss/specifics/login/_login-view.scss */
+.login-view__form .location-selector {
+  color: #999999;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 /* line 11, ../common/directives/_global-navigation.scss */
 .global-nav-wrapper {
   position: relative;
