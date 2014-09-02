@@ -417,7 +417,7 @@ class VideoCollaboratorTestCase(TestCase):
                 )
                 r = client.get('/api/video/%d' % video.id)
                 self.assertEquals(r.status_code, 200)
-                self.assertEquals(json.loads(r.data)['account']['display_name'], 'test')
+                self.assertEquals(json.loads(r.data)['account']['name'], 'account1')
 
         # Same request for anonymous should fail
         with current_app.test_client() as client:
