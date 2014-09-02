@@ -13,7 +13,7 @@ BLUEPRINTS = [
 ]
 
 API_VIEWS = [
-    'wonder.romeo.%s.views' % mod for mod in 'analytics', 'video'
+    'wonder.romeo.%s.views' % mod for mod in 'analytics', 'video', 'search'
 ]
 
 DATABASE_URL = ''
@@ -62,6 +62,8 @@ COVER_THUMBNAIL_SIZES = (
     (1280, 720),
     (1920, 1080),
 )
+
+COVER_THUMBNAIL_DEFAULT = 640
 
 PROFILE_COVER_THUMBNAIL_SIZES = (
     (1280, 720),

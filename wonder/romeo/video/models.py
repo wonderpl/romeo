@@ -85,7 +85,8 @@ class Video(db.Model):
         # TODO: use label to pick appropriate thumbnail
         if self.thumbnails:
             thumbnails = sorted(self.thumbnails, key=lambda t: t.width, reverse=True)
-            return thumbnails[0].url
+            return next(t.url for t in thumbnails
+                        if t.width <= current_app.config['COVER_THUMBNAIL_DEFAULT'])
 
     def get_player_logo_url(self, label=None):
         if self.player_logo_filename:

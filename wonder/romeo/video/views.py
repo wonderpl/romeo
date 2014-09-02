@@ -228,13 +228,18 @@ def _video_item(video, full=False, with_account=False):
     if with_account:
         data['account'] = account_item(video.account, get_dollyuser(video.account), full=False)
 
-    thumbnails = sorted(video.thumbnails, key=lambda t: t.width, reverse=True)
-    data['thumbnails'] = dict(
-        items=[
-            {f: getattr(thumbnail, f) for f in ('url', 'width', 'height')}
-            for thumbnail in thumbnails[:None if full else 1]
-        ]
-    )
+    if full:
+        thumbnails = sorted(video.thumbnails, key=lambda t: t.width, reverse=True)
+        data['thumbnail_url'] = thumbnails[0].url
+        data['thumbnails'] = dict(
+            items=[
+                {f: getattr(thumbnail, f) for f in ('url', 'width', 'height')}
+                for thumbnail in thumbnails
+            ]
+        )
+    else:
+        data['thumbnail_url'] = video.thumbnail
+        data['thumbnails'] = dict(items=[{'url': video.thumbnail, 'width': 0, 'height': 0}])
 
     data['tags'] = dict(
         href=url_for('api.videotags', video_id=video.id),

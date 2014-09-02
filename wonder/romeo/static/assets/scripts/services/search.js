@@ -9,11 +9,12 @@ angular.module('RomeoApp.services')
 
     expression = expression || {};
 
-    var query = typeof expression === 'string' ? expression : $.param(expression);
+    var query = typeof expression === 'string' ? expression : $.param(expression),
+        queryPrefix = query.indexOf('src=') < 0 ? 'src=video&src=content_owner&src=collaborator&' : '';
 
     $location.search(query);
 
-    var url = '/api/search/?' + query;
+    var url = '/api/search?' + queryPrefix + query;
     return DataService.request({
       url     : url,
       method  : 'GET'
