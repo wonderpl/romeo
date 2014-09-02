@@ -42,13 +42,13 @@
         // Organise
         $routeProvider.when('/organise', {
             templateUrl: 'organise.html',
-            resolve: securityAuthorizationProvider.requireCollaborator
+            resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
         // Organise
         $routeProvider.when('/organise/:id', {
             templateUrl: 'organise.html',
-            resolve: securityAuthorizationProvider.requireCollaborator
+            resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
         // Videos
@@ -60,13 +60,13 @@
         // Videos
         $routeProvider.when('/video/:id', {
             templateUrl: 'video.html',
-            resolve: securityAuthorizationProvider.requireCollaborator
+            resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
         // Videos
         $routeProvider.when('/video/:id/comments', {
             templateUrl: 'video.html',
-            resolve: securityAuthorizationProvider.requireCollaborator
+            resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
         // Videos
@@ -77,7 +77,7 @@
 
         $routeProvider.when('/search', {
           templateUrl: 'search.html',
-          resolve: securityAuthorizationProvider.requireCollaborator,
+          resolve: securityAuthorizationProvider.requireAuthenticated,
           reloadOnSearch: false
         });
 
@@ -94,12 +94,12 @@
         // - /engagement/
         $routeProvider.when('/analytics/:videoID/:type', {
             templateUrl: 'analytics.html',
-            resolve: securityAuthorizationProvider.requireCollaborator
+            resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
         $routeProvider.when('/analytics/:videoID', {
             templateUrl: 'analytics.html',
-            resolve: securityAuthorizationProvider.requireCollaborator
+            resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
         $routeProvider.when('/loading', {

@@ -19,7 +19,7 @@
             {title: '* Settings', url: '#/profile'}
           ];
           setAccountData(UserService.getUser());
-          if (! SecurityService.isCreator() ) {
+          if (SecurityService.isCollaborator()) {
             var smallerList = [];
             for(var i = 0; i < fullPageList.length; ++i) {
               if (! fullPageList[i].requireCreator)

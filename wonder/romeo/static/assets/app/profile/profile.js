@@ -8,13 +8,13 @@ function ProfileRouteProvider($routeProvider, securityAuthorizationProvider) {
         // Account management
         $routeProvider.when('/profile', {
             templateUrl: 'profile/profile.tmpl.html',
-            resolve: securityAuthorizationProvider.requireCollaborator
+            resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
         // Public  profile
         $routeProvider.when('/profile/:id', {
             templateUrl: 'profile/profile.tmpl.html',
-            resolve: securityAuthorizationProvider.requireCollaborator
+            resolve: securityAuthorizationProvider.requireAuthenticated
         });
 }
 

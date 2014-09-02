@@ -11,7 +11,7 @@ angular.module('RomeoApp.services')
   */
   Data.request = function(options) {
       var deferred = new $q.defer();
-      var promise = SecurityService.requireCollaborator();
+      var promise = SecurityService.requireAuthenticated();
 
       if (promise !== null) {
         promise.then(function () {

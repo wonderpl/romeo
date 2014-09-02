@@ -54,35 +54,67 @@
                 originalUrl = $location.url();
                 $location.path(url || '/login');
             },
-            requireCollaborator: function () {
-                console.info('service require collaborator');
+            requireAuthenticated: function () {
+                console.info('service require authenticated');
                 if (! service.isAuthenticated() ) {
-                    _loginCheck().then(function (res) {
-                        // _saveAccountAndUserDetails(res);
-                    }, function () {
-                        service.redirect();
-                    });
+                    _loginCheck();
                 }
                 return checkingLogin;
             },
-            requireCreator: function () {
-                service.requireCollaborator();
-                var msg = 'You need to pay for that';
-                // We now know this is either a logged in user or we have been sent to login
-                if (checkingLogin !== null) {
-                    checkingLogin.then(function () {
-                        if (service.isAuthenticated() && !service.isCreator()) {
-                            // @TODO: If the user isn't a creator but a valid user show modal
-                            alert(msg);
+            requireCollaborator: function () {
+                var deferred = new $q.defer();
+                service.requireAuthenticated();
+                if (checkingLogin) {
+                    checkingLogin.then(function (res) {
+                        if (service.isCollaborator()) {
+                            deferred.resolve();
+                        }
+                        else {
+                            deferred.reject();
                         }
                     });
                 }
-                if (service.isAuthenticated() && !service.isCreator()) {
-                    // @TODO: If the user isn't a creator but a valid user show modal
-                    alert(msg);
+                else {
+                    if (service.isCollaborator()) {
+                        deferred.resolve();
+                    }
+                    else {
+                        deferred.reject();
+                    }
                 }
-
-                return currentUser;
+                return deferred.promise;
+            },
+            requireCreator: function () {
+                var deferred = new $q.defer();
+                var msg = 'You need to pay for that';
+                service.requireAuthenticated();
+                if (checkingLogin) {
+                    checkingLogin.then(function (res) {
+                        if (service.isAuthenticated()) {
+                            deferred.resolve();
+                            if (!service.isCreator()) {
+                                // @TODO: If the user isn't a creator but a valid user show modal
+                                alert(msg);
+                            }
+                        }
+                        else {
+                            deferred.reject();
+                        }
+                    });
+                }
+                else {
+                    if (service.isAuthenticated()) {
+                        deferred.resolve();
+                        if (!service.isCreator()) {
+                            // @TODO: If the user isn't a creator but a valid user show modal
+                            alert(msg);
+                        }
+                    }
+                    else {
+                        deferred.reject();
+                    }
+                }
+                return deferred.promise;
             },
             // Is the current user authenticated?
             isAuthenticated: function () {
@@ -92,11 +124,11 @@
             // All logged in users are at least collaborators
             isCollaborator: function () {
               // @TODO: This is should be for account_type collaborator; not !content_owner
-              return service.isAuthenticated() && !angular.equals(currentAccount.account_type, 'content_owner');
+              return (service.isAuthenticated() && !angular.equals(currentAccount.account_type, 'content_owner'));
             },
             // Is the current user an creator?
             isCreator: function () {
-              return !!(service.isAuthenticated() && angular.equals(currentAccount.account_type, 'content_owner'));
+              return (service.isAuthenticated() && angular.equals(currentAccount.account_type, 'content_owner'));
             },
             logout: function (redirectTo) {
               $http.post('/api/logout').then(function () {
