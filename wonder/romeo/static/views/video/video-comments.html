@@ -7,7 +7,7 @@
 
       <div class="media  video-feedback__comment">
         <a class="media__img  video-feedback__comment-profile-image" ng-style="{ 'background-image' : 'url(' + user().avatar + ')' }" ng-show="isLoggedIn()"></a>
-        <a class="media__img  video-feedback__comment-profile-image" style="background-image: url('{{ user().avatar_url }}');" ng-show="isCollaborator()"></a>
+        <a class="media__img  video-feedback__comment-profile-image" ng-style="{ 'background-image' : 'url(' + user().avatar + ')' }" ng-show="isCollaborator()"></a>
         <div class="media__body">
           <div class="video-feedback__comment-details">
             <span class="video-feedback__comment-name" ng-show="isLoggedIn()">{{ user().display_name }}</span>
@@ -56,10 +56,10 @@
         ng-class="{ 'video-feedback__comment--active' : isTimeSync(comment.timestamp) }"
         ng-repeat="comment in comments | orderBy : 'timestamp' | filter: { resolved : filterResolved }">
           <div class="media" ng-class="{ 'video-feedback__comment--resolved' : comment.resolved }">
-            <a class="media__img  video-feedback__comment-profile-image" style="background-image: url('{{ comment.avatar_url }}');"></a>
+            <a class="media__img  video-feedback__comment-profile-image" ng-style="{ 'background-image' : 'url(' + comment.avatar + ')' }"></a>
             <div class="media__body">
               <div class="video-feedback__comment-details">
-                <span class="video-feedback__comment-name" ng-bind="comment.username"></span>
+                <span class="video-feedback__comment-name" ng-bind="comment.display_name"></span>
                 <span class="video-feedback__comment-time-posted" ng-bind="comment.datetime | prettyDate"></span>
                 <span class="video-feedback__comment-resolved" ng-class="{ 'video-feedback__comment-resolved--active' : replyActive && comment.resolved }">resolved</span>
               </div>

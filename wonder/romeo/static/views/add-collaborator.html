@@ -39,17 +39,17 @@
     <header class="video-collaborators__header">
       <h4 class="video-collaborators__title  no-spacing">collaborators</h4>
     </header>
-  
+
     <p class="video-collaborators__none-message" ng-hide="collaborators">You have no collaborators!</p>
-  
+
     <ul class="nav  nav--stacked  video-collaborators__collaborators" ng-show="collaborators">
       <li class="video-collaborators__collaborator" ng-repeat="collaborator in collaborators">
         <div class="media">
           <div class="media__img">
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="video-collaborators__collaborator-image" style="background-image: url('{{ collaborator.avatar_url }}');">
+            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="video-collaborators__collaborator-image" ng-style="{ 'background-image' : 'url(' + collaborator.avatar + ')' }">
           </div>
           <div class="media__body">
-            <span class="video-collaborators__collaborator-name truncate" ng-bind="collaborator.username"></span>
+            <span class="video-collaborators__collaborator-name truncate" ng-bind="collaborator.display_name"></span>
           </div>
       </li>
   <!--     <li class="video-collaborators__collaborator">
@@ -61,7 +61,7 @@
         <span class="video-collaborators__collaborator-name">Tom Aitkens 2</span>
       </li> -->
     </ul>
-  
+
   </section>
 
 </section>
