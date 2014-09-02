@@ -26,6 +26,7 @@ function LoginController ($scope, $location, SecurityService) {
     $scope.isLoading.login = true;
     return SecurityService.login($scope.username, $scope.password).then(
       function (data) {
+        $scope.isLoading.login = false;
         console.info('Login successful');
         SecurityService.restoreUrl();
       },

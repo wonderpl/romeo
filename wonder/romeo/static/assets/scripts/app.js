@@ -132,11 +132,11 @@
 
     }]);
 
-    app.run(['$route', '$rootScope', '$location', 'ErrorService',
-      function($route, $rootScope, $location, ErrorService) {
+    app.run(['$route', '$rootScope', '$location', '$cookies', '$window', 'SecurityService', 'ErrorService',
+      function($route, $rootScope, $location, $cookies, $window, SecurityService, ErrorService) {
 
       // http://joelsaupe.com/programming/angularjs-change-path-without-reloading/
-      // $location.path('/sample/' + $scope.checkinId, false);
+      // $location.path('/sample/' + $rootScope.checkinId, false);
       var original = $location.path;
       $location.path = function (path, reload) {
         if (reload === false) {
@@ -149,14 +149,13 @@
         return original.apply($location, [path]);
       };
 
-        $rootScope.$on('$routeChangeError', function(evt, next, last, error) {
-            debug.log( error );
-            if (error instanceof ErrorService.AuthError) {
-                $location.url($location.path());
-                $location.url('/login');
-            }
-        });
-
+      /*
+      * Listen for route change errors
+      */
+      $rootScope.$on('$routeChangeError', function(error){
+          console.error('route fail', error);
+          SecurityService.redirect();
+      });
     }]);
 
 })();

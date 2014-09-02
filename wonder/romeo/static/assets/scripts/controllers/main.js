@@ -77,14 +77,6 @@ function MainController ($window, $scope, $rootScope, $location, modal, $element
   });
 
   /*
-  * Listen for route change errors
-  */
-  $rootScope.$on('$routeChangeError', function(error){
-      console.log('route fail', arguments);
-      SecurityService.redirect();
-  });
-
-  /*
   * Used in templating for logic based on the current route
   */
   $rootScope.isCurrentPage = function (route) {

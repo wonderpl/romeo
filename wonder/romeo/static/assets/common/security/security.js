@@ -1,21 +1,23 @@
 (function () {
     'use strict';
 
-    function SecurityService($location, $q, $http, localStorageService) {
+    function SecurityService($location, $q, $http, $timeout, localStorageService) {
         var debug = new DebugClass('SecurityService'),
             currentUser = null,
             currentAccount = null,
             loginAttempts = 0,
             originalUrl = null,
-            checkingLogin = { request: null, response: null },
+            checkingLogin = { request: null, response: new $q.defer() },
             externalCredentials = null;
 
         function _saveAccountAndUserDetails(res) {
             var data = res.data || res;
             if (data.auth_status && data.auth_status !== "logged_in") {
+                debug.error('_saveAccountAndUserDetails with wrong auth_status', data.auth_status);
                 _resetAccountAndUserDetails();
             }
             else {
+                debug.info('_saveAccountAndUserDetails', data);
                 currentUser = data.user;
                 currentAccount = data.account;
             }
@@ -28,12 +30,11 @@
 
         function _loginCheck() {
             if (checkingLogin.request === null) {
-                checkingLogin.response = new $q.defer();
                 debug.log('LoginCheck: - Hit API see if we are logged in');
                 checkingLogin.request = $http({method: 'GET', url: '/api' });
 
                 checkingLogin.request.then(function (res) {
-                    if (res.auth_status === "logged_in") {
+                    if (res.data.auth_status === "logged_in") {
                         debug.info("LoginCheck: Logged in");
                         _saveAccountAndUserDetails(res);
                         checkingLogin.response.resolve(res);
@@ -51,23 +52,47 @@
             } else {
                 debug.info('LoginCheck: Found request, return it');
             }
+            checkingLogin.response.promise.then(function () {
+                checkingLogin.request = null;
+            }, function () {
+                checkingLogin.request = null;
+            });
 
             return checkingLogin.response.promise;
         }
 
         var service = {
             restoreUrl: function (url) {
-                $location.path(originalUrl || url || '/organise');
+                debug.info('restore url');
+                $location.path('/profile'); // originalUrl || url || '/organise');
                 originalUrl = null;
             },
             redirect: function (url) {
                 originalUrl = $location.url();
                 $location.path(url || '/login');
             },
-            requireAuthenticated: function () {
-                console.info('service require authenticated');
+            requireOnlyFromRoute: function () {
+                debug.info('service require requireOnlyFromRoute');
                 if (! service.isAuthenticated() ) {
                     _loginCheck();
+                } else {
+                    $timeout(function () {
+                        checkingLogin.response.resolve(currentUser);
+                    }, 1);
+                }
+                return checkingLogin.response.promise;
+            },
+            requireAuthenticated: function () {
+                debug.info('service require authenticated', service.isAuthenticated());
+
+                if (! service.isAuthenticated() ) {
+                    _loginCheck();
+                }
+                else {
+                    if (checkingLogin.request === null) {
+                        checkingLogin.response = new $q.defer();
+                        checkingLogin.response.resolve(currentUser);
+                    }
                 }
                 return checkingLogin.response.promise;
             },
@@ -231,6 +256,9 @@
 
     var securityAuthorizationProvider = function () {
       return {
+        requireAuthenticated: ['securityAuthorization', function (securityAuthorization) {
+            return securityAuthorization.requireAuthenticated();
+          }],
         requireCollaborator: ['securityAuthorization', function (securityAuthorization) {
             return securityAuthorization.requireCollaborator();
           }],
@@ -241,6 +269,12 @@
           $get: ['$location', 'SecurityService', function ($location, security) {
             var originalUrl = null;
             var service = {
+
+              // Require that there is an authenticated user
+              // (use this in a route resolve to prevent non-authenticated users from entering that route)
+              requireAuthenticated: function () {
+                return security.requireAuthenticated();
+              },
 
               // Require that there is an authenticated user
               // (use this in a route resolve to prevent non-authenticated users from entering that route)
@@ -261,6 +295,6 @@
       };
     };
 
-    angular.module('RomeoApp.security').factory('SecurityService', ['$location', '$q', '$http', 'localStorageService', SecurityService]);
+    angular.module('RomeoApp.security').factory('SecurityService', ['$location', '$q', '$http', '$timeout', 'localStorageService', SecurityService]);
     angular.module('RomeoApp.security').provider('securityAuthorization', securityAuthorizationProvider);
 })();
