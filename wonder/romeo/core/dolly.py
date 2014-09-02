@@ -50,7 +50,7 @@ def get_categories():
 
 
 def get_video_embed_content(videoid):
-    return _request('/embed/%s/' % videoid).content
+    return _request('/embed/%s/' % videoid, params=dict(_nc=1)).content
 
 
 def push_video_data(video):
