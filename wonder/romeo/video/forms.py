@@ -215,8 +215,10 @@ def create_cover_thumbnails(video_id, cover_filename=None):
         thumbnail = _thumbnail(str(size[0]), size)
         upload_file(media_bucket, urlparse(thumbnail.url).path, buf, 'image/jpeg')
         video.thumbnails.append(thumbnail)
+        imgdata = buf
 
     try:
+        imgdata.seek(0)
         ooyala_request('assets', video.external_id,
                        'preview_image_files', method='post', data=imgdata)
     except Exception:
