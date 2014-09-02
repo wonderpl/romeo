@@ -64,3 +64,8 @@ npm-debug.log
 # email tests
 email.html
 email.txt
+
+# Sublime text
+.sublime-*
+
+
