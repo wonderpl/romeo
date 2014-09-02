@@ -1,6 +1,6 @@
 from flask import current_app, Blueprint, render_template
 from flask.ext.login import current_user
-from wonder.romeo.core.rest import api_resource, Resource
+from wonder.romeo.core.rest import api_resource, Resource, cache_control
 from wonder.romeo.core.util import COUNTRY_CODES
 from wonder.romeo.account.views import login_items
 
@@ -61,6 +61,7 @@ class LocationsResource(Resource):
 
     decorators = []
 
+    @cache_control(max_age=86400)
     def get(self):
         items = [dict(code=c, name=n) for c, n in COUNTRY_CODES if c not in ('A1', 'A2', 'O1', 'EU')]
         return dict(country=dict(items=items, total=len(items)))

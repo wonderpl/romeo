@@ -226,7 +226,7 @@ def _video_item(video, full=False, with_account=False):
         data['player_logo_url'] = video.get_player_logo_url()
 
     if with_account:
-        data['account'] = account_item(video.account, get_dollyuser(video.account))
+        data['account'] = account_item(video.account, get_dollyuser(video.account), full=False)
 
     thumbnails = sorted(video.thumbnails, key=lambda t: t.width, reverse=True)
     data['thumbnails'] = dict(

@@ -1,8 +1,51 @@
 from functools import wraps
 from werkzeug.routing import RequestRedirect
+from flask import request
 from flask.ext.login import current_user
 from flask.ext import restful
 from wonder.romeo import api
+
+
+def cache_control(**cache_properties):
+    def decorator(func):
+        func._cache_control = cache_properties
+        return func
+    return decorator
+
+
+def _cache_control(func):
+    @wraps(func)
+    def decorator(*args, **kwargs):
+        response = func(*args, **kwargs)
+
+        try:
+            # navigate the flask-restful view wrapper chain
+            viewfunc = func.func_closure[0].cell_contents.view_class.get
+        except Exception:
+            viewfunc = func
+
+        if hasattr(viewfunc, '_cache_control'):
+            for k, v in viewfunc._cache_control.items():
+                setattr(response.cache_control, k, v)
+        else:
+            if 'public' in request.args:
+                response.cache_control.max_age = 3600
+            else:
+                # Private, no-cache by default
+                response.cache_control.private = True
+                response.cache_control.no_cache = True
+
+        if response.cache_control.max_age:
+            if not response.cache_control.private:
+                response.cache_control.public = True
+            response.add_etag()
+            response.make_conditional(request)
+
+        return response
+
+    return decorator
+
+api.decorators.append(_cache_control)
 
 
 def login_required(func):
