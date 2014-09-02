@@ -6,7 +6,7 @@ describe('Sign up', function() {
   var scope, $httpBackend, ctrl;
   var user;
   beforeEach(module('RomeoApp', 'mockedObject', 'mockedFeed'));
-  
+
   beforeEach(inject(function($rootScope, $controller, $injector, $location, userJSON) {
     scope = $rootScope.$new();
     $httpBackend = $injector.get('$httpBackend');
@@ -143,7 +143,7 @@ describe('Sign up', function() {
       var requestData = {};
       requestData.username = user.email;
       requestData.location = 'GB';
-      requestData.name = user.name;
+      requestData.display_name = user.name;
       requestData.password = user.password;
       $httpBackend.expectPOST('/api/register', requestData).respond(200, '');
 
@@ -178,7 +178,7 @@ describe('Sign up', function() {
       var requestData = {};
       requestData.username = user.email;
       requestData.location = 'GB';
-      requestData.name = user.name;
+      requestData.display_name = user.name;
       requestData.password = user.password;
 
       $httpBackend.expectPOST('/api/register', requestData).respond(200, '');
