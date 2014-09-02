@@ -27,7 +27,7 @@ angular
         var user = {
           "username": $scope.username,
           "password": $scope.password,
-          "name": $scope.name,
+          "display_name": $scope.name,
           "location": $scope.location
         };
 
