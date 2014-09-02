@@ -1694,14 +1694,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <a class=\"video-more__link btn\"\n" +
     "    ng-click=\"(showMoreLinkConfigPanel = !showMoreLinkConfigPanel)\"\n" +
-    "    ng-show=\"flags.isEdit\"\n" +
+    "    ng-show=\"isEdit\"\n" +
     "    title=\"You can add a button, which will appear under your video in the Wonder App that takes you to any website.&#013;&#013;Simply add the text for the button (up-to 30 characters) and type in the URL you want to go to.\">\n" +
     "    (~ text ? text : 'Add a link (optional) &hellip;' ~)\n" +
     "  </a>\n" +
     "\n" +
-    "  <a class=\"video-more__link btn  btn--positive\" href=\"(~ url ~)\" ng-hide=\"flags.isEdit\">(~ text ~)</a>\n" +
+    "  <a class=\"video-more__link btn  btn--positive\" href=\"(~ url ~)\" ng-hide=\"isEdit\">(~ text ~)</a>\n" +
     "\n" +
-    "  <section class=\"video-more__form\" ng-class=\"{ 'video-more__form--active' : showMoreLinkConfigPanel }\" ng-show=\"flags.isEdit\">\n" +
+    "  <section class=\"video-more__form\" ng-class=\"{ 'video-more__form--active' : showMoreLinkConfigPanel }\" ng-show=\"isEdit\">\n" +
     "\n" +
     "    <section class=\"video-more__controls-container\">\n" +
     "\n" +

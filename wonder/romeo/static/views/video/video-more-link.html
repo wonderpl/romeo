@@ -2,14 +2,14 @@
 
   <a class="video-more__link btn"
     ng-click="(showMoreLinkConfigPanel = !showMoreLinkConfigPanel)"
-    ng-show="flags.isEdit"
+    ng-show="isEdit"
     title="You can add a button, which will appear under your video in the Wonder App that takes you to any website.&#013;&#013;Simply add the text for the button (up-to 30 characters) and type in the URL you want to go to.">
     {{ text ? text : 'Add a link (optional) &hellip;' }}
   </a>
 
-  <a class="video-more__link btn  btn--positive" href="{{ url }}" ng-hide="flags.isEdit">{{ text }}</a>
+  <a class="video-more__link btn  btn--positive" href="{{ url }}" ng-hide="isEdit">{{ text }}</a>
 
-  <section class="video-more__form" ng-class="{ 'video-more__form--active' : showMoreLinkConfigPanel }" ng-show="flags.isEdit">
+  <section class="video-more__form" ng-class="{ 'video-more__form--active' : showMoreLinkConfigPanel }" ng-show="isEdit">
 
     <section class="video-more__controls-container">
 
