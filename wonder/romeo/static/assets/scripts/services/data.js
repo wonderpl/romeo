@@ -11,21 +11,26 @@ angular.module('RomeoApp.services')
   */
   Data.request = function(options) {
       var deferred = new $q.defer();
+      var promise = SecurityService.requireCollaborator();
 
-      if (SecurityService.isAuthenticated()){
-
-          $http(options).then(
-          function(response){
-            deferred.resolve(response.data);
-          },
-          function(response){
-            deferred.reject(response);
+      if (promise !== null) {
+        promise.then(function () {
+          $http(options).then(function (res) {
+            deferred.resolve(res.data || res);
+          }, function (res) {
+            deferred.reject(res);
           });
-
+        });
+      }
+      else if (SecurityService.isAuthenticated()) {
+         $http(options).then(function (res) {
+            deferred.resolve(res.data || res);
+          }, function (res) {
+            deferred.reject(res);
+          });
       }
       else {
-          SecurityService.redirect();
-          deferred.reject();
+        deferred.reject('not logged in');
       }
 
       return deferred.promise;
