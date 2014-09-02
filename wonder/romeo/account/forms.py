@@ -1,6 +1,7 @@
 import requests
 import wtforms
 from cStringIO import StringIO
+from werkzeug import FileStorage
 from flask import current_app, json
 from flask.ext.restful import abort
 from flask.ext.wtf import Form
@@ -68,7 +69,7 @@ def register_user(accountname, username, password, location=None, account_type=N
         # flush to get id
         db.session.flush()
 
-    send_welcome_email(user.id)
+    send_welcome_email(user.id, _delay_seconds=120)
 
     return user
 
@@ -76,8 +77,9 @@ def register_user(accountname, username, password, location=None, account_type=N
 @background_on_sqs
 def send_welcome_email(user_id):
     user = AccountUser.query.get(user_id)
-    template = email_template_env.get_template('welcome.html')
-    send_email(user.email, template.render(user=user))
+    if user:
+        template = email_template_env.get_template('welcome.html')
+        send_email(user.email, template.render(user=user))
 
 
 def username_validator():
@@ -106,7 +108,7 @@ class RegistrationForm(Form):
                              self.password.data, self.location.data)
 
 
-class ExternalLoginForm(Form):
+class ExternalLoginForm(BaseForm):
     external_system = wtforms.SelectField(choices=EXTERNAL_SYSTEM_CHOICES)
     external_token = wtforms.StringField(validators=[wtforms.validators.InputRequired()])
     metadata = wtforms.StringField()
@@ -116,6 +118,12 @@ class ExternalLoginForm(Form):
     location = wtforms.SelectField(choices=COUNTRY_CODES, validators=[
         wtforms.validators.Optional()])
     remember = wtforms.BooleanField()
+
+    profile_cover = wtforms.FileField(validators=[ImageData(thumbnails=True)])
+    avatar = wtforms.FileField(validators=[ImageData(thumbnails=True)])
+
+    class Meta:
+        model = AccountUser
 
     def validate(self):
         success = super(ExternalLoginForm, self).validate()
@@ -159,6 +167,7 @@ class ExternalLoginForm(Form):
                           form_errors=dict(username=[_('Username already registered.')]))
                 raise
             else:
+                self.account_id = user.account_id
                 self._update_user(user)
             user.auth_tokens = [
                 AccountUserAuthToken(
@@ -185,15 +194,18 @@ class ExternalLoginForm(Form):
             'profile_cover', user.account_id)
 
     def _slurp_external_image(self, url, imagetype, account_id):
+        if not url:
+            return
         response = requests.get(url, stream=True)
         content_type = response.headers.get('content-type', '')
         if not (response.ok and content_type.startswith('image/')):
             response.close()
             return
-        filename = get_random_filename()
-        filepath = AccountUser.get_image_filepath(account_id, filename, imagetype)
-        upload_file(media_bucket, filepath, StringIO(response.content), content_type)
-        return filename
+
+        field = getattr(self, imagetype)
+        field.data = FileStorage(StringIO(response.content), response.url)
+        if field.validate(self):
+            return field.data
 
 
 class LoginForm(Form):
