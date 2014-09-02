@@ -167,7 +167,10 @@
             },
             logout: function (redirectTo) {
               $http.get('/logout').then(function () {
+                debug.info('logout');
                 _resetAccountAndUserDetails();
+                checkingLogin.request = null;
+                checkingLogin.response = new $q.defer();
                 $location.path(redirectTo || '/login');
               });
             },

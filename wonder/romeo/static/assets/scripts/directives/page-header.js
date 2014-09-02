@@ -33,6 +33,8 @@ function PageHeaderDirective ($templateCache, $timeout, SecurityService, UserSer
     link: function ($scope, $element, $attrs) {
       var hasBeenCalled = false;
       $element.on('click', '.page-logo--header', function(event) {
+        if (! $scope.isLoggedIn())
+          return;
         event.stopPropagation();
         if (hasBeenCalled) {
           $('body').toggleClass('js-nav');
