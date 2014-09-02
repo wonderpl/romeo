@@ -133,12 +133,15 @@ module.exports = function (grunt) {
                 configFile: 'test-front/karma.conf.js',
                 options: {
                     browsers: ['PhantomJS'],
-                    reporters: ['dots']
+                    singleRun: true,
+                    reporters: ['dots'],
+                    logLevel: 'ERROR'
                 }
             },
             built: {
                 configFile: 'karma.conf.js',
                 options: {
+                    singleRun: true,
                     browsers: ['PhantomJS']
                 }
             }
