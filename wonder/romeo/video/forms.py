@@ -205,8 +205,8 @@ def create_cover_thumbnails(video_id, cover_filename=None):
                                    video_id, cover_filename, cover_filepath)
         return
 
-    imgdata = download_file(media_bucket, cover_filepath)
-    image = Image.open(StringIO(imgdata))
+    imgdata = StringIO(download_file(media_bucket, cover_filepath))
+    image = Image.open(imgdata)
     video.thumbnails = [_thumbnail(None, image.size)]
 
     sizes = [size for size in current_app.config['COVER_THUMBNAIL_SIZES']
@@ -218,9 +218,8 @@ def create_cover_thumbnails(video_id, cover_filename=None):
         imgdata = buf
 
     try:
-        imgdata.seek(0)
-        ooyala_request('assets', video.external_id,
-                       'preview_image_files', method='post', data=imgdata)
+        ooyala_request('assets', video.external_id, 'preview_image_files',
+                       method='post', data=imgdata.getvalue())
     except Exception:
         current_app.logger.exception('Unable to set preview image for %d (%s)',
                                      video.id, video.external_id)
