@@ -36,6 +36,7 @@ module.exports = function(config) {
       'wonder/romeo/static/assets/app/**/*.js',
       'wonder/romeo/static/assets/common/**/*.js',
 
+      'test-front/mock-modules.js',
       'test-front/mock/**/*.js',
       'test-front/unit/**/*.js'
     ],

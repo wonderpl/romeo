@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mockedFeed', []).value('registerJSON', {
+angular.module('mockedFeed').value('registerJSON', {
  "account": {
   "href": "/api/account/27250600",
   "account_type": "collaborator",

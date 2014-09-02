@@ -7,9 +7,10 @@ describe('Sign up', function() {
   var user;
   beforeEach(module('RomeoApp', 'mockedObject', 'mockedFeed'));
 
-  beforeEach(inject(function($rootScope, $controller, $injector, $location, userJSON) {
+  beforeEach(inject(function($rootScope, $controller, $injector, $location, userJSON, apiJSON) {
     scope = $rootScope.$new();
     $httpBackend = $injector.get('$httpBackend');
+    authRequestHandler = $httpBackend.when('GET', '/api').respond(200, apiJSON.validUser);
     user = userJSON.validUser; // Mocked from from test-front/mock/defaultUserObject.js
   }));
 
@@ -25,100 +26,105 @@ describe('Sign up', function() {
       });
     }));
 
+    describe('invalid data', function () {
+      afterEach(function() {
+        $httpBackend.flush();
+      });
 
-    it('should have good defaults', function() {
-      expect(scope).toBeDefined();
-      expect(scope.username).toBe('');
-      expect(scope.password).toBe('');
-      expect(scope.name).toBe('');
+      it('should have good defaults', function() {
+        expect(scope).toBeDefined();
+        expect(scope.username).toBe('');
+        expect(scope.password).toBe('');
+        expect(scope.name).toBe('');
 
-      expect(scope.location).toEqual('GB');
-      expect(scope.location).toNotEqual('US');
+        expect(scope.location).toEqual('GB');
+        expect(scope.location).toNotEqual('US');
 
-      expect(scope.tandc).toBe(false);
-      expect(scope.tandc).toNotBe('');
-    });
+        expect(scope.tandc).toBe(false);
+        expect(scope.tandc).toNotBe('');
+      });
 
-    it('should have validation error (name required) if form is empty', function() {
-      expect(scope).toBeDefined();
-      expect(scope.username).toBe('');
-      expect(scope.signUp()).toBe(false);
-      expect(scope.errorMessage).toEqual('Name required');
-    });
+      it('should have validation error (name required) if form is empty', function() {
+        expect(scope).toBeDefined();
+        expect(scope.username).toBe('');
+        expect(scope.signUp()).toBe(false);
+        expect(scope.errorMessage).toEqual('Name required');
+      });
 
-    it('should have validation error (email required) if only name is set', function() {
-      expect(scope).toBeDefined();
+      it('should have validation error (email required) if only name is set', function() {
+        expect(scope).toBeDefined();
 
-      expect(scope.name).toBe('');
-      scope.name = user.name;
-      expect(scope.name).toBe(user.name);
+        expect(scope.name).toBe('');
+        scope.name = user.name;
+        expect(scope.name).toBe(user.name);
 
-      expect(scope.signUp()).toBe(false);
-      expect(scope.errorMessage).toEqual('Email required');
-    });
+        expect(scope.signUp()).toBe(false);
+        expect(scope.errorMessage).toEqual('Email required');
+      });
 
-    it('should have validation error (email required) if username isn\'t a valid email address', function() {
-      expect(scope).toBeDefined();
+      it('should have validation error (email required) if username isn\'t a valid email address', function() {
+        expect(scope).toBeDefined();
 
-      expect(scope.name).toBe('');
-      scope.name = user.name;
-      expect(scope.name).toBe(user.name);
+        expect(scope.name).toBe('');
+        scope.name = user.name;
+        expect(scope.name).toBe(user.name);
 
-      expect(scope.username).toBe('');
-      scope.username = user.name;
-      expect(scope.username).toBe(user.name);
+        expect(scope.username).toBe('');
+        scope.username = user.name;
+        expect(scope.username).toBe(user.name);
 
-      expect(scope.signUp()).toBe(false);
-      expect(scope.errorMessage).toEqual('Email required');
-    });
+        expect(scope.signUp()).toBe(false);
+        expect(scope.errorMessage).toEqual('Email required');
+      });
 
-    it('should have validation error (password required) if only name and username is set', function() {
-      expect(scope).toBeDefined();
+      it('should have validation error (password required) if only name and username is set', function() {
+        expect(scope).toBeDefined();
 
-      expect(scope.name).toBe('');
-      scope.name = user.name;
-      expect(scope.name).toBe(user.name);
+        expect(scope.name).toBe('');
+        scope.name = user.name;
+        expect(scope.name).toBe(user.name);
 
-      expect(scope.username).toBe('');
-      scope.username = user.email;
-      expect(scope.username).toBe(user.email);
+        expect(scope.username).toBe('');
+        scope.username = user.email;
+        expect(scope.username).toBe(user.email);
 
-      expect(scope.signUp()).toBe(false);
-      expect(scope.errorMessage).toEqual('Password required');
-    });
+        expect(scope.signUp()).toBe(false);
+        expect(scope.errorMessage).toEqual('Password required');
+      });
 
-    it('should have validation error (name required) if name isn\'t set', function() {
-      expect(scope).toBeDefined();
+      it('should have validation error (name required) if name isn\'t set', function() {
+        expect(scope).toBeDefined();
 
-      expect(scope.username).toBe('');
-      scope.username = user.email;
-      expect(scope.username).toBe(user.email);
+        expect(scope.username).toBe('');
+        scope.username = user.email;
+        expect(scope.username).toBe(user.email);
 
-      expect(scope.password).toBe('');
-      scope.password = user.password;
-      expect(scope.password).toBe(user.password);
+        expect(scope.password).toBe('');
+        scope.password = user.password;
+        expect(scope.password).toBe(user.password);
 
-      expect(scope.signUp()).toBe(false);
-      expect(scope.errorMessage).toEqual('Name required');
-    });
+        expect(scope.signUp()).toBe(false);
+        expect(scope.errorMessage).toEqual('Name required');
+      });
 
-    it('should have validation error (terms and condition) if T & C not set', function() {
-      expect(scope).toBeDefined();
+      it('should have validation error (terms and condition) if T & C not set', function() {
+        expect(scope).toBeDefined();
 
-      expect(scope.username).toBe('');
-      scope.username = user.email;
-      expect(scope.username).toBe(user.email);
+        expect(scope.username).toBe('');
+        scope.username = user.email;
+        expect(scope.username).toBe(user.email);
 
-      expect(scope.password).toBe('');
-      scope.password = user.password;
-      expect(scope.password).toBe(user.password);
+        expect(scope.password).toBe('');
+        scope.password = user.password;
+        expect(scope.password).toBe(user.password);
 
-      expect(scope.name).toBe('');
-      scope.name = user.name;
-      expect(scope.name).toBe(user.name);
+        expect(scope.name).toBe('');
+        scope.name = user.name;
+        expect(scope.name).toBe(user.name);
 
-      expect(scope.signUp()).toBe(false);
-      expect(scope.errorMessage).toEqual('You have to agree to the Terms and Conditions');
+        expect(scope.signUp()).toBe(false);
+        expect(scope.errorMessage).toEqual('You have to agree to the Terms and Conditions');
+      });
     });
 
     it('should validate if form has valid data', function() {
@@ -155,10 +161,11 @@ describe('Sign up', function() {
   });
 
   describe('Register web service call', function() {
-    beforeEach(inject(function($rootScope, $injector, $controller, userJSON, registerJSON, AuthService) {
+    beforeEach(inject(function($rootScope, $injector, $controller, userJSON, registerJSON, apiJSON, AuthService) {
       scope.username = user.email;
       scope.name = user.name;
       scope.password = user.password;
+      // registerRequestHandler = $httpBackend.when('POST', '/api/register').respond(200, apiJSON.validUser);
       ctrl = $controller('SignupCtrl', {
         '$scope': scope
       });
@@ -170,6 +177,7 @@ describe('Sign up', function() {
       expect(scope).toBeDefined();
 
       expect(scope.signUp).toBeDefined();
+      $httpBackend.flush();
     });
 
     it('should set is loading to true when sign up is called and back to false once finished loading', function() {

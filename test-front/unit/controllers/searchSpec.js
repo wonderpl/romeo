@@ -4,12 +4,13 @@ describe('Search Controller', function() {
 
   var scope, $httpBackend, ctrl;
   var results;
-  beforeEach(module('RomeoApp', 'mockedObject'));
+  beforeEach(module('RomeoApp', 'mockedObject', 'mockedFeed'));
 
-  beforeEach(inject(function($rootScope, $controller, $injector, $location, searchResults) {
+  beforeEach(inject(function($rootScope, $controller, $injector, $location, searchResults, apiJSON) {
     scope = $rootScope.$new();
     scope.search = {};
     $httpBackend = $injector.get('$httpBackend');
+    authRequestHandler = $httpBackend.when('GET', '/api').respond(200, apiJSON.validUser);
     results = searchResults.results;
     ctrl = $controller('SearchCtrl', {
       '$scope': scope
@@ -17,6 +18,7 @@ describe('Search Controller', function() {
   }));
 
   afterEach(function() {
+    $httpBackend.flush();
     $httpBackend.verifyNoOutstandingExpectation();
     $httpBackend.verifyNoOutstandingRequest();
   });
