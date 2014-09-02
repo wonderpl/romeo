@@ -15,6 +15,7 @@
                 ns + '.profile',
             'ngRoute',
             'ngCookies',
+            'angular-medium-editor',
             'angularFileUpload',
             'angulartics',
             'angulartics.google.analytics'] /* module dependencies */);

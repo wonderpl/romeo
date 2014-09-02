@@ -11,11 +11,11 @@
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
     {% assets filters="cssmin", output="gen/app.%(version)s.css",
-      "assets/vendor/css/spectrum.css",
-      "assets/vendor/css/medium-editor.css",
-      "assets/vendor/css/medium-editor-default.css",
-      "assets/css/app.css",
-      "bower/select2/select2.css"
+      "bower/spectrum/spectrum.css",
+      "bower/select2/select2.css",
+      "bower/medium-editor/dist/css/medium-editor.css",
+      "bower/medium-editor/dist/css/themes/default.css",
+      "assets/css/app.css"
     %}
     <link rel="stylesheet" href="{{ ASSET_URL }}"/>
     {% endassets %}
@@ -42,24 +42,25 @@
 
   <div id="liveScripts">
     <!--[if lt IE 9]>
-        <script type="text/javascript" src="aight.min.js"></script>
+        <script type="text/javascript" src="bower/aight/aight.min.js"></script>
     <![endif]-->
 
     {% block vendorjs %}
         {% assets filters="rjsmin", output="gen/vendor.%(version)s.js",
-            "assets/vendor/js/jquery.js",
-            "assets/vendor/js/angular-file-upload/angular-file-upload-shim.min.js",
-            "assets/vendor/js/angular/angular.js",
-            "assets/vendor/js/angular/angular-route.js",
-            "assets/vendor/js/angular/angular-cookies.js",
-            "assets/vendor/js/angular/angular-localstorage.js",
-            "assets/vendor/js/angular-file-upload/angular-file-upload.min.js",
-            "assets/vendor/js/angulartics-0.16.1/angulartics.min.js",
-            "assets/vendor/js/angulartics-0.16.1/angulartics-ga.min.js",
-            "assets/vendor/js/moment.js",
-            "assets/vendor/js/spectrum.js",
-            "assets/vendor/js/medium-editor.js",
-            "bower/select2/select2.js"
+            "bower/jquery/dist/jquery.js",
+            "bower/moment/moment.js",
+            "bower/select2/select2.js",
+            "bower/spectrum/spectrum.js",
+            "bower/angular/angular.js",
+            "bower/angular-route/angular-route.js",
+            "bower/angular-cookies/angular-cookies.js",
+            "bower/angular-local-storage/angular-local-storage.js",
+            "bower/medium-editor/dist/js/medium-editor.js",
+            "bower/angular-medium-editor/dist/angular-medium-editor.js",
+            "bower/ng-file-upload/angular-file-upload-shim.min.js",
+            "bower/ng-file-upload/angular-file-upload.min.js",
+            "bower/angulartics/dist/angulartics.min.js",
+            "bower/angulartics/dist/angulartics-ga.min.js"
         %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
     {% endblock %}
 
@@ -84,9 +85,7 @@
             "assets/scripts/directives/**/*.js",
 
             "assets/app/**/*.js",
-            "assets/app/**/**/*.js",
-
-            "assets/vendor/js/angular-medium-editor.js"
+            "assets/app/**/**/*.js"
         %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
     {% endblock %}
 
