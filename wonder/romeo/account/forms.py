@@ -91,12 +91,12 @@ def username_validator():
 
 
 class RegistrationForm(Form):
-    username = wtforms.TextField(validators=[
+    username = wtforms.StringField(validators=[
         wtforms.validators.InputRequired(), wtforms.validators.Email(),
         email_validator(), username_validator()])
     password = wtforms.PasswordField(validators=[
         wtforms.validators.InputRequired(), wtforms.validators.Length(min=8)])
-    display_name = wtforms.TextField(validators=[
+    display_name = wtforms.StringField(validators=[
         wtforms.validators.InputRequired()])
     location = wtforms.SelectField(choices=COUNTRY_CODES)
     remember = wtforms.BooleanField()
@@ -108,9 +108,9 @@ class RegistrationForm(Form):
 
 class ExternalLoginForm(Form):
     external_system = wtforms.SelectField(choices=EXTERNAL_SYSTEM_CHOICES)
-    external_token = wtforms.TextField(validators=[wtforms.validators.InputRequired()])
-    metadata = wtforms.TextField()
-    username = wtforms.TextField(validators=[
+    external_token = wtforms.StringField(validators=[wtforms.validators.InputRequired()])
+    metadata = wtforms.StringField()
+    username = wtforms.StringField(validators=[
         wtforms.validators.Optional(), wtforms.validators.Email(),
         email_validator(), username_validator()])
     location = wtforms.SelectField(choices=COUNTRY_CODES, validators=[
@@ -197,7 +197,7 @@ class ExternalLoginForm(Form):
 
 
 class LoginForm(Form):
-    username = wtforms.TextField()
+    username = wtforms.StringField()
     password = wtforms.PasswordField()
     remember = wtforms.BooleanField()
 
@@ -215,12 +215,12 @@ class LoginForm(Form):
 
 
 class AccountUserForm(BaseForm):
-    display_name = wtforms.TextField()
+    display_name = wtforms.StringField()
     location = wtforms.SelectField(choices=COUNTRY_CODES)
-    title = wtforms.TextField()
-    description = wtforms.TextField()
-    website_url = wtforms.TextField(validators=[wtforms.validators.URL()])
-    search_keywords = wtforms.TextField()
+    title = wtforms.StringField()
+    description = wtforms.StringField()
+    website_url = wtforms.StringField(validators=[wtforms.validators.URL()])
+    search_keywords = wtforms.StringField()
     profile_cover = wtforms.FileField(validators=[ImageData('profile_cover', thumbnails=True)])
     avatar = wtforms.FileField(validators=[ImageData('avatar', thumbnails=True)])
     contactable = wtforms.BooleanField(validators=[JsonBoolean()])
@@ -235,7 +235,7 @@ class ChangePasswordForm(Form):
 
 class AccountUserConnectionForm(BaseForm):
     user = wtforms.IntegerField()
-    message = wtforms.TextField()
+    message = wtforms.StringField()
 
     class Meta:
         model = AccountUserConnection
@@ -318,7 +318,7 @@ def send_connection_acceptance_email(sender_id, recipient_id):
 
 
 class AccountPaymentForm(Form):
-    payment_token = wtforms.TextField(validators=[wtforms.validators.Required()])
+    payment_token = wtforms.StringField(validators=[wtforms.validators.Required()])
 
     def validate_payment_token(self, field):
         if field.data:

@@ -9,6 +9,7 @@ from flask.ext.login import current_user
 from flask.ext.wtf import Form
 from wonder.common.sqs import background_on_sqs
 from wonder.common.imaging import resize
+from wonder.common.forms import email_validator
 from wonder.romeo import db
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.dolly import get_categories, push_video_data
@@ -233,7 +234,8 @@ class VideoLocaleForm(Form):
 
 
 class VideoCollaboratorForm(BaseForm):
-    email = wtforms.StringField(validators=[wtforms.validators.Required(), wtforms.validators.Email()])
+    email = wtforms.StringField(validators=[
+        wtforms.validators.Required(), wtforms.validators.Email(), email_validator()])
     name = wtforms.StringField(validators=[wtforms.validators.Required()])
     can_download = wtforms.BooleanField(validators=[JsonBoolean()])
     can_comment = wtforms.BooleanField(validators=[JsonBoolean()])
