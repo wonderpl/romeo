@@ -7,7 +7,7 @@
             currentAccount = null,
             loginAttempts = 0,
             originalUrl = null,
-            checkingLogin = null,
+            checkingLogin = { request: null, response: null },
             externalCredentials = null;
 
         function _saveAccountAndUserDetails(res) {
@@ -27,22 +27,32 @@
         }
 
         function _loginCheck() {
-            if (checkingLogin === null) {
+            if (checkingLogin.request === null) {
+                checkingLogin.response = new $q.defer();
                 debug.log('LoginCheck: - Hit API see if we are logged in');
-                checkingLogin = $http({method: 'GET', url: '/api' });
+                checkingLogin.request = $http({method: 'GET', url: '/api' });
 
-                checkingLogin.then(function (res) {
-                    debug.info("LoginCheck: Logged in");
-                    _saveAccountAndUserDetails(res);
+                checkingLogin.request.then(function (res) {
+                    if (res.auth_status === "logged_in") {
+                        debug.info("LoginCheck: Logged in");
+                        _saveAccountAndUserDetails(res);
+                        checkingLogin.response.resolve(res);
+                    }
+                    else {
+                        debug.info("LoginCheck: Logged out");
+                        _resetAccountAndUserDetails();
+                        checkingLogin.response.reject(res);
+                    }
                 }, function (res){
                     _resetAccountAndUserDetails();
+                    checkingLogin.response.reject('request failed');
                     debug.info("LoginCheck: Not logged in");
                 });
             } else {
                 debug.info('LoginCheck: Found request, return it');
             }
 
-            return checkingLogin;
+            return checkingLogin.response.promise;
         }
 
         var service = {
@@ -59,13 +69,13 @@
                 if (! service.isAuthenticated() ) {
                     _loginCheck();
                 }
-                return checkingLogin;
+                return checkingLogin.response.promise;
             },
             requireCollaborator: function () {
                 var deferred = new $q.defer();
                 service.requireAuthenticated();
-                if (checkingLogin) {
-                    checkingLogin.then(function (res) {
+                if (checkingLogin.request) {
+                    checkingLogin.response.promise.then(function (res) {
                         if (service.isCollaborator()) {
                             deferred.resolve();
                         }
@@ -88,8 +98,8 @@
                 var deferred = new $q.defer();
                 var msg = 'You need to pay for that';
                 service.requireAuthenticated();
-                if (checkingLogin) {
-                    checkingLogin.then(function (res) {
+                if (checkingLogin.request) {
+                    checkingLogin.response.promise.then(function (res) {
                         if (service.isAuthenticated()) {
                             deferred.resolve();
                             if (!service.isCreator()) {
@@ -118,7 +128,7 @@
             },
             // Is the current user authenticated?
             isAuthenticated: function () {
-              return !!currentUser;
+              return (currentUser !== null);
             },
             // Is the current user an collaborator or better?
             // All logged in users are at least collaborators
@@ -131,7 +141,7 @@
               return (service.isAuthenticated() && angular.equals(currentAccount.account_type, 'content_owner'));
             },
             logout: function (redirectTo) {
-              $http.post('/api/logout').then(function () {
+              $http.get('/logout').then(function () {
                 _resetAccountAndUserDetails();
                 $location.path(redirectTo || '/login');
               });
