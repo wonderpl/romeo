@@ -16,8 +16,8 @@
           var query = { q : scope.q, location: e.val };
           scope.$emit('search', query);
         });
-        AccountService.getGeoIpLocation().then(function (data) {
-          scope.location = data;
+        AccountService.getGeoIpLocation().then(function (res) {
+          scope.location = res.data || res;
           select2.select2('val', scope.location);
         });
       }

@@ -2,8 +2,8 @@
 * Methods for interacting with the Account web services
 */
 angular.module('RomeoApp.services').factory('AccountService',
-    ['DataService', 'localStorageService', 'AuthService', '$q',
-    function (DataService, localStorageService, AuthService, $q) {
+    ['$http', 'DataService', 'localStorageService', 'AuthService', '$q',
+    function ($http, DataService, localStorageService, AuthService, $q) {
 
     'use strict';
     var debug = new DebugClass('AccountService');
@@ -26,7 +26,7 @@ angular.module('RomeoApp.services').factory('AccountService',
                     debug.log('User already in AccountService');
                 else
                     debug.log('User loaded into AccountService');
-                
+
                 ID = _id;
             });
             User = AuthService.getUser();
@@ -58,7 +58,7 @@ angular.module('RomeoApp.services').factory('AccountService',
     };
 
     Account.getGeoIpLocation = function () {
-        return DataService.request({method: 'JSONP', url: 'https://secure.wonderpl.com/ws/location/?_callback=JSON_CALLBACK'});
+        return $http({method: 'JSONP', url: 'https://secure.wonderpl.com/ws/location/?_callback=JSON_CALLBACK'});
     };
 
     /*
