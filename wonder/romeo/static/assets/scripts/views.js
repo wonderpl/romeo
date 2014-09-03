@@ -665,7 +665,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <div class=\"center-container\">\n" +
     "    <div class=\"center-object\">\n" +
     "      <div class=\"wrapper\">\n" +
-    "        <form ng-submit=\"submitted = false; loginForm.$valid && login();\" name=\"loginForm\">\n" +
+    "        <form ng-submit=\"submitted = true; loginForm.$valid && login();\" name=\"loginForm\">\n" +
     "          <fieldset>\n" +
     "            <legend class=\"accessibility\">Log in details</legend>\n" +
     "            <ul class=\"form-fields  login-view__form\">\n" +
@@ -698,7 +698,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "                </div>\n" +
     "\n" +
     "                <p>Or</p>\n" +
-    "                <div class=\"btn-center\"> \n" +
+    "                <div class=\"btn-center\">\n" +
     "                  <a class=\"btn btn--positive login-view__submit\" ng-disabled=\"disableButtons()\" ng-class=\"{'btn--disabled': disableButtons()}\" ng-click=\"isLoading.twitter = true; showTwitterSignin();\">Sign in with Twitter<img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading.twitter\" /></a>\n" +
     "\n" +
     "                  <a class=\"btn btn--positive login-view__submit\" ng-disabled=\"disableButtons()\" ng-class=\"{'btn--disabled': disableButtons()}\" ng-click=\"isLoading.signup = true; showSignup();\">Sign up <img class=\"login-view__loading-indicator\" src=\"/static/assets/img/loading.gif\" ng-show=\"isLoading.signup\" /></a>\n" +
@@ -2094,14 +2094,15 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <button ng-class=\"{'active' : !profile.contactable }\" ng-click=\"profile.contactable = false\">No</button>\n" +
     "  </div>\n" +
     "  <label><span class=\"required\">*</span> Searchable terms:</label>\n" +
-    "    <div class=\"profile-edit__search_terms lookup--field milli\"\n" +
+    "    <input type=\"hidden\" ui-select2=\"select2Options\" ng-model=\"search_keywords\" data-placeholder=\"Make yourself searchable by adding relevant terms\">\n" +
+    "    <!-- div class=\"profile-edit__search_terms lookup--field milli\"\n" +
     "      medium-editor\n" +
     "      me-required\n" +
     "      ng-class=\"{ 'error' : form.errors.search_keywords }\"\n" +
     "      data-placeholder=\"(~ profile.search_keywords ? ' ' : 'Make yourself searchable by adding relevant terms.' ~)\"\n" +
     "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
     "      ng-model=\"profile.search_keywords\">\n" +
-    "    </div>\n" +
+    "    </div -->\n" +
     "  </section>\n" +
     "</div>"
   );

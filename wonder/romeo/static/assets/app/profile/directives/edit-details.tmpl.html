@@ -46,13 +46,14 @@
     <button ng-class="{'active' : !profile.contactable }" ng-click="profile.contactable = false">No</button>
   </div>
   <label><span class="required">*</span> Searchable terms:</label>
-    <div class="profile-edit__search_terms lookup--field milli"
+    <input type="hidden" ui-select2="select2Options" ng-model="search_keywords" data-placeholder="Make yourself searchable by adding relevant terms">
+    <!-- div class="profile-edit__search_terms lookup--field milli"
       medium-editor
       me-required
       ng-class="{ 'error' : form.errors.search_keywords }"
       data-placeholder="{{ profile.search_keywords ? ' ' : 'Make yourself searchable by adding relevant terms.' }}"
       options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
       ng-model="profile.search_keywords">
-    </div>
+    </div -->
   </section>
 </div>

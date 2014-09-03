@@ -158,9 +158,10 @@ function ProfileCtrl($scope, $location, $routeParams, DataService, UserService, 
       display_name    : $scope.profile.display_name,
       description     : $scope.profile.description,
       title           : $scope.profile.title,
-      website         : $scope.profile.website,
+      website_url     : $scope.profile.website_url,
       location        : $scope.profile.location,
-      search_keywords : $scope.profile.search_keywords
+      search_keywords : $scope.profile.search_keywords,
+      contactable     : $scope.profile.contactable
     };
     UserService.updateUser(data).then(function () {
       $scope.flags.isEdit = false;

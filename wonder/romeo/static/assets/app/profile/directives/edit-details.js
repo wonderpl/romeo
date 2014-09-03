@@ -20,11 +20,17 @@ function editDetails($templateCache) {
               sep = '';
           angular.forEach($scope.form.errors, function(value, key) {
             errorMsg += sep + value;
-            sep = ', '; 
+            sep = ', ';
           });
           return errorMsg;
         }
       };
+      $scope.select2Options = {
+        'multiple': true,
+        'simple_tags': true,
+        'tags': ['Apple', 'Banana', 'Ice cream', 'Jelly']  // Can be empty list.
+      };
+      $scope.search_keywords = $scope.profile.search_keywords.split(',');
 
       $scope.$watch('profile.description', function (newValue, oldValue) {
         if (! angular.equals(newValue, oldValue)) {
@@ -48,6 +54,11 @@ function editDetails($templateCache) {
       $scope.$watch('form.valid', function (newValue, oldValue) {
         if (! angular.equals(newValue, oldValue)) {
           $scope.flags.isFormValid = newValue;
+        }
+      });
+      $scope.$watch('search_keywords', function (newValue, oldValue) {
+        if (! angular.equals(newValue, oldValue)) {
+          $scope.profile.search_keywords = newValue ? newValue.join(',') : '';
         }
       });
     }
