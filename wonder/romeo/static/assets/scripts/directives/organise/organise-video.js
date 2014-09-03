@@ -36,22 +36,30 @@ function OrganiseVideo ($templateCache, modal) {
       });
 
       function getThumbnail() {
+        // TODO: Use text layer instead so that user-selected thumbnail can be in background
+        if ($scope.video.status == 'uploading') {
+          return '/static/assets/img/video-list-states/uploading.png';
+        } else if ($scope.video.status == 'processing') {
+          return '/static/assets/img/video-list-states/processing.png';
+        } else if ($scope.video.status == 'error') {
+          return '/static/assets/img/video-list-states/error.png';
+        }
+
+        // Use server-provided thumbnail, if provided
+        if ($scope.video.thumbnail_url) {
+          return $scope.video.thumbnail_url;
+        }
+
+        // Else try to select most appropriate from thumbnails list
         var thumbs = $scope.video.thumbnails.items;
         var thumbnail = 'http://cf.c.ooyala.com/d5Ymkwbzpnzj05yZGaGDFkj5Qfz6lB5C/Ut_HKthATH4eww8X4xMDoxOjBhOzV3Va'; // Default (88888888) thumbnail
 
-        if ($scope.video.status == 'uploading') {
-          thumbnail = '/static/assets/img/video-list-states/uploading.png';
-        } else if ($scope.video.status == 'processing') {
-          thumbnail = '/static/assets/img/video-list-states/processing.png';
-        } else if ($scope.video.status == 'error') {
-          thumbnail = '/static/assets/img/video-list-states/error.png';
-        } else if (thumbs.length > 0 && thumbs[0].width !== 0) {
+        if (thumbs.length > 0) {
           thumbnail = thumbs[0].url;
         }
-
-        for (var i =0; i < thumbs.length; ++i) {
+        for (var i = 0; i < thumbs.length; ++i) {
           if (thumbs[i].height == 180) {
-            return thumbs[i].url;
+            thumbnail = thumbs[i].url;
           }
         }
         return thumbnail;
