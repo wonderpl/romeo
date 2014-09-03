@@ -64,11 +64,13 @@
         var service = {
             restoreUrl: function (url) {
                 debug.info('restore url');
-                $location.path('/profile'); // originalUrl || url || '/organise');
+                $location.path(originalUrl || url || '/organise');
                 originalUrl = null;
             },
             redirect: function (url) {
-                originalUrl = $location.url();
+                // If the url wasn't login set the url to redirect back to after login
+                if ($location.url() && $location.url().indexOf('/login') === -1)
+                    originalUrl = $location.url();
                 $location.path(url || '/login');
             },
             requireOnlyFromRoute: function () {
