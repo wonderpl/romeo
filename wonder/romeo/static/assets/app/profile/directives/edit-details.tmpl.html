@@ -31,14 +31,14 @@
   <label>Website or homepage:</label>
     <div class="profile-edit__website input--field"
       medium-editor
-      ng-class="{ 'error' : form.errors.website }"
-      data-placeholder="{{ profile.website ? ' ' : 'Link http://' }}"
+      ng-class="{ 'error' : form.errors.website_url }"
+      data-placeholder="{{ profile.website_url ? ' ' : 'Link http://' }}"
       options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
-      ng-model="profile.website">
+      ng-model="profile.website_url">
     </div>
 
   <label><span class="required">*</span> Share your location:</label>
-    <location-selector class="input--field"></location-selector>
+    <location-selector class="input--field" location="profile.location"></location-selector>
 
   <label>Show contact button:</label>
     <div class="profile-edit__contact-button toggle--field">

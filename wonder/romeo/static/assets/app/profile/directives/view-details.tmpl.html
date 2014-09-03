@@ -1,13 +1,13 @@
 <div class="profile-details">
 	<h2 class="profile-details__name no-spacing" ng-bind="profile.display_name"></h2>
-	
+
 	<div ng-show="profile.title" class="profile-details__job-title" style="text-align: center;">{{ profile.jobTitle }}</div>
 
 	<div class="profile-details__description" ng-bind-html="profile.description"></div>
 
 	<ul class="profile-details__optional">
-		<li class="profile-details__website" data-website="{{ profile.website }}"><a href="{{ profile.website }}">{{ profile.website }}</a></li>
-		<li ng-if="profile.location" class="profile-details__location" data-location="{{ profile.location }}">{{ profile.location }}</li>
+		<li class="profile-details__website"><a href="{{ profile.website_url }}">{{ profile.website_url }}</a></li>
+		<li ng-if="profile.location" class="profile-details__location">{{ profile.location }}</li>
 	</ul>
 
 	<p class="profile-details__legend f--sans">Collaborated with:</p>

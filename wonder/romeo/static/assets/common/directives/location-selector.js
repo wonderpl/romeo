@@ -5,20 +5,12 @@
 			restrict : 'E',
 			replace : true,
 			template : $templateCache.get('directives/location-selector.tmpl.html'),
+      scope: {
+        location: '='
+      },
       controller: function ($scope) {
         LocationService.getAll().then(function (response) {
           $scope.locations = response.data.country.items;
-        });
-      },
-      link: function (scope, element, attrs) {
-        var select2 = element.find('.js-select2').select2();
-        select2.on('change', function (e){
-          var query = { q : scope.q, location: e.val };
-          scope.$emit('search', query);
-        });
-        AccountService.getGeoIpLocation().then(function (res) {
-          scope.location = res.data || res;
-          select2.select2('val', scope.location);
         });
       }
 		};

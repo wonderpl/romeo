@@ -2079,14 +2079,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <label>Website or homepage:</label>\n" +
     "    <div class=\"profile-edit__website input--field\"\n" +
     "      medium-editor\n" +
-    "      ng-class=\"{ 'error' : form.errors.website }\"\n" +
-    "      data-placeholder=\"(~ profile.website ? ' ' : 'Link http://' ~)\"\n" +
+    "      ng-class=\"{ 'error' : form.errors.website_url }\"\n" +
+    "      data-placeholder=\"(~ profile.website_url ? ' ' : 'Link http://' ~)\"\n" +
     "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
-    "      ng-model=\"profile.website\">\n" +
+    "      ng-model=\"profile.website_url\">\n" +
     "    </div>\n" +
     "\n" +
     "  <label><span class=\"required\">*</span> Share your location:</label>\n" +
-    "    <location-selector class=\"input--field\"></location-selector>\n" +
+    "    <location-selector class=\"input--field\" location=\"profile.location\"></location-selector>\n" +
     "\n" +
     "  <label>Show contact button:</label>\n" +
     "    <div class=\"profile-edit__contact-button toggle--field\">\n" +
@@ -2111,14 +2111,14 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('profile/directives/view-details.tmpl.html',
     "<div class=\"profile-details\">\n" +
     "\t<h2 class=\"profile-details__name no-spacing\" ng-bind=\"profile.display_name\"></h2>\n" +
-    "\t\n" +
+    "\n" +
     "\t<div ng-show=\"profile.title\" class=\"profile-details__job-title\" style=\"text-align: center;\">(~ profile.jobTitle ~)</div>\n" +
     "\n" +
     "\t<div class=\"profile-details__description\" ng-bind-html=\"profile.description\"></div>\n" +
     "\n" +
     "\t<ul class=\"profile-details__optional\">\n" +
-    "\t\t<li class=\"profile-details__website\" data-website=\"(~ profile.website ~)\"><a href=\"(~ profile.website ~)\">(~ profile.website ~)</a></li>\n" +
-    "\t\t<li ng-if=\"profile.location\" class=\"profile-details__location\" data-location=\"(~ profile.location ~)\">(~ profile.location ~)</li>\n" +
+    "\t\t<li class=\"profile-details__website\"><a href=\"(~ profile.website_url ~)\">(~ profile.website_url ~)</a></li>\n" +
+    "\t\t<li ng-if=\"profile.location\" class=\"profile-details__location\">(~ profile.location ~)</li>\n" +
     "\t</ul>\n" +
     "\n" +
     "\t<p class=\"profile-details__legend f--sans\">Collaborated with:</p>\n" +
@@ -2304,9 +2304,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('directives/location-selector.tmpl.html',
     " <div class=\"location-selector icon-text\">\n" +
     "  <label class=\"label location-selector__label  accessibility\" for=\"location-selector__location\">Location</label>\n" +
-    "  <select class=\"location-selector js-select2\" ng-model=\"location\">\n" +
+    "  <select class=\"location-selector\" ui-select2 ng-model=\"location\">\n" +
     "    <option ng-repeat=\"location in locations\" value=\"(~ location.code ~)\">(~ location.name ~)</option>\n" +
     "  </select>\n" +
-    "</div>"
+    "</div>;"
   );
 } ]);
