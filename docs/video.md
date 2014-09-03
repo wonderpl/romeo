@@ -756,3 +756,33 @@ Resource                             | With Permission
 `/api/video/<video_id>`              | any
 `/api/video/<video_id>/comments`     | `can_comment`
 `/api/video/<video_id>/download_url` | `can_download`
+
+## Search Keyword Suggestions
+
+Use the `/api/search_keywords` to get a list of suggested terms for the `search_keywords` property
+on video & account user.
+
+```http
+GET /api/search_keywords?prefix=<prefix>&start=<i>&size=<n> HTTP/1.1
+```
+
+Parameter      | Required  | Value             | Description
+:------------- | :-------- | :---------------- | :----------
+prefix         | yes       | String            | Prefix text to match.
+start          | no        | 0-based integer   | Used for paging through the result items.
+size           | no        | Result page size  | Number of items to return - max 50.
+
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+ "search_keyword": {
+  "total": 1,
+  "items": [
+   "Test"
+  ]
+ }
+}
+```

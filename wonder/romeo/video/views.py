@@ -1,3 +1,4 @@
+from pkg_resources import resource_string
 from functools import wraps, partial
 from sqlalchemy import func
 from flask import Blueprint, request, Response, render_template, url_for, json
@@ -6,7 +7,7 @@ from flask.ext.restful import abort
 from flask.ext.restful.reqparse import RequestParser
 from wonder.romeo import db
 from wonder.romeo.core.dolly import get_categories, get_video_embed_content
-from wonder.romeo.core.rest import Resource, api_resource, support_bulk_save
+from wonder.romeo.core.rest import Resource, api_resource, cache_control, support_bulk_save
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.s3 import s3connection, video_bucket, media_bucket
 from wonder.romeo.core.ooyala import ooyala_request, get_video_data
@@ -53,6 +54,26 @@ def video_embed(videoid):
 class CategoriesResource(Resource):
     def get(self):
         return dict(category=dict(items=get_categories()))
+
+
+@api_resource('/search_keywords')
+class SearchKeywordsResource(Resource):
+
+    decorators = []
+    default_terms = resource_string(__name__, 'search_keywords.txt').split('\n')
+
+    query_parser = RequestParser()
+    query_parser.add_argument('prefix', type=str, required=True)
+    query_parser.add_argument('size', type=int, choices=map(str, range(50)), default=10)
+    query_parser.add_argument('start', type=int, default=0)
+
+    @cache_control(max_age=86400)
+    def get(self):
+        args = self.query_parser.parse_args()
+        prefix = args.prefix.lower()
+        matches = [(100, t) for t in self.default_terms if t.lower().startswith(prefix)]
+        items = sorted(matches, key=lambda x: x[0])[args.start:args.start + args.size]
+        return dict(search_keyword=dict(items=items and zip(*items)[1], total=len(matches)))
 
 
 @api_resource('/account/<int:account_id>/tags')

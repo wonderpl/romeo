@@ -20,7 +20,7 @@ class SearchResource(Resource):
     query_parser.add_argument('src', type=str, action='append',
                               choices=['video', 'content_owner', 'collaborator'],
                               default=['video'])
-    query_parser.add_argument('size', type=int, choices=range(50), default=10)
+    query_parser.add_argument('size', type=int, choices=map(str, range(50)), default=10)
     query_parser.add_argument('start', type=int, default=0)
 
     @cache_control(max_age=3600)
