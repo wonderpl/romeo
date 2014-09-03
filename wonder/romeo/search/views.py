@@ -1,8 +1,14 @@
+import re
+from sqlalchemy import func
 from flask.ext.restful.reqparse import RequestParser
 from wonder.romeo.core.rest import Resource, api_resource, cache_control
 from wonder.romeo.core.util import COUNTRY_CODES
-from wonder.romeo.video.models import Video
+from wonder.romeo.video.models import Video, VideoCollaborator
 from wonder.romeo.account.models import Account, AccountUser
+
+
+VIDEO_OWNER_USER_QUERY_RE = re.compile('owner_user:(\d+)')
+VIDEO_COLLABORATOR_QUERY_RE = re.compile('collaborator:(\d+)')
 
 
 @api_resource('/search')
@@ -29,8 +35,9 @@ class SearchResource(Resource):
         return result
 
     def _db_match(self, dbquery, size, start, query, *args):
-        match = lambda x: x.ilike('%' + query + '%')
-        dbquery = dbquery.filter(*[match(a) for a in args])
+        if query:
+            match = lambda x: x.ilike('%' + query + '%')
+            dbquery = dbquery.filter(*[match(a) for a in args])
         total = dbquery.count()
         dbquery = dbquery.offset(start).limit(size)
         return dbquery, total
@@ -47,6 +54,28 @@ class SearchResource(Resource):
 
     def _search_video(self, query, location, size, start=0):
         videos = Video.query.filter_by(deleted=False, status='published')
+
+        owner_filter = VIDEO_OWNER_USER_QUERY_RE.match(query.strip())
+        if owner_filter:
+            videos = videos.join(
+                AccountUser,
+                (AccountUser.account_id == Video.account_id) &
+                (AccountUser.id == owner_filter.group(1))
+            ).distinct()
+            query = ''
+
+        collab_filter = VIDEO_COLLABORATOR_QUERY_RE.match(query.strip())
+        if collab_filter:
+            videos = videos.join(
+                VideoCollaborator,
+                VideoCollaborator.video_id == Video.id
+            ).join(
+                AccountUser,
+                (func.lower(AccountUser.username) == func.lower(VideoCollaborator.email)) &
+                (AccountUser.id == collab_filter.group(1))
+            ).distinct()
+            query = ''
+
         videos, total = self._db_match(videos, size, start, query, Video.title)
         items = [self._video_item(v) for v in videos]
         return dict(items=items, total=total)

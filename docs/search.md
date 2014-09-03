@@ -15,6 +15,8 @@ src            | no        | `video`, `content_owner`, `collaborator` | Data sou
 start          | no        | 0-based integer   | Used for paging through the result items.
 size           | no        | Result page size  | Number of items to return - max 50.
 
+To filter video results by an owning user use `src=video&q=owner_user:<user_id>` and for
+videos that a user has collaborated on use `src=video&q=collaborator:<user_id>`.
 
 ```http
 HTTP/1.1 200 OK
