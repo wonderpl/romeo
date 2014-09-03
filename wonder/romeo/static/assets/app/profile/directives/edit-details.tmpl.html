@@ -40,20 +40,12 @@
   <label><span class="required">*</span> Share your location:</label>
     <location-selector class="input--field" location="profile.location"></location-selector>
 
-  <label>Show contact button:</label>
+  <label>Show &ldquo;Connect with me&rdquo; button:</label>
     <div class="profile-edit__contact-button toggle--field">
     <button ng-class="{'active' : profile.contactable }" ng-click="profile.contactable = true">Yes</button>
     <button ng-class="{'active' : !profile.contactable }" ng-click="profile.contactable = false">No</button>
   </div>
-  <label><span class="required">*</span> Searchable terms:</label>
+  <label><span class="required">*</span> Make yourself easy to find, add your skills and interests:</label>
     <input type="hidden" ui-select2="select2Options" ng-model="search_keywords" data-placeholder="Make yourself searchable by adding relevant terms">
-    <!-- div class="profile-edit__search_terms lookup--field milli"
-      medium-editor
-      me-required
-      ng-class="{ 'error' : form.errors.search_keywords }"
-      data-placeholder="{{ profile.search_keywords ? ' ' : 'Make yourself searchable by adding relevant terms.' }}"
-      options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
-      ng-model="profile.search_keywords">
-    </div -->
   </section>
 </div>

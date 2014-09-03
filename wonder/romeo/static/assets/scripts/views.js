@@ -2088,21 +2088,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <label><span class=\"required\">*</span> Share your location:</label>\n" +
     "    <location-selector class=\"input--field\" location=\"profile.location\"></location-selector>\n" +
     "\n" +
-    "  <label>Show contact button:</label>\n" +
+    "  <label>Show &ldquo;Connect with me&rdquo; button:</label>\n" +
     "    <div class=\"profile-edit__contact-button toggle--field\">\n" +
     "    <button ng-class=\"{'active' : profile.contactable }\" ng-click=\"profile.contactable = true\">Yes</button>\n" +
     "    <button ng-class=\"{'active' : !profile.contactable }\" ng-click=\"profile.contactable = false\">No</button>\n" +
     "  </div>\n" +
-    "  <label><span class=\"required\">*</span> Searchable terms:</label>\n" +
+    "  <label><span class=\"required\">*</span> Make yourself easy to find, add your skills and interests:</label>\n" +
     "    <input type=\"hidden\" ui-select2=\"select2Options\" ng-model=\"search_keywords\" data-placeholder=\"Make yourself searchable by adding relevant terms\">\n" +
-    "    <!-- div class=\"profile-edit__search_terms lookup--field milli\"\n" +
-    "      medium-editor\n" +
-    "      me-required\n" +
-    "      ng-class=\"{ 'error' : form.errors.search_keywords }\"\n" +
-    "      data-placeholder=\"(~ profile.search_keywords ? ' ' : 'Make yourself searchable by adding relevant terms.' ~)\"\n" +
-    "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
-    "      ng-model=\"profile.search_keywords\">\n" +
-    "    </div -->\n" +
     "  </section>\n" +
     "</div>"
   );
