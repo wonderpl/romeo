@@ -12,16 +12,6 @@ function LoginController ($scope, $location, SecurityService) {
   $scope.tandc = false;
   $scope.isLoading = {};
 
-  $scope.handleRedirect = function (response) {
-    $scope.isLoading = false;
-    var params = $location.search();
-    if (params.redirect) {
-      console.log('redirect to ->' + params.redirect);
-    } else {
-      $location.url('/organise');
-    }
-  };
-
   $scope.login = function () {
     $scope.isLoading.login = true;
     return SecurityService.login($scope.username, $scope.password).then(
@@ -33,7 +23,10 @@ function LoginController ($scope, $location, SecurityService) {
       function (response) {
         console.log(response);
         $scope.isLoading.login = false;
-        if (response.data.error) {
+        if (response.data.error && response.data.error == 'invalid_request') {
+          $scope.errors = 'Invalid email or password';
+        }
+        else if (response.data.error) {
           $scope.errors = 'login error: ' + response.data.error;
         }
       });

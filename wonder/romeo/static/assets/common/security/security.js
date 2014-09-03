@@ -63,15 +63,14 @@
 
         var service = {
             restoreUrl: function (url) {
-                debug.info('restore url');
-                $location.path(originalUrl || url || '/organise');
+                $location.url(originalUrl || url || '/organise');
                 originalUrl = null;
             },
             redirect: function (url) {
                 // If the url wasn't login set the url to redirect back to after login
                 if ($location.url() && $location.url().indexOf('/login') === -1 && $location.url().indexOf('/organise') === -1)
                     originalUrl = $location.url();
-                $location.path(url || '/login');
+                $location.url(url || '/login');
             },
             requireOnlyFromRoute: function () {
                 debug.info('service require requireOnlyFromRoute');
@@ -127,27 +126,27 @@
                 service.requireAuthenticated();
                 if (checkingLogin.request) {
                     checkingLogin.response.promise.then(function (res) {
-                        if (service.isAuthenticated()) {
+                        if (service.isCreator()) {
                             deferred.resolve();
-                            if (!service.isCreator()) {
+                        }
+                        else {
+                            if (service.isAuthenticated()) {
                                 // @TODO: If the user isn't a creator but a valid user show modal
                                 alert(msg);
                             }
-                        }
-                        else {
                             deferred.reject();
                         }
                     });
                 }
                 else {
-                    if (service.isAuthenticated()) {
+                    if (service.isCreator()) {
                         deferred.resolve();
-                        if (!service.isCreator()) {
+                    }
+                    else {
+                        if (service.isAuthenticated()) {
                             // @TODO: If the user isn't a creator but a valid user show modal
                             alert(msg);
                         }
-                    }
-                    else {
                         deferred.reject();
                     }
                 }
@@ -167,6 +166,16 @@
             isCreator: function () {
               return (service.isAuthenticated() && angular.equals(currentAccount.account_type, 'content_owner'));
             },
+            // Is the current users registration complete (for twitter users)?
+            isProfileComplete: function () {
+              return !!(currentUser && currentUser.user_name);
+            },
+            getUser: function () {
+                return currentUser;
+            },
+            getAccount: function () {
+                return currentAccount;
+            },
             logout: function (redirectTo) {
               $http.get('/logout').then(function () {
                 debug.info('logout');
@@ -177,8 +186,8 @@
               });
             },
             login: function (username, password) {
-                var deferred = new $q.defer();
                 if (loginAttempts >= 3) {
+                    var deferred = new $q.defer();
                     deferred.reject({ data: { error: 'Too many login attempts' } });
                     return deferred.promise;
                 }
@@ -198,15 +207,18 @@
                     ++loginAttempts;
                 });
             },
-            getUser: function () {
-                return currentUser;
-            },
-            getAccount: function () {
-                return currentAccount;
-            },
-            // Is the current users registration complete (for twitter users)?
-            isProfileComplete: function () {
-              return !!(currentUser && currentUser.user_name);
+            registration: function (data) {
+                return $http({
+                    method: 'post',
+                    url: '/api/register',
+                    data: data
+                }).success(function (data) {
+                    debug.info('Registration successful');
+                    debug.dir(data);
+                    _saveAccountAndUserDetails(data);
+                }).error(function () {
+                    // debugger;
+                });
             },
             ExternalLogin: function (profile) {
                 if (! externalCredentials) {
@@ -240,19 +252,6 @@
             getExternalCredentials: function (credentials) {
                 debug.info('setExternalCredentials ' + credentials);
                 externalCredentials = credentials;
-            },
-            registration: function (data) {
-                return $http({
-                    method: 'post',
-                    url: '/api/register',
-                    data: data
-                }).success(function (data) {
-                    debug.info('Registration successful');
-                    debug.dir(data);
-                    _saveAccountAndUserDetails(data);
-                }).error(function () {
-                    // debugger;
-                });
             }
         };
 
@@ -272,7 +271,6 @@
           }],
 
           $get: ['$location', 'SecurityService', function ($location, security) {
-            var originalUrl = null;
             var service = {
 
               // Require that there is an authenticated user
