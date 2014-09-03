@@ -11,7 +11,7 @@ from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.s3 import s3connection, video_bucket, media_bucket
 from wonder.romeo.core.ooyala import ooyala_request, get_video_data
 from wonder.romeo.core.util import gravatar_url, get_random_filename
-from wonder.romeo.account.views import dolly_account_view, get_dollyuser, account_item
+from wonder.romeo.account.views import dolly_account_view, user_view, get_dollyuser, account_item
 from wonder.romeo.account.models import AccountUser
 from .models import (Video, VideoTag, VideoTagVideo, VideoThumbnail,
                      VideoPlayerParameter, VideoComment, VideoCollaborator)
@@ -177,8 +177,9 @@ class AccountVideosResource(Resource):
 
     @dolly_account_view()
     def get(self, account, dollyuser):
-        items = map(_video_item, Video.query.filter_by(
-            account_id=account.id, deleted=False).order_by('date_added').all())
+        query = Video.query.filter_by(
+            account_id=account.id, deleted=False).order_by('date_added')
+        items = map(_video_item, query.all())
         return dict(video=dict(items=items, total=len(items)))
 
     @commit_on_success
@@ -197,6 +198,23 @@ class AccountVideosResource(Resource):
                 {'Location': video.href}
         else:
             return dict(error='invalid_request', form_errors=form.errors), 400
+
+
+@api_resource('/user/<int:user_id>/collaborator_videos')
+class UserCollaboratorVideosResource(Resource):
+
+    @user_view()
+    def get(self, user):
+        query = Video.query.filter_by(deleted=False).join(
+            VideoCollaborator,
+            VideoCollaborator.video_id == Video.id
+        ).join(
+            AccountUser,
+            (func.lower(AccountUser.username) == func.lower(VideoCollaborator.email)) &
+            (AccountUser.id == user.id)
+        ).order_by(Video.date_added)
+        items = map(_video_item, query.all())
+        return dict(video=dict(items=items, total=len(items)))
 
 
 @api_resource('/v/<int:video_id>')

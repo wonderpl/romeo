@@ -156,6 +156,14 @@ Content-Type: application/json
 }
 ```
 
+To get a list of all videos the user is collaborating on:
+
+```http
+GET /api/user/<user_id>/collaborator_videos HTTP/1.1
+```
+
+Response format same as above.
+
 ### Video create
 
 To create a new video `POST` to the account videos resource with the desired
