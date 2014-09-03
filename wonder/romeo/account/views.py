@@ -275,6 +275,8 @@ def _unique_collaborator_users(user, public=False):
     from wonder.romeo.video.views import collaborator_users
     seen = dict()
     for collaborator, user in collaborator_users(account_id=user.account_id):
+        if public and not user:
+            continue
         if collaborator.email not in seen:
             # map video collaborator to user connection
             connection = dict(
@@ -287,15 +289,12 @@ def _unique_collaborator_users(user, public=False):
             if not user:
                 del data['user']
                 data['collaborator'] = dict(
+                    id=collaborator.id,
+                    href=collaborator.href,
                     display_name=collaborator.name,
                     avatar=gravatar_url(collaborator.email),
+                    email=collaborator.email,
                 )
-                if not public:
-                    data['collaborator'].update(
-                        id=collaborator.id,
-                        href=collaborator.href,
-                        email=collaborator.email,
-                    )
             seen[collaborator.email] = data
     return seen.values()
 

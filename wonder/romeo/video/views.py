@@ -505,7 +505,7 @@ def _collaborator_user_item(user, public=False):
 
 def _collaborator_item(collaborator, user=None, public=False):
     data = dict(
-        display_name=collaborator.name,
+        display_name=user and user.display_name or collaborator.name,
         avatar=user and user.avatar or gravatar_url(collaborator.email),
         user=user and _collaborator_user_item(user, public=public),
     )
