@@ -38,7 +38,7 @@
               message : 'No invitations have been sent.'}
             );
           });
-        }
+        };
 
         UserService.getConnections(true).then(function (data) {
           $scope.connections = data;

@@ -1,9 +1,9 @@
 (function(){
 
+  'use strict';
+
   angular.module('RomeoApp.services').factory('CollaboratorsService',
     ['$http', function ($http) {
-
-    'use strict';
 
     var service = {};
 
