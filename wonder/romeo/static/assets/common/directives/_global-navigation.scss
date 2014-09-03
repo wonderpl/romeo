@@ -1,102 +1,74 @@
 @import "compass/css3";
 
-$global-nav-width: 16em;
+$global-nav-width: 320px;
 
 @mixin transition-transform($left) {
-  @include single-transition(transform, 500ms, ease);
+  @include single-transition(transform, 0.15s, ease);
   @include transform((translate3d($left,0,0)), true);
   @include backface-visibility(hidden);
 }
 
 .global-nav-wrapper {
-    position: relative;
+  position: relative;
   @include visuallyhidden;
 }
-#global-nav {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: $cold-black;
-  color: $white;
-  min-height: 100%;
-  width: $global-nav-width;
-
-  ul {
-      display: block;
-      list-style: none;
-      margin: 0 $half-spacing-unit $half-spacing-unit;
+  .global-nav {
+    width: $global-nav-width;
+    min-height: 100%;
+    position: absolute;
+    top:  0;
+    left: 0;
+    color: $white;
+    background-color: $cold-black;
   }
-}
-.global-nav__item {
-  display: block;
-  padding: 0;
-  margin: 0;
-  border-bottom: 1px $light-grey solid;
-  overflow: hidden;
-  max-height: 50px;
-}
-.global-nav__link {
-  display: block;
-  width: 100%;
-  padding-right: $half-spacing-unit / 2;
-  padding-left:  $half-spacing-unit / 2;
-  font-variant: small-caps;
-  font-weight: bold;
-  line-height: 48px;
-  font-family: $heading-font-family;
-  text-transform: lowercase;
-  letter-spacing: 0.1em;
-  color: $white;
-  text-decoration: none;
-  border: none;
-  overflow: hidden;
 
-  > .avatar {
-    display: inline-block;
-    vertical-align: middle;
-    margin: 0 5px 0 0;
-    position: relative;
-    left: auto;
-    z-index: 1002;
-  }
-}
-/*
- * Style for page & navigation when nav showing
+
+/**
+ * Push other page content over when the global-nav is showing.
  */
 .js-ready {
+
   .global-nav-wrapper {
-    position: fixed;
     width: $global-nav-width;
-    clip: auto;
     height: 100%;
     margin: 0;
     overflow: auto;
-
+    position: fixed;
+    clip: auto;
     @include transform((translate3d(-$global-nav-width,0,0)), true);
     @include backface-visibility(hidden);
   }
 }
+
+
 .js-nav--3dtransitions {
+
   .container {
-    @include single-transition(transform, 500ms, ease);
+    @include single-transition(transform, 0.15s, ease);
     -webkit-transform: initial;
-    transform: initial;
+            transform: initial;
   }
+
   .global-nav-wrapper {
     @include transition-transform(-$global-nav-width);
   }
 }
+
+
 .js-nav {
   overflow: hidden;
+
   .container {
     @include transition-transform($global-nav-width);
     pointer-events: none;
   }
+
   .global-nav-wrapper {
     @include transition-transform(0);
     width: 100%;
   }
+
   .page-header ul {
-    visibility: hidden;
+    //visibility: hidden;
   }
 }
