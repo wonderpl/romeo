@@ -1,0 +1,29 @@
+/**
+ * _components.global-nav-menu.scss
+ */
+.global-nav-menu {
+  list-style: none;
+  margin-left: 0;
+  border: 0;
+
+  > li {
+    padding: 0;
+    border: 0;
+  }
+}
+  .global-nav-menu__item {
+    display: list-item;
+  }
+    .global-nav-menu__link {
+      font-weight: 200;
+      font-size: 0.875em;
+      line-height: 2.5;
+      font-family: $heading-font-family;
+      color: #fff;
+      border: none;
+
+      &:hover,
+      &:active {
+        color: rgba(#fff, 0.5);
+      }
+    }

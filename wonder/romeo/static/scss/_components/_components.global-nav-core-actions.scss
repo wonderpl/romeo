@@ -1,0 +1,10 @@
+/**
+ * _components.global-nav-core-actions.scss
+ */
+.global-nav-core-actions {
+  margin-bottom: $base-spacing-unit;
+
+  > li + li {
+    margin-left: $half-spacing-unit;
+  }
+}
