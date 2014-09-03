@@ -61,6 +61,14 @@
           return dfd.promise;
         };
 
+        service.getPublicUser = function (id) {
+          return $http.get('/api/user/' + id + '?public');
+        };
+
+        service.getPublicConnections = function (id) {
+          return $http.get('/api/user/' + id + '/connections?public');
+        };
+
         return service;
     }
     angular.module('RomeoApp.services').factory('UserService', ['SecurityService', 'DataService', '$http', '$q', UserService]);

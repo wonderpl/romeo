@@ -1,61 +1,60 @@
 /*
 * Methods for interacting with the Account web services
 */
-angular.module('RomeoApp.services').factory('AccountService',
-    ['$http', '$q', 'DataService', 'localStorageService', 'AuthService', 'SecurityService',
-    function ($http, $q, DataService, localStorageService, AuthService, SecurityService) {
-
+(function () {
     'use strict';
-    var debug = new DebugClass('AccountService');
+    function AccountService($http, $q, DataService, localStorageService, AuthService, SecurityService) {
+        var debug = new DebugClass('AccountService');
 
-    var Account = {},
-        User = null;
+        var service = {},
+            User = null;
 
-    /*
-    * Used to send PATCH requests to the webservice, updating individual parts of the user account
-    */
-    Account.updateAccount = function(data) {
-        var url = '/api/account/' + Account.getAccountId();
-        return DataService.request({url: url, method: 'PATCH', data: data });
-    };
+        /*
+        * Used to send PATCH requests to the webservice, updating individual parts of the user account
+        */
+        service.updateAccount = function(data) {
+            var url = '/api/account/' + service.getAccountId();
+            return $http({url: url, method: 'PATCH', data: data });
+        };
 
-    /*
-    * Send a PATCH request with an updated cover image
-    */
-    Account.updateCoverImage = function(data) {
-        return DataService.uploadImage( ('/api/account/' + Account.getAccountId()), 'profile_cover', data);
-    };
+        /*
+        * Send a PATCH request with an updated cover image
+        */
+        service.updateCoverImage = function(data) {
+            return DataService.uploadImage( ('/api/account/' + service.getAccountId()), 'profile_cover', data);
+        };
 
-    /*
-    * Send a PATCH request with an updated avatar image
-    */
-    Account.updateAvatar = function(data) {
-        return DataService.uploadImage( ('/api/account/' + Account.getAccountId()), 'avatar', data);
-    };
+        /*
+        * Send a PATCH request with an updated avatar image
+        */
+        service.updateAvatar = function(data) {
+            return DataService.uploadImage( ('/api/account/' + service.getAccountId()), 'avatar', data);
+        };
 
-    Account.getGeoIpLocation = function () {
-        return $http({method: 'JSONP', url: 'https://secure.wonderpl.com/ws/location/?_callback=JSON_CALLBACK'});
-    };
+        service.getGeoIpLocation = function () {
+            return $http({method: 'JSONP', url: 'https://secure.wonderpl.com/ws/location/?_callback=JSON_CALLBACK'});
+        };
 
-    // New code using SecurityService
+        // New code using SecurityService
 
-    Account.getAccount = function () {
-        return SecurityService.getAccount();
-    };
+        service.getAccount = function () {
+            return SecurityService.getAccount();
+        };
 
-    Account.getAccountId = function () {
-        return SecurityService.getAccount() ? SecurityService.getAccount().id : 0;
-    };
+        service.getAccountId = function () {
+            return SecurityService.getAccount() ? SecurityService.getAccount().id : 0;
+        };
 
-    /*
-    * Expose the methods to the service
-    */
-    return {
-        updateAccount: Account.updateAccount,
-        updateCoverImage: Account.updateCoverImage,
-        updateAvatar: Account.updateAvatar,
-        getGeoIpLocation: Account.getGeoIpLocation,
-        getAccount: Account.getAccount,
-        getAccountId: Account.getAccountId
-    };
-}]);
+        service.getPublicAccount = function (account_id) {
+            return $http.get('/api/account/' + account_id + '?public');
+        };
+
+        /*
+        * Expose the methods to the service
+        */
+        return service;
+    }
+
+    angular.module('RomeoApp.services').factory('AccountService',
+        ['$http', '$q', 'DataService', 'localStorageService', 'AuthService', 'SecurityService', AccountService]);
+})();

@@ -20,7 +20,7 @@ function ProfileRouteProvider($routeProvider, securityAuthorizationProvider) {
 
 angular.module('RomeoApp.profile').config(['$routeProvider', 'securityAuthorizationProvider', ProfileRouteProvider]);
 
-function ProfileCtrl($scope, $location, $routeParams, DataService, UserService, UploadService, modal) {
+function ProfileCtrl($scope, $location, $routeParams, AccountService, UserService, UploadService, modal) {
   var ProfileController = {};
 
   function init() {
@@ -71,11 +71,13 @@ function ProfileCtrl($scope, $location, $routeParams, DataService, UserService, 
 
   ProfileController.loadUserDetails = function() {
     if ($routeParams.id) {
-      DataService.request({url: ('/api/user/' + $routeParams.id)}).then(function(response){
-        $scope.profile = response;
+      UserService.getPublicUser($routeParams.id).then(function(res) {
+        $scope.profile = res.data;
         $scope.flags.accountId = $routeParams.id;
-      }, function (response) {
-        console.dir(response);
+        UserService.getPublicConnections($routeParams.id).then(function (res) {
+          $scope.connections = res.data;
+        });
+      }, function (res) {
         $scope.$emit('notify', {
           status : 'error',
           title : 'User not found',
@@ -194,7 +196,7 @@ function ProfileCtrl($scope, $location, $routeParams, DataService, UserService, 
   return ProfileController;
 }
 
-angular.module('RomeoApp.profile').controller('ProfileCtrl', ['$scope', '$location', '$routeParams', 'DataService', 'UserService', 'UploadService', 'modal', ProfileCtrl]);
+angular.module('RomeoApp.profile').controller('ProfileCtrl', ['$scope', '$location', '$routeParams', 'AccountService', 'UserService', 'UploadService', 'modal', ProfileCtrl]);
 
 })();
 
