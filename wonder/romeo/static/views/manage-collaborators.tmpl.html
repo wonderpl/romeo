@@ -6,10 +6,9 @@
 
   <p>invite new collaborator</p>
 
-  <select ui-select2="select2Options" ng-model="select2">
-    <option ng-repeat="connection in connections" ng-if="connection.user" value="{{ connection.user.id }}">{{ connection.user.display_name }}</option>
-    <option ng-repeat="connection in connections" ng-if="connection.collaborator" value="{{ connection.collaborator.id }}">{{ connection.collaborator.display_name }}</option>
-  </select>
+
+<input type="hidden" ui-select2="select2Options" ng-model="test" />
+
 </div>
 <div class="modal__footer">
   <div class="modal__actions">

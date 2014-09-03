@@ -13,13 +13,14 @@
       controller : function ($scope) {
 
         $scope.select2Options = {
-            'multiple': true
+          width: '100%',
+          multiple: true
         };
 
-        UserService.getConnections().success(function (data) {
-          console.log('all connections');
+        UserService.getConnections(true).then(function (data) {
+          $scope.connections = data;
           console.log(data);
-          $scope.connections = data.connection.items;
+          $scope.select2Options.tags = data;
         });
 
         $scope.$watch(
@@ -27,8 +28,6 @@
           function(newValue, oldValue) {
             if (newValue && newValue !== oldValue) {
               CollaboratorsService.getCollaborators(newValue).then(function (data) {
-                console.log('video collaborators');
-                console.log(data);
                 $scope.collaborators = data.collaborator.items;
               });
             }

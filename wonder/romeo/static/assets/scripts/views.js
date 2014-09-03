@@ -731,10 +731,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <p>invite new collaborator</p>\n" +
     "\n" +
-    "  <select ui-select2=\"select2Options\" ng-model=\"select2\">\n" +
-    "    <option ng-repeat=\"connection in connections\" ng-if=\"connection.user\" value=\"(~ connection.user.id ~)\">(~ connection.user.display_name ~)</option>\n" +
-    "    <option ng-repeat=\"connection in connections\" ng-if=\"connection.collaborator\" value=\"(~ connection.collaborator.id ~)\">(~ connection.collaborator.display_name ~)</option>\n" +
-    "  </select>\n" +
+    "\n" +
+    "<input type=\"hidden\" ui-select2=\"select2Options\" ng-model=\"test\" />\n" +
+    "\n" +
     "</div>\n" +
     "<div class=\"modal__footer\">\n" +
     "  <div class=\"modal__actions\">\n" +
