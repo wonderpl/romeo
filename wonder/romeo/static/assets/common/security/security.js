@@ -69,7 +69,7 @@
             },
             redirect: function (url) {
                 // If the url wasn't login set the url to redirect back to after login
-                if ($location.url() && $location.url().indexOf('/login') === -1)
+                if ($location.url() && $location.url().indexOf('/login') === -1 && $location.url().indexOf('/organise') === -1)
                     originalUrl = $location.url();
                 $location.path(url || '/login');
             },
