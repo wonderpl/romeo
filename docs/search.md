@@ -24,21 +24,32 @@ Content-Type: application/json
  "video": {
   "total": 20,
   "items": [
-   {"href": "/api/video/13", ...},
-   {...}
+   {
+    "id": 17414644,
+    "href": "/api/video/17414644?public",
+    "title": "Video title",
+    "thumbnail_url": "http://path/to/cover/thumbnail",
+    "description": null,
+    "duration": 60
+   }
   ]
  },
  "content_owner": {
   "total": 10,
   "items": [
-   {"href": "/api/account/123", ...},
-   {...}
- ]},
+   {
+    "id": 79687783,
+    "href": "/api/user/79687783?public",
+    "display_name": "The Juicery",
+    "avatar": "http://path/to/avatar/img",
+    "description": null
+   }
+  ]
+ },
  "collaborator": {
-  "total": 2,
+  "total": 0,
   "items": [
-   {"href": "/api/account/123", ...},
-   {...}
- ]}
+  ]
+ }
 }
 ```

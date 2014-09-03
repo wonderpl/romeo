@@ -17,7 +17,7 @@ from wonder.romeo.core.dolly import DollyUser
 from wonder.romeo.core.util import gravatar_url
 from .forms import (RegistrationForm, ExternalLoginForm, LoginForm,
                     AccountUserForm, AccountUserConnectionForm, AccountPaymentForm)
-from .models import UserProxy, AccountUser, AccountUserConnection
+from .models import UserProxy, Account, AccountUser, AccountUserConnection
 
 
 CALLBACK_JS_FUNCTION_RE = re.compile('^[\w.]+$')
@@ -31,14 +31,18 @@ def get_dollyuser(account):
         return DollyUser(account.dolly_user, account.dolly_token)
 
 
-def dolly_account_view(f):
-    @wraps(f)
-    def decorator(self, account_id):
-        account = current_user.account
-        if account_id == current_user.account.id:
-            return f(self, account, get_dollyuser(account))
-        else:
-            abort(403, error='access_denied')
+def dolly_account_view(public=False):
+    def decorator(f):
+        @wraps(f)
+        def wrapper(self, account_id):
+            account = Account.query.filter_by(id=account_id).first_or_404()
+            if (public is True or
+                    (public is None and 'public' in request.args) or
+                    account_id == current_user.account_id):
+                return f(self, account, get_dollyuser(account))
+            else:
+                abort(403, error='access_denied')
+        return wrapper
     return decorator
 
 
@@ -196,27 +200,26 @@ class ExternalLoginResource(BaseLoginResource):
     form_class = ExternalLoginForm
 
 
-def _user_item(user):
+def _user_item(user, public=False):
     return dict(
         (k, getattr(user, k))
-        for k in ('id', 'href', 'location', 'display_name',
-                  'title', 'description', 'website_url',
+        for k in ('id', 'public_href' if public else 'href', 'location',
+                  'display_name', 'title', 'description', 'website_url',
                   'search_keywords', 'profile_cover', 'avatar', 'contactable')
     )
 
 
-def user_view(current_user_only=True):
+def user_view(public=False):
     def decorator(f):
         @wraps(f)
         def wrapper(self, user_id, *args, **kwargs):
-            if current_user_only:
-                if user_id == current_user.id:
-                    user = current_user.user
-                else:
-                    abort(403, error='access_denied')
+            user = AccountUser.query.filter_by(active=True, id=user_id).first_or_404()
+            if (public is True or
+                    (public is None and 'public' in request.args) or
+                    user_id == current_user.id):
+                return f(self, user, *args, **kwargs)
             else:
-                user = AccountUser.query.filter_by(active=True, id=user_id).first_or_404()
-            return f(self, user, *args, **kwargs)
+                abort(403, error='access_denied')
         return wrapper
     return decorator
 
@@ -224,9 +227,9 @@ def user_view(current_user_only=True):
 @api_resource('/user/<int:user_id>')
 class UserResource(Resource):
 
-    @user_view()
+    @user_view(public=None)
     def get(self, user):
-        return _user_item(user)
+        return _user_item(user, public='public' in request.args)
 
     @commit_on_success
     @user_view()
@@ -244,23 +247,31 @@ class UserResource(Resource):
             return dict(error='invalid_request', form_errors=form.errors), 400
 
 
-def _connection_item(connection):
+def _connection_item(connection, public=False):
     user = connection.connection
-    return dict(
-        id=connection.connection_id,
-        href=connection.href,
-        state=connection.state,
+    data = dict(
         user=dict(
             id=user.id,
-            href=user.href,
+            href=user.public_href if public else user.href,
             display_name=user.display_name,
-            email=None if connection.state == 'pending' else user.email,
             avatar=user.avatar,
+            title=user.title,
+            email=None if connection.state == 'pending' else user.email,
         ) if user else None
     )
+    if public:
+        if data['user']:
+            del data['user']['email']
+    else:
+        data.update(
+            id=connection.connection_id,
+            href=connection.href,
+            state=connection.state,
+        )
+    return data
 
 
-def _unique_collaborator_users(user):
+def _unique_collaborator_users(user, public=False):
     from wonder.romeo.video.views import collaborator_users
     seen = dict()
     for collaborator, user in collaborator_users(account_id=user.account_id):
@@ -272,16 +283,19 @@ def _unique_collaborator_users(user):
                 href=None,
                 state='collaborator',
             )
-            data = _connection_item(type('C', (object,), connection)())
+            data = _connection_item(type('C', (object,), connection)(), public=public)
             if not user:
                 del data['user']
                 data['collaborator'] = dict(
-                    id=collaborator.id,
-                    href=collaborator.href,
                     display_name=collaborator.name,
-                    email=collaborator.email,
                     avatar=gravatar_url(collaborator.email),
                 )
+                if not public:
+                    data['collaborator'].update(
+                        id=collaborator.id,
+                        href=collaborator.href,
+                        email=collaborator.email,
+                    )
             seen[collaborator.email] = data
     return seen.values()
 
@@ -289,10 +303,11 @@ def _unique_collaborator_users(user):
 @api_resource('/user/<int:user_id>/connections')
 class UserConnectionsResource(Resource):
 
-    @user_view()
+    @user_view(public=None)
     def get(self, user):
-        items = map(_connection_item, user.connections) +\
-            _unique_collaborator_users(user)
+        public = 'public' in request.args
+        items = [_connection_item(c, public=public) for c in user.connections] +\
+            _unique_collaborator_users(user, public=public)
         return dict(connection=dict(items=items, total=len(items)))
 
     @commit_on_success
@@ -326,10 +341,10 @@ def _update_users(account_id, **kwargs):
     AccountUser.query.filter_by(account_id=account_id, **args_are_null).update(kwargs)
 
 
-def account_item(account, dollyuser, full=True):
+def account_item(account, dollyuser, full=True, public=False):
     item = dict(
         id=account.id,
-        href=url_for('api.account', account_id=account.id),
+        href=account.public_href if public else account.href,
         account_type=account.account_type,
         name=account.name,
     )
@@ -358,9 +373,9 @@ def account_item(account, dollyuser, full=True):
 @api_resource('/account/<int:account_id>')
 class AccountResource(Resource):
 
-    @dolly_account_view
+    @dolly_account_view(public=None)
     def get(self, account, dollyuser):
-        return account_item(account, dollyuser)
+        return account_item(account, dollyuser, public='public' in request.args)
 
     account_parser = RequestParser()
     account_parser.add_argument('display_name', dest='set_display_name')
@@ -368,7 +383,7 @@ class AccountResource(Resource):
     account_parser.add_argument('avatar', location='files', dest='set_avatar_image')
     account_parser.add_argument('profile_cover', location='files', dest='set_profile_image')
 
-    @dolly_account_view
+    @dolly_account_view()
     def patch(self, account, dollyuser):
         if not dollyuser:
             abort(403, error='access_denied', message='"content_owner" account required')
@@ -395,7 +410,7 @@ class AccountResource(Resource):
 class AccountPaymentResource(Resource):
 
     @commit_on_success
-    @dolly_account_view
+    @dolly_account_view()
     def post(self, account, dollyuser):
         request.json['payment_token'] = request.json.get('stripeToken')
         form = AccountPaymentForm(csrf_enabled=False)

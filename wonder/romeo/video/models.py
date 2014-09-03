@@ -44,6 +44,18 @@ class Video(db.Model):
         return url_for('api.video', video_id=self.id)
 
     @property
+    def public_href(self):
+        return self.href + '?public'
+
+    @property
+    def player_url(self):
+        if self.dolly_instance:
+            return current_app.config['DOLLY_EMBED_URL_FMT'].format(
+                instanceid=self.dolly_instance)
+        else:
+            return url_for('video.video_embed', videoid=self.id, _external=True)
+
+    @property
     def web_url(self):
         """Link to angular view for this video."""
         return url_for('root.app', _external=True) + '#/video/' + str(self.id)

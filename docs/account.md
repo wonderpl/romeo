@@ -473,6 +473,7 @@ Content-Type: application/json
      "id": 123,
      "href": /api/user/123,
      "display_name": "name",
+     "title": null,
      "email": null,
      "avatar": null
     }
@@ -485,6 +486,7 @@ Content-Type: application/json
      "id": 80036952,
      "href": "/api/user/80036952",
      "display_name": "Collaborator with account",
+     "title": null,
      "avatar": "http://path/to/avatar/img",
      "email": "noreply@rockpack.com"
     }

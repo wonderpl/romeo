@@ -1287,7 +1287,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        <a  ng-href=\"#/video/(~ item.id ~)\" class=\"media non-link\">\n" +
     "          <div class=\"media__img one-third search__thumbnail\">\n" +
     "            <div class=\"ratio  ratio--16x9\">\n" +
-    "              <img class=\"ratio__src\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" style=\"background-image : url('(~ item.thumbnails.items[0].url ~)');\" />\n" +
+    "              <img class=\"ratio__src\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" style=\"background-image : url('(~ item.thumbnail_url ~)');\" />\n" +
     "            </div>\n" +
     "          </div>\n" +
     "          <div class=\"media__body\">\n" +

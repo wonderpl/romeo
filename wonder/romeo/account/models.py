@@ -31,6 +31,14 @@ class Account(db.Model):
     dolly_user = Column(CHAR(22))
     dolly_token = Column(String(128))
 
+    @property
+    def href(self):
+        return url_for('api.account', account_id=self.id)
+
+    @property
+    def public_href(self):
+        return self.href + '?public'
+
     def set_account_type(self, account_type):
         self.account_type = account_type
         if account_type == 'content_owner' and not self.dolly_user:
@@ -94,6 +102,10 @@ class AccountUser(db.Model):
     @property
     def href(self):
         return url_for('api.user', user_id=self.id)
+
+    @property
+    def public_href(self):
+        return self.href + '?public'
 
     @property
     def name(self):

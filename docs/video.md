@@ -229,6 +229,7 @@ Content-Type: application/json
  "category": "some cat",
  "link_url": "http://x.com",
  "link_title": "test",
+ "player_url": "http://server/embed/video_id",
  "player_logo_url": "http://path/to/logo/img",
  "account": {
   "href": "/api/account/14511293",
@@ -257,6 +258,9 @@ Content-Type: application/json
     "description": "desc"
    }
   ]
+ },
+ "collaborators" {
+  "href": "/api/video/51668773/collaborators"
  }
 }
 ```
@@ -663,7 +667,8 @@ Content-Type: application/json
     "permissions": [],
     "user": {
      "id": 80036952,
-     "href": "/api/user/80036952"
+     "href": "/api/user/80036952",
+     "title": null
     }
    }
   ]

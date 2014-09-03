@@ -1,6 +1,6 @@
 from functools import wraps, partial
 from sqlalchemy import func
-from flask import Blueprint, current_app, request, Response, render_template, url_for, json
+from flask import Blueprint, request, Response, render_template, url_for, json
 from flask.ext.login import current_user
 from flask.ext.restful import abort
 from flask.ext.restful.reqparse import RequestParser
@@ -62,7 +62,7 @@ class AccountTagsResource(Resource):
     tag_parser.add_argument('label', type=str)
     tag_parser.add_argument('description', type=str)
 
-    @dolly_account_view
+    @dolly_account_view()
     def get(self, account, dollyuser):
         tags = VideoTag.query.filter_by(
             account_id=account.id
@@ -79,7 +79,7 @@ class AccountTagsResource(Resource):
         items = [_tag_item(*t) for t in tags]
         return dict(tag=dict(items=items, total=len(items)))
 
-    @dolly_account_view
+    @dolly_account_view()
     @commit_on_success
     def post(self, account, dollyuser):
         form = VideoTagForm(account_id=account.id)
@@ -159,7 +159,7 @@ class TagResource(Resource):
 @api_resource('/account/<int:account_id>/upload_args')
 class UploadArgsResource(Resource):
 
-    @dolly_account_view
+    @dolly_account_view()
     def get(self, account, dollyuser):
         filetype = request.args.get('type')
         if filetype in ('profile_cover', 'avatar'):
@@ -175,14 +175,14 @@ class UploadArgsResource(Resource):
 @api_resource('/account/<int:account_id>/videos')
 class AccountVideosResource(Resource):
 
-    @dolly_account_view
+    @dolly_account_view()
     def get(self, account, dollyuser):
         items = map(_video_item, Video.query.filter_by(
             account_id=account.id, deleted=False).order_by('date_added').all())
         return dict(video=dict(items=items, total=len(items)))
 
     @commit_on_success
-    @dolly_account_view
+    @dolly_account_view()
     def post(self, account, dollyuser):
         if account.account_type != 'content_owner':
             abort(403, error='access_denied')
@@ -211,8 +211,8 @@ class PublicVideoResource(Resource):
         return video.get_dolly_data()
 
 
-def _video_item(video, full=False, with_account=False):
-    fields = ('id', 'href', 'status', 'date_added', 'date_updated', 'title')
+def _video_item(video, full=False, with_account=False, public=False):
+    fields = ('id', 'status', 'date_added', 'date_updated', 'title')
     if full:
         fields += ('strapline', 'description', 'category', 'link_url', 'link_title', 'duration')
     data = {f: getattr(video, f) for f in fields}
@@ -223,12 +223,10 @@ def _video_item(video, full=False, with_account=False):
             data[f] = v.isoformat()
 
     if full:
+        data['collaborators'] = dict(href=url_for(
+            'api.videocollaborators', video_id=video.id) + '?public' if public else '')
+        data['player_url'] = video.player_url
         data['player_logo_url'] = video.get_player_logo_url()
-
-    if with_account:
-        data['account'] = account_item(video.account, get_dollyuser(video.account), full=False)
-
-    if full:
         thumbnails = sorted(video.thumbnails, key=lambda t: t.width, reverse=True)
         data['thumbnail_url'] = thumbnails[0].url if thumbnails else None
         data['thumbnails'] = dict(
@@ -241,15 +239,23 @@ def _video_item(video, full=False, with_account=False):
         data['thumbnail_url'] = video.thumbnail
         data['thumbnails'] = dict(items=[{'url': video.thumbnail, 'width': 0, 'height': 0}])
 
-    data['tags'] = dict(
-        href=url_for('api.videotags', video_id=video.id),
-        items=map(_tag_item, video.tags),
-    )
+    if public:
+        data['href'] = video.public_href
+    else:
+        data['href'] = video.href
+        data['tags'] = dict(
+            href=url_for('api.videotags', video_id=video.id),
+            items=map(_tag_item, video.tags),
+        )
+
+    if with_account:
+        data['account'] = account_item(video.account, get_dollyuser(video.account),
+                                       full=False, public=public)
 
     return data
 
 
-def video_view(with_collaborator_permission=None):
+def video_view(with_collaborator_permission=None, public=False):
     def _valid_collaborator_permissions(user, video_id):
         return (with_collaborator_permission and
                 user.has_collaborator_permission(video_id, with_collaborator_permission))
@@ -258,7 +264,9 @@ def video_view(with_collaborator_permission=None):
         @wraps(f)
         def wrapper(self, video_id, *args, **kwargs):
             video = Video.query.filter_by(deleted=False, id=video_id).first_or_404()
-            if (_valid_collaborator_permissions(current_user, video_id) or
+            if (public is True or
+                    (public is None and 'public' in request.args) or
+                    _valid_collaborator_permissions(current_user, video_id) or
                     video.account_id == current_user.account_id):
                 return f(self, video, *args, **kwargs)
             else:
@@ -270,9 +278,10 @@ def video_view(with_collaborator_permission=None):
 @api_resource('/video/<int:video_id>')
 class VideoResource(Resource):
 
-    @video_view(with_collaborator_permission=True)
+    @video_view(with_collaborator_permission=True, public=None)
     def get(self, video):
-        return _video_item(video, full=True, with_account=True)
+        return _video_item(
+            video, full=True, with_account=True, public='public' in request.args)
 
     @commit_on_success
     @video_view()
@@ -349,7 +358,7 @@ class VideoDownloadUrlResource(Resource):
 @api_resource('/video/<int:video_id>/share_url')
 class VideoShareUrlResource(Resource):
 
-    @video_view()
+    @video_view(public=True)
     def get(self, video):
         if not video.dolly_instance:
             # Not published
@@ -373,7 +382,7 @@ def _source_content_url(assetid):
 @api_resource('/video/<int:video_id>/embed_code')
 class VideoEmbedCodeResource(Resource):
 
-    @video_view()
+    @video_view(public=True)
     def get(self, video):
         if not video.dolly_instance:
             # Not published
@@ -392,9 +401,7 @@ class VideoEmbedCodeResource(Resource):
         else:
             template = 'video/embed_simple.html'
 
-        embed_url = current_app.config['DOLLY_EMBED_URL_FMT'].format(
-            instanceid=video.dolly_instance)
-        html = render_template(template, video=video, embed_url=embed_url, **dimensions)
+        html = render_template(template, video=video, embed_url=video.player_url, **dimensions)
         return dict(html=html)
 
 
@@ -488,17 +495,29 @@ def collaborator_record(collaborator_id):
     return result
 
 
-def _collaborator_item(collaborator, user=None):
+def _collaborator_user_item(user, public=False):
     return dict(
-        id=collaborator.id,
-        href=collaborator.href,
-        display_name=collaborator.name,
-        # email=collaborator.email,
-        permissions=filter(None, [f if getattr(collaborator, f) else None
-                                  for f in dir(collaborator) if f.startswith('can_')]),
-        avatar=user and user.avatar or gravatar_url(collaborator.email),
-        user=user and dict(id=user.id, href=user.href)
+        id=user.id,
+        href=user.public_href if public else user.href,
+        title=user.title,
     )
+
+
+def _collaborator_item(collaborator, user=None, public=False):
+    data = dict(
+        display_name=collaborator.name,
+        avatar=user and user.avatar or gravatar_url(collaborator.email),
+        user=user and _collaborator_user_item(user, public=public),
+    )
+    if not public:
+        data.update(
+            id=collaborator.id,
+            href=collaborator.href,
+            permissions=filter(None, [f if getattr(collaborator, f) else None
+                                      for f in dir(collaborator) if f.startswith('can_')]),
+            # email=collaborator.email,
+        )
+    return data
 
 
 def collaborator_users(account_id=None, video_id=None):
@@ -523,14 +542,17 @@ def collaborator_users(account_id=None, video_id=None):
 @api_resource('/video/<int:video_id>/collaborators')
 class VideoCollaboratorsResource(Resource):
 
-    @video_view(with_collaborator_permission=True)
+    @video_view(with_collaborator_permission=True, public=None)
     def get(self, video):
-        items = [_collaborator_item(*c) for c in collaborator_users(video_id=video.id)]
+        public = 'public' in request.args
+        items = [_collaborator_item(c, u, public=public)
+                 for c, u in collaborator_users(video_id=video.id)]
         items.extend(
             dict(
                 display_name=user.name,
                 avatar=user.avatar or gravatar_url(user.email),
-                user=dict(id=user.id, href=user.href),
+                user=_collaborator_user_item(user, public=public),
+                owner=True,
             )
             for user in video.account.users
         )

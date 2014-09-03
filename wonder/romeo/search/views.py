@@ -38,10 +38,11 @@ class SearchResource(Resource):
     def _video_item(self, video):
         return dict(
             id=video.id,
+            href=video.public_href,
             title=video.title,
             description=video.description,
             thumbnail_url=video.thumbnail,
-            thumbnails=dict(items=[{'url': video.thumbnail, 'width': 0, 'height': 0}]),
+            duration=video.duration,
         )
 
     def _search_video(self, query, location, size, start=0):
@@ -53,6 +54,7 @@ class SearchResource(Resource):
     def _user_item(self, user):
         return dict(
             id=user.id,
+            href=user.public_href,
             display_name=user.display_name,
             description=user.description,
             avatar=user.avatar,
