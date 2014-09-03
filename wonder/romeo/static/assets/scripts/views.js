@@ -2288,17 +2288,17 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<div class=\"global-nav-wrapper\">\n" +
     "  <nav id=\"global-nav\" class=\"global-nav\" role=\"navigation\">\n" +
     "    <div class=\"wrapper\">\n" +
-    "      <div class=\"avatar  avatar--large\">\n" +
+    "      <div class=\"avatar  avatar--large  global-nav__avatar\">\n" +
     "        <img src=\"<!-- $spacer-gif -->\" alt=\"(~ account.display_name ~)\" class=\"avatar__img\" ng-style=\"profileStyle\">\n" +
     "      </div>\n" +
-    "      <ul class=\"list-inline  u---ta-center  global-nav-core-actions\">\n" +
+    "      <ul class=\"list-inline  t--center  global-nav-core-actions\">\n" +
     "        <li class=\"global-nav-core-actions__item\" ng-if=\"account\"><a href=\"#/profile\" class=\"global-nav-core-actions__link  btn  btn--blob  btn--light  simptip-position-bottom  simptip-smooth  simptip-movable\" title=\"View your profile page.\" data-tooltip=\"View your profile page.\"><i class=\"icon  icon--head\"></i></a></li><!--\n" +
     "     --><li class=\"global-nav-core-actions__item\"><a href=\"#/settings\" class=\"global-nav-core-actions__link  btn  btn--blob  btn--light  simptip-position-bottom  simptip-smooth  simptip-movable\" title=\"View and edit your settings.\" data-tooltip=\"View and edit your settings.\"><i class=\"icon  icon--cog\"></i></a></li><!--\n" +
     "     --><li class=\"global-nav-core-actions__item\"><a ng-click=\"logout()\" class=\"global-nav-core-actions__link  btn  btn--blob  btn--light  simptip-position-bottom  simptip-smooth  simptip-movable\" title=\"Sign out from Wonder Place.\" data-tooltip=\"Sign out from Wonder Place.\"><i class=\"icon  icon--exit\"></i></a></li>\n" +
     "      </ul>\n" +
     "      <ul class=\"list-ui  global-nav-menu\">\n" +
-    "        <li class=\"global-nav-menu__item\"><a href=\"#/\" title=\"Manage and organize your video library.\" class=\"global-nav-menu__link\">Organize</a></li>\n" +
-    "        <li ng-repeat=\"page in pages\" class=\"global-nav-menu__item\"><a href=\"(~ page.url ~)\" class=\"global-nav-menu__link\">(~ page.title ~)</a></li>\n" +
+    "        <li class=\"global-nav-menu__item\"><a href=\"#/\" title=\"Manage and organize your video library.\" class=\"global-nav-menu__link  icon-text\"><i class=\"icon  icon--layout  icon-text__icon\"></i>Organize</a></li>\n" +
+    "        <li ng-repeat=\"page in pages\" class=\"global-nav-menu__item\"><a href=\"(~ page.url ~)\" class=\"global-nav-menu__link  icon-text\"><i class=\"icon  icon--folder  icon-text__icon\"></i>(~ page.title ~)</a></li>\n" +
     "      </ul>\n" +
     "      <ul class=\"list-ui  global-nav-menu\">\n" +
     "        <li class=\"global-nav-menu__item\"><a href=\"#/tour\" title=\"Let us show you what Wonder Place has to offer.\" class=\"global-nav-menu__link\">Take a tour</a></li>\n" +

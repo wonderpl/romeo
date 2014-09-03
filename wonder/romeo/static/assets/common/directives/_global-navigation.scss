@@ -23,6 +23,10 @@ $global-nav-width: 320px;
   }
 
 
+.global-nav__avatar {
+  margin-top: $base-spacing-unit;
+}
+
 /**
  * Push other page content over when the global-nav is showing.
  */
