@@ -2117,11 +2117,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t<li ng-if=\"profile.location\" class=\"profile-details__location\">(~ profile.location ~)</li>\n" +
     "\t</ul>\n" +
     "\n" +
-    "\t<p class=\"profile-details__legend f--sans\">Collaborated with:</p>\n" +
-    "\t<ul class=\"profile-collaborators\" ng-show=\"collaborators\">\n" +
-    "\t\t<li ng-repeat=\"user in collaborators\">\n" +
-    "\t\t\t<a href=\"#/profile/(~ user.accountId~)\" class=\"profile-collaborators__link avatar\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" title=\"(~user.display_name~)\" class=\"avatar__img\" style=\"background-image: url((~user.avatar~));\">\n" +
-    "\t\t\t<span ng-if=\"flags.isOwner\" class=\"profile-collaborators__remove\">X</span>\n" +
+    "\t<p class=\"profile-details__legend f--sans\" ng-if=\"connections\">Collaborated with:</p>\n" +
+    "\t<ul class=\"profile-collaborators\" ng-show=\"connections\">\n" +
+    "\t\t<li ng-repeat=\"connection in connections\">\n" +
+    "\t\t\t<a href=\"#/profile/(~ connection.user.id~)\" class=\"profile-collaborators__link avatar\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" title=\"(~connection.user.display_name~), (~connection.user.title~)\" class=\"avatar__img\" style=\"background-image: url((~connection.user.avatar~));\">\n" +
     "\t\t\t</a>\n" +
     "\t\t</li>\n" +
     "\t</ul>\n" +
@@ -2231,7 +2230,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      This should be the list of collaborators and public videos\n" +
     "    </profile-public>\n" +
     "\n" +
-    "    <profile-invite ng-if=\"!flags.isOwner\" data-profile=\"profile\"></profile-invite>\n" +
+    "    <profile-invite ng-if=\"!flags.isOwner && profile.contactable\" data-profile=\"profile\"></profile-invite>\n" +
     "  </div>\n" +
     "\n" +
     "</section>"
@@ -2241,8 +2240,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('profile/public/public.tmpl.html',
     "<section class=\"public-profile__wrapper\">\n" +
     "\t<ul class=\"public-profile__videos\" ng-show=\"videos\">\n" +
-    "\t\t<li ng-repeat=\"item in videos\" class=\"cf t--block t--pad-top--half ng-scope\">\n" +
-    "\n" +
+    "\t\t<li ng-repeat=\"item in videos\" class=\"cf t--block t--pad-top--half\">\n" +
     "        <a ng-href=\"#/video/34489679\" class=\"media non-link\" href=\"#/video/34489679\">\n" +
     "          <div class=\"media__img one-third search__thumbnail\">\n" +
     "            <div class=\"ratio  ratio--16x9\">\n" +
@@ -2250,8 +2248,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "            </div>\n" +
     "          </div>\n" +
     "          <div class=\"media__body\">\n" +
-    "            <p class=\"heading no-spacing trunc ng-binding\" ng-bind=\"item.title\"></p>\n" +
-    "            <p class=\"search__item-description milli trunc--three ng-binding\" ng-bind=\"item.description\"></p>\n" +
+    "            <p class=\"heading no-spacing trunc\" ng-bind=\"item.title\"></p>\n" +
+    "            <p class=\"search__item-description milli trunc--three\" ng-bind=\"item.description\"></p>\n" +
     "          </div>\n" +
     "        </a>\n" +
     "      </li>\n" +

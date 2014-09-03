@@ -20,7 +20,7 @@ function ProfileRouteProvider($routeProvider, securityAuthorizationProvider) {
 
 angular.module('RomeoApp.profile').config(['$routeProvider', 'securityAuthorizationProvider', ProfileRouteProvider]);
 
-function ProfileCtrl($scope, $location, $routeParams, AccountService, UserService, UploadService, modal) {
+function ProfileCtrl($scope, $location, $routeParams, AccountService, UserService, UploadService, VideoService, modal) {
   var ProfileController = {};
 
   function init() {
@@ -75,7 +75,13 @@ function ProfileCtrl($scope, $location, $routeParams, AccountService, UserServic
         $scope.profile = res.data;
         $scope.flags.accountId = $routeParams.id;
         UserService.getPublicConnections($routeParams.id).then(function (res) {
-          $scope.connections = res.data;
+          $scope.connections = res.data.connection.items;
+        });
+        VideoService.getPublicVideos($routeParams.id).then(function (res) {
+          $scope.videos = res.data.video.items;
+        });
+        VideoService.getPublicCollaborationVideos($routeParams.id).then(function (res) {
+          $scope.collaboratioVideos = res.data.video.items;
         });
       }, function (res) {
         $scope.$emit('notify', {
@@ -196,7 +202,7 @@ function ProfileCtrl($scope, $location, $routeParams, AccountService, UserServic
   return ProfileController;
 }
 
-angular.module('RomeoApp.profile').controller('ProfileCtrl', ['$scope', '$location', '$routeParams', 'AccountService', 'UserService', 'UploadService', 'modal', ProfileCtrl]);
+angular.module('RomeoApp.profile').controller('ProfileCtrl', ['$scope', '$location', '$routeParams', 'AccountService', 'UserService', 'UploadService', 'VideoService', 'modal', ProfileCtrl]);
 
 })();
 

@@ -16,7 +16,7 @@
       This should be the list of collaborators and public videos
     </profile-public>
 
-    <profile-invite ng-if="!flags.isOwner" data-profile="profile"></profile-invite>
+    <profile-invite ng-if="!flags.isOwner && profile.contactable" data-profile="profile"></profile-invite>
   </div>
 
 </section>

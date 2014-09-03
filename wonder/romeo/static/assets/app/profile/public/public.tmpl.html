@@ -1,7 +1,6 @@
 <section class="public-profile__wrapper">
 	<ul class="public-profile__videos" ng-show="videos">
-		<li ng-repeat="item in videos" class="cf t--block t--pad-top--half ng-scope">
-
+		<li ng-repeat="item in videos" class="cf t--block t--pad-top--half">
         <a ng-href="#/video/34489679" class="media non-link" href="#/video/34489679">
           <div class="media__img one-third search__thumbnail">
             <div class="ratio  ratio--16x9">
@@ -9,8 +8,8 @@
             </div>
           </div>
           <div class="media__body">
-            <p class="heading no-spacing trunc ng-binding" ng-bind="item.title"></p>
-            <p class="search__item-description milli trunc--three ng-binding" ng-bind="item.description"></p>
+            <p class="heading no-spacing trunc" ng-bind="item.title"></p>
+            <p class="search__item-description milli trunc--three" ng-bind="item.description"></p>
           </div>
         </a>
       </li>

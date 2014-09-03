@@ -10,11 +10,10 @@
 		<li ng-if="profile.location" class="profile-details__location">{{ profile.location }}</li>
 	</ul>
 
-	<p class="profile-details__legend f--sans">Collaborated with:</p>
-	<ul class="profile-collaborators" ng-show="collaborators">
-		<li ng-repeat="user in collaborators">
-			<a href="#/profile/{{ user.accountId}}" class="profile-collaborators__link avatar"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" title="{{user.display_name}}" class="avatar__img" style="background-image: url({{user.avatar}});">
-			<span ng-if="flags.isOwner" class="profile-collaborators__remove">X</span>
+	<p class="profile-details__legend f--sans" ng-if="connections">Collaborated with:</p>
+	<ul class="profile-collaborators" ng-show="connections">
+		<li ng-repeat="connection in connections">
+			<a href="#/profile/{{ connection.user.id}}" class="profile-collaborators__link avatar"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" title="{{connection.user.display_name}}, {{connection.user.title}}" class="avatar__img" style="background-image: url({{connection.user.avatar}});">
 			</a>
 		</li>
 	</ul>

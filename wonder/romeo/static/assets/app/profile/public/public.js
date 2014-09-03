@@ -8,33 +8,8 @@ function ($templateCache, AccountService) {
     restrict : 'E',
     replace : true,
     template : $templateCache.get('profile/public/public.tmpl.html'),
-    scope : {
-      flags: '='
-    },
+    scope : true,
     controller : function ($scope) {
-      $scope.videos = [
-        {title: 'Jaws', description: 'When a gigantic great white shark begins to menace the small island community of Amity, a police chief, a marine scientist and grizzled fisherman set out to stop it.', thumbnails: {
-          items: [{
-            height: '180',
-            url: 'http://upload.wikimedia.org/wikipedia/commons/7/70/Menemsha.jpg'
-          }]
-        }},
-        {title: 'Pumping Iron', description: 'From Gold\'s Gym in Venice Beach California to the showdown in Pretoria, amateur and professional bodybuilders prepare for the 1975 Mr. Olympia and Mr. Universe contests in this part-scripted, part-documentary film. Five-time champion Arnold Schwarzenegger defends his Mr. Olympia title against Serge Nubret and the shy young deaf Lou Ferrigno, whose father is his coach; the ruthless champ psyches out the young lion.' },
-        {title: 'Donald Ducks Xmas', thumbnails: {
-          items: [{
-            height: '180',
-            url: 'http://abstractatus.com/images/2013/08/disney-christmas-desktop-backgrounds-wallpixy.jpg'
-          }]
-        }, description: 'The six short animated films from the Walt Disney Studios share themes of wintertime and Christmas.'
-      }
-      ];
-      $scope.$watch('flags', function (newValue, oldValue) {
-        if (! angular.equals(newValue, oldValue)) {
-          $scope.collaborators.push({display_name: newValue.accountId});
-
-          // AccountService.getCollaborators(newValue.accountId).then()...
-        }
-      }, true);
       $scope.$watch('videos', function (newValue, oldValue) {
         if (newValue !== oldValue && newValue) {
           setDefaultThumbnail(newValue);

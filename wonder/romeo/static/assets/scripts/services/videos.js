@@ -4,9 +4,9 @@
 */
 angular
   .module('RomeoApp.services')
-  .factory('VideoService', ['$rootScope', '$q', 'localStorageService', 'DataService', 'AccountService', VideoService]);
+  .factory('VideoService', ['$rootScope', '$q', '$http', 'localStorageService', 'DataService', 'AccountService', VideoService]);
 
-function VideoService ($rootScope, $q, localStorageService, DataService, AccountService) {
+function VideoService ($rootScope, $q, $http, localStorageService, DataService, AccountService) {
 
   'use strict';
 
@@ -71,9 +71,7 @@ function VideoService ($rootScope, $q, localStorageService, DataService, Account
   * Create a new video record - returns a promise, which if resolved contains the video id.
   */
   Video.create = function (data) {
-      var deferred = new $q.defer();
-      deferred.resolve(DataService.request({url: '/api/account/' + AccountService.getAccountId() + '/videos', method: 'POST', data: data}));
-      return deferred.promise;
+      return DataService.request({url: '/api/account/' + AccountService.getAccountId() + '/videos', method: 'POST', data: data});
   };
 
   /*
@@ -232,6 +230,14 @@ function VideoService ($rootScope, $q, localStorageService, DataService, Account
   // https://github.com/rockpack/romeo/blob/master/docs/index.md#status-override
   Video.getDownloadUrl = function (videoId) {
     return DataService.request({ url: '/api/video/' + videoId + '/download_url', method: 'GET', headers : { 'X-HTTP-Status-Override' : 200 }});
+  };
+
+  Video.getPublicVideos = function (id) {
+    return $http.get('/api/search?src=video&q=owner_user:' + id);
+  };
+
+  Video.getPublicCollaborationVideos = function (id) {
+    return $http.get('/api/search?src=video&q=collaborator:' + id);
   };
 
   /*
