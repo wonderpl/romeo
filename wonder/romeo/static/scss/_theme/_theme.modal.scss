@@ -81,6 +81,6 @@
 }
 
 .show-modal-indicator:hover {
-  @extend .animate-spin;
+  @extend .animate-spin !optional;
 }
 
