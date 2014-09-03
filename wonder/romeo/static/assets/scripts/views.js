@@ -728,54 +728,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <a class=\"modal__link\" ng-click=\"close()\"><i class=\"icon icon--medium icon--circle-cross\"></i></a>\n" +
     "</div>\n" +
     "<div class=\"modal__content\">\n" +
-    "  <p>manage collaborators</p>\n" +
-    "\n" +
-    "  <ul ng-if=\"collaborators\">\n" +
-    "    <li ng-repeat=\"collaborator in collaborators\">\n" +
-    "      <span ng-bind=\"collaborator.display_name\"></span>\n" +
-    "      <a class=\"link\" ng-if=\"collaborator.id\" ng-click=\"removeCollaborator(collaborator.id)\">remove</a>\n" +
-    "    </li>\n" +
-    "  </ul>\n" +
     "\n" +
     "  <p>invite new collaborator</p>\n" +
     "\n" +
-    "  <section class=\"video-add-collaborators\">\n" +
-    "\n" +
-    "    <label class=\"video-add-collaborators__label\">\n" +
-    "      Name\n" +
-    "      <input class=\"video-add-collaborators__input\" ng-model=\"collaborator.display_name\" />\n" +
-    "    </label>\n" +
-    "    <label class=\"video-add-collaborators__label\">\n" +
-    "      Email\n" +
-    "      <input class=\"video-add-collaborators__input\" ng-model=\"collaborator.email\" />\n" +
-    "    </label>\n" +
-    "    <label class=\"video-add-collaborators__label\">Permissions</label>\n" +
-    "    <label class=\"video-add-collaborators__label--inline\">\n" +
-    "      <input class=\"video-add-collaborators__checkbox\" type=\"checkbox\" ng-model=\"collaborator.can_comment\" />\n" +
-    "      Allow to comment\n" +
-    "    </label>\n" +
-    "    <label class=\"video-add-collaborators__label--inline\">\n" +
-    "      <input class=\"video-add-collaborators__checkbox\" type=\"checkbox\" ng-model=\"collaborator.can_download\" />\n" +
-    "      Allow to download source\n" +
-    "    </label>\n" +
-    "\n" +
-    "    <div class=\"video-add-collaborators__messages\">\n" +
-    "      <p ng-show=\"collaboratorAdded\">New collaborator has been added.</p>\n" +
-    "      <p class=\"video-add-collaborators__message--error\" ng-show=\"errors\">An error occured. Collaborator not added.</p>\n" +
-    "    </div>\n" +
-    "    <a class=\"btn btn--small btn--positive f--right\" ng-click=\"addCollaborator()\">Send Request</a>\n" +
-    "\n" +
-    "  </section>\n" +
-    "\n" +
-    "  <p>invite connections to collaborate</p>\n" +
-    "\n" +
-    "  <ul>\n" +
-    "    <li ng-repeat=\"connection in connectionsWhoArentCollaborators\">\n" +
-    "      <span ng-bind=\"connection.display_name\"></span>\n" +
-    "      <a class=\"link\" ng-if=\"connection.id\" ng-click=\"inviteConnection(connection.id)\">invite</a>\n" +
-    "    </li>\n" +
-    "  </ul>\n" +
-    "\n" +
+    "  <select ui-select2=\"select2Options\" ng-model=\"select2\">\n" +
+    "    <option ng-repeat=\"connection in connections\" ng-if=\"connection.user\" value=\"(~ connection.user.id ~)\">(~ connection.user.display_name ~)</option>\n" +
+    "    <option ng-repeat=\"connection in connections\" ng-if=\"connection.collaborator\" value=\"(~ connection.collaborator.id ~)\">(~ connection.collaborator.display_name ~)</option>\n" +
+    "  </select>\n" +
     "</div>\n" +
     "<div class=\"modal__footer\">\n" +
     "  <div class=\"modal__actions\">\n" +

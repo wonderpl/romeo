@@ -15,7 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "select2": "~3.5.1",
+    "select2": "~3.4",
     "jquery": "1.11.1",
     "moment": "~2.8.2",
     "spectrum": "~1.5.0",
@@ -27,7 +27,8 @@
     "aight": "~1.2.5",
     "angular-route": "~1.2.23",
     "angular-cookies": "~1.2.23",
-    "angular-local-storage": "~0.0.7"
+    "angular-local-storage": "~0.0.7",
+    "angular-ui-select2": "~0.0.5"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.23"

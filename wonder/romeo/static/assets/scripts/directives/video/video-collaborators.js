@@ -6,30 +6,17 @@
     .directive('videoCollaborators', ['$templateCache', 'CommentsService', 'CollaboratorsService', 'UserService', 'modal',
     function ($templateCache, CommentsService, CollaboratorsService, UserService, modal) {
 
-      function getConnectionsWhoArentCollaborators (connections, collaborators) {
-        var connectionsWhoArentCollaborators = [];
-        var l = connections.length;
-        while (l--) {
-          var connection = connections[l];
-          var k = collaborators.length;
-          while (k--) {
-            var collaborator = collaborators[k];
-            if (!connection.collaborator || collaborator.id !== connection.collaborator.id) {
-              connectionsWhoArentCollaborators.push(connection);
-            }
-          }
-        }
-        return connectionsWhoArentCollaborators;
-      }
-
     return {
       restrict : 'E',
       replace : true,
       template : $templateCache.get('video-collaborators.html'),
-      scope : true,
       controller : function ($scope) {
 
-        UserService.getConnections().then(function (data) {
+        $scope.select2Options = {
+            'multiple': true
+        };
+
+        UserService.getConnections().success(function (data) {
           console.log('all connections');
           console.log(data);
           $scope.connections = data.connection.items;
@@ -43,7 +30,6 @@
                 console.log('video collaborators');
                 console.log(data);
                 $scope.collaborators = data.collaborator.items;
-                $scope.connectionsWhoArentCollaborators = getConnectionsWhoArentCollaborators($scope.connections, $scope.collaborators);
               });
             }
           }

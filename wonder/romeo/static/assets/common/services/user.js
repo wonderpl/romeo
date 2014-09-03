@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function UserService(SecurityService, DataService) {
+    function UserService(SecurityService, DataService, $http) {
         var service = {};
 
         // Used to send PATCH requests to the webservice, updating individual parts of the user account
@@ -28,8 +28,14 @@
           return DataService.request({ url: url, method: 'POST' });
         };
 
+        service.getConnections = function () {
+          var user = service.getUser();
+          var url = '/api/user/' + user.id + '/connections';
+          return $http.get(url);
+        };
+
         return service;
     }
-    angular.module('RomeoApp.services').factory('UserService', ['SecurityService', 'DataService', UserService]);
+    angular.module('RomeoApp.services').factory('UserService', ['SecurityService', 'DataService', '$http', UserService]);
 
 })();

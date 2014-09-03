@@ -10,7 +10,7 @@
     angular.module('RomeoApp.filters', []);
     angular.module('RomeoApp.security', []);
     angular.module('RomeoApp.services', ['RomeoApp.security']);
-    angular.module('RomeoApp.directives', ['RomeoApp.services']);
+    angular.module('RomeoApp.directives', ['RomeoApp.services', 'ui.select2']);
     angular.module('RomeoApp.controllers', ['RomeoApp.services', 'RomeoApp.directives', 'LocalStorageModule']);
     // -- App modules
     angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
