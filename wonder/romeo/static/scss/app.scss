@@ -6,6 +6,7 @@
 
 @import
   "_settings/settings.defaults",
+  "_settings/settings.colors",
 
   "_tools/tools.functions",
   "_tools/tools.mixins",
@@ -30,6 +31,7 @@
   "_base/base.lists",
 
   "_objects/objects.nav",
+  "_objects/objects.list-inline",
   "_objects/objects.media",
   "_objects/objects.flag",
   "_objects/objects.split",
@@ -40,7 +42,8 @@
   "_objects/objects.button",
   "_objects/objects.button-group",
 
-  "_components/components.animations",
+  "_components/components.global-nav-menu",
+  "_components/components.global-nav-core-actions",
   "_components/components.avatars",
   "_components/components.center-object",
   "_components/components.ratios",
@@ -76,6 +79,8 @@
   "_trumps/trumps.hidden",
   "_trumps/trumps.spacing",
   "_trumps/trumps.text-styles",
+
+  "_vendor/vendor.simptip",
 
 //  "compass/reset",
 //  "compass/css3",
