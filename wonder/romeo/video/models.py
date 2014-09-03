@@ -32,6 +32,8 @@ class Video(db.Model):
     filename = Column(String(16))
     external_id = Column(String(32))
     category = Column(String(8))
+    search_keywords = Column(String(1024))
+    hosted_url = Column(String(1024))
     player_logo_filename = Column(String(128))
     dolly_instance = Column(String(128))
 

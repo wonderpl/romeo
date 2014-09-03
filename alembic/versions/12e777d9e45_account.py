@@ -19,7 +19,7 @@ def upgrade():
     op.add_column('account', sa.Column('payment_token', sa.String(length=256), nullable=True))
     op.add_column('account', sa.Column('account_type', sa.Enum('collaborator', 'content_owner', name='account_type'), nullable=True))
     op.execute("update account set account_type = 'content_owner'")
-    op.alter_column('account', 'account_type', nullable=True)
+    op.alter_column('account', 'account_type', nullable=False)
 
     op.add_column('account_user', sa.Column('contactable', sa.Boolean(), server_default='true', nullable=False))
     op.add_column('account_user', sa.Column('location', sa.CHAR(length=2), nullable=True))

@@ -70,7 +70,7 @@ class AccountUser(db.Model):
     id = Column(Integer, primary_key=True)
     date_added = Column(DateTime(), nullable=False, default=func.now())
     account_id = Column('account', ForeignKey(Account.id), nullable=False, index=True)
-    username = Column(String(128), unique=True, nullable=False)
+    username = Column(String(128), nullable=False)
     password_hash = Column(String(128))
     active = Column(Boolean, nullable=False, default=True, server_default='true')
     display_name = Column(String(256))

@@ -37,6 +37,8 @@ def _init_db(app):
     app.config.setdefault('SQLALCHEMY_DATABASE_URI', app.config.get('DATABASE_URL', ''))
     db.init_app(app)
 
+    import root.models  # NOQA: needed for alembic
+
 
 def _init_api(app):
     api.init_app(app)

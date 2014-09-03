@@ -241,6 +241,8 @@ def _video_item(video, full=False, with_account=False, public=False):
             data[f] = v.isoformat()
 
     if full:
+        data['hosted_url'] = video.hosted_url
+        data['search_keywords'] = video.search_keywords
         data['collaborators'] = dict(href=url_for(
             'api.videocollaborators', video_id=video.id) + '?public' if public else '')
         data['player_url'] = video.player_url

@@ -118,6 +118,8 @@ class VideoForm(BaseForm):
     strapline = wtforms.StringField()
     description = wtforms.StringField()
     category = wtforms.SelectField(validators=[wtforms.validators.Optional()])
+    search_keywords = wtforms.StringField()
+    hosted_url = wtforms.StringField(validators=[wtforms.validators.URL()])
     filename = wtforms.StringField()
     player_logo = wtforms.FileField(validators=[ImageData('logo')])
     cover_image = wtforms.FileField(validators=[ImageData('cover')])

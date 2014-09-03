@@ -178,12 +178,17 @@ Content-Type: application/json
 }
 ```
 
-Property       | Required? | Value               | Description
-:------------- | :-------- | :------------------ | :----------
-title          | yes       | string (max 256)    | The video title
-description    | no        | string (max 256)    | Video description text
-category       | no        | Category ID         | Identifier from /api/categories
-filename       | no        | string              | Path to video file on S3
+Property        | Required? | Value               | Description
+:-------------- | :-------- | :------------------ | :----------
+title           | yes       | string (max 256)    | The video title
+description     | no        | string (max 256)    | Video description text
+category        | no        | Category ID         | Identifier from /api/categories
+search_keywords | no        | string              | Comma-separated keywords for search
+hosted_url      | no        | URL                 | URL on which this video will be hosted (for video sitemap)
+filename        | no        | string              | Path to video file on S3
+
+Use the [`upload_args` service](account.md#content-upload) to get the filename and construct a `POST` to S3 for the video
+content.
 
 On success the service will return a `201` with the video id & resource url:
 
@@ -235,6 +240,8 @@ Content-Type: application/json
  "description": "",
  "duration": 60,
  "category": "some cat",
+ "search_keywords": "some,comma separated,keywords",
+ "hosted_url": null,
  "link_url": "http://x.com",
  "link_title": "test",
  "player_url": "http://server/embed/video_id",
