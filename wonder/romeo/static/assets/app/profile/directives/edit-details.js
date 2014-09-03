@@ -28,9 +28,19 @@ function editDetails($templateCache) {
       $scope.select2Options = {
         'multiple': true,
         'simple_tags': true,
-        'tags': ['Apple', 'Banana', 'Ice cream', 'Jelly']  // Can be empty list.
+        'width': '320px',
+        'minimumInputLength': 3,
+        'maximumSelectionSize': 10,
+        'allowClear': true,
+        'query': function (query) {
+          var data = {results: [{text: query.term, id: query.term}, {text: 'Papple', id: 'Papple'}, {text: 'Banana', id: 'Banana'}, {text: 'Gelato', id: 'Gelato'}]};
+          query.callback(data);
+        }
       };
-      $scope.search_keywords = $scope.profile.search_keywords.split(',');
+      if ($scope.profile.search_keywords) {
+        $scope.search_keywords = $scope.profile.search_keywords.split(',');
+      }
+      $scope.location_item = {id: $scope.profile.location};
 
       $scope.$watch('profile.description', function (newValue, oldValue) {
         if (! angular.equals(newValue, oldValue)) {
