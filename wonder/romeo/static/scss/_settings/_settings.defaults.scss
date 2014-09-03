@@ -57,3 +57,8 @@ $micro-size:                10px;
 // define quotes
 $open-quote:                \201C;
 $close-quote:               \201D;
+
+// Namespace.
+//
+// would you like to prepend classes with a namespace? If so, define it here.
+$namespace:                 null !default;
