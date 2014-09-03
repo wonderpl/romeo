@@ -1236,7 +1236,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <input type=\"text\" class=\"search__form-input\" ng-model=\"q\" autofocus placeholder=\"Type to search\" />\n" +
     "\n" +
-    "  <location-selector></location-selector>\n" +
+    "  <location-selector location=\"location\"></location-selector>\n" +
     "\n" +
     "</section>"
   );
@@ -1341,7 +1341,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "                </div>\n" +
     "                <div class=\"login-view__input login-view__input--location  icon-text\">\n" +
     "                  <i class=\"icon  icon--globe  icon-text__icon\"></i>\n" +
-    "                  <location-selector>\n" +
+    "                  <location-selector location=\"location\">\n" +
     "                  </location-selector>\n" +
     "                </div>\n" +
     "              </li>\n" +
@@ -1405,7 +1405,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "                </div>\n" +
     "                <div class=\"login-view__input login-view__input--location  icon-text\">\n" +
     "                  <i class=\"icon  icon--globe  icon-text__icon\"></i>\n" +
-    "                  <location-selector>\n" +
+    "                  <location-selector location=\"profile.location\">\n" +
     "                  </location-selector>\n" +
     "                </div>\n" +
     "              </li>\n" +

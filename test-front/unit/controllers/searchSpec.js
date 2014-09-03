@@ -11,6 +11,7 @@ describe('Search Controller', function() {
     scope.search = {};
     $httpBackend = $injector.get('$httpBackend');
     authRequestHandler = $httpBackend.when('GET', '/api').respond(200, apiJSON.validUser);
+    $httpBackend.expect('JSONP', 'https://secure.wonderpl.com/ws/location/?_callback=JSON_CALLBACK').respond(200, 'GB');
     results = searchResults.results;
     ctrl = $controller('SearchCtrl', {
       '$scope': scope

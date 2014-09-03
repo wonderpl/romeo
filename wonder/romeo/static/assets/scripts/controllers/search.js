@@ -1,6 +1,6 @@
 angular.module('RomeoApp.controllers')
-  .controller('SearchCtrl', ['$scope', '$location', 'SearchService',
-    function($scope, $location, SearchService) {
+  .controller('SearchCtrl', ['$scope', '$location', 'SearchService', 'AccountService',
+    function($scope, $location, SearchService, AccountService) {
   'use strict';
   var debug = new DebugClass('SearchCtrl');
 
@@ -12,6 +12,11 @@ angular.module('RomeoApp.controllers')
     }
     $scope.q = data.q;
     $scope.location = data.location;
+  }
+  else {
+    AccountService.getGeoIpLocation().then(function (res) {
+      $scope.location = res.data || res;
+    });
   }
 
   function clearSearch () {
