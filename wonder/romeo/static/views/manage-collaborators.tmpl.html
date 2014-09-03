@@ -1,13 +1,18 @@
 <div class="modal__title  split">
-  <span class="split__title  t--block  w--600">Manage Collaborators</span>
+  <span class="split__title  t--block  w--600">Invite Collaborators</span>
   <a class="modal__link" ng-click="close()"><i class="icon icon--medium icon--circle-cross"></i></a>
 </div>
 <div class="modal__content">
 
-  <p>invite new collaborator</p>
+  <input type="hidden" ui-select2="select2Options" ng-model="invite.collaborators" />
 
+  <select ng-model="invite.permissions">
+    <option value="canDownload" selected="selected">download</option>
+    <option value="canComment">comment</option>
+    <option value="canCommentDownload">download and comment</option>
+  </select>
 
-<input type="hidden" ui-select2="select2Options" ng-model="test" />
+  <a class="btn btn--small btn--positive" ng-click="sendInvitations()">Invite</a>
 
 </div>
 <div class="modal__footer">

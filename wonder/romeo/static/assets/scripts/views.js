@@ -724,15 +724,20 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('manage-collaborators.tmpl.html',
     "<div class=\"modal__title  split\">\n" +
-    "  <span class=\"split__title  t--block  w--600\">Manage Collaborators</span>\n" +
+    "  <span class=\"split__title  t--block  w--600\">Invite Collaborators</span>\n" +
     "  <a class=\"modal__link\" ng-click=\"close()\"><i class=\"icon icon--medium icon--circle-cross\"></i></a>\n" +
     "</div>\n" +
     "<div class=\"modal__content\">\n" +
     "\n" +
-    "  <p>invite new collaborator</p>\n" +
+    "  <input type=\"hidden\" ui-select2=\"select2Options\" ng-model=\"invite.collaborators\" />\n" +
     "\n" +
+    "  <select ng-model=\"invite.permissions\">\n" +
+    "    <option value=\"canDownload\" selected=\"selected\">download</option>\n" +
+    "    <option value=\"canComment\">comment</option>\n" +
+    "    <option value=\"canCommentDownload\">download and comment</option>\n" +
+    "  </select>\n" +
     "\n" +
-    "<input type=\"hidden\" ui-select2=\"select2Options\" ng-model=\"test\" />\n" +
+    "  <a class=\"btn btn--small btn--positive\" ng-click=\"sendInvitations()\">Invite</a>\n" +
     "\n" +
     "</div>\n" +
     "<div class=\"modal__footer\">\n" +

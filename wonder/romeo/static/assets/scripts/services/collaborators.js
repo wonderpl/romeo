@@ -1,42 +1,39 @@
-/*
-* Methods for interacting with the Collaborator web services
-* https://github.com/rockpack/romeo/blob/master/docs/video.md
-*/
-angular.module('RomeoApp.services').factory('CollaboratorsService',
-  ['$q', 'DataService',
-  function ($q, DataService) {
+(function(){
 
-  'use strict';
+  angular.module('RomeoApp.services').factory('CollaboratorsService',
+    ['$http', function ($http) {
 
-  function addCollaborator (videoId, data) {
-    var deferred = new $q.defer();
+    'use strict';
 
-    DataService.request({
-      url: '/api/video/' + videoId + '/collaborators',
-      method: 'POST',
-      data: data
-    }).then(function (data) {
-      console.log(data);
-      deferred.resolve(data);
-    }, function (response) {
-      console.log(response);
-      deferred.reject(response);
-    });
+    var service = {};
 
-    return deferred.promise;
-  }
+    service.addCollaborators = function (videoId, data) {
+      var users = [];
+      var url = '/api/video/' + videoId + '/collaborators';
+      var collaborators = [];
+      var l = data.collaborators.length;
+      var can_download = !!(data.permissions.canDownload || data.permissions.canCommentDownload);
+      var can_comment = !!(data.permissions.canComment || data.permissions.canCommentDownload);
+      while (l--) {
+        var collaborator = data.collaborators[l];
+        var user = {};
+        user.name = collaborator.text || collaborator.email;
+        user.email = collaborator.email || collaborator.text;
+        user.can_download = can_download;
+        user.can_comment = can_comment;
+        users.push(user);
+      }
+      return $http.post(url, users);
 
-  function getCollaborators (videoId) {
-    return DataService.request({
-      url: '/api/video/' + videoId + '/collaborators'
-    });
-  }
+    };
 
-  return ({
-    addCollaborator : addCollaborator,
-    getCollaborators : getCollaborators
-  });
+    service.getCollaborators = function (videoId) {
+      var url = '/api/video/' + videoId + '/collaborators';
+      return $http.get(url);
+    };
 
-}]);
+    return service;
 
+  }]);
 
+})();
