@@ -31,7 +31,7 @@ describe('services', function(){
 
   it('should have collaborators service', inject(function(CollaboratorsService) {
   	expect(CollaboratorsService).toBeDefined();
-  	expect(CollaboratorsService.addCollaborator).toBeDefined();
+  	expect(CollaboratorsService.addCollaborators).toBeDefined();
   }));
 
   it('should have comments service', inject(function(CommentsService) {
