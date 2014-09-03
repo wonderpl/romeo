@@ -3,7 +3,28 @@ from werkzeug.routing import RequestRedirect
 from flask import request
 from flask.ext.login import current_user
 from flask.ext import restful
-from wonder.romeo import api
+from flask.ext.restful.utils import unpack
+from wonder.romeo import api, db
+
+
+def support_bulk_save(f):
+    @wraps(f)
+    def decorator(*args, **kwargs):
+        if isinstance(request.json, list):
+            results = []
+            for item in list(request.json):
+                request._cached_json = item
+                results.append(unpack(f(*args, **kwargs)))
+            results, status_codes, headers = zip(*results)
+            if 400 in status_codes:
+                db.session.rollback()
+                status_code = 400
+            else:
+                status_code = 200
+            return results, status_code
+        else:
+            return f(*args, **kwargs)
+    return decorator
 
 
 def cache_control(**cache_properties):

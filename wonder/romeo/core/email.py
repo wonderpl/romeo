@@ -15,6 +15,9 @@ def send_email(recipient, body, subject=None, format='html'):
         import HTMLParser
         subject = HTMLParser.HTMLParser().unescape(TITLE_RE.search(body).group(1))
     conn = connect_ses(current_app.config.get('AWS_ACCESS_KEY'), current_app.config.get('AWS_SECRET_KEY'))
+    if current_app.config.get('DISABLE_EMAIL'):
+        current_app.logger.info('Would send "%s" email to "%s"', subject, recipient)
+        return
     return conn.send_email(
         current_app.config['DEFAULT_EMAIL_SOURCE'],
         subject,

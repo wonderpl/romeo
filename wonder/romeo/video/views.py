@@ -6,7 +6,7 @@ from flask.ext.restful import abort
 from flask.ext.restful.reqparse import RequestParser
 from wonder.romeo import db
 from wonder.romeo.core.dolly import get_categories, get_video_embed_content
-from wonder.romeo.core.rest import Resource, api_resource
+from wonder.romeo.core.rest import Resource, api_resource, support_bulk_save
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.s3 import s3connection, video_bucket, media_bucket
 from wonder.romeo.core.ooyala import ooyala_request, get_video_data
@@ -538,6 +538,7 @@ class VideoCollaboratorsResource(Resource):
 
     @commit_on_success
     @video_view()
+    @support_bulk_save
     def post(self, video):
         form = VideoCollaboratorForm(video_id=video.id)
         if not form.validate():

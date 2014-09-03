@@ -255,16 +255,21 @@ class VideoCollaboratorForm(BaseForm):
         if self.obj:
             # combine permissions with existing
             collaborator = self.obj
-            for field, value in self.data.items():
+            changed = False
+            for field, newvalue in self.data.items():
                 if field.startswith('can_'):
-                    setattr(collaborator, field, getattr(collaborator, field) or value)
+                    oldvalue = getattr(collaborator, field)
+                    setattr(collaborator, field, oldvalue or newvalue)
+                    changed = changed or (not oldvalue and newvalue)
         else:
             collaborator = super(VideoCollaboratorForm, self).save()
+            changed = True
 
-        send_collaborator_invite_email(collaborator.id,
-                                       current_user.id,
-                                       can_download=self.can_download.data,
-                                       can_comment=self.can_comment.data)
+        if changed:
+            send_collaborator_invite_email(collaborator.id,
+                                           current_user.id,
+                                           can_download=self.can_download.data,
+                                           can_comment=self.can_comment.data)
 
         return collaborator
 
@@ -272,6 +277,9 @@ class VideoCollaboratorForm(BaseForm):
 @background_on_sqs
 def send_collaborator_invite_email(collaborator_id, sending_user_id, **kwargs):
     collaborator = VideoCollaborator.query.get(collaborator_id)
+    if not collaborator:
+        return
+
     sender = AccountUser.query.get(sending_user_id)
 
     # if the video isn't ready yet, wait 5 mins and try again

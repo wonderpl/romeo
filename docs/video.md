@@ -704,6 +704,31 @@ Content-Type: application/json
 }
 ```
 
+You can also invite collaborator in bulk by `POST`ing a list of records:
+
+```http
+POST /api/video/<video_id>/collaborators HTTP/1.1
+Content-Type: application/json
+
+[
+ {"email": "paulegan@wonderpl.com", "name": "Paul Egan", "can_download": true},
+ {"email": "pauleganwonderpl.com", "name": "Paul Egan", "can_download": true}
+]
+```
+
+In this case the response will also be a list, where each the result of each record
+creation will be given in order, with `null` signifying valid input.
+
+```http
+HTTP/1.1 400 BAD REQUEST
+Content-Type: application/json
+
+[
+ null,
+ {"error": "invalid_request", "form_errors": {"email": [ "Invalid email address." ] } }
+]
+```
+
 Collaborators can access the following resources:
 
 Resource                             | With Permission
