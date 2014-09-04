@@ -19,8 +19,7 @@
 .wrapper {
   margin-right: auto;
   margin-left:  auto;
-  padding-right: $base-spacing-unit;
-  padding-left:  $base-spacing-unit;
+  padding: 0 $base-spacing-unit $base-spacing-unit;
   position: relative;
   @extend .cf;
 }
