@@ -14,6 +14,11 @@ describe('controllers', function(){
     controller = void(0); // Set to undefined
   });
 
+  it('should have Search controller', inject(function($controller) {
+    controller = $controller('SearchCtrl', { $scope: scope, $element: angular.element('<div></div>') });
+    expect(controller).toBeDefined();
+  }));
+
   it('should have Analytics controller', inject(function($controller) {
     controller = $controller('AnalyticsCtrl', { $scope: scope, $element: angular.element('<div></div>') });
     expect(controller).toBeDefined();

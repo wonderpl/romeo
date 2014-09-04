@@ -1,6 +1,9 @@
  <div class="location-selector icon-text">
   <label class="label location-selector__label  accessibility" for="location-selector__location">Location</label>
-  <select class="location-selector" ui-select2 ng-model="location">
+  <select class="location-selector" ui-select2="select2Options" ng-model="location">
+    <option value=""> - </option>
+    <option value="GB">United Kingdom</option>
+    <option value="US">United States</option>
     <option ng-repeat="location in locations | orderBy:'name'" value="{{ location.code }}">{{ location.name }}</option>
   </select>
 </div>;

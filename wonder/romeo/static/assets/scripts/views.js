@@ -1235,89 +1235,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
-  $templateCache.put('search-form.html',
-    "<section class=\"search__form\">\n" +
-    "\n" +
-    "  <input type=\"text\" class=\"search__form-input\" ng-model=\"q\" autofocus placeholder=\"Type to search\" />\n" +
-    "\n" +
-    "  <location-selector location=\"location\"></location-selector>\n" +
-    "\n" +
-    "</section>"
-  );
-
-
-  $templateCache.put('search-results.html',
-    "<section class=\"search__results\" ng-if=\"results\">\n" +
-    "\n" +
-    "  <section ng-if=\"results.content_owner.items\" class=\"search__results-container search__results-container--left\">\n" +
-    "    <span class=\"content-heading\">Creators: </span>\n" +
-    "    <ul class=\"no-spacing--full\">\n" +
-    "      <li ng-repeat=\"item in results.content_owner.items\" class=\"cf t--block t--pad-top--half\">\n" +
-    "        <a ng-href=\"#/profile/(~ item.id ~)\">\n" +
-    "          <div class=\"search__avatar-container\">\n" +
-    "            <div class=\"search__avatar avatar\">\n" +
-    "              <img class=\"search__avatar-image avatar__image\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" style=\"background-image : url('(~ item.avatar ~)');\" />\n" +
-    "            </div>\n" +
-    "          </div>\n" +
-    "          <p class=\"heading no-spacing trunc t--pad-top--half\" ng-bind=\"item.display_name\"></p>\n" +
-    "          <p class=\"search__item-description milli trunc\" ng-bind-html=\"item.description\"></p>\n" +
-    "        </a>\n" +
-    "      </li>\n" +
-    "    </ul>\n" +
-    "  </section>\n" +
-    "\n" +
-    "  <section ng-if=\"results.collaborator.items\" class=\"search__results-container search__results-container--left\">\n" +
-    "    <span class=\"content-heading\">Collaborators: </span>\n" +
-    "    <ul class=\"no-spacing--full\">\n" +
-    "      <li ng-repeat=\"item in results.collaborator.items\" class=\"cf t--block t--pad-top--half\">\n" +
-    "        <a ng-href=\"#/profile/(~ item.id ~)\">\n" +
-    "          <div class=\"search__avatar-container\">\n" +
-    "            <div class=\"no-spacing avatar\">\n" +
-    "              <img class=\"avatar__image\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" style=\"background-image : url('(~ item.avatar ~)');\" />\n" +
-    "            </div>\n" +
-    "          </div>\n" +
-    "          <p class=\"heading no-spacing trunc t--pad-top--half\" ng-bind=\"item.display_name\"></p>\n" +
-    "          <p class=\"search__item-description milli trunc\" ng-bind-html=\"item.description\"></p>\n" +
-    "        </a>\n" +
-    "      </li>\n" +
-    "    </ul>\n" +
-    "  </section>\n" +
-    "\n" +
-    "  <section ng-if=\"results.video.items\" class=\"search__results-container search__results-container--right\">\n" +
-    "    <span class=\"content-heading\">Associated Videos: </span>\n" +
-    "    <ul class=\"no-spacing--full\">\n" +
-    "      <li ng-repeat=\"item in results.video.items\" class=\"cf t--block t--pad-top--half\">\n" +
-    "\n" +
-    "        <a  ng-href=\"#/video/(~ item.id ~)\" class=\"media non-link\">\n" +
-    "          <div class=\"media__img one-third search__thumbnail\">\n" +
-    "            <div class=\"ratio  ratio--16x9\">\n" +
-    "              <img class=\"ratio__src\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" style=\"background-image : url('(~ item.thumbnail_url ~)');\" />\n" +
-    "            </div>\n" +
-    "          </div>\n" +
-    "          <div class=\"media__body\">\n" +
-    "            <p class=\"heading no-spacing trunc\" ng-bind=\"item.title\"></p>\n" +
-    "            <p class=\"search__item-description milli trunc--two\" ng-bind=\"item.description\"></p>\n" +
-    "          </div>\n" +
-    "        </a>\n" +
-    "      </li>\n" +
-    "    </ul>\n" +
-    "  </section>\n" +
-    "\n" +
-    "</section>\n"
-  );
-
-
-  $templateCache.put('search.html',
-    "<section class=\"search page-content wrapper wrapper--fixed\" ng-controller=\"SearchCtrl\">\n" +
-    "\n" +
-    "  <search-form q=\"q\" location=\"location\"></search-form>\n" +
-    "\n" +
-    "  <search-results results=\"results\"></search-results>\n" +
-    "\n" +
-    "</section>"
-  );
-
-
   $templateCache.put('signup.html',
     "<div ng-controller=\"SignupCtrl\" autocomplete=\"off\" class=\"login-view\">\n" +
     "  <div class=\"center-container\">\n" +
@@ -2108,12 +2025,12 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<div class=\"profile-details\">\n" +
     "\t<h2 class=\"profile-details__name no-spacing\" ng-bind=\"profile.display_name\"></h2>\n" +
     "\n" +
-    "\t<div ng-show=\"profile.title\" class=\"profile-details__job-title\" style=\"text-align: center;\">(~ profile.jobTitle ~)</div>\n" +
+    "\t<div ng-show=\"profile.title\" class=\"profile-details__job-title\" style=\"text-align: center;\">(~ profile.title ~)</div>\n" +
     "\n" +
     "\t<div class=\"profile-details__description\" ng-bind-html=\"profile.description\"></div>\n" +
     "\n" +
     "\t<ul class=\"profile-details__optional\">\n" +
-    "\t\t<li class=\"profile-details__website\"><a href=\"(~ profile.website_url ~)\">(~ profile.website_url ~)</a></li>\n" +
+    "\t\t<li class=\"profile-details__website\"><a href=\"(~ profile.website_url ~)\" target=\"_new\">(~ profile.website_url ~)</a></li>\n" +
     "\t\t<li ng-if=\"profile.location\" class=\"profile-details__location\">(~ findLocationName() ~)</li>\n" +
     "\t</ul>\n" +
     "\n" +
@@ -2258,6 +2175,89 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('search/form.tmpl.html',
+    "<section class=\"search__form\">\n" +
+    "\n" +
+    "  <input type=\"text\" class=\"search__form-input\" ng-model=\"q\" auto-focus placeholder=\"Type to search\" />\n" +
+    "\n" +
+    "  <location-selector location=\"location\"></location-selector>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('search/results.tmpl.html',
+    "<section class=\"search__results\" ng-if=\"results\">\n" +
+    "\n" +
+    "  <section ng-if=\"results.content_owner.items\" class=\"search__results-container search__results-container--left\">\n" +
+    "    <span class=\"content-heading\">Creators: </span>\n" +
+    "    <ul class=\"no-spacing--full\">\n" +
+    "      <li ng-repeat=\"item in results.content_owner.items\" class=\"cf t--block t--pad-top--half\">\n" +
+    "        <a ng-href=\"#/profile/(~ item.id ~)\">\n" +
+    "          <div class=\"search__avatar-container\">\n" +
+    "            <div class=\"search__avatar avatar\">\n" +
+    "              <img class=\"search__avatar-image avatar__image\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" style=\"background-image : url('(~ item.avatar ~)');\" />\n" +
+    "            </div>\n" +
+    "          </div>\n" +
+    "          <p class=\"heading no-spacing trunc t--pad-top--half\" ng-bind=\"item.display_name\"></p>\n" +
+    "          <p class=\"search__item-description milli trunc\" ng-bind-html=\"item.description\"></p>\n" +
+    "        </a>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </section>\n" +
+    "\n" +
+    "  <section ng-if=\"results.collaborator.items\" class=\"search__results-container search__results-container--left\">\n" +
+    "    <span class=\"content-heading\">Collaborators: </span>\n" +
+    "    <ul class=\"no-spacing--full\">\n" +
+    "      <li ng-repeat=\"item in results.collaborator.items\" class=\"cf t--block t--pad-top--half\">\n" +
+    "        <a ng-href=\"#/profile/(~ item.id ~)\">\n" +
+    "          <div class=\"search__avatar-container\">\n" +
+    "            <div class=\"no-spacing avatar\">\n" +
+    "              <img class=\"avatar__image\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" style=\"background-image : url('(~ item.avatar ~)');\" />\n" +
+    "            </div>\n" +
+    "          </div>\n" +
+    "          <p class=\"heading no-spacing trunc t--pad-top--half\" ng-bind=\"item.display_name\"></p>\n" +
+    "          <p class=\"search__item-description milli trunc\" ng-bind-html=\"item.description\"></p>\n" +
+    "        </a>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </section>\n" +
+    "\n" +
+    "  <section ng-if=\"results.video.items\" class=\"search__results-container search__results-container--right\">\n" +
+    "    <span class=\"content-heading\">Associated Videos: </span>\n" +
+    "    <ul class=\"no-spacing--full\">\n" +
+    "      <li ng-repeat=\"item in results.video.items\" class=\"cf t--block t--pad-top--half\">\n" +
+    "\n" +
+    "        <a  ng-href=\"#/video/(~ item.id ~)\" class=\"media non-link\">\n" +
+    "          <div class=\"media__img one-third search__thumbnail\">\n" +
+    "            <div class=\"ratio  ratio--16x9\">\n" +
+    "              <img class=\"ratio__src\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" style=\"background-image : url('(~ item.thumbnail_url ~)');\" />\n" +
+    "            </div>\n" +
+    "          </div>\n" +
+    "          <div class=\"media__body\">\n" +
+    "            <p class=\"heading no-spacing trunc\" ng-bind=\"item.title\"></p>\n" +
+    "            <p class=\"search__item-description milli trunc--two\" ng-bind=\"item.description\"></p>\n" +
+    "          </div>\n" +
+    "        </a>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </section>\n" +
+    "\n" +
+    "</section>\n"
+  );
+
+
+  $templateCache.put('search/search.tmpl.html',
+    "<section class=\"search page-content wrapper wrapper--fixed\" ng-controller=\"SearchCtrl\">\n" +
+    "\n" +
+    "  <form q=\"q\" location=\"location\"></form>\n" +
+    "\n" +
+    "  <results results=\"results\"></results>\n" +
+    "\n" +
+    "</section>"
+  );
+
+
   $templateCache.put('video/edit/player-config.tmpl.html',
     "<section class=\"player-config color-picker\">\n" +
     "\n" +
@@ -2315,7 +2315,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('directives/location-selector.tmpl.html',
     " <div class=\"location-selector icon-text\">\n" +
     "  <label class=\"label location-selector__label  accessibility\" for=\"location-selector__location\">Location</label>\n" +
-    "  <select class=\"location-selector\" ui-select2 ng-model=\"location\">\n" +
+    "  <select class=\"location-selector\" ui-select2=\"select2Options\" ng-model=\"location\">\n" +
+    "    <option value=\"\"> - </option>\n" +
+    "    <option value=\"GB\">United Kingdom</option>\n" +
+    "    <option value=\"US\">United States</option>\n" +
     "    <option ng-repeat=\"location in locations | orderBy:'name'\" value=\"(~ location.code ~)\">(~ location.name ~)</option>\n" +
     "  </select>\n" +
     "</div>;"

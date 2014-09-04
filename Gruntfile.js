@@ -239,7 +239,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-processhtml');
 
     /* TASK ALIASES */
-    grunt.registerTask('build', [ 'clean', 'karma:raw', 'ngtemplates', 'jshint', 'compass:prod', 'copy', 'concat', 'uglify', 'processhtml' ]);
+    grunt.registerTask('build', [ 'clean', 'ngtemplates', 'jshint', 'compass:prod', 'copy', 'concat', 'uglify', 'processhtml', 'karma:raw' ]);
     grunt.registerTask('templates', [ 'ngtemplates' ]);
 
     /* Running GRUNT without any parameters will run the following tasks

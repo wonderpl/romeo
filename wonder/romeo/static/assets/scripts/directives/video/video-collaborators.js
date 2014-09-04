@@ -42,7 +42,6 @@
 
         UserService.getConnections(true).then(function (data) {
           $scope.connections = data;
-          console.log(data);
           $scope.select2Options.tags = data;
         });
 

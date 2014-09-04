@@ -14,6 +14,7 @@
     angular.module('RomeoApp.controllers', ['RomeoApp.services', 'RomeoApp.directives', 'LocalStorageModule']);
     // -- App modules
     angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
+    angular.module('RomeoApp.search', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
 
     var debug = new DebugClass('App');
 
@@ -25,6 +26,7 @@
             'RomeoApp.filters',
             'RomeoApp.analytics',
             'RomeoApp.profile',
+            'RomeoApp.search',
             'ngRoute',
             'ngCookies',
             'angular-medium-editor',
@@ -73,12 +75,6 @@
         $routeProvider.when('/video/:id/edit', {
             templateUrl: 'video.html',
             resolve: securityAuthorizationProvider.requireCreator
-        });
-
-        $routeProvider.when('/search', {
-          templateUrl: 'search.html',
-          resolve: securityAuthorizationProvider.requireAuthenticated,
-          reloadOnSearch: false
         });
 
         $routeProvider.when('/faq', {

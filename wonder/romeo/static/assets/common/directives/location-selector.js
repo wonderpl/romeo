@@ -12,6 +12,7 @@
         LocationService.getAll().then(function (response) {
           $scope.locations = response.data.country.items;
         });
+        $scope.select2Options = { };
       }
 		};
 	}
