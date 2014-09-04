@@ -61,9 +61,23 @@ def reset_dolly_tokens():
 @manager.command
 @commit_on_success
 def fixup_user_data():
-    for user in AccountUser.query.filter_by(avatar_url=None):
-        userdata = get_dollyuser(user.account).get_userdata()
-        if not user.avatar_url:
-            user.avatar_url = userdata['avatar_thumbnail_url']
-        if not user.display_name:
-            user.display_name = userdata['display_name']
+    from wonder.romeo.account.forms import ExternalLoginForm
+    form = ExternalLoginForm()
+    for user in AccountUser.query.all():
+        try:
+            userdata = get_dollyuser(user.account).get_userdata()
+        except Exception:
+            print >>sys.stderr, 'Unable to fetch dolly data for %s' % user.display_name
+            continue
+
+        if not user.location:
+            user.location = 'GB'
+
+        userdata['name'] = user.display_name or userdata['display_name']
+        userdata['profile_image_url'] = userdata.get(
+            'avatar_thumbnail_url', '').replace('thumbnail_large', 'original')
+        userdata['profile_banner_url'] = userdata.get(
+            'profile_cover_url', '').replace('ipad', 'original')
+        form.user_data = userdata
+        form.account_id = user.account_id
+        form._update_user(user)
