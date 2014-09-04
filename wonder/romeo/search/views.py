@@ -1,5 +1,5 @@
 import re
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from flask.ext.restful.reqparse import RequestParser
 from wonder.romeo.core.rest import Resource, api_resource, cache_control
 from wonder.romeo.core.util import COUNTRY_CODES
@@ -30,14 +30,14 @@ class SearchResource(Resource):
 
         for src in args.src:
             search = getattr(self, '_search_%s' % src)
-            result[src] = search(args.q, args.location, args.size, args.start)
+            result[src] = search(args.q.strip(), args.location, args.size, args.start)
 
         return result
 
     def _db_match(self, dbquery, size, start, query, *args):
         if query:
-            match = lambda x: x.ilike('%' + query + '%')
-            dbquery = dbquery.filter(*[match(a) for a in args])
+            match = lambda x: x.ilike('%' + re.sub('\W+', '%', query) + '%')
+            dbquery = dbquery.filter(or_(*[match(a) for a in args]))
         total = dbquery.count()
         dbquery = dbquery.offset(start).limit(size)
         return dbquery, total
@@ -76,7 +76,9 @@ class SearchResource(Resource):
             ).distinct()
             query = ''
 
-        videos, total = self._db_match(videos, size, start, query, Video.title)
+        videos, total = self._db_match(videos, size, start, query,
+                                       Video.title,
+                                       Video.search_keywords)
         items = [self._video_item(v) for v in videos]
         return dict(items=items, total=total)
 
@@ -89,16 +91,20 @@ class SearchResource(Resource):
             avatar=user.avatar,
         )
 
-    def _search_content_owner(self, query, location, size, start=0):
+    def _search_user(self, query, account_type, location, size, start=0):
         users = AccountUser.query.filter_by(active=True).join(
-            Account, (Account.id == AccountUser.account_id) & (Account.account_type == 'content_owner'))
-        users, total = self._db_match(users, size, start, query, AccountUser.display_name)
+            Account,
+            (Account.id == AccountUser.account_id) &
+            (Account.account_type == account_type))
+        users, total = self._db_match(users, size, start, query,
+                                      AccountUser.display_name,
+                                      AccountUser.search_keywords,
+                                      AccountUser.title)
         items = [self._user_item(u) for u in users]
         return dict(items=items, total=total)
 
+    def _search_content_owner(self, query, location, size, start=0):
+        return self._search_user(query, 'content_owner', location, size, start)
+
     def _search_collaborator(self, query, location, size, start=0):
-        users = AccountUser.query.filter_by(active=True, contactable=True).join(
-            Account, (Account.id == AccountUser.account_id) & (Account.account_type == 'collaborator'))
-        users, total = self._db_match(users, size, start, query, AccountUser.display_name)
-        items = [self._user_item(u) for u in users]
-        return dict(items=items, total=total)
+        return self._search_user(query, 'collaborator', location, size, start)
