@@ -54,6 +54,7 @@ Advice
 Aerial photography
 Aerobatics
 Africa
+After Affects
 Aftereffects
 After Effects
 Aggressive
@@ -88,6 +89,7 @@ Animated
 Animated series
 Animation
 Anonymous
+Aperture
 Apparel
 Arcadia
 Arizona
@@ -171,6 +173,7 @@ Biking
 Biology
 Bird
 Birds
+Bit rate
 Black & white
 BlakeWhitman
 Blog
@@ -185,9 +188,12 @@ Board Reunion
 Boat
 Boating
 Boats
+Bokeh
 Bombing
+Boom microphones
 Boston
 Bota
+Bounce
 Bouncing ball
 Bowl
 Brakhage
@@ -200,6 +206,7 @@ Bridge
 British Columbia
 Broad Band Rocks Live
 Broadcast design
+B-roll
 Bronx
 Brooklyn
 Bubbles
@@ -286,6 +293,7 @@ Climate
 Climate change
 Climatematters
 Clintus
+Close up
 Clothing
 Clouds
 Club
@@ -300,12 +308,15 @@ College
 Color
 Colorado
 Color correction
+Color Correction
+Colour  Correction
 Combination
 Comedian
 Comedy
 Comique
 Community
 Compositing
+Compression
 Computer
 Computer Animation
 Computers
@@ -331,6 +342,7 @@ Cross
 Cross country
 Crowd
 Cruise
+C-Stand
 Cubs
 Cult
 Culture
@@ -350,6 +362,7 @@ Daxl
 DC
 Demonstration
 Denmark
+Depth of Field
 Derby
 Deregulation
 Derek jeter
@@ -362,11 +375,15 @@ DF
 Dfw
 DH5
 Diary
+Diegetic Sound
 Diesel
 Different
+Diffusion
 Digital
 Digital camera
 Digital cinema
+Digital Light Projection
+Digital Zoom
 Dinner
 Dior
 Direct animation
@@ -382,11 +399,13 @@ Diy
 Diy telecine
 Dj
 Djembé
+DLP
 Dmc-fx35
 D'morgan
 Documental
 Documentary
 Dof
+DOF
 Dog
 Dogs
 Dog show
@@ -414,6 +433,8 @@ DSLR
 Dub
 Ducks
 Dumb kid
+DVU
+Dynamic Range
 Eafra
 Earth
 Easter
@@ -454,9 +475,11 @@ Experimental animation
 Experimental music
 Experimental video
 Explosion
+Exposure
 Express
 Extreme
 Extreme Sports
+Fade
 Falko Seidel
 Fall
 FALLAS
@@ -473,6 +496,7 @@ Fashion Show
 Fashion video
 Fashion Week
 Fast motion
+Fautograph
 FCP
 Feature film
 Federer
@@ -513,6 +537,7 @@ Flysurfer
 Focusmatic
 Foilkite
 Foils
+Foley
 Folger shakespeare library
 Folk
 Folrana
@@ -525,6 +550,7 @@ Forest
 Forests
 Forfar
 FPS
+Frame rate
 France
 Frankfurt
 Freeride
@@ -549,6 +575,7 @@ Gaming
 Garden
 Gary
 Gay
+Gels
 Generative
 Generative Art
 Genetic
@@ -611,6 +638,7 @@ HF100
 Hg10
 High
 High definition
+High Dynamic Range
 Highlights
 High speed
 Highway
@@ -620,6 +648,7 @@ Hip-hop
 Hip Hop
 History
 Hitting
+HMI
 Hobby
 Hockey
 Holiday
@@ -642,6 +671,7 @@ Humor
 Hv20
 Hv30
 HVX200
+Hydrargyrum Medium-arc Iodide lights
 Hymn
 Ibiza
 I like you
@@ -763,6 +793,7 @@ Lockable
 Locomotive
 Lol
 London
+Long Portrait
 Look
 Lookbook
 Loop
@@ -777,6 +808,7 @@ Machango
 Maciunas
 Macquarie
 Macro
+Macro Lenses
 Macromedia
 Magic Bullet
 Maharashtra
@@ -1046,6 +1078,7 @@ Rolling
 Romance
 Ronald frederick
 Ronky
+Room Tone
 Roseland
 Round the world
 Rowing
@@ -1078,6 +1111,7 @@ Scotland
 Scott
 Scottish
 Screencast
+Screener
 Sculpture
 Sea
 Seaplane
@@ -1102,6 +1136,7 @@ Short
 Short animation
 Short film
 Shorts
+Shoulder Rig
 Show
 Sick
 Sigma
@@ -1167,6 +1202,7 @@ Stand Up
 State
 State library of nsw
 Station
+Steadicam
 Steam
 Steel
 Stencil
@@ -1176,6 +1212,7 @@ Stop
 Stop Frame
 Stop motion
 Storm
+Storyboards
 Story telling
 Street
 Street art
@@ -1321,6 +1358,7 @@ Via
 Video
 Video art
 Videoarte
+Video Blogs
 Videoclip
 Videodj
 Videojournalism
@@ -1368,6 +1406,7 @@ Weird
 What I Like About You
 Wheelie
 Whistler
+White Balance
 Why I Like You
 Wild
 Wilderness

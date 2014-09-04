@@ -552,3 +552,32 @@ Content-Type: application/json
  }
 }
 ```
+
+## User Title Suggestions
+
+Use the `/api/user_titles` service to get a list of suggested terms for the user `title` property.
+
+```http
+GET /api/user_titles?prefix=<prefix>&start=<i>&size=<n> HTTP/1.1
+```
+
+Parameter      | Required  | Value             | Description
+:------------- | :-------- | :---------------- | :----------
+prefix         | yes       | String            | Prefix text to match.
+start          | no        | 0-based integer   | Used for paging through the result items.
+size           | no        | Result page size  | Number of items to return - max 50.
+
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+ "user_title": {
+  "total": 1,
+  "items": [
+   "Test"
+  ]
+ }
+}
+```

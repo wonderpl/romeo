@@ -1,4 +1,5 @@
 import re
+from pkg_resources import resource_string
 from functools import wraps
 from urlparse import parse_qs
 from requests_oauthlib import OAuth1, requests
@@ -12,7 +13,7 @@ from flask.ext.restful import abort
 from flask.ext.restful.reqparse import RequestParser
 from wonder.common.i18n import lazy_gettext as _
 from wonder.romeo.core.db import commit_on_success
-from wonder.romeo.core.rest import Resource, api_resource
+from wonder.romeo.core.rest import Resource, api_resource, cache_control
 from wonder.romeo.core.dolly import DollyUser
 from wonder.romeo.core.util import gravatar_url
 from .forms import (RegistrationForm, ExternalLoginForm, LoginForm,
@@ -332,6 +333,32 @@ class UserConnectionResource(Resource):
         connection = AccountUserConnection.query.filter_by(
             account_user_id=user.id, connection_id=connection_id).first_or_404()
         return _connection_item(connection)
+
+
+class SuggestionResource(Resource):
+
+    decorators = []
+
+    query_parser = RequestParser()
+    query_parser.add_argument('prefix', type=str, required=True)
+    query_parser.add_argument('size', type=int, choices=map(str, range(50)), default=10)
+    query_parser.add_argument('start', type=int, default=0)
+
+    label = 'suggestion'
+
+    @cache_control(max_age=86400)
+    def get(self):
+        args = self.query_parser.parse_args()
+        prefix = args.prefix.lower()
+        matches = [(100, t) for t in self.default_terms if t.lower().startswith(prefix)]
+        items = sorted(matches, key=lambda x: x[0])[args.start:args.start + args.size]
+        return {self.label: dict(items=items and zip(*items)[1], total=len(matches))}
+
+
+@api_resource('/user_titles')
+class UserTitlesResource(SuggestionResource):
+    label = 'user_title'
+    default_terms = resource_string(__name__, 'user_titles.txt').split('\n')
 
 
 @commit_on_success
