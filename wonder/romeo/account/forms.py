@@ -246,7 +246,7 @@ class ChangePasswordForm(Form):
 
 
 class AccountUserConnectionForm(BaseForm):
-    user = wtforms.IntegerField()
+    user = wtforms.IntegerField(validators=[wtforms.validators.Required()])
     message = wtforms.StringField()
 
     class Meta:
