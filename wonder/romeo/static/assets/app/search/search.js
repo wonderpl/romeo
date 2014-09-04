@@ -9,6 +9,7 @@
     $routeProvider.when('/search', {
       templateUrl: 'search/search.tmpl.html',
       resolve: securityAuthorizationProvider.requireAuthenticated,
+      controller: 'MainCtrl',
       reloadOnSearch: false
     });
   }
