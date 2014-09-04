@@ -28,6 +28,13 @@ def JsonBoolean(default=False):
     return validate
 
 
+class JsonOptional(wtforms.validators.Optional):
+    def __call__(self, form, field):
+        if field.raw_data == [None]:
+            field.raw_data = None
+        super(JsonOptional, self).__call__(form, field)
+
+
 def ImageData(imagetype=None, thumbnails=[]):
     def validate(self, field):
         if field.data:

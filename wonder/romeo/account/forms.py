@@ -15,7 +15,7 @@ from wonder.common.sqs import background_on_sqs
 from wonder.romeo import db
 from wonder.romeo.core.email import send_email, email_template_env
 from wonder.romeo.core.util import COUNTRY_CODES
-from wonder.romeo.video.forms import BaseForm, ImageData, JsonBoolean
+from wonder.romeo.video.forms import BaseForm, ImageData, JsonBoolean, JsonOptional
 from .models import Account, AccountUser, AccountUserAuthToken, AccountUserConnection, EXTERNAL_SYSTEM_CHOICES
 
 
@@ -231,7 +231,7 @@ class AccountUserForm(BaseForm):
     title = wtforms.StringField()
     description = wtforms.StringField()
     website_url = wtforms.StringField(validators=[
-        wtforms.validators.Optional(), wtforms.validators.URL()])
+        JsonOptional(), wtforms.validators.URL()])
     search_keywords = wtforms.StringField()
     profile_cover = wtforms.FileField(validators=[ImageData('profile_cover', thumbnails=True)])
     avatar = wtforms.FileField(validators=[ImageData('avatar', thumbnails=True)])
