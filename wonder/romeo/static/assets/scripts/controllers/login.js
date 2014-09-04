@@ -60,7 +60,7 @@ function LoginController ($scope, $location, SecurityService) {
       SecurityService.ExternalLogin().then(function (response) {
           console.log('Success in request');
           console.dir(response.data);
-          $location.url('/organise');
+          SecurityService.restoreUrl('/profile');
         },
         function (response) {
           console.log('Error in request');
