@@ -14,8 +14,7 @@ from wonder.common.i18n import lazy_gettext as _
 from wonder.common.sqs import background_on_sqs
 from wonder.romeo import db
 from wonder.romeo.core.email import send_email, email_template_env
-from wonder.romeo.core.util import COUNTRY_CODES, get_random_filename
-from wonder.romeo.core.s3 import media_bucket, upload_file
+from wonder.romeo.core.util import COUNTRY_CODES
 from wonder.romeo.video.forms import BaseForm, ImageData, JsonBoolean
 from .models import Account, AccountUser, AccountUserAuthToken, AccountUserConnection, EXTERNAL_SYSTEM_CHOICES
 
@@ -231,7 +230,8 @@ class AccountUserForm(BaseForm):
     location = wtforms.SelectField(choices=COUNTRY_CODES)
     title = wtforms.StringField()
     description = wtforms.StringField()
-    website_url = wtforms.StringField(validators=[wtforms.validators.URL()])
+    website_url = wtforms.StringField(validators=[
+        wtforms.validators.Optional(), wtforms.validators.URL()])
     search_keywords = wtforms.StringField()
     profile_cover = wtforms.FileField(validators=[ImageData('profile_cover', thumbnails=True)])
     avatar = wtforms.FileField(validators=[ImageData('avatar', thumbnails=True)])
