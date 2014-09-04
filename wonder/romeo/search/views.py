@@ -1,5 +1,5 @@
 import re
-from sqlalchemy import func, or_
+from sqlalchemy import func
 from flask.ext.restful.reqparse import RequestParser
 from wonder.romeo.core.rest import Resource, api_resource, cache_control
 from wonder.romeo.core.util import COUNTRY_CODES
@@ -36,8 +36,9 @@ class SearchResource(Resource):
 
     def _db_match(self, dbquery, size, start, query, *args):
         if query:
-            match = lambda x: x.ilike('%' + re.sub('\W+', '%', query) + '%')
-            dbquery = dbquery.filter(or_(*[match(a) for a in args]))
+            query = re.sub('\W+', ' ', query).strip().replace(' ', ' & ')
+            body = func.concat_ws(' ', *args)
+            dbquery = dbquery.filter(func.to_tsvector(body).match(query))
         total = dbquery.count()
         dbquery = dbquery.offset(start).limit(size)
         return dbquery, total
