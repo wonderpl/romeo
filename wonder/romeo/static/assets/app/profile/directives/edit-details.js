@@ -32,9 +32,33 @@ function editDetails($templateCache) {
         'minimumInputLength': 3,
         'maximumSelectionSize': 10,
         'allowClear': true,
-        'query': function (query) {
-          var data = {results: [{text: query.term, id: query.term}, {text: 'Papple', id: 'Papple'}, {text: 'Banana', id: 'Banana'}, {text: 'Gelato', id: 'Gelato'}]};
-          query.callback(data);
+        ajax: {
+          url: '/api/search_keywords',
+          cache: true,
+          quietMillis: 500,
+          data: function (term, page) {
+            return {prefix: term, size: 10, start: (page - 1) * 10};
+          },
+          results: function (data, page) {
+            var result = {results: [], more: false};
+            $.each(data.search_keyword.items || [], function() {
+              result.results.push({id: this, text: this});
+            });
+            if (data.search_keyword.items.length == 10) {
+              result.more = true;
+            }
+            return result;
+          }
+        },
+        createSearchChoice: function (term) {
+          return {id: term, text: term};
+        },
+        initSelection: function (element, callback) {
+          var data = [];
+          $(element.val().split(",")).each(function () {
+            data.push({id: this, text: this});
+          });
+          callback(data);
         }
       };
       if ($scope.profile.search_keywords) {
