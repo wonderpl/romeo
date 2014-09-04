@@ -44,40 +44,47 @@
         // Organise
         $routeProvider.when('/organise', {
             templateUrl: 'organise.html',
+            controller: 'MainCtrl',
             resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
         // Organise
         $routeProvider.when('/organise/:id', {
             templateUrl: 'organise.html',
+            controller: 'MainCtrl',
             resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
         // Videos
         $routeProvider.when('/video', {
             templateUrl: 'video.html',
+            controller: 'MainCtrl',
             resolve: securityAuthorizationProvider.requireCreator
         });
 
         // Videos
         $routeProvider.when('/video/:id', {
             templateUrl: 'video.html',
+            controller: 'MainCtrl',
             resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
         // Videos
         $routeProvider.when('/video/:id/comments', {
             templateUrl: 'video.html',
+            controller: 'MainCtrl',
             resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
         // Videos
         $routeProvider.when('/video/:id/edit', {
             templateUrl: 'video.html',
+            controller: 'MainCtrl',
             resolve: securityAuthorizationProvider.requireCreator
         });
 
         $routeProvider.when('/faq', {
+            controller: 'MainCtrl',
             templateUrl: 'faq.html'
         });
 
@@ -90,33 +97,40 @@
         // - /engagement/
         $routeProvider.when('/analytics/:videoID/:type', {
             templateUrl: 'analytics.html',
+            controller: 'MainCtrl',
             resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
         $routeProvider.when('/analytics/:videoID', {
             templateUrl: 'analytics.html',
+            controller: 'MainCtrl',
             resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
         $routeProvider.when('/loading', {
+            controller: 'MainCtrl',
             templateUrl: 'loading.html'
         });
 
         $routeProvider.when('/logout', {
+            controller: 'MainCtrl',
             templateUrl: 'login.html'
         });
 
 /******* DEPRECATED **************************************************/
 
         $routeProvider.when('/login', {
+            controller: 'MainCtrl',
             templateUrl: 'login.html'
         });
 
         $routeProvider.when('/twitter-login', {
+            controller: 'MainCtrl',
             templateUrl: 'twitter-login.html'
         });
 
         $routeProvider.when('/signup', {
+            controller: 'MainCtrl',
             templateUrl: 'signup.html'
         });
 

@@ -1,24 +1,27 @@
 angular
   .module('RomeoApp.controllers')
-  .controller('MainCtrl', ['$window', '$scope', '$rootScope', '$location', 'modal', '$element', '$cookies', 'localStorageService', 'SecurityService', MainController]);
+  .controller('MainCtrl', ['$window', '$scope', '$rootScope', '$location', '$cookies', 'modal', 'localStorageService', 'SecurityService', 'UserService', MainController]);
 
-function MainController ($window, $scope, $rootScope, $location, modal, $element, $cookies, localStorageService, SecurityService) {
+function MainController ($window, $scope, $rootScope, $location, $cookies, modal, localStorageService, SecurityService, UserService) {
 
   'use strict';
 
-  /*
-  * Empty state objects for when we have data
-  */
-  $rootScope.Videos = {};
-  $rootScope.Tags = {};
+  function init() {
+    /*
+    * Empty state objects for when we have data
+    */
+    $rootScope.Videos = {};
+    $rootScope.Tags = {};
+    $rootScope.isComments = false;
+    $rootScope.layoutMode = $cookies.layout ? $cookies.layout : (SecurityService.isCollaborator()) ? 'column' : 'wide';
+    $scope.profile = '';
+    $scope.currentRoute = $location;
 
-  $rootScope.isComments = false;
-
-  $rootScope.layoutMode = $cookies.layout ? $cookies.layout : (SecurityService.isCollaborator()) ? 'column' : 'wide';
-
-  $scope.profile = '';
-
-  $scope.currentRoute = $location;
+    if ($location.search().accept_connection) {
+      console.log('Accept connection: ' + $location.search().accept_connection);
+      UserService.connect({user: $location.search().accept_connection});
+    }
+  }
 
   $window.onbeforeunload = function () {
 
@@ -106,4 +109,5 @@ function MainController ($window, $scope, $rootScope, $location, modal, $element
       return $.isEmptyObject(obj);
   };
 
+  init();
 }

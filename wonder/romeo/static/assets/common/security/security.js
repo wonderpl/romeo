@@ -270,7 +270,7 @@
             return securityAuthorization.requireCreator();
           }],
 
-          $get: ['$location', 'SecurityService', function ($location, security) {
+          $get: ['SecurityService', function (security) {
             var service = {
 
               // Require that there is an authenticated user
