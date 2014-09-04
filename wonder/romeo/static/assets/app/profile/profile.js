@@ -210,8 +210,9 @@ function ProfileCtrl($scope, $location, $routeParams, AccountService, UserServic
     ProfileController.loadUserDetails();
   };
 
-  ProfileController.sendInvitationRequest = function (invite) {
-    UserService.connect(invite.id)
+  ProfileController.sendInvitationRequest = function ($event, invite) {
+    console.warn(invite);
+    UserService.connect(invite)
     .then(function () {
       $scope.$emit('notify', {
         status : 'success',

@@ -42,9 +42,9 @@
         service.getUser = function () {
             return SecurityService.getUser();
         };
-        service.connect = function (id) {
-          var url = '/api/user/' + id + '/connections';
-          return DataService.request({ url: url, method: 'POST' });
+        service.connect = function (data) {
+          var url = '/api/user/' + service.getUser().id + '/connections';
+          return DataService.request({ url: url, data: data, method: 'POST' });
         };
 
         service.getConnections = function (format) {

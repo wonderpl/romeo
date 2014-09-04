@@ -22,7 +22,7 @@
           modal.load('profile/invite/invite-modal.tmpl.html', true, $scope);
           console.log($scope.profile);
           $scope.invitation = {
-            id: $scope.profile.id
+            user: $scope.profile.id
           };
         };
 
