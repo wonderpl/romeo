@@ -30,7 +30,6 @@ function editDetails($templateCache) {
         'simple_tags': true,
         'width': '320px',
         'minimumInputLength': 3,
-        'maximumSelectionSize': 10,
         'allowClear': true,
         ajax: {
           url: '/api/search_keywords',
