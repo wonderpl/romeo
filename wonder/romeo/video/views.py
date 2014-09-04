@@ -198,7 +198,13 @@ class AccountVideosResource(Resource):
         if account.account_type != 'content_owner':
             abort(403, error='access_denied')
 
+        # _copy_video is the documented property but wtforms doesn't like the leading "_"
+        if isinstance(request.json, dict):
+            request.json.setdefault('copy_video', request.json.get('_copy_video', 0))
+
         form = VideoForm(account_id=account.id)
+
+        # category can be null
         if not form.category.data:
             delattr(form, 'category')
 

@@ -10,6 +10,7 @@ from flask.ext.wtf import Form
 from wonder.common.sqs import background_on_sqs
 from wonder.common.imaging import resize
 from wonder.common.forms import email_validator
+from wonder.common.i18n import lazy_gettext as _
 from wonder.romeo import db
 from wonder.romeo.core.db import commit_on_success
 from wonder.romeo.core.dolly import get_categories, push_video_data
@@ -132,6 +133,7 @@ class VideoForm(BaseForm):
     cover_image = wtforms.FileField(validators=[ImageData('cover')])
     link_url = wtforms.StringField(validators=[wtforms.validators.Optional(), wtforms.validators.URL()])
     link_title = wtforms.StringField()
+    copy_video = wtforms.IntegerField()
 
     class Meta:
         model = Video
@@ -145,7 +147,14 @@ class VideoForm(BaseForm):
     def save(self):
         if self.category and self.category.data in ('None', ''):    # XXX: Where is this coming from?
             self.category.data = None
-        video = super(VideoForm, self).save()
+
+        if self.copy_video and self.copy_video.data:
+            video = self.copy_video.data.clone()
+            self.populate_obj(video)
+            db.session.add(video)
+            db.session.flush()
+        else:
+            video = super(VideoForm, self).save()
 
         event = 'updated' if self.obj else 'created'
 
@@ -160,12 +169,39 @@ class VideoForm(BaseForm):
             ]
             create_cover_thumbnails(video.id, self.cover_image.data)
 
-        video.record_workflow_event(event)
+        video.record_workflow_event(event, getattr(video, '_source_id', None))
 
         if video.status == 'published':
             publish_video_changes(video.id)
 
         return video
+
+    def validate(self):
+        success = super(VideoForm, self).validate()
+        if not self.obj and self.copy_video.data:
+            # Other fields are not required when copying
+            if self.errors:
+                for name, errors in self._errors.items():
+                    errors = [e for e in errors if e != 'This field is required.']
+                    if errors:
+                        self._errors[name] = errors
+                    else:
+                        del self._errors[name]
+            # Remove fields with empty values so they don't override the source
+            for name, field in self._fields.items():
+                if not field.data:
+                    del self._fields[name]
+            success = not self._errors
+        return success
+
+    def validate_copy_video(self, field):
+        if field.data:
+            field.data = Video.query.get(self.copy_video.data)
+            if (not field.data or
+                    field.data.status == 'uploading' or
+                    (field.data.account_id != self.account_id and not
+                     current_user.has_collaborator_permission(field.data.id, 'download'))):
+                raise wtforms.ValidationError(_('Invalid video id.'))
 
     def validate_category(self, field):
         if field.data in ('None', ''):

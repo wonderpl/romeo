@@ -438,7 +438,10 @@ class AccountPaymentResource(Resource):
     @commit_on_success
     @dolly_account_view()
     def post(self, account, dollyuser):
-        request.json['payment_token'] = request.json.get('stripeToken')
+        # Allow alternative token identifier
+        if isinstance(request.json, dict):
+            request.json.setdefault('payment_token', request.json.get('stripeToken'))
+
         form = AccountPaymentForm(csrf_enabled=False)
         if form.validate():
             form.save()

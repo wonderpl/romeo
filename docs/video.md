@@ -218,6 +218,20 @@ Content-Type: application/json
 }
 ```
 
+### Video copy
+
+To copy a video - duplicate in your own account or copy from a collaboration to your account -
+`POST` with a `_copy_video` property:
+
+```http
+POST /api/video/<video_id> HTTP/1.1
+Content-Type: application/json
+
+{
+ "_copy_video": "<video_id>"
+}
+```
+
 ### Video detail
 
 To get full video resource record:

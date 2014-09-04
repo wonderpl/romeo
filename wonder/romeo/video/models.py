@@ -17,6 +17,17 @@ VIDEO_STATUS = 'uploading', 'processing', 'error', 'ready', 'published'
 USER_TYPE = 'account_user', 'collaborator'
 
 
+def _clone_model_instance(src, cls=None, exclude=()):
+    cls = cls or src.__class__
+    new = cls()
+    new._source_id = src.id
+    for col in cls.__table__.c:
+        if col.primary_key or col.foreign_keys or col.name in exclude:
+            continue
+        setattr(new, col.name, getattr(src, col.name))
+    return new
+
+
 class Video(db.Model):
     __tablename__ = 'video'
 
@@ -165,6 +176,13 @@ class Video(db.Model):
             ]
         return data
 
+    def clone(self):
+        new = _clone_model_instance(self, exclude=(
+            'date_added', 'date_updated', 'dolly_instance', 'hosted_url'))
+        for rel in 'thumbnails', 'locale_meta', '_player_parameters':
+            setattr(new, rel, [i.clone() for i in getattr(self, rel)])
+        return new
+
 
 class VideoThumbnail(db.Model):
     __tablename__ = 'video_thumbnail'
@@ -184,6 +202,9 @@ class VideoThumbnail(db.Model):
         url = urljoin(current_app.config['MEDIA_BASE_URL'], path)
         return cls(url=url, width=width, height=height)
 
+    def clone(self):
+        return _clone_model_instance(self)
+
 
 class VideoLocaleMeta(db.Model):
     __tablename__ = 'video_locale_meta'
@@ -202,6 +223,9 @@ class VideoLocaleMeta(db.Model):
 
     video = relationship(Video, backref=backref('locale_meta', cascade='all, delete-orphan'))
 
+    def clone(self):
+        return _clone_model_instance(self)
+
 
 class VideoPlayerParameter(db.Model):
     __tablename__ = 'video_player_parameter'
@@ -212,6 +236,9 @@ class VideoPlayerParameter(db.Model):
     value = Column(String(1024), nullable=False)
 
     video = relationship(Video, backref=backref('_player_parameters', cascade='all, delete-orphan'))
+
+    def clone(self):
+        return _clone_model_instance(self)
 
 
 class VideoTag(db.Model):
