@@ -20,8 +20,9 @@ function ProfileRouteProvider($routeProvider, securityAuthorizationProvider) {
 
 angular.module('RomeoApp.profile').config(['$routeProvider', 'securityAuthorizationProvider', ProfileRouteProvider]);
 
-function ProfileCtrl($scope, $location, $routeParams, AccountService, UserService, UploadService, VideoService, modal) {
+function ProfileCtrl($scope, $location, $routeParams, AccountService, UserService, UploadService, VideoService, LocationService, modal) {
   var ProfileController = {};
+  var locations;
 
   function init() {
     $scope.flags = {
@@ -32,6 +33,14 @@ function ProfileCtrl($scope, $location, $routeParams, AccountService, UserServic
       isFormValid: true,
       accountId: null
     };
+    // Some simple defaults in case the web service call hasn't completed
+    locations = { 'country': { 'items': [
+      { 'code': 'GB', 'name': 'United Kingdom' },
+      { 'code': 'US', 'name': 'United States' },
+      { 'code': 'FR', 'name': 'France' },
+      { 'code': 'DE', 'name': 'Germany' },
+      { 'code': 'ES', 'name': 'Spain' }
+    ] } };
 
     $scope.$on('profile-save', ProfileController.save);
     $scope.$on('profile-cancel', ProfileController.cancel);
@@ -66,31 +75,48 @@ function ProfileCtrl($scope, $location, $routeParams, AccountService, UserServic
         $scope.profile = newValue;
     });
 
+    $scope.findLocationName = function () {
+      var name = '';
+      if ($scope.profile.location) {
+        angular.forEach(locations.country.items, function (value) {
+          if (value.code === $scope.profile.location) {
+            name = value.name;
+            return;
+          }
+        });
+      }
+      return name;
+    };
+
     ProfileController.loadUserDetails();
+  }
+
+  function loadPublicProfile(id) {
+    UserService.getPublicUser(id).then(function(res) {
+      $scope.profile = res.data;
+      $scope.flags.accountId = id;
+      UserService.getPublicConnections(id).then(function (res) {
+        $scope.connections = res.data.connection.items;
+      });
+      VideoService.getPublicVideos(id).then(function (res) {
+        $scope.videos = res.data.video.items;
+      });
+      VideoService.getPublicCollaborationVideos(id).then(function (res) {
+        $scope.collaboratioVideos = res.data.video.items;
+      });
+    }, function (res) {
+      $scope.$emit('notify', {
+        status : 'error',
+        title : 'User not found',
+        message : 'Could not find the user you were looking for'}
+      );
+      $location.path('/organise', true);
+    });
   }
 
   ProfileController.loadUserDetails = function() {
     if ($routeParams.id) {
-      UserService.getPublicUser($routeParams.id).then(function(res) {
-        $scope.profile = res.data;
-        $scope.flags.accountId = $routeParams.id;
-        UserService.getPublicConnections($routeParams.id).then(function (res) {
-          $scope.connections = res.data.connection.items;
-        });
-        VideoService.getPublicVideos($routeParams.id).then(function (res) {
-          $scope.videos = res.data.video.items;
-        });
-        VideoService.getPublicCollaborationVideos($routeParams.id).then(function (res) {
-          $scope.collaboratioVideos = res.data.video.items;
-        });
-      }, function (res) {
-        $scope.$emit('notify', {
-          status : 'error',
-          title : 'User not found',
-          message : 'Could not find the user you were looking for'}
-        );
-        $location.path('/organise', true);
-      });
+      loadPublicProfile($routeParams.id);
     } else {
       $scope.flags.isOwner = true;
       $scope.profile = UserService.getUser();
@@ -98,6 +124,9 @@ function ProfileCtrl($scope, $location, $routeParams, AccountService, UserServic
         $scope.flags.accountId = $scope.profile.id;
       }
     }
+    LocationService.getAll().then(function (res) {
+      locations = res.data;
+    });
   };
 
   ProfileController.uploadProfileImage = function ($event, file) {
@@ -202,7 +231,7 @@ function ProfileCtrl($scope, $location, $routeParams, AccountService, UserServic
   return ProfileController;
 }
 
-angular.module('RomeoApp.profile').controller('ProfileCtrl', ['$scope', '$location', '$routeParams', 'AccountService', 'UserService', 'UploadService', 'VideoService', 'modal', ProfileCtrl]);
+angular.module('RomeoApp.profile').controller('ProfileCtrl', ['$scope', '$location', '$routeParams', 'AccountService', 'UserService', 'UploadService', 'VideoService', 'LocationService', 'modal', ProfileCtrl]);
 
 })();
 
