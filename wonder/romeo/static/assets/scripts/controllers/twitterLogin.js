@@ -14,7 +14,7 @@ angular
 
 		function externalLogin(profile) {
 			SecurityService.ExternalLogin(profile).then(function (response) {
-	        	$location.url('/organise');
+	        	SecurityService.restoreUrl('/profile');
 	        },
 	        function (response) {
 	        	if (response.data.error == 'registration_required') {

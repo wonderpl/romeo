@@ -11,16 +11,6 @@ angular
 	  $scope.tandc = false;
     $scope.isLoading = false;
 
-    $scope.handleRedirect = function (response) {
-      $scope.isLoading = false;
-      var params = $location.search();
-      if (params.redirect) {
-        console.log('redirect to ->' + params.redirect);
-      } else {
-        $location.url('/organise');
-      }
-    };
-
   	$scope.signUp = function(event) {
       if ( validate() ) {
         $scope.isLoading = true;
@@ -32,7 +22,9 @@ angular
         };
 
         SecurityService.registration(user).then(
-          $scope.handleRedirect,
+          function () {
+            SecurityService.restoreUrl('/profile');
+          },
           function (response) {
             console.log(response);
             $scope.isLoading = false;
