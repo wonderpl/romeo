@@ -190,11 +190,13 @@ function ProfileCtrl($scope, $location, $routeParams, AccountService, UserServic
       display_name    : $scope.profile.display_name,
       description     : $scope.profile.description,
       title           : $scope.profile.title,
-      website_url     : $scope.profile.website_url,
       location        : $scope.profile.location,
       search_keywords : $scope.profile.search_keywords,
       contactable     : $scope.profile.contactable
     };
+    if ($scope.profile.website_url) {
+      data.website_url = $scope.profile.website_url;
+    }
     UserService.updateUser(data).then(function () {
       $scope.flags.isEdit = false;
       $scope.$emit('notify', {
