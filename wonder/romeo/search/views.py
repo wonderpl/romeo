@@ -97,6 +97,8 @@ class SearchResource(Resource):
             Account,
             (Account.id == AccountUser.account_id) &
             (Account.account_type == account_type))
+        if location:
+            users = users.filter(AccountUser.location == location)
         users, total = self._db_match(users, size, start, query,
                                       AccountUser.display_name,
                                       AccountUser.search_keywords,
