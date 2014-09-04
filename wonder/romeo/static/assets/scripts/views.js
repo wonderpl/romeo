@@ -2114,7 +2114,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "\t<ul class=\"profile-details__optional\">\n" +
     "\t\t<li class=\"profile-details__website\"><a href=\"(~ profile.website_url ~)\">(~ profile.website_url ~)</a></li>\n" +
-    "\t\t<li ng-if=\"profile.location\" class=\"profile-details__location\">(~ profile.location ~)</li>\n" +
+    "\t\t<li ng-if=\"profile.location\" class=\"profile-details__location\">(~ findLocationName() ~)</li>\n" +
     "\t</ul>\n" +
     "\n" +
     "\t<p class=\"profile-details__legend f--sans\" ng-if=\"connections\">Collaborated with:</p>\n" +
@@ -2287,7 +2287,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <nav id=\"global-nav\" class=\"global-nav\" role=\"navigation\">\n" +
     "    <div class=\"wrapper\">\n" +
     "      <div class=\"avatar  avatar--large  global-nav__avatar\">\n" +
-    "        <img src=\"<!-- $spacer-gif -->\" alt=\"(~ account.display_name ~)\" class=\"avatar__img\" ng-style=\"profileStyle\">\n" +
+    "        <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"(~ account.display_name ~)\" class=\"avatar__img\" ng-style=\"profileStyle\">\n" +
     "      </div>\n" +
     "      <ul class=\"list-inline  t--center  global-nav-core-actions\">\n" +
     "        <li class=\"global-nav-core-actions__item\" ng-if=\"account\"><a href=\"#/profile\" class=\"global-nav-core-actions__link  btn  btn--blob  btn--light  simptip-position-bottom  simptip-smooth  simptip-movable\" title=\"View your profile page.\" data-tooltip=\"View your profile page.\"><i class=\"icon  icon--head\"></i></a></li><!--\n" +
@@ -2316,7 +2316,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     " <div class=\"location-selector icon-text\">\n" +
     "  <label class=\"label location-selector__label  accessibility\" for=\"location-selector__location\">Location</label>\n" +
     "  <select class=\"location-selector\" ui-select2 ng-model=\"location\">\n" +
-    "    <option ng-repeat=\"location in locations\" value=\"(~ location.code ~)\">(~ location.name ~)</option>\n" +
+    "    <option ng-repeat=\"location in locations | orderBy:'name'\" value=\"(~ location.code ~)\">(~ location.name ~)</option>\n" +
     "  </select>\n" +
     "</div>;"
   );

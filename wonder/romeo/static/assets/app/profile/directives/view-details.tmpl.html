@@ -7,7 +7,7 @@
 
 	<ul class="profile-details__optional">
 		<li class="profile-details__website"><a href="{{ profile.website_url }}">{{ profile.website_url }}</a></li>
-		<li ng-if="profile.location" class="profile-details__location">{{ profile.location }}</li>
+		<li ng-if="profile.location" class="profile-details__location">{{ findLocationName() }}</li>
 	</ul>
 
 	<p class="profile-details__legend f--sans" ng-if="connections">Collaborated with:</p>

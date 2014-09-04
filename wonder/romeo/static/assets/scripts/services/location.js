@@ -1,14 +1,25 @@
 angular.module('RomeoApp.services')
-  .factory('LocationService', ['$http', function ($http) {
+  .factory('LocationService', ['$http', '$q', function ($http, $q) {
 
   'use strict';
 
-  var Countries = {};
+  var service = {};
+  var locations;
 
-  Countries.getAll = function () {
-    return $http.get('/api/locations');
+  service.getAll = function () {
+    var queue;
+    if (locations) {
+        queue = new $q.defer();
+        queue.resolve(locations);
+        return queue.promise;
+    }
+    queue = $http.get('/api/locations');
+    queue.then(function (res) {
+        locations = res;
+    });
+    return queue;
   };
 
-  return Countries;
+  return service;
 
 }]);

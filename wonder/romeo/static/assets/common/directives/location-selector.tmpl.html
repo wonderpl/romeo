@@ -1,6 +1,6 @@
  <div class="location-selector icon-text">
   <label class="label location-selector__label  accessibility" for="location-selector__location">Location</label>
   <select class="location-selector" ui-select2 ng-model="location">
-    <option ng-repeat="location in locations" value="{{ location.code }}">{{ location.name }}</option>
+    <option ng-repeat="location in locations | orderBy:'name'" value="{{ location.code }}">{{ location.name }}</option>
   </select>
 </div>;
