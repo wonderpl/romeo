@@ -291,7 +291,7 @@ class AccountUserConnectionForm(BaseForm):
         if reverse and reverse.state == 'pending':
             reverse.state = connection.state = 'accepted'
             send_connection_acceptance_email(self.account_user.id, self.connection_user.id)
-        else:
+        elif created:
             send_connection_invite_email(self.account_user.id, self.connection_user.id)
 
         return connection if created else None
