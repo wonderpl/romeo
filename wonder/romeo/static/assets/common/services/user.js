@@ -26,17 +26,29 @@
         // Used to send PATCH requests to the webservice, updating individual parts of the user account
         service.updateUser = function(data) {
             var url = '/api/user/' + SecurityService.getUser().id;
-            return DataService.request({url: url, method: 'PATCH', data: data });
+            var promise = DataService.request({url: url, method: 'PATCH', data: data });
+            promise.then(function (res) {
+              angular.extend(SecurityService.getUser(), angular.fromJson(res));
+            });
+            return promise;
         };
 
         // Send a PATCH request with an updated avatar image
         service.updateAvatar = function(data) {
-            return DataService.uploadImage( ('/api/user/' + SecurityService.getUser().id), 'avatar', data);
+            var promise = DataService.uploadImage( ('/api/user/' + SecurityService.getUser().id), 'avatar', data);
+            promise.then(function (res) {
+              SecurityService.getUser().avatar = angular.fromJson(res).avatar;
+            });
+            return promise;
         };
 
         // Send a PATCH request with an updated cover image
         service.updateCoverImage = function(data) {
-            return DataService.uploadImage( ('/api/user/' + SecurityService.getUser().id), 'profile_cover', data);
+          var promise = DataService.uploadImage( ('/api/user/' + SecurityService.getUser().id), 'profile_cover', data);
+          promise.then(function (res) {
+            SecurityService.getUser().profile_cover = angular.fromJson(res).profile_cover;
+          });
+          return promise;
         };
 
         service.getUser = function () {
