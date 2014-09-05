@@ -15,7 +15,7 @@
 	<p class="profile-details__legend f--sans" ng-if="connections">Collaborated with:</p>
 	<ul class="profile-collaborators" ng-show="connections">
 		<li ng-repeat="connection in connections">
-			<a href="#/profile/{{ connection.user.id}}" class="profile-collaborators__link avatar"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" title="{{connection.user.display_name}}, {{connection.user.title}}" class="avatar__img" style="background-image: url({{connection.user.avatar}});">
+			<a href="#/profile/{{ connection.user.id}}" title="{{connection.user.display_name}}, {{connection.user.title}}" class="profile-collaborators__link avatar"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img" style="background-image: url({{connection.user.avatar}});">
 			</a>
 		</li>
 	</ul>

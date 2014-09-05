@@ -2,13 +2,13 @@
   <div class="wrapper">
     <ul class="sub-navigation__modes">
       <li class="sub-navigation__mode" ng-hide="flags.isEdit">
-        <a class="sub-navigation__link btn btn--utility" ng-click="flags.isEdit = true">edit</a>
+        <a href="#/profile/edit" class="sub-navigation__link btn btn--utility" >edit</a>
       </li>
       <li class="sub-navigation__mode" ng-show="flags.isEdit">
         <a class="sub-navigation__link btn btn--utility" ng-click="save()" ng-disabled="">save</a>
       </li>
       <li class="sub-navigation__mode" ng-show="flags.isEdit">
-        <a class="sub-navigation__link btn btn--utility" ng-click="cancel()">cancel</a>
+        <a class="sub-navigation__link btn btn--utility" href="#/profile">cancel</a>
       </li>
       <li class="sub-navigation__mode">
         <a class="sub-navigation__link btn btn--utility" ng-click="logout()">logout</a>

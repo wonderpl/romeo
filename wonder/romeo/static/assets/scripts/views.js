@@ -1966,7 +1966,26 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
-  $templateCache.put('profile/directives/edit-details.tmpl.html',
+  $templateCache.put('profile/cover-image.tmpl.html',
+    "<section class=\"profile-cover\"\n" +
+    "  ng-class=\"{ 'profile-cover--edit' : flags.isEdit, 'profile-cover--hero' : isHero, 'profile-cover--img' : profile.profile_cover }\"\n" +
+    "  style=\"background-image:url('(~ profile.profile_cover ~)');\" loading-spinner>\n" +
+    "\n" +
+    "  <label class=\"profile-cover__upload-label\" for=\"profileCoverUpload\">\n" +
+    "    <div class=\"profile-cover__dropzone\"\n" +
+    "      ng-file-drop=\"uploadProfileCover($files)\"\n" +
+    "      ng-file-drag-over-class=\"profile-cover__dropzone--active\"\n" +
+    "      ng-show=\"flags.isEdit\">\n" +
+    "    </div>\n" +
+    "  </label>\n" +
+    "\n" +
+    "  <input class=\"profile-cover__upload\" type=\"file\" id=\"profileCoverUpload\" ng-file-select=\"uploadProfileCover($files)\" />\n" +
+    "\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('profile/edit/edit-details.tmpl.html',
     "<div class=\"profile-edit\">\n" +
     "  <h3 class=\"error\" ng-hide=\"form.valid\">(~ form.errorMsg() ~)</h3>\n" +
     "\n" +
@@ -2021,73 +2040,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
-  $templateCache.put('profile/directives/view-details.tmpl.html',
-    "<div class=\"profile-details\">\n" +
-    "\t<h2 class=\"profile-details__name no-spacing\" ng-bind=\"profile.display_name\"></h2>\n" +
-    "\n" +
-    "\t<div ng-show=\"profile.title\" class=\"profile-details__job-title\" style=\"text-align: center;\">(~ profile.title ~)</div>\n" +
-    "\n" +
-    "\t<div class=\"profile-details__description\" ng-bind-html=\"profile.description\"></div>\n" +
-    "\n" +
-    "\t<ul class=\"profile-details__optional\">\n" +
-    "\t\t<li class=\"profile-details__website\"><a href=\"(~ profile.website_url ~)\" target=\"_new\">(~ profile.website_url ~)</a></li>\n" +
-    "\t\t<li ng-if=\"profile.location\" class=\"profile-details__location\">(~ findLocationName() ~)</li>\n" +
-    "\t</ul>\n" +
-    "\n" +
-    "    <profile-invite ng-if=\"!flags.isOwner && profile.contactable\" data-profile=\"profile\"></profile-invite>\n" +
-    "\n" +
-    "\t<p class=\"profile-details__legend f--sans\" ng-if=\"connections\">Collaborated with:</p>\n" +
-    "\t<ul class=\"profile-collaborators\" ng-show=\"connections\">\n" +
-    "\t\t<li ng-repeat=\"connection in connections\">\n" +
-    "\t\t\t<a href=\"#/profile/(~ connection.user.id~)\" class=\"profile-collaborators__link avatar\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" title=\"(~connection.user.display_name~), (~connection.user.title~)\" class=\"avatar__img\" style=\"background-image: url((~connection.user.avatar~));\">\n" +
-    "\t\t\t</a>\n" +
-    "\t\t</li>\n" +
-    "\t</ul>\n" +
-    "</div>"
-  );
-
-
-  $templateCache.put('profile/images/cover.tmpl.html',
-    "<section class=\"profile-cover\" \n" +
-    "  ng-class=\"{ 'profile-cover--edit' : isEdit, 'profile-cover--hero' : isHero, 'profile-cover--img' : image }\"\n" +
-    "  style=\"background-image:url('(~ image ~)');\" loading-spinner>\n" +
-    "\n" +
-    "  <label class=\"profile-cover__upload-label\" for=\"profileCoverUpload\">\n" +
-    "    <div class=\"profile-cover__dropzone\"\n" +
-    "      ng-file-drop=\"uploadProfileCover($files)\"\n" +
-    "      ng-file-drag-over-class=\"profile-cover__dropzone--active\"\n" +
-    "      ng-show=\"isEdit\">\n" +
-    "    </div>\n" +
-    "  </label>\n" +
-    "\n" +
-    "  <input class=\"profile-cover__upload\" type=\"file\" id=\"profileCoverUpload\" ng-file-select=\"uploadProfileCover($files)\" />\n" +
-    "\n" +
-    "</section>"
-  );
-
-
-  $templateCache.put('profile/images/image.tmpl.html',
-    "<section class=\"profile-image\">\n" +
-    "\n" +
-    "  <div class=\"profile-image__container\"\n" +
-    "    ng-class=\"{ 'profile-image__container--edit' : isEdit }\"\n" +
-    "    ng-style=\"profileImageStyle\"\n" +
-    "    loading-spinner>\n" +
-    "    <label class=\"profile-image__upload-label\" for=\"profileImageUpload\">\n" +
-    "      <div class=\"profile-image__dropzone\"\n" +
-    "        ng-file-drop=\"uploadProfileImage($files)\"\n" +
-    "        ng-file-drag-over-class=\"profile-image__dropzone--active\"\n" +
-    "        ng-show=\"isEdit\">\n" +
-    "      </div>\n" +
-    "    </label>\n" +
-    "\n" +
-    "    <input class=\"profile-image__upload\" type=\"file\" id=\"profileImageUpload\" ng-file-select=\"uploadProfileImage($files)\" />\n" +
-    "  </div>\n" +
-    "</section>"
-  );
-
-
-  $templateCache.put('profile/invite/invite-modal.tmpl.html',
+  $templateCache.put('profile/invite-modal.tmpl.html',
     "<div class=\"modal__title  split\">\n" +
     "  <span class=\"split__title  t--block  w--600\">Invite User</span>\n" +
     "  <a class=\"modal__link\" ng-click=\"close()\"><i class=\"icon icon--medium icon--circle-cross\"></i></a>\n" +
@@ -2103,23 +2056,44 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
-  $templateCache.put('profile/invite/invite.tmpl.html',
+  $templateCache.put('profile/invite.tmpl.html',
     "<a class=\"profile-invite__link btn btn--utility\" ng-click=\"invite()\">Connect with me</a>"
   );
 
 
-  $templateCache.put('profile/navigation/navigation.tmpl.html',
+  $templateCache.put('profile/profile-avatar.tmpl.html',
+    "<section class=\"profile-image\">\n" +
+    "\n" +
+    "  <div class=\"profile-image__container\"\n" +
+    "    ng-class=\"{ 'profile-image__container--edit' : flags.isEdit }\"\n" +
+    "    ng-style=\"profileImageStyle\"\n" +
+    "    loading-spinner>\n" +
+    "    <label class=\"profile-image__upload-label\" for=\"profileImageUpload\">\n" +
+    "      <div class=\"profile-image__dropzone\"\n" +
+    "        ng-file-drop=\"uploadProfileImage($files)\"\n" +
+    "        ng-file-drag-over-class=\"profile-image__dropzone--active\"\n" +
+    "        ng-show=\"flags.isEdit\">\n" +
+    "      </div>\n" +
+    "    </label>\n" +
+    "\n" +
+    "    <input class=\"profile-image__upload\" type=\"file\" id=\"profileImageUpload\" ng-file-select=\"uploadProfileImage($files)\" />\n" +
+    "  </div>\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('profile/profile-navigation.tmpl.html',
     "<section class=\"sub-navigation\">\n" +
     "  <div class=\"wrapper\">\n" +
     "    <ul class=\"sub-navigation__modes\">\n" +
     "      <li class=\"sub-navigation__mode\" ng-hide=\"flags.isEdit\">\n" +
-    "        <a class=\"sub-navigation__link btn btn--utility\" ng-click=\"flags.isEdit = true\">edit</a>\n" +
+    "        <a href=\"#/profile/edit\" class=\"sub-navigation__link btn btn--utility\" >edit</a>\n" +
     "      </li>\n" +
     "      <li class=\"sub-navigation__mode\" ng-show=\"flags.isEdit\">\n" +
     "        <a class=\"sub-navigation__link btn btn--utility\" ng-click=\"save()\" ng-disabled=\"\">save</a>\n" +
     "      </li>\n" +
     "      <li class=\"sub-navigation__mode\" ng-show=\"flags.isEdit\">\n" +
-    "        <a class=\"sub-navigation__link btn btn--utility\" ng-click=\"cancel()\">cancel</a>\n" +
+    "        <a class=\"sub-navigation__link btn btn--utility\" href=\"#/profile\">cancel</a>\n" +
     "      </li>\n" +
     "      <li class=\"sub-navigation__mode\">\n" +
     "        <a class=\"sub-navigation__link btn btn--utility\" ng-click=\"logout()\">logout</a>\n" +
@@ -2131,24 +2105,24 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('profile/profile.tmpl.html',
-    "<section class=\"profile\" ng-controller=\"ProfileCtrl\">\n" +
+    "<section class=\"profile\">\n" +
     "\n" +
     "  <div class=\"profile-view__nav-placeholder sub-navigation__placeholder\" ng-show=\"flags.isOwner\">\n" +
     "    <profile-navigation flags=\"flags\" ng-if=\"flags.isOwner\"></profile-navigation>\n" +
     "  </div>\n" +
     "\n" +
-    "  <profile-cover image=\"profile.profile_cover\" is-edit=\"flags.isEdit\"></profile-cover>\n" +
+    "  <profile-cover></profile-cover>\n" +
     "\n" +
-    "  <profile-image profile=\"profile\" is-edit=\"flags.isEdit\"></profile-image>\n" +
+    "  <profile-image></profile-image>\n" +
     "\n" +
     "  <div class=\"wrapper wrapper--fixed\">\n" +
     "    <profile-edit-details data-profile=\"profile\" data-flags=\"flags\" ng-if=\"flags.isEdit\"></profile-edit-details>\n" +
     "    <profile-view-details data-profile=\"profile\" data-flags=\"flags\" ng-if=\"! flags.isEdit\"></profile-view-details>\n" +
     "\n" +
     "\n" +
-    "    <profile-public ng-if=\"! flags.isOwner\">\n" +
+    "    <list-videos ng-if=\"! flags.isOwner\">\n" +
     "      This should be the list of collaborators and public videos\n" +
-    "    </profile-public>\n" +
+    "    </list-videos>\n" +
     "\n" +
     "  </div>\n" +
     "\n" +
@@ -2156,7 +2130,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
-  $templateCache.put('profile/public/public.tmpl.html',
+  $templateCache.put('profile/public/list-videos.tmpl.html',
     "<section class=\"public-profile__wrapper\">\n" +
     "\t<ul class=\"public-profile__videos\" ng-show=\"videos\">\n" +
     "\t\t<li ng-repeat=\"item in videos\" class=\"cf t--block t--pad-top--half\">\n" +
@@ -2174,6 +2148,32 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      </li>\n" +
     "\t</ul>\n" +
     "</section>"
+  );
+
+
+  $templateCache.put('profile/view-details.tmpl.html',
+    "<div class=\"profile-details\">\n" +
+    "\t<h2 class=\"profile-details__name no-spacing\" ng-bind=\"profile.display_name\"></h2>\n" +
+    "\n" +
+    "\t<div ng-show=\"profile.title\" class=\"profile-details__job-title\" style=\"text-align: center;\">(~ profile.title ~)</div>\n" +
+    "\n" +
+    "\t<div class=\"profile-details__description\" ng-bind-html=\"profile.description\"></div>\n" +
+    "\n" +
+    "\t<ul class=\"profile-details__optional\">\n" +
+    "\t\t<li class=\"profile-details__website\"><a href=\"(~ profile.website_url ~)\" target=\"_new\">(~ profile.website_url ~)</a></li>\n" +
+    "\t\t<li ng-if=\"profile.location\" class=\"profile-details__location\">(~ findLocationName() ~)</li>\n" +
+    "\t</ul>\n" +
+    "\n" +
+    "    <profile-invite ng-if=\"!flags.isOwner && profile.contactable\" data-profile=\"profile\"></profile-invite>\n" +
+    "\n" +
+    "\t<p class=\"profile-details__legend f--sans\" ng-if=\"connections\">Collaborated with:</p>\n" +
+    "\t<ul class=\"profile-collaborators\" ng-show=\"connections\">\n" +
+    "\t\t<li ng-repeat=\"connection in connections\">\n" +
+    "\t\t\t<a href=\"#/profile/(~ connection.user.id~)\" title=\"(~connection.user.display_name~), (~connection.user.title~)\" class=\"profile-collaborators__link avatar\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" class=\"avatar__img\" style=\"background-image: url((~connection.user.avatar~));\">\n" +
+    "\t\t\t</a>\n" +
+    "\t\t</li>\n" +
+    "\t</ul>\n" +
+    "</div>"
   );
 
 

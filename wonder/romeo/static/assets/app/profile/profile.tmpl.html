@@ -1,21 +1,21 @@
-<section class="profile" ng-controller="ProfileCtrl">
+<section class="profile">
 
   <div class="profile-view__nav-placeholder sub-navigation__placeholder" ng-show="flags.isOwner">
     <profile-navigation flags="flags" ng-if="flags.isOwner"></profile-navigation>
   </div>
 
-  <profile-cover image="profile.profile_cover" is-edit="flags.isEdit"></profile-cover>
+  <profile-cover></profile-cover>
 
-  <profile-image profile="profile" is-edit="flags.isEdit"></profile-image>
+  <profile-image></profile-image>
 
   <div class="wrapper wrapper--fixed">
     <profile-edit-details data-profile="profile" data-flags="flags" ng-if="flags.isEdit"></profile-edit-details>
     <profile-view-details data-profile="profile" data-flags="flags" ng-if="! flags.isEdit"></profile-view-details>
 
 
-    <profile-public ng-if="! flags.isOwner">
+    <list-videos ng-if="! flags.isOwner">
       This should be the list of collaborators and public videos
-    </profile-public>
+    </list-videos>
 
   </div>
 

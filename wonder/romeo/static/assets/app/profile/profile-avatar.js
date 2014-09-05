@@ -7,11 +7,8 @@ angular
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('profile/images/image.tmpl.html'),
-    scope: {
-      profile : '=',
-      isEdit : '='
-    },
+    template : $templateCache.get('profile/profile-avatar.tmpl.html'),
+    scope: true,
     controller : function ($scope) {
       function init() {
         $scope.loading = false;
@@ -33,8 +30,9 @@ angular
           message : 'Image uploading.'}
         );
         UserService.updateAvatar(file).then(function (data) {
-          console.log(data);
-          $scope.$emit('uploaded-image', data);
+          var profile = angular.fromJson(data);
+          $scope.profile.profile_cover = profile.profile_cover;
+          $scope.profile.avatar = profile.avatar;
 
           $scope.$emit('notify', {
             status : 'success',

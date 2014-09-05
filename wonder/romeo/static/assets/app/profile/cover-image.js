@@ -7,12 +7,8 @@ function ($templateCache, UserService) {
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('profile/images/cover.tmpl.html'),
-    scope : {
-      image: '=',
-      isEdit : '=',
-      isHero : '='
-    },
+    template : $templateCache.get('profile/cover-image.tmpl.html'),
+    scope : true,
     controller : function ($scope) {
       $scope.uploadProfileCover = function (files) {
         $scope.loading = true;
@@ -26,7 +22,10 @@ function ($templateCache, UserService) {
           message : 'Image uploading.'}
         );
         UserService.updateCoverImage(file).then(function (data) {
-          $scope.$emit('uploaded-image', data);
+          var profile = angular.fromJson(data);
+          $scope.profile.profile_cover = profile.profile_cover;
+          $scope.profile.avatar = profile.avatar;
+
           $scope.$emit('notify', {
             status : 'success',
             title : 'Cover Image Updated',

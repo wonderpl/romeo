@@ -1,14 +1,14 @@
 <section class="profile-image">
 
   <div class="profile-image__container"
-    ng-class="{ 'profile-image__container--edit' : isEdit }"
+    ng-class="{ 'profile-image__container--edit' : flags.isEdit }"
     ng-style="profileImageStyle"
     loading-spinner>
     <label class="profile-image__upload-label" for="profileImageUpload">
       <div class="profile-image__dropzone"
         ng-file-drop="uploadProfileImage($files)"
         ng-file-drag-over-class="profile-image__dropzone--active"
-        ng-show="isEdit">
+        ng-show="flags.isEdit">
       </div>
     </label>
 

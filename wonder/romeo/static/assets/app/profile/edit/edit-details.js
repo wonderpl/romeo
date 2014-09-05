@@ -6,7 +6,7 @@ function editDetails($templateCache) {
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('profile/directives/edit-details.tmpl.html'),
+    template : $templateCache.get('profile/edit/edit-details.tmpl.html'),
     scope : {
       flags : '=',
       profile: '='

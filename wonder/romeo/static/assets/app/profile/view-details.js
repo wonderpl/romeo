@@ -6,7 +6,7 @@ angular.module('RomeoApp.profile')
     return {
       restrict : 'E',
       replace : true,
-      template : $templateCache.get('profile/directives/view-details.tmpl.html'),
+      template : $templateCache.get('profile/view-details.tmpl.html'),
       scope : true
     };
 	}

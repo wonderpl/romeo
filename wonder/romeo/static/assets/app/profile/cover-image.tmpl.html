@@ -1,12 +1,12 @@
-<section class="profile-cover" 
-  ng-class="{ 'profile-cover--edit' : isEdit, 'profile-cover--hero' : isHero, 'profile-cover--img' : image }"
-  style="background-image:url('{{ image }}');" loading-spinner>
+<section class="profile-cover"
+  ng-class="{ 'profile-cover--edit' : flags.isEdit, 'profile-cover--hero' : isHero, 'profile-cover--img' : profile.profile_cover }"
+  style="background-image:url('{{ profile.profile_cover }}');" loading-spinner>
 
   <label class="profile-cover__upload-label" for="profileCoverUpload">
     <div class="profile-cover__dropzone"
       ng-file-drop="uploadProfileCover($files)"
       ng-file-drag-over-class="profile-cover__dropzone--active"
-      ng-show="isEdit">
+      ng-show="flags.isEdit">
     </div>
   </label>
 
