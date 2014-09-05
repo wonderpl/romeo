@@ -4,7 +4,7 @@
 var debug = new DebugClass('RomeoApp.profile.edit');
 
 
-function ProfileEditCtrl($scope, UserService) {
+function ProfileEditCtrl($scope, $location, UserService) {
   var ctrl = {};
 
   function init() {
@@ -110,6 +110,6 @@ function ProfileEditCtrl($scope, UserService) {
   return ctrl;
 }
 
-angular.module('RomeoApp.profile').controller('ProfileEditCtrl', ['$scope', 'UserService', ProfileEditCtrl]);
+angular.module('RomeoApp.profile').controller('ProfileEditCtrl', ['$scope', '$location', 'UserService', ProfileEditCtrl]);
 
 })();

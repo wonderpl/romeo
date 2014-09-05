@@ -16,7 +16,7 @@ function PageHeaderDirective ($templateCache, $timeout, SecurityService, UserSer
         if (newValue !== oldValue && newValue) {
           setAccountValues(newValue);
         }
-      });
+      }, true);
       $scope.isCreator = function () {
         return SecurityService.isCreator();
       };
@@ -25,7 +25,7 @@ function PageHeaderDirective ($templateCache, $timeout, SecurityService, UserSer
       };
       function setAccountValues(account) {
         var avatar = (account) ? account.avatar : null;
-        $scope.profile = { 'background-image' : 'url(' + (avatar || '/static/assets/img/user-avatar.png') + ')' };
+        $scope.profileStyle = { 'background-image' : 'url(' + (avatar || '/static/assets/img/user-avatar.png') + ')' };
         $scope.display_name = account ? account.name : '';
       }
       setAccountValues(UserService.getUser());

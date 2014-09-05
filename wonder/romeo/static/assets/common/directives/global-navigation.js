@@ -18,7 +18,9 @@
             {title: 'Search', url: '#/search'},
             {title: '* Settings', url: '#/profile'}
           ];
-          setAccountData(UserService.getUser());
+          if (SecurityService.isAuthenticated()) {
+            setAccountData(UserService.getUser());
+          }
           if (SecurityService.isCollaborator()) {
             var smallerList = [];
             for(var i = 0; i < fullPageList.length; ++i) {
@@ -31,19 +33,15 @@
 
         }
         function setAccountData(data) {
-          $scope.account = data;
-          if (data && data.avatar) {
-            $scope.profileStyle = { 'background-image' : 'url(' + data.avatar + ')' };
-          } else {
-            $scope.profileStyle = { 'background-image' : 'url(/static/assets/img/user-avatar.png)' };
-          }
+           var avatar = (data) ? data.avatar : null;
+        $scope.profileStyle = { 'background-image' : 'url(' + (avatar || '/static/assets/img/user-avatar.png') + ')' };
         }
         $scope.$watch(function () {
           return UserService.getUser();
         }, function (newValue, oldValue) {
           if (newValue !== oldValue)
             setAccountData(newValue);
-        });
+        }, true);
         init();
       },
       link: function($scope, $element, $attrs) {

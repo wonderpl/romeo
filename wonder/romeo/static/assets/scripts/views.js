@@ -1216,7 +1216,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <upload-progress upload=\"upload\" ng-if=\"isLoggedIn() && upload\"></upload-progress>\n" +
     "    <ul class=\"nav  nav-menu\" ng-if=\"isLoggedIn()\">\n" +
     "      <li class=\"nav-menu__item\" ng-if=\"isCreator()\"><a href=\"#/video\" class=\"nav-menu__link\">Upload</a></li>\n" +
-    "      <li class=\"nav-menu__item\"><a href=\"#/profile\" class=\"nav-menu__link  avatar  avatar--small\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"(~ display_name ~)\" class=\"avatar__img\" ng-style=\"profile\"></a></li>\n" +
+    "      <li class=\"nav-menu__item\"><a href=\"#/profile\" class=\"nav-menu__link  avatar  avatar--small\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"(~ display_name ~)\" class=\"avatar__img\" ng-style=\"profileStyle\"></a></li>\n" +
     "    </ul>\n" +
     "  </nav>\n" +
     "</header>"
@@ -2164,7 +2164,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t<p class=\"profile-details__legend f--sans\" ng-if=\"connections\">Collaborated with:</p>\n" +
     "\t<ul class=\"profile-collaborators\" ng-show=\"connections\">\n" +
     "\t\t<li ng-repeat=\"connection in connections\">\n" +
-    "\t\t\t<a href=\"#/profile/(~ connection.user.id~)\" title=\"(~connection.user.display_name~), (~connection.user.title~)\" class=\"profile-collaborators__link avatar\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" class=\"avatar__img\" style=\"background-image: url((~connection.user.avatar~));\">\n" +
+    "\t\t\t<a href=\"#/profile/(~ connection.user.id~)\" data-tooltip=\"(~connection.user.display_name~), (~connection.user.title~)\" class=\"profile-collaborators__link avatar simptip-position-top  simptip-smooth  simptip-movable\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" class=\"avatar__img\" style=\"background-image: url((~connection.user.avatar~));\">\n" +
     "\t\t\t</a>\n" +
     "\t\t</li>\n" +
     "\t</ul>\n" +
