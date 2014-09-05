@@ -110,7 +110,7 @@ $coloring:                true!default;
 .simptip {
   border-bottom: 1px dotted $base-color-ui-dark;
 }
-[data-tooltip] {  
+[data-tooltip] {
   position: relative;
   display: inline-block;
   &:before, &:after {
@@ -123,7 +123,7 @@ $coloring:                true!default;
        -moz-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0);
   }
-  // tooltip arrow   
+  // tooltip arrow
   &:before {
     content: '';
     border: $arrowSize solid transparent;
@@ -161,7 +161,7 @@ $coloring:                true!default;
       &:before {
         bottom: 16px;
         border-style: none;
-        border-top: $arrowSize+1px solid transparent; 
+        border-top: $arrowSize+1px solid transparent;
       }
     }
   }
@@ -233,7 +233,7 @@ $coloring:                true!default;
     &:before,&:after {right: 100%;}
     &:before{margin-right: -2px;}
     &:after{margin-right: 10px;}
-    
+
     @if $movable == true {
       &.simptip-movable {
         &:before {margin-right: -10px;}
@@ -259,7 +259,7 @@ $coloring:                true!default;
       &.half-arrow{
         &:before {
           margin-right: 3px;
-          border-left: $arrowSize+1px solid $tooltipColor;  
+          border-left: $arrowSize+1px solid $tooltipColor;
         }
       }
     }
@@ -338,7 +338,7 @@ $coloring:                true!default;
     @if $movable == true {
       &.simptip-movable {
         &:before {margin-bottom: -15px;}
-        &:after {margin-bottom: -3px;}
+        &:after {margin-bottom: -3px; padding-bottom: 20px; }
         &:hover{
           &:before, &:after {@include transform(translate(-50%, -10px));}
         }

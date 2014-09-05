@@ -4253,6 +4253,7 @@ label,
 /* line 341, ../../scss/_vendor/_vendor.simptip.scss */
 .simptip-position-top.simptip-movable:after {
   margin-bottom: -3px;
+  padding-bottom: 20px;
 }
 /* line 343, ../../scss/_vendor/_vendor.simptip.scss */
 .simptip-position-top.simptip-movable:hover:before, .simptip-position-top.simptip-movable:hover:after {
@@ -7183,9 +7184,14 @@ label,
   padding-right: 6px;
   padding-left: 6px;
   border: none;
+  overflow: inherit;
+}
+/* line 75, ../../scss/specifics/profile/_profile-view.scss */
+.profile-collaborators__link .avatar__img {
+  border-radius: 50%;
 }
 
-/* line 74, ../../scss/specifics/profile/_profile-view.scss */
+/* line 79, ../../scss/specifics/profile/_profile-view.scss */
 .profile-collaborators__remove {
   display: none;
   position: absolute;
@@ -7200,7 +7206,7 @@ label,
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* line 87, ../../scss/specifics/profile/_profile-view.scss */
+/* line 92, ../../scss/specifics/profile/_profile-view.scss */
 .profile-invite__link {
   float: right;
 }
