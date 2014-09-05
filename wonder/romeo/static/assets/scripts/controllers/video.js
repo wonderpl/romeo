@@ -90,14 +90,14 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
   }
 
   $scope.$watch(
-    function() { return $scope.video.category; },
+    'video.category',
     function(newValue, oldValue) {
       $scope.video.category = $scope.video.category || '';
     }
   );
 
   $scope.$watch(
-    function() { return $scope.video.title; },
+    'video.title',
     function(newValue, oldValue) {
       if (newValue !== oldValue) {
         $scope.titlePlaceholder = 'Untitled Video';
@@ -111,7 +111,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
   );
 
   $scope.$watch(
-    function() { return $scope.video.strapline; },
+    'video.strapline',
     function(newValue, oldValue) {
       if (newValue !== oldValue) {
         $scope.straplinePlaceholder = 'Subtitle';
@@ -139,7 +139,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
   );
 
   $scope.$watch(
-    function() { return $scope.video ? $scope.video.id : null; },
+    'video.id',
     function(newValue, oldValue) {
       if (newValue !== '' && newValue !== oldValue) {
         CommentsService.getComments(newValue).then(function (data) {
@@ -155,17 +155,13 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
     console.log(id);
   };
 
-  $scope.addCollaborator = function () {
-
-  };
-
   $scope.onPreviewImageSelect = function (files) {
     $scope.$emit('notify', {
       status : 'info',
       title : 'Uploading Image',
       message : 'Thumbnail uploading.'}
     );
-    updateImmediateCoverImage(files[0]);
+    // updateImmediateCoverImage(files[0]);
     VideoService.saveCustomPreview($scope.video.id, files[0]).then(function(data){
       angular.extend($scope.video, data);
       $scope.loadVideo($scope.video.id);
@@ -185,28 +181,14 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
     });
   };
 
-  function updateImmediateCoverImage (image) {
-    var frames = document.getElementsByClassName('video-player__frame');
-    if (frames.length) {
-      var frame = frames[0].contentWindow || frames[0].contentDocument.parentWindow;
-      if (frame) {
-        var wonderPoster = document.getElementById('wonder-poster');
-        if (wonderPoster) {
-          console.log(files[0]);
-          // wonderPoster.src = files[0];
-        }
-      }
-    }
-  }
-
-  $scope.onSetPreviewImage = function() {
-    debug.log('onSetPreviewImage');
-    getVideo($scope.video.id);
-    $scope.showPreviewSelector = false;
-    $scope.showThumbnailSelector = false;
-    $scope.showVideoEdit = true;
-    $scope.loadVideo($scope.video.id);
-  };
+  // $scope.onSetPreviewImage = function() {
+  //   debug.log('onSetPreviewImage');
+  //   getVideo($scope.video.id);
+  //   $scope.showPreviewSelector = false;
+  //   $scope.showThumbnailSelector = false;
+  //   $scope.showVideoEdit = true;
+  //   $scope.loadVideo($scope.video.id);
+  // };
 
   $scope.onFileSelect = function(files) {
     $scope.video.title = $scope.video.title || stripExtension(files[0].name);
@@ -285,7 +267,6 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
       VideoService.update($scope.video.id, $scope.video).then(function (data) {
         debug.log('saving video succeeded with id ' + data.id);
         persistDataAndRedirect(data);
-        $scope.displaySection();
         if ($scope.video.status === 'processing' || $scope.video.status === 'uploading') {
           $scope.displaySection('edit');
         } else {
@@ -387,6 +368,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
       if (OO && OO.ready && $scope.videoTotalTime > 0) {
         OO.ready(function () {
           bindPlayerEvents(OO);
+          shimChangesToIFrame();
         });
 
       } else {
@@ -426,6 +408,149 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
       );
       $scope.$broadcast('player-error');
     });
+  }
+
+
+
+
+
+
+
+
+  function shimChangesToIFrame () {
+
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" style="height: 0; width: 0;" id="ColourSvg"><filter id="ColourFilter" color-interpolation-filters="sRGB"><feComponentTransfer><feFuncR class="brightness red" type="linear" slope="1"/><feFuncG class="brightness green" type="linear" slope="1"/><feFuncB class="brightness blue" type="linear" slope="1"/></feComponentTransfer></filter></svg>';
+    var style = '<style id="ColourStyle">.filtered { -webkit-filter : url("#ColourFilter"); -webkit-transform: translate3d(0px,0px,0px); -webkit-backface-visibility: hidden; -webkit-perspective: 1000; }</style>';
+
+    var elements = document.getElementsByClassName('video-player__frame');
+    if (!elements.length) return;
+
+    var frame = document.getElementsByClassName('video-player__frame')[0].contentDocument;
+    if (!frame) return;
+
+    var $frame = $(frame);
+
+    var $filteredControls = $frame.find('.wonder-timer, .wonder-play, .wonder-pause, .wonder-volume, .wonder-logo, .wonder-fullscreen, .scrubber-handle');
+    $filteredControls.addClass('filtered');
+
+    var $svg = $frame.find('#ColourSvg');
+    if (!$svg.length) {
+      var $frameBody = $frame.find('body');
+      $svg = $(svg);
+      $frameBody.prepend($svg);
+    }
+
+    var $style = $frame.find('#ColourStyle');
+    if (!$style.length) {
+      var $frameHead = $frame.find('head');
+      $style = $(style);
+      $frameHead.append($style);
+    }
+  }
+
+  $scope.$on('update-player-parameters', function (event, data) {
+    applyPlayerParameters(data);
+  });
+
+  function applyPlayerParameters (data) {
+    if (data.rgb) {
+      updateColours(data.rgb);
+    }
+    if (typeof data.hideLogo !== 'undefined') {
+      hideLogo(data.hideLogo);
+    }
+    if (typeof data.showBuyButton !== 'undefined') {
+      showBuyButton(data.showBuyButton);
+    }
+    if (typeof data.showDescriptionButton !== 'undefined') {
+      showDescriptionButton(data.showDescriptionButton);
+    }
+  }
+
+  function getVideoIFrame () {
+
+    var elements = document.getElementsByClassName('video-player__frame');
+    if (!elements.length) return;
+
+    var frame = document.getElementsByClassName('video-player__frame')[0].contentDocument;
+    if (!frame) return;
+
+    return $(frame);
+  }
+
+
+  function updateColours (rgb) {
+
+    rgb = rgb || { r : 255, g: 255, b : 255 };
+
+    var $frame = getVideoIFrame();
+    var $svg = $frame.find('#ColourSvg');
+    $svg.find('.red').attr('slope', rgb.r/255);
+    $svg.find('.green').attr('slope', rgb.g/255);
+    $svg.find('.blue').attr('slope', rgb.b/255);
+  }
+
+  function hideLogo (hide) {
+
+    var $frame = getVideoIFrame();
+    var $logo = $frame.find('#wonder-controls');
+    $logo.toggleClass('no-logo', hide);
+  }
+
+  function showBuyButton (show) {
+
+    var $frame = getVideoIFrame();
+    var $wrapper = $frame.find('#wonder-wrapper');
+    if (show && $scope.video.link_title && $scope.video.link_link) {
+      $wrapper.addClass('show-buy-button');
+      $frame.find('#wonder-buy-button').text($scope.video.link_title);
+      $frame.find('#wonder-buy-button').attr('href', $scope.video.link_link);
+    } else {
+      $wrapper.removeClass('show-buy-button');
+    }
+  }
+
+  function showDescriptionButton (show) {
+
+    console.log($scope.video.description);
+
+    if (show && $scope.video.description) {
+      var $frame = getVideoIFrame();
+      var $wrapper = $frame.find('#wonder-wrapper');
+      $wrapper.toggleClass('show-description-button', show);
+    }
+  }
+
+
+  function savePlayerParameters () {
+
+    VideoService.setPlayerParameters($scope.video.id, {
+      hideLogo              : $scope.playerParameters.hideLogo,
+      rgb                   : JSON.stringify($scope.playerParameters.rgb),
+      showBuyButton         : $scope.playerParameters.showBuyButton,
+      showDescriptionButton : $scope.playerParameters.showDescriptionButton
+    }).then(null, function () {
+      $scope.$emit('notify', {
+        status : 'error',
+        title : 'Video Configuration Save Error',
+        message : 'Your video player control changes have not been saved.'}
+      );
+    });
+  }
+
+  $scope.$on('video-saving', function ($event, data) {
+    savePlayerParameters();
+  });
+
+  $scope.$on('video-cover-image-updated', function ($event, data) {
+    updateImmediateCoverImage(data);
+  });
+
+  function updateImmediateCoverImage (data) {
+
+    var $frame = getVideoIFrame();
+    var img = $frame.find('#wonder-poster img');
+    img.attr('src', data.url);
   }
 
   $rootScope.$on('display-section', function (event, section) {
@@ -483,7 +608,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
   initialiseNewScope();
 
   function getPlayerParameters (id) {
-    VideoService.getPlayerParameters(id).then(function (data) {
+    return VideoService.getPlayerParameters(id).then(function (data) {
       $scope.playerParameters = {};
       $scope.playerParameters.rgb = data.rgb ? angular.fromJson(data.rgb) : null;
       $scope.playerParameters.hideLogo = data.hideLogo === 'True' ? true : false;
@@ -540,7 +665,9 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
     VideoService.get(id).then(function (data) {
       angular.extend($scope.video, data);
       assignStatus($scope.video.status);
-      getPlayerParameters($scope.video.id);
+      getPlayerParameters($scope.video.id).then(function () {
+        applyPlayerParameters($scope.playerParameters);
+      });
       verifyUser($scope.video.id);
       assignCollaboratorPermissions();
 

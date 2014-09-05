@@ -17,9 +17,6 @@ function addCollaboratorDirective ($templateCache, CollaboratorsService) {
     },
     controller : function ($scope) {
 
-      console.group('Add collaborators Controls');
-      console.dir($scope);
-      console.groupEnd();
       var collaborator = {
         email : '',
         name : '',

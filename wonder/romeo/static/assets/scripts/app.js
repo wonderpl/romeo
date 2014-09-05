@@ -15,6 +15,7 @@
     // -- App modules
     angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
     angular.module('RomeoApp.search', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
+    angular.module('RomeoApp.videoConfig', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
 
     var debug = new DebugClass('App');
 
@@ -27,6 +28,7 @@
             'RomeoApp.analytics',
             'RomeoApp.profile',
             'RomeoApp.search',
+            'RomeoApp.videoConfig',
             'ngRoute',
             'ngCookies',
             'angular-medium-editor',

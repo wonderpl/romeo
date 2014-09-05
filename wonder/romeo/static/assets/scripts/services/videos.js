@@ -80,6 +80,7 @@ function VideoService ($rootScope, $q, $http, localStorageService, DataService, 
   Video.update = function (id, data) {
       var url = '/api/video/' + id + '';
       data.link_url = data.link_url || '';
+      data.hosted_url = data.hosted_url || '';
       return DataService.request({ url: url, method: 'PATCH', data: data });
   };
 
@@ -103,7 +104,8 @@ function VideoService ($rootScope, $q, $http, localStorageService, DataService, 
           data: formData,
           processData: false,
           mimeType: 'multipart/form-data',
-          contentType: false
+          contentType: false,
+          dataType: 'json'
       }).done(function (response) {
         deferred.resolve(response);
       }).fail(function (xhr, status, error) {
@@ -129,7 +131,8 @@ function VideoService ($rootScope, $q, $http, localStorageService, DataService, 
           data: formData,
           processData: false,
           mimeType: 'multipart/form-data',
-          contentType: false
+          contentType: false,
+          dataType: 'json'
       }).done(function (response) {
         deferred.resolve(response);
       }).fail(function (xhr, status, error) {

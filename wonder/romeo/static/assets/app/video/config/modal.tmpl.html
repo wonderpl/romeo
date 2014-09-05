@@ -1,0 +1,30 @@
+<div class="video-modal video-modal__overlay" ng-if="showModal">
+
+  <div class="video-modal__window">
+
+    <div class="video-modal__header modal__title  split">
+      <span class="split__title  t--block  w--600">Configure Video</span>
+      <a class="modal__link" ng-click="close($event)"><i class="icon icon--medium icon--circle-cross"></i></a>
+    </div>
+
+    <div class="video-modal__container modal__content modal__content--video">
+
+      <section class="video-edit__options" ng-if="!selection">
+        <a class="btn btn--positive" ng-click="showSection('cover')">update cover</a>
+        <a class="btn btn--positive" ng-click="showSection('player')">edit player</a>
+        <a class="btn btn--positive" ng-click="showSection('controls')">extended controls</a>
+      </section>
+
+      <cover-selector ng-if="selection === 'cover'" video="video"></cover-selector>
+      <player-editor ng-if="selection === 'player'" player-parameters="playerParameters" video="video"></player-editor>
+      <extended-controls ng-if="selection === 'controls'" player-parameters="playerParameters"></extended-controls>
+
+    </div>
+    <div class="video-modal__footer modal__footer">
+      <div class="modal__actions">
+        <a class="btn btn--small btn--positive" ng-if="selection" ng-click="showSection()">back</a>
+      </div>
+    </div>
+  </div>
+
+</div>

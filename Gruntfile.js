@@ -197,11 +197,19 @@ module.exports = function (grunt) {
          /* ========================= */
         watch: {
             sass: {
-                files: ['wonder/romeo/static/scss/**/*.scss', 'wonder/romeo/static/assets/common/**/*.scss', 'wonder/romeo/static/assets/app/**/*.scss'],
+                files: [
+                  'wonder/romeo/static/scss/**/*.scss',
+                  'wonder/romeo/static/assets/common/**/*.scss',
+                  'wonder/romeo/static/assets/app/**/*.scss'
+                ],
                 tasks: ['compass:dist']
             },
             angular: {
-                files: ['wonder/romeo/static/views/**/*.html', 'wonder/romeo/static/assets/**/*.tmpl.html'],
+                files: [
+                  'wonder/romeo/static/views/**/*.html',
+                  'wonder/romeo/static/assets/app/**/*.tmpl.html',
+                  'wonder/romeo/static/assets/common/**/*.tmpl.html'
+                ],
                 tasks: ['ngtemplates']
             },
             jshint: {

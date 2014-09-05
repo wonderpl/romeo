@@ -1404,25 +1404,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
-  $templateCache.put('video-color-picker.html',
-    "<section class=\"video-player-config color-picker\">\n" +
-    "  <input color-picker ng-model=\"color\" class=\"video-player-config__color-input\" />\n" +
-    "  <label class=\"video-player-config__hide-logo-label\">\n" +
-    "    Hide logo\n" +
-    "    <input type=\"checkbox\" ng-model=\"hideLogo\" class=\"video-player-config__hide-logo-checkbox\" ng-change=\"toggleHideLogo()\" />\n" +
-    "  </label>\n" +
-    "  <label>\n" +
-    "    Show buy button\n" +
-    "    <input type=\"checkbox\" class=\"video-player-config__hide-logo-checkbox\" />\n" +
-    "  <label>\n" +
-    "  <label>\n" +
-    "    Show description button\n" +
-    "    <input type=\"checkbox\" class=\"video-player-config__hide-logo-checkbox\" />\n" +
-    "  <label>\n" +
-    "</section>\n"
-  );
-
-
   $templateCache.put('video-comments.html',
     "<section class=\"video-feedback video-feedback--(~ $root.layoutMode ~)\">\n" +
     "\n" +
@@ -1530,17 +1511,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('video-download.html',
     "<a class=\"btn  btn--utility  icon-text\" ng-click=\"download()\"><i class=\"icon  icon--download  icon-text__icon\"></i>Download source file</a>"
-  );
-
-
-  $templateCache.put('video-edit.html',
-    "<section class=\"video-edit\">\n" +
-    "\n" +
-    "<section class=\"video-edit__zone video-edit__preview\" ng-click=\"updatePreview()\"></section>\n" +
-    "\n" +
-    "<section class=\"video-edit__zone video-edit__player-controls\" ng-click=\"showColorPicker = !showColorPicker\"></section>\n" +
-    "\n" +
-    "</section>"
   );
 
 
@@ -1885,11 +1855,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "          <div class=\"video-view__container\" ng-class=\"{'video-view__container--fixed': flags.isEdit}\">\n" +
     "            <video-upload ng-show=\"flags.showUpload && flags.isEdit\" ng-cloak></video-upload>\n" +
     "            <video-player ng-show=\"flags.hasProcessed || flags.isReview || flags.isComments\" embed-url=\"embedUrl\"></video-player>\n" +
-    "            <video-edit ng-show=\"showVideoEdit && flags.isEdit\"></video-edit>\n" +
     "\n" +
-    "            <player-config video=\"video\" player-parameters=\"playerParameters\" video-id=\"(~ video.id ~)\" ng-show=\"showColorPicker && flags.isEdit\"></player-config>\n" +
+    "            <a class=\"btn btn--positive btn--small show-modal-button t--push-all\" ng-show=\"flags.isEdit && video.id\" ng-click=\"showModal=true\">edit player</a>\n" +
     "\n" +
-    "            <video-thumbnail ng-show=\"showPreviewSelector && flags.isEdit\"></video-thumbnail>\n" +
+    "            <video-modal show-modal=\"showModal\" video=\"video\" player-parameters=\"playerParameters\"></video-modal>\n" +
+    "\n" +
+    "            <extended-player-controls ng-show=\"showExtendedControls && flags.isEdit\"></extended-player-controls>\n" +
+    "\n" +
     "          </div>\n" +
     "\n" +
     "          <video-more-link\n" +
@@ -2240,27 +2212,106 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
-  $templateCache.put('video/edit/player-config.tmpl.html',
-    "<section class=\"player-config color-picker\">\n" +
+  $templateCache.put('video/config/cover-selector.tmpl.html',
+    "<div class=\"cover-selector\">\n" +
     "\n" +
-    "  <input color-picker ng-model=\"config.color\" />\n" +
+    "  <a class=\"btn btn--positive t--push-bottom\" ng-class=\"{ 'btn--disabled' : !previewImages }\" ng-if=\"!showSelector\" ng-click=\"!!previewImages && displaySelector()\">Pick a generated thumbnail</a>\n" +
     "\n" +
-    "  <label class=\"form-label\">\n" +
-    "    <span class=\"form-label__text\">Hide logo</span>\n" +
-    "    <input class=\"form-checkbox--l\" type=\"checkbox\" ng-model=\"config.hideLogo\" ng-change=\"applyChanges()\" />\n" +
+    "  <section class=\"cover-selector__upload t--pad-all\" ng-if=\"!showSelector\" ng-file-drop=\"onCoverSelect($files)\">\n" +
+    "    <p>Choose your own thumbnail</p>\n" +
+    "    <input type=\"file\" ng-file-select=\"onCoverSelect($files)\" />\n" +
+    "  </section>\n" +
+    "\n" +
+    "  <section class=\"cover-selector__carousel\" ng-if=\"showSelector\">\n" +
+    "    <ul class=\"cover-selector__images js-preview-images\" style=\"width: (~ previewImages.length * 500 ~)px\" ng-style=\"indexOffset\">\n" +
+    "      <li class=\"cover-selector__image-container cover-selector__image-container-(~ $index ~)\"\n" +
+    "        ng-class=\"{ 'video-preview__available-image-container--active' : previewIndex === $index }\"\n" +
+    "        ng-repeat=\"preview in previewImages\">\n" +
+    "        <img class=\"cover-selector__image\"\n" +
+    "          ng-class=\"{ 'cover-selector__image--active' : previewIndex === $index }\"\n" +
+    "          ng-src=\"(~ preview.url ~)\"\n" +
+    "          ng-click=\"updateIndex($index)\" />\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </section>\n" +
+    "\n" +
+    "  <section class=\"btn-center btn-group\" style=\"margin-bottom: 24px;\" ng-if=\"showSelector\">\n" +
+    "    <a class=\"btn btn--small no-selection\" ng-click=\"decrementIndex()\">&lt;</a>\n" +
+    "    <span class=\"btn btn--small\">(~ previewIndex + 1 ~)/(~ previewImages.length ~)</span>\n" +
+    "    <span class=\"btn btn--small\">\n" +
+    "      <a ng-click=\"setBackground()\">Select</a>\n" +
+    "    </span>\n" +
+    "    <a class=\"btn btn--small no-selection\" ng-click=\"incrementIndex()\">&gt;</a>\n" +
+    "  </section>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('video/config/extended-controls.tmpl.html',
+    "<div class=\"extended-controls\">\n" +
+    "\n" +
+    "  <label>\n" +
+    "    Show buy button\n" +
+    "    <input type=\"checkbox\" ng-model=\"playerParameters.showBuyButton\" ng-change=\"updateShowBuyButton()\" />\n" +
+    "  <label>\n" +
+    "  <label>\n" +
+    "    Show description button\n" +
+    "    <input type=\"checkbox\"  ng-model=\"playerParameters.showDescriptionButton\" ng-change=\"updateShowDescriptionButton()\" />\n" +
+    "  <label>\n" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('video/config/modal.tmpl.html',
+    "<div class=\"video-modal video-modal__overlay\" ng-if=\"showModal\">\n" +
+    "\n" +
+    "  <div class=\"video-modal__window\">\n" +
+    "\n" +
+    "    <div class=\"video-modal__header modal__title  split\">\n" +
+    "      <span class=\"split__title  t--block  w--600\">Configure Video</span>\n" +
+    "      <a class=\"modal__link\" ng-click=\"close($event)\"><i class=\"icon icon--medium icon--circle-cross\"></i></a>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div class=\"video-modal__container modal__content modal__content--video\">\n" +
+    "\n" +
+    "      <section class=\"video-edit__options\" ng-if=\"!selection\">\n" +
+    "        <a class=\"btn btn--positive\" ng-click=\"showSection('cover')\">update cover</a>\n" +
+    "        <a class=\"btn btn--positive\" ng-click=\"showSection('player')\">edit player</a>\n" +
+    "        <a class=\"btn btn--positive\" ng-click=\"showSection('controls')\">extended controls</a>\n" +
+    "      </section>\n" +
+    "\n" +
+    "      <cover-selector ng-if=\"selection === 'cover'\" video=\"video\"></cover-selector>\n" +
+    "      <player-editor ng-if=\"selection === 'player'\" player-parameters=\"playerParameters\" video=\"video\"></player-editor>\n" +
+    "      <extended-controls ng-if=\"selection === 'controls'\" player-parameters=\"playerParameters\"></extended-controls>\n" +
+    "\n" +
+    "    </div>\n" +
+    "    <div class=\"video-modal__footer modal__footer\">\n" +
+    "      <div class=\"modal__actions\">\n" +
+    "        <a class=\"btn btn--small btn--positive\" ng-if=\"selection\" ng-click=\"showSection()\">back</a>\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "\n" +
+    "</div>\n"
+  );
+
+
+  $templateCache.put('video/config/player-editor.tmpl.html',
+    "<div class=\"player-editor\">\n" +
+    "\n" +
+    "  <input color-picker rgb=\"rgb\" />\n" +
+    "\n" +
+    "  <label>\n" +
+    "    Hide logo\n" +
+    "    <input type=\"checkbox\" ng-model=\"playerParameters.hideLogo\" ng-change=\"toggleHideLogo()\" />\n" +
     "  </label>\n" +
     "\n" +
-    "  <label class=\"form-label\">\n" +
-    "    <span class=\"form-label__text\">Show buy button</span>\n" +
-    "    <input class=\"form-checkbox--l\" type=\"checkbox\" ng-model=\"config.showBuyButton\" ng-change=\"applyChanges()\" />\n" +
-    "  </label>\n" +
     "\n" +
-    "  <label class=\"form-label\">\n" +
-    "    <span class=\"form-label__text\">Show description button</span>\n" +
-    "    <input class=\"form-checkbox--l\" type=\"checkbox\" ng-model=\"config.showDescriptionButton\" ng-change=\"applyChanges()\" />\n" +
-    "  </label>\n" +
-    "\n" +
-    "</section>\n"
+    "</div>"
   );
 
 

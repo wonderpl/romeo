@@ -20,3 +20,11 @@ a.non-link {
   color: inherit;
   border: none;
 }
+
+// http://stackoverflow.com/a/880518
+a.no-selection {
+  -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+  -moz-user-select: none; /* mozilla browsers */
+  -khtml-user-select: none; /* webkit (konqueror) browsers */
+  -ms-user-select: none; /* IE10+ */
+}

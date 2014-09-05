@@ -43,11 +43,13 @@
           <div class="video-view__container" ng-class="{'video-view__container--fixed': flags.isEdit}">
             <video-upload ng-show="flags.showUpload && flags.isEdit" ng-cloak></video-upload>
             <video-player ng-show="flags.hasProcessed || flags.isReview || flags.isComments" embed-url="embedUrl"></video-player>
-            <video-edit ng-show="showVideoEdit && flags.isEdit"></video-edit>
 
-            <player-config video="video" player-parameters="playerParameters" video-id="{{ video.id }}" ng-show="showColorPicker && flags.isEdit"></player-config>
+            <a class="btn btn--positive btn--small show-modal-button t--push-all" ng-show="flags.isEdit && video.id" ng-click="showModal=true">edit player</a>
 
-            <video-thumbnail ng-show="showPreviewSelector && flags.isEdit"></video-thumbnail>
+            <video-modal show-modal="showModal" video="video" player-parameters="playerParameters"></video-modal>
+
+            <extended-player-controls ng-show="showExtendedControls && flags.isEdit"></extended-player-controls>
+
           </div>
 
           <video-more-link

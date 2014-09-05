@@ -1,0 +1,35 @@
+
+.show-modal-button {
+  position:absolute;
+  top: 0;
+  left: 0;
+}
+
+.video-modal__overlay {
+  position:absolute;
+  top: 24px;
+  left: 24px;
+  height: 85%;
+  width: 85%;
+  background: $white;
+  box-shadow: 0 0 24px black;
+}
+
+.video-modal__window {
+  position:absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.video-modal__footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.modal__content--video {
+  max-height: none;
+}

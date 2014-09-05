@@ -157,9 +157,8 @@
 
   "../assets/common/directives/_global-navigation";
 
-//  "vendor/__vendor";
-
-@import "../assets/app/video/edit/player-config.scss";
+ @import "../assets/app/video/config/modal.scss",
+  "../assets/app/video/config/cover-selector";
 
 
 

@@ -1,0 +1,24 @@
+.cover-selector {
+
+}
+
+.cover-selector__carousel {
+  overflow: hidden;
+}
+
+.cover-selector__images {
+  overflow: hidden;
+  transition: margin-left 0.4s ease-in-out;
+}
+
+.cover-selector__image-container {
+  display: inline-block;
+  width: 9%;
+  margin-right: $half-spacing-unit;
+}
+
+.cover-selector__upload {
+  height: 200px;
+  width: 300px;
+  border: dashed 3px $green;
+}
