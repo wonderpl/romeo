@@ -17,9 +17,22 @@ function MainController ($window, $scope, $rootScope, $location, $cookies, modal
     $scope.profile = '';
     $scope.currentRoute = $location;
 
-    if ($location.search().accept_connection) {
+    if (SecurityService.isAuthenticated() && $location.search().accept_connection) {
       console.log('Accept connection: ' + $location.search().accept_connection);
-      UserService.connect({user: $location.search().accept_connection});
+      UserService.connect({user: $location.search().accept_connection}).then(
+        function () {
+          $scope.$emit('notify', {
+            status : 'success',
+            title : 'Accepted connection',
+            message : 'Your new connection has been accepted'}
+          );
+        }, function () {
+          $scope.$emit('notify', {
+            status : 'error',
+            title : 'Accept connection',
+            message : 'Your new connection failed'}
+          );
+        });
     }
   }
 

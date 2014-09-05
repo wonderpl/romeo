@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% macro accept_url() %}
-{{ url_for('root.app', _external=True) }}#/?accept_connection={{ sender.id }}
+{{ url_for('root.app', _external=True) }}#/organise/collaboration?accept_connection={{ sender.id }}
 {%- endmacro %}
 
 {% block title %}You have been sent an invitation to connect on Wonder PL{% endblock %}
