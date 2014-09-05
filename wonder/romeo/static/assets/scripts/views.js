@@ -2056,11 +2056,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
-  $templateCache.put('profile/invite.tmpl.html',
-    "<a class=\"profile-invite__link btn btn--utility\" ng-click=\"invite()\">Connect with me</a>"
-  );
-
-
   $templateCache.put('profile/profile-avatar.tmpl.html',
     "<section class=\"profile-image\">\n" +
     "\n" +
