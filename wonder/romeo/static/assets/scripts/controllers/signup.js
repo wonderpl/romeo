@@ -24,6 +24,7 @@ angular
         SecurityService.registration(user).then(
           function () {
             SecurityService.restoreUrl('/profile');
+            $scope.isLoading = false;
           },
           function (response) {
             console.log(response);
