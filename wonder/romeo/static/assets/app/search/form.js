@@ -2,7 +2,7 @@
 
   'use strict';
 
-  function form ($templateCache) {
+  function searchForm ($templateCache) {
 
     return {
       restrict : 'E',
@@ -15,7 +15,7 @@
     };
   }
 
-  angular.module('RomeoApp.search').directive('form', ['$templateCache', form]);
+  angular.module('RomeoApp.search').directive('searchForm', ['$templateCache', searchForm]);
 
 })();
 

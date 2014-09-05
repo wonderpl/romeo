@@ -2250,7 +2250,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('search/search.tmpl.html',
     "<section class=\"search page-content wrapper wrapper--fixed\" ng-controller=\"SearchCtrl\">\n" +
     "\n" +
-    "  <form q=\"q\" location=\"location\"></form>\n" +
+    "  <search-form q=\"q\" location=\"location\"></search-form>\n" +
     "\n" +
     "  <results results=\"results\"></results>\n" +
     "\n" +
