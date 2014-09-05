@@ -2182,7 +2182,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <input type=\"text\" class=\"search__form-input\" ng-model=\"q\" auto-focus placeholder=\"Type to search\" />\n" +
     "\n" +
-    "  <location-selector location=\"location\"></location-selector>\n" +
+    "  <location-selector location=\"location\" allow-empty=\"true\"></location-selector>\n" +
     "\n" +
     "</section>"
   );
@@ -2318,7 +2318,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     " <div class=\"location-selector icon-text\">\n" +
     "  <label class=\"label location-selector__label  accessibility\" for=\"location-selector__location\">Location</label>\n" +
     "  <select class=\"location-selector\" ui-select2=\"select2Options\" ng-model=\"location\">\n" +
-    "    <option value=\"\"> - </option>\n" +
+    "    <option value=\"\" ng-if=\"allowEmpty\"> - </option>\n" +
     "    <option value=\"GB\">United Kingdom</option>\n" +
     "    <option value=\"US\">United States</option>\n" +
     "    <option ng-repeat=\"location in locations | orderBy:'name'\" value=\"(~ location.code ~)\">(~ location.name ~)</option>\n" +
