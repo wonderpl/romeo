@@ -1,12 +1,13 @@
 (function () {
 	'use strict';
-	function locationSelector($templateCache, AccountService, LocationService) {
+	function locationSelector($templateCache, LocationService) {
 		return {
 			restrict : 'E',
 			replace : true,
 			template : $templateCache.get('directives/location-selector.tmpl.html'),
       scope: {
-        location: '='
+        location: '=',
+        allowEmpty: '='
       },
       controller: function ($scope) {
         LocationService.getAll().then(function (response) {
@@ -16,5 +17,5 @@
       }
 		};
 	}
-	angular.module('RomeoApp.directives').directive('locationSelector', ['$templateCache', 'AccountService', 'LocationService', locationSelector]);
+	angular.module('RomeoApp.directives').directive('locationSelector', ['$templateCache', 'LocationService', locationSelector]);
 })();

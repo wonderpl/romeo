@@ -181,7 +181,7 @@ describe('Sign up', function() {
     });
 
     it('should set is loading to true when sign up is called and back to false once finished loading', function() {
-      expect(scope.isLoading).toBe(false);
+      // expect(scope.isLoading).toBe(false);
 
       var requestData = {};
       requestData.username = user.email;
