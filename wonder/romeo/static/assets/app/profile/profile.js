@@ -22,7 +22,7 @@ function ProfileRouteProvider($routeProvider, securityAuthorizationProvider) {
 
 angular.module('RomeoApp.profile').config(['$routeProvider', 'securityAuthorizationProvider', ProfileRouteProvider]);
 
-function ProfileCtrl($scope, $location, $routeParams, AccountService, UserService, UploadService, VideoService, LocationService, modal) {
+function ProfileCtrl($scope, $location, $routeParams, AccountService, UserService, UploadService, VideoService, LocationService, SecurityService, modal) {
   var ProfileController = {};
   var locations;
 
@@ -104,7 +104,7 @@ function ProfileCtrl($scope, $location, $routeParams, AccountService, UserServic
         $scope.videos = res.data.video.items;
       });
       VideoService.getPublicCollaborationVideos(id).then(function (res) {
-        $scope.collaboratioVideos = res.data.video.items;
+        $scope.collaborationVideos = res.data.video.items;
       });
     }, function (res) {
       $scope.$emit('notify', {
@@ -116,18 +116,34 @@ function ProfileCtrl($scope, $location, $routeParams, AccountService, UserServic
     });
   }
 
-  ProfileController.loadUserDetails = function() {
-    if ($routeParams.id) {
-      loadPublicProfile($routeParams.id);
-    } else {
+  function loadPrivateProfile() {
       $scope.flags.isOwner = true;
       $scope.profile = UserService.getUser();
       if ($scope.profile) {
         $scope.flags.accountId = $scope.profile.id;
       }
-      UserService.getConnections().then(function (res) {
-        $scope.connections = res;
-      });
+      if (SecurityService.isAuthenticated()) {
+        UserService.getPublicConnections($scope.profile.id).then(function (res) {
+          $scope.connections = res.data.connection.items;
+        });
+      }
+      // We should use the following code, to pull in all collaborators on
+      // the private profile page, not just the public collaborators.
+      //
+      // UserService.getConnections().then(function (res) {
+      //   $scope.connections = [];
+      //   angular.forEach(res, function (value, key) {
+      //     $scope.connections.push(value.collaborator ? value.collaborator : value.user);
+      //   });
+      //   console.log('Private profile connections: ', $scope.connections);
+      // });
+  }
+
+  ProfileController.loadUserDetails = function() {
+    if ($routeParams.id) {
+      loadPublicProfile($routeParams.id);
+    } else {
+      loadPrivateProfile();
     }
     LocationService.getAll().then(function (res) {
       locations = res.data;
@@ -236,7 +252,7 @@ function ProfileCtrl($scope, $location, $routeParams, AccountService, UserServic
   return ProfileController;
 }
 
-angular.module('RomeoApp.profile').controller('ProfileCtrl', ['$scope', '$location', '$routeParams', 'AccountService', 'UserService', 'UploadService', 'VideoService', 'LocationService', 'modal', ProfileCtrl]);
+angular.module('RomeoApp.profile').controller('ProfileCtrl', ['$scope', '$location', '$routeParams', 'AccountService', 'UserService', 'UploadService', 'VideoService', 'LocationService', 'SecurityService', 'modal', ProfileCtrl]);
 
 })();
 
