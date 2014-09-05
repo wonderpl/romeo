@@ -7,7 +7,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.ext.associationproxy import association_proxy
-from flask import session, url_for, current_app
+from flask import session, url_for, current_app, json
 from wonder.romeo import db
 from wonder.romeo.core.db import genid
 from wonder.romeo.account.models import Account, AccountUser
@@ -148,7 +148,7 @@ class Video(db.Model):
     def record_workflow_event(self, type, value=None):
         self.workflow_events.append(VideoWorkflowEvent.create(type, value))
 
-    def get_dolly_data(self, with_thumbnails=False):
+    def get_dolly_data(self, with_thumbnails=False, description_extra=False):
         data = dict(
             id=self.id,
             title=self.title,
@@ -174,6 +174,12 @@ class Video(db.Model):
                 {f: getattr(thumbnail, f) for f in ('url', 'width', 'height')}
                 for thumbnail in self.thumbnails
             ]
+        # hack to include extra properties in data stored on dolly
+        if description_extra:
+            extra = 'EXTRA_META\n' + json.dumps(dict(
+                source_player_parameters=self.player_parameters
+            ))
+            data['video']['description'] = (data['video']['description'] or '') + extra
         return data
 
     def clone(self):

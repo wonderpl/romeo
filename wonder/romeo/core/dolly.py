@@ -54,7 +54,7 @@ def get_video_embed_content(videoid):
 
 
 def push_video_data(video):
-    data = json.dumps(video.get_dolly_data(with_thumbnails=True))
+    data = json.dumps(video.get_dolly_data(with_thumbnails=True, description_extra=True))
     sig = hmac.new(current_app.config['DOLLY_PUBSUB_SECRET'], data, hashlib.sha1)
     headers = {
         'X-Hub-Signature': 'sha1=' + sig.hexdigest(),
