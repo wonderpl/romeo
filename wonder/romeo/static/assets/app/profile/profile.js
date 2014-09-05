@@ -125,6 +125,9 @@ function ProfileCtrl($scope, $location, $routeParams, AccountService, UserServic
       if ($scope.profile) {
         $scope.flags.accountId = $scope.profile.id;
       }
+      UserService.getConnections().then(function (res) {
+        $scope.connections = res;
+      });
     }
     LocationService.getAll().then(function (res) {
       locations = res.data;
