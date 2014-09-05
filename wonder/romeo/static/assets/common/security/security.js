@@ -249,9 +249,8 @@
                 debug.info('setExternalCredentials ' + credentials);
                 externalCredentials = credentials;
             },
-            getExternalCredentials: function (credentials) {
-                debug.info('setExternalCredentials ' + credentials);
-                externalCredentials = credentials;
+            getExternalCredentials: function () {
+                return externalCredentials;
             }
         };
 
