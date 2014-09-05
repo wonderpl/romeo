@@ -12,11 +12,11 @@
     <profile-edit-details data-profile="profile" data-flags="flags" ng-if="flags.isEdit"></profile-edit-details>
     <profile-view-details data-profile="profile" data-flags="flags" ng-if="! flags.isEdit"></profile-view-details>
 
+
     <profile-public ng-if="! flags.isOwner">
       This should be the list of collaborators and public videos
     </profile-public>
 
-    <profile-invite ng-if="!flags.isOwner && profile.contactable" data-profile="profile"></profile-invite>
   </div>
 
 </section>

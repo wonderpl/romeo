@@ -50,14 +50,15 @@
   text-transform: uppercase;
   color: $light-grey;
   width: auto;
-  text-align: center;
+  margin-left: $base-spacing-unit;
   font-size: 12px;
 }
 .profile-collaborators {
   list-style: none;
   display: block;
-  width: 300px;
   margin: 0 auto $half-spacing-unit;
+  width: 912px;
+  text-align: center;
 
   > li {
     display: inline-block;
@@ -82,4 +83,7 @@
   background-color: rgba(0,0,0,.6);
   font-size: 40px;
   font-family: $heading-font-family;
+}
+.profile-invite__link {
+    float: right;
 }

@@ -2034,6 +2034,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t<li ng-if=\"profile.location\" class=\"profile-details__location\">(~ findLocationName() ~)</li>\n" +
     "\t</ul>\n" +
     "\n" +
+    "    <profile-invite ng-if=\"!flags.isOwner && profile.contactable\" data-profile=\"profile\"></profile-invite>\n" +
+    "\n" +
     "\t<p class=\"profile-details__legend f--sans\" ng-if=\"connections\">Collaborated with:</p>\n" +
     "\t<ul class=\"profile-collaborators\" ng-show=\"connections\">\n" +
     "\t\t<li ng-repeat=\"connection in connections\">\n" +
@@ -2102,7 +2104,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('profile/invite/invite.tmpl.html',
-    "<a class=\"sub-navigation__link btn btn--utility\" ng-click=\"invite()\">invite</a>"
+    "<a class=\"profile-invite__link btn btn--utility\" ng-click=\"invite()\">Connect with me</a>"
   );
 
 
@@ -2143,11 +2145,11 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <profile-edit-details data-profile=\"profile\" data-flags=\"flags\" ng-if=\"flags.isEdit\"></profile-edit-details>\n" +
     "    <profile-view-details data-profile=\"profile\" data-flags=\"flags\" ng-if=\"! flags.isEdit\"></profile-view-details>\n" +
     "\n" +
+    "\n" +
     "    <profile-public ng-if=\"! flags.isOwner\">\n" +
     "      This should be the list of collaborators and public videos\n" +
     "    </profile-public>\n" +
     "\n" +
-    "    <profile-invite ng-if=\"!flags.isOwner && profile.contactable\" data-profile=\"profile\"></profile-invite>\n" +
     "  </div>\n" +
     "\n" +
     "</section>"

@@ -10,6 +10,8 @@
 		<li ng-if="profile.location" class="profile-details__location">{{ findLocationName() }}</li>
 	</ul>
 
+    <profile-invite ng-if="!flags.isOwner && profile.contactable" data-profile="profile"></profile-invite>
+
 	<p class="profile-details__legend f--sans" ng-if="connections">Collaborated with:</p>
 	<ul class="profile-collaborators" ng-show="connections">
 		<li ng-repeat="connection in connections">
