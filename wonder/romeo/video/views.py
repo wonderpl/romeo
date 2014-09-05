@@ -556,7 +556,7 @@ def collaborator_users(account_id=None, video_id=None):
         query = VideoCollaborator.query.join(
             Video,
             (Video.id == VideoCollaborator.video_id) &
-            (Video.account_id == current_user.account_id)
+            (Video.account_id == account_id)
         )
     else:
         query = VideoCollaborator.query.filter_by(video_id=video_id)
