@@ -2202,6 +2202,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "            </div>\n" +
     "          </div>\n" +
     "          <p class=\"heading no-spacing trunc t--pad-top--half\" ng-bind=\"item.display_name\"></p>\n" +
+    "          <p class=\"search__item-title\" ng-bind-html=\"item.title\"></p>\n" +
     "          <p class=\"search__item-description milli trunc\" ng-bind-html=\"item.description\"></p>\n" +
     "        </a>\n" +
     "      </li>\n" +
@@ -2219,6 +2220,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "            </div>\n" +
     "          </div>\n" +
     "          <p class=\"heading no-spacing trunc t--pad-top--half\" ng-bind=\"item.display_name\"></p>\n" +
+    "          <p class=\"search__item-title\" ng-bind-html=\"item.title\"></p>\n" +
     "          <p class=\"search__item-description milli trunc\" ng-bind-html=\"item.description\"></p>\n" +
     "        </a>\n" +
     "      </li>\n" +

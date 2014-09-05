@@ -89,6 +89,7 @@ class SearchResource(Resource):
             href=user.public_href,
             display_name=user.display_name,
             description=user.description,
+            title=user.title,
             avatar=user.avatar,
         )
 
