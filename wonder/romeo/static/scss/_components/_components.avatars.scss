@@ -20,7 +20,6 @@
   > .avatar__img {
     display: block;
     @extend %img--full;
-    z-index: -1;
     background-position: 50%;
   }
 }

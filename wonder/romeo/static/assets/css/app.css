@@ -2395,25 +2395,24 @@ li > ol {
 /* line 20, ../../scss/_components/_components.avatars.scss */
 .avatar > .avatar__img {
   display: block;
-  z-index: -1;
   background-position: 50%;
 }
 
-/* line 28, ../../scss/_components/_components.avatars.scss */
+/* line 27, ../../scss/_components/_components.avatars.scss */
 .avatar--small {
   width: 33px;
   height: 33px;
   margin-left: -17px;
 }
 
-/* line 33, ../../scss/_components/_components.avatars.scss */
+/* line 32, ../../scss/_components/_components.avatars.scss */
 .avatar--large {
   width: 88px;
   height: 88px;
   margin-left: -44px;
 }
 
-/* line 38, ../../scss/_components/_components.avatars.scss */
+/* line 37, ../../scss/_components/_components.avatars.scss */
 .avatar--huge {
   width: 120px;
   height: 120px;
