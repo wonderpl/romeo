@@ -66,10 +66,6 @@ function MainController ($window, $scope, $rootScope, $location, $cookies, modal
 
   };
 
-  $rootScope.$on('notify', function (event, data) {
-    $rootScope.$broadcast('notify-tray', data);
-  });
-
   $scope.$on('video-upload-start', function (event) {
     $scope.upload = {};
     $scope.upload.status = 'uploading';

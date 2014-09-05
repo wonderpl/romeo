@@ -1,8 +1,8 @@
 angular
   .module('RomeoApp.directives')
-  .directive('notificationTray', ['$templateCache', '$timeout', NotificationTrayDirective]);
+  .directive('notificationTray', ['$templateCache', '$timeout', '$rootScope', NotificationTrayDirective]);
 
-function NotificationTrayDirective ($templateCache, $timeout) {
+function NotificationTrayDirective ($templateCache, $timeout, $rootScope) {
 
   'use strict';
 
@@ -53,7 +53,7 @@ function NotificationTrayDirective ($templateCache, $timeout) {
         $timeout($scope.pollNotifications, 1000);
       };
 
-      $scope.$on('notify-tray', function (event, data) {
+      $rootScope.$on('notify', function (event, data) {
         var notification = {
           status    : data.status,
           title     : data.title,
@@ -62,7 +62,7 @@ function NotificationTrayDirective ($templateCache, $timeout) {
           id        : Math.round(Math.random() * 10000000),
           active    : true,
           show      : true,
-          hide      : false 
+          hide      : false
         };
         console.log(notification);
         $scope.notifications.push(notification);
