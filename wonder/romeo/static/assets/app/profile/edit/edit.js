@@ -93,6 +93,7 @@ function ProfileEditCtrl($scope, $location, UserService) {
       title           : $scope.profile.title,
       location        : $scope.profile.location,
       search_keywords : $scope.profile.search_keywords,
+      website_url     : $scope.profile.website_url,
       contactable     : $scope.profile.contactable
     };
     UserService.updateUser(data).then(function () {
