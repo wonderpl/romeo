@@ -501,10 +501,15 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
 
     var $frame = getVideoIFrame();
     var $wrapper = $frame.find('#wonder-wrapper');
-    if (show && $scope.video.link_title && $scope.video.link_link) {
+
+    console.log(show);
+    console.log($scope.video.link_title);
+    console.log($scope.video.link_url);
+
+    if (show && $scope.video.link_title && $scope.video.link_url) {
       $wrapper.addClass('show-buy-button');
       $frame.find('#wonder-buy-button').text($scope.video.link_title);
-      $frame.find('#wonder-buy-button').attr('href', $scope.video.link_link);
+      $frame.find('#wonder-buy-button').attr('href', $scope.video.link_url);
     } else {
       $wrapper.removeClass('show-buy-button');
     }
@@ -512,12 +517,13 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
 
   function showDescriptionButton (show) {
 
-    console.log($scope.video.description);
+    var $frame = getVideoIFrame();
+    var $wrapper = $frame.find('#wonder-wrapper');
 
     if (show && $scope.video.description) {
-      var $frame = getVideoIFrame();
-      var $wrapper = $frame.find('#wonder-wrapper');
-      $wrapper.toggleClass('show-description-button', show);
+      $wrapper.addClass('show-description-button', show);
+    } else {
+      $wrapper.removeClass('show-description-button', show);
     }
   }
 
