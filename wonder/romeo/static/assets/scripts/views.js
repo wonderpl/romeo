@@ -2177,7 +2177,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        <a ng-href=\"#/profile/(~ item.id ~)\">\n" +
     "          <div class=\"search__avatar-container\">\n" +
     "            <div class=\"search__avatar avatar\">\n" +
-    "              <img class=\"search__avatar-image avatar__image\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" style=\"background-image : url('(~ item.avatar ~)');\" />\n" +
+    "              <img class=\"search__avatar-image avatar__img\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" style=\"background-image : url('(~ item.avatar ~)');\" />\n" +
     "            </div>\n" +
     "          </div>\n" +
     "          <p class=\"heading no-spacing trunc t--pad-top--half\" ng-bind=\"item.display_name\"></p>\n" +
@@ -2195,7 +2195,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        <a ng-href=\"#/profile/(~ item.id ~)\">\n" +
     "          <div class=\"search__avatar-container\">\n" +
     "            <div class=\"no-spacing avatar\">\n" +
-    "              <img class=\"avatar__image\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" style=\"background-image : url('(~ item.avatar ~)');\" />\n" +
+    "              <img class=\"avatar__img\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" style=\"background-image : url('(~ item.avatar ~)');\" />\n" +
     "            </div>\n" +
     "          </div>\n" +
     "          <p class=\"heading no-spacing trunc t--pad-top--half\" ng-bind=\"item.display_name\"></p>\n" +
