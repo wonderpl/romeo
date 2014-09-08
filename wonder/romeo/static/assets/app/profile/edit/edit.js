@@ -24,6 +24,11 @@ function ProfileEditCtrl($scope, $location, UserService) {
     loadPrivateProfile();
   }
 
+  // @TODO: We should move this into a service or something
+  function htmlToPlaintext(text) {
+    return String(text).replace(/<[^>]+>/gm, '');
+  }
+
   function loadPrivateProfile() {
       $scope.profile = angular.copy(UserService.getUser());
       if ($scope.profile) {
@@ -81,12 +86,12 @@ function ProfileEditCtrl($scope, $location, UserService) {
       );
     }
     var data = {
-      display_name    : $scope.profile.display_name,
-      description     : $scope.profile.description,
-      title           : $scope.profile.title,
-      location        : $scope.profile.location,
-      search_keywords : $scope.profile.search_keywords,
-      website_url     : $scope.profile.website_url,
+      display_name    : htmlToPlaintext($scope.profile.display_name),
+      description     : htmlToPlaintext($scope.profile.description),
+      title           : htmlToPlaintext($scope.profile.title),
+      location        : htmlToPlaintext($scope.profile.location),
+      search_keywords : htmlToPlaintext($scope.profile.search_keywords),
+      website_url     : htmlToPlaintext($scope.profile.website_url),
       contactable     : $scope.profile.contactable
     };
     UserService.updateUser(data).then(function () {
