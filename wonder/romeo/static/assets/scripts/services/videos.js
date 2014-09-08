@@ -159,7 +159,6 @@ function VideoService ($rootScope, $q, $http, localStorageService, DataService, 
 
       DataService.request({ url: '/api/account/' + AccountService.getAccountId() + '/videos', method: 'GET'}).then(function (response) {
           Videos = response.video.items;
-          $rootScope.Videos = response.video.items;
 
           deferred.resolve(response);
       });

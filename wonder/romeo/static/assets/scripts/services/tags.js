@@ -16,8 +16,7 @@ angular.module('RomeoApp.services').factory('TagService',
     */
     Tag.getTags = function() {
         var deferred = new $q.defer();
-        DataService.request({url: '/api/account/' + AccountService.getAccountId() + '/tags'}).then(function(response){
-            $rootScope.Tags = response.tag.items;
+        DataService.request({url: '/api/account/' + AccountService.getAccountId() + '/tags'}).then(function(response) {
             Tags = response.tag.items;
             deferred.resolve(response);
         });

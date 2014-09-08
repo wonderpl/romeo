@@ -10,8 +10,6 @@ function MainController ($window, $scope, $rootScope, $location, $cookies, modal
     /*
     * Empty state objects for when we have data
     */
-    $rootScope.Videos = {};
-    $rootScope.Tags = {};
     $rootScope.isComments = false;
     $rootScope.layoutMode = $cookies.layout ? $cookies.layout : (SecurityService.isCollaborator()) ? 'column' : 'wide';
     $scope.profile = '';
@@ -55,15 +53,6 @@ function MainController ($window, $scope, $rootScope, $location, $cookies, modal
 
   $rootScope.closeModal = function () {
       modal.hide();
-  };
-
-  $rootScope.logOut = function () {
-      localStorageService.remove('session_url');
-      $location.path('/login');
-  };
-
-  $rootScope.toggleNav = function () {
-
   };
 
   $scope.$on('video-upload-start', function (event) {
