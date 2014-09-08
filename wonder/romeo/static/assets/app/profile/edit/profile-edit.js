@@ -85,6 +85,16 @@ function ProfileEditCtrl($scope, $location, UserService) {
         message : "Can't save changes to profile of other users"}
       );
     }
+    if ($scope.profile.website_url) {
+      if (! $scope.profile.website_url.match(/^http[s]?:\/\/.+/i)) {
+        if ($scope.profile.website_url.match(/^http[s]?:\/\/$/i)) {
+          $scope.profile.website_url = '';
+        }
+        else {
+          $scope.profile.website_url = 'http://' + $scope.profile.website_url;
+        }
+      }
+    }
     var data = {
       display_name    : htmlToPlaintext($scope.profile.display_name),
       description     : htmlToPlaintext($scope.profile.description),

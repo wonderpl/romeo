@@ -28,16 +28,11 @@ angular.module('RomeoApp.directives')
       });
       $scope.$watch('url', function (newValue, oldValue) {
         if (newValue && newValue !== oldValue) {
-          if (!newValue.match(/^http[s]?:\/\/.+/gi)) {
-            if (newValue.match(/^http[s]?:\/\//gi)) {
-
+          if (!newValue.match(/^http[s]?:\/\/.+/i)) {
+            if (newValue.match(/^http[s]?:\/\/$/i)) {
               $scope.url = '';
-
             } else {
-
-              if ($scope.url && $scope.url.toLowerCase() !== 'http://') {
-                $scope.url = 'http://' + $scope.url;
-              }
+              newValue = 'http://' + newValue;
             }
           }
         }
