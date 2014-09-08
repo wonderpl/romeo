@@ -46,7 +46,7 @@
 
             <a class="btn btn--positive btn--small show-modal-button t--push-all" ng-show="flags.isEdit && video.id" ng-click="showModal=true">edit player</a>
 
-            <video-modal show-modal="showModal" video="video" player-parameters="playerParameters"></video-modal>
+            <video-modal ng-show="flags.isEdit && video.id && showModal" show-modal="showModal" video="video" player-parameters="playerParameters"></video-modal>
 
             <extended-player-controls ng-show="showExtendedControls && flags.isEdit"></extended-player-controls>
 

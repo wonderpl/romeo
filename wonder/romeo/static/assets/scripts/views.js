@@ -1858,7 +1858,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "            <a class=\"btn btn--positive btn--small show-modal-button t--push-all\" ng-show=\"flags.isEdit && video.id\" ng-click=\"showModal=true\">edit player</a>\n" +
     "\n" +
-    "            <video-modal show-modal=\"showModal\" video=\"video\" player-parameters=\"playerParameters\"></video-modal>\n" +
+    "            <video-modal ng-show=\"flags.isEdit && video.id && showModal\" show-modal=\"showModal\" video=\"video\" player-parameters=\"playerParameters\"></video-modal>\n" +
     "\n" +
     "            <extended-player-controls ng-show=\"showExtendedControls && flags.isEdit\"></extended-player-controls>\n" +
     "\n" +
@@ -2267,7 +2267,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('video/config/modal.tmpl.html',
-    "<div class=\"video-modal video-modal__overlay\" ng-if=\"showModal\">\n" +
+    "<div class=\"video-modal video-modal__overlay\">\n" +
     "\n" +
     "  <div class=\"video-modal__window\">\n" +
     "\n" +
