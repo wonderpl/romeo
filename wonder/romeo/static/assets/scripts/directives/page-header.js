@@ -1,8 +1,8 @@
 angular
   .module('RomeoApp.directives')
-  .directive('pageHeader', ['$templateCache', '$timeout', 'SecurityService', 'UserService', PageHeaderDirective]);
+  .directive('pageHeader', ['$templateCache', '$timeout', 'SecurityService', 'UserService', 'UploadService', PageHeaderDirective]);
 
-function PageHeaderDirective ($templateCache, $timeout, SecurityService, UserService) {
+function PageHeaderDirective ($templateCache, $timeout, SecurityService, UserService, UploadService) {
   'use strict';
 
   return {
@@ -10,6 +10,7 @@ function PageHeaderDirective ($templateCache, $timeout, SecurityService, UserSer
     replace : true,
     template : $templateCache.get('page-header.html'),
     controller : function ($scope) {
+      $scope.controller = 'RomeoApp.directives.pageHeader';
       $scope.$watch(function () {
         return UserService.getUser();
       }, function (newValue, oldValue) {
@@ -22,6 +23,9 @@ function PageHeaderDirective ($templateCache, $timeout, SecurityService, UserSer
       };
       $scope.isLoggedIn = function () {
         return SecurityService.isAuthenticated();
+      };
+      $scope.isUploading = function () {
+        return UploadService.isUploadingOrProcessing();
       };
       function setAccountValues(account) {
         var avatar = (account) ? account.avatar : null;

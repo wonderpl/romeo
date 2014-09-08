@@ -1,154 +1,221 @@
+(function () {
+'use strict';
+var debug = new DebugClass('RomeoApp.services.UploadService');
 /*
 * Methods for interacting with the Comment web services
 */
 angular.module('RomeoApp.services')
-  .factory('UploadService', ['DataService', 'AccountService', '$q', '$interval', 'VideoService', '$rootScope',
-  function (DataService, AccountService, $q, $interval, VideoService, $rootScope) {
+  .factory('UploadService', ['$rootScope', '$window', '$q', '$interval', 'DataService', 'AccountService', 'VideoService', UploadService]);
 
-  'use strict';
+  function UploadService($rootScope, $window, $q, $interval, DataService, AccountService, VideoService) {
+    var cachedId;
 
-  var cachedId;
+    // move this
+    var cachedkey;
 
-  // move this
-  var cachedkey;
+    var _isUploading = false,
+        _isProcessing = false,
+        _progress = 0;
 
-  function getParametersSuccess (id, file, response) {
 
-    console.log('getParametersSuccess()');
-    console.log(id);
-    console.log(file);
-    console.log(response);
+    $window.onbeforeunload = function () {
+      return _isUploading ? 'Leaving this page will cancel your video upload.' : void(0);
+    };
 
-    cachedId = id;
+    function getParametersSuccess (id, file, response) {
+      debug.log('getParametersSuccess()');
+      debug.log(id);
+      debug.log(file);
+      debug.log(response);
 
-    var formData = new FormData();
-    var data = response.fields;
-    var l = data.length;
+      cachedId = id;
 
-    // key has to come first in form data list
-    while (l--) {
-      console.log(data[l]);
-      formData.append(data[l].name, data[l].value);
-      if (data[l].name === 'key') {
-        cacheKey(data[l].value);
+      var formData = new FormData();
+      var data = response.fields;
+      var l = data.length;
+
+      // key has to come first in form data list
+      while (l--) {
+        debug.log(data[l]);
+        formData.append(data[l].name, data[l].value);
+        if (data[l].name === 'key') {
+          cacheKey(data[l].value);
+        }
       }
+
+      formData.append('file', file);
+
+      uploadVideo(formData, response)
+      .done(uploadVideoDone)
+      .fail(uploadVideoFail);
     }
 
-    formData.append('file', file);
+    function cacheKey (key) {
+      cachedkey = key;
+    }
 
-    uploadVideo(formData, response)
-    .done(uploadVideoDone)
-    .fail(uploadVideoFail);
-  }
+    function uploadVideo (formData, uploadParameters) {
+      debug.log('uploadVideo()');
+      debug.log(formData);
+      debug.log(uploadParameters);
 
-  function cacheKey (key) {
-    cachedkey = key;
-  }
-
-  function uploadVideo (formData, uploadParameters) {
-
-    console.log('uploadVideo()');
-    console.log(formData);
-    console.log(uploadParameters);
-
-    // use data service ?
-    return $.ajax({
-      url: uploadParameters.action,
-      type: 'post',
-      data: formData,
-      processData: false,
-      mimeType: 'multipart/form-data',
-      contentType: false,
-      xhr: uploadProgress
-    });
-  }
-
-  function uploadProgress () {
-    var xhr = $.ajaxSettings.xhr();
-    xhr.upload.onprogress = onProgress;
-    return xhr;
-  }
-
-  function onProgress (e) {
-    var progress = e.lengthComputable ? Math.round(e.loaded * 100 / e.total) : 0;
-    var data = { progress: progress };
-    $rootScope.$broadcast('video-upload-progress', data);
-    console.log(progress);
-  }
-
-  function uploadVideoDone (data, textStatus, jqXHR) {
-
-    console.log('uploadVideoSuccess()');
-    console.log(data);
-    console.log(textStatus);
-    console.log(jqXHR);
-
-    // update video with key
-    updateVideo({ filename: cachedkey, status: 'processing' }, cachedId).then(function () {
-      // Make sure we've updated status on server before broadcasting succes
-      $rootScope.$broadcast('video-upload-complete');
-
-      // poll video service with video id
-      pollVideoForReady(cachedId);
-    });
-  }
-
-  function pollVideoForReady (id) {
-    var promise = $interval(function(){
-      VideoService.get(id).then(function (response) {
-        $rootScope.$broadcast('video-upload-poll', response);
-        if (videoIsReady(response)) {
-          $rootScope.isUploadingOrProcessingTemp = false;
-          $rootScope.uploadingVideoId = 0;
-          // broadcast completion to the world
-          $rootScope.$broadcast('video-upload-success', response);
-          $interval.cancel(promise);
-        }
+      // use data service ?
+      return $.ajax({
+        url: uploadParameters.action,
+        type: 'post',
+        data: formData,
+        processData: false,
+        mimeType: 'multipart/form-data',
+        contentType: false,
+        xhr: uploadProgress
       });
-    }, 10000);
-  }
+    }
 
-  function videoIsReady (response) {
-    return (response.status === 'ready');
-  }
+    function uploadProgress () {
+      var xhr = $.ajaxSettings.xhr();
+      xhr.upload.onprogress = onProgress;
+      return xhr;
+    }
 
-  function updateVideo (data, id) {
-    console.log('updateVideo()');
-    console.log(data);
-    console.log(id);
-    return VideoService.update(id, data);
-  }
+    function onProgress (e) {
+      _progress = e.lengthComputable ? Math.round(e.loaded * 100 / e.total) : 0;
+      var data = { progress: _progress };
+      $rootScope.$broadcast('video-upload-progress', data);
+      debug.log(_progress);
+      _isUploading = true;
+    }
 
-  function uploadVideoFail (jqXHR, textStatus, errorThrown) {
-    console.log('uploadVideoSuccess()');
-    console.log(jqXHR);
-    console.log(textStatus);
-    console.log(errorThrown);
-  }
+    function uploadVideoDone (data, textStatus, jqXHR) {
+      debug.log('uploadVideoSuccess()');
+      debug.log(data);
+      debug.log(textStatus);
+      debug.log(jqXHR);
 
-  function getParametersFail (response) {
-    console.log('getParametersFail()');
-    console.log(response);
-  }
+      _isUploading = false;
+      _isProcessing = true;
 
-  // Amazon S3 credentials
-  function getUploadParameters () {
-    var deferred = new $q.defer();
-    deferred.resolve(DataService.request({url: '/api/account/' + AccountService.getAccountId() + '/upload_args'}));
-    return deferred.promise;
-  }
+      // update video with key
+      updateVideo({ filename: cachedkey, status: 'processing' }, cachedId).then(function () {
+        // Make sure we've updated status on server before broadcasting succes
+        $rootScope.$broadcast('video-upload-complete');
 
-  return({
-    uploadVideo : function (file, id) {
-      console.log('uploadVideo()');
-      console.log(file);
-      console.log(id);
+        $rootScope.$emit('notify', {
+          status : 'info',
+          title : 'Video Upload',
+          message : 'Video has been uploaded and is now processing.'}
+        );
+        // poll video service with video id
+        pollVideoForReady(cachedId);
+      });
+    }
+
+    function pollVideoForReady (id) {
+      var promise = $interval(function(){
+        VideoService.get(id).then(function (response) {
+          $rootScope.$broadcast('video-upload-poll', response);
+          if (videoIsReady(response)) {
+            $rootScope.isUploadingOrProcessingTemp = false;
+            _isProcessing = false;
+            _progress = 0;
+
+            $rootScope.$emit('notify', {
+              status : 'success',
+              title : 'Video Upload Complete',
+              message : 'Your Video is Ready, processing complete.'}
+            );
+
+            $rootScope.uploadingVideoId = 0;
+            // broadcast completion to the world
+            $rootScope.$broadcast('video-upload-success', response);
+            $interval.cancel(promise);
+          }
+        });
+      }, 10000);
+    }
+
+    function videoIsReady (response) {
+      return (response.status === 'ready');
+    }
+
+    function updateVideo (data, id) {
+      debug.log('updateVideo()');
+      debug.log(data);
+      debug.log(id);
+      return VideoService.update(id, data);
+    }
+
+    function uploadVideoFail (jqXHR, textStatus, errorThrown) {
+      debug.log('uploadVideoFail()');
+      debug.log(jqXHR);
+      debug.log(textStatus);
+      debug.log(errorThrown);
+
+      $rootScope.emit('notify', {
+        status : 'error',
+        title : 'Upload video',
+        message : 'Uploading video failed'
+      });
+
+      _progress = 0;
+      _isUploading = false;
+      _isProcessing = false;
+    }
+
+    function getParametersFail (response) {
+      debug.log('getParametersFail()');
+      debug.log(response);
+    }
+
+    // Amazon S3 credentials
+    function getUploadParameters () {
+      var deferred = new $q.defer();
+      deferred.resolve(DataService.request({url: '/api/account/' + AccountService.getAccountId() + '/upload_args'}));
+      return deferred.promise;
+    }
+    var service = {};
+
+    service.uploadVideo = function (file, id) {
+      if (service.isUploadingOrProcessing()) {
+        $rootScope.emit('notify', {
+          status : 'error',
+          title : 'Upload video',
+          message : 'Another video is uploading, please try again later.'
+        });
+        var queue = new $q.defer();
+        queue.reject('Already uploading');
+        return queue.promise;
+      }
+      debug.log('uploadVideo()');
+      debug.log(file);
+      debug.log(id);
       $rootScope.isUploadingOrProcessingTemp = true;
+      _isUploading = true;
+      _isProcessing = false;
+      _progress = 0;
       $rootScope.uploadingVideoId = id;
       $rootScope.$broadcast('video-upload-start');
       return getUploadParameters()
         .then(getParametersSuccess.bind(this, id, file), getParametersFail);
-    }
-  });
+    };
+    service.isUploadingOrProcessing = function () {
+      return _isUploading || _isProcessing;
+    };
+    service.isUploading = function () {
+      return _isUploading;
+    };
+    service.isProcessing = function () {
+      return _isProcessing;
+    };
+    service.uploadProgress = function () {
+      return _progress;
+    };
+    service.uploadStatus = function () {
+      if (! service.isUploadingOrProcessing() )
+        return '';
+      return _isUploading ? 'uploading' : 'processing';
+    };
 
-}]);
+    return service;
+  }
+
+})();

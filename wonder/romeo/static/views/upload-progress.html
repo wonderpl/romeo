@@ -1,5 +1,4 @@
 <section class="upload-progress">
-  <span ng-show="upload && upload.progress && upload.progress > 0 && upload.progress < 100">{{ upload.progress }}%</span>
-  <span ng-hide="upload.href">{{ upload.status }}&hellip;</span>
-  <a class="upload-progress__link" ng-click="redirect(upload.href)" ng-show="upload.href && !isDimissed">{{ upload.status }}</a>
+  <span ng-show="progress > 0 && progress < 100">{{ progress }}%</span>
+  <span>{{ status }}&hellip;</span>
 </section>

@@ -34,13 +34,6 @@ function MainController ($window, $scope, $rootScope, $location, $cookies, modal
     }
   }
 
-  $window.onbeforeunload = function () {
-
-    $scope.upload = $scope.upload || {};
-
-    return $scope.upload.status === 'uploading' ? 'Leaving this page will cancel your video upload.' : void(0);
-  };
-
   $rootScope.isUnique = function (arr, string) {
       if (arr.length === 0) {
           return true;
@@ -54,28 +47,6 @@ function MainController ($window, $scope, $rootScope, $location, $cookies, modal
   $rootScope.closeModal = function () {
       modal.hide();
   };
-
-  $scope.$on('video-upload-start', function (event) {
-    $scope.upload = {};
-    $scope.upload.status = 'uploading';
-    $scope.upload.progress = 0;
-  });
-
-  $scope.$on('video-upload-progress', function (event, data) {
-    $scope.$apply(function () {
-      $scope.upload.status = 'uploading';
-      $scope.upload.progress = data.progress;
-    });
-  });
-
-  $scope.$on('video-upload-complete', function (event) {
-    $scope.upload.status = 'processing';
-  });
-
-  $scope.$on('video-upload-success', function (event, data) {
-    $scope.upload.href = 'video/' + data.id + '/edit';
-    $scope.upload.status = 'upload complete';
-  });
 
   /*
   * Used in templating for logic based on the current route

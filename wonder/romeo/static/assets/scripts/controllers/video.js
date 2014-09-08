@@ -247,22 +247,12 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
   function videoUploadOnComplete (event) {
     // manaual ajax request doesn't return video object to extend what we have in scope
     $scope.video.status = 'processing';
-    $scope.$emit('notify', {
-      status : 'info',
-      title : 'Video Upload Complete',
-      message : 'Video has been uploaded and is now processing.'}
-    );
   }
 
   $scope.$on('video-upload-success', function (event, data) {
     debug.log('videoUploadOnSuccess of video (' + $scope.video.id + ') ' + $scope.video.title);
     redirect(data, 'edit');
     $scope.flags.hasProcessed = true;
-    $scope.$emit('notify', {
-      status : 'info',
-      title : 'Your Video is Ready',
-      message : 'Video processing complete.'}
-    );
   });
 
   $scope.$on('video-upload-poll', function (event, data) {

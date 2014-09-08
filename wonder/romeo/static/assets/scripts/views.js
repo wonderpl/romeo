@@ -1213,7 +1213,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <a href=\"#\" class=\"page-logo  page-logo--header\" >\n" +
     "      <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"page-logo__img\" alt=\"Wonder PL\">\n" +
     "    </a>\n" +
-    "    <upload-progress upload=\"upload\" ng-if=\"isLoggedIn() && upload\"></upload-progress>\n" +
+    "    <upload-progress ng-if=\"isLoggedIn() && isUploading()\"></upload-progress>\n" +
     "    <ul class=\"nav  nav-menu\" ng-if=\"isLoggedIn()\">\n" +
     "      <li class=\"nav-menu__item\" ng-if=\"isCreator()\"><a href=\"#/video\" class=\"nav-menu__link\">Upload</a></li>\n" +
     "      <li class=\"nav-menu__item\"><a href=\"#/profile\" class=\"nav-menu__link  avatar  avatar--small\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"(~ display_name ~)\" class=\"avatar__img\" ng-style=\"profileStyle\"></a></li>\n" +
@@ -1356,9 +1356,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
   $templateCache.put('upload-progress.html',
     "<section class=\"upload-progress\">\n" +
-    "  <span ng-show=\"upload && upload.progress && upload.progress > 0 && upload.progress < 100\">(~ upload.progress ~)%</span>\n" +
-    "  <span ng-hide=\"upload.href\">(~ upload.status ~)&hellip;</span>\n" +
-    "  <a class=\"upload-progress__link\" ng-click=\"redirect(upload.href)\" ng-show=\"upload.href && !isDimissed\">(~ upload.status ~)</a>\n" +
+    "  <span ng-show=\"progress > 0 && progress < 100\">(~ progress ~)%</span>\n" +
+    "  <span>(~ status ~)&hellip;</span>\n" +
     "</section>"
   );
 
