@@ -21,13 +21,6 @@ function ProfileEditCtrl($scope, $location, UserService) {
     $scope.$on('upload-profile-image', ctrl.uploadAvatar);
     $scope.$on('upload-profile-cover', ctrl.uploadProfileCover);
 
-    $scope.$watch('profile.description', function (newValue, oldValue) {
-      if (newValue !== oldValue) {
-        if (typeof newValue !== 'undefined')
-          $scope.flags.errorDescritionToLong = (newValue.length > 100);
-      }
-    });
-
     loadPrivateProfile();
   }
 

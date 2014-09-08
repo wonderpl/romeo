@@ -1,43 +1,27 @@
-<div class="profile-edit">
+<form class="profile-edit">
   <h3 class="error" ng-hide="form.valid">{{ form.errorMsg() }}</h3>
 
-  <h2 class="profile-edit__name no-spacing input--field"
-    medium-editor
-    ng-class="{ 'error' : form.errors.name }"
-    data-placeholder="{{ profile.name ? ' ' : 'name' }}"
-    options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
-    ng-model="profile.display_name">
-  </h2>
+  <input type="text" ng-model="profile.display_name" class="profile-edit__name input--field" placeholder="name" required="true" ng-trim="true" />
 
-  <div class="profile-edit__description input--field"
-    medium-editor
-    ng-class="{ 'error' : form.errors.description }"
-    data-placeholder="{{ profile.description ? ' ' : 'description' }}"
-    options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
-    ng-model="profile.description">
-  </div>
+  <input class="profile-edit__description input--field"
+    type="text"
+    placeholder="description"
+    ng-maxlength="100"
+    ng-model="profile.description" ng-trim="true" />
 
   <section class="profile-edit__extended">
 
-  <label><span class="required">*</span> Job title:</label>
-    <div class="profile-edit__job_title input--field"
-      medium-editor
-      me-required
-      ng-class="{ 'error' : form.errors.title }"
-      options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
-      ng-model="profile.title">
-    </div>
+  <label>Job title:</label>
+    <input type="text" class="profile-edit__job_title input--field"
+      ng-model="profile.title" ng-trim="true" id="profileJobTitle" />
 
   <label>Website or homepage:</label>
-    <div class="profile-edit__website input--field"
-      medium-editor
+    <input type="text" class="profile-edit__website input--field"
       ng-class="{ 'error' : form.errors.website_url }"
-      data-placeholder="{{ profile.website_url ? ' ' : 'Link http://' }}"
-      options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
-      ng-model="profile.website_url">
-    </div>
+      placeholder="Link http://"
+      ng-model="profile.website_url" />
 
-  <label><span class="required">*</span> Share your location:</label>
+  <label>Share your location:</label>
     <location-selector class="input--field" location="profile.location"></location-selector>
 
   <label>Show &ldquo;Connect with me&rdquo; button:</label>
@@ -45,7 +29,7 @@
     <button ng-class="{'active' : profile.contactable }" ng-click="profile.contactable = true">Yes</button>
     <button ng-class="{'active' : !profile.contactable }" ng-click="profile.contactable = false">No</button>
   </div>
-  <label><span class="required">*</span> Make yourself easy to find, add your skills and interests:</label>
-    <input type="hidden" ui-select2="select2Options" ng-model="search_keywords" data-placeholder="Make yourself searchable by adding relevant terms">
+  <label>Make yourself easy to find, add your skills and interests:</label>
+    <input type="hidden" ui-select2="select2Options" ng-model="search_keywords" placeholder="Make yourself searchable by adding relevant terms">
   </section>
-</div>
+</form>

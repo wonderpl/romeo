@@ -2,7 +2,7 @@
 'use strict';
 var debug = new DebugClass('RomeoApp.profile.directives');
 
-function editDetails($templateCache) {
+function editDetails($templateCache, $http) {
   return {
     restrict : 'E',
     replace : true,
@@ -31,6 +31,7 @@ function editDetails($templateCache) {
         'width': '320px',
         'minimumInputLength': 3,
         'allowClear': true,
+        'tokenSeparators': [','],
         ajax: {
           url: '/api/search_keywords',
           cache: true,
@@ -63,41 +64,29 @@ function editDetails($templateCache) {
       if ($scope.profile.search_keywords) {
         $scope.search_keywords = $scope.profile.search_keywords.split(',');
       }
+
       $scope.location_item = {id: $scope.profile.location};
 
-      $scope.$watch('profile.description', function (newValue, oldValue) {
-        if (! angular.equals(newValue, oldValue)) {
-          if (angular.isDefined(newValue)) {
-            var textValue = $('<p>' + newValue + '</p>').text();
-            $scope.form.errors.description = (textValue.length > 100) ? 'Description is to long' : void(0);
-          }
-        }
-      });
-      $scope.$watch('form.errors', function (newValue, oldValue) {
-        if (! angular.equals(newValue, oldValue)) {
-          var isValid = true;
-          angular.forEach(newValue, function (value, key) {
-            if (angular.isDefined(value))
-              isValid = false;
-          });
-          console.log('Errors updated form is now ' + (isValid ? 'valid' : 'INVALID'));
-          $scope.form.valid = isValid;
-        }
-      }, true);
-      $scope.$watch('form.valid', function (newValue, oldValue) {
-        if (! angular.equals(newValue, oldValue)) {
-          $scope.flags.isFormValid = newValue;
-        }
-      });
       $scope.$watch('search_keywords', function (newValue, oldValue) {
         if (! angular.equals(newValue, oldValue)) {
           $scope.profile.search_keywords = newValue ? newValue.join(',') : '';
         }
       });
+    },
+    link: function (scope, element) {
+      element.find('#profileJobTitle').autocomplete({
+        source: function (request, callback) {
+          $http.get('/api/user_titles?prefix=' + request.term).then(function (res) {
+            callback(res.data.user_title.items);
+          });
+        },
+        minLength: 2,
+        delay: 500
+      });
     }
   };
 }
-angular.module('RomeoApp.profile').directive('profileEditDetails', ['$templateCache', editDetails]);
+angular.module('RomeoApp.profile').directive('profileEditDetails', ['$templateCache', '$http', editDetails]);
 
 function required($templateCache) {
   return {

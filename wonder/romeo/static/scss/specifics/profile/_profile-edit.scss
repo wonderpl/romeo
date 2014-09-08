@@ -1,6 +1,9 @@
 /* _profile-edit.scss */
 .profile-edit {
 
+	input {
+		border-width: 0;
+	}
 }
 .profile-edit__extended {
 	width: 550px;
@@ -23,7 +26,6 @@
 		margin-bottom: $half-spacing-unit;
 		padding: $half-spacing-unit;
 	}
-	.medium-editor-placeholder:after { padding: 12px; }
 	.lookup--field {
 		float: left;
 		color: #727272; /* $dark-grey; ? */
@@ -46,12 +48,16 @@
 	}
 }
 .profile-edit__description {
+  display: block;
+  width: 100%;
   margin-bottom: $base-spacing-unit;
   padding-bottom: $base-spacing-unit;
   border-bottom: 2px $light-grey solid;
   text-align: center;
 }
 .profile-edit__name {
+  display: block;
+  width: 100%;
   font-size: 50px;
   margin-bottom: $half-spacing-unit;
   font-family: $heading-font-family;

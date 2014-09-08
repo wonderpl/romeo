@@ -1986,46 +1986,30 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('profile/edit/edit-details.tmpl.html',
-    "<div class=\"profile-edit\">\n" +
+    "<form class=\"profile-edit\">\n" +
     "  <h3 class=\"error\" ng-hide=\"form.valid\">(~ form.errorMsg() ~)</h3>\n" +
     "\n" +
-    "  <h2 class=\"profile-edit__name no-spacing input--field\"\n" +
-    "    medium-editor\n" +
-    "    ng-class=\"{ 'error' : form.errors.name }\"\n" +
-    "    data-placeholder=\"(~ profile.name ? ' ' : 'name' ~)\"\n" +
-    "    options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
-    "    ng-model=\"profile.display_name\">\n" +
-    "  </h2>\n" +
+    "  <input type=\"text\" ng-model=\"profile.display_name\" class=\"profile-edit__name input--field\" placeholder=\"name\" required=\"true\" ng-trim=\"true\" />\n" +
     "\n" +
-    "  <div class=\"profile-edit__description input--field\"\n" +
-    "    medium-editor\n" +
-    "    ng-class=\"{ 'error' : form.errors.description }\"\n" +
-    "    data-placeholder=\"(~ profile.description ? ' ' : 'description' ~)\"\n" +
-    "    options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
-    "    ng-model=\"profile.description\">\n" +
-    "  </div>\n" +
+    "  <input class=\"profile-edit__description input--field\"\n" +
+    "    type=\"text\"\n" +
+    "    placeholder=\"description\"\n" +
+    "    ng-maxlength=\"100\"\n" +
+    "    ng-model=\"profile.description\" ng-trim=\"true\" />\n" +
     "\n" +
     "  <section class=\"profile-edit__extended\">\n" +
     "\n" +
-    "  <label><span class=\"required\">*</span> Job title:</label>\n" +
-    "    <div class=\"profile-edit__job_title input--field\"\n" +
-    "      medium-editor\n" +
-    "      me-required\n" +
-    "      ng-class=\"{ 'error' : form.errors.title }\"\n" +
-    "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
-    "      ng-model=\"profile.title\">\n" +
-    "    </div>\n" +
+    "  <label>Job title:</label>\n" +
+    "    <input type=\"text\" class=\"profile-edit__job_title input--field\"\n" +
+    "      ng-model=\"profile.title\" ng-trim=\"true\" id=\"profileJobTitle\" />\n" +
     "\n" +
     "  <label>Website or homepage:</label>\n" +
-    "    <div class=\"profile-edit__website input--field\"\n" +
-    "      medium-editor\n" +
+    "    <input type=\"text\" class=\"profile-edit__website input--field\"\n" +
     "      ng-class=\"{ 'error' : form.errors.website_url }\"\n" +
-    "      data-placeholder=\"(~ profile.website_url ? ' ' : 'Link http://' ~)\"\n" +
-    "      options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true }\"\n" +
-    "      ng-model=\"profile.website_url\">\n" +
-    "    </div>\n" +
+    "      placeholder=\"Link http://\"\n" +
+    "      ng-model=\"profile.website_url\" />\n" +
     "\n" +
-    "  <label><span class=\"required\">*</span> Share your location:</label>\n" +
+    "  <label>Share your location:</label>\n" +
     "    <location-selector class=\"input--field\" location=\"profile.location\"></location-selector>\n" +
     "\n" +
     "  <label>Show &ldquo;Connect with me&rdquo; button:</label>\n" +
@@ -2033,10 +2017,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <button ng-class=\"{'active' : profile.contactable }\" ng-click=\"profile.contactable = true\">Yes</button>\n" +
     "    <button ng-class=\"{'active' : !profile.contactable }\" ng-click=\"profile.contactable = false\">No</button>\n" +
     "  </div>\n" +
-    "  <label><span class=\"required\">*</span> Make yourself easy to find, add your skills and interests:</label>\n" +
-    "    <input type=\"hidden\" ui-select2=\"select2Options\" ng-model=\"search_keywords\" data-placeholder=\"Make yourself searchable by adding relevant terms\">\n" +
+    "  <label>Make yourself easy to find, add your skills and interests:</label>\n" +
+    "    <input type=\"hidden\" ui-select2=\"select2Options\" ng-model=\"search_keywords\" placeholder=\"Make yourself searchable by adding relevant terms\">\n" +
     "  </section>\n" +
-    "</div>"
+    "</form>"
   );
 
 
