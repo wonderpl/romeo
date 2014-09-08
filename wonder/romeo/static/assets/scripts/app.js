@@ -120,17 +120,17 @@
 /******* DEPRECATED **************************************************/
 
         $routeProvider.when('/login', {
-            controller: 'MainCtrl',
+            controller: 'LoginCtrl',
             templateUrl: 'login.html'
         });
 
         $routeProvider.when('/twitter-login', {
-            controller: 'MainCtrl',
+            controller: 'TwitterLoginCtrl',
             templateUrl: 'twitter-login.html'
         });
 
         $routeProvider.when('/signup', {
-            controller: 'MainCtrl',
+            controller: 'SignupCtrl',
             templateUrl: 'signup.html'
         });
 
