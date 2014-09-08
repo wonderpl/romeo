@@ -1,5 +1,6 @@
 import re
 from pkg_resources import resource_string
+from itertools import chain
 from functools import wraps
 from urlparse import parse_qs
 from requests_oauthlib import OAuth1, requests
@@ -275,7 +276,11 @@ def _connection_item(connection, public=False):
 def _unique_collaborator_users(user, public=False):
     from wonder.romeo.video.views import collaborator_users
     seen = dict()
-    for collaborator, user in collaborator_users(account_id=user.account_id):
+    # Include both account users that the user is collaborating with
+    # and collaborators on video in this account.
+    collaborators = chain(collaborator_users(user_id=user.id),
+                          collaborator_users(account_id=user.account_id))
+    for collaborator, user in collaborators:
         if public and not user:
             continue
         if collaborator.email not in seen:

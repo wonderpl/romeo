@@ -556,21 +556,36 @@ def _collaborator_item(collaborator, user=None, public=False):
     return data
 
 
-def collaborator_users(account_id=None, video_id=None):
-    assert account_id or video_id
-    if account_id:
-        query = VideoCollaborator.query.join(
-            Video,
-            (Video.id == VideoCollaborator.video_id) &
-            (Video.account_id == account_id)
+def collaborator_users(account_id=None, user_id=None, video_id=None):
+    assert account_id or user_id or video_id
+    if user_id:
+        # Select all users from accounts than own the videos this user is
+        # collaborating on: user -> collab -> video -> account -> user.
+        username = AccountUser.query.filter_by(id=user_id).value('username')
+        query = VideoCollaborator.query.join(Video).join(
+            AccountUser,
+            (AccountUser.account_id == Video.account_id)
+        ).filter(
+            func.lower(username) == func.lower(VideoCollaborator.email)
         )
     else:
-        query = VideoCollaborator.query.filter_by(video_id=video_id)
+        if account_id:
+            # Select collaborators on all videos owned by this account:
+            # account -> video -> collab (-> user)
+            query = VideoCollaborator.query.join(
+                Video,
+                (Video.id == VideoCollaborator.video_id) &
+                (Video.account_id == account_id)
+            )
+        else:
+            # Select collaborators for a specific video:
+            # video -> collab (-> user)
+            query = VideoCollaborator.query.filter_by(video_id=video_id)
 
-    query = query.outerjoin(
-        AccountUser,
-        func.lower(AccountUser.username) == func.lower(VideoCollaborator.email)
-    )
+        query = query.outerjoin(
+            AccountUser,
+            func.lower(AccountUser.username) == func.lower(VideoCollaborator.email)
+        )
 
     return query.with_entities(VideoCollaborator, AccountUser)
 
