@@ -7,7 +7,7 @@ function OrganiseBreadcrumbDirective ($templateCache) {
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('organise-breadcrumb.html'),
+    template : $templateCache.get('organise/organise-breadcrumb.tmpl.html'),
     scope : {
       tag : '=',
       filterByRecent : '=',

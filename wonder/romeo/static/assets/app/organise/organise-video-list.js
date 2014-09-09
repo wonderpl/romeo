@@ -19,7 +19,7 @@ function OrganiseVideoList ($templateCache, $cookies) {
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('organise-video-list.html'),
+    template : $templateCache.get('organise/organise-video-list.tmpl.html'),
     scope : {
       videos : '=',
       tag : '=',

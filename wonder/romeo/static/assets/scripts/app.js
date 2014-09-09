@@ -44,14 +44,14 @@
 
         // Organise
         $routeProvider.when('/organise', {
-            templateUrl: 'organise.html',
+            templateUrl: 'organise/organise.tmpl.html',
             controller: 'MainCtrl',
             resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
         // Organise
         $routeProvider.when('/organise/:id', {
-            templateUrl: 'organise.html',
+            templateUrl: 'organise/organise.tmpl.html',
             controller: 'MainCtrl',
             resolve: securityAuthorizationProvider.requireAuthenticated
         });

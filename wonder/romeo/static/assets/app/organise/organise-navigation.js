@@ -8,7 +8,7 @@ function OrganiseNavigationDirective ($templateCache, SecurityService) {
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('organise-navigation.html'),
+    template : $templateCache.get('organise/organise-navigation.tmpl.html'),
     scope : {
       tags : '=',
       currentTag : '=',

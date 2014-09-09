@@ -965,190 +965,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
-  $templateCache.put('organise-breadcrumb.html',
-    "<ol class=\"nav  page-breadcrumbs\">\n" +
-    "  <li class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title\">All Videos</span></li>\n" +
-    "  <li ng-if=\"!filterByRecent && tag\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title  page-breadcrumbs__title--selected\" ng-bind-html=\"tag.label\"></span></li>\n" +
-    "  <li ng-if=\"filterByRecent\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title\">Recent Videos</span></li>\n" +
-    "  <li ng-if=\"filterByCollaboration\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title\">Collaboration Videos</span></li>\n" +
-    "</ol>"
-  );
-
-
-  $templateCache.put('organise-collection.html',
-    "<section class=\"organise-collection\">\n" +
-    "  <div class=\"media collection-view\" ng-class=\"{ 'collection-view--public' : tag.public }\">\n" +
-    "    <div class=\"media__img  collection-view__thumb\">\n" +
-    "      <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"collection-view__thumb__icon\">\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <div class=\"media__body collection-view__content\">\n" +
-    "      <h3 class=\"heading  w--800  no-spacing  organise-collection__title\">\n" +
-    "        <div ng-hide=\"isEdit\">\n" +
-    "          (~ tag.label ~)\n" +
-    "          <span class=\"organise-collection__visibility organise-collection__visibility--private  icon-text\"><i class=\"icon  icon-text__icon\" ng-class=\"tag.public ? 'icon--eye' : 'icon--lock'\"></i>(~ tag.public ? 'public' : 'private' ~)</span>\n" +
-    "        </div>\n" +
-    "        <div class=\"editable\" medium-editor\n" +
-    "          options=\"{ disableToolbar : true, disableReturn : true, placeholder : '' }\"\n" +
-    "          ng-model=\"tag.label\"\n" +
-    "          ng-show=\"isEdit\">\n" +
-    "        </div>\n" +
-    "      </h3>\n" +
-    "      <p class=\"organise-collection__description\" ng-bind=\"tag.description\" ng-hide=\"isEdit\"></p>\n" +
-    "      <p class=\"organise-collection__description\"\n" +
-    "        medium-editor\n" +
-    "        options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true, placeholder : '' }\"\n" +
-    "        ng-model=\"tag.description\"\n" +
-    "        ng-show=\"isEdit\">\n" +
-    "      </p>\n" +
-    "      <div class=\"collection-view__actions\">\n" +
-    "        <ul class=\"nav  nav--blocks collection-view-action-list\">\n" +
-    "          <li class=\"collection-view-action-list__item\"><a class=\"btn  btn--small  organise-collection__button organise-collection__button--edit collection-view-action-list__link\" ng-hide=\"isEdit\" ng-click=\"isEdit = !isEdit\">Edit</a></li>\n" +
-    "          <li class=\"collection-view-action-list__item\"><a class=\"btn  btn--small  btn--positive organise-collection__button organise-collection__button--save collection-view-action-list__link\" ng-show=\"isEdit\" ng-click=\"save()\">Done</a></li>\n" +
-    "          <li class=\"collection-view-action-list__item\"><a class=\"btn  btn--small  btn--destructive organise-collection__button organise-collection__button--delete collection-view-action-list__link\" ng-show=\"isEdit\" ng-click=\"delete()\">Delete</a></li>\n" +
-    "        </ul>\n" +
-    "      </div>\n" +
-    "    </div>\n" +
-    "  </div>\n" +
-    "</section>"
-  );
-
-
-  $templateCache.put('organise-navigation.html',
-    "<div class=\"layout__item  one-third  organise-navigation\">\n" +
-    "  <ul class=\"nav  nav--stacked  browse-list\">\n" +
-    "    <li class=\"browse-list__item\"><span class=\"browse-list__title\">Manage</span></li>\n" +
-    "    <li class=\"browse-list__item\"ng-if=\"!isCollaborator()\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : !filterByCollaboration &&  !filterByRecent && !currentTag }\" ng-click=\"showAllVideos()\">All my videos</a></li>\n" +
-    "    <li class=\"browse-list__item\"ng-if=\"!isCollaborator()\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : filterByRecent }\" ng-click=\"showRecentVideos()\">My recently added videos</a></li>\n" +
-    "    <li class=\"browse-list__item\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : filterByCollaboration }\" ng-click=\"showCollaborationVideos()\">Collaborating videos</a></li>\n" +
-    "  </ul>\n" +
-    "\n" +
-    "  <ul class=\"nav  nav--stacked  browse-list\" ng-if=\"!isCollaborator()\">\n" +
-    "    <li class=\"browse-list__item\"><span class=\"browse-list__title\">Collections not visible in app</span></li>\n" +
-    "    <li class=\"browse-list__item\"><a class=\"browse-list__link  browse-list__link--create\" ng-click=\"createPrivateCollection()\"><span class=\"icon-text\"><i class=\"icon  icon-text__icon  icon--plus\"></i>Add a new private collection</span></a></li>\n" +
-    "    <li class=\"browse-list__item\" ng-repeat=\"tag in tags | orderBy : 'label' | filter : { public : false }\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : currentTag.id === tag.id }\" ng-bind-html=\"tag.label\" ng-click=\"loadCollection(tag.id)\"></a></li>\n" +
-    "  </ul>\n" +
-    "\n" +
-    "  <ul class=\"nav  nav--stacked  browse-list\"ng-if=\"!isCollaborator()\">\n" +
-    "    <li class=\"browse-list__item\"><span class=\"browse-list__title\">Collections visible in app</span></li>\n" +
-    "    <li class=\"browse-list__item\"><a class=\"browse-list__link  browse-list__link--create\" ng-click=\"createPublicCollection()\"><span class=\"icon-text\"><i class=\"icon  icon-text__icon  icon--plus\"></i>Add a new public collection</span></a></li>\n" +
-    "    <li class=\"browse-list__item\" ng-repeat=\"tag in tags | filter : { public : true } | orderBy : 'label'\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : currentTag.id === tag.id }\" ng-bind-html=\"tag.label\" ng-click=\"loadCollection(tag.id)\"></a></li>\n" +
-    "  </ul>\n" +
-    "</div>"
-  );
-
-
-  $templateCache.put('organise-video-list.html',
-    "<section class=\"organise-video-list\">\n" +
-    "\n" +
-    "  <section class=\"organise-video-list__list-controls\">\n" +
-    "    <label class=\"organise-video-list__list-control-label\">\n" +
-    "      Sort:\n" +
-    "      <select class=\"organise-video-list__select  btn  btn--small\"\n" +
-    "        ng-model=\"sortOption\"\n" +
-    "        ng-init=\"sortOption=''\">\n" +
-    "        <option value=\"\">Oldest</option>\n" +
-    "        <option value=\"date_updated\">Newest</option>\n" +
-    "      </select>\n" +
-    "    </label>\n" +
-    "    <label class=\"organise-video-list__list-control-label\">\n" +
-    "      View:\n" +
-    "      <div class=\"btn-group\">\n" +
-    "        <a class=\"btn  btn--small\" title=\"Display videos in a grid view.\"\n" +
-    "        ng-class=\"{ 'btn--active' : !isList }\"\n" +
-    "        ng-click=\"isList = false\"><i class=\"icon  icon--grid\"></i></a>\n" +
-    "        <a class=\"btn  btn--small\" title=\"Display videos in a list view.\"\n" +
-    "        ng-class=\"{ 'btn--active' : isList }\"\n" +
-    "        ng-click=\"isList = true\"><i class=\"icon  icon--align-justify\"></i></a>\n" +
-    "      </div>\n" +
-    "    </label>\n" +
-    "  </section>\n" +
-    "\n" +
-    "  <div ng-hide=\"filteredVideos\" class=\"organise-video-list__message\">\n" +
-    "    <p>There are no videos here right now</p>\n" +
-    "    <p ng-if=\"!filterByCollaboration\">Go and <a href=\"#/video\">upload</a> a video.</p>\n" +
-    "  </div>\n" +
-    "\n" +
-    "  <ul class=\"layout\" ng-show=\"filteredVideos\">\n" +
-    "    <li class=\"layout__item  one-third\"\n" +
-    "      ng-repeat=\"video in filteredVideos | orderBy: sortOption\"\n" +
-    "      ng-class=\"{\n" +
-    "        'organise-video-list__video--last' : ($index + 1) % 3 == 0,\n" +
-    "        'organise-video-list__video--list' : isList\n" +
-    "      }\">\n" +
-    "      <organise-video video=\"video\" is-list=\"isList\"></organise-video>\n" +
-    "    </li>\n" +
-    "  </ul>\n" +
-    "\n" +
-    "</section>\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n"
-  );
-
-
-  $templateCache.put('organise-video.html',
-    "<div class=\"video-thumb-wrapper  organise-video\">\n" +
-    "\n" +
-    "  <ul class=\"nav  nav--block  organise-video__inline-controls\" ng-show=\"isList\">\n" +
-    "    <li class=\"organise-video__inline-control\">\n" +
-    "      <a class=\"organise-video__inline-link organise-video__inline-link--edit\" ng-href=\"#/video/(~video.id~)/edit\" title=\"Edit\"><i class=\"icon  icon--edit\"></i></a>\n" +
-    "    </li>\n" +
-    "    <li class=\"organise-video__inline-control\">\n" +
-    "      <a class=\"organise-video__inline-link organise-video__inline-link--view\" ng-href=\"#/video/(~video.id~)\" title=\"Review\"><i class=\"icon  icon--eye\"></i></a>\n" +
-    "    </li>\n" +
-    "    <li class=\"organise-video__inline-control\">\n" +
-    "      <a class=\"organise-video__inline-link is-disabled organise-video__inline-link--stats\"><i class=\"icon  icon--bar-graph\" title=\"Stats\"></i></a>\n" +
-    "    </li>\n" +
-    "    <li class=\"organise-video__inline-control\">\n" +
-    "      <a class=\"organise-video__inline-link organise-video__inline-link--add-remove\" ng-click=\"addRemove(video)\" title=\"Add/Remove from collection\"><i class=\"icon  icon--collection\"></i></a>\n" +
-    "    </li>\n" +
-    "    <li class=\"organise-video__inline-control\">\n" +
-    "      <a class=\"organise-video__inline-link organise-video__inline-link--delete\" ng-click=\"showDelete(video)\" title=\"Delete video\" ><i class=\"icon  icon--trash\"></i></a>\n" +
-    "    </li>\n" +
-    "  </ul>\n" +
-    "\n" +
-    "  <a ng-href=\"#/video/(~video.id~)\" class=\"video-thumb-link\">\n" +
-    "    <span class=\"heading  trunc  video-thumb-link__title\" ng-show=\"isList\" ng-bind=\"video.title\"></span>\n" +
-    "  </a>\n" +
-    "\n" +
-    "  <a ng-href=\"#/video/(~video.id~)\" class=\"video-thumb-link\">\n" +
-    "    <span class=\"heading  trunc  trunc--two  video-thumb-link__title\" ng-hide=\"isList\" ng-bind=\"video.title\"></span>\n" +
-    "  </a>\n" +
-    "\n" +
-    "  <div class=\"ratio  ratio--16x9  video-thumb\" ng-hide=\"isList\">\n" +
-    "    <ul class=\"nav  nav--block  video-thumb-list\">\n" +
-    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-href=\"#/video/(~video.id~)/edit\"><i class=\"icon  icon--edit\"></i><span class=\"t--block  t--center\">Edit</span></a></li>\n" +
-    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-href=\"#/video/(~video.id~)\"><i class=\"icon  icon--eye\"></i><span class=\"t--block  t--center\">Publish</span></a></li>\n" +
-    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link is-disabled\"><i class=\"icon  icon--bar-graph\"></i><span class=\"t--block  t--center\">Stats</span></a></li>\n" +
-    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-click=\"addRemove(video)\"><i class=\"icon  icon--collection\"></i><span class=\"t--block  t--center\">Add / Remove</span></a></li>\n" +
-    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-click=\"showDelete(video)\"><i class=\"icon  icon--trash\"></i><span class=\"t--block  t--center\">Delete</span></a></l>\n" +
-    "    </ul>\n" +
-    "    <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"ratio__src  video-thumb__img\" style=\"background-image: url('(~ thumbnail ~)')\">\n" +
-    "  </div>\n" +
-    "\n" +
-    "</div>"
-  );
-
-
-  $templateCache.put('organise.html',
-    "<main role=\"main\" class=\"page-content\" ng-controller=\"OrganiseCtrl\">\n" +
-    "  <div class=\"wrapper  wrapper--fixed\">\n" +
-    "    <organise-breadcrumb tag=\"tag\" filter-by-recent=\"filterByRecent\" filter-by-collaboration=\"filterByCollaboration\"></organise-breadcrumb>\n" +
-    "    <div class=\"layout\">\n" +
-    "      <organise-navigation tags=\"tags\" current-tag=\"tag\" filter-by-recent=\"filterByRecent\" filter-by-collaboration=\"filterByCollaboration\"></organise-navigation>\n" +
-    "      <div class=\"layout__item  two-thirds\">\n" +
-    "        <organise-collection ng-show=\"tag\" ng-if=\"!collaborator()\" tag=\"tag\" is-edit=\"isEdit\"></organise-collection>\n" +
-    "        <organise-video-list videos=\"videos\" tag=\"tag\" filter-by-recent=\"filterByRecent\" filter-by-collaboration=\"filterByCollaboration\"></organise-video-list>\n" +
-    "      </div>\n" +
-    "    </div>\n" +
-    "  </div>\n" +
-    "</main>\n"
-  );
-
-
   $templateCache.put('page-footer.html',
     "<footer class=\"page-footer\" role=\"contentinfo\">\n" +
     "  <div class=\"wrapper\">\n" +
@@ -1888,6 +1704,190 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "\n" +
     "\n"
+  );
+
+
+  $templateCache.put('organise/organise-breadcrumb.tmpl.html',
+    "<ol class=\"nav  page-breadcrumbs\">\n" +
+    "  <li class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title\">All Videos</span></li>\n" +
+    "  <li ng-if=\"!filterByRecent && tag\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title  page-breadcrumbs__title--selected\" ng-bind-html=\"tag.label\"></span></li>\n" +
+    "  <li ng-if=\"filterByRecent\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title\">Recent Videos</span></li>\n" +
+    "  <li ng-if=\"filterByCollaboration\" class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title\">Collaboration Videos</span></li>\n" +
+    "</ol>"
+  );
+
+
+  $templateCache.put('organise/organise-collection.tmpl.html',
+    "<section class=\"organise-collection\">\n" +
+    "  <div class=\"media collection-view\" ng-class=\"{ 'collection-view--public' : tag.public }\">\n" +
+    "    <div class=\"media__img  collection-view__thumb\">\n" +
+    "      <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"collection-view__thumb__icon\">\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div class=\"media__body collection-view__content\">\n" +
+    "      <h3 class=\"heading  w--800  no-spacing  organise-collection__title\">\n" +
+    "        <div ng-hide=\"isEdit\">\n" +
+    "          (~ tag.label ~)\n" +
+    "          <span class=\"organise-collection__visibility organise-collection__visibility--private  icon-text\"><i class=\"icon  icon-text__icon\" ng-class=\"tag.public ? 'icon--eye' : 'icon--lock'\"></i>(~ tag.public ? 'public' : 'private' ~)</span>\n" +
+    "        </div>\n" +
+    "        <div class=\"editable\" medium-editor\n" +
+    "          options=\"{ disableToolbar : true, disableReturn : true, placeholder : '' }\"\n" +
+    "          ng-model=\"tag.label\"\n" +
+    "          ng-show=\"isEdit\">\n" +
+    "        </div>\n" +
+    "      </h3>\n" +
+    "      <p class=\"organise-collection__description\" ng-bind=\"tag.description\" ng-hide=\"isEdit\"></p>\n" +
+    "      <p class=\"organise-collection__description\"\n" +
+    "        medium-editor\n" +
+    "        options=\"{ disableToolbar : true, forcePlainText : true, disableReturn : true, placeholder : '' }\"\n" +
+    "        ng-model=\"tag.description\"\n" +
+    "        ng-show=\"isEdit\">\n" +
+    "      </p>\n" +
+    "      <div class=\"collection-view__actions\">\n" +
+    "        <ul class=\"nav  nav--blocks collection-view-action-list\">\n" +
+    "          <li class=\"collection-view-action-list__item\"><a class=\"btn  btn--small  organise-collection__button organise-collection__button--edit collection-view-action-list__link\" ng-hide=\"isEdit\" ng-click=\"isEdit = !isEdit\">Edit</a></li>\n" +
+    "          <li class=\"collection-view-action-list__item\"><a class=\"btn  btn--small  btn--positive organise-collection__button organise-collection__button--save collection-view-action-list__link\" ng-show=\"isEdit\" ng-click=\"save()\">Done</a></li>\n" +
+    "          <li class=\"collection-view-action-list__item\"><a class=\"btn  btn--small  btn--destructive organise-collection__button organise-collection__button--delete collection-view-action-list__link\" ng-show=\"isEdit\" ng-click=\"delete()\">Delete</a></li>\n" +
+    "        </ul>\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "</section>"
+  );
+
+
+  $templateCache.put('organise/organise-navigation.tmpl.html',
+    "<div class=\"layout__item  one-third  organise-navigation\">\n" +
+    "  <ul class=\"nav  nav--stacked  browse-list\">\n" +
+    "    <li class=\"browse-list__item\"><span class=\"browse-list__title\">Manage</span></li>\n" +
+    "    <li class=\"browse-list__item\"ng-if=\"!isCollaborator()\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : !filterByCollaboration &&  !filterByRecent && !currentTag }\" ng-click=\"showAllVideos()\">All my videos</a></li>\n" +
+    "    <li class=\"browse-list__item\"ng-if=\"!isCollaborator()\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : filterByRecent }\" ng-click=\"showRecentVideos()\">My recently added videos</a></li>\n" +
+    "    <li class=\"browse-list__item\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : filterByCollaboration }\" ng-click=\"showCollaborationVideos()\">Collaborating videos</a></li>\n" +
+    "  </ul>\n" +
+    "\n" +
+    "  <ul class=\"nav  nav--stacked  browse-list\" ng-if=\"!isCollaborator()\">\n" +
+    "    <li class=\"browse-list__item\"><span class=\"browse-list__title\">Collections not visible in app</span></li>\n" +
+    "    <li class=\"browse-list__item\"><a class=\"browse-list__link  browse-list__link--create\" ng-click=\"createPrivateCollection()\"><span class=\"icon-text\"><i class=\"icon  icon-text__icon  icon--plus\"></i>Add a new private collection</span></a></li>\n" +
+    "    <li class=\"browse-list__item\" ng-repeat=\"tag in tags | orderBy : 'label' | filter : { public : false }\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : currentTag.id === tag.id }\" ng-bind-html=\"tag.label\" ng-click=\"loadCollection(tag.id)\"></a></li>\n" +
+    "  </ul>\n" +
+    "\n" +
+    "  <ul class=\"nav  nav--stacked  browse-list\"ng-if=\"!isCollaborator()\">\n" +
+    "    <li class=\"browse-list__item\"><span class=\"browse-list__title\">Collections visible in app</span></li>\n" +
+    "    <li class=\"browse-list__item\"><a class=\"browse-list__link  browse-list__link--create\" ng-click=\"createPublicCollection()\"><span class=\"icon-text\"><i class=\"icon  icon-text__icon  icon--plus\"></i>Add a new public collection</span></a></li>\n" +
+    "    <li class=\"browse-list__item\" ng-repeat=\"tag in tags | filter : { public : true } | orderBy : 'label'\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : currentTag.id === tag.id }\" ng-bind-html=\"tag.label\" ng-click=\"loadCollection(tag.id)\"></a></li>\n" +
+    "  </ul>\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('organise/organise-video-list.tmpl.html',
+    "<section class=\"organise-video-list\">\n" +
+    "\n" +
+    "  <section class=\"organise-video-list__list-controls\">\n" +
+    "    <label class=\"organise-video-list__list-control-label\">\n" +
+    "      Sort:\n" +
+    "      <select class=\"organise-video-list__select  btn  btn--small\"\n" +
+    "        ng-model=\"sortOption\"\n" +
+    "        ng-init=\"sortOption=''\">\n" +
+    "        <option value=\"\">Oldest</option>\n" +
+    "        <option value=\"date_updated\">Newest</option>\n" +
+    "      </select>\n" +
+    "    </label>\n" +
+    "    <label class=\"organise-video-list__list-control-label\">\n" +
+    "      View:\n" +
+    "      <div class=\"btn-group\">\n" +
+    "        <a class=\"btn  btn--small\" title=\"Display videos in a grid view.\"\n" +
+    "        ng-class=\"{ 'btn--active' : !isList }\"\n" +
+    "        ng-click=\"isList = false\"><i class=\"icon  icon--grid\"></i></a>\n" +
+    "        <a class=\"btn  btn--small\" title=\"Display videos in a list view.\"\n" +
+    "        ng-class=\"{ 'btn--active' : isList }\"\n" +
+    "        ng-click=\"isList = true\"><i class=\"icon  icon--align-justify\"></i></a>\n" +
+    "      </div>\n" +
+    "    </label>\n" +
+    "  </section>\n" +
+    "\n" +
+    "  <div ng-hide=\"filteredVideos\" class=\"organise-video-list__message\">\n" +
+    "    <p>There are no videos here right now</p>\n" +
+    "    <p ng-if=\"!filterByCollaboration\">Go and <a href=\"#/video\">upload</a> a video.</p>\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <ul class=\"layout\" ng-show=\"filteredVideos\">\n" +
+    "    <li class=\"layout__item  one-third\"\n" +
+    "      ng-repeat=\"video in filteredVideos | orderBy: sortOption\"\n" +
+    "      ng-class=\"{\n" +
+    "        'organise-video-list__video--last' : ($index + 1) % 3 == 0,\n" +
+    "        'organise-video-list__video--list' : isList\n" +
+    "      }\">\n" +
+    "      <organise-video video=\"video\" is-list=\"isList\"></organise-video>\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
+    "\n" +
+    "</section>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n"
+  );
+
+
+  $templateCache.put('organise/organise-video.tmpl.html',
+    "<div class=\"video-thumb-wrapper  organise-video\">\n" +
+    "\n" +
+    "  <ul class=\"nav  nav--block  organise-video__inline-controls\" ng-show=\"isList\">\n" +
+    "    <li class=\"organise-video__inline-control\">\n" +
+    "      <a class=\"organise-video__inline-link organise-video__inline-link--edit\" ng-href=\"#/video/(~video.id~)/edit\" title=\"Edit\"><i class=\"icon  icon--edit\"></i></a>\n" +
+    "    </li>\n" +
+    "    <li class=\"organise-video__inline-control\">\n" +
+    "      <a class=\"organise-video__inline-link organise-video__inline-link--view\" ng-href=\"#/video/(~video.id~)\" title=\"Review\"><i class=\"icon  icon--eye\"></i></a>\n" +
+    "    </li>\n" +
+    "    <li class=\"organise-video__inline-control\">\n" +
+    "      <a class=\"organise-video__inline-link is-disabled organise-video__inline-link--stats\"><i class=\"icon  icon--bar-graph\" title=\"Stats\"></i></a>\n" +
+    "    </li>\n" +
+    "    <li class=\"organise-video__inline-control\">\n" +
+    "      <a class=\"organise-video__inline-link organise-video__inline-link--add-remove\" ng-click=\"addRemove(video)\" title=\"Add/Remove from collection\"><i class=\"icon  icon--collection\"></i></a>\n" +
+    "    </li>\n" +
+    "    <li class=\"organise-video__inline-control\">\n" +
+    "      <a class=\"organise-video__inline-link organise-video__inline-link--delete\" ng-click=\"showDelete(video)\" title=\"Delete video\" ><i class=\"icon  icon--trash\"></i></a>\n" +
+    "    </li>\n" +
+    "  </ul>\n" +
+    "\n" +
+    "  <a ng-href=\"#/video/(~video.id~)\" class=\"video-thumb-link\">\n" +
+    "    <span class=\"heading  trunc  video-thumb-link__title\" ng-show=\"isList\" ng-bind=\"video.title\"></span>\n" +
+    "  </a>\n" +
+    "\n" +
+    "  <a ng-href=\"#/video/(~video.id~)\" class=\"video-thumb-link\">\n" +
+    "    <span class=\"heading  trunc  trunc--two  video-thumb-link__title\" ng-hide=\"isList\" ng-bind=\"video.title\"></span>\n" +
+    "  </a>\n" +
+    "\n" +
+    "  <div class=\"ratio  ratio--16x9  video-thumb\" ng-hide=\"isList\">\n" +
+    "    <ul class=\"nav  nav--block  video-thumb-list\">\n" +
+    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-href=\"#/video/(~video.id~)/edit\"><i class=\"icon  icon--edit\"></i><span class=\"t--block  t--center\">Edit</span></a></li>\n" +
+    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-href=\"#/video/(~video.id~)\"><i class=\"icon  icon--eye\"></i><span class=\"t--block  t--center\">Publish</span></a></li>\n" +
+    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link is-disabled\"><i class=\"icon  icon--bar-graph\"></i><span class=\"t--block  t--center\">Stats</span></a></li>\n" +
+    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-click=\"addRemove(video)\"><i class=\"icon  icon--collection\"></i><span class=\"t--block  t--center\">Add / Remove</span></a></li>\n" +
+    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-click=\"showDelete(video)\"><i class=\"icon  icon--trash\"></i><span class=\"t--block  t--center\">Delete</span></a></l>\n" +
+    "    </ul>\n" +
+    "    <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"ratio__src  video-thumb__img\" style=\"background-image: url('(~ thumbnail ~)')\">\n" +
+    "  </div>\n" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('organise/organise.tmpl.html',
+    "<main role=\"main\" class=\"page-content\" ng-controller=\"OrganiseCtrl\">\n" +
+    "  <div class=\"wrapper  wrapper--fixed\">\n" +
+    "    <organise-breadcrumb tag=\"tag\" filter-by-recent=\"filterByRecent\" filter-by-collaboration=\"filterByCollaboration\"></organise-breadcrumb>\n" +
+    "    <div class=\"layout\">\n" +
+    "      <organise-navigation tags=\"tags\" current-tag=\"tag\" filter-by-recent=\"filterByRecent\" filter-by-collaboration=\"filterByCollaboration\"></organise-navigation>\n" +
+    "      <div class=\"layout__item  two-thirds\">\n" +
+    "        <organise-collection ng-show=\"tag\" ng-if=\"!collaborator()\" tag=\"tag\" is-edit=\"isEdit\"></organise-collection>\n" +
+    "        <organise-video-list videos=\"videos\" tag=\"tag\" filter-by-recent=\"filterByRecent\" filter-by-collaboration=\"filterByCollaboration\"></organise-video-list>\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "</main>\n"
   );
 
 

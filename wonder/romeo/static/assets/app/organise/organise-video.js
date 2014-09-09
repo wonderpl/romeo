@@ -8,7 +8,7 @@ function OrganiseVideo ($templateCache, modal) {
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('organise-video.html'),
+    template : $templateCache.get('organise/organise-video.tmpl.html'),
     scope : {
       video : '=',
       isList : '='

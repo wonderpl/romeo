@@ -8,7 +8,7 @@ function OrganiseCollectionDirective ($templateCache) {
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('organise-collection.html'),
+    template : $templateCache.get('organise/organise-collection.tmpl.html'),
     scope : {
       tag : '=',
       isEdit : '='
