@@ -9,7 +9,7 @@
     $routeProvider.when('/search', {
       templateUrl: 'search/search.tmpl.html',
       resolve: securityAuthorizationProvider.requireAuthenticated,
-      controller: 'MainCtrl',
+      controller: 'SearchCtrl',
       reloadOnSearch: false
     });
   }
@@ -57,7 +57,7 @@
     function processSearch (newValues, oldValues) {
 
       var query = {
-        locaation : $scope.location
+        location : $scope.location
       };
 
       var searchDelay = 700;
