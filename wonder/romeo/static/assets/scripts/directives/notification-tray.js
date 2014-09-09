@@ -1,8 +1,8 @@
 angular
   .module('RomeoApp.directives')
-  .directive('notificationTray', ['$templateCache', '$timeout', '$rootScope', NotificationTrayDirective]);
+  .directive('notificationTray', ['$templateCache', '$interval', '$rootScope', NotificationTrayDirective]);
 
-function NotificationTrayDirective ($templateCache, $timeout, $rootScope) {
+function NotificationTrayDirective ($templateCache, $interval, $rootScope) {
 
   'use strict';
 
@@ -14,7 +14,7 @@ function NotificationTrayDirective ($templateCache, $timeout, $rootScope) {
       notifications : '='
     },
     controller : function ($scope) {
-
+      var interval = null;
       $scope.notifications = $scope.notifications || [];
 
       $scope.removeNotificationData = function (index) {
@@ -37,6 +37,11 @@ function NotificationTrayDirective ($templateCache, $timeout, $rootScope) {
       };
 
       $scope.pollNotifications = function () {
+        if (! interval)
+          interval = $interval(_pollNotifications, 1000);
+      };
+
+      function _pollNotifications() {
         var notifications = $scope.notifications || [];
         var current = new Date().getTime();
         var l = notifications.length;
@@ -50,8 +55,7 @@ function NotificationTrayDirective ($templateCache, $timeout, $rootScope) {
             $scope.notifications.splice(l, 1);
           }
         }
-        $timeout($scope.pollNotifications, 1000);
-      };
+      }
 
       $rootScope.$on('notify', function (event, data) {
         var notification = {
