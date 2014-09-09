@@ -47,6 +47,7 @@
       link: function($scope, $element, $attrs) {
         $element.on('click', function(event) {
           $('body').toggleClass('js-nav');
+          $('body').trigger('focus');
         });
       }
     };

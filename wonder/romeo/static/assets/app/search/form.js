@@ -11,6 +11,11 @@
       scope : {
         q : '=',
         location : '='
+      },
+      link: function ($scope, $element) {
+        $('body').on('focus', function () {
+          $element.find('.search__form-input').focus();
+        });
       }
     };
   }
