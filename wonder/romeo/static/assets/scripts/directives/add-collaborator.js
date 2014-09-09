@@ -9,7 +9,8 @@
       replace : true,
       template : $templateCache.get('add-collaborator.html'),
       scope : {
-        video : '='
+        video : '=',
+        addCollaboratorShow : '='
       },
       controller : function ($scope) {
 
@@ -32,17 +33,6 @@
           $scope.connections = data;
           $scope.select2Options.tags = data;
         });
-
-        $scope.$watch(
-          'video.id',
-          function(newValue, oldValue) {
-            if (newValue && newValue !== oldValue) {
-              CollaboratorsService.getCollaborators(newValue).success(function (data) {
-                $scope.collaborators = data.collaborator.items;
-              });
-            }
-          }
-        );
 
         $scope.add = function () {
 

@@ -3,7 +3,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('add-collaborator.html',
     "<section class=\"add-collaborator\">\n" +
     "\n" +
-    "  <header class=\"video-extended-controls__section-header\" ng-click=\"showCollaborator = !showCollaborator\">\n" +
+    "  <header class=\"video-extended-controls__section-header\" ng-click=\"addCollaboratorShow = !addCollaboratorShow\">\n" +
     "    <h4 class=\"video-extended-controls__section-header-title\" title=\"Invite people to review and comment on your video, or send someone a link to download it. Type in their name, email address and the permissions yo want to give them.\">\n" +
     "      Wonder Transfer\n" +
     "    </h4>\n" +
@@ -17,29 +17,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <p ng-show=\"collaboratorAdded\">New collaborator has been added.</p>\n" +
     "      <p class=\"video-add-collaborators__message--error\" ng-show=\"errors\">An error occured. Collaborator not added.</p>\n" +
     "    </div>\n" +
-    "    <a class=\"btn btn--small btn--positive f--right\" ng-click=\"add()\">Send Request</a>\n" +
-    "\n" +
-    "  </section>\n" +
-    "\n" +
-    "  <section class=\"video-collaborators video-collaborators--(~ $root.layoutMode ~)\">\n" +
-    "\n" +
-    "    <header class=\"video-collaborators__header\">\n" +
-    "      <h4 class=\"video-collaborators__title  no-spacing\">collaborators</h4>\n" +
-    "    </header>\n" +
-    "\n" +
-    "    <p class=\"video-collaborators__none-message\" ng-hide=\"connections\">You have no connections!</p>\n" +
-    "\n" +
-    "    <ul class=\"nav  nav--stacked  video-collaborators__collaborators\" ng-show=\"collaborators\">\n" +
-    "      <li class=\"video-collaborators__collaborator\" ng-repeat=\"collaborator in collaborators\">\n" +
-    "        <div class=\"media\">\n" +
-    "          <div class=\"media__img\">\n" +
-    "            <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"video-collaborators__collaborator-image\" ng-style=\"{ 'background-image' : 'url(' + collaborator.avatar + ')' }\">\n" +
-    "          </div>\n" +
-    "          <div class=\"media__body\">\n" +
-    "            <span class=\"video-collaborators__collaborator-name truncate\" ng-bind=\"collaborator.display_name\"></span>\n" +
-    "          </div>\n" +
-    "      </li>\n" +
-    "    </ul>\n" +
+    "    <a class=\"btn btn--small btn--positive f--right\" ng-click=\"add()\">Send Link</a>\n" +
     "\n" +
     "  </section>\n" +
     "\n" +
@@ -1508,6 +1486,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <i class=\"icon  icon--medium  icon--minus  section-drawer__icon\" ng-click=\"addCollaboratorShow = !addCollaboratorShow\" ng-show=\"addCollaboratorShow\"></i>\n" +
     "    <add-collaborator class=\"video-extended-controls__section-contents\"\n" +
     "      video=\"video\"\n" +
+    "      add-collaborator-show=\"addCollaboratorShow\"\n" +
     "      flags=\"flags\">\n" +
     "    </add-collaborator>\n" +
     "  </section>\n" +

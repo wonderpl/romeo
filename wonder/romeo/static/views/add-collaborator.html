@@ -1,6 +1,6 @@
 <section class="add-collaborator">
 
-  <header class="video-extended-controls__section-header" ng-click="showCollaborator = !showCollaborator">
+  <header class="video-extended-controls__section-header" ng-click="addCollaboratorShow = !addCollaboratorShow">
     <h4 class="video-extended-controls__section-header-title" title="Invite people to review and comment on your video, or send someone a link to download it. Type in their name, email address and the permissions yo want to give them.">
       Wonder Transfer
     </h4>
@@ -14,29 +14,7 @@
       <p ng-show="collaboratorAdded">New collaborator has been added.</p>
       <p class="video-add-collaborators__message--error" ng-show="errors">An error occured. Collaborator not added.</p>
     </div>
-    <a class="btn btn--small btn--positive f--right" ng-click="add()">Send Request</a>
-
-  </section>
-
-  <section class="video-collaborators video-collaborators--{{ $root.layoutMode }}">
-
-    <header class="video-collaborators__header">
-      <h4 class="video-collaborators__title  no-spacing">collaborators</h4>
-    </header>
-
-    <p class="video-collaborators__none-message" ng-hide="connections">You have no connections!</p>
-
-    <ul class="nav  nav--stacked  video-collaborators__collaborators" ng-show="collaborators">
-      <li class="video-collaborators__collaborator" ng-repeat="collaborator in collaborators">
-        <div class="media">
-          <div class="media__img">
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="video-collaborators__collaborator-image" ng-style="{ 'background-image' : 'url(' + collaborator.avatar + ')' }">
-          </div>
-          <div class="media__body">
-            <span class="video-collaborators__collaborator-name truncate" ng-bind="collaborator.display_name"></span>
-          </div>
-      </li>
-    </ul>
+    <a class="btn btn--small btn--positive f--right" ng-click="add()">Send Link</a>
 
   </section>
 
