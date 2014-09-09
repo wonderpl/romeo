@@ -1247,8 +1247,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "              <li class=\"text-col\">\n" +
     "                <div class=\"login-view__input  icon-text\">\n" +
     "                  <i class=\"icon  icon--head  icon-text__icon\"></i>\n" +
-    "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__username\">Name</label>\n" +
-    "                  <input type=\"text\" ng-model=\"name\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__username\" placeholder=\"Name\" />\n" +
+    "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__name\">Name</label>\n" +
+    "                  <input type=\"text\" ng-model=\"name\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__name\" placeholder=\"Name\" />\n" +
     "                </div>\n" +
     "                <div class=\"login-view__input  icon-text\">\n" +
     "                  <i class=\"icon icon--mail icon-text__icon\"></i>\n" +
