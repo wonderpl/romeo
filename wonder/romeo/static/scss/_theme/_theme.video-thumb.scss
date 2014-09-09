@@ -69,7 +69,7 @@
   
   > li {
     display: block;
-    width: 50%;
+    width: 33.3333%;
     float: left;
     text-align: center;
     
@@ -78,7 +78,7 @@
       pointer-events: auto;
     }
 
-    &:nth-of-type(-n+3) {width: 33.3333%;}
+    //&:nth-of-type(-n+3) {width: 33.3333%;}
   }
 }
   .video-thumb-list__link {
