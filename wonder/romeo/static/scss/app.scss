@@ -61,14 +61,14 @@
   "_theme/theme.footer-nav",
   "_theme/theme.notices",
   "_theme/theme.browse-list",
-  "_theme/theme.video-collaborators.scss",
+  "_theme/theme.video-collaborators",
   "_theme/theme.page-breadcrumbs",
   "_theme/theme.video-thumb",
   "_theme/theme.medium-editor",
   "_theme/theme.forms",
   "_theme/theme.button",
   "_theme/theme.modal",
-  "_theme/theme.modal-form.scss",
+  "_theme/theme.modal-form",
   "_theme/theme.organise-collection",
   "_theme/theme.collection-view",
   "_theme/theme.search",
@@ -86,32 +86,32 @@
 //  "compass/css3",
 //  "compass/css3/user-interface",
 
-//  "base/project/_variables.scss", — Is now _settings.defaults.scss
-//  "base/project/_fonts.scss",     — TODO: delete
-//  "base/project/_globals.scss",   — TODO: replace with _base.page.scss
-//  "base/project/_helpers.scss",   — TODO: replace with _trumps.scss
-//  "base/project/_clearfix.scss",  — TODO: replace with _generic.clearifx.scss
+//  "base/project/_variables", — Is now _settings.defaults
+//  "base/project/_fonts",     — TODO: delete
+//  "base/project/_globals",   — TODO: replace with _base.page
+//  "base/project/_helpers",   — TODO: replace with _trumps
+//  "base/project/_clearfix",  — TODO: replace with _generic.clearifx
 
-//  "base/utils/_helpers.scss",     — TODO: Add to _trumps.scss
-//  "base/utils/_mixins.scss",      — Is now _tools.mixins.scss
+//  "base/utils/_helpers",     — TODO: Add to _trumps
+//  "base/utils/_mixins",      — Is now _tools.mixins
 
-//  "base/_config.scss",
+//  "base/_config",
 
-//  "components/_animation.scss",
-//  "components/_buttons.scss",
-//  "components/_modal.scss",
-  "components/_video-player-config.scss",
-//  "components/_icons.scss",
-//  "components/_split.scss",
-//  "components/_icon-text.scss",
-//  "components/_nav.scss",
-  "components/_sub-navigation.scss",
-  "components/_video-player-config.scss",
-  "components/_text-styles.scss",
-  "components/_layout-styles.scss",
-  "components/_center-object.scss",
-//  "components/_modal.scss",
-//  "components/_notice.scss",
+//  "components/_animation",
+//  "components/_buttons",
+//  "components/_modal",
+  "components/_video-player-config",
+//  "components/_icons",
+//  "components/_split",
+//  "components/_icon-text",
+//  "components/_nav",
+  "components/_sub-navigation",
+  "components/_video-player-config",
+  "components/_text-styles",
+  "components/_layout-styles",
+  "components/_center-object",
+//  "components/_modal",
+//  "components/_notice",
 
   "specifics/video/_layout-control",
   "specifics/video/_configurable-layout",
@@ -132,7 +132,7 @@
   "specifics/video/_video-more",
   "specifics/video/_video-collaborators",
   "specifics/video/_video-medium",
-  "specifics/video/_video-section-drawer.scss",
+  "specifics/video/_video-section-drawer",
 
   "specifics/upload/_upload-progress",
 
@@ -140,25 +140,19 @@
 
   "specifics/footer/_page-footer",
 
-//  "specifics/organise/_organise-navigation",
-  "specifics/organise/_organise-view",
-//  "specifics/organise/_organise-collection",
-  "specifics/organise/_organise-video-list",
-  "specifics/organise/_organise-video",
-  "specifics/organise/_organise-video-thumb",
+  "../assets/app/organise/__organise",
 
   "specifics/profile/_profile-cover",
   "specifics/profile/_profile-image",
   "specifics/profile/_profile-view",
   "specifics/profile/_profile-edit",
   "specifics/profile/_profile-public",
-
   "specifics/login/_login-view",
+  "../assets/app/video/config/modal",
+  "../assets/app/video/config/cover-selector",
 
   "../assets/common/directives/_global-navigation";
 
- @import "../assets/app/video/config/modal.scss",
-  "../assets/app/video/config/cover-selector";
 
 
 
