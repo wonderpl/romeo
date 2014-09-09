@@ -5,29 +5,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <header class=\"video-extended-controls__section-header\" ng-click=\"showCollaborator = !showCollaborator\">\n" +
     "    <h4 class=\"video-extended-controls__section-header-title\" title=\"Invite people to review and comment on your video, or send someone a link to download it. Type in their name, email address and the permissions yo want to give them.\">\n" +
-    "      Collaborators\n" +
+    "      Wonder Transfer\n" +
     "    </h4>\n" +
     "  </header>\n" +
     "\n" +
     "  <section class=\"video-add-collaborators\">\n" +
     "\n" +
-    "    <label class=\"video-add-collaborators__label\">\n" +
-    "      Name\n" +
-    "      <input class=\"video-add-collaborators__input\" ng-model=\"collaborator.name\" />\n" +
-    "    </label>\n" +
-    "    <label class=\"video-add-collaborators__label\">\n" +
-    "      Email\n" +
-    "      <input class=\"video-add-collaborators__input\" ng-model=\"collaborator.email\" />\n" +
-    "    </label>\n" +
-    "    <label class=\"video-add-collaborators__label\">Permissions</label>\n" +
-    "    <label class=\"video-add-collaborators__label--inline\">\n" +
-    "      <input class=\"video-add-collaborators__checkbox\" type=\"checkbox\" ng-model=\"collaborator.can_comment\" />\n" +
-    "      Allow to comment\n" +
-    "    </label>\n" +
-    "    <label class=\"video-add-collaborators__label--inline\">\n" +
-    "      <input class=\"video-add-collaborators__checkbox\" type=\"checkbox\" ng-model=\"collaborator.can_download\" />\n" +
-    "      Allow to download source\n" +
-    "    </label>\n" +
+    "    <input type=\"hidden\" ui-select2=\"select2Options\" ng-model=\"invite.collaborators\" />\n" +
     "\n" +
     "    <div class=\"video-add-collaborators__messages\">\n" +
     "      <p ng-show=\"collaboratorAdded\">New collaborator has been added.</p>\n" +
@@ -43,7 +27,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <h4 class=\"video-collaborators__title  no-spacing\">collaborators</h4>\n" +
     "    </header>\n" +
     "\n" +
-    "    <p class=\"video-collaborators__none-message\" ng-hide=\"collaborators\">You have no collaborators!</p>\n" +
+    "    <p class=\"video-collaborators__none-message\" ng-hide=\"connections\">You have no connections!</p>\n" +
     "\n" +
     "    <ul class=\"nav  nav--stacked  video-collaborators__collaborators\" ng-show=\"collaborators\">\n" +
     "      <li class=\"video-collaborators__collaborator\" ng-repeat=\"collaborator in collaborators\">\n" +
@@ -55,14 +39,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "            <span class=\"video-collaborators__collaborator-name truncate\" ng-bind=\"collaborator.display_name\"></span>\n" +
     "          </div>\n" +
     "      </li>\n" +
-    "  <!--     <li class=\"video-collaborators__collaborator\">\n" +
-    "        <span class=\"video-collaborators__collaborator-image\" style=\"background-image: url('http://media.dev.wonderpl.com/images/avatar/thumbnail_medium/kHmU0Pn5E1dVK3K68Okjgw.jpg');\"></span>\n" +
-    "        <span class=\"video-collaborators__collaborator-name\">Tom Aitkens</span>\n" +
-    "      </li>\n" +
-    "      <li class=\"video-collaborators__collaborator\">\n" +
-    "        <span class=\"video-collaborators__collaborator-image\" style=\"background-image: url('http://media.dev.wonderpl.com/images/avatar/thumbnail_medium/kHmU0Pn5E1dVK3K68Okjgw.jpg');\"></span>\n" +
-    "        <span class=\"video-collaborators__collaborator-name\">Tom Aitkens 2</span>\n" +
-    "      </li> -->\n" +
     "    </ul>\n" +
     "\n" +
     "  </section>\n" +
@@ -1532,8 +1508,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <i class=\"icon  icon--medium  icon--minus  section-drawer__icon\" ng-click=\"addCollaboratorShow = !addCollaboratorShow\" ng-show=\"addCollaboratorShow\"></i>\n" +
     "    <add-collaborator class=\"video-extended-controls__section-contents\"\n" +
     "      video=\"video\"\n" +
-    "      show-collaborator=\"addCollaboratorShow\"\n" +
-    "      collaborators=\"collaborators\">\n" +
+    "      flags=\"flags\">\n" +
     "    </add-collaborator>\n" +
     "  </section>\n" +
     "</section>"

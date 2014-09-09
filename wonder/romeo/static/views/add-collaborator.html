@@ -2,29 +2,13 @@
 
   <header class="video-extended-controls__section-header" ng-click="showCollaborator = !showCollaborator">
     <h4 class="video-extended-controls__section-header-title" title="Invite people to review and comment on your video, or send someone a link to download it. Type in their name, email address and the permissions yo want to give them.">
-      Collaborators
+      Wonder Transfer
     </h4>
   </header>
 
   <section class="video-add-collaborators">
 
-    <label class="video-add-collaborators__label">
-      Name
-      <input class="video-add-collaborators__input" ng-model="collaborator.name" />
-    </label>
-    <label class="video-add-collaborators__label">
-      Email
-      <input class="video-add-collaborators__input" ng-model="collaborator.email" />
-    </label>
-    <label class="video-add-collaborators__label">Permissions</label>
-    <label class="video-add-collaborators__label--inline">
-      <input class="video-add-collaborators__checkbox" type="checkbox" ng-model="collaborator.can_comment" />
-      Allow to comment
-    </label>
-    <label class="video-add-collaborators__label--inline">
-      <input class="video-add-collaborators__checkbox" type="checkbox" ng-model="collaborator.can_download" />
-      Allow to download source
-    </label>
+    <input type="hidden" ui-select2="select2Options" ng-model="invite.collaborators" />
 
     <div class="video-add-collaborators__messages">
       <p ng-show="collaboratorAdded">New collaborator has been added.</p>
@@ -40,7 +24,7 @@
       <h4 class="video-collaborators__title  no-spacing">collaborators</h4>
     </header>
 
-    <p class="video-collaborators__none-message" ng-hide="collaborators">You have no collaborators!</p>
+    <p class="video-collaborators__none-message" ng-hide="connections">You have no connections!</p>
 
     <ul class="nav  nav--stacked  video-collaborators__collaborators" ng-show="collaborators">
       <li class="video-collaborators__collaborator" ng-repeat="collaborator in collaborators">
@@ -52,14 +36,6 @@
             <span class="video-collaborators__collaborator-name truncate" ng-bind="collaborator.display_name"></span>
           </div>
       </li>
-  <!--     <li class="video-collaborators__collaborator">
-        <span class="video-collaborators__collaborator-image" style="background-image: url('http://media.dev.wonderpl.com/images/avatar/thumbnail_medium/kHmU0Pn5E1dVK3K68Okjgw.jpg');"></span>
-        <span class="video-collaborators__collaborator-name">Tom Aitkens</span>
-      </li>
-      <li class="video-collaborators__collaborator">
-        <span class="video-collaborators__collaborator-image" style="background-image: url('http://media.dev.wonderpl.com/images/avatar/thumbnail_medium/kHmU0Pn5E1dVK3K68Okjgw.jpg');"></span>
-        <span class="video-collaborators__collaborator-name">Tom Aitkens 2</span>
-      </li> -->
     </ul>
 
   </section>

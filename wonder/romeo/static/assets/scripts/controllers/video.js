@@ -502,10 +502,6 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
     var $frame = getVideoIFrame();
     var $wrapper = $frame.find('#wonder-wrapper');
 
-    console.log(show);
-    console.log($scope.video.link_title);
-    console.log($scope.video.link_url);
-
     if (show && $scope.video.link_title && $scope.video.link_url) {
       $wrapper.addClass('show-buy-button');
       $frame.find('#wonder-buy-button').text($scope.video.link_title);

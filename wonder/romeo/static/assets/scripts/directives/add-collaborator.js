@@ -1,58 +1,79 @@
-angular
-  .module('RomeoApp.directives')
-  .directive('addCollaborator', addCollaboratorDirective);
-
-function addCollaboratorDirective ($templateCache, CollaboratorsService) {
+(function () {
 
   'use strict';
 
-  return {
-    restrict : 'E',
-    replace : true,
-    template : $templateCache.get('add-collaborator.html'),
-    scope : {
-      video : '=',
-      showCollaborator : '=',
-      collaborators: '='
-    },
-    controller : function ($scope) {
+  function addCollaboratorDirective ($templateCache, CollaboratorsService, UserService) {
 
-      var collaborator = {
-        email : '',
-        name : '',
-        can_comment : false,
-        can_download : false
-      };
+    return {
+      restrict : 'E',
+      replace : true,
+      template : $templateCache.get('add-collaborator.html'),
+      scope : {
+        video : '='
+      },
+      controller : function ($scope) {
 
-      $scope.collaborator = collaborator;
+        $scope.connections = [];
 
-      $scope.add = function () {
-        $scope.errors = null;
-        $scope.collaboratorAdded = false;
-        if ($scope.video && $scope.video.id) {
-          CollaboratorsService.addCollaborator($scope.video.id, $scope.collaborator).then(
-          function(data) {
-            console.log(data);
+        $scope.invite = {
+          permissions : 'canDownload',
+          collaborators : []
+        };
+
+        $scope.select2Options = {
+          width: '100%',
+          multiple: true,
+          tags: function () {
+            return $scope.connections;
+          }
+        };
+
+        UserService.getConnections(true).then(function (data) {
+          $scope.connections = data;
+          $scope.select2Options.tags = data;
+        });
+
+        $scope.$watch(
+          'video.id',
+          function(newValue, oldValue) {
+            if (newValue && newValue !== oldValue) {
+              CollaboratorsService.getCollaborators(newValue).success(function (data) {
+                $scope.collaborators = data.collaborator.items;
+              });
+            }
+          }
+        );
+
+        $scope.add = function () {
+
+          console.log($scope.invite);
+
+          CollaboratorsService.addCollaborators($scope.video.id, $scope.invite)
+          .success(function () {
             $scope.collaboratorAdded = true;
+            $scope.errors = null;
             $scope.$emit('notify', {
               status : 'success',
-              title : 'Collaborator Added',
-              message : $scope.collaborator.name + ' has been added as a collaborator.'}
+              title : 'Connections Invited',
+              message : 'Your selected connections have been sent invitations to collaborate on this video.'}
             );
-            $scope.collaborator = null;
-          },
-          function (response) {
-            $scope.errors = response.data.error;
-            console.log(response);
-            console.log(response.data);
-            console.log(response.data.form_errors);
+          })
+          .error(function (data, status, headers, config) {
+            $scope.collaboratorAdded = false;
+            $scope.errors = data;
+            $scope.$emit('notify', {
+              status : 'error',
+              title : 'Invitation Send Error',
+              message : 'No invitations have been sent.'}
+            );
           });
-        } else {
-          $scope.errors = {};
-        }
+        };
 
-      };
+      }
+    };
+  }
 
-    }
-  };
-}
+  angular.module('RomeoApp.directives').directive('addCollaborator', ['$templateCache', 'CollaboratorsService', 'UserService', addCollaboratorDirective]);
+
+})();
+
