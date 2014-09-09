@@ -1,6 +1,5 @@
-
-/*  Romeo Prototype
- /* ================================== */
+//  Romeo App
+// ==================================
 
 (function() {
     'use strict';
@@ -19,7 +18,7 @@
 
     var debug = new DebugClass('App');
 
-    var app = angular.module('RomeoApp' /* module name */,
+    var app = angular.module('RomeoApp', // module name
         ['RomeoApp.controllers',
             'RomeoApp.security',
             'RomeoApp.services',
@@ -34,7 +33,7 @@
             'angular-medium-editor',
             'angularFileUpload',
             'angulartics',
-            'angulartics.google.analytics'] /* module dependencies */);
+            'angulartics.google.analytics']); // module dependencies
 
     app.config(['$routeProvider', '$interpolateProvider', '$httpProvider', 'securityAuthorizationProvider',
       function( $routeProvider, $interpolateProvider, $httpProvider, securityAuthorizationProvider ){
@@ -90,7 +89,7 @@
             templateUrl: 'faq.html'
         });
 
-/******* DEPRECATED **************************************************/
+// ****** DEPRECATED **************************************************
 
         // Analytics
         // Types can be
@@ -119,7 +118,7 @@
             templateUrl: 'login.html'
         });
 
-/******* DEPRECATED **************************************************/
+// ******* END DEPRECATED **************************************************
 
         $routeProvider.when('/login', {
             controller: 'LoginCtrl',
@@ -161,9 +160,8 @@
         return original.apply($location, [path]);
       };
 
-      /*
-      * Listen for route change errors
-      */
+
+      // Listen for route change errors, ie. access denied
       $rootScope.$on('$routeChangeError', function(error){
           console.error('route fail', error);
           SecurityService.redirect();
