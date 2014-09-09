@@ -160,6 +160,16 @@ class AccountUserConnection(db.Model):
         return url_for('api.userconnection', user_id=self.account_user_id, connection_id=self.connection_id)
 
 
+class RegistrationToken(db.Model):
+
+    id = Column(String(128), primary_key=True)
+    date_added = Column(DateTime(), nullable=False, default=func.now())
+    recipient = Column(String(256), nullable=False)
+    account_user_id = Column('account_user', ForeignKey(AccountUser.id))
+
+    account_user = relationship(AccountUser)
+
+
 class CollaborationMixin(object):
 
     def get_collaborator(self, video_id, permission=True):

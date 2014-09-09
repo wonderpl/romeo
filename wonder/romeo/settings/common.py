@@ -29,6 +29,8 @@ REMEMBER_COOKIE_SECURE = False
 # SESSION_PROTECTION = 'strong'
 SESSION_COOKIE_NAME = 'romeo'
 
+HTTP_BASIC_AUTH_REALM = 'wonder'
+
 # Flask-Assets
 ASSETS_URL = '/static'
 ASSETS_MANIFEST = 'file'

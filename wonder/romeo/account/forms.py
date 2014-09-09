@@ -2,7 +2,7 @@ import requests
 import wtforms
 from cStringIO import StringIO
 from werkzeug import FileStorage
-from flask import current_app, json
+from flask import current_app, json, request
 from flask.ext.restful import abort
 from flask.ext.wtf import Form
 from flask.ext.login import current_user
@@ -16,7 +16,9 @@ from wonder.romeo import db
 from wonder.romeo.core.email import send_email, email_template_env
 from wonder.romeo.core.util import COUNTRY_CODES
 from wonder.romeo.video.forms import BaseForm, ImageData, JsonBoolean, JsonOptional
-from .models import Account, AccountUser, AccountUserAuthToken, AccountUserConnection, EXTERNAL_SYSTEM_CHOICES
+from .models import (
+    Account, AccountUser, AccountUserAuthToken, AccountUserConnection,
+    RegistrationToken, EXTERNAL_SYSTEM_CHOICES)
 
 
 def get_auth_handler(system):
@@ -45,11 +47,30 @@ class TwitterAuthHandler(object):
             return user.AsDict()
 
 
+def _get_bearer_token():
+    auth_header = request.headers.get('Authorization', '')
+    try:
+        auth_type, auth_val = auth_header.split(None, 1)
+    except ValueError:
+        pass
+    else:
+        if auth_type.lower() == 'bearer':
+            return auth_val
+
+
 def register_user(accountname, username, password, location=None, account_type=None):
     user = AccountUser(username=username, display_name=accountname, location=location)
     if password:
         user.set_password(password)
     user.just_registered = True    # for api response
+
+    if current_app.config.get('ENABLE_REGISTRATION_AUTH'):
+        token = RegistrationToken.query.filter_by(
+            id=_get_bearer_token(), account_user_id=None).first()
+        if token:
+            token.account_user = user
+        else:
+            abort(401, message='registration_token_required')
 
     account = Account(name=accountname, users=[user])
     db.session.add(account)
