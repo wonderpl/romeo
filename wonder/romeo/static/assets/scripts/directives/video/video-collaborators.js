@@ -18,7 +18,8 @@
 
         $scope.select2Options = {
           width: '100%',
-          multiple: true
+          multiple: true,
+          minimumInputLength: 3
         };
 
         $scope.sendInvitations = function () {
