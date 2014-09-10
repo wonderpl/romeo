@@ -1624,7 +1624,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "          <div class=\"video-view__container\" ng-class=\"{'video-view__container--fixed': flags.isEdit}\">\n" +
     "            <video-upload ng-show=\"flags.showUpload && flags.isEdit\" ng-cloak></video-upload>\n" +
-    "            <video-player ng-show=\"flags.hasProcessed || flags.isReview || flags.isComments\" embed-url=\"embedUrl\"></video-player>\n" +
+    "            <video-player ng-hide=\"flags.showUpload\" embed-url=\"embedUrl\"></video-player>\n" +
     "\n" +
     "            <a class=\"btn btn--positive btn--small show-modal-button t--push-all\" ng-show=\"flags.isEdit && video.id\" ng-click=\"showModal=true\">edit player</a>\n" +
     "\n" +
