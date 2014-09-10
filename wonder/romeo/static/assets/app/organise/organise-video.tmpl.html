@@ -36,6 +36,7 @@
     </ul>
     <a ng-href="#/video/{{video.id}}">
       <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="ratio__src  video-thumb__img" style="background-image: url('{{ thumbnail }}')">
+      <div class="status" ng-if="showStatus">{{video.status}}</div>
     </a>
   </div>
 

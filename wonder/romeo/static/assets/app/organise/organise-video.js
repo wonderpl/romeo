@@ -15,6 +15,7 @@ function OrganiseVideo ($templateCache, modal) {
       isCollaboration : '='
     },
     controller : function ($scope) {
+      $scope.showStatus = ($scope.video.status !== 'published' && $scope.video.status !== 'ready');
       $scope.delete = function (video) {
         modal.hide();
         $scope.$emit('delete-video', video);
@@ -33,19 +34,11 @@ function OrganiseVideo ($templateCache, modal) {
         if (! angular.equals(newValue, oldValue)) {
           debug.log('Video status ' + $scope.video.title + ' changed to ' + newValue);
           $scope.thumbnail = getThumbnail();
+          $scope.showStatus = (newValue !== 'published' && newValue !== 'ready');
         }
       });
 
       function getThumbnail() {
-        // TODO: Use text layer instead so that user-selected thumbnail can be in background
-        if ($scope.video.status == 'uploading') {
-          return '/static/assets/img/video-list-states/uploading.png';
-        } else if ($scope.video.status == 'processing') {
-          return '/static/assets/img/video-list-states/processing.png';
-        } else if ($scope.video.status == 'error') {
-          return '/static/assets/img/video-list-states/error.png';
-        }
-
         // Use server-provided thumbnail, if provided
         if ($scope.video.thumbnail_url) {
           return $scope.video.thumbnail_url;

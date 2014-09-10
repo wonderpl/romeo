@@ -1870,6 +1870,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </ul>\n" +
     "    <a ng-href=\"#/video/(~video.id~)\">\n" +
     "      <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"ratio__src  video-thumb__img\" style=\"background-image: url('(~ thumbnail ~)')\">\n" +
+    "      <div class=\"status\" ng-if=\"showStatus\">(~video.status~)</div>\n" +
     "    </a>\n" +
     "  </div>\n" +
     "\n" +
