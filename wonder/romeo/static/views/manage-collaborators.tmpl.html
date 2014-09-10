@@ -7,9 +7,9 @@
   <input type="hidden" ui-select2="select2Options" ng-model="invite.collaborators" />
 
   <select ng-model="invite.permissions">
-    <option value="canDownload" selected="selected">download</option>
-    <option value="canComment">comment</option>
-    <option value="canCommentDownload">download and comment</option>
+    <option value="canComment">Comment</option>
+    <option value="canCommentDownload">Comment and Download</option>
+    <option value="canDownload" selected="selected">Download</option>
   </select>
 
   <a class="btn btn--small btn--positive" ng-click="sendInvitations()">Invite</a>
