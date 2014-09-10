@@ -1,0 +1,19 @@
+.publish {
+
+}
+
+.publish__host-option {
+  width: 24%;
+  border: solid 1px $dark-green;
+  display: inline-block;
+  margin-right: 1%;
+  margin-left: -2px;
+}
+
+.publish__host-option:last-child {
+  margin-right: 0;
+}
+
+.publish__date-picker-placeholder:hover {
+  cursor: pointer;
+}

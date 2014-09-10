@@ -1842,7 +1842,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <a class=\"organise-video__inline-link organise-video__inline-link--edit\" ng-href=\"#/video/(~video.id~)/edit\" title=\"Edit\"><i class=\"icon  icon--edit\"></i></a>\n" +
     "    </li>\n" +
     "    <li class=\"organise-video__inline-control\">\n" +
-    "      <a class=\"organise-video__inline-link organise-video__inline-link--view\" ng-href=\"#/video/(~video.id~)\" title=\"Review\"><i class=\"icon  icon--eye\"></i></a>\n" +
+    "      <a class=\"organise-video__inline-link organise-video__inline-link--view\" ng-href=\"#/video/(~video.id~)/publish\" title=\"Review\"><i class=\"icon  icon--eye\"></i></a>\n" +
     "    </li>\n" +
     "    <li class=\"organise-video__inline-control\">\n" +
     "      <a class=\"organise-video__inline-link is-disabled organise-video__inline-link--stats\"><i class=\"icon  icon--bar-graph\" title=\"Stats\"></i></a>\n" +
@@ -1866,7 +1866,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <div class=\"ratio  ratio--16x9  video-thumb\" ng-hide=\"isList\">\n" +
     "    <ul class=\"nav  nav--block  video-thumb-list\" ng-hide=\"isCollaboration\">\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-href=\"#/video/(~video.id~)/edit\"><i class=\"icon  icon--edit\"></i><span class=\"t--block  t--center\">Edit</span></a></li>\n" +
-    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-href=\"#/video/(~video.id~)\"><i class=\"icon  icon--eye\"></i><span class=\"t--block  t--center\">Publish</span></a></li>\n" +
+    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-href=\"#/video/(~video.id~)/publish\"><i class=\"icon  icon--eye\"></i><span class=\"t--block  t--center\">Publish</span></a></li>\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-click=\"displaySection('comments')\"><i class=\"icon  icon--group\"></i><span class=\"t--block  t--center\">Collaborate</span></a></li>\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link is-disabled\"><i class=\"icon  icon--bar-graph\"></i><span class=\"t--block  t--center\">Stats</span></a></li>\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-click=\"addRemove(video)\"><i class=\"icon  icon--collection\"></i><span class=\"t--block  t--center\">Add / Remove</span></a></li>\n" +
@@ -2085,6 +2085,78 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t\t</li>\n" +
     "\t</ul>\n" +
     "</div>"
+  );
+
+
+  $templateCache.put('publish/publish.tmpl.html',
+    "<section class=\"publish page-content wrapper wrapper--fixed\">\n" +
+    "\n" +
+    "  <h1>Publish '(~ video.title ~)' to Wonder Place</h1>\n" +
+    "\n" +
+    "  <p>Schedule a timed publish for your video on Wonder Place. The act of publishing on Wonder Place is done by placing your video inside a public collection which will appear on the app.</p>\n" +
+    "\n" +
+    "\n" +
+    "  <img ng-src=\"(~ video.thumbnails.items[3].url ~)\" />\n" +
+    "\n" +
+    "  <p ng-bind=\"video.title\"></p>\n" +
+    "\n" +
+    "  <p ng-bind-html=\"video.description\"></p>\n" +
+    "\n" +
+    "  <p ng-bind=\"video.search_keywords\"></p>\n" +
+    "\n" +
+    "  <p>Your video has been published to: <span ng-bind=\"video.tags.items | commaSeparatedList\"></span></p>\n" +
+    "\n" +
+    "  <span class=\"btn btn--positive btn--small\">\n" +
+    "    <a title=\"By clicking 'Publish', you agree that this video does not violate the Terms of Use of any of the video sites you plan to upload to and that you own all copyrights in this video or have express permission from all copyright owners to upload it. You also agree to Wonder PL’s Terms of Service.\" ng-click=\"showPublishOptions = !showPublishOptions\">publish</a>\n" +
+    "  </span>\n" +
+    "\n" +
+    "  <ul class=\"publish__schedule-options\" ng-show=\"showPublishOptions\">\n" +
+    "    <li><a ng-click=\"showPublish()\">now</a></li>\n" +
+    "    <li><a ng-click=\"showPublish()\">tomorrow</a></li>\n" +
+    "    <li><a ng-click=\"showCalendar = !showCalendar\">date &gt;</a></li>\n" +
+    "  </ul>\n" +
+    "\n" +
+    "  <section ng-show=\"showCalendar\">\n" +
+    "    <img class=\"publish__date-picker-placeholder\" ng-click=\"showPublish()\" src=\"/static/assets/img/date-picker-placeholder.png\" />\n" +
+    "  </section>\n" +
+    "\n" +
+    "\n" +
+    "  <h2>Set up your multi-platform publishing&hellip;</h2>\n" +
+    "\n" +
+    "  <p>Publish to many different places with Wonder Place and we will make sure your posts look great everywhere. Click the associated logo buttons below to begin connecting your accounts to Wonder Place.</p>\n" +
+    "\n" +
+    "\n" +
+    "  <section class=\"publish__host-options\">\n" +
+    "\n" +
+    "    <section class=\"publish__host-option\" ng-class=\"{ 'publish__host-option--published' : providers.wonderpl.isPublished }\">\n" +
+    "      <section class=\"ratio ratio--3x2\">\n" +
+    "        wonder\n" +
+    "      </section>\n" +
+    "    </section>\n" +
+    "\n" +
+    "    <section class=\"publish__host-option\">\n" +
+    "      <section class=\"ratio ratio--3x2\">\n" +
+    "        youtube\n" +
+    "      </section>\n" +
+    "    </section>\n" +
+    "\n" +
+    "    <section class=\"publish__host-option\">\n" +
+    "      <section class=\"ratio ratio--3x2\">\n" +
+    "        facebook\n" +
+    "      </section>\n" +
+    "    </section>\n" +
+    "\n" +
+    "    <section class=\"publish__host-option\">\n" +
+    "      <section class=\"ratio ratio--3x2\">\n" +
+    "        vimeo\n" +
+    "      </section>\n" +
+    "    </section>\n" +
+    "\n" +
+    "  </section>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "</section>"
   );
 
 

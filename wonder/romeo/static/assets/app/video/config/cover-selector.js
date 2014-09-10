@@ -116,6 +116,6 @@
     };
   }
 
-  angular.module('RomeoApp.videoConfig').directive('coverSelector', ['$templateCache', '$timeout', 'VideoService', coverSelector]);
+  angular.module('RomeoApp.video.config').directive('coverSelector', ['$templateCache', '$timeout', 'VideoService', coverSelector]);
 
 })();

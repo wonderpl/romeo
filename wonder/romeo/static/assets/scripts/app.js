@@ -14,7 +14,8 @@
     // -- App modules
     angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
     angular.module('RomeoApp.search', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
-    angular.module('RomeoApp.videoConfig', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
+    angular.module('RomeoApp.video.config', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
+    angular.module('RomeoApp.publish', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
 
     var debug = new DebugClass('App');
 
@@ -27,7 +28,8 @@
             'RomeoApp.analytics',
             'RomeoApp.profile',
             'RomeoApp.search',
-            'RomeoApp.videoConfig',
+            'RomeoApp.video.config',
+            'RomeoApp.publish',
             'ngRoute',
             'ngCookies',
             'angular-medium-editor',
@@ -143,8 +145,8 @@
 
     }]);
 
-    app.run(['$route', '$rootScope', '$location', '$cookies', '$window', 'SecurityService', 'ErrorService',
-      function($route, $rootScope, $location, $cookies, $window, SecurityService, ErrorService) {
+    app.run(['$route', '$rootScope', '$location', 'SecurityService',
+      function($route, $rootScope, $location, SecurityService) {
 
       // http://joelsaupe.com/programming/angularjs-change-path-without-reloading/
       // $location.path('/sample/' + $rootScope.checkinId, false);

@@ -1,70 +1,82 @@
-/*
-* Methods for interacting with the Tag web services
-*/
-
-angular.module('RomeoApp.services').factory('TagService',
-    ['DataService', 'VideoService', '$rootScope', 'AccountService', '$q', '$timeout',
-    function (DataService, VideoService, $rootScope, AccountService, $q, $timeout) {
+(function () {
 
     'use strict';
 
-    var Tag = {},
-        Tags = null;
+    function tagService (DataService, VideoService, $rootScope, AccountService, $q, $timeout) {
 
-    /*
-    * Make a GET request to the web service for all of the tags
-    */
-    Tag.getTags = function() {
-        var deferred = new $q.defer();
-        DataService.request({url: '/api/account/' + AccountService.getAccountId() + '/tags'}).then(function(response) {
-            Tags = response.tag.items;
-            deferred.resolve(response);
-        });
-        return deferred.promise;
-    };
+      var Tag = {},
+          Tags = null;
 
-    Tag.createTag = function(data){
-        var deferred = new $q.defer();
-        deferred.resolve(DataService.request({url: '/api/account/' + AccountService.getAccountId() + '/tags', method: 'POST', data: data}));
-        return deferred.promise;
-    };
+      /*
+      * Make a GET request to the web service for all of the tags
+      */
+      Tag.getTags = function() {
+          var deferred = new $q.defer();
+          DataService.request({url: '/api/account/' + AccountService.getAccountId() + '/tags'}).then(function(response) {
+              Tags = response.tag.items;
+              deferred.resolve(response);
+          });
+          return deferred.promise;
+      };
 
-    /*
-    * Returns the label of a given ID
-    */
-    Tag.getLabel = function(id) {
-        var deferred = new $q.defer();
+      Tag.getPublicTags = function() {
+          var dfd = new $q.defer();
+          DataService.request({url: '/api/account/' + AccountService.getAccountId() + '/tags'})
+          .then(function(response) {
+            console.log(response);
+            var tags = response.tag.items;
+            var l = tags.length;
+            var publicTags = [];
+            while (l--) {
+              if (tags[l].public) {
+                publicTags.push(tags[l]);
+              }
+            }
+            dfd.resolve(publicTags);
+          });
+          return dfd.promise;
+      };
 
-        $timeout(function() {
-            ng.forEach(Tags, function(value, key){
-                console.log('smashing through labels', id, value.id);
-                if ( value.id == id ) {
-                    deferred.resolve(value.label);
-                }
-            });
-        });
+      Tag.createTag = function(data){
+          var deferred = new $q.defer();
+          deferred.resolve(DataService.request({url: '/api/account/' + AccountService.getAccountId() + '/tags', method: 'POST', data: data}));
+          return deferred.promise;
+      };
 
-        return deferred.promise;
-    };
+      /*
+      * Returns the label of a given ID
+      */
+      Tag.getLabel = function(id) {
+          var deferred = new $q.defer();
 
-    Tag.updateTag = function (tag) {
-      var url = '/api/tag/' + tag.id;
-      return DataService.request({ url: url, method: 'PUT', data: tag });
-    };
+          $timeout(function() {
+              ng.forEach(Tags, function(value, key){
+                  console.log('smashing through labels', id, value.id);
+                  if ( value.id == id ) {
+                      deferred.resolve(value.label);
+                  }
+              });
+          });
 
-    Tag.deleteTag = function (id) {
-      var url = '/api/tag/' + id;
-      return DataService.request({ url: url, method: 'DELETE' });
-    };
+          return deferred.promise;
+      };
 
-    /*
-    * Expose the methods to the service
-    */
-    return {
-        getTags   : Tag.getTags,
-        createTag : Tag.createTag,
-        getLabel  : Tag.getLabel,
-        updateTag : Tag.updateTag,
-        deleteTag : Tag.deleteTag
-    };
-}]);
+      Tag.updateTag = function (tag) {
+        var url = '/api/tag/' + tag.id;
+        return DataService.request({ url: url, method: 'PUT', data: tag });
+      };
+
+      Tag.deleteTag = function (id) {
+        var url = '/api/tag/' + id;
+        return DataService.request({ url: url, method: 'DELETE' });
+      };
+
+      /*
+      * Expose the methods to the service
+      */
+      return Tag;
+  }
+
+  angular.module('RomeoApp.services').factory('TagService', ['DataService', 'VideoService', '$rootScope', 'AccountService', '$q', '$timeout', tagService]);
+
+})();

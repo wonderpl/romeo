@@ -1,0 +1,68 @@
+<section class="publish page-content wrapper wrapper--fixed">
+
+  <h1>Publish '{{ video.title }}' to Wonder Place</h1>
+
+  <p>Schedule a timed publish for your video on Wonder Place. The act of publishing on Wonder Place is done by placing your video inside a public collection which will appear on the app.</p>
+
+
+  <img ng-src="{{ video.thumbnails.items[3].url }}" />
+
+  <p ng-bind="video.title"></p>
+
+  <p ng-bind-html="video.description"></p>
+
+  <p ng-bind="video.search_keywords"></p>
+
+  <p>Your video has been published to: <span ng-bind="video.tags.items | commaSeparatedList"></span></p>
+
+  <span class="btn btn--positive btn--small">
+    <a title="By clicking 'Publish', you agree that this video does not violate the Terms of Use of any of the video sites you plan to upload to and that you own all copyrights in this video or have express permission from all copyright owners to upload it. You also agree to Wonder PL’s Terms of Service." ng-click="showPublishOptions = !showPublishOptions">publish</a>
+  </span>
+
+  <ul class="publish__schedule-options" ng-show="showPublishOptions">
+    <li><a ng-click="showPublish()">now</a></li>
+    <li><a ng-click="showPublish()">tomorrow</a></li>
+    <li><a ng-click="showCalendar = !showCalendar">date &gt;</a></li>
+  </ul>
+
+  <section ng-show="showCalendar">
+    <img class="publish__date-picker-placeholder" ng-click="showPublish()" src="/static/assets/img/date-picker-placeholder.png" />
+  </section>
+
+
+  <h2>Set up your multi-platform publishing&hellip;</h2>
+
+  <p>Publish to many different places with Wonder Place and we will make sure your posts look great everywhere. Click the associated logo buttons below to begin connecting your accounts to Wonder Place.</p>
+
+
+  <section class="publish__host-options">
+
+    <section class="publish__host-option" ng-class="{ 'publish__host-option--published' : providers.wonderpl.isPublished }">
+      <section class="ratio ratio--3x2">
+        wonder
+      </section>
+    </section>
+
+    <section class="publish__host-option">
+      <section class="ratio ratio--3x2">
+        youtube
+      </section>
+    </section>
+
+    <section class="publish__host-option">
+      <section class="ratio ratio--3x2">
+        facebook
+      </section>
+    </section>
+
+    <section class="publish__host-option">
+      <section class="ratio ratio--3x2">
+        vimeo
+      </section>
+    </section>
+
+  </section>
+
+
+
+</section>

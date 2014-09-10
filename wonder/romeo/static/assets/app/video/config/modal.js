@@ -37,7 +37,7 @@
     };
   }
 
-  angular.module('RomeoApp.videoConfig').directive('videoModal', ['$templateCache', 'VideoService', modal]);
+  angular.module('RomeoApp.video.config').directive('videoModal', ['$templateCache', 'VideoService', modal]);
 
 })();
 

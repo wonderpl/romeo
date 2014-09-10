@@ -2491,6 +2491,11 @@ li > ol {
   padding-bottom: 56.25%;
 }
 
+/* line 29, ../../scss/_components/_components.ratios.scss */
+.ratio--3x2 {
+  padding-bottom: 66.66667%;
+}
+
 /**
  * _components.truncate-text.scss
 */
@@ -7344,6 +7349,25 @@ label,
 /* line 82, ../app/profile/_profile-edit.scss */
 .profile-edit__contact-button .active {
   color: #2e2e32;
+}
+
+/* line 5, ../app/publish/_providers.scss */
+.publish__host-option {
+  width: 24%;
+  border: solid 1px #51b364;
+  display: inline-block;
+  margin-right: 1%;
+  margin-left: -2px;
+}
+
+/* line 13, ../app/publish/_providers.scss */
+.publish__host-option:last-child {
+  margin-right: 0;
+}
+
+/* line 17, ../app/publish/_providers.scss */
+.publish__date-picker-placeholder:hover {
+  cursor: pointer;
 }
 
 /* line 1, ../../scss/specifics/login/_login-view.scss */
