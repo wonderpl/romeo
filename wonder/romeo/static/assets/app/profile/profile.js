@@ -29,7 +29,7 @@ function ProfileRouteProvider($routeProvider, securityAuthorizationProvider) {
 
 angular.module('RomeoApp.profile').config(['$routeProvider', 'securityAuthorizationProvider', ProfileRouteProvider]);
 
-function ProfileCtrl($scope, $location, $routeParams, AccountService, UserService, UploadService, VideoService, LocationService, SecurityService, modal) {
+function ProfileCtrl($scope, UserService, LocationService, SecurityService) {
   var ctrl = {};
   var locations;
 
@@ -78,7 +78,7 @@ function ProfileCtrl($scope, $location, $routeParams, AccountService, UserServic
         $scope.connections = res.data.connection.items;
       });
     }
-    // We should use the following code, to pull in all collaborators on
+    // @TODO: We should use the following code, to pull in all collaborators on
     // the private profile page, not just the public collaborators.
     //
     // UserService.getConnections().then(function (res) {
@@ -95,7 +95,7 @@ function ProfileCtrl($scope, $location, $routeParams, AccountService, UserServic
   return ctrl;
 }
 
-angular.module('RomeoApp.profile').controller('ProfileCtrl', ['$scope', '$location', '$routeParams', 'AccountService', 'UserService', 'UploadService', 'VideoService', 'LocationService', 'SecurityService', 'modal', ProfileCtrl]);
+angular.module('RomeoApp.profile').controller('ProfileCtrl', ['$scope', 'UserService', 'LocationService', 'SecurityService', ProfileCtrl]);
 
 })();
 

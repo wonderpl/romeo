@@ -1896,7 +1896,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('profile/cover-image.tmpl.html',
     "<section class=\"profile-cover\"\n" +
     "  ng-class=\"{ 'profile-cover--edit' : flags.isEdit, 'profile-cover--hero' : isHero, 'profile-cover--img' : profile.profile_cover }\"\n" +
-    "  style=\"background-image:url('(~ profile.profile_cover ~)');\" loading-spinner>\n" +
+    "  style=\"background-image:url((~ profile.profile_cover ~));\" loading-spinner>\n" +
     "\n" +
     "  <label class=\"profile-cover__upload-label\" for=\"profileCoverUpload\">\n" +
     "    <div class=\"profile-cover__dropzone\"\n" +
