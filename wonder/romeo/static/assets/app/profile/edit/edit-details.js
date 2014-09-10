@@ -81,7 +81,13 @@ function editDetails($templateCache, $http) {
           });
         },
         minLength: 2,
-        delay: 500
+        delay: 500,
+        select: function (event, selectedItem) {
+          // Fix autocomplete select not saving to scope - http://stackoverflow.com/a/19547431
+          scope.profile.title = selectedItem.item.value;
+          scope.$apply();
+          event.preventDefault();
+        }
       });
     }
   };
