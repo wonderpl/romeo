@@ -16,10 +16,15 @@
   {% if error %}
 
     <div>
-      Whoh&hellip; Something went wrong.<br><br>
-      There was an error uploading <a href="{{ video_url() }}">"{{ video.title }}"</a> and it's stopped processing. Come back and try again.<br><br>
+      Oops&hellip; something went wrong.<br><br>
+      There was an error uploading <a href="{{ video_url() }}">"{{ video.title }}"</a> and it has stopped processing.<br><br>
+      
+      <em style="font-style:italic;">{{ error_message }}</em><br><br>
+
+      Try re-uploading your video here.<br>
+      <p class="btn-center" style="display:block;width:100%;text-align:center;"><a href="{{ video_url() }}" class="btn" style="margin:0 auto;padding:10px 20px;font-weight:400;font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif;text-decoration:none;color:#fff !important;text-align:center;background-color:#51b364;border:none;border-radius:100px;cursor:pointer;" border="0">Edit your video</a></p><br><br>
       {% if error_message %}
-      <em style="font-style:italic;">{{ error_message }}</em>
+      
       <br/>
       {% endif %}
     </div>
