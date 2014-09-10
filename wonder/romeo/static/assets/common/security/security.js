@@ -186,12 +186,6 @@
               });
             },
             login: function (username, password) {
-                if (loginAttempts >= 3) {
-                    var deferred = new $q.defer();
-                    deferred.reject({ data: { error: 'Too many login attempts' } });
-                    return deferred.promise;
-                }
-
                 return $http({
                     method: 'post',
                     url: '/api/login',
