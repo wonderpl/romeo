@@ -3,16 +3,23 @@
 {% block title %}Your video is public{% endblock %}
 
 {% block body %}
+
 <div style="font-weight:bold;font-size:28px;line-height:1.35;font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif;color:#2e2e32">
   Hello {{ username }},
 </div><br>
+
 Congratulations!<br><br>
-The video, <a href="{{ link }}" style="color:#51b464 !important;">"{{ video.title }}"</a> you collaborated on with <b>{{ sender }}</b> has just been published.<br><br>
-Why not share it with the World?<br><br>
+
+<a href="{{ link }}" style="color:#51b464 !important;">"{{ video.title }}"</a>, which you worked on, has just been published.<br><br>
+
 <a href="{{ link }}" border="0" class="video-thumb" style="display:block;margin:0;border:none;outline:none;">
   <img src="{{ video.thumbnail }}" border="0" alt="{{ video.title }}" width="480" height="250" class="video-img" style="display:block;width:100%;height:auto;margin:0 auto;border:none;outline:none" />
 </a><br>
+
+Videos want to be shared so watch &amp; share it here.<br>
+
 <p class="btn-center" style="display:block;width:100%;text-align:center;"><a href="{{ link }}" class="btn" style="margin:0 auto;padding:10px 20px;font-weight:400;font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif;text-decoration:none;color:#fff !important;text-align:center;background-color:#51b364;border:none;border-radius:100px;cursor:pointer;" border="0">Watch &amp; share the video</a></p><br>
-Fill your life with Wonder,<br>
+
 <em style="font-style:italic">&mdash;Wonder PL</em><br><br>
+
 {% endblock %}
