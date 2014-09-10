@@ -81,6 +81,11 @@
           return $http.get('/api/user/' + id + '/connections?public');
         };
 
+        service.getCollaboratorVideos = function () {
+          var user = this.getUser();
+          return $http.get('/api/user/' + user.id + '/collaborator_videos');
+        };
+
         return service;
     }
     angular.module('RomeoApp.services').factory('UserService', ['SecurityService', 'DataService', '$http', '$q', UserService]);

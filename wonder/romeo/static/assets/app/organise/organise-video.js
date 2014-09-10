@@ -11,7 +11,8 @@ function OrganiseVideo ($templateCache, modal) {
     template : $templateCache.get('organise/organise-video.tmpl.html'),
     scope : {
       video : '=',
-      isList : '='
+      isList : '=',
+      isCollaboration : '='
     },
     controller : function ($scope) {
       $scope.delete = function (video) {

@@ -1818,7 +1818,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        'organise-video-list__video--last' : ($index + 1) % 3 == 0,\n" +
     "        'organise-video-list__video--list' : isList\n" +
     "      }\">\n" +
-    "      <organise-video video=\"video\" is-list=\"isList\"></organise-video>\n" +
+    "      <organise-video video=\"video\" is-list=\"isList\" is-collaboration=\"filterByCollaboration\"></organise-video>\n" +
     "    </li>\n" +
     "  </ul>\n" +
     "\n" +
@@ -1834,7 +1834,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   $templateCache.put('organise/organise-video.tmpl.html',
     "<div class=\"video-thumb-wrapper  organise-video\">\n" +
     "\n" +
-    "  <ul class=\"nav  nav--block  organise-video__inline-controls\" ng-show=\"isList\">\n" +
+    "  <ul class=\"nav  nav--block  organise-video__inline-controls\" ng-show=\"isList && !isCollaboration\">\n" +
     "    <li class=\"organise-video__inline-control\">\n" +
     "      <a class=\"organise-video__inline-link organise-video__inline-link--edit\" ng-href=\"#/video/(~video.id~)/edit\" title=\"Edit\"><i class=\"icon  icon--edit\"></i></a>\n" +
     "    </li>\n" +
@@ -1861,14 +1861,16 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  </a>\n" +
     "\n" +
     "  <div class=\"ratio  ratio--16x9  video-thumb\" ng-hide=\"isList\">\n" +
-    "    <ul class=\"nav  nav--block  video-thumb-list\">\n" +
+    "    <ul class=\"nav  nav--block  video-thumb-list\" ng-hide=\"isCollaboration\">\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-href=\"#/video/(~video.id~)/edit\"><i class=\"icon  icon--edit\"></i><span class=\"t--block  t--center\">Edit</span></a></li>\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-href=\"#/video/(~video.id~)\"><i class=\"icon  icon--eye\"></i><span class=\"t--block  t--center\">Publish</span></a></li>\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link is-disabled\"><i class=\"icon  icon--bar-graph\"></i><span class=\"t--block  t--center\">Stats</span></a></li>\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-click=\"addRemove(video)\"><i class=\"icon  icon--collection\"></i><span class=\"t--block  t--center\">Add / Remove</span></a></li>\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-click=\"showDelete(video)\"><i class=\"icon  icon--trash\"></i><span class=\"t--block  t--center\">Delete</span></a></l>\n" +
     "    </ul>\n" +
-    "    <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"ratio__src  video-thumb__img\" style=\"background-image: url('(~ thumbnail ~)')\">\n" +
+    "    <a ng-href=\"#/video/(~video.id~)\">\n" +
+    "      <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"ratio__src  video-thumb__img\" style=\"background-image: url('(~ thumbnail ~)')\">\n" +
+    "    </a>\n" +
     "  </div>\n" +
     "\n" +
     "</div>"
@@ -1883,7 +1885,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <organise-navigation tags=\"tags\" current-tag=\"tag\" filter-by-recent=\"filterByRecent\" filter-by-collaboration=\"filterByCollaboration\"></organise-navigation>\n" +
     "      <div class=\"layout__item  two-thirds\">\n" +
     "        <organise-collection ng-show=\"tag\" ng-if=\"!collaborator()\" tag=\"tag\" is-edit=\"isEdit\"></organise-collection>\n" +
-    "        <organise-video-list videos=\"videos\" tag=\"tag\" filter-by-recent=\"filterByRecent\" filter-by-collaboration=\"filterByCollaboration\"></organise-video-list>\n" +
+    "        <organise-video-list videos=\"videos\" collaboration-videos=\"collaborationVideos\" tag=\"tag\" filter-by-recent=\"filterByRecent\" filter-by-collaboration=\"filterByCollaboration\"></organise-video-list>\n" +
     "      </div>\n" +
     "    </div>\n" +
     "  </div>\n" +

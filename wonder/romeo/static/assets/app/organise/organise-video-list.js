@@ -21,6 +21,7 @@ function OrganiseVideoList ($templateCache, $cookies) {
     replace : true,
     template : $templateCache.get('organise/organise-video-list.tmpl.html'),
     scope : {
+      collaborationVideos : '=',
       videos : '=',
       tag : '=',
       filterByRecent: '=',
@@ -97,13 +98,7 @@ function OrganiseVideoList ($templateCache, $cookies) {
       }
 
       function filterVideosByCollaboration () {
-        var filteredVideos = [];
-        angular.forEach($scope.videos, function (video, key) {
-          if (video.isCollaboration) {
-            filteredVideos.push(video);
-          }
-        });
-        return filteredVideos;
+        return $scope.collaborationVideos;
       }
 
       $scope.isRecent = function (video) {

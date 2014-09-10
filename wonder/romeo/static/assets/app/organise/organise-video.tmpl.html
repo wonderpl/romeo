@@ -1,6 +1,6 @@
 <div class="video-thumb-wrapper  organise-video">
 
-  <ul class="nav  nav--block  organise-video__inline-controls" ng-show="isList">
+  <ul class="nav  nav--block  organise-video__inline-controls" ng-show="isList && !isCollaboration">
     <li class="organise-video__inline-control">
       <a class="organise-video__inline-link organise-video__inline-link--edit" ng-href="#/video/{{video.id}}/edit" title="Edit"><i class="icon  icon--edit"></i></a>
     </li>
@@ -27,14 +27,16 @@
   </a>
 
   <div class="ratio  ratio--16x9  video-thumb" ng-hide="isList">
-    <ul class="nav  nav--block  video-thumb-list">
+    <ul class="nav  nav--block  video-thumb-list" ng-hide="isCollaboration">
       <li class="video-thumb-list__item"><a class="video-thumb-list__link" ng-href="#/video/{{video.id}}/edit"><i class="icon  icon--edit"></i><span class="t--block  t--center">Edit</span></a></li>
       <li class="video-thumb-list__item"><a class="video-thumb-list__link" ng-href="#/video/{{video.id}}"><i class="icon  icon--eye"></i><span class="t--block  t--center">Publish</span></a></li>
       <li class="video-thumb-list__item"><a class="video-thumb-list__link is-disabled"><i class="icon  icon--bar-graph"></i><span class="t--block  t--center">Stats</span></a></li>
       <li class="video-thumb-list__item"><a class="video-thumb-list__link" ng-click="addRemove(video)"><i class="icon  icon--collection"></i><span class="t--block  t--center">Add / Remove</span></a></li>
       <li class="video-thumb-list__item"><a class="video-thumb-list__link" ng-click="showDelete(video)"><i class="icon  icon--trash"></i><span class="t--block  t--center">Delete</span></a></l>
     </ul>
-    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="ratio__src  video-thumb__img" style="background-image: url('{{ thumbnail }}')">
+    <a ng-href="#/video/{{video.id}}">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="ratio__src  video-thumb__img" style="background-image: url('{{ thumbnail }}')">
+    </a>
   </div>
 
 </div>
