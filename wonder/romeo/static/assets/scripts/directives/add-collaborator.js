@@ -36,8 +36,6 @@
 
         $scope.add = function () {
 
-          console.log($scope.invite);
-
           CollaboratorsService.addCollaborators($scope.video.id, $scope.invite)
           .success(function () {
             $scope.collaboratorAdded = true;
