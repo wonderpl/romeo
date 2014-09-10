@@ -106,12 +106,15 @@ class Video(db.Model):
     def get_image_filepath(cls, account_id, filename, imagetype, label=None, base='i'):
         return '/'.join(filter(None, (base, str(account_id), imagetype, (label or 'original'), filename)))
 
-    def get_thumbnail_url(self, label=None):
-        # TODO: use label to pick appropriate thumbnail
-        if self.thumbnails:
-            thumbnails = sorted(self.thumbnails, key=lambda t: t.width, reverse=True)
-            return next(t.url for t in thumbnails
-                        if t.width <= current_app.config['COVER_THUMBNAIL_DEFAULT'])
+    def get_thumbnail_url(self):
+        thumbnails = list(self.thumbnails)
+        if thumbnails:
+            if len(thumbnails) == 1:
+                return thumbnails[0].url
+            else:
+                thumbnails = sorted(self.thumbnails, key=lambda t: t.width, reverse=True)
+                return next(t.url for t in thumbnails[1:]
+                            if t.width <= current_app.config['COVER_THUMBNAIL_DEFAULT'])
 
     def get_player_logo_url(self, label=None):
         if self.player_logo_filename:
