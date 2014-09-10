@@ -60,6 +60,7 @@ function ProfilePublicCtrl($scope, $location, $routeParams, UserService, VideoSe
       }
       return name;
     };
+    $scope.$on('send-invitation-request', ctrl.sendInvitationRequest);
     loadUserDetails();
   }
 
