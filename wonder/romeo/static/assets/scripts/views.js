@@ -2063,8 +2063,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "            </div>\n" +
     "          </div>\n" +
     "          <div class=\"media__body\">\n" +
-    "            <p class=\"heading no-spacing trunc\" ng-bind=\"item.title\"></p>\n" +
-    "            <p class=\"search__item-description milli trunc--three\" ng-bind=\"item.description\"></p>\n" +
+    "            <p class=\"heading no-spacing trunc\" ng-bind-html=\"item.title\"></p>\n" +
+    "            <p class=\"search__item-description milli trunc--three\" ng-bind-html=\"item.description\"></p>\n" +
     "          </div>\n" +
     "        </a>\n" +
     "      </li>\n" +
@@ -2233,8 +2233,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "            </div>\n" +
     "          </div>\n" +
     "          <div class=\"media__body\">\n" +
-    "            <p class=\"heading no-spacing trunc\" ng-bind=\"item.title\"></p>\n" +
-    "            <p class=\"search__item-description milli trunc--two\" ng-bind=\"item.description\"></p>\n" +
+    "            <p class=\"heading no-spacing trunc\" ng-bind-html=\"item.title\"></p>\n" +
+    "            <p class=\"search__item-description milli trunc--two\" ng-bind-html=\"item.description\"></p>\n" +
     "          </div>\n" +
     "        </a>\n" +
     "      </li>\n" +

@@ -15,6 +15,8 @@ function ListVideoDirective($templateCache, AccountService) {
 
       function getThumbnail(video) {
         var thumbs;
+        if (video.thumbnail_url)
+          return video.thumbnail_url;
         if (angular.isDefined(video.thumbnails) && angular.isDefined(video.thumbnails.items) ) {
           thumbs = video.thumbnails.items;
           for (var i = 0; i < thumbs.length; ++i) {
