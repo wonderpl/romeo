@@ -91,6 +91,7 @@
           </div>
 
           <div ng-if="flags.isPublic">
+            <h3 class="video-view__owner"><a href="#/profile/{{owner.user.id}}"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar avatar__img video-view__avatar" style="background-image: url({{owner.avatar || '/static/assets/img/user-avatar.png' }});"> {{owner.display_name}}</a></h3>
             <p class="profile-details__legend f--sans" ng-if="collaborators">Collaborators:</p>
             <ul class="profile-collaborators" ng-show="collaborators">
               <li ng-repeat="connection in collaborators">

@@ -76,3 +76,21 @@
   display: block;
   height: 46px;
 }
+.video-view__owner {
+  text-align: center;
+  vertical-align: middle;
+
+  a {
+    color: #000;
+    text-decoration: none;
+    border-bottom: 0;
+    text-align: center;
+  }
+
+  .video-view__avatar {
+    position: static;
+    display: inline;
+    vertical-align: middle;
+    margin: 0 $half-spacing-unit $half-spacing-unit 0;
+  }
+}

@@ -1676,6 +1676,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "          </div>\n" +
     "\n" +
     "          <div ng-if=\"flags.isPublic\">\n" +
+    "            <h3 class=\"video-view__owner\"><a href=\"#/profile/(~owner.user.id~)\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" class=\"avatar avatar__img video-view__avatar\" style=\"background-image: url((~owner.avatar || '/static/assets/img/user-avatar.png' ~));\"> (~owner.display_name~)</a></h3>\n" +
     "            <p class=\"profile-details__legend f--sans\" ng-if=\"collaborators\">Collaborators:</p>\n" +
     "            <ul class=\"profile-collaborators\" ng-show=\"collaborators\">\n" +
     "              <li ng-repeat=\"connection in collaborators\">\n" +
@@ -2055,7 +2056,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<section class=\"public-profile__wrapper\">\n" +
     "\t<ul class=\"public-profile__videos\" ng-show=\"videos\">\n" +
     "\t\t<li ng-repeat=\"item in videos\" class=\"cf t--block t--pad-top--half\">\n" +
-    "        <a ng-href=\"#/video/34489679\" class=\"media non-link\" href=\"#/video/34489679\">\n" +
+    "        <a href=\"#/video/(~item.id~)\" class=\"media non-link\">\n" +
     "          <div class=\"media__img one-third search__thumbnail\">\n" +
     "            <div class=\"ratio  ratio--16x9\">\n" +
     "              <img class=\"ratio__src\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" style=\"background-image : url((~ item.thumbnail ~));\">\n" +

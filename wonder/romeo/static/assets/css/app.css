@@ -5403,6 +5403,26 @@ label,
   height: 46px;
 }
 
+/* line 79, ../../scss/specifics/video/_video-view.scss */
+.video-view__owner {
+  text-align: center;
+  vertical-align: middle;
+}
+/* line 83, ../../scss/specifics/video/_video-view.scss */
+.video-view__owner a {
+  color: #000;
+  text-decoration: none;
+  border-bottom: 0;
+  text-align: center;
+}
+/* line 90, ../../scss/specifics/video/_video-view.scss */
+.video-view__owner .video-view__avatar {
+  position: static;
+  display: inline;
+  vertical-align: middle;
+  margin: 0 12px 12px 0;
+}
+
 /* line 1, ../../scss/specifics/video/_video-share.scss */
 .video-share {
   width: 100%;
@@ -6706,7 +6726,12 @@ label,
   margin-bottom: 0;
 }
 
-/* line 5, ../app/organise/_organise-video.scss */
+/* line 4, ../app/organise/_organise-video.scss */
+.organise-video .is-disabled {
+  pointer-events: none;
+}
+
+/* line 8, ../app/organise/_organise-video.scss */
 .video-thumb-wrapper .status {
   position: absolute;
   width: 100%;
@@ -6720,14 +6745,14 @@ label,
   color: #fff;
   text-align: center;
 }
-/* line 18, ../app/organise/_organise-video.scss */
+/* line 21, ../app/organise/_organise-video.scss */
 .video-thumb-wrapper .status span {
   padding: 6px 8px;
   border-radius: 6px;
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-/* line 25, ../app/organise/_organise-video.scss */
+/* line 28, ../app/organise/_organise-video.scss */
 .organise-video__title {
   margin-bottom: 12px;
   font-weight: 800;
@@ -6739,18 +6764,18 @@ label,
   border: none;
 }
 
-/* line 36, ../app/organise/_organise-video.scss */
+/* line 39, ../app/organise/_organise-video.scss */
 .organise-video__link {
   display: block;
   color: white;
 }
 
-/* line 41, ../app/organise/_organise-video.scss */
+/* line 44, ../app/organise/_organise-video.scss */
 .organise-video__link:hover {
   text-decoration: underline;
 }
 
-/* line 45, ../app/organise/_organise-video.scss */
+/* line 48, ../app/organise/_organise-video.scss */
 .organise-video__controls-container {
   display: block;
   height: 122px;
@@ -6760,7 +6785,7 @@ label,
   background-size: cover;
 }
 
-/* line 54, ../app/organise/_organise-video.scss */
+/* line 57, ../app/organise/_organise-video.scss */
 .organise-video__overlay {
   position: relative;
   height: 100%;
@@ -6769,12 +6794,12 @@ label,
   opacity: 0;
 }
 
-/* line 62, ../app/organise/_organise-video.scss */
+/* line 65, ../app/organise/_organise-video.scss */
 .organise-video__overlay:hover {
   opacity: 1;
 }
 
-/* line 66, ../app/organise/_organise-video.scss */
+/* line 69, ../app/organise/_organise-video.scss */
 .organise-video__controls-mask {
   transition: opacity 0.4s linear;
   display: block;
@@ -6787,7 +6812,7 @@ label,
   opacity: 0.6;
 }
 
-/* line 78, ../app/organise/_organise-video.scss */
+/* line 81, ../app/organise/_organise-video.scss */
 .organise-video__controls {
   display: block;
   position: absolute;
@@ -6797,62 +6822,62 @@ label,
   width: 100%;
 }
 
-/* line 87, ../app/organise/_organise-video.scss */
+/* line 90, ../app/organise/_organise-video.scss */
 .organise-video__controls:hover {
   cursor: pointer;
 }
 
-/* line 91, ../app/organise/_organise-video.scss */
+/* line 94, ../app/organise/_organise-video.scss */
 .organise-video__inline-controls {
   float: left;
   margin-bottom: 0;
   margin-right: 24px;
 }
-/* line 96, ../app/organise/_organise-video.scss */
+/* line 99, ../app/organise/_organise-video.scss */
 .organise-video__inline-controls > li + li {
   margin-left: 6px;
 }
 
-/* line 101, ../app/organise/_organise-video.scss */
+/* line 104, ../app/organise/_organise-video.scss */
 .organise-video__inline-link {
   color: #2e2e32;
   border: 0;
 }
-/* line 105, ../app/organise/_organise-video.scss */
+/* line 108, ../app/organise/_organise-video.scss */
 .organise-video__inline-link.is-disabled {
   opacity: 0.5;
   cursor: not-allowed !important;
 }
-/* line 110, ../app/organise/_organise-video.scss */
+/* line 113, ../app/organise/_organise-video.scss */
 .organise-video__inline-link:hover {
   color: #b7bcbd;
 }
 
-/* line 117, ../app/organise/_organise-video.scss */
+/* line 120, ../app/organise/_organise-video.scss */
 .organise-video__inline-title {
   font-weight: 800;
 }
 
-/* line 121, ../app/organise/_organise-video.scss */
+/* line 124, ../app/organise/_organise-video.scss */
 .organise-video__inline-control {
   display: inline-block;
 }
-/* line 124, ../app/organise/_organise-video.scss */
+/* line 127, ../app/organise/_organise-video.scss */
 .organise-video__inline-control + .organise-video__inline-control {
   margin-left: 4px;
 }
 
-/* line 129, ../app/organise/_organise-video.scss */
+/* line 132, ../app/organise/_organise-video.scss */
 .organise-video__inline-link {
   display: block;
 }
 
-/* line 133, ../app/organise/_organise-video.scss */
+/* line 136, ../app/organise/_organise-video.scss */
 .organise-video__inline-link:hover {
   cursor: pointer;
 }
 
-/* line 137, ../app/organise/_organise-video.scss */
+/* line 140, ../app/organise/_organise-video.scss */
 .organise-video-delete {
   max-width: 700px;
   margin: 0 auto;
@@ -6861,17 +6886,17 @@ label,
   background: white;
   font-size: 1em;
 }
-/* line 146, ../app/organise/_organise-video.scss */
+/* line 149, ../app/organise/_organise-video.scss */
 .organise-video-delete .media__img {
   float: left;
   margin-right: 24px;
 }
-/* line 150, ../app/organise/_organise-video.scss */
+/* line 153, ../app/organise/_organise-video.scss */
 .organise-video-delete .media__body {
   overflow: hidden;
 }
 
-/* line 155, ../app/organise/_organise-video.scss */
+/* line 158, ../app/organise/_organise-video.scss */
 .organise-video-delete__title {
   font-size: 1em;
   border-bottom: solid 1px #999999;
@@ -6879,19 +6904,19 @@ label,
   padding: 12px;
 }
 
-/* line 162, ../app/organise/_organise-video.scss */
+/* line 165, ../app/organise/_organise-video.scss */
 .organise-video-delete__controls {
   padding: 24px 24px 48px;
 }
 
-/* line 165, ../app/organise/_organise-video.scss */
+/* line 168, ../app/organise/_organise-video.scss */
 .organise-video-delete__msg {
   font-size: 16px;
   line-height: 1.5;
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* line 170, ../app/organise/_organise-video.scss */
+/* line 173, ../app/organise/_organise-video.scss */
 .organise-video-delete_button {
   position: absolute;
   bottom: 0;
