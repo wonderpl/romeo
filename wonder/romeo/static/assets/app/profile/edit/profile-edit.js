@@ -26,7 +26,9 @@ function ProfileEditCtrl($scope, $location, UserService) {
 
   // @TODO: We should move this into a service or something
   function htmlToPlaintext(text) {
-    return String(text).replace(/<[^>]+>/gm, '');
+    if (text)
+      return String(text).replace(/<[^>]+>/gm, '');
+    return '';
   }
 
   function loadPrivateProfile() {
