@@ -2115,6 +2115,8 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <p ng-bind=\"video.search_keywords\"></p>\n" +
     "\n" +
+    "  <p ng-if=\"isPublished\">Your video has been published!</p>\n" +
+    "\n" +
     "  <p>Your video has been published to: <span ng-bind=\"video.tags.items | commaSeparatedList\"></span></p>\n" +
     "\n" +
     "  <span class=\"btn btn--positive btn--small\">\n" +

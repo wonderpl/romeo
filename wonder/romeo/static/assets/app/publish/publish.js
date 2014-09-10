@@ -39,6 +39,13 @@
       $scope.providers.youtube.isPublished = isPublishedAtYoutube();
       $scope.providers.facebook.isPublished = isPublishedAtFacebook();
       $scope.providers.vimeo.isPublished = isPublishedAtVimeo();
+
+      $scope.isPublished = $scope.providers.wonderpl.isPublished ||
+                            $scope.providers.youtube.isPublished ||
+                            $scope.providers.facebook.isPublished ||
+                            $scope.providers.vimeo.isPublished;
+
+      console.log($scope.isPublished);
     }
 
 

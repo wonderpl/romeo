@@ -13,6 +13,8 @@
 
   <p ng-bind="video.search_keywords"></p>
 
+  <p ng-if="isPublished">Your video has been published!</p>
+
   <p>Your video has been published to: <span ng-bind="video.tags.items | commaSeparatedList"></span></p>
 
   <span class="btn btn--positive btn--small">
