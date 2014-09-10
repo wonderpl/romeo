@@ -49,7 +49,7 @@
         $scope.$watch(
           'video.id',
           function(newValue, oldValue) {
-            if (newValue && newValue !== oldValue) {
+            if (! $scope.flags.isPublic && newValue && newValue !== oldValue) {
               CollaboratorsService.getCollaborators(newValue).success(function (data) {
                 $scope.collaborators = data.collaborator.items;
               });

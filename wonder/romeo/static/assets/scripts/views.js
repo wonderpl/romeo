@@ -1586,7 +1586,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "<div ng-controller=\"VideoCtrl\" class=\"cf\">\n" +
     "\n" +
-    "  <div class=\"video-view__nav-placeholder\" ng-hide=\"collaborator()\">\n" +
+    "  <div class=\"video-view__nav-placeholder\" ng-hide=\"collaborator() || flags.isPublic\">\n" +
     "    <video-navigation is-edit=\"flags.isEdit\" is-review=\"flags.isReview\" is-owner=\"flags.isOwner\" is-comments=\"flags.isComments\" video-id=\"video.id\" video-status=\"video.status\"></video-navigation>\n" +
     "  </div>\n" +
     "\n" +
@@ -1662,7 +1662,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "          <video-share\n" +
     "            video=\"video\"\n" +
     "            has-tags=\"(~ video.tags && video.tags.items && video.tags.items.length > 0 ~)\"\n" +
-    "            ng-hide=\"flags.isComments\"\n" +
+    "            ng-hide=\"flags.isComments || flags.isPublic\"\n" +
     "            video-id=\"(~ video.id ~)\">\n" +
     "          </video-share>\n" +
     "\n" +
@@ -1673,6 +1673,16 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "          <div class=\"video-view__save-controls\" ng-show=\"flags.isEdit\">\n" +
     "            <a ng-click=\"bottomCancel()\" class=\"btn  btn--small\">cancel</a>\n" +
     "            <a ng-click=\"save()\" class=\"btn  btn--small  btn--positive\">save changes</a>\n" +
+    "          </div>\n" +
+    "\n" +
+    "          <div ng-if=\"flags.isPublic\">\n" +
+    "            <p class=\"profile-details__legend f--sans\" ng-if=\"collaborators\">Collaborators:</p>\n" +
+    "            <ul class=\"profile-collaborators\" ng-show=\"collaborators\">\n" +
+    "              <li ng-repeat=\"connection in collaborators\">\n" +
+    "                <a href=\"#/profile/(~ connection.user.id~)\" data-tooltip=\"(~connection.display_name~), (~connection.user.title~)\" class=\"profile-collaborators__link avatar simptip-position-top  simptip-smooth  simptip-movable\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" class=\"avatar__img\" style=\"background-image: url((~connection.avatar || '/static/assets/img/user-avatar.png' ~));\">\n" +
+    "                </a>\n" +
+    "              </li>\n" +
+    "            </ul>\n" +
     "          </div>\n" +
     "\n" +
     "        </section>\n" +
@@ -2045,7 +2055,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<section class=\"public-profile__wrapper\">\n" +
     "\t<ul class=\"public-profile__videos\" ng-show=\"videos\">\n" +
     "\t\t<li ng-repeat=\"item in videos\" class=\"cf t--block t--pad-top--half\">\n" +
-    "        <a ng-href=\"#/video/34489679\" class=\"media non-link\" href=\"#/video/34489679\">\n" +
+    "        <a href=\"#/video/(~item.id~)\" class=\"media non-link\">\n" +
     "          <div class=\"media__img one-third search__thumbnail\">\n" +
     "            <div class=\"ratio  ratio--16x9\">\n" +
     "              <img class=\"ratio__src\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" style=\"background-image : url((~ item.thumbnail ~));\">\n" +

@@ -64,7 +64,8 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
       isOwner: false,
       isEdit: false,
       isReview: false,
-      isComments: false
+      isComments: false,
+      isPublic: false
     };
 
     $scope.videoCurrentTime = 0;
@@ -141,7 +142,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
   $scope.$watch(
     'video.id',
     function(newValue, oldValue) {
-      if (newValue !== '' && newValue !== oldValue) {
+      if (!$scope.flags.isPublic && newValue !== '' && newValue !== oldValue) {
         CommentsService.getComments(newValue).then(function (data) {
           $scope.comments = data.comment.items;
         });
@@ -680,6 +681,42 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
         $scope.showPreviewSelector = true;
         $scope.flags.showUpload = false;
       }
+    }, function (res) {
+      if (res.status == '403') {
+        VideoService.getPublicVideo(id).then(function (res) {
+          $scope.video = res.data;
+          // Fetch collaborators for this video
+          $http.get(res.data.collaborators.href).then(function (res2) {
+            var arr = angular.fromJson(res2.data).collaborator.items;
+            console.log('Public video response: ', arr);
+            for (var i = 0; i < arr.length; ++i) {
+              if (arr[i].owner) {
+                $scope.owner = arr[i];
+                arr.splice(i, 1);
+                break;
+              }
+            }
+            $scope.collaborators = arr;
+            console.log('Public video owner: ', $scope.owner);
+            console.log('Public video collaborators: ', $scope.collaborators);
+          });
+
+          // Set flags
+          $scope.flags.showUpload = false;
+          $scope.flags.hasProcessed = false;
+          $scope.flags.videoHasLoaded = false;
+          $scope.flags.notified = true;
+          $scope.flags.isOwner = false;
+          $scope.flags.isEdit = false;
+          $scope.flags.isReview = false;
+          $scope.flags.isComments = false;
+          $scope.flags.isPublic = true;
+
+          $scope.loadVideo($scope.video.id);
+        });
+      }
+      else
+        console.error('Error fetching video: ', res);
     });
   }
 

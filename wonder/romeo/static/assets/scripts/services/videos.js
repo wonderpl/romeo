@@ -234,6 +234,10 @@ function VideoService ($rootScope, $q, $http, localStorageService, DataService, 
     return DataService.request({ url: '/api/video/' + videoId + '/download_url', method: 'GET', headers : { 'X-HTTP-Status-Override' : 200 }});
   };
 
+  Video.getPublicVideo = function (id) {
+    return $http.get('/api/video/' + id + '?public');
+  };
+
   Video.getPublicVideos = function (id) {
     return $http.get('/api/search?src=video&q=owner_user:' + id);
   };

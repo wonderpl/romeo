@@ -47,7 +47,6 @@ angular.module('RomeoApp.directives')
 
             var comments = getCommentsByTime((newValue < 1) ? 0.0 : newValue);
             var sortedComments = comments.length ? comments.sort(sortById) : [];
-            console.dir(sortedComments);
             if (sortedComments.length > 0) {
               scrollToComment('comment-' + sortedComments[0].id);
             }
@@ -57,7 +56,7 @@ angular.module('RomeoApp.directives')
 
       function getCommentsByTime (time) {
         var filtered = [];
-        var comments = scope.comments;
+        var comments = scope.comments || [];
         var l = comments.length;
         while (l--) {
           if (comments[l].timestamp === time) {

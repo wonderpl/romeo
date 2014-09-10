@@ -1,7 +1,7 @@
 
 <div ng-controller="VideoCtrl" class="cf">
 
-  <div class="video-view__nav-placeholder" ng-hide="collaborator()">
+  <div class="video-view__nav-placeholder" ng-hide="collaborator() || flags.isPublic">
     <video-navigation is-edit="flags.isEdit" is-review="flags.isReview" is-owner="flags.isOwner" is-comments="flags.isComments" video-id="video.id" video-status="video.status"></video-navigation>
   </div>
 
@@ -77,7 +77,7 @@
           <video-share
             video="video"
             has-tags="{{ video.tags && video.tags.items && video.tags.items.length > 0 }}"
-            ng-hide="flags.isComments"
+            ng-hide="flags.isComments || flags.isPublic"
             video-id="{{ video.id }}">
           </video-share>
 
@@ -88,6 +88,16 @@
           <div class="video-view__save-controls" ng-show="flags.isEdit">
             <a ng-click="bottomCancel()" class="btn  btn--small">cancel</a>
             <a ng-click="save()" class="btn  btn--small  btn--positive">save changes</a>
+          </div>
+
+          <div ng-if="flags.isPublic">
+            <p class="profile-details__legend f--sans" ng-if="collaborators">Collaborators:</p>
+            <ul class="profile-collaborators" ng-show="collaborators">
+              <li ng-repeat="connection in collaborators">
+                <a href="#/profile/{{ connection.user.id}}" data-tooltip="{{connection.display_name}}, {{connection.user.title}}" class="profile-collaborators__link avatar simptip-position-top  simptip-smooth  simptip-movable"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img" style="background-image: url({{connection.avatar || '/static/assets/img/user-avatar.png' }});">
+                </a>
+              </li>
+            </ul>
           </div>
 
         </section>
