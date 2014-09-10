@@ -32,6 +32,7 @@
             'RomeoApp.publish',
             'ngRoute',
             'ngCookies',
+            'ngSanitize',
             'angular-medium-editor',
             'angularFileUpload',
             'angulartics',

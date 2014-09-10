@@ -10,6 +10,7 @@ module.exports = function(config) {
       'wonder/romeo/static/bower/angular/angular.js',
       'wonder/romeo/static/bower/angular-route/angular-route.js',
       'wonder/romeo/static/bower/angular-cookies/angular-cookies.js',
+      'wonder/romeo/static/bower/angular-sanitize/angular-sanitize.js',
       'wonder/romeo/static/bower/angular-local-storage/angular-local-storage.js',
       'wonder/romeo/static/bower/angular-mocks/angular-mocks.js',
       'wonder/romeo/static/bower/ng-file-upload/angular-file-upload.min.js',

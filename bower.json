@@ -27,6 +27,7 @@
     "aight": "~1.2.5",
     "angular-route": "~1.2.23",
     "angular-cookies": "~1.2.23",
+    "angular-sanitize": "~1.2.23",
     "angular-local-storage": "~0.0.7",
     "angular-ui-select2": "~0.0.5",
     "jquery.ui": "~1.11.1"
