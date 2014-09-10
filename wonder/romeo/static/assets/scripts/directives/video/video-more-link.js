@@ -26,19 +26,16 @@ angular.module('RomeoApp.directives')
           }
         }
       });
-      $scope.$watch('url', function (newValue, oldValue) {
-        if (newValue && newValue !== oldValue) {
-          if (!newValue.match(/^http[s]?:\/\/.+/i)) {
-            if (newValue.match(/^http[s]?:\/\/$/i)) {
-              $scope.url = '';
-            } else {
-              newValue = 'http://' + newValue;
-            }
-          }
-        }
-      });
 
       $scope.save = function () {
+        if ($scope.url && !$scope.url.match(/^http[s]?:\/\/.+/i)) {
+          if ($scope.url.match(/^http[s]?:\/\/$/i)) {
+            $scope.url = '';
+          }
+          else {
+            $scope.url = 'http://' + $scope.url;
+          }
+        }
         $rootScope.$emit('video-save');
         $scope.showMoreLinkConfigPanel = false;
       };
