@@ -243,11 +243,6 @@ function VideoService ($rootScope, $q, $http, localStorageService, DataService, 
   };
 
   /*
-  * Initialise the service
-  */
-  Video.getAll();
-
-  /*
   * Expose the methods to the service
   */
   return Video;
