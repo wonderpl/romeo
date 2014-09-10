@@ -1875,11 +1875,11 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <div class=\"ratio  ratio--16x9  video-thumb\" ng-hide=\"isList\">\n" +
     "    <ul class=\"nav  nav--block  video-thumb-list\" ng-hide=\"isCollaboration\">\n" +
-    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-href=\"#/video/(~video.id~)/edit\"><i class=\"icon  icon--edit\"></i><span class=\"t--block  t--center\">Edit</span></a></li>\n" +
-    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-href=\"#/video/(~video.id~)/publish\"><i class=\"icon  icon--eye\"></i><span class=\"t--block  t--center\">Publish</span></a></li>\n" +
-    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-click=\"displaySection('comments')\"><i class=\"icon  icon--group\"></i><span class=\"t--block  t--center\">Collaborate</span></a></li>\n" +
+    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-class=\"{'is-disabled' : video.status=='error'}\" href=\"#/video/(~video.id~)/edit\"><i class=\"icon  icon--edit\"></i><span class=\"t--block  t--center\">Edit</span></a></li>\n" +
+    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-class=\"{'is-disabled' : video.status=='error'}\" href=\"#/video/(~video.id~)/publish\"><i class=\"icon  icon--eye\"></i><span class=\"t--block  t--center\">Publish</span></a></li>\n" +
+    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-class=\"{'is-disabled' : video.status=='error'}\" ng-click=\"displaySection('comments')\"><i class=\"icon  icon--group\"></i><span class=\"t--block  t--center\">Collaborate</span></a></li>\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link is-disabled\"><i class=\"icon  icon--bar-graph\"></i><span class=\"t--block  t--center\">Stats</span></a></li>\n" +
-    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-click=\"addRemove(video)\"><i class=\"icon  icon--collection\"></i><span class=\"t--block  t--center\">Add / Remove</span></a></li>\n" +
+    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-class=\"{'is-disabled' : video.status=='error'}\" ng-click=\"addRemove(video)\"><i class=\"icon  icon--collection\"></i><span class=\"t--block  t--center\">Add / Remove</span></a></li>\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-click=\"showDelete(video)\"><i class=\"icon  icon--trash\"></i><span class=\"t--block  t--center\">Delete</span></a></l>\n" +
     "    </ul>\n" +
     "    <a ng-href=\"#/video/(~video.id~)\">\n" +
@@ -2055,7 +2055,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<section class=\"public-profile__wrapper\">\n" +
     "\t<ul class=\"public-profile__videos\" ng-show=\"videos\">\n" +
     "\t\t<li ng-repeat=\"item in videos\" class=\"cf t--block t--pad-top--half\">\n" +
-    "        <a href=\"#/video/(~item.id~)\" class=\"media non-link\">\n" +
+    "        <a ng-href=\"#/video/34489679\" class=\"media non-link\" href=\"#/video/34489679\">\n" +
     "          <div class=\"media__img one-third search__thumbnail\">\n" +
     "            <div class=\"ratio  ratio--16x9\">\n" +
     "              <img class=\"ratio__src\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" style=\"background-image : url((~ item.thumbnail ~));\">\n" +

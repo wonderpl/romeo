@@ -1,6 +1,9 @@
 .organise-video {
   @extend .cf;
 
+  .is-disabled {
+    pointer-events: none;
+  }
 }
 .video-thumb-wrapper .status {
   position: absolute;
