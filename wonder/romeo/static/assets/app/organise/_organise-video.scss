@@ -5,17 +5,21 @@
 .video-thumb-wrapper .status {
   position: absolute;
   width: 100%;
-  text-align: center;
-  margin: -0.5em 0 0;
+  margin: -1em 0 0;
   top: 50%;
   left: 0;
   font-size: .8em;
-  line-height: 1em;
   font-weight: 800;
   text-transform: uppercase;
   font-family: $heading-font-family;
-  color: $base-color-ui;
-  text-shadow: 1px 1px 0px $base-color-ui-dark;
+  color: #fff;
+  text-align: center;
+
+  span {
+    padding: 6px 8px;
+    border-radius: 6px;
+    background-color: rgba(0,0,0,.6);
+  }
 }
 
 .organise-video__title {

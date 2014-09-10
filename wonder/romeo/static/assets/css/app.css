@@ -6715,20 +6715,24 @@ label,
 .video-thumb-wrapper .status {
   position: absolute;
   width: 100%;
-  text-align: center;
-  margin: -0.5em 0 0;
+  margin: -1em 0 0;
   top: 50%;
   left: 0;
   font-size: .8em;
-  line-height: 1em;
   font-weight: 800;
   text-transform: uppercase;
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #b7bcbd;
-  text-shadow: 1px 1px 0px #70797b;
+  color: #fff;
+  text-align: center;
+}
+/* line 18, ../app/organise/_organise-video.scss */
+.video-thumb-wrapper .status span {
+  padding: 6px 8px;
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
-/* line 21, ../app/organise/_organise-video.scss */
+/* line 25, ../app/organise/_organise-video.scss */
 .organise-video__title {
   margin-bottom: 12px;
   font-weight: 800;
@@ -6740,18 +6744,18 @@ label,
   border: none;
 }
 
-/* line 32, ../app/organise/_organise-video.scss */
+/* line 36, ../app/organise/_organise-video.scss */
 .organise-video__link {
   display: block;
   color: #ffffff;
 }
 
-/* line 37, ../app/organise/_organise-video.scss */
+/* line 41, ../app/organise/_organise-video.scss */
 .organise-video__link:hover {
   text-decoration: underline;
 }
 
-/* line 41, ../app/organise/_organise-video.scss */
+/* line 45, ../app/organise/_organise-video.scss */
 .organise-video__controls-container {
   display: block;
   height: 122px;
@@ -6761,7 +6765,7 @@ label,
   background-size: cover;
 }
 
-/* line 50, ../app/organise/_organise-video.scss */
+/* line 54, ../app/organise/_organise-video.scss */
 .organise-video__overlay {
   position: relative;
   height: 100%;
@@ -6770,12 +6774,12 @@ label,
   opacity: 0;
 }
 
-/* line 58, ../app/organise/_organise-video.scss */
+/* line 62, ../app/organise/_organise-video.scss */
 .organise-video__overlay:hover {
   opacity: 1;
 }
 
-/* line 62, ../app/organise/_organise-video.scss */
+/* line 66, ../app/organise/_organise-video.scss */
 .organise-video__controls-mask {
   transition: opacity 0.4s linear;
   display: block;
@@ -6788,7 +6792,7 @@ label,
   opacity: 0.6;
 }
 
-/* line 74, ../app/organise/_organise-video.scss */
+/* line 78, ../app/organise/_organise-video.scss */
 .organise-video__controls {
   display: block;
   position: absolute;
@@ -6798,62 +6802,62 @@ label,
   width: 100%;
 }
 
-/* line 83, ../app/organise/_organise-video.scss */
+/* line 87, ../app/organise/_organise-video.scss */
 .organise-video__controls:hover {
   cursor: pointer;
 }
 
-/* line 87, ../app/organise/_organise-video.scss */
+/* line 91, ../app/organise/_organise-video.scss */
 .organise-video__inline-controls {
   float: left;
   margin-bottom: 0;
   margin-right: 24px;
 }
-/* line 92, ../app/organise/_organise-video.scss */
+/* line 96, ../app/organise/_organise-video.scss */
 .organise-video__inline-controls > li + li {
   margin-left: 6px;
 }
 
-/* line 97, ../app/organise/_organise-video.scss */
+/* line 101, ../app/organise/_organise-video.scss */
 .organise-video__inline-link {
   color: #2e2e32;
   border: 0;
 }
-/* line 101, ../app/organise/_organise-video.scss */
+/* line 105, ../app/organise/_organise-video.scss */
 .organise-video__inline-link.is-disabled {
   opacity: 0.5;
   cursor: not-allowed !important;
 }
-/* line 106, ../app/organise/_organise-video.scss */
+/* line 110, ../app/organise/_organise-video.scss */
 .organise-video__inline-link:hover {
   color: #b7bcbd;
 }
 
-/* line 113, ../app/organise/_organise-video.scss */
+/* line 117, ../app/organise/_organise-video.scss */
 .organise-video__inline-title {
   font-weight: 800;
 }
 
-/* line 117, ../app/organise/_organise-video.scss */
+/* line 121, ../app/organise/_organise-video.scss */
 .organise-video__inline-control {
   display: inline-block;
 }
-/* line 120, ../app/organise/_organise-video.scss */
+/* line 124, ../app/organise/_organise-video.scss */
 .organise-video__inline-control + .organise-video__inline-control {
   margin-left: 4px;
 }
 
-/* line 125, ../app/organise/_organise-video.scss */
+/* line 129, ../app/organise/_organise-video.scss */
 .organise-video__inline-link {
   display: block;
 }
 
-/* line 129, ../app/organise/_organise-video.scss */
+/* line 133, ../app/organise/_organise-video.scss */
 .organise-video__inline-link:hover {
   cursor: pointer;
 }
 
-/* line 133, ../app/organise/_organise-video.scss */
+/* line 137, ../app/organise/_organise-video.scss */
 .organise-video-delete {
   max-width: 700px;
   margin: 0 auto;
@@ -6862,17 +6866,17 @@ label,
   background: #ffffff;
   font-size: 1em;
 }
-/* line 142, ../app/organise/_organise-video.scss */
+/* line 146, ../app/organise/_organise-video.scss */
 .organise-video-delete .media__img {
   float: left;
   margin-right: 24px;
 }
-/* line 146, ../app/organise/_organise-video.scss */
+/* line 150, ../app/organise/_organise-video.scss */
 .organise-video-delete .media__body {
   overflow: hidden;
 }
 
-/* line 151, ../app/organise/_organise-video.scss */
+/* line 155, ../app/organise/_organise-video.scss */
 .organise-video-delete__title {
   font-size: 1em;
   border-bottom: solid 1px #999;
@@ -6880,19 +6884,19 @@ label,
   padding: 12px;
 }
 
-/* line 158, ../app/organise/_organise-video.scss */
+/* line 162, ../app/organise/_organise-video.scss */
 .organise-video-delete__controls {
   padding: 24px 24px 48px;
 }
 
-/* line 161, ../app/organise/_organise-video.scss */
+/* line 165, ../app/organise/_organise-video.scss */
 .organise-video-delete__msg {
   font-size: 16px;
   line-height: 1.5;
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* line 166, ../app/organise/_organise-video.scss */
+/* line 170, ../app/organise/_organise-video.scss */
 .organise-video-delete_button {
   position: absolute;
   bottom: 0;
