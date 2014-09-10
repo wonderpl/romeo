@@ -7,9 +7,9 @@
     {{ text ? text : 'Add a link (optional) &hellip;' }}
   </a>
 
-  <a class="video-more__link btn  btn--positive" href="{{ url }}" ng-hide="isEdit">{{ text }}</a>
+  <a class="video-more__link btn  btn--positive" href="{{ url }}" target="_new" ng-if="isEdit == 'false'">{{ text }}</a>
 
-  <section class="video-more__form" ng-class="{ 'video-more__form--active' : showMoreLinkConfigPanel }" ng-show="isEdit">
+  <section class="video-more__form" ng-class="{ 'video-more__form--active' : showMoreLinkConfigPanel }" ng-if="isEdit">
 
     <section class="video-more__controls-container">
 

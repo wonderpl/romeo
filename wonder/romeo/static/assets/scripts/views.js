@@ -1380,9 +1380,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    (~ text ? text : 'Add a link (optional) &hellip;' ~)\n" +
     "  </a>\n" +
     "\n" +
-    "  <a class=\"video-more__link btn  btn--positive\" href=\"(~ url ~)\" ng-hide=\"isEdit\">(~ text ~)</a>\n" +
+    "  <a class=\"video-more__link btn  btn--positive\" href=\"(~ url ~)\" target=\"_new\" ng-if=\"isEdit == 'false'\">(~ text ~)</a>\n" +
     "\n" +
-    "  <section class=\"video-more__form\" ng-class=\"{ 'video-more__form--active' : showMoreLinkConfigPanel }\" ng-show=\"isEdit\">\n" +
+    "  <section class=\"video-more__form\" ng-class=\"{ 'video-more__form--active' : showMoreLinkConfigPanel }\" ng-if=\"isEdit\">\n" +
     "\n" +
     "    <section class=\"video-more__controls-container\">\n" +
     "\n" +
@@ -1650,13 +1650,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "            medium-editor\n" +
     "            options=\"{ buttons : ['bold', 'italic', 'header1', 'header2', 'unorderedlist', 'quote'], firstHeader : 'h2', secondHeader : 'h3' }\"\n" +
     "            ng-model=\"video.description\"\n" +
-    "            ng-show=\"flags.isEdit\">\n" +
+    "            ng-if=\"flags.isEdit\">\n" +
     "          </section>\n" +
     "\n" +
     "          <section\n" +
     "            class=\"video-view__description video-medium\"\n" +
     "            ng-bind-html=\"video.description\"\n" +
-    "            ng-hide=\"flags.isComments || flags.isEdit\">\n" +
+    "            ng-if=\"!flags.isComments && !flags.isEdit\">\n" +
     "          </section>\n" +
     "\n" +
     "          <video-share\n" +
@@ -1666,7 +1666,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "            video-id=\"(~ video.id ~)\">\n" +
     "          </video-share>\n" +
     "\n" +
-    "          <video-extended-controls ng-show=\"flags.isEdit\" collaborators=\"collaborators\"></video-extended-controls>\n" +
+    "          <video-extended-controls ng-if=\"flags.isEdit\" collaborators=\"collaborators\"></video-extended-controls>\n" +
     "\n" +
     "          <video-download video-id=\"video.id\" ng-show=\"video.id && collaborator() && canDownload\"></video-download>\n" +
     "\n" +

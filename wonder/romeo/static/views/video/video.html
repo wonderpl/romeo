@@ -65,13 +65,13 @@
             medium-editor
             options="{ buttons : ['bold', 'italic', 'header1', 'header2', 'unorderedlist', 'quote'], firstHeader : 'h2', secondHeader : 'h3' }"
             ng-model="video.description"
-            ng-show="flags.isEdit">
+            ng-if="flags.isEdit">
           </section>
 
           <section
             class="video-view__description video-medium"
             ng-bind-html="video.description"
-            ng-hide="flags.isComments || flags.isEdit">
+            ng-if="!flags.isComments && !flags.isEdit">
           </section>
 
           <video-share
@@ -81,7 +81,7 @@
             video-id="{{ video.id }}">
           </video-share>
 
-          <video-extended-controls ng-show="flags.isEdit" collaborators="collaborators"></video-extended-controls>
+          <video-extended-controls ng-if="flags.isEdit" collaborators="collaborators"></video-extended-controls>
 
           <video-download video-id="video.id" ng-show="video.id && collaborator() && canDownload"></video-download>
 

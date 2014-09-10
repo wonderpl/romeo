@@ -5387,7 +5387,7 @@ label,
 /* line 64, ../../scss/specifics/video/_video-view.scss */
 .video-view__description {
   width: 600px;
-  margin: 0 auto;
+  margin: 0 auto 24px;
   overflow: auto;
 }
 
