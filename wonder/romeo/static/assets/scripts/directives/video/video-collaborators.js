@@ -19,7 +19,10 @@
         $scope.select2Options = {
           width: '100%',
           multiple: true,
-          minimumInputLength: 3
+          minimumInputLength: 3,
+          formatInputTooShort: function () {
+            return "Type the email address or name of someone to invite";
+          },
         };
 
         $scope.sendInvitations = function () {
