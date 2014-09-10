@@ -18,21 +18,17 @@
 
 <div>
   {% if recipient.is_initiator %}
-  <b>{{ sender.display_name }}</b> has accepted your invitation to connect with them.
+  Great news! {{ sender.display_name }} has accepted your invitation to connect on Wonder.
   {% else %}
-  You have accepted an invitation to connect from <b>{{ sender.display_name }}</b>.
+  You have accepted an invitation to connect from {{ sender.display_name }}.
   {% endif %}
 </div>
 <br>
 
 <div>
-  Here's their email address, so you can contact them directly. They have also been sent your email address.
-</div>
-<br><br>
-
-<div>
-  {{ sender.email }}
+  Here's their email address, so you can contact them directly, {{ sender.email }}. They have also been sent your email address.
 </div>
 <br>
 
+<em style="font-style:italic">&mdash;Wonder PL</em><br><br>
 {% endblock %}
