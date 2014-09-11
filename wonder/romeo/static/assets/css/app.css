@@ -2373,49 +2373,9 @@ li > ol {
 /**
  * _components.global-nav-menu.scss
  */
-/* line 4, ../../scss/_components/_components.global-nav-menu.scss */
-.global-nav-menu {
-  list-style: none;
-  margin-left: 0;
-  border: 0;
-}
-/* line 9, ../../scss/_components/_components.global-nav-menu.scss */
-.global-nav-menu > li {
-  padding: 0;
-  border: 0;
-}
-
-/* line 14, ../../scss/_components/_components.global-nav-menu.scss */
-.global-nav-menu__item {
-  display: list-item;
-}
-
-/* line 17, ../../scss/_components/_components.global-nav-menu.scss */
-.global-nav-menu__link {
-  font-weight: 200;
-  font-size: 0.875em;
-  line-height: 2.5;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #fff;
-  border: none;
-}
-/* line 25, ../../scss/_components/_components.global-nav-menu.scss */
-.global-nav-menu__link:hover, .global-nav-menu__link:active {
-  color: rgba(255, 255, 255, 0.5);
-}
-
 /**
  * _components.global-nav-core-actions.scss
  */
-/* line 4, ../../scss/_components/_components.global-nav-core-actions.scss */
-.global-nav-core-actions {
-  margin-bottom: 24px;
-}
-/* line 7, ../../scss/_components/_components.global-nav-core-actions.scss */
-.global-nav-core-actions > li + li {
-  margin-left: 12px;
-}
-
 /**
  * _components.avatars.scss
  */
@@ -7712,7 +7672,7 @@ label,
   backface-visibility: hidden;
 }
 
-/* line 50, ../common/directives/_global-navigation.scss */
+/* line 48, ../common/directives/_global-navigation.scss */
 .js-nav--3dtransitions .container {
   -moz-transition: -moz-transform 0.15s ease;
   -o-transition: -o-transform 0.15s ease;
@@ -7721,7 +7681,7 @@ label,
   -webkit-transform: initial;
   transform: initial;
 }
-/* line 56, ../common/directives/_global-navigation.scss */
+/* line 54, ../common/directives/_global-navigation.scss */
 .js-nav--3dtransitions .global-nav-wrapper {
   -moz-transition: -moz-transform 0.15s ease;
   -o-transition: -o-transform 0.15s ease;
@@ -7735,11 +7695,11 @@ label,
   backface-visibility: hidden;
 }
 
-/* line 62, ../common/directives/_global-navigation.scss */
+/* line 59, ../common/directives/_global-navigation.scss */
 .js-nav {
   overflow: hidden;
 }
-/* line 65, ../common/directives/_global-navigation.scss */
+/* line 62, ../common/directives/_global-navigation.scss */
 .js-nav .container {
   -moz-transition: -moz-transform 0.15s ease;
   -o-transition: -o-transform 0.15s ease;
@@ -7753,7 +7713,7 @@ label,
   backface-visibility: hidden;
   pointer-events: none;
 }
-/* line 70, ../common/directives/_global-navigation.scss */
+/* line 67, ../common/directives/_global-navigation.scss */
 .js-nav .global-nav-wrapper {
   -moz-transition: -moz-transform 0.15s ease;
   -o-transition: -o-transform 0.15s ease;
@@ -7766,4 +7726,45 @@ label,
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   width: 100%;
+}
+
+/* line 77, ../common/directives/_global-navigation.scss */
+.global-nav-menu {
+  list-style: none;
+  margin-left: 0;
+  border: 0;
+}
+/* line 82, ../common/directives/_global-navigation.scss */
+.global-nav-menu > li {
+  padding: 0;
+  border: 0;
+}
+
+/* line 87, ../common/directives/_global-navigation.scss */
+.global-nav-menu__item {
+  display: list-item;
+}
+
+/* line 90, ../common/directives/_global-navigation.scss */
+.global-nav-menu__text, .global-nav-menu__link {
+  font-weight: 200;
+  font-size: 0.875em;
+  line-height: 2.5;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #fff;
+  border: none;
+}
+
+/* line 100, ../common/directives/_global-navigation.scss */
+.global-nav-menu__link:hover, .global-nav-menu__link:active {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* line 106, ../common/directives/_global-navigation.scss */
+.global-nav-core-actions {
+  margin-bottom: 24px;
+}
+/* line 109, ../common/directives/_global-navigation.scss */
+.global-nav-core-actions > li + li {
+  margin-left: 12px;
 }

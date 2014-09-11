@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  function globalNavigation($templateCache, UserService, SecurityService) {
+  function globalNavigation($templateCache, UserService, SecurityService, UploadService) {
     return {
       restrict : 'E',
       replace : true,
@@ -10,38 +10,27 @@
       },
       controller: function ($scope) {
         function init() {
-          var fullPageList = [
-            {title: 'Upload a Video', url: '#/video', requireContentOwner: true},
-            {title: '* Uploads in progress', url: '#/video', requireContentOwner: true},
-            {title: '* Stats', url: '#/organise', requireContentOwner: true},
-            {title: 'Manage', url: '#/organise'},
-            {title: 'Search', url: '#/search'},
-            {title: '* Settings', url: '#/profile'}
-          ];
+          $scope.isUploading = false;
+
           if (SecurityService.isAuthenticated()) {
             setAccountData(UserService.getUser());
           }
-          if (SecurityService.isCollaborator()) {
-            var smallerList = [];
-            for(var i = 0; i < fullPageList.length; ++i) {
-              if (! fullPageList[i].requireContentOwner)
-                smallerList[smallerList.length] = fullPageList[i];
-            }
-            fullPageList = smallerList;
-          }
-          $scope.pages = $scope.pages || fullPageList;
-
+          $scope.$watch(UploadService.isUploading, function (newValue, oldValue) {
+            if (newValue !== oldValue)
+              $scope.isUploading = newValue;
+          });
+          $scope.$watch(UserService.getUser, function (newValue, oldValue) {
+            if (newValue !== oldValue)
+              setAccountData(newValue);
+          }, true);
+          $scope.logout = function () {
+            SecurityService.logout();
+          };
         }
         function setAccountData(data) {
            var avatar = (data) ? data.avatar : null;
         $scope.profileStyle = { 'background-image' : 'url(' + (avatar || '/static/assets/img/user-avatar.png') + ')' };
         }
-        $scope.$watch(function () {
-          return UserService.getUser();
-        }, function (newValue, oldValue) {
-          if (newValue !== oldValue)
-            setAccountData(newValue);
-        }, true);
         init();
       },
       link: function($scope, $element, $attrs) {
@@ -52,5 +41,5 @@
       }
     };
   }
-  angular.module('RomeoApp.directives').directive('globalNavigation', ['$templateCache', 'UserService', 'SecurityService', globalNavigation]);
+  angular.module('RomeoApp.directives').directive('globalNavigation', ['$templateCache', 'UserService', 'SecurityService', 'UploadService', globalNavigation]);
 })();

@@ -2454,17 +2454,20 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "     --><li class=\"global-nav-core-actions__item\"><a ng-click=\"logout()\" class=\"global-nav-core-actions__link  btn  btn--blob  btn--light  simptip-position-bottom  simptip-smooth  simptip-movable\" title=\"Sign out from Wonder Place.\" data-tooltip=\"Sign out from Wonder Place.\"><i class=\"icon  icon--exit\"></i></a></li>\n" +
     "      </ul>\n" +
     "      <ul class=\"list-ui  global-nav-menu\">\n" +
+    "        <li class=\"global-nav-menu__item\"><a href=\"#/search\" class=\"global-nav-menu__link  icon-text\"><i class=\"icon  icon--search  icon-text__icon\"></i>Search</a></li>\n" +
+    "        <li class=\"global-nav-menu__item\"><a href=\"#/video\" class=\"global-nav-menu__link  icon-text\"><i class=\"icon  icon--folder  icon-text__icon\"></i>(~isUploading ? 'Uploads in Progress' : 'Upload a Video'~)</a></li>\n" +
     "        <li class=\"global-nav-menu__item\"><a href=\"#/\" title=\"Manage and organize your video library.\" class=\"global-nav-menu__link  icon-text\"><i class=\"icon  icon--layout  icon-text__icon\"></i>Organize</a></li>\n" +
-    "        <li ng-repeat=\"page in pages\" class=\"global-nav-menu__item\"><a href=\"(~ page.url ~)\" class=\"global-nav-menu__link  icon-text\"><i class=\"icon  icon--folder  icon-text__icon\"></i>(~ page.title ~)</a></li>\n" +
+    "        <li class=\"global-nav-menu__item\"><a href=\"#/\" class=\"global-nav-menu__link  icon-text\"><i class=\"icon  icon--pie-graph icon-text__icon\"></i>Stats</a></li>\n" +
     "      </ul>\n" +
     "      <ul class=\"list-ui  global-nav-menu\">\n" +
-    "        <li class=\"global-nav-menu__item\"><a href=\"#/tour\" title=\"Let us show you what Wonder Place has to offer.\" class=\"global-nav-menu__link\">Take a tour</a></li>\n" +
-    "        <li class=\"global-nav-menu__item\"><a href=\"#/login/upgrade\" title=\"Get access to premium features by upgrading your account.\" class=\"global-nav-menu__link\">Upgrade account</a></li>\n" +
+    "        <li class=\"global-nav-menu__item\"><a href=\"#/faq\" class=\"global-nav-menu__link\">FAQs</a></li>\n" +
+    "        <!-- li class=\"global-nav-menu__item\"><a href=\"#/login/upgrade\" title=\"Get access to premium features by upgrading your account.\" class=\"global-nav-menu__link\">Upgrade account</a></li -->\n" +
     "        <li class=\"global-nav-menu__item\"><a href=\"mailto:support@wonderpl.com\" title=\"We're here to help.\" class=\"global-nav-menu__link\">Support</a></li>\n" +
-    "        <li class=\"global-nav-menu__item\"><a href=\"#/about\" title=\"Who are we, and why are we here?\" class=\"global-nav-menu__link\">About</a></li>\n" +
     "        <li class=\"global-nav-menu__item\"><a href=\"#/tands\" title=\"The Wonder Place Terms of Service.\" class=\"global-nav-menu__link\">Terms of service</a></li>\n" +
     "        <li class=\"global-nav-menu__item\"><a href=\"#/privacy-policy\" title=\"The Wonder Place Privary Policy.\" class=\"global-nav-menu__link\">Privacy policy</a></li>\n" +
+    "        <li class=\"global-nav-menu__item\"><a href=\"#/about\" title=\"Who are we, and why are we here?\" class=\"global-nav-menu__link\">About</a></li>\n" +
     "      </ul>\n" +
+    "      <p class=\"global-nav-menu__text\">&copy; Copyright 2014</p>\n" +
     "    </div>\n" +
     "  </nav>\n" +
     "</div>"
