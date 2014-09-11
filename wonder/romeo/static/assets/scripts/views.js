@@ -985,7 +985,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </a>\n" +
     "    <upload-progress ng-if=\"isLoggedIn() && isUploading()\"></upload-progress>\n" +
     "    <ul class=\"nav  nav-menu\" ng-if=\"isLoggedIn()\">\n" +
-    "      <li class=\"nav-menu__item\" ng-if=\"isCreator()\"><a href=\"#/video\" class=\"nav-menu__link\">Upload</a></li>\n" +
+    "      <li class=\"nav-menu__item\" ng-if=\"isContentOwner()\"><a href=\"#/video\" class=\"nav-menu__link\">Upload</a></li>\n" +
     "      <li class=\"nav-menu__item\"><a href=\"#/profile\" class=\"nav-menu__link  avatar  avatar--small\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"(~ display_name ~)\" class=\"avatar__img\" ng-style=\"profileStyle\"></a></li>\n" +
     "    </ul>\n" +
     "  </nav>\n" +
@@ -1721,6 +1721,21 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('login/upgrade/upgrade.tmpl.html',
+    "<div>\n" +
+    "    <h2>One moment please...</h2>\n" +
+    "    <p>...We are upgrading your account to give you creator status.\n" +
+    "    As a creator, you can upload videos, invite people to comment on edits and publish your work.\n" +
+    "    These features are free as we work through our Beta test. Whilst we may, in the future, charge to upgrade, for now we want you to have access to everything available and to hear what you think.\n" +
+    "    Please do take a moment to send us your feedback to beta@wonderpl.com.</p>\n" +
+    "    <ul>\n" +
+    "        <li><a href=\"#/organise/collaboration\" class=\"btn btn--negative\">Cancel</a></li>\n" +
+    "        <li><a ng-click=\"upgrade()\" class=\"btn btn--primary\">Upgrade</a></li>\n" +
+    "    </ul>\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('organise/organise-breadcrumb.tmpl.html',
     "<ol class=\"nav  page-breadcrumbs\">\n" +
     "  <li class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title\">All Videos</span></li>\n" +
@@ -2100,6 +2115,21 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('publish/publish.tmpl.html',
+    "<section class=\"sub-navigation\">\n" +
+    "  <div class=\"wrapper\">\n" +
+    "    <ul class=\"sub-navigation__modes\">\n" +
+    "      <li class=\"sub-navigation__mode\">\n" +
+    "        <a href=\"#\" class=\"sub-navigation__link  btn  btn--utility  icon-text\"><i class=\"icon  icon--edit  icon-text__icon\"></i>Edit</a>\n" +
+    "      </li>\n" +
+    "      <li class=\"sub-navigation__mode\">\n" +
+    "        <a href=\"#\" class=\"sub-navigation__link  sub-navigation__link--active  btn  btn--utility  icon-text\"><i class=\"icon  icon--eye  icon-text__icon\"></i>Publish</a>\n" +
+    "      </li>\n" +
+    "      <li class=\"sub-navigation__mode\">\n" +
+    "        <a href=\"#\" class=\"sub-navigation__link  btn  btn--utility  icon-text\"><i class=\"icon  icon--speech-bubble  icon-text__icon\"></i>Collaborate</a>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </div>\n" +
+    "</section>\n" +
     "<section class=\"page-section\">\n" +
     "  <div class=\"wrapper  wrapper--fixed\">\n" +
     "\n" +
@@ -2395,7 +2425,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      </ul>\n" +
     "      <ul class=\"list-ui  global-nav-menu\">\n" +
     "        <li class=\"global-nav-menu__item\"><a href=\"#/tour\" title=\"Let us show you what Wonder Place has to offer.\" class=\"global-nav-menu__link\">Take a tour</a></li>\n" +
-    "        <li class=\"global-nav-menu__item\"><a href=\"#/upgrade\" title=\"Get access to premium features by upgrading your account.\" class=\"global-nav-menu__link\">Upgrade account</a></li>\n" +
+    "        <li class=\"global-nav-menu__item\"><a href=\"#/login/upgrade\" title=\"Get access to premium features by upgrading your account.\" class=\"global-nav-menu__link\">Upgrade account</a></li>\n" +
     "        <li class=\"global-nav-menu__item\"><a href=\"mailto:support@wonderpl.com\" title=\"We're here to help.\" class=\"global-nav-menu__link\">Support</a></li>\n" +
     "        <li class=\"global-nav-menu__item\"><a href=\"#/about\" title=\"Who are we, and why are we here?\" class=\"global-nav-menu__link\">About</a></li>\n" +
     "        <li class=\"global-nav-menu__item\"><a href=\"#/tands\" title=\"The Wonder Place Terms of Service.\" class=\"global-nav-menu__link\">Terms of service</a></li>\n" +

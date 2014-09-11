@@ -72,17 +72,6 @@
                     originalUrl = $location.url();
                 $location.url(url || '/login');
             },
-            requireOnlyFromRoute: function () {
-                debug.info('service require requireOnlyFromRoute');
-                if (! service.isAuthenticated() ) {
-                    _loginCheck();
-                } else {
-                    $timeout(function () {
-                        checkingLogin.response.resolve(currentUser);
-                    }, 1);
-                }
-                return checkingLogin.response.promise;
-            },
             requireAuthenticated: function () {
                 debug.info('service require authenticated', service.isAuthenticated());
 
@@ -120,32 +109,30 @@
                 }
                 return deferred.promise;
             },
-            requireCreator: function () {
+            requireContentOwner: function () {
                 var deferred = new $q.defer();
                 var msg = 'You need to pay for that';
                 service.requireAuthenticated();
                 if (checkingLogin.request) {
                     checkingLogin.response.promise.then(function (res) {
-                        if (service.isCreator()) {
+                        if (service.isContentOwner()) {
                             deferred.resolve();
                         }
                         else {
                             if (service.isAuthenticated()) {
-                                // @TODO: If the user isn't a creator but a valid user show modal
-                                alert(msg);
+                                service.redirect('/login/upgrade');
                             }
                             deferred.reject();
                         }
                     });
                 }
                 else {
-                    if (service.isCreator()) {
+                    if (service.isContentOwner()) {
                         deferred.resolve();
                     }
                     else {
                         if (service.isAuthenticated()) {
-                            // @TODO: If the user isn't a creator but a valid user show modal
-                            alert(msg);
+                            service.redirect('/login/upgrade');
                         }
                         deferred.reject();
                     }
@@ -156,14 +143,13 @@
             isAuthenticated: function () {
               return (currentUser !== null);
             },
-            // Is the current user an collaborator or better?
-            // All logged in users are at least collaborators
+            // Is the current user an collaborator
+            // Content owners are NOT collaborators
             isCollaborator: function () {
-              // @TODO: This is should be for account_type collaborator; not !content_owner
-              return (service.isAuthenticated() && !angular.equals(currentAccount.account_type, 'content_owner'));
+              return (service.isAuthenticated() && angular.equals(currentAccount.account_type, 'collaborator'));
             },
             // Is the current user an creator?
-            isCreator: function () {
+            isContentOwner: function () {
               return (service.isAuthenticated() && angular.equals(currentAccount.account_type, 'content_owner'));
             },
             // Is the current users registration complete (for twitter users)?
@@ -259,20 +245,19 @@
         requireCollaborator: ['securityAuthorization', function (securityAuthorization) {
             return securityAuthorization.requireCollaborator();
           }],
-        requireCreator: ['securityAuthorization', function (securityAuthorization) {
-            return securityAuthorization.requireCreator();
+        requireContentOwner: ['securityAuthorization', function (securityAuthorization) {
+            return securityAuthorization.requireContentOwner();
           }],
 
           $get: ['SecurityService', function (security) {
             var service = {
-
               // Require that there is an authenticated user
               // (use this in a route resolve to prevent non-authenticated users from entering that route)
               requireAuthenticated: function () {
                 return security.requireAuthenticated();
               },
 
-              // Require that there is an authenticated user
+              // Require that there is an collaborator, this will not allow content owner in
               // (use this in a route resolve to prevent non-authenticated users from entering that route)
               requireCollaborator: function () {
                 return security.requireCollaborator();
@@ -280,8 +265,8 @@
 
               // Require that there is an creator logged in
               // (use this in a route resolve to prevent non-creators from entering that route)
-              requireCreator: function () {
-                return security.requireCreator();
+              requireContentOwner: function () {
+                return security.requireContentOwner();
               }
 
             };

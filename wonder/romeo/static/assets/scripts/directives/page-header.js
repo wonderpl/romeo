@@ -18,8 +18,8 @@ function PageHeaderDirective ($templateCache, $timeout, SecurityService, UserSer
           setAccountValues(newValue);
         }
       }, true);
-      $scope.isCreator = function () {
-        return SecurityService.isCreator();
+      $scope.isContentOwner = function () {
+        return SecurityService.isContentOwner();
       };
       $scope.isLoggedIn = function () {
         return SecurityService.isAuthenticated();

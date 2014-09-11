@@ -71,7 +71,6 @@ angular.module('RomeoApp.directives')
       }
 
       function scrollToComment (id) {
-        console.log(element.find('#' + id).position().top);
         var container  = element.find('.video-feedback__comments-list').attr('id');
         var oldScrollTop = element.find('#' + container).scrollTop(); // Get current scroll position
         var pos = 0;

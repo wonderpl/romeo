@@ -1,9 +1,9 @@
 angular
   .module('RomeoApp.services')
-  .factory('modal', ['$compile', '$sanitize', '$templateCache', '$timeout', ModalService]);
+  .factory('modal', ['$compile', '$templateCache', '$timeout', ModalService]);
 
 
-function ModalService ($compile, $sanitize, $templateCache, $timeout) {
+function ModalService ($compile, $templateCache, $timeout) {
 
   'use strict';
 
@@ -87,9 +87,9 @@ function ModalService ($compile, $sanitize, $templateCache, $timeout) {
           var $scp = angular.extend(scope.$new(), {
               data: angular.extend({}, obj)
           });
-          compiledTemplate = $compile($sanitize(template))($scp);
+          compiledTemplate = $compile(template)($scp);
       } else {
-          compiledTemplate = $compile($sanitize(template))(scope);
+          compiledTemplate = $compile(template)(scope);
       }
 
       $el.html('');

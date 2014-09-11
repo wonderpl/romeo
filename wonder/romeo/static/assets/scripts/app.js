@@ -63,7 +63,7 @@
         $routeProvider.when('/video', {
             templateUrl: 'video.html',
             controller: 'MainCtrl',
-            resolve: securityAuthorizationProvider.requireCreator
+            resolve: securityAuthorizationProvider.requireContentOwner
         });
 
         // Videos
@@ -84,7 +84,7 @@
         $routeProvider.when('/video/:id/edit', {
             templateUrl: 'video.html',
             controller: 'MainCtrl',
-            resolve: securityAuthorizationProvider.requireCreator
+            resolve: securityAuthorizationProvider.requireContentOwner
         });
 
         $routeProvider.when('/faq', {
@@ -128,7 +128,7 @@
             templateUrl: 'login.html'
         });
 
-        $routeProvider.when('/twitter-login', {
+        $routeProvider.when('/login/twitter', {
             controller: 'TwitterLoginCtrl',
             templateUrl: 'twitter-login.html'
         });
@@ -136,6 +136,12 @@
         $routeProvider.when('/signup', {
             controller: 'SignupCtrl',
             templateUrl: 'signup.html'
+        });
+
+        $routeProvider.when('/login/upgrade', {
+            controller: 'UpgradeCtrl',
+            templateUrl: 'login/upgrade/upgrade.tmpl.html',
+            resolve: securityAuthorizationProvider.requireCollaborator
         });
 
         $routeProvider.otherwise({redirectTo: '/organise'});
