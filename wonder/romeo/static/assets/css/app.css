@@ -2340,6 +2340,57 @@ li > ol {
 }
 
 /**
+ * _objects.rule.scss
+ */
+/**
+ * The rule object is used for to extend 'hr'.
+ */
+/**
+ * 1. Using the vertical rhythm we set up, we've stripped all margin from the
+ *    'hr' and instead will use margin bottom to push content down.
+ *
+ * 2. By using 'color', this will also apply 'border-color' because it is
+ *    inherited.
+ *
+ * 3. We won't use the shorthand when declaring the border styles, because we
+ *    can then change it simply by extending the class without having to define
+ *    a whole shorthand border rule.
+ */
+/* line 32, ../../scss/_objects/_objects.rule.scss */
+.rule {
+  margin-bottom: 23px;
+  /* 1 */
+  color: #b7bcbd;
+  /* 2 */
+  border: none;
+  /* 3 */
+  border-bottom-width: 1px;
+  /* 3 */
+  border-bottom-style: solid;
+  /* 3 */
+}
+
+/**
+ * Dotted rules
+ */
+/**
+ * Dashed rules
+ */
+/**
+ * Ornamental rules
+ *
+ * Pass in an arbitrary ornament through the data attribute, e.g.:
+ *
+  <hr class="rule  rule--ornament" data-ornament="!">
+ *
+ */
+/**
+ * Shrink the width and thicken the weight of the rule.
+ */
+/**
+ * Break the wrapper boundaries.
+ */
+/**
  * _components.global-nav-menu.scss
  */
 /* line 4, ../../scss/_components/_components.global-nav-menu.scss */
@@ -6980,7 +7031,7 @@ label,
   max-height: 180px;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center top;
+  background-position: 50%;
   position: relative;
   opacity: 0;
 }
