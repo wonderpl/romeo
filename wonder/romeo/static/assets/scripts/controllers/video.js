@@ -162,7 +162,6 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
       title : 'Uploading Image',
       message : 'Thumbnail uploading.'}
     );
-    // updateImmediateCoverImage(files[0]);
     VideoService.saveCustomPreview($scope.video.id, files[0]).then(function(data){
       angular.extend($scope.video, data);
       $scope.loadVideo($scope.video.id);
@@ -181,15 +180,6 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
       );
     });
   };
-
-  // $scope.onSetPreviewImage = function() {
-  //   debug.log('onSetPreviewImage');
-  //   getVideo($scope.video.id);
-  //   $scope.showPreviewSelector = false;
-  //   $scope.showThumbnailSelector = false;
-  //   $scope.showVideoEdit = true;
-  //   $scope.loadVideo($scope.video.id);
-  // };
 
   $scope.onFileSelect = function(files) {
     $scope.video.title = $scope.video.title || stripExtension(files[0].name);
@@ -547,6 +537,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
 
   $scope.$on('video-cover-image-updated', function ($event, data) {
     updateImmediateCoverImage(data);
+    restartPlayer();
   });
 
   function updateImmediateCoverImage (data) {
@@ -554,6 +545,13 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
     var $frame = getVideoIFrame();
     var img = $frame.find('#wonder-poster img');
     img.attr('src', data.url);
+  }
+
+  function restartPlayer () {
+    var $frame = getVideoIFrame();
+    var wrapper = $frame[0].getElementById('wonder-wrapper');
+    var event = new CustomEvent('restart');
+    wrapper.dispatchEvent(event);
   }
 
   $rootScope.$on('display-section', function (event, section) {
