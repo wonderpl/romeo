@@ -688,7 +688,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <select ng-model=\"invite.permissions\">\n" +
     "    <option value=\"canComment\">Comment</option>\n" +
     "    <option value=\"canCommentDownload\">Comment and Download</option>\n" +
-    "    <option value=\"canDownload\" selected=\"selected\">Download</option>\n" +
+    "    <option value=\"canDownload\">Download</option>\n" +
     "  </select>\n" +
     "\n" +
     "  <a class=\"btn btn--small btn--positive\" ng-click=\"sendInvitations()\">Invite</a>\n" +

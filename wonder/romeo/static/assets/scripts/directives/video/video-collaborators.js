@@ -13,16 +13,14 @@
       controller : function ($scope) {
 
         $scope.invite = {
-          permissions : 'canDownload'
+          permissions : 'canComment'
         };
 
         $scope.select2Options = {
           width: '100%',
           multiple: true,
           minimumInputLength: 3,
-          formatInputTooShort: function () {
-            return "Type the email address or name of someone to invite";
-          },
+          placeholder: 'Type the email address or name of someone to invite'
         };
 
         $scope.sendInvitations = function () {
