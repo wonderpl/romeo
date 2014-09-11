@@ -2171,8 +2171,10 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <p class=\"t--center\">Schedule a timed publish for your video on Wonder Place. The act of publishing on Wonder Place is done by placing your video inside a public collection which will appear on the app.</p>\n" +
     "    </div>\n" +
     "    <div class=\"media\">\n" +
-    "      <div class=\"media__img\">\n" +
-    "        <img ng-src=\"(~ video.thumbnails.items[3].url ~)\" />\n" +
+    "      <div class=\"media__img  publish-thumb\">\n" +
+    "        <div class=\"ratio  ratio--16x9\">\n" +
+    "          <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" ng-src=\"(~ video.thumbnails.items[3].url ~)\" class=\"ratio__src\" style=\"background-image:url('(~ video.thumbnails.items[3].url ~)');\">\n" +
+    "        </div>\n" +
     "      </div>\n" +
     "      <div class=\"media__body\">\n" +
     "        <p class=\"heading  gamma\" ng-bind=\"video.title\"></p>\n" +

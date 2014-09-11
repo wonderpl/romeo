@@ -588,8 +588,8 @@ textarea:focus {
 /**
  * Apply a new micro clearfix to elements by '@extend'ing the class
  * rather than littering '.cf' classes across the markup.
- * 1.
- * 2.
+ * 1. 
+ * 2. 
  * 3.
  */
 /* line 13, ../../scss/_generic/_generic.clearfix.scss */
@@ -1265,7 +1265,7 @@ li > ol {
    *
    */
   /**
-   * 1. Because icons are like design flourishes, they shouldn't
+   * 1. Because icons are like design flourishes, they shouldn't 
    *    exist in the markup, and therefore be rendered in style.
    * 2. Do not allow Apple's VoiceOver to read any of the contents
    *    in the pseudo elements.
@@ -2349,14 +2349,14 @@ li > ol {
  * 1. Use our vertical rhythm method to give a rule it's margin bottom.
  *    Subtract it's height from the margin-bottom.
  *
- * 2. By declaring color as a shorthand, we don't need to declare a
+ * 2. By declaring color as a shorthand, we don't need to declare a 
  *    border color as it will be inherited.
- *
+ * 
  * 3. Define the border separately so we can extend it easily without
  *    having to define a new border each time.
  *
  */
-/* line 33, ../../scss/_objects/_objects.rules.scss */
+/* line 32, ../../scss/_objects/_objects.rules.scss */
 .rule {
   margin-bottom: 23px;
   /* 1 */
@@ -7445,11 +7445,16 @@ label,
  * _components.popup.scss
  */
 /* line 6, ../app/publish/__publish.scss */
+.publish-thumb {
+  width: 320px;
+}
+
+/* line 10, ../app/publish/__publish.scss */
 .btn--popup {
   position: relative;
 }
 
-/* line 9, ../app/publish/__publish.scss */
+/* line 13, ../app/publish/__publish.scss */
 .popup {
   width: 128px;
   margin-left: -64px;
@@ -7465,7 +7470,7 @@ label,
   border-radius: 3px;
   box-shadow: 0 4px 48px 1px rgba(0, 0, 0, 0.12);
 }
-/* line 24, ../app/publish/__publish.scss */
+/* line 28, ../app/publish/__publish.scss */
 .popup:before, .popup:after {
   bottom: 100%;
   left: 50%;
@@ -7476,31 +7481,31 @@ label,
   position: absolute;
   pointer-events: none;
 }
-/* line 35, ../app/publish/__publish.scss */
+/* line 39, ../app/publish/__publish.scss */
 .popup:after {
   border-color: rgba(255, 255, 255, 0);
   border-bottom-color: #ffffff;
   border-width: 8px;
   margin-left: -8px;
 }
-/* line 41, ../app/publish/__publish.scss */
+/* line 45, ../app/publish/__publish.scss */
 .popup:before {
   border-color: rgba(7, 8, 8, 0);
   border-bottom-color: rgba(0, 0, 0, 0.06);
   border-width: 9px;
   margin-left: -9px;
 }
-/* line 48, ../app/publish/__publish.scss */
+/* line 52, ../app/publish/__publish.scss */
 .popup > li {
   border: 0;
   padding: 0;
 }
-/* line 53, ../app/publish/__publish.scss */
+/* line 57, ../app/publish/__publish.scss */
 .popup > li + li {
   border-top: 1px solid #ddd;
 }
 
-/* line 57, ../app/publish/__publish.scss */
+/* line 61, ../app/publish/__publish.scss */
 .popup__link {
   display: block;
   padding: 4px 12px;
@@ -7508,7 +7513,7 @@ label,
   border: none;
 }
 
-/* line 65, ../app/publish/__publish.scss */
+/* line 69, ../app/publish/__publish.scss */
 .schedule-date {
   position: absolute;
   top: 100%;
