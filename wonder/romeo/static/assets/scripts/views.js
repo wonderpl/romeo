@@ -1085,11 +1085,6 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "              <li class=\"text-col\">\n" +
     "                <h2>Nearly there</h2>\n" +
     "                <div class=\"login-view__input  icon-text\">\n" +
-    "                  <i class=\"icon  icon--head  icon-text__icon\"></i>\n" +
-    "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__displayname\">Full name</label>\n" +
-    "                  <input type=\"text\" ng-model=\"profile.display_name\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__displayname\" placeholder=\"Full name\" />\n" +
-    "                </div>\n" +
-    "                <div class=\"login-view__input  icon-text\">\n" +
     "                  <i class=\"icon  icon--mail  icon-text__icon\"></i>\n" +
     "                  <label class=\"label login-view__label  accessibility\" for=\"login-view__username\">Email Address</label>\n" +
     "                  <input type=\"text\" ng-model=\"profile.username\" autocomplete=\"off\" class=\"text-input\" id=\"login-view__username\" placeholder=\"Email Address\" />\n" +
