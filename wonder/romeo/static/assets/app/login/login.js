@@ -66,7 +66,7 @@ function LoginController ($scope, $location, SecurityService) {
           console.log('Error in request');
           console.dir(response.data);
           if (response.data.error == 'registration_required') {
-            $location.url('/twitter-login');
+            $location.url('/login/twitter');
           } else {
             alert("Something went wrong with your sign in:\n" + data);
           }
