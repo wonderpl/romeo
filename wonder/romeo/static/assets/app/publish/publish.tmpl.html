@@ -1,70 +1,78 @@
-<section class="publish page-content wrapper wrapper--fixed">
+<section class="page-section">
+  <div class="wrapper  wrapper--fixed">
 
-  <h1>Publish '{{ video.title }}' to Wonder Place</h1>
+    <h1 class="heading  alpha  t--center">Publish '{{ video.title }}' to Wonder Place</h1>
+  
+    <div class="text-col">
+      <p class="t--center">Schedule a timed publish for your video on Wonder Place. The act of publishing on Wonder Place is done by placing your video inside a public collection which will appear on the app.</p>
+    </div>
+    <div class="media">
+      <div class="media__img">
+        <img ng-src="{{ video.thumbnails.items[3].url }}" />
+      </div>
+      <div class="media__body">
+        <p class="heading  gamma" ng-bind="video.title"></p>
+        <p ng-bind-html="video.description"></p>
+        <p ng-bind="video.search_keywords"></p>
+      </div>
+    </div>
+    <div class="text-col">
+      <p ng-if="isPublished">Your video has been published!</p>
+      <p>Your video has been published to: <span ng-bind="video.tags.items | commaSeparatedList"></span></p>
+      <div class="btn-center">
+        <span class="btn btn--positive btn--small">
+          <a class="simptip-position-top  simptip-smooth  simptip-multiline  simptip-movable" data-tooltip="By clicking 'Publish', you agree that this video does not violate the Terms of Use of any of the video sites you plan to upload to and that you own all copyrights in this video or have express permission from all copyright owners to upload it. You also agree to Wonder PL’s Terms of Service." ng-click="showPublishOptions = !showPublishOptions">publish</a>
+          <ul class="publish__schedule-options" ng-show="showPublishOptions">
+            <li><a ng-click="showPublish()">now</a></li>
+            <li><a ng-click="showPublish()">tomorrow</a></li>
+            <li><a ng-click="showCalendar = !showCalendar">date &gt;</a></li>
+          </ul>
+          <section ng-show="showCalendar">
+            <img class="publish__date-picker-placeholder" ng-click="showPublish()" src="/static/assets/img/date-picker-placeholder.png" />
+          </section>
+        </span>
+      </div>
+    </div>
+    <hr class="rule">
+  </div>
+</section>
+<section class="page-section">
+  <div class="wrapper  wrapper--fixed">
 
-  <p>Schedule a timed publish for your video on Wonder Place. The act of publishing on Wonder Place is done by placing your video inside a public collection which will appear on the app.</p>
+    <h2 class="heading  beta  t--center">Set up your multi-platform publishing&hellip;</h2>
+    <div class="text-col">
+      <p class="t--center">Publish to many different places with Wonder Place and we will make sure your posts look great everywhere. Click the associated logo buttons below to begin connecting your accounts to Wonder Place.</p>
+    </div>
+  
+    <ul class="list-inline  publish-host">
+      <li class="publish-host__option" ng-class="{ 'publish-host__option--published' : providers.wonderpl.isPublished }">
+        <div class="avatar  avatar__huge">
+          <img src="" alt="" class="avatar__img">
+        </div>
+        <p class="w--600  t--center">Wonder PL</p>
+      </li>
+  
+      <li class="publish-host__option">
+        <div class="avatar  avatar__huge">
+          <img src="" alt="" class="avatar__img">
+        </div>
+        <p class="w--600  t--center">Youtube</p>
+      </li>
+  
+      <li class="publish-host__option">
+        <div class="avatar  avatar__huge">
+          <img src="" alt="" class="avatar__img">
+        </div>
+        <p class="w--600  t--center">Facebook</p>
+      </li>
+  
+      <li class="publish-host__option">
+        <div class="avatar  avatar__huge">
+          <img src="" alt="" class="avatar__img">
+        </div>
+        <p class="w--600  t--center">Add</p>
+      </li>
+    </ul>
 
-
-  <img ng-src="{{ video.thumbnails.items[3].url }}" />
-
-  <p ng-bind="video.title"></p>
-
-  <p ng-bind-html="video.description"></p>
-
-  <p ng-bind="video.search_keywords"></p>
-
-  <p ng-if="isPublished">Your video has been published!</p>
-
-  <p>Your video has been published to: <span ng-bind="video.tags.items | commaSeparatedList"></span></p>
-
-  <span class="btn btn--positive btn--small">
-    <a title="By clicking 'Publish', you agree that this video does not violate the Terms of Use of any of the video sites you plan to upload to and that you own all copyrights in this video or have express permission from all copyright owners to upload it. You also agree to Wonder PL’s Terms of Service." ng-click="showPublishOptions = !showPublishOptions">publish</a>
-  </span>
-
-  <ul class="publish__schedule-options" ng-show="showPublishOptions">
-    <li><a ng-click="showPublish()">now</a></li>
-    <li><a ng-click="showPublish()">tomorrow</a></li>
-    <li><a ng-click="showCalendar = !showCalendar">date &gt;</a></li>
-  </ul>
-
-  <section ng-show="showCalendar">
-    <img class="publish__date-picker-placeholder" ng-click="showPublish()" src="/static/assets/img/date-picker-placeholder.png" />
-  </section>
-
-
-  <h2>Set up your multi-platform publishing&hellip;</h2>
-
-  <p>Publish to many different places with Wonder Place and we will make sure your posts look great everywhere. Click the associated logo buttons below to begin connecting your accounts to Wonder Place.</p>
-
-
-  <section class="publish__host-options">
-
-    <section class="publish__host-option" ng-class="{ 'publish__host-option--published' : providers.wonderpl.isPublished }">
-      <section class="ratio ratio--3x2">
-        wonder
-      </section>
-    </section>
-
-    <section class="publish__host-option">
-      <section class="ratio ratio--3x2">
-        youtube
-      </section>
-    </section>
-
-    <section class="publish__host-option">
-      <section class="ratio ratio--3x2">
-        facebook
-      </section>
-    </section>
-
-    <section class="publish__host-option">
-      <section class="ratio ratio--3x2">
-        vimeo
-      </section>
-    </section>
-
-  </section>
-
-
-
+  </div>
 </section>
