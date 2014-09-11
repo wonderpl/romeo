@@ -2173,7 +2173,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <div class=\"media\">\n" +
     "      <div class=\"media__img  publish-thumb\">\n" +
     "        <div class=\"ratio  ratio--16x9\">\n" +
-    "          <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" ng-src=\"(~ video.thumbnails.items[3].url ~)\" class=\"ratio__src\" style=\"background-image:url('(~ video.thumbnails.items[3].url ~)');\">\n" +
+    "          <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" class=\"ratio__src\" style=\"background-image:url('(~ video.thumbnails.items[3].url ~)');\">\n" +
     "        </div>\n" +
     "      </div>\n" +
     "      <div class=\"media__body\">\n" +
