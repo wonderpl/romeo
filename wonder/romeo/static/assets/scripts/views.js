@@ -985,7 +985,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </a>\n" +
     "    <upload-progress ng-if=\"isLoggedIn() && isUploading()\"></upload-progress>\n" +
     "    <ul class=\"nav  nav-menu\" ng-if=\"isLoggedIn()\">\n" +
-    "      <li class=\"nav-menu__item\" ng-if=\"isCreator()\"><a href=\"#/video\" class=\"nav-menu__link\">Upload</a></li>\n" +
+    "      <li class=\"nav-menu__item\" ng-if=\"isContentOwner()\"><a href=\"#/video\" class=\"nav-menu__link\">Upload</a></li>\n" +
     "      <li class=\"nav-menu__item\"><a href=\"#/profile\" class=\"nav-menu__link  avatar  avatar--small\"><img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"(~ display_name ~)\" class=\"avatar__img\" ng-style=\"profileStyle\"></a></li>\n" +
     "    </ul>\n" +
     "  </nav>\n" +

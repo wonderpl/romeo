@@ -11,9 +11,9 @@
       controller: function ($scope) {
         function init() {
           var fullPageList = [
-            {title: 'Upload a Video', url: '#/video', requireCreator: true},
-            {title: '* Uploads in progress', url: '#/video', requireCreator: true},
-            {title: '* Stats', url: '#/organise', requireCreator: true},
+            {title: 'Upload a Video', url: '#/video', requireContentOwner: true},
+            {title: '* Uploads in progress', url: '#/video', requireContentOwner: true},
+            {title: '* Stats', url: '#/organise', requireContentOwner: true},
             {title: 'Manage', url: '#/organise'},
             {title: 'Search', url: '#/search'},
             {title: '* Settings', url: '#/profile'}
@@ -24,7 +24,7 @@
           if (SecurityService.isCollaborator()) {
             var smallerList = [];
             for(var i = 0; i < fullPageList.length; ++i) {
-              if (! fullPageList[i].requireCreator)
+              if (! fullPageList[i].requireContentOwner)
                 smallerList[smallerList.length] = fullPageList[i];
             }
             fullPageList = smallerList;

@@ -30,9 +30,9 @@ describe('security', function(){
         expect(service.isCollaborator()).toBeFalsy();
     });
 
-    it('should return false for isCreator when not logged in', function () {
-        expect(service.isCreator).toBeDefined();
-        expect(service.isCreator()).toBeFalsy();
+    it('should return false for isContentOwner when not logged in', function () {
+        expect(service.isContentOwner).toBeDefined();
+        expect(service.isContentOwner()).toBeFalsy();
     });
 
     it('should return false for isProfileComplete when not logged in', function () {
@@ -45,12 +45,5 @@ describe('security', function(){
   it('should return null for getUser when not logged in', function () {
       expect(service.getUser).toBeDefined();
       expect(service.getUser()).toBeNull();
-  });
-
-  // @TODO: Figure out how to inject $location spy and test these methods properly
-  xdescribe('pending require methods', function () {
-    it('should return false for call to requireCollaborator when not logged in', function () {
-        expect(service.requireCollaborator).toBeDefined();
-    });
   });
 });
