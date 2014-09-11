@@ -2281,9 +2281,10 @@ li > ol {
 .btn-center {
   display: block;
   width: 100%;
+  margin-bottom: 24px;
   text-align: center;
 }
-/* line 100, ../../scss/_objects/_objects.button.scss */
+/* line 101, ../../scss/_objects/_objects.button.scss */
 .btn-center > .btn {
   margin-right: auto;
   margin-left: auto;
@@ -2615,6 +2616,16 @@ li > ol {
 /* line 10, ../../scss/_components/_components.form-fields.scss */
 .medium-editor-placeholder {
   min-height: 1em;
+}
+
+/**
+ * _components.publish-host.scss
+ */
+/* line 4, ../../scss/_components/_components.publish-host.scss */
+.publish-host__title {
+  font-weight: bold;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-align: center;
 }
 
 /**
@@ -7393,6 +7404,81 @@ label,
 /* line 17, ../app/publish/_providers.scss */
 .publish__date-picker-placeholder:hover {
   cursor: pointer;
+}
+
+/**
+ * _components.popup.scss
+ */
+/* line 6, ../app/publish/__publish.scss */
+.btn--popup {
+  position: relative;
+}
+
+/* line 9, ../app/publish/__publish.scss */
+.popup {
+  width: 128px;
+  margin-left: -64px;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 50%;
+  z-index: 1;
+  text-align: left;
+  background-clip: padding-box;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 3px;
+  box-shadow: 0 4px 48px 1px rgba(0, 0, 0, 0.12);
+}
+/* line 25, ../app/publish/__publish.scss */
+.popup:before, .popup:after {
+  bottom: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: "";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+/* line 35, ../app/publish/__publish.scss */
+.popup:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-bottom-color: #ffffff;
+  border-width: 8px;
+  margin-left: -8px;
+}
+/* line 41, ../app/publish/__publish.scss */
+.popup:before {
+  border-color: rgba(7, 8, 8, 0);
+  border-bottom-color: rgba(0, 0, 0, 0.06);
+  border-width: 9px;
+  margin-left: -9px;
+}
+/* line 48, ../app/publish/__publish.scss */
+.popup > li {
+  border: 0;
+  padding: 0;
+}
+/* line 53, ../app/publish/__publish.scss */
+.popup > li + li {
+  border-top: 1px solid #ddd;
+}
+
+/* line 57, ../app/publish/__publish.scss */
+.popup__link {
+  display: block;
+  padding: 4px 12px;
+  line-height: 1.5;
+  border: none;
+}
+
+/* line 65, ../app/publish/__publish.scss */
+.schedule-date {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
 }
 
 /* line 1, ../../scss/specifics/login/_login-view.scss */

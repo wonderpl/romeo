@@ -2121,18 +2121,26 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <div class=\"text-col\">\n" +
     "      <p ng-if=\"isPublished\">Your video has been published!</p>\n" +
     "      <p>Your video has been published to: <span ng-bind=\"video.tags.items | commaSeparatedList\"></span></p>\n" +
+    "\n" +
+    "      <div class=\"notice  notice--info\">\n" +
+    "        <p>By clicking 'Publish', you agree that this video does not violate the Terms of Use of any of the video sites you plan to upload to and that you own all copyrights in this video or have express permission from all copyright owners to upload it. You also agree to Wonder PL’s Terms of Service.</p>\n" +
+    "      </div>\n" +
+    "\n" +
     "      <div class=\"btn-center\">\n" +
-    "        <span class=\"btn btn--positive btn--small\">\n" +
-    "          <a class=\"simptip-position-top  simptip-smooth  simptip-multiline  simptip-movable\" data-tooltip=\"By clicking 'Publish', you agree that this video does not violate the Terms of Use of any of the video sites you plan to upload to and that you own all copyrights in this video or have express permission from all copyright owners to upload it. You also agree to Wonder PL’s Terms of Service.\" ng-click=\"showPublishOptions = !showPublishOptions\">publish</a>\n" +
-    "          <ul class=\"publish__schedule-options\" ng-show=\"showPublishOptions\">\n" +
-    "            <li><a ng-click=\"showPublish()\">now</a></li>\n" +
-    "            <li><a ng-click=\"showPublish()\">tomorrow</a></li>\n" +
-    "            <li><a ng-click=\"showCalendar = !showCalendar\">date &gt;</a></li>\n" +
+    "\n" +
+    "        <div class=\"btn  btn--positive  btn--small  btn--popup\">\n" +
+    "          <span class=\"icon-text--rev\" ng-click=\"showPublishOptions = !showPublishOptions\">publish<i class=\"icon  icon--ellipsis  icon-text__icon\"></i></span>\n" +
+    "          <ul class=\"nav  nav--stacked  popup\" ng-show=\"showPublishOptions\">\n" +
+    "            <li class=\"popup__item\"><a class=\"popup__link\" ng-click=\"showPublish()\">Publish Now</a></li>\n" +
+    "            <li class=\"popup__item\"><a class=\"popup__link\" ng-click=\"showPublish()\">Add to Queue</a></li>\n" +
+    "            <li class=\"popup__item\"><a class=\"popup__link\" ng-click=\"showCalendar = !showCalendar\">Schedule a date</a>\n" +
+    "              <div class=\"date-picker\" ng-show=\"showCalendar\">\n" +
+    "                <img class=\"date-picker__img\" ng-click=\"showPublish()\" src=\"/static/assets/img/date-picker-placeholder.png\" />\n" +
+    "              </div>\n" +
+    "            </li>\n" +
     "          </ul>\n" +
-    "          <section ng-show=\"showCalendar\">\n" +
-    "            <img class=\"publish__date-picker-placeholder\" ng-click=\"showPublish()\" src=\"/static/assets/img/date-picker-placeholder.png\" />\n" +
-    "          </section>\n" +
-    "        </span>\n" +
+    "        </div>\n" +
+    "\n" +
     "      </div>\n" +
     "    </div>\n" +
     "    <hr class=\"rule\">\n" +
@@ -2146,33 +2154,33 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <p class=\"t--center\">Publish to many different places with Wonder Place and we will make sure your posts look great everywhere. Click the associated logo buttons below to begin connecting your accounts to Wonder Place.</p>\n" +
     "    </div>\n" +
     "  \n" +
-    "    <ul class=\"list-inline  publish-host\">\n" +
-    "      <li class=\"publish-host__option\" ng-class=\"{ 'publish-host__option--published' : providers.wonderpl.isPublished }\">\n" +
-    "        <div class=\"avatar  avatar__huge\">\n" +
+    "    <ul class=\"layout  publish-host\">\n" +
+    "      <li class=\"layout__item  one-quarter  publish-host__option\" ng-class=\"{ 'publish-host__option--published' : providers.wonderpl.isPublished }\">\n" +
+    "        <div class=\"avatar  avatar--huge\">\n" +
     "          <img src=\"\" alt=\"\" class=\"avatar__img\">\n" +
     "        </div>\n" +
-    "        <p class=\"w--600  t--center\">Wonder PL</p>\n" +
-    "      </li>\n" +
+    "        <p class=\"publish-host__title\">Wonder PL</p>\n" +
+    "      </li><!--\n" +
     "  \n" +
-    "      <li class=\"publish-host__option\">\n" +
-    "        <div class=\"avatar  avatar__huge\">\n" +
+    "      --><li class=\"layout__item  one-quarter  publish-host__option\">\n" +
+    "        <div class=\"avatar  avatar--huge\">\n" +
     "          <img src=\"\" alt=\"\" class=\"avatar__img\">\n" +
     "        </div>\n" +
-    "        <p class=\"w--600  t--center\">Youtube</p>\n" +
-    "      </li>\n" +
+    "        <p class=\"publish-host__title\">Youtube</p>\n" +
+    "      </li><!--\n" +
     "  \n" +
-    "      <li class=\"publish-host__option\">\n" +
-    "        <div class=\"avatar  avatar__huge\">\n" +
+    "      --><li class=\"layout__item  one-quarter  publish-host__option\">\n" +
+    "        <div class=\"avatar  avatar--huge\">\n" +
     "          <img src=\"\" alt=\"\" class=\"avatar__img\">\n" +
     "        </div>\n" +
-    "        <p class=\"w--600  t--center\">Facebook</p>\n" +
-    "      </li>\n" +
+    "        <p class=\"publish-host__title\">Facebook</p>\n" +
+    "      </li><!--\n" +
     "  \n" +
-    "      <li class=\"publish-host__option\">\n" +
-    "        <div class=\"avatar  avatar__huge\">\n" +
+    "      --><li class=\"layout__item  one-quarter  publish-host__option\">\n" +
+    "        <div class=\"avatar  avatar--huge\">\n" +
     "          <img src=\"\" alt=\"\" class=\"avatar__img\">\n" +
     "        </div>\n" +
-    "        <p class=\"w--600  t--center\">Add</p>\n" +
+    "        <p class=\"publish-host__title\">Add</p>\n" +
     "      </li>\n" +
     "    </ul>\n" +
     "\n" +
