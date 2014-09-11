@@ -2115,6 +2115,21 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('publish/publish.tmpl.html',
+    "<section class=\"sub-navigation\">\n" +
+    "  <div class=\"wrapper\">\n" +
+    "    <ul class=\"sub-navigation__modes\">\n" +
+    "      <li class=\"sub-navigation__mode\">\n" +
+    "        <a href=\"#\" title=\"Edit your video.\" class=\"sub-navigation__link  btn  btn--utility  icon-text\"><i class=\"icon  icon--edit  icon-text__icon\"></i>Edit</a>\n" +
+    "      </li>\n" +
+    "      <li class=\"sub-navigation__mode\">\n" +
+    "        <a href=\"#\" title=\"Edit your video.\" class=\"sub-navigation__link  sub-navigation__link--active  btn  btn--utility  icon-text\"><i class=\"icon  icon--eye  icon-text__icon\"></i>Publish</a>\n" +
+    "      </li>\n" +
+    "      <li class=\"sub-navigation__mode\">\n" +
+    "        <a href=\"#\" title=\"Edit your video.\" class=\"sub-navigation__link  btn  btn--utility  icon-text\"><i class=\"icon  icon--speech-bubble  icon-text__icon\"></i>Collaborate</a>\n" +
+    "      </li>\n" +
+    "    </ul>\n" +
+    "  </div>\n" +
+    "</section>\n" +
     "<section class=\"page-section\">\n" +
     "  <div class=\"wrapper  wrapper--fixed\">\n" +
     "\n" +
