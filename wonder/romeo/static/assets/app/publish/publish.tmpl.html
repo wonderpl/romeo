@@ -32,7 +32,7 @@
       </div>
     </div>
     <div class="text-col">
-      <p ng-if="isPublished">Your video has been published!</p>
+      <p class="heading  kilo" ng-if="isPublished">Your video has been published!</p>
       <p>Your video has been published to: <span ng-bind="video.tags.items | commaSeparatedList"></span></p>
 
       <div class="notice  notice--info">
@@ -70,30 +70,30 @@
     <ul class="layout  publish-host">
       <li class="layout__item  one-quarter  publish-host__option" ng-class="{ 'publish-host__option--published' : providers.wonderpl.isPublished }">
         <div class="avatar  avatar--huge">
-          <img src="" alt="" class="avatar__img">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img">
         </div>
-        <p class="publish-host__title">Wonder PL</p>
+        <p class="publish-host__title  icon-text"><i class="icon  icon-text__icon  icon--circle-check" ng-if="providers.wonderpl.isPublished"></i>Wonder PL</p>
       </li><!--
   
       --><li class="layout__item  one-quarter  publish-host__option">
         <div class="avatar  avatar--huge">
-          <img src="" alt="" class="avatar__img">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img">
         </div>
-        <p class="publish-host__title">Youtube</p>
+        <p class="publish-host__title  icon-text"><i class="icon  icon-text__icon  icon--circle-check" ng-if="providers.youtube.isPublished"></i>Youtube</p>
       </li><!--
   
       --><li class="layout__item  one-quarter  publish-host__option">
         <div class="avatar  avatar--huge">
-          <img src="" alt="" class="avatar__img">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img">
         </div>
-        <p class="publish-host__title">Facebook</p>
+        <p class="publish-host__title  icon-text"><i class="icon  icon-text__icon  icon--circle-check" ng-if="providers.facebook.isPublished"></i>Facebook</p>
       </li><!--
   
       --><li class="layout__item  one-quarter  publish-host__option">
         <div class="avatar  avatar--huge">
-          <img src="" alt="" class="avatar__img">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img">
         </div>
-        <p class="publish-host__title">Add</p>
+        <p class="publish-host__title  icon-text--rev">Add<i class="icon  icon-text__icon  icon--plus"></i></p>
       </li>
     </ul>
 

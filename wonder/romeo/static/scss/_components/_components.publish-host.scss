@@ -1,6 +1,13 @@
 /**
  * _components.publish-host.scss
  */
+.publish-host__option--published {
+
+  .avatar {
+    box-shadow: 0 0 48px 1px #51b364;
+  }
+}
+
 .publish-host__title {
   font-weight: bold;
   font-family: $heading-font-family;

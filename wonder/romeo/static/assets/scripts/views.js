@@ -2172,7 +2172,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      </div>\n" +
     "    </div>\n" +
     "    <div class=\"text-col\">\n" +
-    "      <p ng-if=\"isPublished\">Your video has been published!</p>\n" +
+    "      <p class=\"heading  kilo\" ng-if=\"isPublished\">Your video has been published!</p>\n" +
     "      <p>Your video has been published to: <span ng-bind=\"video.tags.items | commaSeparatedList\"></span></p>\n" +
     "\n" +
     "      <div class=\"notice  notice--info\">\n" +
@@ -2210,30 +2210,30 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <ul class=\"layout  publish-host\">\n" +
     "      <li class=\"layout__item  one-quarter  publish-host__option\" ng-class=\"{ 'publish-host__option--published' : providers.wonderpl.isPublished }\">\n" +
     "        <div class=\"avatar  avatar--huge\">\n" +
-    "          <img src=\"\" alt=\"\" class=\"avatar__img\">\n" +
+    "          <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" class=\"avatar__img\">\n" +
     "        </div>\n" +
-    "        <p class=\"publish-host__title\">Wonder PL</p>\n" +
+    "        <p class=\"publish-host__title  icon-text\"><i class=\"icon  icon-text__icon  icon--circle-check\" ng-if=\"providers.wonderpl.isPublished\"></i>Wonder PL</p>\n" +
     "      </li><!--\n" +
     "  \n" +
     "      --><li class=\"layout__item  one-quarter  publish-host__option\">\n" +
     "        <div class=\"avatar  avatar--huge\">\n" +
-    "          <img src=\"\" alt=\"\" class=\"avatar__img\">\n" +
+    "          <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" class=\"avatar__img\">\n" +
     "        </div>\n" +
-    "        <p class=\"publish-host__title\">Youtube</p>\n" +
+    "        <p class=\"publish-host__title  icon-text\"><i class=\"icon  icon-text__icon  icon--circle-check\" ng-if=\"providers.youtube.isPublished\"></i>Youtube</p>\n" +
     "      </li><!--\n" +
     "  \n" +
     "      --><li class=\"layout__item  one-quarter  publish-host__option\">\n" +
     "        <div class=\"avatar  avatar--huge\">\n" +
-    "          <img src=\"\" alt=\"\" class=\"avatar__img\">\n" +
+    "          <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" class=\"avatar__img\">\n" +
     "        </div>\n" +
-    "        <p class=\"publish-host__title\">Facebook</p>\n" +
+    "        <p class=\"publish-host__title  icon-text\"><i class=\"icon  icon-text__icon  icon--circle-check\" ng-if=\"providers.facebook.isPublished\"></i>Facebook</p>\n" +
     "      </li><!--\n" +
     "  \n" +
     "      --><li class=\"layout__item  one-quarter  publish-host__option\">\n" +
     "        <div class=\"avatar  avatar--huge\">\n" +
-    "          <img src=\"\" alt=\"\" class=\"avatar__img\">\n" +
+    "          <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" class=\"avatar__img\">\n" +
     "        </div>\n" +
-    "        <p class=\"publish-host__title\">Add</p>\n" +
+    "        <p class=\"publish-host__title  icon-text--rev\">Add<i class=\"icon  icon-text__icon  icon--plus\"></i></p>\n" +
     "      </li>\n" +
     "    </ul>\n" +
     "\n" +
