@@ -1,0 +1,142 @@
+/**
+ * _objects.rules.scss
+ */
+
+ /**
+ * Horizontal rules, extend 'hr'.
+ */
+
+// Predefine the variables below in order to alter and enable specific features.
+$rule-namespace:         $namespace !default;
+
+$rule-vertical-rhythm:   $base-spacing-unit !default;
+
+$enable-rule--dotted:    false !default;
+$enable-rule--dashed:    false !default;
+$enable-rule--ornament:  false !default;
+$enable-rule--stump:     false !default;
+$enable-rule--break:     false !default;
+
+
+/**
+ * 1. Use our vertical rhythm method to give a rule it's margin bottom.
+ *    Subtract it's height from the margin-bottom.
+ *
+ * 2. By declaring color as a shorthand, we don't need to declare a 
+ *    border color as it will be inherited.
+ * 
+ * 3. Define the border separately so we can extend it easily without
+ *    having to define a new border each time.
+ *
+ */
+.#{$rule-namespace}rule,
+%#{$rule-namespace}rule {
+  margin-bottom: $rule-vertical-rhythm - 1px; /* 1 */
+  color: $base-color-ui; /* 2 */
+  border: none; /* 3 */
+  border-bottom-width: 1px; /* 3 */
+  border-bottom-style: solid; /* 3 */
+}
+
+
+@if ($enable-rule--dotted == true) {
+
+/**
+ * Dotted rules.
+ */
+.#{$rule-namespace}rule--dotted,
+%#{$rule-namespace}rule--dotted {
+  border-bottom-style: dotted;
+}
+
+}
+
+
+@if ($enable-rule--dashed == true) {
+
+/**
+ * Dashed rules.
+ */
+.#{$rule-namespace}rule--dashed,
+%#{$rule-namespace}rule--dashed {
+  border-bottom-style: dashed;
+}
+
+}
+
+
+@if ($enable-rule--ornament == true) {
+
+/**
+ * Ornament rules.
+ */
+.#{$rule-namespace}rule--ornament,
+%#{$rule-namespace}rule--ornament {
+  position: relative;
+
+  &:after {
+    content: "\00A7";
+    position: relative;
+    top:   0;
+    right: 0;
+    left:  0;
+    line-height: 0;
+    text-align: center;
+  }
+
+
+  /**
+   * Pass in an arbitrary ornament through a data attribute, e.g.:
+   *
+     <hr class="rule  rule--ornament" data-ornament="!">
+   *
+   */
+   &[data-ornament] {
+    border-color: transparent;
+
+    &:after {
+      content: attr(data-ornament);
+      letter-spacing: 0.6666666666666666em;
+    }
+  }
+}
+
+}
+
+
+@if ($enable-rule--stump == true) {
+
+/**
+ * Shrink the width and thicken the weight of the rule.
+ */
+.#{$rule-namespace}rule--stump,
+%#{$rule-namespace}rule--stump {
+  width: 66.6666666%;
+  margin-right: auto;
+  margin-left:  auto;
+  margin-bottom: $rule-vertical-rhythm - 2px;
+  color: $base-color-ui-dark;
+  border-bottom-width: 2px;
+}
+
+}
+
+
+@if ($enable-rule--break == true) {
+
+/**
+ * Break the wrapper boundaries.
+ */
+.#{$rule-namespace}rule--break,
+%#{$rule-namespace}rule--break {
+  margin-right: -$base-spacing-unit;
+  margin-left:  -$base-spacing-unit;
+}
+/**
+ * IE7 likes position relative on things with negative margins.
+ */
+.legacy .rule--break {
+  position: relative;
+}
+
+}
