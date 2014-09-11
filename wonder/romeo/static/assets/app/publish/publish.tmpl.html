@@ -34,18 +34,26 @@
     <div class="text-col">
       <p ng-if="isPublished">Your video has been published!</p>
       <p>Your video has been published to: <span ng-bind="video.tags.items | commaSeparatedList"></span></p>
+
+      <div class="notice  notice--info">
+        <p>By clicking 'Publish', you agree that this video does not violate the Terms of Use of any of the video sites you plan to upload to and that you own all copyrights in this video or have express permission from all copyright owners to upload it. You also agree to Wonder PL’s Terms of Service.</p>
+      </div>
+
       <div class="btn-center">
-        <span class="btn btn--positive btn--small">
-          <a class="simptip-position-top  simptip-smooth  simptip-multiline  simptip-movable" data-tooltip="By clicking 'Publish', you agree that this video does not violate the Terms of Use of any of the video sites you plan to upload to and that you own all copyrights in this video or have express permission from all copyright owners to upload it. You also agree to Wonder PL’s Terms of Service." ng-click="showPublishOptions = !showPublishOptions">publish</a>
-          <ul class="publish__schedule-options" ng-show="showPublishOptions">
-            <li><a ng-click="showPublish()">now</a></li>
-            <li><a ng-click="showPublish()">tomorrow</a></li>
-            <li><a ng-click="showCalendar = !showCalendar">date &gt;</a></li>
+
+        <div class="btn  btn--positive  btn--small  btn--popup">
+          <span class="icon-text--rev" ng-click="showPublishOptions = !showPublishOptions">publish<i class="icon  icon--ellipsis  icon-text__icon"></i></span>
+          <ul class="nav  nav--stacked  popup" ng-show="showPublishOptions">
+            <li class="popup__item"><a class="popup__link" ng-click="showPublish()">Publish Now</a></li>
+            <li class="popup__item"><a class="popup__link" ng-click="showPublish()">Add to Queue</a></li>
+            <li class="popup__item"><a class="popup__link" ng-click="showCalendar = !showCalendar">Schedule a date</a>
+              <div class="date-picker" ng-show="showCalendar">
+                <img class="date-picker__img" ng-click="showPublish()" src="/static/assets/img/date-picker-placeholder.png" />
+              </div>
+            </li>
           </ul>
-          <section ng-show="showCalendar">
-            <img class="publish__date-picker-placeholder" ng-click="showPublish()" src="/static/assets/img/date-picker-placeholder.png" />
-          </section>
-        </span>
+        </div>
+
       </div>
     </div>
     <hr class="rule">
@@ -59,33 +67,33 @@
       <p class="t--center">Publish to many different places with Wonder Place and we will make sure your posts look great everywhere. Click the associated logo buttons below to begin connecting your accounts to Wonder Place.</p>
     </div>
   
-    <ul class="list-inline  publish-host">
-      <li class="publish-host__option" ng-class="{ 'publish-host__option--published' : providers.wonderpl.isPublished }">
-        <div class="avatar  avatar__huge">
+    <ul class="layout  publish-host">
+      <li class="layout__item  one-quarter  publish-host__option" ng-class="{ 'publish-host__option--published' : providers.wonderpl.isPublished }">
+        <div class="avatar  avatar--huge">
           <img src="" alt="" class="avatar__img">
         </div>
-        <p class="w--600  t--center">Wonder PL</p>
-      </li>
+        <p class="publish-host__title">Wonder PL</p>
+      </li><!--
   
-      <li class="publish-host__option">
-        <div class="avatar  avatar__huge">
+      --><li class="layout__item  one-quarter  publish-host__option">
+        <div class="avatar  avatar--huge">
           <img src="" alt="" class="avatar__img">
         </div>
-        <p class="w--600  t--center">Youtube</p>
-      </li>
+        <p class="publish-host__title">Youtube</p>
+      </li><!--
   
-      <li class="publish-host__option">
-        <div class="avatar  avatar__huge">
+      --><li class="layout__item  one-quarter  publish-host__option">
+        <div class="avatar  avatar--huge">
           <img src="" alt="" class="avatar__img">
         </div>
-        <p class="w--600  t--center">Facebook</p>
-      </li>
+        <p class="publish-host__title">Facebook</p>
+      </li><!--
   
-      <li class="publish-host__option">
-        <div class="avatar  avatar__huge">
+      --><li class="layout__item  one-quarter  publish-host__option">
+        <div class="avatar  avatar--huge">
           <img src="" alt="" class="avatar__img">
         </div>
-        <p class="w--600  t--center">Add</p>
+        <p class="publish-host__title">Add</p>
       </li>
     </ul>
 
