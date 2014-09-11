@@ -1721,6 +1721,21 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('login/upgrade/upgrade.tmpl.html',
+    "<div>\n" +
+    "    <h2>One moment please...</h2>\n" +
+    "    <p>...We are upgrading your account to give you creator status.\n" +
+    "    As a creator, you can upload videos, invite people to comment on edits and publish your work.\n" +
+    "    These features are free as we work through our Beta test. Whilst we may, in the future, charge to upgrade, for now we want you to have access to everything available and to hear what you think.\n" +
+    "    Please do take a moment to send us your feedback to beta@wonderpl.com.</p>\n" +
+    "    <ul>\n" +
+    "        <li><a href=\"#/organise/collaboration\" class=\"btn btn--negative\">Cancel</a></li>\n" +
+    "        <li><a ng-click=\"upgrade()\" class=\"btn btn--primary\">Upgrade</a></li>\n" +
+    "    </ul>\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('organise/organise-breadcrumb.tmpl.html',
     "<ol class=\"nav  page-breadcrumbs\">\n" +
     "  <li class=\"page-breadcrumbs__item\"><span class=\"page-breadcrumbs__title\">All Videos</span></li>\n" +
