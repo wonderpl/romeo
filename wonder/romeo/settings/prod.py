@@ -50,3 +50,5 @@ FACEBOOK_APP_ID = '517447921656577'
 
 TWITTER_CONSUMER_KEY = 'tB2PungXx7mbcHAA3zICQbz2w'
 TWITTER_CONSUMER_SECRET = _decrypt('O8dD\xa1F\xc1\x13n\x9cy\xd5-\xa6\xdc\xebK\x02O\xd0\xb7T\x80\xa6\x81\xee\xaa\xb4\xac\xc6Pi\x99E\xbc\xde\x7fV\x18%\x04\xe4z\xa1`r\xdc\n\x896')
+
+ENABLE_REGISTRATION_AUTH = True
