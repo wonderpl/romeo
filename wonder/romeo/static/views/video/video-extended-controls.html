@@ -19,4 +19,14 @@
       flags="flags">
     </add-collaborator>
   </section>
+
+  <section class="video-extended-controls__section" ng-class="{ 'video-extended-controls__section--expanded' : addSearchTermsShow }">
+    <i class="icon  icon--medium  icon--plus  section-drawer__icon" ng-click="addSearchTermsShow = !addSearchTermsShow" ng-hide="addSearchTermsShow"></i>
+    <i class="icon  icon--medium  icon--minus  section-drawer__icon" ng-click="addSearchTermsShow = !addSearchTermsShow" ng-show="addSearchTermsShow"></i>
+    <video-search-terms class="video-extended-controls__section-contents"
+      video="video"
+      add-search-terms-show="addSearchTermsShow"
+      flags="flags">
+    </add-collaborator>
+  </section>
 </section>

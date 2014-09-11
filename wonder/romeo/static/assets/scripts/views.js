@@ -1306,6 +1306,16 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      flags=\"flags\">\n" +
     "    </add-collaborator>\n" +
     "  </section>\n" +
+    "\n" +
+    "  <section class=\"video-extended-controls__section\" ng-class=\"{ 'video-extended-controls__section--expanded' : addSearchTermsShow }\">\n" +
+    "    <i class=\"icon  icon--medium  icon--plus  section-drawer__icon\" ng-click=\"addSearchTermsShow = !addSearchTermsShow\" ng-hide=\"addSearchTermsShow\"></i>\n" +
+    "    <i class=\"icon  icon--medium  icon--minus  section-drawer__icon\" ng-click=\"addSearchTermsShow = !addSearchTermsShow\" ng-show=\"addSearchTermsShow\"></i>\n" +
+    "    <video-search-terms class=\"video-extended-controls__section-contents\"\n" +
+    "      video=\"video\"\n" +
+    "      add-search-terms-show=\"addSearchTermsShow\"\n" +
+    "      flags=\"flags\">\n" +
+    "    </add-collaborator>\n" +
+    "  </section>\n" +
     "</section>"
   );
 
@@ -1487,6 +1497,24 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <iframe id=\"VideoPlayerIFrame\" class=\"video-player__frame\" ng-src=\"(~ embedUrl ~)\"  width=\"100%\" height=\"100%\" frameborder=\"0\" allowfullscreen></iframe>\n" +
     "  </div>\n" +
     "</section>"
+  );
+
+
+  $templateCache.put('video-search-terms.html',
+    "<section class=\"add-collaborator\">\n" +
+    "\n" +
+    "  <header class=\"video-extended-controls__section-header\" ng-click=\"addSearchTermsShow = !addSearchTermsShow\">\n" +
+    "    <h4 class=\"video-extended-controls__section-header-title\" title=\"\">\n" +
+    "      Search terms\n" +
+    "    </h4>\n" +
+    "  </header>\n" +
+    "\n" +
+    "  <section class=\"video-add-collaborators\">\n" +
+    "    <input type=\"hidden\" ui-select2=\"select2Options\" ng-model=\"video.search_keywords\" />\n" +
+    "  </section>\n" +
+    "\n" +
+    "</section>\n" +
+    "\n"
   );
 
 

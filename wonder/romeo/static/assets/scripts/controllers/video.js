@@ -255,6 +255,9 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
     if ($scope.video.id) {
       debug.log('save video with id ' + $scope.video.id);
       $scope.$broadcast('video-saving', $scope.video);
+      if (angular.isArray($scope.video.search_keywords)) {
+        $scope.video.search_keywords = $scope.video.search_keywords.join(',');
+      }
       VideoService.update($scope.video.id, $scope.video).then(function (data) {
         debug.log('saving video succeeded with id ' + data.id);
         persistDataAndRedirect(data);
