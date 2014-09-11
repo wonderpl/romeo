@@ -120,8 +120,7 @@
                         }
                         else {
                             if (service.isAuthenticated()) {
-                                // @TODO: If the user isn't a creator but a valid user show modal
-                                alert(msg);
+                                service.redirect('/login/upgrade');
                             }
                             deferred.reject();
                         }
@@ -133,8 +132,7 @@
                     }
                     else {
                         if (service.isAuthenticated()) {
-                            // @TODO: If the user isn't a creator but a valid user show modal
-                            alert(msg);
+                            service.redirect('/login/upgrade');
                         }
                         deferred.reject();
                     }
@@ -145,10 +143,9 @@
             isAuthenticated: function () {
               return (currentUser !== null);
             },
-            // Is the current user an collaborator or better?
-            // All logged in users are at least collaborators
+            // Is the current user an collaborator
+            // Content owners are NOT collaborators
             isCollaborator: function () {
-              // @TODO: This is should be for account_type collaborator; not !content_owner
               return (service.isAuthenticated() && angular.equals(currentAccount.account_type, 'collaborator'));
             },
             // Is the current user an creator?

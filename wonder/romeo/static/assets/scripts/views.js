@@ -2402,7 +2402,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      </ul>\n" +
     "      <ul class=\"list-ui  global-nav-menu\">\n" +
     "        <li class=\"global-nav-menu__item\"><a href=\"#/tour\" title=\"Let us show you what Wonder Place has to offer.\" class=\"global-nav-menu__link\">Take a tour</a></li>\n" +
-    "        <li class=\"global-nav-menu__item\"><a href=\"#/upgrade\" title=\"Get access to premium features by upgrading your account.\" class=\"global-nav-menu__link\">Upgrade account</a></li>\n" +
+    "        <li class=\"global-nav-menu__item\"><a href=\"#/login/upgrade\" title=\"Get access to premium features by upgrading your account.\" class=\"global-nav-menu__link\">Upgrade account</a></li>\n" +
     "        <li class=\"global-nav-menu__item\"><a href=\"mailto:support@wonderpl.com\" title=\"We're here to help.\" class=\"global-nav-menu__link\">Support</a></li>\n" +
     "        <li class=\"global-nav-menu__item\"><a href=\"#/about\" title=\"Who are we, and why are we here?\" class=\"global-nav-menu__link\">About</a></li>\n" +
     "        <li class=\"global-nav-menu__item\"><a href=\"#/tands\" title=\"The Wonder Place Terms of Service.\" class=\"global-nav-menu__link\">Terms of service</a></li>\n" +
