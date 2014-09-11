@@ -261,11 +261,11 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
       VideoService.update($scope.video.id, $scope.video).then(function (data) {
         debug.log('saving video succeeded with id ' + data.id);
         persistDataAndRedirect(data);
-        if ($scope.video.status === 'processing' || $scope.video.status === 'uploading') {
+        // if ($scope.video.status === 'processing' || $scope.video.status === 'uploading') {
           $scope.displaySection('edit');
-        } else {
-          $scope.displaySection();
-        }
+        // } else {
+        //   $scope.displaySection();
+        // }
         $scope.$broadcast('video-saved', $scope.video);
         $scope.$emit('notify', {
           status : 'success',
@@ -311,8 +311,8 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
     if ($scope.video.id) {
       debug.log('Cancelled editing of video (' + $scope.video.id + ') ' + $scope.video.title);
       VideoService.get($scope.video.id).then(function (data) {
-        persistDataAndRedirect(data);
-        $scope.displaySection();
+        persistVideoData(data);
+        // $scope.displaySection();
         $scope.$emit('notify', {
           status : 'info',
           title : 'Video Updates Discarded',
@@ -569,12 +569,10 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
 
     if (AuthService.isCollaborator()) {
       displayCollaboratorSection();
-    } else if (section === 'edit') {
-      displayEditSection();
-    } else if (section === 'comments') {
+    }  else if (section === 'comments') {
       displayComments();
     } else {
-      displayReviewSection();
+      displayEditSection();
     }
   };
 
@@ -600,13 +598,6 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
     $scope.flags.isComments = true;
     $scope.flags.isEdit = false;
     $scope.flags.isReview = false;
-  }
-
-  function displayReviewSection () {
-    debug.log('displayReviewSection()');
-    $scope.flags.isReview = true;
-    $scope.flags.isComments = false;
-    $scope.flags.isEdit = false;
   }
 
   initialiseNewScope();

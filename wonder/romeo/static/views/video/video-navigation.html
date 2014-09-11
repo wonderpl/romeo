@@ -4,11 +4,13 @@
       <li class="sub-navigation__mode  f--left">
         <video-download video-id="videoId" ng-show="videoId && videoStatus==='published'"></video-download>
       </li>
-      <li class="sub-navigation__mode  f--left">
+      <li class="sub-navigation__mode  f--left" ng-if="!isOwner">
         <a class="btn  btn--utility  icon-text"><i class="icon  icon--paper-stack  icon-text__icon"></i>Copy video to my account</a>
       </li>
       <li class="sub-navigation__mode" ng-show="isEdit">
-        <a class="sub-navigation__link btn  btn--utility  icon-text" ng-click="save()">
+        <a class="sub-navigation__link btn  btn--utility  icon-text"
+         ng-class="{ 'sub-navigation__link--active' : isEdit }"
+         ng-click="save()">
           <i class="icon  icon--check  icon-text__icon"></i>
           Save Changes
         </a>
@@ -16,30 +18,31 @@
       <li class="sub-navigation__mode" ng-show="isEdit">
         <a class="sub-navigation__link btn  btn--utility  icon-text" ng-click="cancel()">
           <i class="icon  icon--cross  icon-text__icon"></i>
-          Cancel
+          Discard
         </a>
       </li>
-      <li class="sub-navigation__mode" ng-hide="isEdit || !isOwner"> <!-- ng-show="video.status=='published'" -->
+      <li class="sub-navigation__mode" ng-show="!isEdit && isOwner">
         <a
           class="sub-navigation__link btn  btn--utility icon-text"
-          ng-click="displaySection('edit')">
+          ng-class="{ 'sub-navigation__link--active' : isEdit }"
+          ng-href="#/video/{{videoId}}">
           <i class="icon  icon--edit  icon-text__icon"></i>
           Edit
         </a>
       </li>
-      <li class="sub-navigation__mode" ng-hide="isEdit">
+      <li class="sub-navigation__mode" ng-show="isOwner">
         <a
           class="sub-navigation__link btn  btn--utility icon-text"
-          ng-click="displaySection('')"
+          ng-href="#/video/{{videoId}}/publish"
           ng-class="{ 'sub-navigation__link--active' : isReview }">
           <i class="icon  icon--eye  icon-text__icon"></i>
           Publish
         </a>
       </li>
-      <li class="sub-navigation__mode" ng-hide="isEdit">
+      <li class="sub-navigation__mode">
         <a
           class="sub-navigation__link btn  btn--utility icon-text"
-          ng-click="displaySection('comments')"
+          ng-href="#/video/{{videoId}}/comments"
           ng-class="{ 'sub-navigation__link--active' : isComments }">
           <i class="icon  icon--speech-bubble  icon-text__icon"></i>
           Collaborate

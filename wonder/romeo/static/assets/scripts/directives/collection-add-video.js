@@ -33,7 +33,7 @@ angular.module('RomeoApp.directives')
           $scope.video.title = $scope.video.title || 'New Video';
           VideoService.create($scope.video).then(function (data) {
             angular.extend($scope.video, data);
-            var url = '/video/' + $scope.video.id + '/edit';
+            var url = '/video/' + $scope.video.id;
             $location.path(url, false);
             dfd.resolve($scope.video);
           });
@@ -88,7 +88,7 @@ angular.module('RomeoApp.directives')
             $scope.availableTags = data.tag.items;
             $scope.tags = data.tag.items;
             var tag = getTagByLabel(label);
-            
+
             if (tag && $scope.addVideoToCollection) {
               $scope.addTag(tag.id);
             }

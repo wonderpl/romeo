@@ -1439,11 +1439,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <li class=\"sub-navigation__mode  f--left\">\n" +
     "        <video-download video-id=\"videoId\" ng-show=\"videoId && videoStatus==='published'\"></video-download>\n" +
     "      </li>\n" +
-    "      <li class=\"sub-navigation__mode  f--left\">\n" +
+    "      <li class=\"sub-navigation__mode  f--left\" ng-if=\"!isOwner\">\n" +
     "        <a class=\"btn  btn--utility  icon-text\"><i class=\"icon  icon--paper-stack  icon-text__icon\"></i>Copy video to my account</a>\n" +
     "      </li>\n" +
     "      <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
-    "        <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"save()\">\n" +
+    "        <a class=\"sub-navigation__link btn  btn--utility  icon-text\"\n" +
+    "         ng-class=\"{ 'sub-navigation__link--active' : isEdit }\"\n" +
+    "         ng-click=\"save()\">\n" +
     "          <i class=\"icon  icon--check  icon-text__icon\"></i>\n" +
     "          Save Changes\n" +
     "        </a>\n" +
@@ -1451,30 +1453,31 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
     "        <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"cancel()\">\n" +
     "          <i class=\"icon  icon--cross  icon-text__icon\"></i>\n" +
-    "          Cancel\n" +
+    "          Discard\n" +
     "        </a>\n" +
     "      </li>\n" +
-    "      <li class=\"sub-navigation__mode\" ng-hide=\"isEdit || !isOwner\"> <!-- ng-show=\"video.status=='published'\" -->\n" +
+    "      <li class=\"sub-navigation__mode\" ng-show=\"!isEdit && isOwner\">\n" +
     "        <a\n" +
     "          class=\"sub-navigation__link btn  btn--utility icon-text\"\n" +
-    "          ng-click=\"displaySection('edit')\">\n" +
+    "          ng-class=\"{ 'sub-navigation__link--active' : isEdit }\"\n" +
+    "          ng-href=\"#/video/(~videoId~)\">\n" +
     "          <i class=\"icon  icon--edit  icon-text__icon\"></i>\n" +
     "          Edit\n" +
     "        </a>\n" +
     "      </li>\n" +
-    "      <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\">\n" +
+    "      <li class=\"sub-navigation__mode\" ng-show=\"isOwner\">\n" +
     "        <a\n" +
     "          class=\"sub-navigation__link btn  btn--utility icon-text\"\n" +
-    "          ng-click=\"displaySection('')\"\n" +
+    "          ng-href=\"#/video/(~videoId~)/publish\"\n" +
     "          ng-class=\"{ 'sub-navigation__link--active' : isReview }\">\n" +
     "          <i class=\"icon  icon--eye  icon-text__icon\"></i>\n" +
     "          Publish\n" +
     "        </a>\n" +
     "      </li>\n" +
-    "      <li class=\"sub-navigation__mode\" ng-hide=\"isEdit\">\n" +
+    "      <li class=\"sub-navigation__mode\">\n" +
     "        <a\n" +
     "          class=\"sub-navigation__link btn  btn--utility icon-text\"\n" +
-    "          ng-click=\"displaySection('comments')\"\n" +
+    "          ng-href=\"#/video/(~videoId~)/comments\"\n" +
     "          ng-class=\"{ 'sub-navigation__link--active' : isComments }\">\n" +
     "          <i class=\"icon  icon--speech-bubble  icon-text__icon\"></i>\n" +
     "          Collaborate\n" +
@@ -1894,7 +1897,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <ul class=\"nav  nav--block  organise-video__inline-controls\" ng-show=\"isList && !isCollaboration\">\n" +
     "    <li class=\"organise-video__inline-control\">\n" +
-    "      <a class=\"organise-video__inline-link organise-video__inline-link--edit\" ng-href=\"#/video/(~video.id~)/edit\" title=\"Edit\"><i class=\"icon  icon--edit\"></i></a>\n" +
+    "      <a class=\"organise-video__inline-link organise-video__inline-link--edit\" ng-href=\"#/video/(~video.id~)\" title=\"Edit\"><i class=\"icon  icon--edit\"></i></a>\n" +
     "    </li>\n" +
     "    <li class=\"organise-video__inline-control\">\n" +
     "      <a class=\"organise-video__inline-link organise-video__inline-link--view\" ng-href=\"#/video/(~video.id~)/publish\" title=\"Review\"><i class=\"icon  icon--eye\"></i></a>\n" +
@@ -1920,9 +1923,9 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\n" +
     "  <div class=\"ratio  ratio--16x9  video-thumb\" ng-hide=\"isList\">\n" +
     "    <ul class=\"nav  nav--block  video-thumb-list\" ng-hide=\"isCollaboration\">\n" +
-    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-class=\"{'is-disabled' : video.status=='error'}\" href=\"#/video/(~video.id~)/edit\"><i class=\"icon  icon--edit\"></i><span class=\"t--block  t--center\">Edit</span></a></li>\n" +
+    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-class=\"{'is-disabled' : video.status=='error'}\" href=\"#/video/(~video.id~)\"><i class=\"icon  icon--edit\"></i><span class=\"t--block  t--center\">Edit</span></a></li>\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-class=\"{'is-disabled' : video.status=='error'}\" href=\"#/video/(~video.id~)/publish\"><i class=\"icon  icon--eye\"></i><span class=\"t--block  t--center\">Publish</span></a></li>\n" +
-    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-class=\"{'is-disabled' : video.status=='error'}\" ng-click=\"displaySection('comments')\"><i class=\"icon  icon--group\"></i><span class=\"t--block  t--center\">Collaborate</span></a></li>\n" +
+    "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-class=\"{'is-disabled' : video.status=='error'}\" ng-click=\"#/video/(~video.id~)/comments\"><i class=\"icon  icon--group\"></i><span class=\"t--block  t--center\">Collaborate</span></a></li>\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link is-disabled\"><i class=\"icon  icon--bar-graph\"></i><span class=\"t--block  t--center\">Stats</span></a></li>\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-class=\"{'is-disabled' : video.status=='error'}\" ng-click=\"addRemove(video)\"><i class=\"icon  icon--collection\"></i><span class=\"t--block  t--center\">Add / Remove</span></a></li>\n" +
     "      <li class=\"video-thumb-list__item\"><a class=\"video-thumb-list__link\" ng-click=\"showDelete(video)\"><i class=\"icon  icon--trash\"></i><span class=\"t--block  t--center\">Delete</span></a></l>\n" +
@@ -2148,13 +2151,13 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <div class=\"wrapper\">\n" +
     "    <ul class=\"sub-navigation__modes\">\n" +
     "      <li class=\"sub-navigation__mode\">\n" +
-    "        <a href=\"#\" class=\"sub-navigation__link  btn  btn--utility  icon-text\"><i class=\"icon  icon--edit  icon-text__icon\"></i>Edit</a>\n" +
+    "        <a href=\"#/video/(~video.id~)\" class=\"sub-navigation__link  btn  btn--utility  icon-text\"><i class=\"icon  icon--edit  icon-text__icon\"></i>Edit</a>\n" +
     "      </li>\n" +
     "      <li class=\"sub-navigation__mode\">\n" +
-    "        <a href=\"#\" class=\"sub-navigation__link  sub-navigation__link--active  btn  btn--utility  icon-text\"><i class=\"icon  icon--eye  icon-text__icon\"></i>Publish</a>\n" +
+    "        <a href=\"#/video/(~video.id~)/publish\" class=\"sub-navigation__link  sub-navigation__link--active  btn  btn--utility  icon-text\"><i class=\"icon  icon--eye  icon-text__icon\"></i>Publish</a>\n" +
     "      </li>\n" +
     "      <li class=\"sub-navigation__mode\">\n" +
-    "        <a href=\"#\" class=\"sub-navigation__link  btn  btn--utility  icon-text\"><i class=\"icon  icon--speech-bubble  icon-text__icon\"></i>Collaborate</a>\n" +
+    "        <a href=\"#/video/(~video.id~)/comments\" class=\"sub-navigation__link  btn  btn--utility  icon-text\"><i class=\"icon  icon--speech-bubble  icon-text__icon\"></i>Collaborate</a>\n" +
     "      </li>\n" +
     "    </ul>\n" +
     "  </div>\n" +
@@ -2163,7 +2166,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "  <div class=\"wrapper  wrapper--fixed\">\n" +
     "\n" +
     "    <h1 class=\"heading  alpha  t--center\">Publish '(~ video.title ~)' to Wonder Place</h1>\n" +
-    "  \n" +
+    "\n" +
     "    <div class=\"text-col\">\n" +
     "      <p class=\"t--center\">Schedule a timed publish for your video on Wonder Place. The act of publishing on Wonder Place is done by placing your video inside a public collection which will appear on the app.</p>\n" +
     "    </div>\n" +
@@ -2212,7 +2215,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    <div class=\"text-col\">\n" +
     "      <p class=\"t--center\">Publish to many different places with Wonder Place and we will make sure your posts look great everywhere. Click the associated logo buttons below to begin connecting your accounts to Wonder Place.</p>\n" +
     "    </div>\n" +
-    "  \n" +
+    "\n" +
     "    <ul class=\"layout  publish-host\">\n" +
     "      <li class=\"layout__item  one-quarter  publish-host__option\" ng-class=\"{ 'publish-host__option--published' : providers.wonderpl.isPublished }\">\n" +
     "        <div class=\"avatar  avatar--huge\">\n" +
@@ -2220,21 +2223,21 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        </div>\n" +
     "        <p class=\"publish-host__title  icon-text\"><i class=\"icon  icon-text__icon  icon--circle-check\" ng-if=\"providers.wonderpl.isPublished\"></i>Wonder PL</p>\n" +
     "      </li><!--\n" +
-    "  \n" +
+    "\n" +
     "      --><li class=\"layout__item  one-quarter  publish-host__option\">\n" +
     "        <div class=\"avatar  avatar--huge\">\n" +
     "          <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" class=\"avatar__img\">\n" +
     "        </div>\n" +
     "        <p class=\"publish-host__title  icon-text\"><i class=\"icon  icon-text__icon  icon--circle-check\" ng-if=\"providers.youtube.isPublished\"></i>Youtube</p>\n" +
     "      </li><!--\n" +
-    "  \n" +
+    "\n" +
     "      --><li class=\"layout__item  one-quarter  publish-host__option\">\n" +
     "        <div class=\"avatar  avatar--huge\">\n" +
     "          <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" class=\"avatar__img\">\n" +
     "        </div>\n" +
     "        <p class=\"publish-host__title  icon-text\"><i class=\"icon  icon-text__icon  icon--circle-check\" ng-if=\"providers.facebook.isPublished\"></i>Facebook</p>\n" +
     "      </li><!--\n" +
-    "  \n" +
+    "\n" +
     "      --><li class=\"layout__item  one-quarter  publish-host__option\">\n" +
     "        <div class=\"avatar  avatar--huge\">\n" +
     "          <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\" alt=\"\" class=\"avatar__img\">\n" +

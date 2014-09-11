@@ -80,13 +80,6 @@
             resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
-        // Videos
-        $routeProvider.when('/video/:id/edit', {
-            templateUrl: 'video.html',
-            controller: 'MainCtrl',
-            resolve: securityAuthorizationProvider.requireContentOwner
-        });
-
         $routeProvider.when('/faq', {
             controller: 'MainCtrl',
             templateUrl: 'faq.html'

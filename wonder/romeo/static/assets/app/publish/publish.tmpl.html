@@ -2,13 +2,13 @@
   <div class="wrapper">
     <ul class="sub-navigation__modes">
       <li class="sub-navigation__mode">
-        <a href="#" class="sub-navigation__link  btn  btn--utility  icon-text"><i class="icon  icon--edit  icon-text__icon"></i>Edit</a>
+        <a href="#/video/{{video.id}}" class="sub-navigation__link  btn  btn--utility  icon-text"><i class="icon  icon--edit  icon-text__icon"></i>Edit</a>
       </li>
       <li class="sub-navigation__mode">
-        <a href="#" class="sub-navigation__link  sub-navigation__link--active  btn  btn--utility  icon-text"><i class="icon  icon--eye  icon-text__icon"></i>Publish</a>
+        <a href="#/video/{{video.id}}/publish" class="sub-navigation__link  sub-navigation__link--active  btn  btn--utility  icon-text"><i class="icon  icon--eye  icon-text__icon"></i>Publish</a>
       </li>
       <li class="sub-navigation__mode">
-        <a href="#" class="sub-navigation__link  btn  btn--utility  icon-text"><i class="icon  icon--speech-bubble  icon-text__icon"></i>Collaborate</a>
+        <a href="#/video/{{video.id}}/comments" class="sub-navigation__link  btn  btn--utility  icon-text"><i class="icon  icon--speech-bubble  icon-text__icon"></i>Collaborate</a>
       </li>
     </ul>
   </div>
@@ -17,7 +17,7 @@
   <div class="wrapper  wrapper--fixed">
 
     <h1 class="heading  alpha  t--center">Publish '{{ video.title }}' to Wonder Place</h1>
-  
+
     <div class="text-col">
       <p class="t--center">Schedule a timed publish for your video on Wonder Place. The act of publishing on Wonder Place is done by placing your video inside a public collection which will appear on the app.</p>
     </div>
@@ -66,7 +66,7 @@
     <div class="text-col">
       <p class="t--center">Publish to many different places with Wonder Place and we will make sure your posts look great everywhere. Click the associated logo buttons below to begin connecting your accounts to Wonder Place.</p>
     </div>
-  
+
     <ul class="layout  publish-host">
       <li class="layout__item  one-quarter  publish-host__option" ng-class="{ 'publish-host__option--published' : providers.wonderpl.isPublished }">
         <div class="avatar  avatar--huge">
@@ -74,21 +74,21 @@
         </div>
         <p class="publish-host__title  icon-text"><i class="icon  icon-text__icon  icon--circle-check" ng-if="providers.wonderpl.isPublished"></i>Wonder PL</p>
       </li><!--
-  
+
       --><li class="layout__item  one-quarter  publish-host__option">
         <div class="avatar  avatar--huge">
           <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img">
         </div>
         <p class="publish-host__title  icon-text"><i class="icon  icon-text__icon  icon--circle-check" ng-if="providers.youtube.isPublished"></i>Youtube</p>
       </li><!--
-  
+
       --><li class="layout__item  one-quarter  publish-host__option">
         <div class="avatar  avatar--huge">
           <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img">
         </div>
         <p class="publish-host__title  icon-text"><i class="icon  icon-text__icon  icon--circle-check" ng-if="providers.facebook.isPublished"></i>Facebook</p>
       </li><!--
-  
+
       --><li class="layout__item  one-quarter  publish-host__option">
         <div class="avatar  avatar--huge">
           <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img">
