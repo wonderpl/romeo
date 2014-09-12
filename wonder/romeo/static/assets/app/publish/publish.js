@@ -94,6 +94,7 @@
 
 
     $scope.showPublish = function () {
+      showPublishOptions = false;
       modal.load('collection-add-video.html', true, $scope);
     };
 
@@ -111,7 +112,6 @@
     }
 
     function init () {
-      console.log('init()');
       if ($routeParams.id) {
         $scope.isModal = true;
         initProviders();

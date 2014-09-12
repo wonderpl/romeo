@@ -2184,7 +2184,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </div>\n" +
     "    <div class=\"text-col\">\n" +
     "      <p class=\"heading  kilo\" ng-if=\"isPublished\">Your video has been published!</p>\n" +
-    "      <p>Your video has been published to: <span ng-bind=\"video.tags.items | commaSeparatedList\"></span></p>\n" +
+    "      <p ng-if=\"video.tags.items\">Your video has been published to: <span ng-bind=\"video.tags.items | commaSeparatedList\"></span></p>\n" +
     "\n" +
     "      <div class=\"notice  notice--info\">\n" +
     "        <p>By clicking 'Publish', you agree that this video does not violate the Terms of Use of any of the video sites you plan to upload to and that you own all copyrights in this video or have express permission from all copyright owners to upload it. You also agree to Wonder PL’s Terms of Service.</p>\n" +
