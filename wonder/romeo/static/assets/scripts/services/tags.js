@@ -14,6 +14,9 @@
           var deferred = new $q.defer();
           DataService.request({url: '/api/account/' + AccountService.getAccountId() + '/tags'}).then(function(response) {
               Tags = response.tag.items;
+
+              console.log(Tags);
+
               deferred.resolve(response);
           });
           return deferred.promise;

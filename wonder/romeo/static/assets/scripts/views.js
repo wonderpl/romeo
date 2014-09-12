@@ -159,7 +159,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "        <span class=\"video-edit-collections__option-count\"></span>\n" +
     "      </li>\n" +
     "\n" +
-    "      <li class=\"video-edit-collections__option video-edit-collections__option--private\" data-videos=\"(~ tag.video_count ~)\"\n" +
+    "      <li class=\"video-edit-collections__option\" data-videos=\"(~ tag.video_count ~)\"\n" +
     "        ng-class=\"{\n" +
     "          'video-edit-collections__option--selected' : hasTag(tag.id),\n" +
     "          'video-edit-collections__option--modal' : isModal,\n" +
