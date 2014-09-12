@@ -121,8 +121,10 @@
                         else {
                             if (service.isAuthenticated()) {
                                 service.redirect('/login/upgrade');
+                                deferred.resolve();
                             }
-                            deferred.reject();
+                            else
+                                deferred.reject();
                         }
                     });
                 }
@@ -133,8 +135,10 @@
                     else {
                         if (service.isAuthenticated()) {
                             service.redirect('/login/upgrade');
+                            deferred.resolve();
                         }
-                        deferred.reject();
+                        else
+                            deferred.reject();
                     }
                 }
                 return deferred.promise;
