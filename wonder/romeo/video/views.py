@@ -273,8 +273,11 @@ def _video_item(video, full=False, with_account=False, public=False):
         )
     else:
         data['thumbnail_url'] = video.thumbnail
-        data['thumbnails'] = dict(items=
-            [{'url': video.thumbnail, 'width': 0, 'height': 0}] if video.thumbnail else [])
+        data['thumbnails'] = dict(
+            items=[
+                {'url': video.thumbnail, 'width': 0, 'height': 0}
+            ] if video.thumbnail else []
+        )
 
     if public:
         data['href'] = video.public_href
