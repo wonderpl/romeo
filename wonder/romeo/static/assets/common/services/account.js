@@ -34,7 +34,12 @@
         // Payment upgrade to content_owner
         // Takes a json object as argument of type: {"stripeToken": "xxx"}
         service.upgradeToContentOwner = function (data) {
-            return $http.post('/api/account/' + service.getAccountId() + '/payment', data);
+            var queue = $http.post('/api/account/' + service.getAccountId() + '/payment', data);
+            queue.then(function () {
+                var account = service.getAccount();
+                account.account_type = 'content_owner';
+            });
+            return queue;
         };
 
         // New code using SecurityService

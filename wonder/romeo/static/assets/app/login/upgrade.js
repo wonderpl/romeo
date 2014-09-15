@@ -13,6 +13,11 @@ function UpgradeController($scope, $location, AccountService) {
 
         AccountService.upgradeToContentOwner(tokens).then(function () {
             $location.url('/video');
+            $scope.$emit('notify', {
+              status : 'success',
+              title : 'Upgrade account',
+              message : 'Your account has been upgraded'
+            });
         }, function () {
             $scope.$emit('notify', {
               status : 'error',
