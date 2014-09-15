@@ -56,6 +56,34 @@ module.exports = function (grunt) {
                     }
                 ]
             },
+            bowerfiles: {
+                files: [
+                    {
+                        expand: true,
+                        src: [
+                            '*.png',
+                            '*.gif',
+                        ],
+                        dest: 'static/gen/',
+                        filter: 'isFile',
+                        cwd: 'wonder/romeo/static/bower/select2/'
+                    },
+                    {
+                        expand: true,
+                        src: '/*.swf', // Where does this need to go?
+                        dest: 'static/gen/',
+                        filter: 'isFile',
+                        cwd: 'wonder/romeo/static/bower/ng-file-upload/'
+                    },
+                    {
+                        expand: true,
+                        src: '*',
+                        dest: 'static/gen/images/',
+                        filter: 'isFile',
+                        cwd: 'wonder/romeo/static/bower/jquery.ui/themes/base/images/'
+                    }
+                ]
+            },
             json: {
                 files: [
                     {
