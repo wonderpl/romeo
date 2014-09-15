@@ -19,7 +19,7 @@
       "bower/jquery.ui/themes/base/menu.css",
       "bower/jquery.ui/themes/base/autocomplete.css",
       "bower/jquery.ui/themes/base/theme.css",
-      "assets/css/app.css"
+      "gen/romeo/app.css"
     %}
     <link rel="stylesheet" href="{{ ASSET_URL }}"/>
     {% endassets %}
@@ -100,7 +100,7 @@
 
     {% block viewsjs %}
         {% assets filters="rjsmin", output="gen/views.%(version)s.js",
-            "assets/scripts/views.js"
+            "gen/romeo/views.js"
         %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
     {% endblock %}
 

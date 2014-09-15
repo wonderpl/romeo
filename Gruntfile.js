@@ -1,3 +1,7 @@
+var staticDir = 'wonder/romeo/static',
+    assetsDir = staticDir + '/assets',
+    outputDir = staticDir + '/gen';
+
 module.exports = function (grunt) {
 
 
@@ -6,6 +10,10 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
+        staticDir: staticDir,
+        assetsDir: assetsDir,
+        outputDir: outputDir,
+
         /* Linting! */
         /* ======== */
         jshint: {
@@ -13,9 +21,9 @@ module.exports = function (grunt) {
                 jshintrc: true
             },
             files: [
-                'wonder/romeo/static/assets/scripts/**/*.js',
-                'wonder/romeo/static/assets/common/**/*.js',
-                'wonder/romeo/static/assets/app/**/*.js'
+                '<%= assetsDir %>/scripts/**/*.js',
+                '<%= assetsDir %>/common/**/*.js',
+                '<%= assetsDir %>/app/**/*.js'
             ]
         },
 
@@ -31,7 +39,7 @@ module.exports = function (grunt) {
         /* ======== */
         copy: {
             // css: {
-            //     src: 'wonder/romeo/static/assets/css/app.css',
+            //     src: '<%= assetsDir %>/css/app.css',
             //     dest: 'dist/assets/css/app.css'
             // },
             fonts: {
@@ -41,7 +49,7 @@ module.exports = function (grunt) {
                         src: 'assets/fonts/*',
                         dest: 'dist/',
                         filter: 'isFile',
-                        cwd: 'wonder/romeo/static/'
+                        cwd: '<%= staticDir %>/'
                     }
                 ]
             },
@@ -52,7 +60,7 @@ module.exports = function (grunt) {
                         src: 'assets/img/*',
                         dest: 'dist/',
                         filter: 'isFile',
-                        cwd: 'wonder/romeo/static/'
+                        cwd: '<%= staticDir %>/'
                     }
                 ]
             },
@@ -64,23 +72,23 @@ module.exports = function (grunt) {
                             '*.png',
                             '*.gif',
                         ],
-                        dest: 'static/gen/',
+                        dest: '<%= staticDir %>/gen/',
                         filter: 'isFile',
-                        cwd: 'wonder/romeo/static/bower/select2/'
+                        cwd: '<%= staticDir %>/bower/select2/'
                     },
                     {
                         expand: true,
                         src: '/*.swf', // Where does this need to go?
-                        dest: 'static/gen/',
+                        dest: '<%= staticDir %>/gen/',
                         filter: 'isFile',
-                        cwd: 'wonder/romeo/static/bower/ng-file-upload/'
+                        cwd: '<%= staticDir %>/bower/ng-file-upload/'
                     },
                     {
                         expand: true,
                         src: '*',
-                        dest: 'static/gen/images/',
+                        dest: '<%= staticDir %>/gen/images/',
                         filter: 'isFile',
-                        cwd: 'wonder/romeo/static/bower/jquery.ui/themes/base/images/'
+                        cwd: '<%= staticDir %>/bower/jquery.ui/themes/base/images/'
                     }
                 ]
             },
@@ -91,7 +99,7 @@ module.exports = function (grunt) {
                         src: 'api/*',
                         dest: 'dist/',
                         filter: 'isFile',
-                        cwd: 'wonder/romeo/static/'
+                        cwd: '<%= staticDir %>/'
                     }
                 ]
             }
@@ -104,11 +112,11 @@ module.exports = function (grunt) {
                 separator: '\n'
             },
             dist: {
-                src: ['wonder/romeo/static/assets/scripts/**/*.js', 'wonder/romeo/static/assets/common/**/*.js', 'wonder/romeo/static/assets/app/**/*.js'],
+                src: ['<%= assetsDir %>/scripts/**/*.js', '<%= assetsDir %>/common/**/*.js', '<%= assetsDir %>/app/**/*.js'],
                 dest: 'dist/assets/scripts/app.js'
             },
             vendor: {
-                src: ['wonder/romeo/static/assets/vendor/js/angular/angular.js', 'wonder/romeo/static/assets/vendor/**/*.js', '!wonder/romeo/static/assets/vendor/**/*.min.js'],
+                src: ['<%= assetsDir %>/vendor/js/angular/angular.js', '<%= assetsDir %>/vendor/**/*.js', '!<%= assetsDir %>/vendor/**/*.min.js'],
                 dest: 'dist/assets/scripts/vendor.js'
             }
         },
@@ -131,7 +139,7 @@ module.exports = function (grunt) {
             },
             views: {
                 files: {
-                    'dist/assets/scripts/views.min.js': 'wonder/romeo/static/assets/scripts/views.js'
+                    'dist/assets/scripts/views.min.js': '<%= assetsDir %>/scripts/views.js'
                 }
             }
         },
@@ -149,7 +157,7 @@ module.exports = function (grunt) {
         processhtml: {
             dist: {
                 files: {
-                    'dist/index.html': ['wonder/romeo/static/index.html']
+                    'dist/index.html': ['<%= staticDir %>/index.html']
                 }
             }
         },
@@ -180,15 +188,15 @@ module.exports = function (grunt) {
         compass: {
             dist: {
                 options: {
-                    sassDir: 'wonder/romeo/static/scss',
-                    cssDir: 'wonder/romeo/static/assets/css',
+                    sassDir: '<%= staticDir %>/scss',
+                    cssDir: '<%= outputDir %>/romeo',
                     config: 'wonder/romeo/settings/config.rb'
                 }
             },
             prod: {
                 options: {
-                    sassDir: 'wonder/romeo/static/scss',
-                    cssDir: 'wonder/romeo/static/assets/css',
+                    sassDir: '<%= staticDir %>/scss',
+                    cssDir: '<%= outputDir %>/romeo',
                     config: 'wonder/romeo/settings/config.rb',
                     outputStyle: 'compressed'
                 }
@@ -200,11 +208,11 @@ module.exports = function (grunt) {
         ngtemplates: {
             options: {
                 url: function (url) {
-                    if (url.indexOf('wonder/romeo/static/assets/app/') > -1) {
-                        return url.replace('wonder/romeo/static/assets/app/', '');
+                    if (url.indexOf(assetsDir + '/app/') > -1) {
+                        return url.replace(assetsDir + '/app/', '');
                     }
-                    else if (url.indexOf('wonder/romeo/static/assets/common/') > -1) {
-                        return url.replace('wonder/romeo/static/assets/common/', '');
+                    else if (url.indexOf(assetsDir + '/common/') > -1) {
+                        return url.replace(assetsDir + '/common/', '');
                     }
                     var name;
                     name = url.split('/');
@@ -216,8 +224,8 @@ module.exports = function (grunt) {
             },
             RomeoApp: {
                 module: 'RomeoApp',
-                src: ['wonder/romeo/static/views/**/*.html', 'wonder/romeo/static/assets/app/**/*.tmpl.html', 'wonder/romeo/static/assets/common/**/*.tmpl.html'],
-                dest: 'wonder/romeo/static/assets/scripts/views.js'
+                src: ['<%= staticDir %>/views/**/*.html', '<%= assetsDir %>/app/**/*.tmpl.html', '<%= assetsDir %>/common/**/*.tmpl.html'],
+                dest: '<%= outputDir %>/romeo/views.js'
             }
         },
 
@@ -226,33 +234,33 @@ module.exports = function (grunt) {
         watch: {
             sass: {
                 files: [
-                  'wonder/romeo/static/scss/**/*.scss',
-                  'wonder/romeo/static/assets/common/**/*.scss',
-                  'wonder/romeo/static/assets/app/**/*.scss'
+                  '<%= staticDir %>/scss/**/*.scss',
+                  '<%= assetsDir %>/common/**/*.scss',
+                  '<%= assetsDir %>/app/**/*.scss'
                 ],
                 tasks: ['compass:dist']
             },
             angular: {
                 files: [
-                  'wonder/romeo/static/views/**/*.html',
-                  'wonder/romeo/static/assets/app/**/*.tmpl.html',
-                  'wonder/romeo/static/assets/common/**/*.tmpl.html'
+                  '<%= staticDir %>/views/**/*.html',
+                  '<%= assetsDir %>/app/**/*.tmpl.html',
+                  '<%= assetsDir %>/common/**/*.tmpl.html'
                 ],
                 tasks: ['ngtemplates']
             },
             jshint: {
                 files: [
-                    'wonder/romeo/static/assets/scripts/**/*.js',
-                    'wonder/romeo/static/assets/common/**/*.js',
-                    'wonder/romeo/static/assets/app/**/*.js'
+                    '<%= assetsDir %>/scripts/**/*.js',
+                    '<%= assetsDir %>/common/**/*.js',
+                    '<%= assetsDir %>/app/**/*.js'
                 ],
                 tasks: ['jshint']
             }, // @TODO enable karma unit tests as part of watch
             unittest: {
                 files: [
-                    'wonder/romeo/static/assets/scripts/**/*.js',
-                    'wonder/romeo/static/assets/common/**/*.js',
-                    'wonder/romeo/static/assets/app/**/*.js',
+                    '<%= assetsDir %>/scripts/**/*.js',
+                    '<%= assetsDir %>/common/**/*.js',
+                    '<%= assetsDir %>/app/**/*.js',
                     'test-front/unit/**/*.js'
                 ],
                 tasks: ['karma:raw']
@@ -275,7 +283,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-processhtml');
 
     /* TASK ALIASES */
-    grunt.registerTask('build', [ 'clean', 'ngtemplates', 'jshint', 'compass:dist', 'copy', 'concat', 'uglify', 'processhtml', 'karma:raw' ]);
+    grunt.registerTask('build', [ 'clean', 'ngtemplates', 'jshint', 'compass:dist', 'karma:raw' ]);
     grunt.registerTask('templates', [ 'ngtemplates' ]);
 
     /* Running GRUNT without any parameters will run the following tasks

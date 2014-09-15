@@ -27,7 +27,7 @@ module.exports = function(config) {
       'wonder/romeo/static/assets/security/security.js',
       'wonder/romeo/static/assets/scripts/services.js',
       'wonder/romeo/static/assets/scripts/filters.js',
-      'wonder/romeo/static/assets/scripts/views.js',
+      'wonder/romeo/static/gen/romeo/views.js',
       'wonder/romeo/static/assets/scripts/services/*.js',
 
       'wonder/romeo/static/assets/scripts/controllers/*.js',
