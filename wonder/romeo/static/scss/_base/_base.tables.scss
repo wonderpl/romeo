@@ -1,28 +1,133 @@
 /**
  * _base.tables.scss
  */
-.table {
+/**
+ * We have a lot at our disposal for making very complex table constructs, e.g.:
+ *
+   <table class="table--bordered  table--striped  table--data">
+       <colgroup>
+           <col class=t10>
+           <col class=t10>
+           <col class=t10>
+           <col>
+       </colgroup>
+       <thead>
+           <tr>
+               <th colspan=3>Foo</th>
+               <th>Bar</th>
+           </tr>
+           <tr>
+               <th>Lorem</th>
+               <th>Ipsum</th>
+               <th class=numerical>Dolor</th>
+               <th>Sit</th>
+           </tr>
+       </thead>
+       <tbody>
+           <tr>
+               <th rowspan=3>Sit</th>
+               <td>Dolor</td>
+               <td class=numerical>03.788</td>
+               <td>Lorem</td>
+           </tr>
+           <tr>
+               <td>Dolor</td>
+               <td class=numerical>32.210</td>
+               <td>Lorem</td>
+           </tr>
+           <tr>
+               <td>Dolor</td>
+               <td class=numerical>47.797</td>
+               <td>Lorem</td>
+           </tr>
+           <tr>
+               <th rowspan=2>Sit</th>
+               <td>Dolor</td>
+               <td class=numerical>09.640</td>
+               <td>Lorem</td>
+           </tr>
+           <tr>
+               <td>Dolor</td>
+               <td class=numerical>12.117</td>
+               <td>Lorem</td>
+           </tr>
+       </tbody>
+   </table>
+ *
+ */
+table {
   width: 100%;
-  border-collapse: collapse;
-  margin-bottom: $base-spacing-unit;
+  font-family: $heading-font-family;
 }
-
 th,
 td {
   padding: $base-spacing-unit / 4;
+  @media screen and (min-width:480px){
+    padding: $half-spacing-unit;
+  }
   text-align: left;
 }
 
-[colspan] {
-  text-align: center;
-}
-[colspan="1"] {
-  text-align: left;
+
+/**
+ * Cell alignments
+ */
+[colspan]     { text-align: center; }
+[colspan="1"] { text-align: left; }
+[rowspan]     { vertical-align: middle; }
+[rowspan="1"] { vertical-align: top; }
+.numerical    { text-align: right; }
+
+
+/**
+ * Bordered tables
+ */
+.table--bordered {
+
+  td,
+  tbody th {
+    border: 0 solid rgba($base-color-ui, 0.12);
+    border-top-width: 2px;
+  }
+
+  tbody th {
+    border-right-width: 1px;
+  }
+  
+  // th,
+  // td {
+    // border: 1px solid $base-color-ui;
+// 
+    // &:empty {
+      // border: none;
+    // }
+  // }
+// 
+  // thead tr:last-child th {
+    // border-bottom-width: 2px;
+  // }
+// 
+  // tbody tr th:last-of-type {
+    // border-right-width: 2px;
+  // }
 }
 
-[rowspan] {
-  vertical-align: middle;
+
+/**
+ * Striped tables
+ */
+.table--striped {
+
+  tbody tr:nth-of-type(odd) {
+    background-color: rgba($base-color-ui, 0.5); /* Override this color in your theme stylesheet */
+  }
 }
-[rowspan="1"] {
-  vertical-align: top;
+
+
+/**
+ * Data table
+ */
+.table--data {
+  @include font-size($base-font-size * 0.6666666666666666, 1.5);
+  font-family: $heading-font-family;
 }
