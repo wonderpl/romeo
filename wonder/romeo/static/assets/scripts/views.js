@@ -2129,7 +2129,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "\t<div class=\"profile-details__description\" ng-bind-html=\"profile.description\"></div>\n" +
     "\n" +
     "\t<ul class=\"profile-details__optional\">\n" +
-    "\t\t<li class=\"profile-details__website\"><a href=\"(~ profile.website_url ~)\" target=\"_new\">(~ profile.website_url ~)</a></li>\n" +
+    "\t\t<li class=\"profile-details__website\" ng-if=\"profile.website_url\"><a href=\"(~ profile.website_url ~)\" target=\"_new\">(~ profile.website_url ~)</a></li>\n" +
     "\t\t<li ng-if=\"profile.location\" class=\"profile-details__location\">(~ findLocationName() ~)</li>\n" +
     "\t</ul>\n" +
     "\n" +

@@ -6,7 +6,7 @@
 	<div class="profile-details__description" ng-bind-html="profile.description"></div>
 
 	<ul class="profile-details__optional">
-		<li class="profile-details__website"><a href="{{ profile.website_url }}" target="_new">{{ profile.website_url }}</a></li>
+		<li class="profile-details__website" ng-if="profile.website_url"><a href="{{ profile.website_url }}" target="_new">{{ profile.website_url }}</a></li>
 		<li ng-if="profile.location" class="profile-details__location">{{ findLocationName() }}</li>
 	</ul>
 
