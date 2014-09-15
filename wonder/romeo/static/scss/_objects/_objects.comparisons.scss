@@ -1,0 +1,35 @@
+/**
+ * _objects.comparisons.scss
+ */
+/**
+ * Simple options object to provide multiple choices, e.g.:
+ *
+   <h1 class=comparison>
+       <a href=# class="comparison__object  two-fifths">
+           Free
+       </a>
+       <span class="comparison__divider  one-fifth">
+           or
+       </span>
+       <a href=# class="comparison__object  two-fifths">
+           Pro
+       </a>
+   </h1>
+ *
+ * The `.comparison__object` and `.comparison__divider` objects can be sized using
+ * the grid-system classes.
+ *
+ */
+.comparison {
+  display: table;
+  width: 100%;
+  margin-bottom: $base-spacing-unit;
+}
+  .comparison__object,
+  .comparison__divider {
+    display: table-cell;
+    vertical-align: middle;
+  }
+  .comparison__divider {
+    text-align: center;
+  }
