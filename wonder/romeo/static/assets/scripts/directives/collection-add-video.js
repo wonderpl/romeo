@@ -108,6 +108,7 @@ angular.module('RomeoApp.directives')
         $scope.addVideoToCollection = true;
         $scope.collection = {};
         $scope.collection.scope = 'private';
+        $scope.showOnlyPrivate = true;
         modal.load('modal-create-new-collection.html', true, $scope, {});
       };
 

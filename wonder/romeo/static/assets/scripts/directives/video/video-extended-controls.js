@@ -14,6 +14,20 @@ angular.module('RomeoApp.directives')
       $scope.showHideCollectionExtended = function() {
         $scope.$emit('show-hide-collection');
       };
+      function setAvaliableTags(tags) {
+        $scope.availableTags = [];
+        angular.forEach(tags, function (val, key) {
+          if (! val.public)
+            $scope.availableTags.push(val);
+        });
+      }
+      setAvaliableTags($scope.tags);
+
+      $scope.$watch('tags', function (newValue, oldValue) {
+        if (! angular.equals(newValue, oldValue)) {
+          setAvaliableTags(newValue);
+        }
+      });
     }
   };
 }]);
