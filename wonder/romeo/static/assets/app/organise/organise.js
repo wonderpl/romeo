@@ -7,6 +7,9 @@
       var debug = new DebugClass('OrganiseCtrl');
 
       function init() {
+        if (! $routeParams.id && SecurityService.isCollaborator() ) {
+          $location.url('/organise/collaboration');
+        }
         refresh(); // Call this on page load to load all the data
 
         // Scope listners:
