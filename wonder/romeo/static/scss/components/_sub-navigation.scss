@@ -76,3 +76,17 @@
   }
 }
 
+.btn.sub-navigation__link--active {
+  color: $swatch-one;
+}
+
+.sub-navigation__btn {
+  padding: 8px 16px;
+  font-variant: small-caps;
+  font-weight: 600;
+  font-size: 0.75em;
+  text-transform: lowercase;
+  letter-spacing: 0.1em;
+}
+
+

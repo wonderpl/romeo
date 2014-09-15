@@ -1,49 +1,49 @@
-<section class="sub-navigation video-view-control-panel sub-navigation--{{ isComments ? $root.layoutMode : 'column' }}">
+<section class="sub-navigation video-view-control-panel sub-navigation--{{ flags.isComments ? $root.layoutMode : 'column' }}">
   <div class="wrapper">
     <ul class="sub-navigation__modes">
       <li class="sub-navigation__mode  f--left">
         <video-download video-id="videoId" ng-show="videoId && videoStatus==='published'"></video-download>
       </li>
-      <li class="sub-navigation__mode  f--left" ng-if="!isOwner">
+      <li class="sub-navigation__mode  f--left" ng-if="!flags.isOwner">
         <a class="btn  btn--utility  icon-text"><i class="icon  icon--paper-stack  icon-text__icon"></i>Copy video to my account</a>
       </li>
-      <li class="sub-navigation__mode" ng-show="isEdit">
-        <a class="sub-navigation__link btn  btn--utility  icon-text"
-         ng-class="{ 'sub-navigation__link--active' : isEdit }"
+      <li class="sub-navigation__mode" ng-show="flags.isEdit">
+        <a class="sub-navigation__btn btn btn--positive  icon-text"
+         ng-class="{ 'sub-navigation__btn--active' : flags.isEdit }"
          ng-click="save()">
           <i class="icon  icon--check  icon-text__icon"></i>
           Save Changes
         </a>
       </li>
-      <li class="sub-navigation__mode" ng-show="isEdit">
-        <a class="sub-navigation__link btn  btn--utility  icon-text" ng-click="cancel()">
+      <li class="sub-navigation__mode" ng-show="flags.isEdit">
+        <a class="sub-navigation__btn btn icon-text" ng-click="cancel()">
           <i class="icon  icon--cross  icon-text__icon"></i>
           Discard
         </a>
       </li>
-      <li class="sub-navigation__mode" ng-show="!isEdit && isOwner">
+      <li class="sub-navigation__mode" ng-show="flags.isOwner">
         <a
           class="sub-navigation__link btn  btn--utility icon-text"
-          ng-class="{ 'sub-navigation__link--active' : isEdit }"
+          ng-class="{ 'sub-navigation__link--active' : flags.isEdit }"
           ng-href="#/video/{{videoId}}">
           <i class="icon  icon--edit  icon-text__icon"></i>
           Edit
         </a>
       </li>
-      <li class="sub-navigation__mode" ng-show="isOwner">
+      <li class="sub-navigation__mode" ng-show="flags.isOwner">
         <a
           class="sub-navigation__link btn  btn--utility icon-text"
           ng-href="#/video/{{videoId}}/publish"
-          ng-class="{ 'sub-navigation__link--active' : isReview }">
+          ng-class="{ 'sub-navigation__link--active' : flags.isReview }">
           <i class="icon  icon--eye  icon-text__icon"></i>
           Publish
         </a>
       </li>
-      <li class="sub-navigation__mode">
+      <li class="sub-navigation__mode" ng-hide="flags.showUpload">
         <a
           class="sub-navigation__link btn  btn--utility icon-text"
           ng-href="#/video/{{videoId}}/comments"
-          ng-class="{ 'sub-navigation__link--active' : isComments }">
+          ng-class="{ 'sub-navigation__link--active' : flags.isComments }">
           <i class="icon  icon--speech-bubble  icon-text__icon"></i>
           Collaborate
         </a>

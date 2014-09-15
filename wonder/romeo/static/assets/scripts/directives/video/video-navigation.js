@@ -7,16 +7,11 @@ angular.module('RomeoApp.directives')
     replace : true,
     template : $templateCache.get('video-navigation.html'),
     scope : {
-      isEdit : '=',
-      isReview : '=',
-      isOwner : '=',
-      isComments : '=',
       videoId : '=',
+      flags: '=',
       videoStatus : '='
     },
     controller : function ($scope) {
-
-
       // $scope.isCollaborator = $root.isCollaborator;
 
       $scope.save = function () {

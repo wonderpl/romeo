@@ -1433,52 +1433,52 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('video-navigation.html',
-    "<section class=\"sub-navigation video-view-control-panel sub-navigation--(~ isComments ? $root.layoutMode : 'column' ~)\">\n" +
+    "<section class=\"sub-navigation video-view-control-panel sub-navigation--(~ flags.isComments ? $root.layoutMode : 'column' ~)\">\n" +
     "  <div class=\"wrapper\">\n" +
     "    <ul class=\"sub-navigation__modes\">\n" +
     "      <li class=\"sub-navigation__mode  f--left\">\n" +
     "        <video-download video-id=\"videoId\" ng-show=\"videoId && videoStatus==='published'\"></video-download>\n" +
     "      </li>\n" +
-    "      <li class=\"sub-navigation__mode  f--left\" ng-if=\"!isOwner\">\n" +
+    "      <li class=\"sub-navigation__mode  f--left\" ng-if=\"!flags.isOwner\">\n" +
     "        <a class=\"btn  btn--utility  icon-text\"><i class=\"icon  icon--paper-stack  icon-text__icon\"></i>Copy video to my account</a>\n" +
     "      </li>\n" +
-    "      <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
-    "        <a class=\"sub-navigation__link btn  btn--utility  icon-text\"\n" +
-    "         ng-class=\"{ 'sub-navigation__link--active' : isEdit }\"\n" +
+    "      <li class=\"sub-navigation__mode\" ng-show=\"flags.isEdit\">\n" +
+    "        <a class=\"sub-navigation__btn btn btn--positive  icon-text\"\n" +
+    "         ng-class=\"{ 'sub-navigation__btn--active' : flags.isEdit }\"\n" +
     "         ng-click=\"save()\">\n" +
     "          <i class=\"icon  icon--check  icon-text__icon\"></i>\n" +
     "          Save Changes\n" +
     "        </a>\n" +
     "      </li>\n" +
-    "      <li class=\"sub-navigation__mode\" ng-show=\"isEdit\">\n" +
-    "        <a class=\"sub-navigation__link btn  btn--utility  icon-text\" ng-click=\"cancel()\">\n" +
+    "      <li class=\"sub-navigation__mode\" ng-show=\"flags.isEdit\">\n" +
+    "        <a class=\"sub-navigation__btn btn icon-text\" ng-click=\"cancel()\">\n" +
     "          <i class=\"icon  icon--cross  icon-text__icon\"></i>\n" +
     "          Discard\n" +
     "        </a>\n" +
     "      </li>\n" +
-    "      <li class=\"sub-navigation__mode\" ng-show=\"!isEdit && isOwner\">\n" +
+    "      <li class=\"sub-navigation__mode\" ng-show=\"flags.isOwner\">\n" +
     "        <a\n" +
     "          class=\"sub-navigation__link btn  btn--utility icon-text\"\n" +
-    "          ng-class=\"{ 'sub-navigation__link--active' : isEdit }\"\n" +
+    "          ng-class=\"{ 'sub-navigation__link--active' : flags.isEdit }\"\n" +
     "          ng-href=\"#/video/(~videoId~)\">\n" +
     "          <i class=\"icon  icon--edit  icon-text__icon\"></i>\n" +
     "          Edit\n" +
     "        </a>\n" +
     "      </li>\n" +
-    "      <li class=\"sub-navigation__mode\" ng-show=\"isOwner\">\n" +
+    "      <li class=\"sub-navigation__mode\" ng-show=\"flags.isOwner\">\n" +
     "        <a\n" +
     "          class=\"sub-navigation__link btn  btn--utility icon-text\"\n" +
     "          ng-href=\"#/video/(~videoId~)/publish\"\n" +
-    "          ng-class=\"{ 'sub-navigation__link--active' : isReview }\">\n" +
+    "          ng-class=\"{ 'sub-navigation__link--active' : flags.isReview }\">\n" +
     "          <i class=\"icon  icon--eye  icon-text__icon\"></i>\n" +
     "          Publish\n" +
     "        </a>\n" +
     "      </li>\n" +
-    "      <li class=\"sub-navigation__mode\">\n" +
+    "      <li class=\"sub-navigation__mode\" ng-hide=\"flags.showUpload\">\n" +
     "        <a\n" +
     "          class=\"sub-navigation__link btn  btn--utility icon-text\"\n" +
     "          ng-href=\"#/video/(~videoId~)/comments\"\n" +
-    "          ng-class=\"{ 'sub-navigation__link--active' : isComments }\">\n" +
+    "          ng-class=\"{ 'sub-navigation__link--active' : flags.isComments }\">\n" +
     "          <i class=\"icon  icon--speech-bubble  icon-text__icon\"></i>\n" +
     "          Collaborate\n" +
     "        </a>\n" +
@@ -1613,7 +1613,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<div ng-controller=\"VideoCtrl\" class=\"cf\">\n" +
     "\n" +
     "  <div class=\"video-view__nav-placeholder\" ng-hide=\"collaborator() || flags.isPublic\">\n" +
-    "    <video-navigation is-edit=\"flags.isEdit\" is-review=\"flags.isReview\" is-owner=\"flags.isOwner\" is-comments=\"flags.isComments\" video-id=\"video.id\" video-status=\"video.status\"></video-navigation>\n" +
+    "    <video-navigation flags=\"flags\" video-id=\"video.id\" video-status=\"video.status\"></video-navigation>\n" +
     "  </div>\n" +
     "\n" +
     "  <ul class=\"configurable-layout configurable-layout-(~ flags.isComments ? $root.layoutMode : 'column' ~)\" ng-class=\"{ 'configurable-layout-column--is-comments' : flags.isComments }\">\n" +

@@ -4645,6 +4645,21 @@ label,
   color: #fff;
 }
 
+/* line 79, ../../scss/components/_sub-navigation.scss */
+.btn.sub-navigation__link--active {
+  color: #fff;
+}
+
+/* line 83, ../../scss/components/_sub-navigation.scss */
+.sub-navigation__btn {
+  padding: 8px 16px;
+  font-variant: small-caps;
+  font-weight: 600;
+  font-size: 0.75em;
+  text-transform: lowercase;
+  letter-spacing: 0.1em;
+}
+
 /* line 1, ../../scss/components/_video-player-config.scss */
 .video-player-config {
   background-color: #fff;
