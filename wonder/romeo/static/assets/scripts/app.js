@@ -12,6 +12,7 @@
     angular.module('RomeoApp.directives', ['RomeoApp.services', 'ui.select2']);
     angular.module('RomeoApp.controllers', ['RomeoApp.services', 'RomeoApp.directives', 'LocalStorageModule']);
     // -- App modules
+    angular.module('RomeoApp.analytics', ['RomeoApp.directives', 'ngRoute']);
     angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
     angular.module('RomeoApp.search', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
     angular.module('RomeoApp.video.config', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
@@ -20,23 +21,25 @@
     var debug = new DebugClass('App');
 
     var app = angular.module('RomeoApp', // module name
-        ['RomeoApp.controllers',
-            'RomeoApp.security',
-            'RomeoApp.services',
-            'RomeoApp.directives',
-            'RomeoApp.filters',
-            'RomeoApp.analytics',
-            'RomeoApp.profile',
-            'RomeoApp.search',
-            'RomeoApp.video.config',
-            'RomeoApp.publish',
+        [
             'ngRoute',
             'ngCookies',
             'ngSanitize',
             'angular-medium-editor',
             'angularFileUpload',
             'angulartics',
-            'angulartics.google.analytics']); // module dependencies
+            'angulartics.google.analytics',
+            'RomeoApp.filters',
+            'RomeoApp.security',
+            'RomeoApp.services',
+            'RomeoApp.directives',
+            'RomeoApp.controllers',
+            'RomeoApp.analytics',
+            'RomeoApp.profile',
+            'RomeoApp.search',
+            'RomeoApp.video.config',
+            'RomeoApp.publish'
+        ]); // module dependencies
 
     app.config(['$routeProvider', '$interpolateProvider', '$httpProvider', 'securityAuthorizationProvider',
       function( $routeProvider, $interpolateProvider, $httpProvider, securityAuthorizationProvider ){

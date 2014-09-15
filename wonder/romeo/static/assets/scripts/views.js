@@ -1747,6 +1747,12 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
   );
 
 
+  $templateCache.put('analytics/analytics.tmpl.html',
+    "<div class=\"analytics\">\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('login/upgrade/upgrade.tmpl.html',
     "<div class=\"login-view\">\n" +
     "    <div class=\"center-container\">\n" +
