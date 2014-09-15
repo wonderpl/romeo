@@ -30,7 +30,8 @@
     "angular-sanitize": "~1.2.23",
     "angular-local-storage": "~0.0.7",
     "angular-ui-select2": "~0.0.5",
-    "jquery.ui": "~1.11.1"
+    "jquery.ui": "~1.11.1",
+    "Chart.js": "~0.2.0"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.23"
