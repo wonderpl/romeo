@@ -1767,7 +1767,7 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "    </div>\n" +
     "  </header>\n" +
     "  <section class=\"page-section\">\n" +
-    "    <canvas id=\"income\" class=\"graph\" width=\"960\" height=\"240\"></canvas>\n" +
+    "    <!--<canvas id=\"income\" class=\"graph\" width=\"960\" height=\"240\"></canvas>-->\n" +
     "    <div class=\"text-col\">\n" +
     "      <hr class=\"rule\">\n" +
     "      <h3 class=\"heading  gamma\">Referrers</h3>\n" +
@@ -1799,7 +1799,71 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "      </table>\n" +
     "    </div>\n" +
     "  </section>\n" +
-    "</div>"
+    "</div>\n" +
+    "\n" +
+    "<script>\n" +
+    "\n" +
+    "var margin = {top: 0, right: 0, bottom: 24, left: 0},\n" +
+    "    width = 960 - margin.left - margin.right,\n" +
+    "    height = 240 - margin.top - margin.bottom;\n" +
+    "\n" +
+    "var x = d3.scale.ordinal()\n" +
+    "    .rangeRoundBands([0, width], .1);\n" +
+    "\n" +
+    "var y = d3.scale.linear()\n" +
+    "    .range([height, 0]);\n" +
+    "\n" +
+    "var xAxis = d3.svg.axis()\n" +
+    "    .scale(x)\n" +
+    "    .orient(\"bottom\");\n" +
+    "\n" +
+    "var yAxis = d3.svg.axis()\n" +
+    "    .scale(y)\n" +
+    "    .orient(\"left\")\n" +
+    "    .ticks(10, \"%\");\n" +
+    "\n" +
+    "var svg = d3.select(\"body\").append(\"svg\")\n" +
+    "    .attr(\"width\", width + margin.left + margin.right)\n" +
+    "    .attr(\"height\", height + margin.top + margin.bottom)\n" +
+    "  .append(\"g\")\n" +
+    "    .attr(\"transform\", \"translate(\" + margin.left + \",\" + margin.top + \")\");\n" +
+    "\n" +
+    "d3.tsv(\"data.tsv\", type, function(error, data) {\n" +
+    "  x.domain(data.map(function(d) { return d.letter; }));\n" +
+    "  y.domain([0, d3.max(data, function(d) { return d.frequency; })]);\n" +
+    "\n" +
+    "  svg.append(\"g\")\n" +
+    "      .attr(\"class\", \"x axis\")\n" +
+    "      .attr(\"transform\", \"translate(0,\" + height + \")\")\n" +
+    "      .call(xAxis);\n" +
+    "\n" +
+    "  svg.append(\"g\")\n" +
+    "      .attr(\"class\", \"y axis\")\n" +
+    "      .call(yAxis)\n" +
+    "    .append(\"text\")\n" +
+    "      .attr(\"transform\", \"rotate(-90)\")\n" +
+    "      .attr(\"y\", 6)\n" +
+    "      .attr(\"dy\", \".71em\")\n" +
+    "      .style(\"text-anchor\", \"end\")\n" +
+    "      .text(\"Frequency\");\n" +
+    "\n" +
+    "  svg.selectAll(\".bar\")\n" +
+    "      .data(data)\n" +
+    "    .enter().append(\"rect\")\n" +
+    "      .attr(\"class\", \"bar\")\n" +
+    "      .attr(\"x\", function(d) { return x(d.letter); })\n" +
+    "      .attr(\"width\", x.rangeBand())\n" +
+    "      .attr(\"y\", function(d) { return y(d.frequency); })\n" +
+    "      .attr(\"height\", function(d) { return height - y(d.frequency); });\n" +
+    "\n" +
+    "});\n" +
+    "\n" +
+    "function type(d) {\n" +
+    "  d.frequency = +d.frequency;\n" +
+    "  return d;\n" +
+    "}\n" +
+    "\n" +
+    "</script>"
   );
 
 
@@ -1877,20 +1941,20 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
     "<div class=\"layout__item  one-third  organise-navigation\">\n" +
     "  <ul class=\"nav  nav--stacked  browse-list\">\n" +
     "    <li class=\"browse-list__item\"><span class=\"browse-list__title\">Manage</span></li>\n" +
-    "    <li class=\"browse-list__item\"ng-if=\"!isCollaborator()\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : !filterByCollaboration &&  !filterByRecent && !currentTag }\" ng-click=\"showAllVideos()\">All my videos</a></li>\n" +
-    "    <li class=\"browse-list__item\"ng-if=\"!isCollaborator()\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : filterByRecent }\" ng-click=\"showRecentVideos()\">My recently added videos</a></li>\n" +
+    "    <li class=\"browse-list__item\" ng-if=\"!isCollaborator()\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : !filterByCollaboration &&  !filterByRecent && !currentTag }\" ng-click=\"showAllVideos()\">All my videos</a></li>\n" +
+    "    <li class=\"browse-list__item\" ng-if=\"!isCollaborator()\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : filterByRecent }\" ng-click=\"showRecentVideos()\">My recently added videos</a></li>\n" +
     "    <li class=\"browse-list__item\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : filterByCollaboration }\" ng-click=\"showCollaborationVideos()\">Collaborating videos</a></li>\n" +
     "  </ul>\n" +
     "\n" +
     "  <ul class=\"nav  nav--stacked  browse-list\" ng-if=\"!isCollaborator()\">\n" +
     "    <li class=\"browse-list__item\"><span class=\"browse-list__title\">Collections not visible in app</span></li>\n" +
-    "    <li class=\"browse-list__item\"><a class=\"browse-list__link  browse-list__link--create\" ng-click=\"createPrivateCollection()\"><span class=\"icon-text\"><i class=\"icon  icon-text__icon  icon--plus\"></i>Add a new private collection</span></a></li>\n" +
+    "    <li class=\"browse-list__item\"><a class=\"browse-list__link  browse-list__link--create  icon-text\" ng-click=\"createPrivateCollection()\"><i class=\"icon  icon-text__icon  icon--plus\"></i>Add a new private collection</a></li>\n" +
     "    <li class=\"browse-list__item\" ng-repeat=\"tag in tags | orderBy : 'label' | filter : { public : false }\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : currentTag.id === tag.id }\" ng-bind-html=\"tag.label\" ng-click=\"loadCollection(tag.id)\"></a></li>\n" +
     "  </ul>\n" +
     "\n" +
     "  <ul class=\"nav  nav--stacked  browse-list\"ng-if=\"!isCollaborator()\">\n" +
     "    <li class=\"browse-list__item\"><span class=\"browse-list__title\">Collections visible in app</span></li>\n" +
-    "    <li class=\"browse-list__item\"><a class=\"browse-list__link  browse-list__link--create\" ng-click=\"createPublicCollection()\"><span class=\"icon-text\"><i class=\"icon  icon-text__icon  icon--plus\"></i>Add a new public collection</span></a></li>\n" +
+    "    <li class=\"browse-list__item\"><a class=\"browse-list__link  browse-list__link--create  icon-text\" ng-click=\"createPublicCollection()\"><i class=\"icon  icon-text__icon  icon--plus\"></i>Add a new public collection</a></li>\n" +
     "    <li class=\"browse-list__item\" ng-repeat=\"tag in tags | filter : { public : true } | orderBy : 'label'\"><a class=\"browse-list__link\" ng-class=\"{ 'browse-list__link--active' : currentTag.id === tag.id }\" ng-bind-html=\"tag.label\" ng-click=\"loadCollection(tag.id)\"></a></li>\n" +
     "  </ul>\n" +
     "</div>"

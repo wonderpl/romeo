@@ -3023,55 +3023,94 @@ li > ol {
   margin: 0;
   margin-bottom: 24px;
   font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  border: 0;
 }
-/* line 9, ../../scss/_theme/_theme.browse-list.scss */
+/* line 10, ../../scss/_theme/_theme.browse-list.scss */
+.browse-list:first-of-type {
+  padding-top: 12px;
+}
+/* line 14, ../../scss/_theme/_theme.browse-list.scss */
 .browse-list > li {
   margin-bottom: 4px;
+  padding: 0;
+  border: 0;
 }
 
-/* line 14, ../../scss/_theme/_theme.browse-list.scss */
+/* line 21, ../../scss/_theme/_theme.browse-list.scss */
 .browse-list__title {
-  margin-bottom: 6px;
-  font-variant: small-caps;
-  font-weight: 600;
-  font-size: 1.125em;
-  text-transform: lowercase;
+  font-weight: bold;
+  font-size: 0.6875em;
+  text-transform: uppercase;
   letter-spacing: 0.1em;
   color: #b7bcbd;
 }
 
-/* line 23, ../../scss/_theme/_theme.browse-list.scss */
+/* line 28, ../../scss/_theme/_theme.browse-list.scss */
 .browse-list__link {
   display: block;
-  margin: -4px -6px -4px 18px;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-: -4px -6px -4px 18px;
   padding: 4px 6px;
-  font-size: 0.875em;
-  line-height: 1.75;
+  font-size: 1.125em;
+  line-height: 1.25;
   color: #70797b;
-  text-decoration: none;
   border: none;
+  border-radius: 3px;
   cursor: pointer;
   -webkit-transition: background-color 0.15s ease-in-out;
   transition: background-color 0.15s ease-in-out;
 }
-/* line 36, ../../scss/_theme/_theme.browse-list.scss */
+/* line 45, ../../scss/_theme/_theme.browse-list.scss */
 .browse-list__link:hover {
-  color: #2e2e32;
+  text-decoration: underline;
   background-color: rgba(183, 188, 189, 0.12);
-  border-radius: 3px;
 }
 
-/* line 42, ../../scss/_theme/_theme.browse-list.scss */
-.browse-list__link--create {
-  font-weight: 600;
-}
-
-/* line 44, ../../scss/_theme/_theme.browse-list.scss */
+/* line 50, ../../scss/_theme/_theme.browse-list.scss */
+.browse-list__link--create,
 .browse-list__link--active {
   font-weight: bold;
 }
-/* line 47, ../../scss/_theme/_theme.browse-list.scss */
+
+/* line 55, ../../scss/_theme/_theme.browse-list.scss */
+.browse-list__link--create {
+  text-decoration: underline;
+  margin-bottom: 4px;
+  /* !Note! – Find a better property to transition, for performance purposes. */
+  text-indent: -20px;
+  -webkit-transition: text-indent 0.15s ease-in-out;
+  transition: text-indent 0.15s ease-in-out;
+}
+/* line 64, ../../scss/_theme/_theme.browse-list.scss */
+.browse-list__link--create > .icon {
+  margin-right: 6px;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: translate3d(-100%, 0, 0);
+  transform: translate3d(-100%, 0, 0);
+  -webkit-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
+}
+/* line 74, ../../scss/_theme/_theme.browse-list.scss */
+.browse-list__link--create:hover {
+  text-indent: 0;
+}
+/* line 77, ../../scss/_theme/_theme.browse-list.scss */
+.browse-list__link--create:hover > .icon {
+  position: relative;
+  left: 0;
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+/* line 90, ../../scss/_theme/_theme.browse-list.scss */
 .browse-list__link--active, .browse-list__link--active:hover, .browse-list__link--active:active, .browse-list__link--active:focus {
+  text-decoration: none;
   color: #51b364;
   background-color: transparent;
   cursor: default;

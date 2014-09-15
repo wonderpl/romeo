@@ -5,49 +5,93 @@
   margin: 0;
   margin-bottom: $base-spacing-unit;
   font-family: $heading-font-family;
+  border: 0;
+
+  &:first-of-type {
+    padding-top: $half-spacing-unit;
+  }
 
   > li {
     margin-bottom: 4px;
+    padding: 0;
+    border: 0;
   }  
 }
 
   .browse-list__title {
-    margin-bottom: 6px;
-    font-variant: small-caps;
-    font-weight: 600;
-    font-size: 1.125em;
-    text-transform: lowercase;
+    font-weight: bold;
+    font-size: 0.6875em;
+    text-transform: uppercase;
     letter-spacing: 0.1em;
     color: $swatch-two;
   }
     .browse-list__link {
       display: block;
-      margin: -4px -6px -4px 18px;
+      max-width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      margin-: -4px -6px -4px 18px;
       padding: 4px 6px;
-      font-size: 0.875em;
-      line-height: 1.75;
+      font-size: 1.125em;
+      line-height: 1.25;
       color: $swatch-four;
-      text-decoration: none;
       border: none;
+      border-radius: 3px;
       cursor: pointer;
       -webkit-transition: background-color 0.15s ease-in-out;
               transition: background-color 0.15s ease-in-out;
 
       &:hover {
-        color: $swatch-three;
+        text-decoration: underline;
         background-color: rgba($swatch-two,0.12);
-        border-radius: 3px;
       }
     }
-    .browse-list__link--create { font-weight: 600; }
-
+    .browse-list__link--create,
     .browse-list__link--active {
       font-weight: bold;
+    }
+
+    .browse-list__link--create {
+      text-decoration: underline;
+      margin-bottom: 4px;
+      /* !Note! – Find a better property to transition, for performance purposes. */
+      text-indent: -20px;
+      //border: $base-shadow-outline;
+      -webkit-transition: text-indent 0.15s ease-in-out;
+              transition: text-indent 0.15s ease-in-out;
+
+      > .icon {
+        margin-right: 6px;
+        opacity: 0;
+        visibility: hidden;
+        -webkit-transform: translate3d(-100%,0,0);
+                transform: translate3d(-100%,0,0);
+        -webkit-transition: all 0.15s ease-in-out;
+                transition: all 0.15s ease-in-out;
+      }
+
+      &:hover {
+        text-indent: 0;
+
+        > .icon {
+          position: relative;
+          left: 0;
+          opacity: 1;
+          visibility: visible;
+          -webkit-transform: translate3d(0,0,0);
+                  transform: translate3d(0,0,0);
+        }
+      }
+    }
+
+    .browse-list__link--active {
 
       &,
       &:hover,
       &:active,
       &:focus {
+        text-decoration: none;
         color: $swatch-five;
         background-color: transparent;
         cursor: default;
