@@ -1748,7 +1748,57 @@ angular.module('RomeoApp').run(['$templateCache', function($templateCache) {   '
 
 
   $templateCache.put('analytics/analytics.tmpl.html',
-    "<div class=\"analytics\">\n" +
+    "<div class=\"wrapper  wrapper--fixed\">\n" +
+    "  <header class=\"masthead\">\n" +
+    "    <h1 class=\"heading  alpha  u--ta-center\">Statistics</h1>\n" +
+    "    <div class=\"comparison\">\n" +
+    "      <div class=\"comparison__object  one-third\">\n" +
+    "        <h2 class=\"heading  tera  u--ff-sans  u--ta-center\">214</h2>\n" +
+    "        <p class=\"u--ff-sans  u--smallcaps  u--w600  u--ta-center\">Video Views</p>\n" +
+    "      </div>\n" +
+    "      <div class=\"comparison__divider  one-third\">\n" +
+    "        <h2 class=\"heading  tera  u--ff-sans  u--ta-center\">50</h2>\n" +
+    "        <p class=\"u--ff-sans  u--smallcaps  u--w600  u--ta-center\">Profile Views</p>\n" +
+    "      </div>\n" +
+    "      <div class=\"comparison__object  one-third\">\n" +
+    "        <h2 class=\"heading  tera  u--ff-sans  u--ta-center\">264</h2>\n" +
+    "        <p class=\"u--ff-sans  u--smallcaps  u--w600  u--ta-center\">Total views</p>\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "  </header>\n" +
+    "  <section class=\"page-section\">\n" +
+    "    <canvas id=\"income\" class=\"graph\" width=\"960\" height=\"240\"></canvas>\n" +
+    "    <div class=\"text-col\">\n" +
+    "      <hr class=\"rule\">\n" +
+    "      <h3 class=\"heading  gamma\">Referrers</h3>\n" +
+    "      <table class=\"table  table--bordered\">\n" +
+    "        <thead>\n" +
+    "          <tr>\n" +
+    "            <th>Source</th>\n" +
+    "            <th class=\"numerical\">Views</th>\n" +
+    "          </tr>\n" +
+    "        </thead>\n" +
+    "        <tbody>\n" +
+    "          <tr>\n" +
+    "            <th><img src=\"/static/assets/img/favicon-16x16.png\"> Romeo</td>\n" +
+    "            <td class=\"numerical\">248</td>\n" +
+    "          </tr>\n" +
+    "          <tr>\n" +
+    "            <th><img src=\"/static/assets/img/favicon-16x16.png\"> Wonder PL iOS</span></td>\n" +
+    "            <td class=\"numerical\">141</td>\n" +
+    "          </tr>\n" +
+    "          <tr>\n" +
+    "            <th><span class=\"icon-text\"><i class=\"icon  icon--mail  icon-text__icon\"></i>Wonder PL Newsletters &amp; Notifications</span></td>\n" +
+    "            <td class=\"numerical\">65</td>\n" +
+    "          </tr>\n" +
+    "          <tr>\n" +
+    "            <th><span class=\"icon-text\"><i class=\"icon  icon--inbox  icon-text__icon\"></i>Email, IM and direct</span></td>\n" +
+    "            <td class=\"numerical\">37</td>\n" +
+    "          </tr>\n" +
+    "        </tbody>\n" +
+    "      </table>\n" +
+    "    </div>\n" +
+    "  </section>\n" +
     "</div>"
   );
 

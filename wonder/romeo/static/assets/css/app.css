@@ -880,38 +880,139 @@ img[width], img[height] {
 /**
  * _base.tables.scss
  */
-/* line 4, ../../scss/_base/_base.tables.scss */
-.table {
+/**
+ * We have a lot at our disposal for making very complex table constructs, e.g.:
+ *
+   <table class="table--bordered  table--striped  table--data">
+       <colgroup>
+           <col class=t10>
+           <col class=t10>
+           <col class=t10>
+           <col>
+       </colgroup>
+       <thead>
+           <tr>
+               <th colspan=3>Foo</th>
+               <th>Bar</th>
+           </tr>
+           <tr>
+               <th>Lorem</th>
+               <th>Ipsum</th>
+               <th class=numerical>Dolor</th>
+               <th>Sit</th>
+           </tr>
+       </thead>
+       <tbody>
+           <tr>
+               <th rowspan=3>Sit</th>
+               <td>Dolor</td>
+               <td class=numerical>03.788</td>
+               <td>Lorem</td>
+           </tr>
+           <tr>
+               <td>Dolor</td>
+               <td class=numerical>32.210</td>
+               <td>Lorem</td>
+           </tr>
+           <tr>
+               <td>Dolor</td>
+               <td class=numerical>47.797</td>
+               <td>Lorem</td>
+           </tr>
+           <tr>
+               <th rowspan=2>Sit</th>
+               <td>Dolor</td>
+               <td class=numerical>09.640</td>
+               <td>Lorem</td>
+           </tr>
+           <tr>
+               <td>Dolor</td>
+               <td class=numerical>12.117</td>
+               <td>Lorem</td>
+           </tr>
+       </tbody>
+   </table>
+ *
+ */
+/* line 58, ../../scss/_base/_base.tables.scss */
+table {
   width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 24px;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* line 10, ../../scss/_base/_base.tables.scss */
+/* line 62, ../../scss/_base/_base.tables.scss */
 th,
 td {
   padding: 6px;
   text-align: left;
 }
+@media screen and (min-width: 480px) {
+  /* line 62, ../../scss/_base/_base.tables.scss */
+  th,
+  td {
+    padding: 12px;
+  }
+}
 
-/* line 16, ../../scss/_base/_base.tables.scss */
+/**
+ * Cell alignments
+ */
+/* line 75, ../../scss/_base/_base.tables.scss */
 [colspan] {
   text-align: center;
 }
 
-/* line 19, ../../scss/_base/_base.tables.scss */
+/* line 76, ../../scss/_base/_base.tables.scss */
 [colspan="1"] {
   text-align: left;
 }
 
-/* line 23, ../../scss/_base/_base.tables.scss */
+/* line 77, ../../scss/_base/_base.tables.scss */
 [rowspan] {
   vertical-align: middle;
 }
 
-/* line 26, ../../scss/_base/_base.tables.scss */
+/* line 78, ../../scss/_base/_base.tables.scss */
 [rowspan="1"] {
   vertical-align: top;
+}
+
+/* line 79, ../../scss/_base/_base.tables.scss */
+.numerical {
+  text-align: right;
+}
+
+/**
+ * Bordered tables
+ */
+/* line 87, ../../scss/_base/_base.tables.scss */
+.table--bordered td,
+.table--bordered tbody th {
+  border: 0 solid rgba(183, 188, 189, 0.12);
+  border-top-width: 2px;
+}
+/* line 93, ../../scss/_base/_base.tables.scss */
+.table--bordered tbody th {
+  border-right-width: 1px;
+}
+
+/**
+ * Striped tables
+ */
+/* line 121, ../../scss/_base/_base.tables.scss */
+.table--striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(183, 188, 189, 0.5);
+  /* Override this color in your theme stylesheet */
+}
+
+/**
+ * Data table
+ */
+/* line 130, ../../scss/_base/_base.tables.scss */
+.table--data {
+  font-size: 10.66667px;
+  font-size: 0.66667rem;
+  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /**
