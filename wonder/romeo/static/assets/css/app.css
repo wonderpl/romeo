@@ -666,14 +666,14 @@ body {
   display: block;
   margin-bottom: 24px;
   font-weight: 600;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   color: #2e2e32;
 }
 
 /* line 11, ../../scss/_base/_base.headings.scss */
 h5.heading,
 h6.heading {
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 }
 
 /* line 14, ../../scss/_base/_base.headings.scss */
@@ -937,7 +937,7 @@ img[width], img[height] {
 /* line 58, ../../scss/_base/_base.tables.scss */
 table {
   width: 100%;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 }
 
 /* line 62, ../../scss/_base/_base.tables.scss */
@@ -1012,7 +1012,7 @@ td {
 .table--data {
   font-size: 10.66667px;
   font-size: 0.66667rem;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 }
 
 /**
@@ -1036,7 +1036,7 @@ input,
 textarea,
 select {
   font-size: 1em;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 }
 
 /* line 22, ../../scss/_base/_base.forms.scss */
@@ -2443,7 +2443,7 @@ li > ol {
 }
 /* line 10, ../../scss/_objects/_objects.button-group.scss */
 .btn-group > .btn {
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 }
 /* line 13, ../../scss/_objects/_objects.button-group.scss */
 .btn-group > .btn + .btn {
@@ -2755,7 +2755,7 @@ li > ol {
 /* line 11, ../../scss/_components/_components.publish-host.scss */
 .publish-host__title {
   font-weight: bold;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   text-align: center;
 }
 
@@ -2877,7 +2877,7 @@ li > ol {
   font-variant: small-caps;
   font-weight: bold;
   line-height: 57px;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   text-transform: lowercase;
   letter-spacing: 0.1em;
   color: #2e2e32;
@@ -2955,7 +2955,7 @@ li > ol {
   margin-bottom: 24px;
   padding: 12px 24px;
   font-size: 1em;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   border-radius: 3px;
   border: 1px solid transparent;
 }
@@ -3022,7 +3022,7 @@ li > ol {
 .browse-list {
   margin: 0;
   margin-bottom: 24px;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   border: 0;
 }
 /* line 10, ../../scss/_theme/_theme.browse-list.scss */
@@ -3158,7 +3158,7 @@ li > ol {
 .page-breadcrumbs__title {
   font-weight: 500;
   font-size: 1.125em;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 }
 
 /* line 33, ../../scss/_theme/_theme.page-breadcrumbs.scss */
@@ -3250,7 +3250,7 @@ li > ol {
 .video-thumb-list__link {
   font-size: 0.75em;
   line-height: 1.5;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   color: #fff;
   text-decoration: none;
   border: none;
@@ -3482,7 +3482,7 @@ label,
 .btn {
   font-weight: 400;
   font-size: 0.875em;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   color: #70797b;
   border: 1px solid rgba(112, 121, 123, 0.6);
   border-radius: 40px;
@@ -3636,7 +3636,7 @@ label,
 /* line 49, ../../scss/_theme/_theme.modal.scss */
 .modal__title {
   font-size: 22px;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   border-bottom: 1px solid #b7bcbd;
 }
 
@@ -3743,7 +3743,7 @@ label,
 .organise-collection__visibility {
   font-variant: small-caps;
   font-size: 0.75em;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   text-transform: lowercase;
   letter-spacing: 0.1em;
   color: #b7bcbd;
@@ -4738,7 +4738,7 @@ label,
   margin-bottom: 0.5em;
   position: relative;
   z-index: 10;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   width: 100%;
 }
 
@@ -4888,7 +4888,7 @@ label,
   margin-bottom: 0.5em;
   position: relative;
   z-index: 10;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   width: 100%;
 }
 
@@ -5359,7 +5359,7 @@ label,
   display: inline;
   font-weight: 600;
   margin-right: 0.5em;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   color: #2e2e32;
 }
 
@@ -5369,7 +5369,7 @@ label,
   font-weight: 600;
   font-size: 0.75em;
   color: #999;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 }
 
 /* line 132, ../../scss/specifics/video/_video-feedback.scss */
@@ -5482,7 +5482,7 @@ label,
   font-variant: small-caps;
   color: #999;
   text-transform: lowercase;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 }
 
 /* line 1, ../../scss/specifics/video/_video-player.scss */
@@ -5516,7 +5516,7 @@ label,
 .video-view__title {
   margin-bottom: 12px;
   margin-top: 24px;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   font-size: 48px;
   line-height: 58px;
   color: #2e2e32;
@@ -5527,7 +5527,7 @@ label,
   font-weight: 200;
   font-size: 38px;
   line-height: 46px;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   color: #2e2e32;
 }
 
@@ -5809,7 +5809,7 @@ label,
 .video-upload__dropzone p {
   font-size: 26px;
   line-height: 32px;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 }
 
 /* line 23, ../../scss/specifics/video/_video-upload.scss */
@@ -6090,7 +6090,7 @@ label,
 
 /* line 53, ../../scss/specifics/video/_video-extended-controls.scss */
 .video-extended-controls__section-header {
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   color: #2e2e32;
   cursor: pointer;
   margin-bottom: 24px;
@@ -6123,7 +6123,7 @@ label,
   padding: 1em;
   font-weight: bold;
   font-size: 0.875em;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   color: #70797b;
   text-align: center;
   border: solid 2px #a4abad;
@@ -6294,14 +6294,14 @@ label,
 .video-edit-collections__option-title {
   display: block;
   font-weight: 600;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   color: #2e2e32;
 }
 
 /* line 74, ../../scss/specifics/video/_video-edit-collections.scss */
 .video-edit-collections__option-count {
   display: block;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   color: #b7bcbd;
 }
 
@@ -6400,7 +6400,7 @@ label,
   padding-bottom: 6px;
   font-weight: 600;
   font-size: 18px;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   color: #2e2e32;
   border: none;
   border-bottom: solid 1px #b7bcbd;
@@ -6416,7 +6416,7 @@ label,
   padding-top: 6px;
   padding-left: 12px;
   font-size: 16px;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   border: none;
   border-bottom: solid 1px #b7bcbd;
   border-radius: 0;
@@ -6437,7 +6437,7 @@ label,
 .video-new-collection__label {
   padding-left: 1px;
   font-size: 16px;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   color: #2e2e32;
 }
 
@@ -6473,7 +6473,7 @@ label,
   margin-bottom: 1em;
   font-variant: small-caps;
   font-weight: 600;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   text-transform: lowercase;
   letter-spacing: 0.1em;
 }
@@ -6483,7 +6483,7 @@ label,
   display: inline;
   margin-right: 1em;
   font-weight: normal;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   letter-spacing: 0;
 }
 
@@ -6493,7 +6493,7 @@ label,
   width: 20em;
   font-weight: normal;
   font-size: 1em;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   font-variant: normal;
   text-transform: normal;
   letter-spacing: 0;
@@ -6678,7 +6678,7 @@ label,
 .video-collaborators__title {
   padding-top: 4px;
   font-variant: small-caps;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   letter-spacing: 0.1em;
   text-transform: lowercase;
   color: #999;
@@ -6706,7 +6706,7 @@ label,
 /* line 61, ../../scss/specifics/video/_video-collaborators.scss */
 .video-collaborators__collaborator-name {
   display: inline-block;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 }
 
 /* line 66, ../../scss/specifics/video/_video-collaborators.scss */
@@ -6795,7 +6795,7 @@ label,
   font-weight: 600;
   font-size: 1.3333333333333333em;
   line-height: 1;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   color: #2e2e32;
 }
 
@@ -6911,7 +6911,7 @@ label,
 /* line 49, ../app/organise/_organise-video-list.scss */
 .organise-video-list__list-control-label {
   display: inline-block;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 }
 /* line 54, ../app/organise/_organise-video-list.scss */
 .organise-video-list__list-control-label + .organise-video-list__list-control-label {
@@ -6937,7 +6937,7 @@ label,
   font-size: .8em;
   font-weight: 800;
   text-transform: uppercase;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   color: #fff;
   text-align: center;
 }
@@ -6954,7 +6954,7 @@ label,
   font-weight: 800;
   font-size: 1em;
   line-height: 1.5;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   color: #2e2e32;
   text-decoration: none;
   border: none;
@@ -7109,7 +7109,7 @@ label,
 .organise-video-delete__msg {
   font-size: 16px;
   line-height: 1.5;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 }
 
 /* line 173, ../app/organise/_organise-video.scss */
@@ -7181,7 +7181,7 @@ label,
   display: block;
   font-size: 0.75em;
   line-height: 1.5;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   color: #fff;
   border-bottom: none;
   text-deocration: none;
@@ -7362,7 +7362,7 @@ label,
 .profile-details__name {
   font-size: 50px;
   margin-bottom: 12px;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   color: #2e2e32;
   text-align: center;
 }
@@ -7458,7 +7458,7 @@ label,
   color: #fff;
   background-color: rgba(0, 0, 0, 0.6);
   font-size: 40px;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 }
 
 /* line 92, ../app/profile/_profile-view.scss */
@@ -7541,7 +7541,7 @@ label,
   width: 100%;
   font-size: 50px;
   margin-bottom: 12px;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   color: #2e2e32;
   text-align: center;
 }
@@ -7746,7 +7746,7 @@ label,
 /* line 57, ../../scss/specifics/login/_login-view.scss */
 .login-view__form .location-selector {
   color: #999;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 }
 
 /* line 2, ../app/video/config/modal.scss */
@@ -7940,7 +7940,7 @@ label,
   font-weight: 200;
   font-size: 0.875em;
   line-height: 2.5;
-  font-family: "Proxima Nova", AvenirNext-Regular, Helmet, Freesans, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   color: #fff;
   border: none;
 }
