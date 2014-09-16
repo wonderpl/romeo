@@ -81,7 +81,7 @@
             video-id="{{ video.id }}">
           </video-share>
 
-          <video-extended-controls ng-if="flags.isEdit" collaborators="collaborators"></video-extended-controls>
+          <video-extended-controls ng-if="flags.isEdit" ></video-extended-controls>
 
           <video-download video-id="video.id" ng-show="video.id && collaborator() && canDownload"></video-download>
 

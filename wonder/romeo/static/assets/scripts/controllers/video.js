@@ -2,9 +2,9 @@
 
 angular
   .module('RomeoApp.controllers')
-  .controller('VideoCtrl', ['$rootScope', '$http', '$scope', '$location', 'UploadService', '$routeParams', 'VideoService', '$sce', 'TagService', 'CommentsService', '$timeout', 'AuthService', VideoCtrl]);
+  .controller('VideoCtrl', ['$rootScope', '$http', '$q', '$scope', '$location', 'UploadService', '$routeParams', 'VideoService', '$sce', 'TagService', 'CommentsService', '$timeout', 'AuthService', VideoCtrl]);
 
-function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeParams, VideoService, $sce, TagService, CommentsService, $timeout, AuthService) {
+function VideoCtrl ($rootScope, $http, $q, $scope, $location, UploadService, $routeParams, VideoService, $sce, TagService, CommentsService, $timeout, AuthService) {
 
   'use strict';
   var debug = new DebugClass('VideoCtrl');
@@ -19,7 +19,7 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
     if (action)
       url += '/' + action;
     debug.info('redirect new url ' + url);
-    $location.path(url, true);
+    $location.url(url);
   }
 
   function persistDataAndRedirect(data, /* optional */ action) {
@@ -259,14 +259,8 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
         $scope.video.search_keywords = $scope.video.search_keywords.join(',');
       }
       VideoService.update($scope.video.id, $scope.video).then(function (data) {
-        debug.log('saving video succeeded with id ' + data.id);
-        persistDataAndRedirect(data);
-        // if ($scope.video.status === 'processing' || $scope.video.status === 'uploading') {
-          $scope.displaySection('edit');
-        // } else {
-        //   $scope.displaySection();
-        // }
-        $scope.$broadcast('video-saved', $scope.video);
+        saveCallback(data);
+
         $scope.$emit('notify', {
           status : 'success',
           title : 'Video Details Updated',
@@ -282,8 +276,8 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
     } else {
       debug.log('save - create video with title ' + $scope.video.title);
       VideoService.create($scope.video).then(function (data) {
-        debug.log('save - creating video succeeded with id ' + data.id + ' and title ' + data.title);
-        persistDataAndRedirect(data, 'edit');
+        saveCallback(data);
+
         $scope.$emit('notify', {
           status : 'success',
           title : 'Video Created',
@@ -292,6 +286,77 @@ function VideoCtrl ($rootScope, $http, $scope, $location, UploadService, $routeP
       });
     }
   };
+
+  function saveCallback(res) {
+    res = res.data || res;
+    debug.log('saving video succeeded with id ' + res.id);
+
+    removeTags(res, res.tags.items).then(function () {
+      addTags(res, res.tags.items).then(function () {
+        console.log('Save complete');
+        persistVideoData(res);
+        $scope.$broadcast('video-saved', $scope.video);
+      });
+    });
+  }
+
+  function removeTags(video, tags) {
+    var queue = new $q.defer();
+    var queueCounter = 0;
+    var loopFunction = function () {
+      --queueCounter;
+      if (0 <= queueCounter)
+        queue.resolve();
+    };
+    if ($scope.video && $scope.video.tags && $scope.video.tags.items && $scope.video.tags.items.length) {
+      var items = $scope.video.tags.items;
+      for (var i = 0; i < tags.length; ++i) {
+        if (! contains(items, tags[i])) {
+          ++queueCounter;
+          VideoService.removeFromCollection(video.id, tags[i].id).then(loopFunction);
+          tags.splice(i, 1);
+        }
+      }
+    }
+    if (0 <= queueCounter) {
+      queue.resolve();
+    }
+    return queue.promise;
+  }
+
+  function addTags(video, tags) {
+    var queue = new $q.defer();
+    var queueCounter = 0;
+    var items = [];
+    var loopFunction = function () {
+      --queueCounter;
+      if (0 <= queueCounter)
+        queue.resolve();
+    };
+    if ($scope.video && $scope.video.tags && $scope.video.tags.items) {
+      items = $scope.video.tags.items;
+    }
+    for (var i = 0; i < items.length; ++i) {
+      if (! contains(tags, items[i])) {
+        tags.push(items[i]);
+        ++queueCounter;
+        VideoService.addToCollection(video.id, items[i].id).then(loopFunction);
+      }
+    }
+    if (0 <= queueCounter) {
+      queue.resolve();
+    }
+    return queue.promise;
+  }
+
+  function contains(a, obj) {
+    for (var i = 0; i < a.length; i++) {
+        if (a[i].id === obj.id) {
+            return true;
+        }
+    }
+    return false;
+}
 
   $scope.$on('video-cancel', function (event) {
     event.stopPropagation = true;

@@ -2,12 +2,11 @@
   <section class="video-extended-controls__section" ng-class="{ 'video-extended-controls__section--expanded' : addCollectionShow }">
     <i class="icon  icon--medium  icon--plus  section-drawer__icon" ng-click="showHideCollectionExtended()" ng-hide="addCollectionShow"></i>
     <i class="icon  icon--medium  icon--minus  section-drawer__icon" ng-click="showHideCollectionExtended()" ng-show="addCollectionShow"></i>
-    <collection-add-video available-tags="availableTags"
+    <video-add-collection tags="availableTags"
       video="video"
-      show-collection="addCollectionShow"
-      class="video-extended-controls__section-contents">
-    </collection-add-video>
-    <span class="btn  btn--small  btn--positive  f--right" ng-click="save(); addCollectionShow = !addCollectionShow">Done</span>
+      class="video-extended-controls__section-contents hello-world">
+    </video-add-collection>
+    <span class="btn  btn--small  btn--positive  f--right" ng-click="showHideCollectionExtended()">Done</span>
   </section>
 
   <section class="video-extended-controls__section" ng-class="{ 'video-extended-controls__section--expanded' : addCollaboratorShow }">
