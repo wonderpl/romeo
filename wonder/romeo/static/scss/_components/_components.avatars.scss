@@ -1,12 +1,20 @@
 /**
  * _components.avatars.scss
  */
+// Define a set of avatar dimensions.
+$avatar-dimensions:         66px;
+$avatar-dimensions--tiny:   22px;
+$avatar-dimensions--small:  33px;
+$avatar-dimensions--large:  88px;
+$avatar-dimensions--huge:   120px;
+
+
 .avatar {
   display: block;
-  width: 66px;
-  height: 66px;
+  width: $avatar-dimensions;
+  height: $avatar-dimensions;
   overflow: hidden;
-  margin-left: -33px;
+  margin-left: -($avatar-dimensions / 2);
   margin-bottom: $base-spacing-unit;
   position: relative;
   left: 50%;
@@ -22,20 +30,78 @@
     @extend %img--full;
     background-position: 50%;
   }
+
+
+    /**
+   * An icon can be included inside the avatar
+   * to signify a status
+   */
+  > .icon {
+    position: absolute;
+    top: 100%;
+    right:  0;
+    z-index: 10;
+    margin-top: -$icon-dimensions;
+    border-radius: 100%;
+  }
+
+  > .icon--medium {
+    margin-top: -$icon-dimensions--medium;
+  }
+  > .icon--large {
+    margin-top: -$icon-dimensions--large;
+  }
+  > .icon--huge {
+    margin-top: -$icon-dimensions--huge;
+  }
+  > .icon--natural {
+    margin-top: -$icon-dimensions--natural;
+  }
 }
 
+
+/**
+ * Avatar size modifiers
+ */
+.avatar--tiny {
+  width: $avatar-dimensions--tiny;
+  height: $avatar-dimensions--tiny;
+}
 .avatar--small {
-  width: 33px;
-  height: 33px;
-  margin-left: -17px;
+  width: $avatar-dimensions--small;
+  height: $avatar-dimensions--small;
 }
 .avatar--large {
-  width: 88px;
-  height: 88px;
-  margin-left: -44px;
+  width: $avatar-dimensions--large;
+  height: $avatar-dimensions--large; 
 }
 .avatar--huge {
-  width: 120px;
-  height: 120px;
-  margin-left: -60px;
+  width: $avatar-dimensions--huge;
+  height: $avatar-dimensions--huge;
+}
+
+
+/**
+ * When centering an avatar, we need half of it's dimensions.
+ * This is where we use the variables for ease of use.
+ */
+.avatar--center {
+  margin-left: -($avatar-dimensions / 2);
+  left: 50%;
+
+  &.avatar--tiny {
+    margin-left: -($avatar-dimensions--tiny / 2);
+  }
+  
+  &.avatar--small {
+    margin-left: -($avatar-dimensions--small / 2);
+  }
+  
+  &.avatar--large {
+    margin-left: -($avatar-dimensions--large / 2);
+  }
+  
+  &.avatar--huge {
+    margin-left: -($avatar-dimensions--huge / 2); 
+  }
 }
