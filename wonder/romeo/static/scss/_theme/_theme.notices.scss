@@ -11,12 +11,13 @@
   @extend .cf;
 
   > .notice {
-    max-width: 50%;
+    max-width: 25%;
     margin-top: $half-spacing-unit;
     margin-right: auto;
     margin-left:  auto;
     position: absolute;
     left: -9999px;
+    text-align: center;
     visibility: hidden;
     pointer-events: auto;
   }
@@ -37,8 +38,14 @@
   padding: $half-spacing-unit $base-spacing-unit;
   font-size: 1em;
   font-family: $heading-font-family;
-  border-radius: 3px;
-  border: 1px solid transparent;
+  background-clip: padding-box;
+  border-radius: 40px;
+  border: 1px solid rgba(0,0,0,0.12);
+  box-shadow: 0 4px 48px 1px rgba(0,0,0,0.25);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 
   p > b {
     font-size: 1.125em;
@@ -69,7 +76,7 @@
   border: none !important;
 }
 
-.notice--success { background-color: lighten(#9DCA5A,40%); border-color: #9DCA5A; }
-.notice--error   { background-color: lighten(#D74E45,40%); border-color: #D74E45; }
-.notice--warning { background-color: lighten(#F09F5F,30%); border-color: #F09F5F; }
-.notice--info    { background-color: lighten(#5BB3C8,40%); border-color: #5BB3C8; }
+.notice--success { background-color: #F2FCF4; }
+.notice--error   { background-color: #FFF3F2; }
+.notice--warning { background-color: #FCFBF2; }
+.notice--info    { background-color: #F2FBFC; }

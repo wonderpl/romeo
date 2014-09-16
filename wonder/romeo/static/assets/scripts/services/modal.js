@@ -35,7 +35,7 @@ function ModalService ($compile, $templateCache, $timeout) {
   el.setAttribute('id', 'modal');
   container.appendChild(el);
   $el = angular.element(el);
-  $el.addClass('modal animation animation--flippable');
+  $el.addClass('modal animated-half fadeInUp');
 
   $container.on('click', function (e) {
       if(e.currentTarget === e.target){
@@ -53,19 +53,19 @@ function ModalService ($compile, $templateCache, $timeout) {
 
   modal.hide = function () {
 
-    $el.addClass('animate--flipOutX');
-    $el.removeClass('animate--flipInX');
+    $el.addClass('fadeOutDown');
+    $el.removeClass('fadeInUp');
 
     $timeout(function() {
 
       $el_bg.removeClass('show');
 
 
-    },750);
+    },250);
 
     $timeout(function() {
-      $el.removeClass('animate--flipOutX');
-    },1000);
+      $el.removeClass('fadeOutDown');
+    },500);
   };
 
   /*

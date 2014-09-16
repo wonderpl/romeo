@@ -1,5 +1,5 @@
 <ul class="nav  nav--stacked  notice-tray">
-  <li ng-repeat="notification in notifications" class="notice  notice--{{ notification.status }}  animate  animate--flippable" ng-class="{ 'notice--active' : notification.active, 'animation--flipInX' : notification.show,  'animation--flipOutX' : notification.hide}">
+  <li ng-repeat="notification in notifications" class="notice  notice--{{ notification.status }}  animated-half  bounceIn" ng-class="{ 'notice--active' : notification.active, 'bounceIn' : notification.show,  'bounceOut' : notification.hide}">
     <div class="flag  flag--rev">
       <div class="flag__body">
         <p><b>{{ notification.title }}</b>:<br>

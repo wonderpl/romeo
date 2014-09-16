@@ -8,6 +8,9 @@
   right:  0;
   bottom: 0;
   background-color: rgba(0,0,0,0.7);
+  opacity: 0;
+  -webkit-transition: 0.15s ease-in-out;
+          transition: 0.15s ease-in-out;
   @extend .is-hidden;
 
   &.show {
@@ -15,6 +18,7 @@
     left: 0;
     z-index: 6000;
     visibility: visible;
+    opacity: 1;
     @extend .center-container;
   }
 }
