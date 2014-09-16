@@ -1,1 +1,3 @@
 include wonder/romeo/static/gen/romeo/*
+include wonder/romeo/static/gen/images/*
+include wonder/romeo/static/gen/select2*

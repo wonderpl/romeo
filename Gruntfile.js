@@ -42,64 +42,43 @@ module.exports = function (grunt) {
             //     src: '<%= assetsDir %>/css/app.css',
             //     dest: 'dist/assets/css/app.css'
             // },
-            fonts: {
-                files: [
-                    {
-                        expand: true,
-                        src: 'assets/fonts/*',
-                        dest: 'dist/',
-                        filter: 'isFile',
-                        cwd: '<%= staticDir %>/'
-                    }
-                ]
-            },
-            img: {
-                files: [
-                    {
-                        expand: true,
-                        src: 'assets/img/*',
-                        dest: 'dist/',
-                        filter: 'isFile',
-                        cwd: '<%= staticDir %>/'
-                    }
-                ]
-            },
+            // fonts: {
+            //     files: [
+            //         {
+            //             expand: true,
+            //             src: 'assets/fonts/*',
+            //             dest: 'dist/',
+            //             filter: 'isFile',
+            //             cwd: '<%= staticDir %>/'
+            //         }
+            //     ]
+            // },
+            // img: {
+            //     files: [
+            //         {
+            //             expand: true,
+            //             src: 'assets/img/*',
+            //             dest: 'dist/',
+            //             filter: 'isFile',
+            //             cwd: '<%= staticDir %>/'
+            //         }
+            //     ]
+            // },
             bowerfiles: {
                 files: [
                     {
                         expand: true,
-                        src: [
-                            '*.png',
-                            '*.gif',
-                        ],
-                        dest: '<%= staticDir %>/gen/',
+                        src: ['*.png', '*.gif'],
+                        dest: '<%= outputDir %>/',
                         filter: 'isFile',
                         cwd: '<%= staticDir %>/bower/select2/'
                     },
                     {
                         expand: true,
-                        src: '/*.swf', // Where does this need to go?
-                        dest: '<%= staticDir %>/gen/',
-                        filter: 'isFile',
-                        cwd: '<%= staticDir %>/bower/ng-file-upload/'
-                    },
-                    {
-                        expand: true,
                         src: '*',
-                        dest: '<%= staticDir %>/gen/images/',
+                        dest: '<%= outputDir %>/images/',
                         filter: 'isFile',
                         cwd: '<%= staticDir %>/bower/jquery.ui/themes/base/images/'
-                    }
-                ]
-            },
-            json: {
-                files: [
-                    {
-                        expand: true,
-                        src: 'api/*',
-                        dest: 'dist/',
-                        filter: 'isFile',
-                        cwd: '<%= staticDir %>/'
                     }
                 ]
             }
