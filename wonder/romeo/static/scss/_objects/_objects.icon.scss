@@ -14,7 +14,6 @@
  * 6. Align the icon in the centre of it's parent.
  * 7. Inherit the colour from the parent container.
  * 8. Apply some styles to get icons looking their best. See: https://icomoon.io/#docs/crisp
- * 9. Don't allow any pointer events should the icons be clicked inside an anchor.
  */
 .icon {
   display: inline-block; /* [1] */
@@ -32,7 +31,6 @@
   color: inherit; /* [7] */
   -webkit-font-smoothing: antialiased; /* [8] */
   -moz-osx-font-smoothing: grayscale; /* [8] */
-  pointer-events: none; /* [9] */
 
   /**
    *
