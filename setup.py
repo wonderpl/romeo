@@ -10,7 +10,7 @@ from setuptools.command.test import test as TestCommand
 
 class TestCommand_(TestCommand):
     def finalize_options(self):
-        self.test_args = []
+        self.test_args = ['test']
         self.test_suite = True
 
     def run_tests(self):
