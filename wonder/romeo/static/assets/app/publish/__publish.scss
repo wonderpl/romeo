@@ -81,11 +81,41 @@
     line-height: 1.5;
     border: none;
   }
+  .popup__link-cal {
+    position: relative;
+  }
 
 
 .schedule-date {
+  max-width: none;
+  width: 263px;
+  height: 387px;
+  margin-left: -131px;
   position: absolute;
   top:   100%;
-  left:  0;
+  left:  50%;
   right: 0;
+  background-size: cover;
+  background-image: url('/static/assets/img/date-picker-placeholder.png');
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  -webkit-transform: scale(0.8) translateY(-25%);
+          transform: scale(0.8) translateY(-25%);
+  -webkit-transition: 0.2s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+          transition: 0.2s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+
+  @media print,(-o-min-device-pixel-ratio:5/4),(-webkit-min-device-pixel-ratio:1.25),(min-resolution:120dpi){
+    background-image: url('/static/assets/img/date-picker-placeholder@2x.png');
+  }
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    -webkit-transform: none;
+            transform: none;
+  }
 }
