@@ -7,7 +7,7 @@
     <p class="lede  t--center" ng-bind="tag.description" ng-hide="isEdit"></p>
     <p class="lede  t--center" medium-editor options="{ disableToolbar : true, forcePlainText : true, disableReturn : true, placeholder : '' }" ng-model="tag.description" ng-show="isEdit"></p>
   </div>
-  <span class="collection-status  icon-text"><i class="icon  icon-text__icon" ng-class="tag.public ? 'icon--eye' : 'icon--lock'"></i>{{ tag.public ? 'public' : 'private' }}</span>
+  <span class="collection-status  icon-text"><i class="icon  icon-text__icon" ng-class="tag.public ? 'icon--eye' : 'icon--lock'"></i>{{ tag.public ? 'Published' : 'Private' }}</span>
   <a class="btn  btn--small  collection-edit-btn" ng-hide="isEdit" ng-click="isEdit = !isEdit">Edit</a>
   <ul class="nav  nav--block  collection-edit-list" ng-show="isEdit">
     <li class="collection-edit-list__item"><a class="btn  btn--small  btn--positive" ng-click="save()">Done</a></li>
