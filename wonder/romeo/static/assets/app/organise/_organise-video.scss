@@ -95,6 +95,7 @@
   float: left;
   margin-bottom: 0;
   margin-right: $base-spacing-unit;
+  overflow: visible;
 
   > li + li {
     margin-left: $half-spacing-unit / 2;

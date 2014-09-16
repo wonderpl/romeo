@@ -2,19 +2,19 @@
 
   <ul class="nav  nav--block  organise-video__inline-controls" ng-show="isList && !isCollaboration">
     <li class="organise-video__inline-control">
-      <a class="organise-video__inline-link organise-video__inline-link--edit" ng-href="#/video/{{video.id}}" title="Edit"><i class="icon  icon--edit"></i></a>
+      <a class="organise-video__inline-link organise-video__inline-link--edit  simptip-position-top  simptip-smooth  simptip-movable" ng-href="#/video/{{video.id}}" data-tooltip="Edit video"><i class="icon  icon--edit"></i></a>
     </li>
     <li class="organise-video__inline-control">
-      <a class="organise-video__inline-link organise-video__inline-link--view" ng-href="#/video/{{video.id}}/publish" title="Review"><i class="icon  icon--eye"></i></a>
+      <a class="organise-video__inline-link organise-video__inline-link--view  simptip-position-top  simptip-smooth  simptip-movable" ng-href="#/video/{{video.id}}/publish" data-tooltip="Publish video"><i class="icon  icon--eye"></i></a>
     </li>
     <li class="organise-video__inline-control">
-      <a class="organise-video__inline-link is-disabled organise-video__inline-link--stats"><i class="icon  icon--bar-graph" title="Stats"></i></a>
+      <a class="organise-video__inline-link organise-video__inline-link--stats  simptip-position-top  simptip-smooth  simptip-movable" ng-href="#/video/{{video.id}}/analytics" data-tooltip="View statistics"><i class="icon  icon--bar-graph"></i></a>
     </li>
     <li class="organise-video__inline-control">
-      <a class="organise-video__inline-link organise-video__inline-link--add-remove" ng-click="addRemove(video)" title="Add/Remove from collection"><i class="icon  icon--collection"></i></a>
+      <a class="organise-video__inline-link organise-video__inline-link--add-remove  simptip-position-top  simptip-smooth  simptip-movable" ng-click="addRemove(video)" data-tooltip="Add to/Remove from a collection"><i class="icon  icon--collection"></i></a>
     </li>
     <li class="organise-video__inline-control">
-      <a class="organise-video__inline-link organise-video__inline-link--delete" ng-click="showDelete(video)" title="Delete video" ><i class="icon  icon--trash"></i></a>
+      <a class="organise-video__inline-link organise-video__inline-link--delete  simptip-position-top  simptip-smooth  simptip-movable" ng-click="showDelete(video)" data-tooltip="Delete video"><i class="icon  icon--trash"></i></a>
     </li>
   </ul>
 
