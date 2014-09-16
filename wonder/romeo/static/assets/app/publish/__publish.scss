@@ -24,6 +24,23 @@
   border: 1px solid rgba(0,0,0,0.06);
   border-radius: 3px;
   box-shadow: 0 4px 48px 1px rgba(0,0,0,0.12);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  -webkit-transform: scale(0.8) translateY(-25%);
+          transform: scale(0.8) translateY(-25%);
+  -webkit-transition: 0.2s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+          transition: 0.2s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    -webkit-transform: none;
+            transform: none;
+  }
   
   &:before,
   &:after {
