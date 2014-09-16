@@ -83,11 +83,6 @@
             resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
-        $routeProvider.when('/faq', {
-            controller: 'MainCtrl',
-            templateUrl: 'faq.html'
-        });
-
 // ****** DEPRECATED **************************************************
 
         // Analytics
@@ -138,6 +133,16 @@
             controller: 'UpgradeCtrl',
             templateUrl: 'login/upgrade/upgrade.tmpl.html',
             resolve: securityAuthorizationProvider.requireCollaborator
+        });
+
+        $routeProvider.when('/faq', {
+            templateUrl: 'pages/faq.tmpl.html',
+            resolve: securityAuthorizationProvider.loadAuthentication
+        });
+
+        $routeProvider.when('/', {
+            templateUrl: 'pages/home.tmpl.html',
+            resolve: securityAuthorizationProvider.loadAuthentication
         });
 
         $routeProvider.otherwise({redirectTo: '/organise'});

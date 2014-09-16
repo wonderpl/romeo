@@ -72,6 +72,15 @@
                     originalUrl = $location.url();
                 $location.url(url || '/login');
             },
+            loadAuthentication: function () {
+                debug.info('service load authentication', service.isAuthenticated());
+
+                if (! service.isAuthenticated() ) {
+                    _loginCheck();
+                }
+
+                return true;
+            },
             requireAuthenticated: function () {
                 debug.info('service require authenticated', service.isAuthenticated());
 
@@ -243,6 +252,9 @@
 
     var securityAuthorizationProvider = function () {
       return {
+        loadAuthentication: ['securityAuthorization', function (securityAuthorization) {
+            return securityAuthorization.loadAuthentication();
+          }],
         requireAuthenticated: ['securityAuthorization', function (securityAuthorization) {
             return securityAuthorization.requireAuthenticated();
           }],
@@ -255,6 +267,11 @@
 
           $get: ['SecurityService', function (security) {
             var service = {
+              // Load an authenticated user, if logged in, but don't require a logged in user
+              // (use this in a route resolve to load users details without requiring authentication)
+              loadAuthentication: function () {
+                return security.loadAuthentication();
+              },
               // Require that there is an authenticated user
               // (use this in a route resolve to prevent non-authenticated users from entering that route)
               requireAuthenticated: function () {
