@@ -119,3 +119,26 @@
             transform: none;
   }
 }
+
+
+.publish-logo-wonder {
+  background-image: url('/static/assets/img/wonder-logo.svg');
+}
+.publish-host__option--published .publish-logo-wonder {
+  background-image: url('/static/assets/img/wonder-logo--color.svg'); 
+}
+.publish-logo-facebook {
+  background-image: url('/static/assets/img/facebook-logo.svg');
+}
+.publish-host__option--published .publish-logo-facebook {
+  background-image: url('/static/assets/img/facebook-logo--color.svg');
+}
+.publish-logo-youtube {
+  background-image: url('/static/assets/img/youtube-logo.svg');
+}
+.publish-host__option--published .publish-logo-youtube {
+  background-image: url('/static/assets/img/youtube-logo--color.svg');
+}
+.publish-logo-more {
+  background-image: url('/static/assets/img/ellipsis-logo.svg');
+}

@@ -37,9 +37,9 @@
       <p class="heading  kilo" ng-if="isPublished">Your video has been published!</p>
       <p ng-if="video.tags.items">Your video has been published to: <span ng-bind="video.tags.items | commaSeparatedList"></span></p>
 
-      <div class="notice  notice--info">
+      <!--<div class="notice  notice--info">
         <p>By clicking 'Publish', you agree that this video does not violate the Terms of Use of any of the video sites you plan to upload to and that you own all copyrights in this video or have express permission from all copyright owners to upload it. You also agree to Wonder PL’s Terms of Service.</p>
-      </div>
+      </div>-->
 
       <div class="btn-center">
 
@@ -75,28 +75,28 @@
     <ul class="layout  publish-host">
       <li class="layout__item  one-quarter  publish-host__option" ng-class="{ 'publish-host__option--published' : providers.wonderpl.isPublished }">
         <div class="avatar  avatar--huge">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img  publish-logo-wonder">
         </div>
         <p class="publish-host__title  icon-text"><i class="icon  icon-text__icon  icon--circle-check" ng-if="providers.wonderpl.isPublished"></i>Wonder PL</p>
       </li><!--
 
       --><li class="layout__item  one-quarter  publish-host__option">
         <div class="avatar  avatar--huge">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img  publish-logo-youtube">
         </div>
         <p class="publish-host__title  icon-text"><i class="icon  icon-text__icon  icon--circle-check" ng-if="providers.youtube.isPublished"></i>Youtube</p>
       </li><!--
 
       --><li class="layout__item  one-quarter  publish-host__option">
         <div class="avatar  avatar--huge">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img  publish-logo-facebook">
         </div>
         <p class="publish-host__title  icon-text"><i class="icon  icon-text__icon  icon--circle-check" ng-if="providers.facebook.isPublished"></i>Facebook</p>
       </li><!--
 
       --><li class="layout__item  one-quarter  publish-host__option">
         <div class="avatar  avatar--huge">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img  publish-logo-more">
         </div>
         <p class="publish-host__title  icon-text--rev">Add<i class="icon  icon-text__icon  icon--plus"></i></p>
       </li>
