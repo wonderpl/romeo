@@ -93,6 +93,7 @@ angular.module('RomeoApp.services')
 
       _isUploading = false;
       _isProcessing = true;
+      _progress = 0;
 
       // update video with key
       updateVideo({ filename: cachedkey, status: 'processing' }, cachedId).then(function () {
@@ -115,7 +116,9 @@ angular.module('RomeoApp.services')
           $rootScope.$broadcast('video-upload-poll', response);
           if (videoIsReady(response)) {
             $rootScope.isUploadingOrProcessingTemp = false;
+            $rootScope.uploadingVideoId = null;
             _isProcessing = false;
+            _isUploading = false;
             _progress = 0;
 
             $rootScope.$emit('notify', {

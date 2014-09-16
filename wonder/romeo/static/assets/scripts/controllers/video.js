@@ -226,6 +226,7 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $location, UploadService, $ro
     debug.log('videoUploadOnSuccess of video (' + $scope.video.id + ') ' + $scope.video.title);
     redirect(data, 'edit');
     $scope.flags.hasProcessed = true;
+    $scope.video.status = data.status;
   });
 
   $scope.$on('video-upload-poll', function (event, data) {
