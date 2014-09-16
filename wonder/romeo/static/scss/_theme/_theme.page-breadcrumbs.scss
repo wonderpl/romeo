@@ -3,6 +3,7 @@
  */
 .page-breadcrumbs {
   padding-top: $half-spacing-unit;
+  margin-bottom: 0;
 
   > li::before {
     content: "";

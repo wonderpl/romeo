@@ -1,0 +1,40 @@
+/**
+ * _organise-collection.scss
+ */
+.collection-status {
+  display: inline-block;
+  margin-bottom: 24px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  font-family: "FreightSans Pro","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
+}
+
+.collection-edit-btn {
+  opacity: 0;
+  visibility: hidden;
+  margin-bottom: 24px;
+  position: absolute;
+  right:  0;
+  bottom: 0;
+  -webkit-transform: scale3d(0, 0.5, 0);
+          transform: scale3d(0, 0.5, 0);
+  -webkit-transition: all 0.15s ease-in-out;
+          transition: all 0.15s ease-in-out;
+}
+  .masthead:hover .collection-edit-btn {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+
+
+.collection-edit-list {
+  margin-bottom: 24px;
+  position: absolute;
+  right:  0;
+  bottom: 0;
+
+  > li + li { margin-left: $half-spacing-unit; }
+}

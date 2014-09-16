@@ -1,6 +1,14 @@
 /**
  * .icons.scss
  */
+// Define common icon sizes
+$icon-dimensions:             16px;
+$icon-dimensions--medium:     24px;
+$icon-dimensions--large:      32px;
+$icon-dimensions--huge:       64px;
+$icon-dimensions--natural:    inherit;
+
+
 /**
  * The icon module uses private-area encoded characters to avoid problems
  * with screen readers.
@@ -24,7 +32,7 @@
   top: -0.0625em; /* [4] */
   font-weight: normal; /* [5] */
   font-style: normal; /* [5] */
-  font-size: 16px; /* [3] */
+  font-size: $icon-dimensions; /* [3] */
   line-height: 1; /* [5] */
   font-family: "icon-font";
   text-align: center; /* [6] */
@@ -197,11 +205,14 @@
 .icon--zoom-in:before            { content:"\e691"; }
 .icon--zoom-out:before           { content:"\e692"; }
 
+
 /**
+ * Icon size modifiers
+ *
  * By using standard multiples, we can ensure icons
  * look great at these sizes.
  */
-.icon--medium                    { font-size: 24px; }
-.icon--large                     { font-size: 32px; }
-.icon--huge                      { font-size: 64px; }
-.icon--natural                   { font-size: inherit; }
+.icon--medium  { font-size: $icon-dimensions--medium; }
+.icon--large   { font-size: $icon-dimensions--large; }
+.icon--huge    { font-size: $icon-dimensions--huge; }
+.icon--natural { font-size: $icon-dimensions--natural; }
