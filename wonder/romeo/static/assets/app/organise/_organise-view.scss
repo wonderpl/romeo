@@ -1,3 +1,42 @@
+/**
+ * _components.columns.scss
+ */
+// Define sidebar width as a variable
+$organise-sidebar-width: 320px;
+
+.columns {
+  @extend .cf;
+
+  .columns__sidebar {
+    width: $organise-sidebar-width;
+    position: relative;
+    float: left;
+  }
+  .columns__content {
+    margin-left: $organise-sidebar-width;
+  }
+}
+
+.columns--sidebar-right {
+
+  .columns__sidebar {
+    float: right;
+  }
+  .columns__content {
+    margin-right: $organise-sidebar-width;
+  }
+}
+  .columns__sidebar-bg {
+    height: 1800px;
+    width: $organise-sidebar-width;
+    position: fixed;
+    //top: $page-header-height;
+    left: 0;
+    z-index: 0;
+    background-color: rgba($base-color-ui, 0.125);
+}
+
+
 .organise {
   width: $containerWidth + px;
   margin: 0 auto;
