@@ -1,0 +1,51 @@
+/**
+ * _components.masthead.scss
+ */
+.masthead {
+  padding-top:   $base-spacing-unit;
+  margin-bottom: $base-spacing-unit;
+  position: relative;
+}
+
+.masthead--feature {
+  padding-bottom: $base-spacing-unit;
+  border-bottom: 1px solid $base-color-ui;
+}
+
+.masthead--img {
+  height: 450px;
+  margin-right: -$base-spacing-unit;
+  margin-left:  -$base-spacing-unit;
+
+  .masthead__hero {
+    display: block;
+    @extend %img--full;
+    image-rendering: optimizeQuality;
+  }
+  .masthead__avatar {
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+  }
+}
+
+
+.masthead__avatar {
+    margin-bottom: -($avatar-dimensions / 2);
+
+    &.avatar--tiny {
+      margin-bottom: -($avatar-dimensions--tiny / 2);
+    }
+    
+    &.avatar--small {
+      margin-bottom: -($avatar-dimensions--small / 2);
+    }
+    
+    &.avatar--large {
+      margin-bottom: -($avatar-dimensions--large / 2);
+    }
+    
+    &.avatar--huge {
+      margin-bottom: -($avatar-dimensions--huge / 2); 
+    }
+  }
