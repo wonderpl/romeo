@@ -1,7 +1,8 @@
 //video-add-collection.js
 (function () {
   'use strict';
-  function videoAddCollection($templateCache, $location, modal, $route) {
+
+  function videoAddCollection($templateCache, modal, TagService) {
     return {
       restrict : 'E',
       replace : true,
@@ -21,6 +22,7 @@
             angular.extend(data, res);
             $scope.tags.push(data);
             $scope.video.tags.items.push(data);
+            $scope.close();
           });
         };
 
@@ -41,7 +43,8 @@
         };
 
         $scope.close = function () {
-          $scope.addVideoToCollection = false;
+          // $scope.addVideoToCollection = false;
+          modal.hide();
         };
 
         $scope.removeTag = function (id, $event) {
@@ -75,10 +78,21 @@
           }
           return false;
         };
+
+        $scope.hasTagLabel = function (label) {
+          var tags = $scope.tags || [];
+          var l = tags.length;
+          while (l--) {
+            if (tags[l].label == label) {
+              return true;
+            }
+          }
+          return false;
+        };
       }
     };
   }
 
   angular.module('RomeoApp.video')
-    .directive('videoAddCollection', ['$templateCache', '$location', 'modal', '$route', videoAddCollection]);
+    .directive('videoAddCollection', ['$templateCache', 'modal', 'TagService', videoAddCollection]);
 })();
