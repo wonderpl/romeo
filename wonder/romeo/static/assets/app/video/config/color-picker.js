@@ -28,7 +28,7 @@
     };
   }
 
-  angular.module('RomeoApp.video.config').directive('colorPicker', ['VideoService', colorPicker]);
+  angular.module('RomeoApp.video').directive('colorPicker', ['VideoService', colorPicker]);
 
 })();
 

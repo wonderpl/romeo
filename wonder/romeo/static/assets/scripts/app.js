@@ -15,7 +15,7 @@
     angular.module('RomeoApp.analytics', ['RomeoApp.directives', 'ngRoute']);
     angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
     angular.module('RomeoApp.search', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
-    angular.module('RomeoApp.video.config', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
+    angular.module('RomeoApp.video', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
     angular.module('RomeoApp.publish', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
 
     var debug = new DebugClass('App');
@@ -37,7 +37,7 @@
             'RomeoApp.analytics',
             'RomeoApp.profile',
             'RomeoApp.search',
-            'RomeoApp.video.config',
+            'RomeoApp.video',
             'RomeoApp.publish'
         ]); // module dependencies
 

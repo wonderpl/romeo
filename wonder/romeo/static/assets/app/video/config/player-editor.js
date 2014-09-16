@@ -30,6 +30,6 @@
     };
   }
 
-  angular.module('RomeoApp.video.config').directive('playerEditor', ['$templateCache', playerEditor]);
+  angular.module('RomeoApp.video').directive('playerEditor', ['$templateCache', playerEditor]);
 
 })();

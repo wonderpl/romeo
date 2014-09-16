@@ -24,6 +24,6 @@
     };
   }
 
-  angular.module('RomeoApp.video.config').directive('extendedControls', ['$templateCache', extendedControls]);
+  angular.module('RomeoApp.video').directive('extendedControls', ['$templateCache', extendedControls]);
 
 })();

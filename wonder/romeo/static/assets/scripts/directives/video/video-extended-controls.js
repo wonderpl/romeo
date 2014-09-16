@@ -7,9 +7,7 @@ angular.module('RomeoApp.directives')
     restrict : 'E',
     replace : true,
     template : $templateCache.get('video-extended-controls.html'),
-    link : function (scope, elem, attrs) {
-
-    },
+    scope : true,
     controller : function ($scope) {
       $scope.showHideCollectionExtended = function() {
         $scope.$emit('show-hide-collection');
