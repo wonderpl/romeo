@@ -6,7 +6,7 @@ from flask import current_app, json, g
 from wonder.romeo import db
 from wonder.romeo.account.models import AccountUser
 from wonder.romeo.video.models import Video, VideoLocaleMeta, VideoComment
-from .helpers import client_for_account, client_for_user, client_for_collaborator
+from .helpers import client_for_account, client_for_new_user, client_for_user, client_for_collaborator
 from .fixtures import dbfixture, DataSet, genimg
 
 
@@ -386,10 +386,7 @@ class VideoCommentTestCase(DataTestCase, TestCase):
 
 class VideoCollaboratorTestCase(TestCase):
 
-    def test_invite_collaborator(self):
-        video = Video.query.first()
-        recipient = 'noreply@wonderpl.com'
-
+    def _send_collaborator_token(self, video, recipient='noreply@wonderpl.com'):
         with patch('wonder.romeo.video.forms.send_email') as send_email:
             with client_for_account(video.account_id) as client:
                 jsondata = json.dumps(dict(email=recipient, name='test'))
@@ -400,7 +397,11 @@ class VideoCollaboratorTestCase(TestCase):
             self.assertEqual(send_email.call_args[0][0], recipient)
             self.assertIn('/video/%d' % video.id, send_email.call_args[0][1])
 
-            token = re.search('token=([\w.-]+)', send_email.call_args[0][1]).group(1)
+            return re.search('token=([\w.-]+)', send_email.call_args[0][1]).group(1)
+
+    def test_invite_collaborator(self):
+        video = Video.query.first()
+        token = self._send_collaborator_token(video)
 
         # Check that collaborator can access video with token
         with current_app.test_client() as client:
@@ -423,6 +424,27 @@ class VideoCollaboratorTestCase(TestCase):
         with current_app.test_client() as client:
             r = client.get('/api/video/%d' % video.id)
             self.assertEquals(r.status_code, 401)
+
+    def test_registered_collaborator(self):
+        video = Video.query.first()
+        token = self._send_collaborator_token(video, recipient='noreply+A@wonderpl.com')
+
+        credentials = dict(username='noreply+B@wonderpl.com', password='12345678')
+
+        with client_for_new_user(**credentials) as client:
+            r = client.post('/api/validate_token', data=dict(token=token))
+            self.assertEquals(json.loads(r.data)['video']['href'], video.href)
+
+            user_id = client.reg_data['user']['id']
+            r = client.get('/api/user/%d/collaborator_videos' % user_id)
+            items = json.loads(r.data)['video']['items']
+            self.assertIn(video.id, [i['id'] for i in items])
+
+        with client_for_user(user_id):
+            with client.session_transaction() as session:
+                del session['collaborator_ids']
+            r = client.get('/api/video/%d' % video.id)
+            self.assertEquals(r.status_code, 200)
 
 
 class VideoPlayerParametersTestCase(TestCase):

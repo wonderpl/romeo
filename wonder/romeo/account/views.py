@@ -159,7 +159,7 @@ class TokenValidatorResource(Resource):
             session['collaborator_ids'] = list(
                 set([token['collaborator']] + session.get('collaborator_ids', [])))
             from wonder.romeo.video.views import collaborator_record
-            return collaborator_record(token['collaborator'])
+            return collaborator_record(token['collaborator'], current_user.id)
 
         return None, 204
 

@@ -226,8 +226,9 @@ class UserCollaboratorVideosResource(Resource):
             VideoCollaborator.video_id == Video.id
         ).join(
             AccountUser,
-            (func.lower(AccountUser.username) == func.lower(VideoCollaborator.email)) &
-            (AccountUser.id == user.id)
+            (AccountUser.id == user.id) &
+            ((AccountUser.id == VideoCollaborator.account_user_id) |
+             (func.lower(AccountUser.username) == func.lower(VideoCollaborator.email)))
         ).order_by(Video.date_added)
         items = map(_video_item, query.all())
         return dict(video=dict(items=items, total=len(items)))
@@ -528,8 +529,19 @@ class VideoTagVideoResource(Resource):
         return None, 204
 
 
-def collaborator_record(collaborator_id):
+def collaborator_record(collaborator_id, user_id=None):
     collaborator = VideoCollaborator.query.get(collaborator_id)
+
+    # check if this record was already used for this user
+    if collaborator.account_user_id:
+        if not collaborator.account_user_id == user_id:
+            abort(400, 'invalid_collaborator')
+    # otherwise update the record
+    else:
+        if user_id:
+            collaborator.account_user_id = user_id
+            db.session.commit()
+
     result = _collaborator_item(collaborator)
     result['video'] = dict(href=url_for('api.video', video_id=collaborator.video_id))
     return result

@@ -390,6 +390,7 @@ class VideoCollaborator(db.Model):
     can_comment = Column(Boolean(), nullable=False, server_default='false', default=False)
     email = Column(String(1024), nullable=False)
     name = Column(String(1024))
+    account_user_id = Column('account_user', ForeignKey(AccountUser.id))
 
     video = relationship(Video, backref=backref('collaborators', cascade='all, delete-orphan'))
 

@@ -173,15 +173,23 @@ class RegistrationToken(db.Model):
 class CollaborationMixin(object):
 
     def get_collaborator(self, video_id, permission=True):
+        from wonder.romeo.video.models import VideoCollaborator
+        collaborators = VideoCollaborator.query.filter_by(video_id=video_id)
+        collaborator = None
+
         if session.get('collaborator_ids'):
-            from wonder.romeo.video.models import VideoCollaborator
-            collaborator = VideoCollaborator.query.filter(
-                VideoCollaborator.video_id == video_id,
+            collaborator = collaborators.filter(
                 VideoCollaborator.id.in_(session['collaborator_ids']),
             ).first()
-            if collaborator and (permission is True or
-                                 getattr(collaborator, 'can_' + permission)):
-                return collaborator
+
+        if self.id and not collaborator:
+            collaborator = collaborators.filter(
+                VideoCollaborator.account_user_id == self.id
+            ).first()
+
+        if collaborator and (permission is True or
+                             getattr(collaborator, 'can_' + permission)):
+            return collaborator
 
     def has_collaborator_permission(self, video_id, permission):
         return bool(self.get_collaborator(video_id, permission))
