@@ -51,7 +51,7 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
 
   function initialiseNewScope () {
 
-    $scope.video = $scope.video || {};
+    $scope.video = $scope.video || { tags: { items: [] } };
     $scope.titlePlaceholder = 'Untitled Video';
     $scope.straplinePlaceholder = 'Subtitle';
     $scope.descriptionPlaceholder = 'Additional content including but not limited to: recipes, ingredients, lyrics, stories, etc.';
