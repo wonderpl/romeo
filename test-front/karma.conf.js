@@ -21,6 +21,9 @@ module.exports = function(config) {
       'wonder/romeo/static/bower/medium-editor/dist/js/medium-editor.js',
       'wonder/romeo/static/bower/angular-medium-editor/dist/angular-medium-editor.js',
       'wonder/romeo/static/bower/angular-ui-select2/src/select2.js',
+      'wonder/romeo/static/bower/d3/d3.js',
+      'wonder/romeo/static/bower/nvd3/nv.d3.js',
+      'wonder/romeo/static/bower/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js',
 
       'wonder/romeo/static/assets/scripts/helpers.js',
       'wonder/romeo/static/assets/scripts/app.js',

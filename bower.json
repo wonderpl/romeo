@@ -30,6 +30,7 @@
     "angular-sanitize": "~1.2.23",
     "angular-local-storage": "~0.0.7",
     "angular-ui-select2": "~0.0.5",
+    "angularjs-nvd3-directives": "~0.0.7",
     "jquery.ui": "~1.11.1",
     "Chart.js": "~0.2.0"
   },

@@ -12,7 +12,7 @@
     angular.module('RomeoApp.directives', ['RomeoApp.services', 'ui.select2']);
     angular.module('RomeoApp.controllers', ['RomeoApp.services', 'RomeoApp.directives', 'LocalStorageModule']);
     // -- App modules
-    angular.module('RomeoApp.analytics', ['RomeoApp.directives', 'ngRoute']);
+    angular.module('RomeoApp.analytics', ['RomeoApp.directives', 'nvd3ChartDirectives', 'ngRoute']);
     angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
     angular.module('RomeoApp.search', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
     angular.module('RomeoApp.video', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
@@ -29,6 +29,7 @@
             'angularFileUpload',
             'angulartics',
             'angulartics.google.analytics',
+            'nvd3ChartDirectives',
             'RomeoApp.filters',
             'RomeoApp.security',
             'RomeoApp.services',
