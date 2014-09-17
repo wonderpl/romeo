@@ -11,3 +11,47 @@
 .u--ta-right  { text-align: right !important; }
 .t--left,
 .u--ta-left   { text-align: left !important; }
+
+
+/**
+ * Display classes
+ */
+.u--d-inline { display: inline !important; }
+.u--d-block  { display: block !important; }
+.u--d-iblock { display: inline-block !important; }
+
+
+/**
+ * Faux smallcaps
+ */
+.u--smallcaps {
+  font-variant: small-caps;
+  text-transform: lowercase;
+  letter-spacing: 0.1em;
+}
+
+
+/**
+ * Align classes
+ */
+.u--ta-center { text-align: center !important; }
+.u--ta-right  { text-align: right !important; }
+.u--ta-left   { text-align: left !important; }
+
+
+/**
+ * font styles
+ */
+.u--ff-sans  { font-family: $heading-font-family; }
+.u--ff-serif { font-family: $base-font-family; }
+
+
+/**
+ * Weight classes
+ */
+.u--w200    { font-weight: 200 !important; }
+.u--w300    { font-weight: 300 !important; }
+.u--w400    { font-weight: 400 !important; }
+.u--w600    { font-weight: 600 !important; }
+.u--w700    { font-weight: 700 !important; }
+.u--w800    { font-weight: 800 !important; }

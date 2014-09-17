@@ -22,8 +22,17 @@
   }
 }
 
+
+.ratio--square,
+%ratio--square { padding-bottom: 100%; }
+
 .ratio--16x9,
 %ratio--16x9 { padding-bottom: 56.25%; }
 
 .ratio--3x2,
 %ratio--3x2 { padding-bottom: 66.66666666666666% }
+
+.ratio--graph {
+  padding-bottom: 60.583395662%;
+  margin-bottom: $base-spacing-unit;
+}
