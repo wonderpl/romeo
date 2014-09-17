@@ -53,11 +53,9 @@ class VideoWorkflowTestCase(DataTestCase, TestCase):
 
         with client_for_account(account.id) as client:
             # create new video
-            r = client.post('/api/account/%d/videos' % account.id,
-                            content_type='application/json',
-                            data=json.dumps(dict(title='test')))
+            r = client.post('/api/account/%d/videos' % account.id, json=dict(title='test'))
             self.assertEquals(r.status_code, 201)
-            data = json.loads(r.data)
+            data = r.json()
             self.assertEquals(data['status'], 'uploading')
             videoid = data['id']
             resource = data['href']
@@ -65,10 +63,9 @@ class VideoWorkflowTestCase(DataTestCase, TestCase):
             self.assertEquals(Video.query.get(videoid).title, 'test')
 
             # update description
-            r = client.patch(resource, content_type='application/json',
-                             data=json.dumps(dict(description='desc')))
+            r = client.patch(resource, json=dict(description='desc'))
             self.assertEquals(r.status_code, 200)
-            data = json.loads(r.data)
+            data = r.json()
             self.assertEquals(data['status'], 'uploading')
             self.assertEquals(data['description'], 'desc')
 
@@ -91,10 +88,9 @@ class VideoWorkflowTestCase(DataTestCase, TestCase):
             with patch('boto.connect_s3'):
                 with current_app.test_request_context():
                     with client_for_account(account.id) as client:
-                        r = client.patch(resource, content_type='application/json',
-                                         data=json.dumps(dict(filename='xxx')))
+                        r = client.patch(resource, json=dict(filename='xxx'))
                         self.assertEquals(r.status_code, 200)
-                        data = json.loads(r.data)
+                        data = r.json()
                         self.assertEquals(data['status'], 'processing')
 
             ooyala_request.assert_called_with('assets', external_id, 'upload_status',
@@ -141,8 +137,7 @@ class VideoWorkflowTestCase(DataTestCase, TestCase):
         # update
         with patch('wonder.romeo.core.dolly._request') as dolly_request:
             with client_for_account(account.id) as client:
-                r = client.patch(resource, content_type='application/json',
-                                 data=json.dumps(dict(title='new title')))
+                r = client.patch(resource, json=dict(title='new title'))
                 self.assertEquals(r.status_code, 200)
             (path, method), kwargs = dolly_request.call_args
             self.assertEquals(path, 'pubsubhubbub/callback')
@@ -176,7 +171,7 @@ class VideoMetaTestCase(TestCase):
                 r = client.get('/api/video/%d/download_url' % video.id)
                 self.assertEquals(r.status_code, 302)
                 self.assertEquals(r.headers['Location'], url)
-                self.assertEquals(json.loads(r.data)['url'], url)
+                self.assertEquals(r.json()['url'], url)
 
     def test_share_url(self):
         video = Video.query.filter_by(status='published').first()
@@ -189,7 +184,7 @@ class VideoMetaTestCase(TestCase):
                                query_string=[('target', 'facebook')])
                 self.assertEquals(r.status_code, 302)
                 self.assertEquals(r.headers['Location'], url)
-                self.assertEquals(json.loads(r.data)['url'], url)
+                self.assertEquals(r.json()['url'], url)
 
     def test_embed_code(self):
         video = Video.query.filter_by(status='published').first()
@@ -201,7 +196,7 @@ class VideoMetaTestCase(TestCase):
                 r = client.get('/api/video/%d/embed_code' % video.id,
                                query_string=[('style', 'seo'), ('width', '90%')])
                 self.assertEquals(r.status_code, 200)
-                html = json.loads(r.data)['html']
+                html = r.json()['html']
                 self.assertRegexpMatches(html, '.*<iframe.*wonderpl.com.*width="90%"')
 
 
@@ -214,7 +209,7 @@ class VideoEditTestCase(TestCase):
             r = client.patch('/api/video/%d' % video.id,
                              data=dict(description=description))
             self.assertEquals(r.status_code, 200)
-            data = json.loads(r.data)
+            data = r.json()
             self.assertEqual(data['description'], description)
         self.assertEqual(video.locale_meta[0].description, description)
 
@@ -226,7 +221,7 @@ class VideoEditTestCase(TestCase):
                 r = client.patch('/api/video/%d' % video.id,
                                  content_type='multipart/form-data', data=formdata)
                 self.assertEquals(r.status_code, 200)
-                data = json.loads(r.data)
+                data = r.json()
                 self.assertIn(upload_file.call_args[0][1], data['player_logo_url'])
         self.assertIsNotNone(video.player_logo_filename)
 
@@ -239,7 +234,7 @@ class VideoEditTestCase(TestCase):
                 r = client.patch('/api/video/%d' % video.id,
                                  content_type='multipart/form-data', data=formdata)
                 self.assertEquals(r.status_code, 200)
-                data = json.loads(r.data)
+                data = r.json()
                 self.assertIn(patched['upload_file'].call_args[0][1],
                               data['thumbnails']['items'][0]['url'])
 
@@ -315,7 +310,7 @@ class VideoCommentTestCase(DataTestCase, TestCase):
         video = self.data.VideoData.video
         with client_for_collaborator(collabid) as client:
             r = client.get('/api/video/%d/comments' % video.id)
-            comments = json.loads(r.data)['comment']['items']
+            comments = r.json()['comment']['items']
             self.assertItemsEqual(
                 set(c['display_name'] for c in comments),
                 (self.data.AccountUserData.user.username,
@@ -330,12 +325,11 @@ class VideoCommentTestCase(DataTestCase, TestCase):
         comment = dict(comment='A test comment', timestamp=60)
 
         with client_for_user(user.id) as client:
-            r = client.post('/api/video/%d/comments' % video.id,
-                            content_type='application/json', data=json.dumps(comment))
+            r = client.post('/api/video/%d/comments' % video.id, json=comment)
             self.assertEquals(r.status_code, 201)
 
             r = client.get('/api/video/%d/comments' % video.id)
-            comments = json.loads(r.data)['comment']['items']
+            comments = r.json()['comment']['items']
             self.assertEqual(comments[0]['comment'], comment['comment'])
             self.assertEqual(comments[0]['display_name'], user.username)
 
@@ -344,7 +338,7 @@ class VideoCommentTestCase(DataTestCase, TestCase):
         comment = self.data.VideoCommentData.comment3
         with client_for_account(video.account_id) as client:
             r = client.patch('/api/video/%d/comments/%d' % (video.id, comment.id),
-                             content_type='application/json', data=json.dumps(dict(resolved=True)))
+                             json=dict(resolved=True))
             self.assertEquals(r.status_code, 200)
         self.assertTrue(VideoComment.query.get(comment.id).resolved)
 
@@ -389,9 +383,8 @@ class VideoCollaboratorTestCase(TestCase):
     def _send_collaborator_token(self, video, recipient='noreply@wonderpl.com'):
         with patch('wonder.romeo.video.forms.send_email') as send_email:
             with client_for_account(video.account_id) as client:
-                jsondata = json.dumps(dict(email=recipient, name='test'))
                 r = client.post('/api/video/%d/collaborators' % video.id,
-                                content_type='application/json', data=jsondata)
+                                data=dict(email=recipient, name='test'))
                 self.assertEquals(r.status_code, 204)
 
             self.assertEqual(send_email.call_args[0][0], recipient)
@@ -407,7 +400,7 @@ class VideoCollaboratorTestCase(TestCase):
         with current_app.test_client() as client:
             r = client.post('/api/validate_token', data=dict(token=token))
             self.assertEquals(r.status_code, 200)
-            self.assertEquals(json.loads(r.data)['display_name'], 'test')
+            self.assertEquals(r.json()['display_name'], 'test')
 
             with patch('wonder.romeo.core.dolly.DollyUser.get_userdata') as get_userdata:
                 get_userdata.return_value = dict(
@@ -418,7 +411,7 @@ class VideoCollaboratorTestCase(TestCase):
                 )
                 r = client.get('/api/video/%d' % video.id)
                 self.assertEquals(r.status_code, 200)
-                self.assertEquals(json.loads(r.data)['account']['name'], 'account1')
+                self.assertEquals(r.json()['account']['name'], 'account1')
 
         # Same request for anonymous should fail
         with current_app.test_client() as client:
@@ -433,11 +426,11 @@ class VideoCollaboratorTestCase(TestCase):
 
         with client_for_new_user(**credentials) as client:
             r = client.post('/api/validate_token', data=dict(token=token))
-            self.assertEquals(json.loads(r.data)['video']['href'], video.href)
+            self.assertEquals(r.json()['video']['href'], video.href)
 
             user_id = client.reg_data['user']['id']
             r = client.get('/api/user/%d/collaborator_videos' % user_id)
-            items = json.loads(r.data)['video']['items']
+            items = r.json()['video']['items']
             self.assertIn(video.id, [i['id'] for i in items])
 
         with client_for_user(user_id):
@@ -454,14 +447,13 @@ class VideoPlayerParametersTestCase(TestCase):
         params = dict(color='00ff00', show_logo='true')
 
         with client_for_account(video.account_id) as client:
-            r = client.put('/api/video/%d/player_parameters' % video.id,
-                           content_type='application/json', data=json.dumps(params))
+            r = client.put('/api/video/%d/player_parameters' % video.id, json=params)
             self.assertEquals(r.status_code, 204)
 
         with current_app.test_client() as client:
             r = client.get('/api/v/%d' % video.id)
             self.assertEquals(r.status_code, 200)
-            videodata = json.loads(r.data)['video']
+            videodata = r.json()['video']
             self.assertItemsEqual(videodata['source_player_parameters'].items(),
                                   params.items())
 
@@ -509,12 +501,11 @@ class VideoTagTestCase(DataTestCase, TestCase):
         tag = dict(label='test')
 
         with client_for_account(account_id) as client:
-            r = client.post('/api/account/%d/tags' % account_id,
-                            content_type='application/json', data=json.dumps(tag))
+            r = client.post('/api/account/%d/tags' % account_id, json=tag)
             self.assertEquals(r.status_code, 201)
-            resource = json.loads(r.data)['href']
+            resource = r.json()['href']
 
-            data = json.loads(client.get(resource).data)
+            data = client.get(resource).json()
             self.assertEquals(data['label'], tag['label'])
             self.assertFalse(data['public'])
 
@@ -523,7 +514,7 @@ class VideoTagTestCase(DataTestCase, TestCase):
 
         with client_for_account(account_id) as client:
             r = client.get('/api/account/%d/tags' % account_id)
-            tags = json.loads(r.data)['tag']['items']
+            tags = r.json()['tag']['items']
             tag = next(t for t in tags if t['id'] == self.data.VideoTagData.tag1.id)
             self.assertEquals(tag['label'], self.data.VideoTagData.tag1.label)
             self.assertEquals(tag['video_count'], 1)

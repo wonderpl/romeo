@@ -1,10 +1,16 @@
 from random import randint
-from flask import current_app, json
+from mock import patch
+from flask import current_app
 from contextlib import contextmanager
 from wonder.romeo.account.models import AccountUser
 
 
-def register_user(client, **kwargs):
+def register_user(**kwargs):
+    with client_for_new_user(**kwargs) as client:
+        return client.reg_data
+
+
+def _register_user(client, **kwargs):
     id = randint(0, 10 ** 6)
     userdata = dict(
         username='noreply+test%s@wonderpl.com' % id,
@@ -13,17 +19,19 @@ def register_user(client, **kwargs):
         location='GB',
     )
     userdata.update(kwargs)
-    response = client.post('/api/register', data=userdata)
-    reg = json.loads(response.data)
+    response = client.post('/api/register', json=userdata)
+    reg = response.json()
     assert reg['user']['display_name'] == userdata['display_name']
     return reg
 
 
 @contextmanager
 def client_for_new_user(**kwargs):
-    with current_app.test_client() as client:
-        client.reg_data = register_user(client, **kwargs)
-        yield client
+    with patch('wonder.romeo.account.forms.send_email') as send_email:
+        with current_app.test_client() as client:
+            client.reg_data = _register_user(client, **kwargs)
+            yield client
+        assert send_email.called
 
 
 @contextmanager
