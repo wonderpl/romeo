@@ -104,7 +104,7 @@
     };
 
     $scope.getTitle = function () {
-      return 'Public collections';
+      return 'Choose or create a Collection to publish your video';
     };
 
     $scope.close = function () {
@@ -165,6 +165,7 @@
         $scope.isModal = true;
         initProviders();
         $scope.video = video;
+        $scope.showOnlyPublic = true;
         getTags();
       }
     }

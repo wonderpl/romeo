@@ -1,7 +1,7 @@
 <div>
   <div class="modal__title  split" ng-click="showCollection = !showCollection">
     <span class="split__title  t--block  w--600">{{ getTitle() }}</span>
-    <ul ng-show="video.tags.items.length" class="video-edit-collections__assigned-tags">
+    <ul ng-show="video.tags.items.length && !showOnlyPublic" class="video-edit-collections__assigned-tags">
       <li ng-repeat="tag in video.tags.items" class="video-edit-collections__assigned-tag">
         <span class="" ng-bind-html="tag.label"></span>
         <span class="video-edit-collections__remove-tag" ng-click="removeTag(tag.id, $event)">&times;</span>
