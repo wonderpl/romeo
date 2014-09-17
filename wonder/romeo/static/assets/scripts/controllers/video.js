@@ -297,6 +297,7 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
     removeTags(res, res.tags.items).then(function () {
       addTags(res, res.tags.items).then(function () {
         console.log('Save complete');
+        res.tags = $scope.video.tags;
         persistVideoData(res);
         $scope.$broadcast('video-saved', $scope.video);
       });
@@ -317,7 +318,6 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
         if (! contains(items, tags[i])) {
           ++queueCounter;
           VideoService.removeFromCollection(video.id, tags[i].id).then(loopFunction);
-          tags.splice(i, 1);
         }
       }
     }

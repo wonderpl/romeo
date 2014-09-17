@@ -1,5 +1,5 @@
 <div class="modal__title  split">
-  <span class="split__title  t--block  w--600">Create a collection</span>
+  <span class="split__title  t--block  w--600">Create a{{showOnlyPrivate ? ' private' : ''}} collection</span>
   <a class="modal__link" ng-click="close()"><i class="icon icon--medium icon--circle-cross"></i></a>
 </div>
 <div class="modal__content">
@@ -44,6 +44,7 @@
 </div>
 <div class="modal__footer">
   <div class="modal__actions">
-    <a ng-click="newCollectionForm.$valid && saveNewCollection(); isSubmitted = true;" class="btn  btn--small  btn--positive">Okay</a>
+    <a ng-if="!collection.label" ng-click="close()" class="btn  btn--small  btn--positive">Close</a>
+    <a ng-if="collection.label" ng-click="newCollectionForm.$valid && saveNewCollection(); isSubmitted = true;" class="btn  btn--small  btn--positive">Okay</a>
   </div>
 </div>
