@@ -176,6 +176,11 @@
           console.error('route fail', error);
           SecurityService.redirect();
       });
+
+      // @TODO: Move into modal service
+      $rootScope.closeModal = function () {
+          modal.hide();
+      };
     }]);
 
 })();

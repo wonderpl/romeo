@@ -2,12 +2,14 @@
 
 angular
   .module('RomeoApp.controllers')
-  .controller('VideoCtrl', ['$rootScope', '$http', '$q', '$scope', '$location', 'UploadService', '$routeParams', 'VideoService', '$sce', 'TagService', 'CommentsService', '$timeout', 'AuthService', VideoCtrl]);
+  .controller('VideoCtrl', ['$rootScope', '$http', '$q', '$scope', '$cookies', '$location', 'UploadService', '$routeParams', 'VideoService', '$sce', 'TagService', 'CommentsService', '$timeout', 'AuthService', 'SecurityService', VideoCtrl]);
 
-function VideoCtrl ($rootScope, $http, $q, $scope, $location, UploadService, $routeParams, VideoService, $sce, TagService, CommentsService, $timeout, AuthService) {
+function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadService, $routeParams, VideoService, $sce, TagService, CommentsService, $timeout, AuthService, SecurityService) {
 
   'use strict';
   var debug = new DebugClass('VideoCtrl');
+
+  $rootScope.layoutMode = $cookies.layout ? $cookies.layout : (SecurityService.isCollaborator()) ? 'column' : 'wide';
 
   function persistVideoData (data) {
     debug.info('persistVideoData (' + data.id + ') ' + data.title);
