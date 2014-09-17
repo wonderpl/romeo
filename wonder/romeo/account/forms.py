@@ -280,9 +280,9 @@ class AccountUserConnectionForm(BaseForm):
     def validate_user(self, field):
         if field.data:
             self.connection_user = AccountUser.query.filter_by(id=field.data, active=True).first()
-            if not self.connection_user:
+            if not self.connection_user or self.connection_user.id == self.account_user.id:
                 raise wtforms.ValidationError(_('Invalid user id.'))
-            if not self.connection_user.contactable:
+            if not self.connection_user.contactable and not self._get_reverse_connection():
                 raise wtforms.ValidationError(_('User not contactable.'))
 
     def populate_obj(self, obj):
@@ -305,10 +305,7 @@ class AccountUserConnectionForm(BaseForm):
             else:
                 raise
 
-        reverse = AccountUserConnection.query.filter_by(
-            account_user_id=self.connection_user.id,
-            connection_id=self.account_user.id,
-        ).first()
+        reverse = self._get_reverse_connection()
         if reverse and reverse.state == 'pending':
             reverse.state = connection.state = 'accepted'
             send_connection_acceptance_email(self.account_user.id, self.connection_user.id)
@@ -316,6 +313,14 @@ class AccountUserConnectionForm(BaseForm):
             send_connection_invite_email(self.account_user.id, self.connection_user.id)
 
         return connection if created else None
+
+    def _get_reverse_connection(self):
+        if not hasattr(self, '_reverse_connection'):
+            self._reverse_connection = AccountUserConnection.query.filter_by(
+                account_user_id=self.connection_user.id,
+                connection_id=self.account_user.id,
+            ).first()
+        return self._reverse_connection
 
 
 @background_on_sqs
