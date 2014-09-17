@@ -29,11 +29,6 @@ describe('controllers', function(){
     expect(controller).toBeDefined();
   }));
 
-  it('should have Main controller', inject(function($controller) {
-    controller = $controller('MainCtrl', { $scope: scope, $element: angular.element('<div></div>') });
-    expect(controller).toBeDefined();
-  }));
-
   it('should have Organise controller', inject(function($controller, _$location_) {
     $location = _$location_;
     controller = $controller('OrganiseCtrl', { $scope: scope });

@@ -359,7 +359,7 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
         }
     }
     return false;
-}
+  }
 
   $scope.$on('video-cancel', function (event) {
     event.stopPropagation = true;
@@ -441,8 +441,6 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
       pollIFrame();
     }
   }
-
-  pollIFrame();
 
   // http://support.ooyala.com/developers/documentation/concepts/xmp_securexdr_view_mbus.html
   // http://support.ooyala.com/developers/documentation/api/player_v3_api_events.html
@@ -668,7 +666,6 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
     $scope.flags.isReview = false;
   }
 
-  initialiseNewScope();
 
   function getPlayerParameters (id) {
     return VideoService.getPlayerParameters(id).then(function (data) {
@@ -677,36 +674,6 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
       $scope.playerParameters.hideLogo = data.hideLogo === 'True' ? true : false;
       $scope.playerParameters.showBuyButton = data.showBuyButton === 'True' ? true : false;
       $scope.playerParameters.showDescriptionButton = data.showDescriptionButton === 'True' ? true : false;
-    });
-  }
-
-  function verifyUser (id) {
-    VideoService.isOwner(id).then(function (data) {
-      $scope.flags.isOwner = data.isOwner;
-      if (!$scope.flags.isOwner) {
-        var query = $location.search();
-        var token = query ? query.token : null;
-        if (token) {
-          validateToken(token);
-        } else {
-          alert('not authorised');
-          $location.path('/');
-        }
-      }
-    });
-  }
-
-  function validateToken (token) {
-    return $http({
-      method  : 'post',
-      url     : '/api/validate_token',
-      data    : { 'token' : token }
-    }).success(function (data) {
-      AuthService.setCollaborator(true);
-    }).error(function () {
-      alert('token invalid');
-      AuthService.setCollaborator(false);
-      $location.path('/');
     });
   }
 
@@ -732,8 +699,9 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
       getPlayerParameters($scope.video.id).then(function () {
         applyPlayerParameters($scope.playerParameters);
       });
-      verifyUser($scope.video.id);
-      assignCollaboratorPermissions();
+      if ($scope.video.account.id !== AccountService.getAccount().id) {
+        displayCollaboratorSection();
+      }
 
       debug.dir($scope.video);
 
@@ -781,22 +749,23 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
     });
   }
 
-  function assignCollaboratorPermissions () {
-    if (AuthService.getUser() && AuthService.isCollaborator()) {
-      var permissions = AuthService.getUser().permissions;
-      var l = permissions.length;
-      while (l--) {
-        switch (permissions[l]) {
-          case 'can_comment':
-            $scope.canComment = true;
-          break;
-          case 'can_download':
-            $scope.canDownload = true;
-          break;
-        }
-      }
-    }
-  }
+  // // How is this supposed to work?
+  // function assignCollaboratorPermissions () {
+  //   if (AuthService.getUser() && AuthService.isCollaborator()) {
+  //     var permissions = AuthService.getUser().permissions;
+  //     var l = permissions.length;
+  //     while (l--) {
+  //       switch (permissions[l]) {
+  //         case 'can_comment':
+  //           $scope.canComment = true;
+  //         break;
+  //         case 'can_download':
+  //           $scope.canDownload = true;
+  //         break;
+  //       }
+  //     }
+  //   }
+  // }
 
   $scope.showComments = function () {
     if ($scope.video.id) {
@@ -812,6 +781,11 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
   $scope.collaborator = function () {
     return AuthService.isCollaborator();
   };
+
+
+  pollIFrame();
+
+  initialiseNewScope();
   // Call routing method on opening of controllers screen
   videoRouting();
 }

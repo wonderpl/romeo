@@ -1,4 +1,4 @@
-angular.module('RomeoApp.controllers').controller('AnalyticsCtrl',
+angular.module('RomeoApp.controllers').controller('AnalyticsController',
     ['$scope', '$routeParams', '$element', 'Enum', 'AnalyticsFields', 'VideoService',
     function ($scope, $routeParams, $element, Enum, AnalyticsFields, VideoService) {
 

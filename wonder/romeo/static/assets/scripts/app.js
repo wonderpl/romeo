@@ -52,35 +52,35 @@
         // Organise
         $routeProvider.when('/organise', {
             templateUrl: 'organise/organise.tmpl.html',
-            controller: 'MainCtrl',
+            controller: 'OrganiseCtrl',
             resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
         // Organise
         $routeProvider.when('/organise/:id', {
             templateUrl: 'organise/organise.tmpl.html',
-            controller: 'MainCtrl',
+            controller: 'OrganiseCtrl',
             resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
         // Videos
         $routeProvider.when('/video', {
             templateUrl: 'video.html',
-            controller: 'MainCtrl',
+            controller: 'VideoCtrl',
             resolve: securityAuthorizationProvider.requireContentOwner
         });
 
         // Videos
         $routeProvider.when('/video/:id', {
             templateUrl: 'video.html',
-            controller: 'MainCtrl',
+            controller: 'VideoCtrl',
             resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
         // Videos
         $routeProvider.when('/video/:id/comments', {
             templateUrl: 'video.html',
-            controller: 'MainCtrl',
+            controller: 'VideoCtrl',
             resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
@@ -93,23 +93,18 @@
         // - /engagement/
         $routeProvider.when('/analytics/:videoID/:type', {
             templateUrl: 'analytics.html',
-            controller: 'MainCtrl',
+            controller: 'AnalyticsController',
             resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
         $routeProvider.when('/analytics/:videoID', {
             templateUrl: 'analytics.html',
-            controller: 'MainCtrl',
+            controller: 'AnalyticsController',
             resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
-        $routeProvider.when('/loading', {
-            controller: 'MainCtrl',
-            templateUrl: 'loading.html'
-        });
-
         $routeProvider.when('/logout', {
-            controller: 'MainCtrl',
+            controller: 'LoginCtrl',
             templateUrl: 'login.html'
         });
 

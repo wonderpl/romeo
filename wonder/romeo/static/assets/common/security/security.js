@@ -1,14 +1,16 @@
 (function () {
     'use strict';
 
-    function SecurityService($location, $q, $http, $timeout, localStorageService) {
+    function SecurityService($rootScope, $location, $q, $http, $timeout, localStorageService) {
         var debug = new DebugClass('SecurityService'),
             currentUser = null,
             currentAccount = null,
             loginAttempts = 0,
             originalUrl = null,
             checkingLogin = { request: null, response: new $q.defer() },
-            externalCredentials = null;
+            externalCredentials = null,
+            _acceptConnection = false,
+            _token = false;
 
         function _saveAccountAndUserDetails(res) {
             var data = res.data || res;
@@ -26,6 +28,48 @@
         function _resetAccountAndUserDetails() {
             currentUser = null;
             currentAccount = null;
+        }
+
+        function _validateCollaborateToken(token) {
+            console.trace();
+            return $http({
+                method  : 'post',
+                url     : '/api/validate_token',
+                data    : { 'token' : token }
+            }).success(function (data) {
+                $rootScope.$emit('notify', {
+                    status : 'success',
+                    title : 'Video collaboration',
+                    message : 'You have accepted collaborating on this video'}
+                );
+            }).error(function () {
+                $rootScope.$emit('notify', {
+                    status : 'error',
+                    title : 'Video collaboration',
+                    message : 'Couldn\'t accept your video token'}
+                );
+            });
+        }
+
+        function _validateAcceptConnection(accept_connection) {
+            console.trace();
+            return $http({
+                method  : 'post',
+                url     : '/api/user/' + currentUser.id + '/connections',
+                data    : {user: $location.search().accept_connection}
+            }).success(function () {
+                $rootScope.$emit('notify', {
+                    status : 'success',
+                    title : 'Accepted connection',
+                    message : 'Your new connection has been accepted'}
+                );
+            }).error(function () {
+                $rootScope.$emit('notify', {
+                    status : 'error',
+                    title : 'Accepted connection',
+                    message : 'Your new connection failed'}
+                );
+            });
         }
 
         function _loginCheck() {
@@ -61,6 +105,21 @@
             return checkingLogin.response.promise;
         }
 
+        function _findUser() {
+            var deferred = new $q.defer();
+            if (! service.isAuthenticated() ) {
+                _loginCheck().then(function (res) {
+                    deferred.resolve(res);
+                }, function (res) {
+                    deferred.reject(res);
+                });
+            }
+            else {
+                deferred.resolve({'user': currentUser, 'account': currentAccount});
+            }
+            return deferred.promise;
+        }
+
         var service = {
             restoreUrl: function (url) {
                 $location.url(originalUrl || url || '/organise');
@@ -84,72 +143,43 @@
             requireAuthenticated: function () {
                 debug.info('service require authenticated', service.isAuthenticated());
 
-                if (! service.isAuthenticated() ) {
-                    _loginCheck();
-                }
-                else {
-                    if (checkingLogin.request === null) {
-                        checkingLogin.response = new $q.defer();
-                        checkingLogin.response.resolve(currentUser);
+                var queue = _findUser();
+                queue.then(function () {
+                    var query = $location.search();
+                    var token = query ? query.token : null;
+                    var acceptConnection = query ? query.accept_connection : null;
+                    if (token && token !== _token) {
+                        _token = token;
+                        _validateCollaborateToken(token);
                     }
-                }
-                return checkingLogin.response.promise;
+                    if (acceptConnection && acceptConnection !== _acceptConnection) {
+                        _acceptConnection = acceptConnection;
+                        _validateAcceptConnection(acceptConnection);
+                    }
+                });
+                return queue;
             },
             requireCollaborator: function () {
                 var deferred = new $q.defer();
-                service.requireAuthenticated();
-                if (checkingLogin.request) {
-                    checkingLogin.response.promise.then(function (res) {
-                        if (service.isCollaborator()) {
-                            deferred.resolve();
-                        }
-                        else {
-                            deferred.reject();
-                        }
-                    });
-                }
-                else {
+                service.requireAuthenticated().then(function () {
                     if (service.isCollaborator()) {
                         deferred.resolve();
                     }
-                    else {
-                        deferred.reject();
-                    }
-                }
+                }, deferred.reject);
                 return deferred.promise;
             },
             requireContentOwner: function () {
                 var deferred = new $q.defer();
-                var msg = 'You need to pay for that';
-                service.requireAuthenticated();
-                if (checkingLogin.request) {
-                    checkingLogin.response.promise.then(function (res) {
-                        if (service.isContentOwner()) {
-                            deferred.resolve();
-                        }
-                        else {
-                            if (service.isAuthenticated()) {
-                                service.redirect('/login/upgrade');
-                                deferred.resolve();
-                            }
-                            else
-                                deferred.reject();
-                        }
-                    });
-                }
-                else {
-                    if (service.isContentOwner()) {
-                        deferred.resolve();
-                    }
-                    else {
-                        if (service.isAuthenticated()) {
+                service.requireAuthenticated().then(function () {
+                    if (service.isAuthenticated()) {
+                        if (! service.isContentOwner()) {
                             service.redirect('/login/upgrade');
-                            deferred.resolve();
                         }
-                        else
-                            deferred.reject();
+                        deferred.resolve();
+                    } else {
+                        deferred.reject();
                     }
-                }
+                }, deferred.reject);
                 return deferred.promise;
             },
             // Is the current user authenticated?
@@ -297,6 +327,6 @@
       };
     };
 
-    angular.module('RomeoApp.security').factory('SecurityService', ['$location', '$q', '$http', '$timeout', 'localStorageService', SecurityService]);
+    angular.module('RomeoApp.security').factory('SecurityService', ['$rootScope', '$location', '$q', '$http', '$timeout', 'localStorageService', SecurityService]);
     angular.module('RomeoApp.security').provider('securityAuthorization', securityAuthorizationProvider);
 })();
