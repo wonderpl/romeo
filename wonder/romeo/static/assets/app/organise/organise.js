@@ -8,7 +8,7 @@
 
       function init() {
         if (! $routeParams.id && SecurityService.isCollaborator() ) {
-          $location.url('/organise/collaboration');
+          return $location.url('/organise/collaboration');
         }
         refresh(); // Call this on page load to load all the data
 

@@ -2,9 +2,9 @@
 
 angular
   .module('RomeoApp.controllers')
-  .controller('VideoCtrl', ['$rootScope', '$http', '$q', '$scope', '$cookies', '$location', 'UploadService', '$routeParams', 'VideoService', '$sce', 'TagService', 'CommentsService', '$timeout', 'AuthService', 'SecurityService', VideoCtrl]);
+  .controller('VideoCtrl', ['$rootScope', '$http', '$q', '$scope', '$cookies', '$location', 'UploadService', '$routeParams', 'VideoService', '$sce', 'TagService', 'CommentsService', '$timeout', 'AuthService', 'AccountService', 'SecurityService', VideoCtrl]);
 
-function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadService, $routeParams, VideoService, $sce, TagService, CommentsService, $timeout, AuthService, SecurityService) {
+function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadService, $routeParams, VideoService, $sce, TagService, CommentsService, $timeout, AuthService, AccountService, SecurityService) {
 
   'use strict';
   var debug = new DebugClass('VideoCtrl');
