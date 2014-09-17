@@ -16,9 +16,7 @@
       controller : function ($scope) {
 
         $scope.close = function ($event) {
-          if ($event.currentTarget === $event.target) {
-            $scope.showModal = false;
-          }
+          $scope.showModal = false;
         };
 
         $scope.showSection = function (section) {
