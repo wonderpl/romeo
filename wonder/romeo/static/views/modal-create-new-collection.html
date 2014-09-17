@@ -19,7 +19,7 @@
             <li>
               <textarea ng-model="collection.description" placeholder="Collection description (optional)&hellip;" class="video-new-collection__new-collection-description"></textarea>
             </li>
-            <li ng-if="! showOnlyPrivate">
+            <li ng-if="! (showOnlyPrivate || showOnlyPublic)">
               <ul class="nav  nav--blocks  modal-check-list">
                 <li>
                   <label class="video-new-collection__label">
@@ -36,7 +36,7 @@
               </ul>
             </li>
           </ul>
-          <input type="hidden" ng-model="collection.scope" value="private" ng-if="showOnlyPrivate" />
+          <input type="hidden" ng-model="collection.scope" ng-if="showOnlyPrivate || showOnlyPublic" />
         </fieldset>
       </form>
     </div>

@@ -103,8 +103,52 @@
       modal.load('collection-add-video.html', true, $scope);
     };
 
+    $scope.getTitle = function () {
+      return 'Public collections';
+    };
+
     $scope.close = function () {
       modal.hide();
+    };
+
+    $scope.hideAddRemoveAndShowCreateCollection = function () {
+      $scope.addVideoToCollection = true;
+      $scope.collection = {};
+      $scope.collection.scope = 'public';
+      $scope.showOnlyPublic = true;
+      modal.load('modal-create-new-collection.html', true, $scope, {});
+    };
+
+    $scope.saveNewCollection = function () {
+      var data = {
+        label : $scope.collection.label,
+        description : $scope.collection.description,
+        public : ($scope.collection.scope === 'public')
+      };
+
+      TagService.createTag(data).then(function (res) {
+        res = res.data || res;
+
+        angular.extend(data, res);
+        if (! $scope.availableTags) {
+          $scope.availableTags = [];
+        }
+        $scope.availableTags.push(data);
+        $scope.video.tags.items.push(data);
+        $scope.close();
+        $scope.addTag(res.id);
+      });
+    };
+
+    $scope.hasTagLabel = function (label) {
+      var tags = $scope.availableTags || [];
+      var l = tags.length;
+      while (l--) {
+        if (tags[l].label == label) {
+          return true;
+        }
+      }
+      return false;
     };
 
     function initProviders () {
