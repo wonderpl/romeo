@@ -7,14 +7,19 @@
   function PublishRouteProvider ($routeProvider, securityAuthorizationProvider) {
     $routeProvider.when('/video/:id/publish', {
       templateUrl: 'publish/publish.tmpl.html',
-      resolve: securityAuthorizationProvider.requireAuthenticated,
+      resolve: {
+        authentication: securityAuthorizationProvider.requireAuthenticated,
+        video: ['$route', 'VideoService', function ($route, VideoService) {
+          return VideoService.get($route.current.params.id);
+        }]
+      },
       controller: 'PublishCtrl'
     });
   }
 
   angular.module('RomeoApp.publish').config(['$routeProvider', 'securityAuthorizationProvider', PublishRouteProvider]);
 
-  function publishCtrl ($scope, $routeParams, VideoService, TagService, modal) {
+  function publishCtrl ($scope, $routeParams, VideoService, TagService, modal, video) {
 
 
     function isPublishedAtWonder () {
@@ -94,7 +99,7 @@
 
 
     $scope.showPublish = function () {
-      showPublishOptions = false;
+      $scope.showPublishOptions = false;
       modal.load('collection-add-video.html', true, $scope);
     };
 
@@ -115,7 +120,7 @@
       if ($routeParams.id) {
         $scope.isModal = true;
         initProviders();
-        getVideo($routeParams.id);
+        $scope.video = video;
         getTags();
       }
     }
@@ -134,6 +139,6 @@
     init();
   }
 
-  angular.module('RomeoApp.publish').controller('PublishCtrl', ['$scope', '$routeParams', 'VideoService', 'TagService', 'modal', publishCtrl]);
+  angular.module('RomeoApp.publish').controller('PublishCtrl', ['$scope', '$routeParams', 'VideoService', 'TagService', 'modal','video' , publishCtrl]);
 
 })();
