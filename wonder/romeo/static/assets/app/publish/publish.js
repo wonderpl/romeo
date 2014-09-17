@@ -115,7 +115,6 @@
       $scope.addVideoToCollection = true;
       $scope.collection = {};
       $scope.collection.scope = 'public';
-      $scope.showOnlyPublic = true;
       modal.load('modal-create-new-collection.html', true, $scope, {});
     };
 
