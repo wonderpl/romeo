@@ -21,6 +21,10 @@
 
             angular.extend(data, res);
             $scope.tags.push(data);
+            if (! $scope.availableTags) {
+              $scope.availableTags = [];
+            }
+            $scope.availableTags.push(data);
             $scope.video.tags.items.push(data);
             $scope.close();
           });
