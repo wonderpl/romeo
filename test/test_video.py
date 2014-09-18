@@ -266,6 +266,12 @@ class VideoCommentTestCase(DataTestCase, TestCase):
             username = 'noreply+user1@wonderpl.com'
             password_hash = ''
 
+        class user2:
+            id = 4102
+            account_id = 4001
+            username = 'noreply+user2@wonderpl.com'
+            password_hash = ''
+
     class VideoData(DataSet):
         class video:
             id = 4201
@@ -279,6 +285,14 @@ class VideoCommentTestCase(DataTestCase, TestCase):
             email = 'noreply+collab1@wonderpl.com'
             name = 'collab1'
             can_comment = True
+
+        class collab2:
+            id = 4302
+            video_id = 4201
+            email = 'noreply+collab2@wonderpl.com'
+            name = 'collab2'
+            can_comment = True
+            account_user_id = 4102
 
     class VideoCommentData(DataSet):
         class comment1:
@@ -302,6 +316,12 @@ class VideoCommentTestCase(DataTestCase, TestCase):
             user_type = 'collaborator'
             user_id = 4301
 
+        class comment4:
+            video_id = 4201
+            comment = 'xyzzy4'
+            user_type = 'collaborator'
+            user_id = 4302
+
     fixture = dbfixture
     datasets = AccountData, AccountUserData, VideoData, VideoCollaboratorData, VideoCommentData
 
@@ -314,6 +334,7 @@ class VideoCommentTestCase(DataTestCase, TestCase):
             self.assertItemsEqual(
                 set(c['display_name'] for c in comments),
                 (self.data.AccountUserData.user.username,
+                 self.data.AccountUserData.user2.username,
                  self.data.VideoCollaboratorData.collab1.name))
             self.assertItemsEqual(
                 [c['comment'] for c in comments],

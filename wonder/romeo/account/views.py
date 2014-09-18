@@ -55,10 +55,8 @@ def login():
 
 @accountapp.route('/logout')
 def logout():
-    print session
     logout_user()
     session.clear()
-    print session
     return redirect(url_for('root.app'))
 
 

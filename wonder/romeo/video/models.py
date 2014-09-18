@@ -365,20 +365,39 @@ class VideoComment(db.Model):
             AccountUser.display_name.label('name'),
             AccountUser.username.label('email'),
             AccountUser.avatar_filename,
+            AccountUser.account_id,
+        )
+
+        collab_comments_with_user = video_comments.join(
+            VideoCollaborator,
+            (VideoComment.user_type == 'collaborator') &
+            (VideoComment.user_id == VideoCollaborator.id)
+        ).join(
+            AccountUser,
+            AccountUser.id == VideoCollaborator.account_user_id
+        ).with_entities(
+            VideoComment,
+            AccountUser.display_name.label('name'),
+            AccountUser.username.label('email'),
+            AccountUser.avatar_filename,
+            AccountUser.account_id,
         )
 
         collab_comments = video_comments.join(
             VideoCollaborator,
             (VideoComment.user_type == 'collaborator') &
-            (VideoComment.user_id == VideoCollaborator.id)
+            (VideoComment.user_id == VideoCollaborator.id) &
+            (VideoCollaborator.account_user_id.is_(None))
         ).with_entities(
             VideoComment,
             VideoCollaborator.name,
             VideoCollaborator.email,
-            null().label('avatar_url'),
+            null().label('avatar_filename'),
+            null().label('account_id'),
         )
 
-        return account_comments.union_all(collab_comments).order_by(VideoComment.date_added)
+        return account_comments.union_all(
+            collab_comments_with_user, collab_comments).order_by(VideoComment.date_added)
 
 
 class VideoCollaborator(db.Model):

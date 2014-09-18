@@ -582,7 +582,8 @@ def collaborator_users(account_id=None, user_id=None, video_id=None):
             AccountUser,
             (AccountUser.account_id == Video.account_id)
         ).filter(
-            func.lower(username) == func.lower(VideoCollaborator.email)
+            (user_id == VideoCollaborator.account_user_id) |
+            (func.lower(username) == func.lower(VideoCollaborator.email))
         )
     else:
         if account_id:
@@ -600,7 +601,8 @@ def collaborator_users(account_id=None, user_id=None, video_id=None):
 
         query = query.outerjoin(
             AccountUser,
-            func.lower(AccountUser.username) == func.lower(VideoCollaborator.email)
+            ((AccountUser.id == VideoCollaborator.account_user_id) |
+             (func.lower(AccountUser.username) == func.lower(VideoCollaborator.email)))
         )
 
     return query.with_entities(VideoCollaborator, AccountUser)
@@ -660,7 +662,11 @@ def video_comment_view(f):
     return video_view(with_collaborator_permission='comment')(decorator)
 
 
-def _comment_item(comment, username, email, avatar):
+def _comment_item(comment, username, email, avatar_filename, account_id):
+    if avatar_filename and account_id:
+        avatar = AccountUser(avatar_filename=avatar_filename, account_id=account_id).avatar
+    else:
+        avatar = gravatar_url(email)
     return dict(
         id=comment.id,
         href=comment.href,
@@ -668,7 +674,7 @@ def _comment_item(comment, username, email, avatar):
         timestamp=comment.timestamp,
         datetime=comment.date_added.isoformat(),
         display_name=username or email,
-        avatar=avatar or gravatar_url(email),
+        avatar=avatar,
         resolved=comment.resolved,
     )
 
