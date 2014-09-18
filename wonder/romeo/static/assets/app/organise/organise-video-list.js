@@ -42,6 +42,13 @@ function OrganiseVideoList ($templateCache, $cookies) {
         }
       });
 
+      $scope.$watch('collaborationVideos', function (newValue, oldValue) {
+        if (! angular.equals(newValue, oldValue)) {
+          debug.log('collaboration videos data changed');
+          $scope.filteredVideos = getFilteredVideoList();
+        }
+      });
+
       $scope.$watch('tag', function (newValue, oldValue) {
         if (! angular.equals(newValue, oldValue)) {
           debug.log('tag data changed');
