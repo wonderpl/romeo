@@ -1,7 +1,7 @@
 
 <div class="cf">
 
-  <div class="video-view__nav-placeholder" ng-hide="collaborator() || flags.isPublic">
+  <div class="video-view__nav-placeholder" ng-if="!flags.isPublic">
     <video-navigation flags="flags" video-id="video.id" video-status="video.status"></video-navigation>
   </div>
 
@@ -20,7 +20,10 @@
 
         <section class="main-view video-view">
 
-          <profile-video-hero ng-show="collaborator()" account="video.account"></profile-video-hero>
+          <div ng-if="!flags.isPublic && collaborator()" class="video-view__avatar u--ta-center">
+            <div class="avatar avatar--large"><img class="avatar__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" style="background-image : url('{{ video.account.avatar || '/static/assets/img/user-avatar.png' }}');" /></div>
+            {{video.account.display_name}}
+          </div>
 
           <h2 class="video-view__title"
             data-placeholder="{{ titlePlaceholder }}"
@@ -82,7 +85,7 @@
 
           <video-extended-controls ng-if="flags.isEdit" ></video-extended-controls>
 
-          <video-download video-id="video.id" ng-show="video.id && collaborator() && canDownload"></video-download>
+          <video-download video-id="video.id" ng-show="video.id && collaborator() && flags.canDownload"></video-download>
 
           <div class="video-view__save-controls" ng-show="flags.isEdit">
             <a ng-click="bottomCancel()" class="btn  btn--small">cancel</a>
@@ -124,7 +127,7 @@
     </li>
   </ul>
 
-  <layout-control is-comments="flags.isComments" ng-show="(!collaborator() || (collaborator() && canComment)) && "></layout-control>
+  <layout-control is-comments="flags.isComments" ng-show="(!collaborator() || (collaborator() && flags.canComment)) && "></layout-control>
 
 </div>
 

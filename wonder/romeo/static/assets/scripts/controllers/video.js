@@ -2,9 +2,9 @@
 
 angular
   .module('RomeoApp.controllers')
-  .controller('VideoCtrl', ['$rootScope', '$http', '$q', '$scope', '$cookies', '$location', 'UploadService', '$routeParams', 'VideoService', '$sce', 'TagService', 'CommentsService', '$timeout', 'AuthService', 'AccountService', 'SecurityService', VideoCtrl]);
+  .controller('VideoCtrl', ['$rootScope', '$http', '$q', '$scope', '$cookies', '$location', 'UploadService', '$routeParams', 'VideoService', '$sce', 'TagService', 'CommentsService', '$timeout', 'CollaboratorsService', 'UserService', 'AccountService', 'SecurityService', VideoCtrl]);
 
-function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadService, $routeParams, VideoService, $sce, TagService, CommentsService, $timeout, AuthService, AccountService, SecurityService) {
+function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadService, $routeParams, VideoService, $sce, TagService, CommentsService, $timeout, CollaboratorsService, UserService, AccountService, SecurityService) {
 
   'use strict';
   var debug = new DebugClass('VideoCtrl');
@@ -432,7 +432,7 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
 
     //updateSectionUrl(section);
 
-    if (AuthService.isCollaborator()) {
+    if (SecurityService.isCollaborator()) {
       displayCollaboratorSection();
     }  else if (section === 'comments') {
       displayComments();
@@ -501,6 +501,7 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
         $scope.flags.isOwner = true;
       } else {
         displayCollaboratorSection();
+        assignCollaboratorPermissions();
       }
 
       debug.dir($scope.video);
@@ -530,6 +531,11 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
             console.log('Public video collaborators: ', $scope.collaborators);
           });
 
+          AccountService.getPublicAccount($scope.video.account.id).then(function (res) {
+            res = res.data || res;
+            $scope.video.account = res;
+          });
+
           // Set flags
           $scope.flags.showUpload = false;
           $scope.flags.hasProcessed = false;
@@ -549,28 +555,38 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
     });
   }
 
-  // // How is this supposed to work?
-  // function assignCollaboratorPermissions () {
-  //   if (AuthService.getUser() && AuthService.isCollaborator()) {
-  //     var permissions = AuthService.getUser().permissions;
-  //     var l = permissions.length;
-  //     while (l--) {
-  //       switch (permissions[l]) {
-  //         case 'can_comment':
-  //           $scope.canComment = true;
-  //         break;
-  //         case 'can_download':
-  //           $scope.canDownload = true;
-  //         break;
-  //       }
-  //     }
-  //   }
-  // }
+  // How is this supposed to work?
+  function assignCollaboratorPermissions () {
+    CollaboratorsService.getCollaborators($scope.video.id).then(function (res) {
+      res = res.data || res;
+      console.log('assignCollaboratorPermissions: ', res.collaborator);
+      if (!res.collaborator || ! res.collaborator.items)
+        return;
+      angular.forEach(res.collaborator.items, function (val, key) {
+        if (val.user && val.user.id === UserService.getUser().id) {
+          console.log('assignCollaboratorPermissions found user:  ', val.user);
+          $scope.permissions = val.permissions;
+          var l = val.permissions.length;
+          while (l--) {
+            switch (val.permissions[l]) {
+              case 'can_comment':
+                $scope.flags.canComment = true;
+              break;
+              case 'can_download':
+                $scope.flags.canDownload = true;
+              break;
+            }
+          }
+          console.log('assignCollaboratorPermissions scope.flags:  ', $scope.flags);
+        }
+      });
+    });
+  }
 
   $scope.showComments = function () {
     if ($scope.video.id) {
-      if (AuthService.isCollaborator()) {
-        return $scope.canComment;
+      if (SecurityService.isCollaborator()) {
+        return $scope.flags.canComment;
       } else {
         return $scope.flags.isComments;
       }
@@ -579,7 +595,7 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
   };
 
   $scope.collaborator = function () {
-    return AuthService.isCollaborator();
+    return SecurityService.isCollaborator();
   };
 
   initialiseNewScope();

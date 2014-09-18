@@ -73,7 +73,8 @@ $avatar-dimensions--huge:   120px;
 }
 .avatar--large {
   width: $avatar-dimensions--large;
-  height: $avatar-dimensions--large; 
+  height: $avatar-dimensions--large;
+  margin-left: -$avatar-dimensions--large / 2;
 }
 .avatar--huge {
   width: $avatar-dimensions--huge;
@@ -92,16 +93,16 @@ $avatar-dimensions--huge:   120px;
   &.avatar--tiny {
     margin-left: -($avatar-dimensions--tiny / 2);
   }
-  
+
   &.avatar--small {
     margin-left: -($avatar-dimensions--small / 2);
   }
-  
+
   &.avatar--large {
     margin-left: -($avatar-dimensions--large / 2);
   }
-  
+
   &.avatar--huge {
-    margin-left: -($avatar-dimensions--huge / 2); 
+    margin-left: -($avatar-dimensions--huge / 2);
   }
 }

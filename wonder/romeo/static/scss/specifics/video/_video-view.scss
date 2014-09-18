@@ -1,7 +1,12 @@
 .video-view {
 
 }
-
+.video-view__avatar {
+  margin-top: $base-spacing-unit;
+  font-family: $heading-font-family;
+  font-size: 24px;
+  font-weight: 600;
+}
 .video-view__title {
   margin-bottom: $half-spacing-unit;
   margin-top: $base-spacing-unit;
