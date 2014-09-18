@@ -6,7 +6,7 @@
     <section class="video-feedback__input-container">
 
       <div class="media  video-feedback__comment">
-        <a class="media__img  video-feedback__comment-profile-image" ng-style="{ 'background-image' : 'url(' + user().avatar + ')' }"></a>
+        <a class="media__img  video-feedback__comment-profile-image" ng-style="{ 'background-image' : 'url(' + (user().avatar || '/static/assets/img/user-avatar.png') + ')' }"></a>
         <div class="media__body">
           <div class="video-feedback__comment-details">
             <span class="video-feedback__comment-name">{{ user().display_name }}</span>
@@ -54,7 +54,7 @@
         ng-class="{ 'video-feedback__comment--active' : isTimeSync(comment.timestamp) }"
         ng-repeat="comment in comments | orderBy : 'timestamp' | filter: { resolved : filterResolved }">
           <div class="media" ng-class="{ 'video-feedback__comment--resolved' : comment.resolved }">
-            <a class="media__img  video-feedback__comment-profile-image" ng-style="{ 'background-image' : 'url(' + comment.avatar + ')' }"></a>
+            <a class="media__img  video-feedback__comment-profile-image" ng-style="{ 'background-image' : 'url(' + (comment.avatar || '/static/assets/img/user-avatar.png') + ')' }"></a>
             <div class="media__body">
               <div class="video-feedback__comment-details">
                 <span class="video-feedback__comment-name" ng-bind="comment.display_name"></span>
