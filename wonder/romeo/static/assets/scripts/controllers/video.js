@@ -430,7 +430,6 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
       if (OO && OO.ready && $scope.videoTotalTime > 0) {
         OO.ready(function () {
           bindPlayerEvents(OO);
-          shimChangesToIFrame();
         });
 
       } else {
@@ -471,43 +470,6 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
   }
 
 
-
-
-
-
-
-
-  function shimChangesToIFrame () {
-
-    var svg = '<svg xmlns="http://www.w3.org/2000/svg" style="height: 0; width: 0;" id="ColourSvg"><filter id="ColourFilter" color-interpolation-filters="sRGB"><feComponentTransfer><feFuncR class="brightness red" type="linear" slope="1"/><feFuncG class="brightness green" type="linear" slope="1"/><feFuncB class="brightness blue" type="linear" slope="1"/></feComponentTransfer></filter></svg>';
-    var style = '<style id="ColourStyle">.filtered { -webkit-filter : url("#ColourFilter"); -webkit-transform: translate3d(0px,0px,0px); -webkit-backface-visibility: hidden; -webkit-perspective: 1000; }</style>';
-
-    var elements = document.getElementsByClassName('video-player__frame');
-    if (!elements.length) return;
-
-    var frame = document.getElementsByClassName('video-player__frame')[0].contentDocument;
-    if (!frame) return;
-
-    var $frame = $(frame);
-
-    var $filteredControls = $frame.find('.wonder-timer, .wonder-play, .wonder-pause, .wonder-volume, .wonder-logo, .wonder-fullscreen, .scrubber-handle');
-    $filteredControls.addClass('filtered');
-
-    var $svg = $frame.find('#ColourSvg');
-    if (!$svg.length) {
-      var $frameBody = $frame.find('body');
-      $svg = $(svg);
-      $frameBody.prepend($svg);
-    }
-
-    var $style = $frame.find('#ColourStyle');
-    if (!$style.length) {
-      var $frameHead = $frame.find('head');
-      $style = $(style);
-      $frameHead.append($style);
-    }
-  }
-
   $scope.$on('update-player-parameters', function (event, data) {
     applyPlayerParameters(data);
   });
@@ -544,43 +506,36 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
     rgb = rgb || { r : 255, g: 255, b : 255 };
 
     var $frame = getVideoIFrame();
-    var $svg = $frame.find('#ColourSvg');
-    $svg.find('.red').attr('slope', rgb.r/255);
-    $svg.find('.green').attr('slope', rgb.g/255);
-    $svg.find('.blue').attr('slope', rgb.b/255);
+
+    var data = {
+      r : rgb.r,
+      g : rgb.g,
+      b : rgb.b
+    };
+
+    $frame[0].dispatchEvent(new CustomEvent('video-data-change', { detail : { path : 'video.source_player_parameters.rgb', data : JSON.stringify(data) }}));
   }
 
   function hideLogo (hide) {
 
     var $frame = getVideoIFrame();
-    var $logo = $frame.find('#wonder-controls');
-    $logo.toggleClass('no-logo', hide);
+    var isHide = hide ? 'True' : 'False';
+    $frame[0].dispatchEvent(new CustomEvent('video-data-change', { detail : { path : 'video.source_player_parameters.hideLogo', data : isHide }}));
+
   }
 
   function showBuyButton (show) {
 
     var $frame = getVideoIFrame();
-    var $wrapper = $frame.find('#wonder-wrapper');
-
-    if (show && $scope.video.link_title && $scope.video.link_url) {
-      $wrapper.addClass('show-buy-button');
-      $frame.find('#wonder-buy-button').text($scope.video.link_title);
-      $frame.find('#wonder-buy-button').attr('href', $scope.video.link_url);
-    } else {
-      $wrapper.removeClass('show-buy-button');
-    }
+    var isShow = show && $scope.video.link_title && $scope.video.link_url ? 'True' : 'False';
+    $frame[0].dispatchEvent(new CustomEvent('video-data-change', { detail : { path : 'video.source_player_parameters.showBuyButton', data : isShow }}));
   }
 
   function showDescriptionButton (show) {
 
     var $frame = getVideoIFrame();
-    var $wrapper = $frame.find('#wonder-wrapper');
-
-    if (show && $scope.video.description) {
-      $wrapper.addClass('show-description-button', show);
-    } else {
-      $wrapper.removeClass('show-description-button', show);
-    }
+    var isShow = show && $scope.video.description ? 'True' : 'False';
+    $frame[0].dispatchEvent(new CustomEvent('video-data-change', { detail : { path : 'video.source_player_parameters.showDescriptionButton', data : isShow }}));
   }
 
 
