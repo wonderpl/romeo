@@ -1,42 +1,37 @@
 /**
- * _trumps.text-styles.scss
+ * _trumps.text-styles
  */
-.t--block  { display: block !important; }
-.t--inline { display: inline !important; }
-.t--iblock { display: inline-block !important; }
-
-.t--center,
-.u--ta-center { text-align: center !important; }
-.t--right,
-.u--ta-right  { text-align: right !important; }
-.t--left,
-.u--ta-left   { text-align: left !important; }
-
-
 /**
  * Display classes
  */
-.u--d-inline { display: inline !important; }
-.u--d-block  { display: block !important; }
-.u--d-iblock { display: inline-block !important; }
-
-
-/**
- * Faux smallcaps
- */
-.u--smallcaps {
-  font-variant: small-caps;
-  text-transform: lowercase;
-  letter-spacing: 0.1em;
-}
+.u--d-inline,
+/* delete */.t--inline { display: inline !important; }
+.u--d-block,
+/* delete */.t--block  { display: block !important; }
+.u--d-iblock,
+/* delete */.t--iblock { display: inline-block !important; }
 
 
 /**
  * Align classes
  */
+/* delete */.t--center,
 .u--ta-center { text-align: center !important; }
+/* delete */.t--right,
 .u--ta-right  { text-align: right !important; }
+/* delete */.t--left,
 .u--ta-left   { text-align: left !important; }
+
+
+/**
+ * Faux smallcaps
+ */
+.u--smallcaps,
+/* delete */.t--smallcaps {
+  font-variant: small-caps;
+  text-transform: lowercase;
+  letter-spacing: 0.1em;
+}
 
 
 /**
@@ -55,3 +50,44 @@
 .u--w600    { font-weight: 600 !important; }
 .u--w700    { font-weight: 700 !important; }
 .u--w800    { font-weight: 800 !important; }
+
+
+/**
+ * Colors
+ */
+.u--c001    { color: $base-color-ui !important; }
+.u--c002    { color: $base-color-ui-dark !important; }
+.u--c003    { color: $base-color-text !important; }
+.u--c004    { color: $base-color-link !important; }
+
+
+/**
+ * Color transparency
+ */
+.u--o0         { opacity: 0; }
+.ie8 .u--o0,
+.legacy .u--o0 { filter: alpha(opacity=0); }
+
+.u--o25        { opacity: 0.25; }
+.ie8 .u--o25,
+.legacy .u--o25 { filter: alpha(opacity=25); }
+
+.u--o50        { opacity: 0.5; }
+.ie8 .u--o50,
+.legacy .u--o50 { filter: alpha(opacity=50); }
+
+.u--o75        { opacity: 0.75; }
+.ie8 .u--o75,
+.legacy .u--o75 { filter: alpha(opacity=75); }
+
+.u--o100       { opacity: 1; }
+.ie8 .u--o100,
+.legacy .u--o100 { filter: alpha(opacity=100); }
+
+
+/**
+ * Strip all vertical rhythm
+ */
+.u--m-none    { margin-bottom: 0 !important; }
+.u--m-default { margin-bottom: $base-spacing-unit !important; }
+.u--m-half    { margin-bottom: $half-spacing-unit !important; }

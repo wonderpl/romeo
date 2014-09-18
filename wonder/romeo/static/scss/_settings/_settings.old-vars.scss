@@ -1,0 +1,31 @@
+/**
+ * _settings.old-vars.scss
+ */
+//old vars
+$containerWidth:       960;
+
+$milli-size:                12px;
+$micro-size:                10px;
+
+$cold-black:           #2e2e32;
+$dark-grey:            #70797b;
+$grey:                 #999;
+$light-grey:           #b7bcbd;
+$green:                #c8e6ce;
+$dark-green:           #51b364;
+$black:                #000000;
+$white:                #ffffff;
+$red:                  #ff0000;
+$shadow-red:           #ee0000;
+
+// define swatches
+$swatch-one:           #fff;           // white | background-color
+$swatch-two:           $light-grey;    // lighter cool grey | ui-color
+$swatch-three:         $cold-black;    // cold black | type-color
+$swatch-four:          $dark-grey;     // cool grey | darker-ui-color
+$swatch-five:          $dark-green;    // wonder green | link-color
+
+
+// define quotes
+$open-quote:                \201C;
+$close-quote:               \201D;

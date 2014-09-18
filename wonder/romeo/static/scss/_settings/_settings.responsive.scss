@@ -1,0 +1,20 @@
+/**
+ * _settings.responsive.scss
+ */
+// Hold our breakpoint aliases and conditions in a list.
+//
+// These can be invoked later on via the 'media-query()' mixin found in
+// '_tools.responsive'.
+
+$breakpoints: (
+  "palm"          "screen and (max-width:719px)",
+  "lap"           "screen and (min-width:720px) and (max-width:1023px)",
+  "lap-and-up"    "screen and (min-width: 720px)",
+  "portable"      "screen and (max-width: 1023px)",
+  "desk"          "screen and (min-width: 1024px)",
+  "retina"        "print,(-o-min-device-pixel-ratio:5/4),(-webkit-min-device-pixel-ratio:1.25),(min-resolution:120dpi)"
+) !default;
+
+// If we include this file, set a variable to tell the rest of the
+// framework that we have some responsive settings.
+$responsive-settings: true;

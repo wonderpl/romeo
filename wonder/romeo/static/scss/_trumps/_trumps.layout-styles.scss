@@ -1,0 +1,9 @@
+/**
+ * _trumps.layout-styles.scss
+ */
+/**
+ * Arbitrarily set floats to elements *remember to clear*
+ */
+.u--f-left  { float: left !important; }
+.u--f-right { float: right !important; }
+.u--f-none  { float: none !important; clear: both !important; }

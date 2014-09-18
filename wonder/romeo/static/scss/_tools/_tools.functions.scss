@@ -1,14 +1,28 @@
 /**
- * _tools.fuctions.scss
+ * _tools.functions.scss
  */
-@function quarter($base-spacing-unit) {
-    @return round($base-spacing-unit / 4);
+// Generate values based on a few functions that we define here
+
+// Maths helpers
+//
+// Halve and double numbers, returning rounded intergers. E.g.:
+//
+// .foo {
+//    padding: halv(3.2)px;
+// }
+//
+@function quarter($number) {
+    @return round($number / 4);
 }
 
-@function halve($base-spacing-unit) {
-    @return round($base-spacing-unit / 2);
+@function halve($number) {
+    @return round($number / 2);
 }
 
-@function double($base-spacing-unit) {
-    @return round($base-spacing-unit * 2);
+@function double($number) {
+    @return round($number * 2);
+}
+
+@function quadruple($number) {
+    @return round($number * 4);
 }

@@ -2,63 +2,32 @@
  * _settings.defaults.scss
  */
 
-// define base font-styles
-$base-font-weight:          400;
-$base-font-size:            16px;
-$base-line-height:          24px;
+// High level base settings
+$base-font-weight:          400 !default;
+$base-font-size:            16px !default;
+$base-line-height:          24px !default;
+$base-font-family:          "FreightText Pro", Georgia, Cambria, 'Times New Roman', Times, serif;
+$base-color-text:           #2e2e32;        // cold black | type-color
+$base-color-background:     #fff;           // white | background-color
 
-// define vertical rhythm
-$base-spacing-unit:         $base-line-height;
-$half-spacing-unit:         $base-spacing-unit / 2;
 
 // define font-families
-$base-font-family:          "FreightText Pro", Georgia, Cambria, 'Times New Roman', Times, serif;
 $heading-font-family:       "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 $small-heading-font-family: $heading-font-family;
 $monospace-font-family:     "M+ 1m", Consolas, "Lucida Console", Courier, monospace;
 $ampersand-font-family:     Ampersand, Georgia, serif;
 
-//old vars
-$containerWidth:       960;
-
-$cold-black:           #2e2e32;
-$dark-grey:            #70797b;
-$grey:                 #999;
-$light-grey:           #b7bcbd;
-$green:                #c8e6ce;
-$dark-green:           #51b364;
-$black:                #000000;
-$white:                #ffffff;
-$red:                  #ff0000;
-$shadow-red:           #ee0000;
-
-// define swatches
-$swatch-one:           #fff;           // white | background-color
-$swatch-two:           $light-grey;    // lighter cool grey | ui-color
-$swatch-three:         $cold-black;    // cold black | type-color
-$swatch-four:          $dark-grey;     // cool grey | darker-ui-color
-$swatch-five:          $dark-green;    // wonder green | link-color
-
-//define double-barrelled heading classes
-$tera-size:                 56px;
-$giga-size:                 48px;
-$mega-size:                 40px;
-$kilo-size:                 32px;
-$alpha-size:                28px;
-$beta-size:                 24px;
-$gamma-size:                22px;
-$delta-size:                20px;
-$epsilon-size:              18px;
-$zeta-size:                 16px;
-
-$milli-size:                12px;
-$micro-size:                10px;
-
-// define quotes
-$open-quote:                \201C;
-$close-quote:               \201D;
 
 // Namespace.
 //
 // would you like to prepend classes with a namespace? If so, define it here.
 $namespace:                 null !default;
+
+
+
+// These variables are framework variables, sourced from variables defines
+// above. Feel free to use these variables throughout your project, but do not
+// modify or reassign them.
+$base-spacing-unit:         $base-line-height;
+$half-spacing-unit:         round($base-spacing-unit / 2);
+$double-spacing-unit:       round($base-spacing-unit * 2);
