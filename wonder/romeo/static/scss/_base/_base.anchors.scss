@@ -1,21 +1,62 @@
 /**
  * _base.anchors.scss
  */
-a {
-  text-decoration: none;
-  color: $swatch-five;
-  border-bottom: 1px solid lighten($swatch-five, 30%);
-  transition: border-color 0.3s ease-in-out;
 
+// Set up base behaviours and displays for all anchors
+a {
+  color: $base-color-link;
+  text-decoration: none;
+  -webkit-transition: color $base-timing-transition;
+          transition: color $base-timing-transition;
+
+  &:hover   { color: inherit; }
+}
+
+
+/**
+ * Reverse the colours
+ */
+.reverse-link {
+  color: $base-color-text;
+  
   &:hover {
-    border-color: $swatch-five;
-    cursor: pointer;
-  }
-  &:active {
-    color: lighter($swatch-five, 30%);
+    color: $base-color-link;
   }
 }
 
+
+/**
+ * For weird Firefox strikethrough-like bug
+ */
+@-moz-document url-prefix() {
+  a { display: inline-block; }
+}
+
+
+/**
+ * Set up styles for links inside Headings
+ */
+h1 a,
+h2 a {
+  color: inherit;
+
+  &:hover { color: $base-color-link; }
+}
+
+h3 a,
+p a {
+  color: inherit;
+  border-bottom: 1px solid;
+  border-color: $base-color-link;
+
+  &:hover { color: $base-color-link; }
+  &:visited { border-color: lighten($base-color-link, 12.5%); }
+}
+
+
+/**
+ * Strip styles from a hidden   link.
+ */
 a.non-link {
   color: inherit;
   border: none;
