@@ -42,7 +42,7 @@
 
           <div class="video-view__container" ng-class="{'video-view__container--fixed': flags.isEdit}">
             <video-upload ng-show="flags.showUpload && flags.isEdit" ng-cloak></video-upload>
-            <video-player ng-hide="flags.isEdit && !video.id" embed-url="embedUrl"></video-player>
+            <video-player ng-hide="flags.isEdit && !video.id" video-total-time="videoTotalTime" progress="progress" player="player" video-current-time="videoCurrentTime" embed-url="embedUrl"></video-player>
 
             <a class="btn btn--positive btn--small show-modal-button t--push-all" ng-show="flags.isEdit && video.id" ng-click="showModal=true">edit player</a>
 

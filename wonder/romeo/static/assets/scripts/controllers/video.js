@@ -392,7 +392,6 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
     }
   }
 
-
   $scope.$on('video-seek', videoOnSeek);
   function videoOnSeek (event, seconds) {
     if ($scope.player) {
@@ -402,73 +401,6 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
       $scope.player.seek(seconds);
     }
   }
-
-  function pollIFrame () {
-    $timeout(checkIFramePlayer, 1000);
-  }
-
-  // http://support.ooyala.com/developers/documentation/api/player_v3_apis.html
-  // https://www.pivotaltracker.com/story/show/75208950
-  // ooyala players getDuration() function seems to occasionally
-  // return duration in seconds instead of millseconds
-  function durationHack (duration) {
-    var isMilliseconds = (parseFloat(duration) === parseInt(duration, 10));
-    debug.log('getDuration(): ', duration);
-    debug.log('duration is milliseconds: ', isMilliseconds);
-    return isMilliseconds ? duration : duration*1000;
-  }
-
-  function checkIFramePlayer () {
-    var frames = document.getElementsByClassName('video-player__frame');
-    if (frames.length) {
-      var frame = frames[0].contentWindow || frames[0].contentDocument.parentWindow;
-      if (frame.player) {
-        $scope.player = frame.player;
-        $scope.videoTotalTime = durationHack($scope.player.getDuration());
-      }
-      var OO = frame.OO;
-      if (OO && OO.ready && $scope.videoTotalTime > 0) {
-        OO.ready(function () {
-          bindPlayerEvents(OO);
-        });
-
-      } else {
-        pollIFrame();
-      }
-
-    } else {
-      pollIFrame();
-    }
-  }
-
-  // http://support.ooyala.com/developers/documentation/concepts/xmp_securexdr_view_mbus.html
-  // http://support.ooyala.com/developers/documentation/api/player_v3_api_events.html
-  function bindPlayerEvents (OO) {
-    var bus = $scope.player.mb;
-    bus.subscribe(OO.EVENTS.PLAYBACK_READY, 'WonderUIModule', function () {
-    });
-    bus.subscribe(OO.EVENTS.PLAYHEAD_TIME_CHANGED, 'WonderUIModule', function(eventName, currentTime) {
-      $scope.videoCurrentTime = currentTime;
-      $scope.progress = (Math.round((($scope.videoCurrentTime * 1000)/$scope.videoTotalTime) * 100 * 100))/100;
-      $scope.$apply();
-    });
-    bus.subscribe(OO.EVENTS.SEEKED, 'WonderUIModule', function (seconds) {
-      $scope.player.pause();
-    });
-    bus.subscribe(OO.EVENTS.PAUSED, 'WonderUIModule', function () {
-      $scope.$broadcast('player-paused');
-    });
-    bus.subscribe(OO.EVENTS.ERROR, 'WonderUIModule', function (code) {
-      debug.log('player error ', code);
-      $scope.$emit('notify', {
-        status : 'error',
-        title : 'Video Player Error',
-        message : 'Video player is experiencing technical issues.'}
-      );
-      $scope.$broadcast('player-error');
-    });
-  }
-
 
   function savePlayerParameters () {
 
@@ -649,9 +581,6 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
   $scope.collaborator = function () {
     return AuthService.isCollaborator();
   };
-
-
-  pollIFrame();
 
   initialiseNewScope();
   // Call routing method on opening of controllers screen
