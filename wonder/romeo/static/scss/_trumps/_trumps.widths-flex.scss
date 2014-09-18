@@ -1,0 +1,200 @@
+/**
+ * _trumps.widths-flex.scss
+ */
+
+.layout--flex {
+
+  .one-whole {
+    -webkit-flex: 0 0 100%;
+        -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
+  }
+
+  .one-half,
+  .two-quarters,
+  .three-sixths,
+  .four-eighths,
+  .five-tenths,
+  .six-twelfths {
+    -webkit-flex: 0 0 50%;
+        -ms-flex: 0 0 50%;
+            flex: 0 0 50%;
+  }
+
+  .one-third,
+  .two-sixths,
+  .three-ninths,
+  .four-twelfths {
+    -webkit-flex: 0 0 33.333%;
+        -ms-flex: 0 0 33.333%;
+            flex: 0 0 33.333%;
+  }
+
+  .two-thirds,
+  .four-sixths,
+  .six-ninths,
+  .eight-twelfths {
+    -webkit-flex: 0 0 66.667%;
+        -ms-flex: 0 0 66.667%;
+            flex: 0 0 66.667%;
+  }
+  
+  .one-quarter,
+  .two-eighths,
+  .three-twelfths {
+    -webkit-flex: 0 0 25%;
+        -ms-flex: 0 0 25%;
+            flex: 0 0 25%;
+  }
+  
+  .three-quarters,
+  .six-eighths,
+  .nine-twelfths {
+    -webkit-flex: 0 0 75%;
+        -ms-flex: 0 0 75%;
+            flex: 0 0 75%;
+  }
+  
+  .one-fifth,
+  .two-tenths {
+    -webkit-flex: 0 0 20%;
+        -ms-flex: 0 0 20%;
+            flex: 0 0 20%;
+  }
+  
+  .two-fifths,
+  .four-tenths {
+    -webkit-flex: 0 0 40%;
+        -ms-flex: 0 0 40%;
+            flex: 0 0 40%;
+  }
+  
+  .three-fifths,
+  .six-tenths {
+    -webkit-flex: 0 0 60%;
+        -ms-flex: 0 0 60%;
+            flex: 0 0 60%;
+  }
+  
+  .four-fifths,
+  .eight-tenths {
+    -webkit-flex: 0 0 80%;
+        -ms-flex: 0 0 80%;
+            flex: 0 0 80%;
+  }
+  
+  .one-sixth,
+  .two-twelfths {
+    -webkit-flex: 0 0 16%;
+        -ms-flex: 0 0 16%;
+            flex: 0 0 16%;
+  }
+  
+  .five-sixths,
+  .ten-twelfths {
+    -webkit-flex: 0 0 83.333%;
+        -ms-flex: 0 0 83.333%;
+            flex: 0 0 83.333%;
+  }
+  
+  .one-eighth {
+    -webkit-flex: 0 0 12.5%;
+        -ms-flex: 0 0 12.5%;
+            flex: 0 0 12.5%;
+  }
+  
+  .three-eighths {
+    -webkit-flex: 0 0 37.5%;
+        -ms-flex: 0 0 37.5%;
+            flex: 0 0 37.5%;
+  }
+  
+  .five-eighths {
+    -webkit-flex: 0 0 62.5%;
+        -ms-flex: 0 0 62.5%;
+            flex: 0 0 62.5%;
+  }
+  
+  .seven-eighths {
+    -webkit-flex: 0 0 87.5%;
+        -ms-flex: 0 0 87.5%;
+            flex: 0 0 87.5%;
+  }
+  
+  .one-ninth {
+    -webkit-flex: 0 0 11.1111111%;
+        -ms-flex: 0 0 11.1111111%;
+            flex: 0 0 11.1111111%;
+  }
+  
+  .two-ninths {
+    -webkit-flex: 0 0 22.2222222%;
+        -ms-flex: 0 0 22.2222222%;
+            flex: 0 0 22.2222222%;
+  }
+  
+  .four-ninths {
+    -webkit-flex: 0 0 44.4444444%;
+        -ms-flex: 0 0 44.4444444%;
+            flex: 0 0 44.4444444%;
+  }
+  
+  .five-ninths {
+    -webkit-flex: 0 0 55.5555555%;
+        -ms-flex: 0 0 55.5555555%;
+            flex: 0 0 55.5555555%;
+  }
+  
+  .seven-ninths {
+    -webkit-flex: 0 0 77.7777777%;
+        -ms-flex: 0 0 77.7777777%;
+            flex: 0 0 77.7777777%;
+  }
+  
+  .eight-ninths {
+    -webkit-flex: 0 0 88.8888888%;
+        -ms-flex: 0 0 88.8888888%;
+            flex: 0 0 88.8888888%;
+  }
+  
+  .one-tenth {
+    -webkit-flex: 0 0 10%;
+        -ms-flex: 0 0 10%;
+            flex: 0 0 10%;
+  }
+  .three-tenths {
+    -webkit-flex: 0 0 30%;
+        -ms-flex: 0 0 30%;
+            flex: 0 0 30%;
+  }
+  .seven-tenths {
+    -webkit-flex: 0 0 70%;
+        -ms-flex: 0 0 70%;
+            flex: 0 0 70%;
+  }
+  .nine-tenths {
+    -webkit-flex: 0 0 90%;
+        -ms-flex: 0 0 90%;
+            flex: 0 0 90%;
+  }
+  .one-twelfth {
+    -webkit-flex: 0 0 8.3333333%;
+        -ms-flex: 0 0 8.3333333%;
+            flex: 0 0 8.3333333%;
+  }
+  .five-twelfths {
+    -webkit-flex: 0 0 41.6666666%;
+        -ms-flex: 0 0 41.6666666%;
+            flex: 0 0 41.6666666%;
+  }
+  .seven-twelfths {
+    -webkit-flex: 0 0 58.3333333%;
+        -ms-flex: 0 0 58.3333333%;
+            flex: 0 0 58.3333333%;
+  }
+  .eleven-twelfths {
+    -webkit-flex: 0 0 91.6666666%;
+        -ms-flex: 0 0 91.6666666%;
+            flex: 0 0 91.6666666%;
+  }
+}

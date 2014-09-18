@@ -7,9 +7,10 @@ $base-color-text:           #2e2e32;        // cold black | type-color
 $base-color-background:     #fff;           // white | background-color
 
 $base-color-ui:             #b7bcbd;        // lighter cool grey | ui-color
-$base-color-ui-dark:      #70797b;          // cool grey | darker-ui-color
+$base-color-ui-dark:        #70797b;        // cool grey | darker-ui-color
 $base-color-link:           #51b364;        // wonder green | link-color
+$base-color-destructive:    #d15353;        // salmon red | destructive color
 
 // Set up shadow sizes for pop-ups etc,
 $base-shadow-outline:       1px solid rgba(0,0,0,0.12);
-$base-shadow-fill:          0 4px 12px 1px rgba(0,0,0,0.25);
+$base-shadow-fill:          0 4px 48px 1px rgba(0,0,0,0.25);

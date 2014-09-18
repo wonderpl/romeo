@@ -1,5 +1,37 @@
 /**
- * _trump.hidden.scss
+ * _trumps.hidden.scss
+ */
+
+/**
+ * A hide technique developed by Jonathan Snook: 
+ * http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ *
+ * 1. Using absolute positioning, we take the element out of flow so as not to 
+ *    affect the layout of anything around it.
+ * 2. With a height of 1px, the element should still be visible for Voice Over 
+ *    to read the content.
+ * 3. The clipping removes any visible trace of the element from the page.
+ *
+ */
+.accessible {
+  position: absolute !important;  /* [1] */
+  height: 1px;                    /* [2] */
+  width: 1px;                     /* [2] */
+  overflow: hidden;
+  visibility: hidden;
+  clip: rect(1px, 1px, 1px, 1px); /* [3] */
+}
+
+/*
+ * Syntax for IE6—7
+ */
+.legacy .accessible {
+  clip: rect(1px 1px 1px 1px);    /* [3] */
+}
+
+
+/**
+ * !NOTE! - trash this code when done.
  */
 .accessibility,
 .is-hidden,

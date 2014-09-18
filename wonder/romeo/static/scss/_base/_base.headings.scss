@@ -1,63 +1,86 @@
 /**
  * _base.headings.scss
  */
-.heading {
-  display: block;
-  margin-bottom: $base-spacing-unit;
-  font-weight: 600;
-  font-family: $heading-font-family;
-  color: $swatch-three;
-}
-h5.heading,
-h6.heading { font-family: $small-heading-font-family; }
 
-.tera,.mega,.giga,.kilo,
-.alpha,.beta,.gamma,.delta {
-  text-rendering: optimizeLegibility;
-  -webkit-font-feature-settings: "liga","kern";
-     -moz-font-feature-settings: "liga=1,kern=1";
-     -moz-font-feature-settings: "liga","kern";
-      -ms-font-feature-settings: "liga" 1,"kern" 1;
-      -ms-font-feature-settings: "liga","kern";
-       -o-font-feature-settings: "liga","kern";
-          font-feature-settings: "liga","kern";
-}
-.tera {
+/**
+ * Headings 1–6, with corresponding Greek-alphabet abstract classes for double-
+ * stranded heading hierarchy: csswizardry.com/2012/02/pragmatic-practical-font-sizing-in-css
+ */
+
+// Predefine the variables below in order to alter and enable specific features.
+$tera-size:       60px !default;
+$giga-size:       52px !default;
+$mega-size:       48px !default;
+$kilo-size:       40px !default;
+$heading-size-1:  36px !default;
+$heading-size-2:  30px !default;
+$heading-size-3:  24px !default;
+$heading-size-4:  20px !default;
+$heading-size-5:  16px !default;
+$heading-size-6:  14px !default;
+
+
+.#{$namespace}tera,
+%#{$namespace}tera {
   @include font-size($tera-size);
 }
-.giga {
+
+.#{$namespace}giga,
+%#{$namespace}giga {
   @include font-size($giga-size);
 }
-.mega {
+
+.#{$namespace}mega,
+%#{$namespace}mega {
   @include font-size($mega-size);
 }
-.kilo {
+
+
+.#{$namespace}kilo,
+%#{$namespace}kilo {
   @include font-size($kilo-size);
 }
-.alpha {
-  @include font-size($alpha-size);
+
+
+h1,
+.#{$namespace}alpha,
+%#{$namespace}alpha {
+    @include font-size($heading-size-1);
 }
-.beta {
-  @include font-size($beta-size);
-  line-height: 1.5;
+
+h2,
+.#{$namespace}beta,
+%#{$namespace}beta {
+    @include font-size($heading-size-2);
 }
-.gamma {
-  @include font-size($gamma-size);
+
+h3,
+.#{$namespace}gamma,
+%#{$namespace}gamma {
+    @include font-size($heading-size-3, 1.4166666666666667);
 }
-.delta {
-  @include font-size($delta-size);
-}
-.epsilon {
-  @include font-size($epsilon-size);
-}
-.zeta {
-  @include font-size($zeta-size);
+
+h4,
+.#{$namespace}delta,
+%#{$namespace}delta {
+    @include font-size($heading-size-4);
 }
 
 h5,
-h6 {
-  font-variant: small-caps;
-  text-transform: lowercase;
-  letter-spacing: 0.1em;
+.#{$namespace}epsilon,
+%#{$namespace}epsilon {
+    @include font-size($heading-size-5);
 }
-h6 { font-style: italic; }
+
+h6,
+.#{$namespace}zeta,
+%#{$namespace}zeta {
+    @include font-size($heading-size-6, 1.4285714285714286);
+}
+
+h1,h2,h3,h4,h5,h6,
+.heading {
+  display: block;
+  font-family: $heading-font-family;
+  letter-spacing: -0.02em;
+}
