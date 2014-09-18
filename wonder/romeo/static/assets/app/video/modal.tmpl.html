@@ -13,11 +13,13 @@
         <a class="btn btn--positive" ng-click="showSection('cover')">update cover</a>
         <a class="btn btn--positive" ng-click="showSection('player')">edit player</a>
         <a class="btn btn--positive" ng-click="showSection('controls')">extended controls</a>
+        <a class="btn btn--positive" ng-click="showSection('description')">description</a>
       </section>
 
       <cover-selector ng-if="selection === 'cover'" video="video"></cover-selector>
       <player-editor ng-if="selection === 'player'" player-parameters="playerParameters" video="video"></player-editor>
       <extended-controls ng-if="selection === 'controls'" player-parameters="playerParameters"></extended-controls>
+      <edit-description ng-if="selection === 'description'"></edit-description>
 
     </div>
     <div class="video-modal__footer modal__footer">

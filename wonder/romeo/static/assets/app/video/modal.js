@@ -7,7 +7,7 @@
     return {
       restrict : 'E',
       replace : true,
-      template : $templateCache.get('video/config/modal.tmpl.html'),
+      template : $templateCache.get('video/modal.tmpl.html'),
       scope : {
         showModal : '=',
         video : '=',
