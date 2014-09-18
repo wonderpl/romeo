@@ -4,10 +4,10 @@
     ng-click="(showMoreLinkConfigPanel = !showMoreLinkConfigPanel)"
     ng-show="isEdit"
     title="You can add a button, which will appear under your video in the Wonder App that takes you to any website.&#013;&#013;Simply add the text for the button (up-to 30 characters) and type in the URL you want to go to.">
-    {{ text ? text : 'Add a link (optional) &hellip;' }}
+    {{ video.link_title ? video.link_title : 'Add a link (optional) &hellip;' }}
   </a>
 
-  <a class="video-more__link btn  btn--positive" href="{{ url }}" target="_new" ng-if="isEdit == 'false'">{{ text }}</a>
+  <a class="video-more__link btn  btn--positive" href="{{ url }}" target="_new" ng-if="isEdit == 'false'">{{ video.link_title }}</a>
 
   <section class="video-more__form" ng-class="{ 'video-more__form--active' : showMoreLinkConfigPanel }" ng-if="isEdit">
 
@@ -17,8 +17,8 @@
 
         <label class="video-more__label video-more__label--text">
           <input class="video-more__input video-more__input--short"
-            name="linkText"
-            ng-model="text"
+            name="linkTitle"
+            ng-model="video.link_title"
             placeholder="Custom text&hellip;"
             required
             ng-maxlength="30" />
@@ -26,19 +26,19 @@
             ng-bind="remaining"></span>
         </label>
 
-        <span class="video-more__error" ng-show="isSubmitted && videoMoreLink.linkText.$error.required">Enter text</span>
-        <span class="video-more__error" ng-show="isSubmitted && videoMoreLink.linkText.$error.maxlength">Too many characters</span>
+        <span class="video-more__error" ng-show="isSubmitted && videoMoreLink.linkTitle.$error.required">Enter text</span>
+        <span class="video-more__error" ng-show="isSubmitted && videoMoreLink.linkTitle.$error.maxlength">Too many characters</span>
 
         <label class="video-more__label video-more__label--link">
           <input class="video-more__input"
-            name="linkUrl"
-            ng-model="url"
+            name="url"
+            ng-model="video.link_url"
             required
             placeholder="Link URL" />
         </label>
 
-        <span class="video-more__error" ng-show="isSubmitted && videoMoreLink.linkUrl.$error.pattern">Incorrect format: http://&hellip;</span>
-        <span class="video-more__error" ng-show="isSubmitted && videoMoreLink.linkUrl.$error.required">Enter URL</span>
+        <span class="video-more__error" ng-show="isSubmitted && videoMoreLink.url.$error.pattern">Incorrect format: http://&hellip;</span>
+        <span class="video-more__error" ng-show="isSubmitted && videoMoreLink.url.$error.required">Enter URL</span>
 
         <p class="video-more__hint"><strong>Hint:</strong> Drive traffic to your website by adding a link</p>
 

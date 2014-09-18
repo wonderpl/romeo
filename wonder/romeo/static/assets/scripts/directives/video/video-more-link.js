@@ -8,35 +8,32 @@ angular.module('RomeoApp.directives')
     replace : true,
     template : $templateCache.get('video-more-link.html'),
     scope : {
-      text : '=',
-      url : '=',
+      video : '=',
       isEdit : '@'
     },
     controller : function ($scope) {
-
       $scope.remaining = 30;
       var maxLength = 30;
 
-      $scope.$watch('text', function (newValue, oldValue) {
+      $scope.$watch('video.link_title', function (newValue, oldValue) {
         if (newValue !== oldValue) {
           var newLength = newValue && newValue.length ? newValue.length : 0;
           $scope.remaining = maxLength - newLength;
           if ($scope.remaining < 0) {
-            $scope.text = oldValue;
+            $scope.video.link_title = oldValue;
           }
         }
       });
 
       $scope.save = function () {
-        if ($scope.url && !$scope.url.match(/^http[s]?:\/\/.+/i)) {
-          if ($scope.url.match(/^http[s]?:\/\/$/i)) {
-            $scope.url = '';
+        if ($scope.video.link_url && !$scope.video.link_url.match(/^http[s]?:\/\/.+/i)) {
+          if ($scope.video.link_url.match(/^http[s]?:\/\/$/i)) {
+            $scope.video.link_url = '';
           }
           else {
-            $scope.url = 'http://' + $scope.url;
+            $scope.video.link_url = 'http://' + $scope.video.link_url;
           }
         }
-        $rootScope.$emit('video-save');
         $scope.showMoreLinkConfigPanel = false;
       };
     }
