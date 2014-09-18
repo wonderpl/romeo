@@ -470,75 +470,6 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
   }
 
 
-  $scope.$on('update-player-parameters', function (event, data) {
-    applyPlayerParameters(data);
-  });
-
-  function applyPlayerParameters (data) {
-    if (data.rgb) {
-      updateColours(data.rgb);
-    }
-    if (typeof data.hideLogo !== 'undefined') {
-      hideLogo(data.hideLogo);
-    }
-    if (typeof data.showBuyButton !== 'undefined') {
-      showBuyButton(data.showBuyButton);
-    }
-    if (typeof data.showDescriptionButton !== 'undefined') {
-      showDescriptionButton(data.showDescriptionButton);
-    }
-  }
-
-  function getVideoIFrame () {
-
-    var elements = document.getElementsByClassName('video-player__frame');
-    if (!elements.length) return;
-
-    var frame = document.getElementsByClassName('video-player__frame')[0].contentDocument;
-    if (!frame) return;
-
-    return $(frame);
-  }
-
-
-  function updateColours (rgb) {
-
-    rgb = rgb || { r : 255, g: 255, b : 255 };
-
-    var $frame = getVideoIFrame();
-
-    var data = {
-      r : rgb.r,
-      g : rgb.g,
-      b : rgb.b
-    };
-
-    $frame[0].dispatchEvent(new CustomEvent('video-data-change', { detail : { path : 'video.source_player_parameters.rgb', data : JSON.stringify(data) }}));
-  }
-
-  function hideLogo (hide) {
-
-    var $frame = getVideoIFrame();
-    var isHide = hide ? 'True' : 'False';
-    $frame[0].dispatchEvent(new CustomEvent('video-data-change', { detail : { path : 'video.source_player_parameters.hideLogo', data : isHide }}));
-
-  }
-
-  function showBuyButton (show) {
-
-    var $frame = getVideoIFrame();
-    var isShow = show && $scope.video.link_title && $scope.video.link_url ? 'True' : 'False';
-    $frame[0].dispatchEvent(new CustomEvent('video-data-change', { detail : { path : 'video.source_player_parameters.showBuyButton', data : isShow }}));
-  }
-
-  function showDescriptionButton (show) {
-
-    var $frame = getVideoIFrame();
-    var isShow = show && $scope.video.description ? 'True' : 'False';
-    $frame[0].dispatchEvent(new CustomEvent('video-data-change', { detail : { path : 'video.source_player_parameters.showDescriptionButton', data : isShow }}));
-  }
-
-
   function savePlayerParameters () {
 
     VideoService.setPlayerParameters($scope.video.id, {
@@ -558,25 +489,6 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
   $scope.$on('video-saving', function ($event, data) {
     savePlayerParameters();
   });
-
-  $scope.$on('video-cover-image-updated', function ($event, data) {
-    updateImmediateCoverImage(data);
-    restartPlayer();
-  });
-
-  function updateImmediateCoverImage (data) {
-
-    var $frame = getVideoIFrame();
-    var img = $frame.find('#wonder-poster img');
-    img.attr('src', data.url);
-  }
-
-  function restartPlayer () {
-    var $frame = getVideoIFrame();
-    var wrapper = $frame[0].getElementById('wonder-wrapper');
-    var event = new CustomEvent('restart');
-    wrapper.dispatchEvent(event);
-  }
 
   $rootScope.$on('display-section', function (event, section) {
     $scope.displaySection(section);
@@ -651,9 +563,7 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
     VideoService.get(id).then(function (data) {
       angular.extend($scope.video, data);
       assignStatus($scope.video.status);
-      getPlayerParameters($scope.video.id).then(function () {
-        applyPlayerParameters($scope.playerParameters);
-      });
+      getPlayerParameters($scope.video.id);
       if ($scope.video.account.id !== AccountService.getAccount().id) {
         displayCollaboratorSection();
       }

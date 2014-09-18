@@ -4,6 +4,8 @@
 
   function playerEditor ($templateCache) {
 
+    var $frame;
+
     return {
       replace: true,
       restrict: 'E',
@@ -12,10 +14,18 @@
         playerParameters : '=',
         video : '='
       },
+      link : function (scope, element, attrs) {
+
+        $frame = $('.video-player__frame');
+
+      },
       controller : function ($scope) {
 
         $scope.toggleHideLogo = function (event) {
-          $scope.$emit('update-player-parameters', { hideLogo : $scope.playerParameters.hideLogo });
+
+          var isHide = $scope.playerParameters.hideLogo ? 'True' : 'False';
+          var path = 'video.source_player_parameters.hideLogo';
+          $frame[0].contentDocument.dispatchEvent(new CustomEvent('video-data-change', { detail : { path : path, data : isHide }}));
         };
 
         $scope.rgb = $scope.playerParameters.rgb;

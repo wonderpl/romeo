@@ -4,6 +4,8 @@
 
   function extendedControls ($templateCache) {
 
+    var $frame;
+
     return {
       replace: true,
       restrict: 'E',
@@ -11,14 +13,24 @@
       scope : {
         playerParameters : '='
       },
+      link : function (scope, elem, attrs) {
+
+        $frame = $('.video-player__frame');
+      },
       controller : function ($scope) {
 
         $scope.updateShowBuyButton = function () {
-          $scope.$emit('update-player-parameters', { showBuyButton : $scope.playerParameters.showBuyButton });
+
+          var data = $scope.playerParameters.showBuyButton ? 'True' : 'False';
+          var path = 'video.source_player_parameters.showBuyButton';
+          $frame[0].contentDocument.dispatchEvent(new CustomEvent('video-data-change', { detail : { path : path, data : data }}));
         };
 
         $scope.updateShowDescriptionButton = function () {
-          $scope.$emit('update-player-parameters', { showDescriptionButton : $scope.playerParameters.showDescriptionButton });
+
+          var data = $scope.playerParameters.showDescriptionButton ? 'True' : 'False';
+          var path = 'video.source_player_parameters.showDescriptionButton';
+          $frame[0].contentDocument.dispatchEvent(new CustomEvent('video-data-change', { detail : { path : path, data : data }}));
         };
       }
     };

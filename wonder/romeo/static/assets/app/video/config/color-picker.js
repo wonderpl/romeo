@@ -8,19 +8,23 @@
       scope : {
         rgb : '='
       },
-      link: function (scope, elem, attrs) {
-
-        function spectrumOnChange (color) {
-          scope.rgb = color.toRgb();
-          scope.$emit('update-player-parameters', { rgb : scope.rgb });
-        }
-
+      link : function (scope, elem, attrs) {
+        var path = 'video.source_player_parameters.rgb';
         elem.spectrum({
-          move: spectrumOnChange,
           showButtons: false,
           flat: true,
           showInput: true,
-          preferredFormat: 'rgb'
+          preferredFormat: 'rgb',
+          move: function (color) {
+            var rgb = scope.rgb = color.toRgb();
+            var data = {
+              r : rgb.r,
+              g : rgb.g,
+              b : rgb.b,
+              a : 1
+            };
+            $('.video-player__frame')[0].contentDocument.dispatchEvent(new CustomEvent('video-data-change', { detail : { path : path, data : JSON.stringify(data) }}));
+          }
         });
 
         elem.spectrum('set', scope.rgb || '#fff');

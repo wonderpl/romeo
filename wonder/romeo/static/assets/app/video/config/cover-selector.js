@@ -4,6 +4,8 @@
 
   function coverSelector ($templateCache, $timeout, VideoService) {
 
+    var $frame;
+
     return {
       replace: true,
       restrict: 'E',
@@ -12,6 +14,8 @@
         video : '='
       },
       link : function (scope, elem, attrs) {
+
+        $frame = $('.video-player__frame');
 
         scope.$watch('previewIndex', function (newValue, oldValue) {
           if (newValue !== oldValue) {
@@ -109,7 +113,9 @@
           };
           VideoService.setPreviewImage($scope.video.id, data).then(function() {
             $scope.$emit('close-modal');
-            $scope.$emit('video-cover-image-updated', {url : $scope.previewImages[$scope.previewIndex].url});
+
+            $frame.find('#wonder-poster img').attr('src', $scope.previewImages[$scope.previewIndex].url);
+            $frame[0].getElementById('wonder-wrapper').dispatchEvent(new CustomEvent('restart'));
           });
         };
       }
