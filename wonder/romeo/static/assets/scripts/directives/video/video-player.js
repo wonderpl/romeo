@@ -3,6 +3,8 @@
 
   function VideoPlayerDirective ($templateCache, $timeout) {
 
+    var debug = new DebugClass('VideoPlayerDirective');
+
     var $frame;
 
     // http://support.ooyala.com/developers/documentation/api/player_v3_apis.html
@@ -20,19 +22,17 @@
       restrict : 'E',
       replace : true,
       template : $templateCache.get('video-player.html'),
-      scope : true,
       link : function (scope, elem, attrs) {
 
         $frame = $('.video-player__frame');
 
         function checkIFramePlayer () {
-          var frame = $frame[0];
+          var frame = $frame[0].contentWindow || $frame[0].contentDocument.parentWindow;
           if (frame) {
             if (frame.player) {
               scope.player = frame.player;
               scope.videoTotalTime = durationHack(scope.player.getDuration());
             }
-
             if (frame.OO && frame.OO.ready && scope.videoTotalTime > 0) {
               frame.OO.ready(function () {
                 bindPlayerEvents(frame.OO);
@@ -54,7 +54,6 @@
           bus.subscribe(OO.EVENTS.PLAYHEAD_TIME_CHANGED, 'WonderUIModule', function(eventName, currentTime) {
             scope.videoCurrentTime = currentTime;
             scope.progress = (Math.round(((scope.videoCurrentTime * 1000)/scope.videoTotalTime) * 100 * 100))/100;
-            scope.$apply();
           });
           bus.subscribe(OO.EVENTS.SEEKED, 'WonderUIModule', function (seconds) {
             scope.player.pause();
