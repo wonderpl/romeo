@@ -25,7 +25,7 @@
         <a ng-href="#/profile/{{ item.id }}">
           <div class="search__avatar-container">
             <div class="no-spacing avatar">
-              <img class="avatar__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" style="background-image : url('{{ item.avatar }}');" />
+              <img class="avatar__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" style="background-image : url('{{ item.avatar || '/static/assets/img/user-avatar.png' }}');" />
             </div>
           </div>
           <p class="heading no-spacing trunc t--pad-top--half" ng-bind="item.display_name"></p>
