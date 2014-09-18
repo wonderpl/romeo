@@ -1,5 +1,5 @@
 angular.module('RomeoApp.directives')
-  .directive('videoNavigation', ['$templateCache', function ($templateCache) {
+  .directive('videoNavigation', ['$templateCache', 'SecurityService', function ($templateCache, SecurityService) {
   'use strict';
 
   return {
@@ -25,6 +25,8 @@ angular.module('RomeoApp.directives')
       $scope.displaySection = function (section) {
         $scope.$emit('display-section', section);
       };
+
+      $scope.isCollaborator = SecurityService.isCollaborator();
     },
 
     link : function (scope, elem, attr) {

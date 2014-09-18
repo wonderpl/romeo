@@ -4,7 +4,7 @@
       <li class="sub-navigation__mode  f--left">
         <video-download video-id="videoId" ng-show="videoId && videoStatus==='published'"></video-download>
       </li>
-      <li class="sub-navigation__mode  f--left" ng-if="!flags.isOwner">
+      <li class="sub-navigation__mode  f--left" ng-if="!flags.isOwner && !isCollaborator">
         <a class="btn  btn--utility  icon-text"><i class="icon  icon--paper-stack  icon-text__icon"></i>Copy video to my account</a>
       </li>
       <li class="sub-navigation__mode" ng-show="flags.isEdit">

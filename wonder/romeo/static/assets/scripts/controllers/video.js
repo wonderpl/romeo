@@ -564,7 +564,10 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
       angular.extend($scope.video, data);
       assignStatus($scope.video.status);
       getPlayerParameters($scope.video.id);
-      if ($scope.video.account.id !== AccountService.getAccount().id) {
+
+      if ($scope.video.account.id === AccountService.getAccount().id) {
+        $scope.flags.isOwner = true;
+      } else {
         displayCollaboratorSection();
       }
 
