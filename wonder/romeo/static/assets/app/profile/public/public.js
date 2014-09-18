@@ -26,24 +26,6 @@ function ProfilePublicCtrl($scope, $location, $routeParams, UserService, VideoSe
       { 'code': 'ES', 'name': 'Spain' }
     ] } };
 
-    if (SecurityService.isAuthenticated() && $location.search().accept_connection) {
-      console.log('Accept connection: ' + $location.search().accept_connection);
-      UserService.connect({user: $location.search().accept_connection}).then(
-        function () {
-          $scope.$emit('notify', {
-            status : 'success',
-            title : 'Accepted connection',
-            message : 'Your new connection has been accepted'}
-          );
-        }, function () {
-          $scope.$emit('notify', {
-            status : 'error',
-            title : 'Accept connection',
-            message : 'Your new connection failed'}
-          );
-        }
-      );
-    }
     LocationService.getAll().then(function (res) {
       locations = res.data;
     });
