@@ -46,7 +46,7 @@
             }
           }
 
-          if (!frame.player || !frame.OO || !frame.OO.ready || !scope.videoTotalTime) {
+          if (!frame || !frame.player || !frame.OO || !frame.OO.ready || !scope.videoTotalTime) {
             pollIFrame();
           }
         }
