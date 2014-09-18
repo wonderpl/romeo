@@ -1,3 +1,5 @@
+import os
+from base64 import b32encode
 from urlparse import urljoin
 from sqlalchemy import (
     Column, Integer, String, Boolean, ForeignKey, PrimaryKeyConstraint, DateTime, Enum, CHAR, event, func)
@@ -168,6 +170,13 @@ class RegistrationToken(db.Model):
     account_user_id = Column('account_user', ForeignKey(AccountUser.id))
 
     account_user = relationship(AccountUser)
+
+    @classmethod
+    def new(cls, recipient):
+        id = b32encode(os.urandom(5))
+        token = RegistrationToken(id=id, recipient=recipient)
+        db.session.add(token)
+        return token
 
 
 class CollaborationMixin(object):

@@ -1,6 +1,4 @@
-import os
 import sys
-from base64 import b32encode
 from sqlalchemy.exc import DataError
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from wonder.romeo import manager, db
@@ -25,10 +23,9 @@ def createuser(account, username, password='changeme', account_type='content_own
 
 @manager.command
 def create_registration_token(recipient):
-    id = b32encode(os.urandom(5))
-    db.session.add(RegistrationToken(id=id, recipient=recipient))
+    token = RegistrationToken.new(recipient)
     db.session.commit()
-    print id
+    print token.id
 
 
 @manager.command

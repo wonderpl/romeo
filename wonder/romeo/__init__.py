@@ -43,6 +43,12 @@ def _init_db(app):
 def _init_api(app):
     api.init_app(app)
 
+    # monkey patch WWW-Authenticate header to change scheme to Bearer
+    def _unauthorized(response):
+        response.headers['WWW-Authenticate'] = 'Bearer realm="wonder"'
+        return response
+    api.unauthorized = _unauthorized
+
 
 def _load_extensions(app, wsgi=False):
     for ext in assets_env, cache, login_manager:

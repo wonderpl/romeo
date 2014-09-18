@@ -18,7 +18,7 @@ from wonder.romeo.core.ooyala import create_asset, ooyala_request, DuplicateExce
 from wonder.romeo.core.email import send_email, email_template_env
 from wonder.romeo.core.s3 import upload_file, download_file, media_bucket, video_bucket
 from wonder.romeo.core.util import gravatar_url, get_random_filename
-from wonder.romeo.account.models import AccountUser
+from wonder.romeo.account.models import AccountUser, RegistrationToken
 from .models import Video, VideoTag, VideoThumbnail, VideoComment, VideoCollaborator
 
 
@@ -320,6 +320,7 @@ class VideoCollaboratorForm(BaseForm):
 
 
 @background_on_sqs
+@commit_on_success
 def send_collaborator_invite_email(collaborator_id, sending_user_id, **kwargs):
     collaborator = VideoCollaborator.query.get(collaborator_id)
     if not collaborator:
@@ -332,6 +333,9 @@ def send_collaborator_invite_email(collaborator_id, sending_user_id, **kwargs):
         kwargs['_delay_seconds'] = 300
         send_collaborator_invite_email(collaborator_id, sending_user_id, **kwargs)
         return
+
+    if current_app.config.get('ENABLE_REGISTRATION_AUTH'):
+        kwargs['reg_token'] = RegistrationToken.new(collaborator.email).id
 
     template = email_template_env.get_template('collaborator_invite.html')
     body = template.render(

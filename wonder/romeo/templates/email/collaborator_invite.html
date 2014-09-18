@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% macro video_url() %}
-{{ video.web_url }}?token={{ collaborator.token }}
+{{ video.web_url }}?token={{ collaborator.token }}{% if reg_token %}&reg_token={{ reg_token }}{% endif %}
 {%- endmacro %}
 
 {% if can_comment %}
