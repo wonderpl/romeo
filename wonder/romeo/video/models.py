@@ -415,12 +415,16 @@ class VideoCollaborator(db.Model):
 
     @property
     def token(self):
-        serializer = URLSafeSerializer(current_app.secret_key)
-        return serializer.dumps(dict(collaborator=self.id))
+        return self.get_token(self.id)
 
     @property
     def href(self):
         return url_for('api.videocollaborator', video_id=self.video_id, collaborator_id=self.id)
+
+    @classmethod
+    def get_token(cls, id):
+        serializer = URLSafeSerializer(current_app.secret_key)
+        return serializer.dumps(dict(collaborator=id))
 
 
 class VideoSeoEmbed(db.Model):

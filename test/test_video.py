@@ -259,6 +259,10 @@ class VideoCommentTestCase(DataTestCase, TestCase):
             id = 4001
             name = 'test'
 
+        class account2:
+            id = 4002
+            name = 'test'
+
     class AccountUserData(DataSet):
         class user:
             id = 4101
@@ -268,7 +272,7 @@ class VideoCommentTestCase(DataTestCase, TestCase):
 
         class user2:
             id = 4102
-            account_id = 4001
+            account_id = 4002
             username = 'noreply+user2@wonderpl.com'
             password_hash = ''
 
@@ -385,6 +389,7 @@ class VideoCommentTestCase(DataTestCase, TestCase):
 
             self.assertItemsEqual(
                 [self.data.AccountUserData.user.username,
+                 self.data.AccountUserData.user2.username,
                  self.data.VideoCollaboratorData.collab1.email],
                 zip(*zip(*send_email.call_args_list)[0])[0])
 

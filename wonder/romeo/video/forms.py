@@ -2,7 +2,7 @@ from itertools import chain
 from cStringIO import StringIO
 from urlparse import urlparse
 from PIL import Image
-from sqlalchemy import null
+from sqlalchemy import null, func
 import wtforms
 from flask import current_app, request
 from flask.ext.login import current_user
@@ -402,19 +402,24 @@ def send_comment_notifications(video_id, user_type, user_id):
     video = Video.query.get(video_id)
     template = email_template_env.get_template('comment_notification.html')
 
-    collabs = VideoCollaborator.query.filter_by(video_id=video_id, can_comment=True)
-    recipients = [(c.email, c.name, c.token) for c in collabs]
-    account_users = AccountUser.query.filter_by(account_id=video.account_id)
-    recipients.extend(account_users.values('username', 'display_name', null()))
+    collabs = VideoCollaborator.query.filter_by(
+        video_id=video_id, can_comment=True
+    ).outerjoin(AccountUser).values(
+        func.coalesce(AccountUser.username, VideoCollaborator.email),
+        func.coalesce(AccountUser.display_name, VideoCollaborator.name),
+        VideoCollaborator.id
+    )
+    account_users = AccountUser.query.filter_by(
+        account_id=video.account_id).values('username', 'display_name', null())
 
-    for email, username, token in recipients:
+    for email, username, collaborator_id in chain(collabs, account_users):
         body = template.render(
             sender=sender,
             video=video,
             comments=comments,
             email=email,
             username=username or email,
-            token=token,
+            token=collaborator_id and VideoCollaborator.get_token(collaborator_id),
             gravatar_url=gravatar_url,
         )
         send_email(email, body)
