@@ -20,13 +20,7 @@
       restrict : 'E',
       replace : true,
       template : $templateCache.get('video-player.html'),
-      scope : {
-        'embedUrl' : '=',
-        'videoCurrentTime' : '=',
-        'videoTotalTime' : '=',
-        'progress' : '=',
-        'player' : '='
-      },
+      scope : true,
       link : function (scope, elem, attrs) {
 
         $frame = $('.video-player__frame');
