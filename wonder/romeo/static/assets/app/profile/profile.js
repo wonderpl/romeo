@@ -74,20 +74,15 @@ function ProfileCtrl($scope, UserService, LocationService, SecurityService) {
       $scope.flags.accountId = $scope.profile.id;
     }
     if (SecurityService.isAuthenticated()) {
-      UserService.getPublicConnections($scope.profile.id).then(function (res) {
-        $scope.connections = res.data.connection.items;
+      UserService.getConnections().then(function (res) {
+        res = res.data || res;
+        $scope.connections = [];
+        angular.forEach(res, function (value, key) {
+          $scope.connections.push(value.collaborator ? {user: value.collaborator, hideLink: true} : value);
+        });
+        debug.log('Private profile connections: ', $scope.connections);
       });
     }
-    // @TODO: We should use the following code, to pull in all collaborators on
-    // the private profile page, not just the public collaborators.
-    //
-    // UserService.getConnections().then(function (res) {
-    //   $scope.connections = [];
-    //   angular.forEach(res, function (value, key) {
-    //     $scope.connections.push(value.collaborator ? value.collaborator : value.user);
-    //   });
-    //   console.log('Private profile connections: ', $scope.connections);
-    // });
   }
 
 

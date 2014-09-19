@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function UserService(SecurityService, DataService, $http, $q) {
+    function UserService($http, $q, $location, SecurityService, DataService) {
         var service = {};
 
         function formatConnection(connection) {
@@ -78,7 +78,8 @@
         };
 
         service.getPublicConnections = function (id) {
-          return $http.get('/api/user/' + id + '/connections?public');
+          var token = $location.search().accept_connection || '';
+          return $http.get('/api/user/' + id + '/connections?public&' + token);
         };
 
         service.getCollaboratorVideos = function () {
@@ -88,6 +89,6 @@
 
         return service;
     }
-    angular.module('RomeoApp.services').factory('UserService', ['SecurityService', 'DataService', '$http', '$q', UserService]);
+    angular.module('RomeoApp.services').factory('UserService', ['$http', '$q', '$location', 'SecurityService', 'DataService', UserService]);
 
 })();
