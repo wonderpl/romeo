@@ -23,7 +23,9 @@
               b : rgb.b,
               a : 1
             };
-            $('.video-player__frame')[0].contentDocument.dispatchEvent(new CustomEvent('video-data-change', { detail : { path : path, data : JSON.stringify(data) }}));
+            var $frame = $('.video-player__frame');
+            var frame = $frame[0].contentDocument || $frame[0].contentWindow.document;
+            frame.dispatchEvent(new CustomEvent('video-data-change', { detail : { path : path, data : JSON.stringify(data) }}));
           }
         });
 

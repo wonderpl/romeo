@@ -22,6 +22,29 @@
       restrict : 'E',
       replace : true,
       template : $templateCache.get('video-player.html'),
+      controller : function ($scope) {
+
+        $scope.$watch('video.thumbnail_url', function (newValue, oldValue) {
+          if (newValue && newValue !== oldValue) {
+            updateImmediateCoverImage(newValue);
+            restartPlayer();
+          }
+        });
+
+        function updateImmediateCoverImage (thumbnail_url) {
+          var img = $frame.find('#wonder-poster img');
+          img.attr('src', thumbnail_url);
+        }
+
+        function restartPlayer () {
+          var frame = $frame[0].contentDocument || $frame[0].contentWindow.document;
+          var wrapper = frame.getElementById('wonder-wrapper');
+          if (wrapper) {
+            wrapper.dispatchEvent(new CustomEvent('restart'));
+          }
+        }
+
+      },
       link : function (scope, elem, attrs) {
 
         $frame = $('.video-player__frame');

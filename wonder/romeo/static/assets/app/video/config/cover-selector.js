@@ -71,7 +71,16 @@
           VideoService.saveCustomPreview($scope.video.id, files[0]).then(function(data){
 
             $scope.$emit('close-modal');
-            $scope.$emit('video-cover-image-updated', { url : data.thumbnail_url });
+
+            $scope.video.thumbnail_url = data.thumbnail_url;
+
+
+            var frame = $frame[0].contentDocument || $frame[0].contentWindow.document;
+            var poster = frame.getElementById('wonder-poster');
+            var image = poster.getElementsByTagName('img')[0];
+            image.src = data.thumbnail_url;
+            $scope.$emit('close-modal');
+            frame.getElementById('wonder-wrapper').dispatchEvent(new CustomEvent('restart'));
 
             $scope.$emit('notify', {
               status : 'success',
@@ -111,11 +120,13 @@
           var data = {
               time: $scope.previewImages[$scope.previewIndex].time
           };
-          VideoService.setPreviewImage($scope.video.id, data).then(function() {
+          VideoService.setPreviewImage($scope.video.id, data).then(function(data) {
+            var frame = $frame[0].contentDocument || $frame[0].contentWindow.document;
+            var poster = frame.getElementById('wonder-poster');
+            var image = poster.getElementsByTagName('img')[0];
+            image.src = data.image.items[0].url;
             $scope.$emit('close-modal');
-
-            $frame.find('#wonder-poster img').attr('src', $scope.previewImages[$scope.previewIndex].url);
-            $frame[0].getElementById('wonder-wrapper').dispatchEvent(new CustomEvent('restart'));
+            frame.getElementById('wonder-wrapper').dispatchEvent(new CustomEvent('restart'));
           });
         };
       }

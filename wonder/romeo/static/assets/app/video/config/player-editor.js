@@ -25,7 +25,8 @@
 
           var isHide = $scope.playerParameters.hideLogo ? 'True' : 'False';
           var path = 'video.source_player_parameters.hideLogo';
-          $frame[0].contentDocument.dispatchEvent(new CustomEvent('video-data-change', { detail : { path : path, data : isHide }}));
+          var frame = $frame[0].contentDocument || $frame[0].contentWindow.document;
+          frame.dispatchEvent(new CustomEvent('video-data-change', { detail : { path : path, data : isHide }}));
         };
 
         $scope.rgb = $scope.playerParameters.rgb;
