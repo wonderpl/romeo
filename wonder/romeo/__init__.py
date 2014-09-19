@@ -4,6 +4,7 @@ from werkzeug.contrib.fixers import ProxyFix
 from flask import Flask, request, json
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
+from flask.ext.admin import Admin
 from flask.ext.cache import Cache
 from flask.ext.assets import Environment
 from flask.ext.restful import Api
@@ -51,7 +52,7 @@ def _init_api(app):
 
 
 def _load_extensions(app, wsgi=False):
-    for ext in assets_env, cache, login_manager:
+    for ext in assets_env, admin_views, cache, login_manager:
         ext.init_app(app)
 
     login_manager.login_view = 'account.login'
@@ -91,6 +92,7 @@ def _register_middleware(app):
 def _register_blueprints(app):
     for blueprint in app.config['BLUEPRINTS']:
         app.register_blueprint(import_string(blueprint))
+    from admin import account     # NOQA
 
 
 def _register_api_views(app):
@@ -147,6 +149,7 @@ def create_app(wsgi=False):
 api = Api(prefix='/api', catch_all_404s=True)
 db = SQLAlchemy()
 login_manager = LoginManager()
+admin_views = Admin()
 assets_env = Environment()
 cache = Cache()
 manager = Manager(create_app, assets_env=assets_env, reloader_extra_files=settings)

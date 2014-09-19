@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% macro invite_url() %}
+{{ url_for('root.app', _external=True) }}#/app?reg_token={{ reg_token }}
+{%- endmacro %}
+
+{% block title %}You have been invited to join Wonder PL{% endblock %}
+
+{% block body %}
+
+<div style="font-weight:bold;font-size:28px;line-height:1.35;font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif;color:#2e2e32">
+  Hello,
+</div>
+<br>
+
+<div>
+  You have been invited to join Wonder PL.
+</div>
+<br><br>
+
+<!-- {{ reg_token }} -->
+
+<p class="btn-center" style="display:block;width:100%;text-align:center;"><a href="{{ invite_url() }}" class="btn" style="margin:0 auto;padding:10px 20px;font-weight:400;font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif;text-decoration:none;color:#fff !important;text-align:center;background-color:#51b364;border:none;border-radius:100px;cursor:pointer;" border="0">Register</a></p><br>
+{% endblock %}

@@ -33,6 +33,9 @@ class Account(db.Model):
     dolly_user = Column(CHAR(22))
     dolly_token = Column(String(128))
 
+    def __unicode__(self):
+        return self.name
+
     @property
     def href(self):
         return url_for('api.account', account_id=self.id)
@@ -89,6 +92,9 @@ class AccountUser(db.Model):
 
     avatar = property(*_image_field_accessors('avatar'))
     profile_cover = property(*_image_field_accessors('profile_cover'))
+
+    def __unicode__(self):
+        return self.username
 
     @classmethod
     def get_from_credentials(cls, username, password):

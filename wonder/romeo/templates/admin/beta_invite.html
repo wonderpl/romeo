@@ -1,0 +1,28 @@
+{% extends 'admin/model/create.html' %}
+
+{% block body %}
+<div>
+  {% call lib.form_tag() %}
+    <div class="control-group">
+      <div class="control-label">
+        <label for="recipients">Recipients</label>
+      </div>
+      <div class="controls">
+        <div>
+          <textarea id="recipients" name="recipients" class="form-control" rows=10>{{ recipients }}</textarea>
+        </div>
+        <p class="help-block">Enter email addresses, one per line</p>
+        {% if errors %}
+        <ul class="input-errors">
+          {% for e in errors %}
+            <li>{{ e }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+
+    {{ lib.render_form_buttons('../') }}
+  {% endcall %}
+</div>
+{% endblock %}

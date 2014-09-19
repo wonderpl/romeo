@@ -1,0 +1,13 @@
+{% extends 'admin/master.html' %}
+
+{% block page_body %}
+{% if error %}
+<div class="error">
+  {{ error }}
+</div>
+{% else %}
+<div>
+  User: {{ session.admin_user }}
+</div>
+{% endif %}
+{% endblock %}

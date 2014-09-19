@@ -17,8 +17,11 @@ def send_test_email(email_type, recipient, output=None):
     from wonder.romeo import db
     from wonder.romeo.video import forms as video_forms
     from wonder.romeo.account import forms as account_forms
-    from wonder.romeo.account.models import Account, AccountUser, AccountUserConnection
-    from wonder.romeo.video.models import Video, VideoThumbnail, VideoCollaborator, VideoComment
+    from wonder.romeo.account.models import (
+        Account, AccountUser, AccountUserConnection, RegistrationToken)
+    from wonder.romeo.video.models import (
+        Video, VideoThumbnail, VideoCollaborator, VideoComment)
+    from wonder.romeo.admin import account as account_admin
 
     current_app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
     current_app.config['ASSETS_URL'] = 'https://romeo.dev.wonderpl.com/static'
@@ -27,7 +30,8 @@ def send_test_email(email_type, recipient, output=None):
         def _send_email(recipient, body):
             with open(output, 'w') as f:
                 f.write(body)
-        video_forms.send_email = account_forms.send_email = _send_email
+        video_forms.send_email = account_forms.send_email =\
+            account_admin.send_email = _send_email
 
     def _create_test_video():
         video = Video(title='test', status='ready')
@@ -51,13 +55,18 @@ def send_test_email(email_type, recipient, output=None):
         video.comments = [VideoComment(comment='I like this!', timestamp=10,
                                        user_type='collaborator',
                                        user_id=video.collaborators[0].id)]
+
+        reg_tokens = [RegistrationToken.new(recipient).id]
+
         db.session.commit()
-        return video, account
+        return video, account, reg_tokens
 
     with current_app.test_request_context():
         db.create_all()
-        video, account = _create_test_video()
+        video, account, reg_tokens = _create_test_video()
         emails = dict(
+            beta_invite=(account_admin.send_beta_invite_emails,
+                         (reg_tokens,)),
             welcome=(account_forms.send_welcome_email,
                      (account.users[0].id,)),
             connect=(account_forms.send_connection_invite_email,

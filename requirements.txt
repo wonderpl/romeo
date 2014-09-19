@@ -1,5 +1,6 @@
 Flask >= 0.10
 Flask-WTF >= 0.9
+Flask-Admin >= 1.0.8
 Flask-Login >= 0.2
 Flask-Cache >= 0.11
 Flask-Script >= 0.6
