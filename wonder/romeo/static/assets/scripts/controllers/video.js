@@ -510,6 +510,10 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
       if ($scope.video.account.id === AccountService.getAccount().id) {
         $scope.flags.isOwner = true;
       } else {
+        AccountService.getPublicAccount($scope.video.account.id).then(function (res) {
+          res = res.data || res;
+          $scope.video.account = res;
+        });
         displayCollaboratorSection();
         assignCollaboratorPermissions();
       }
