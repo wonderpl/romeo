@@ -10,7 +10,7 @@ angular.module('RomeoApp.directives')
     var username = UserService.getUser().display_name;
 
     var comment = {
-      avatar_url  : avatar,
+      avatar  : avatar,
       comment     : '',
       datetime    : '',
       href        : '',
