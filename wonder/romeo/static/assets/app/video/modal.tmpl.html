@@ -9,22 +9,14 @@
 
     <div class="video-modal__container modal__content modal__content--video">
 
-      <section class="video-edit__options" ng-if="!selection">
-        <a class="btn btn--positive" ng-click="showSection('cover')">update cover</a>
-        <a class="btn btn--positive" ng-click="showSection('player')">edit player</a>
-        <a class="btn btn--positive" ng-click="showSection('controls')">extended controls</a>
-        <a class="btn btn--positive" ng-click="showSection('description')">description</a>
-      </section>
-
-      <cover-selector ng-if="selection === 'cover'" video="video"></cover-selector>
-      <player-editor ng-if="selection === 'player'" player-parameters="playerParameters" video="video"></player-editor>
-      <extended-controls ng-if="selection === 'controls'" player-parameters="playerParameters"></extended-controls>
-      <edit-description ng-if="selection === 'description'"></edit-description>
+      <cover-selector ng-if="modalSelection === 'cover'" video="video"></cover-selector>
+      <player-editor ng-if="modalSelection === 'player'" player-parameters="playerParameters" video="video"></player-editor>
+      <extended-controls ng-if="modalSelection === 'controls'" player-parameters="playerParameters"></extended-controls>
+      <edit-description ng-if="modalSelection === 'description'" video="video"></edit-description>
 
     </div>
     <div class="video-modal__footer modal__footer">
       <div class="modal__actions">
-        <a class="btn btn--small btn--positive" ng-if="selection" ng-click="showSection()">back</a>
       </div>
     </div>
   </div>

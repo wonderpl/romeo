@@ -8,8 +8,7 @@ angular.module('RomeoApp.directives')
     replace : true,
     template : $templateCache.get('video-more-link.html'),
     scope : {
-      video : '=',
-      isEdit : '@'
+      video : '='
     },
     controller : function ($scope) {
       $scope.remaining = 30;

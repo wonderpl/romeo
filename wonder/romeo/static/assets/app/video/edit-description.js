@@ -11,7 +11,7 @@
       restrict: 'E',
       template : $templateCache.get('video/edit-description.tmpl.html'),
       scope: {
-
+        video: '='
       },
       link : function (scope, elem, attrs) {
 

@@ -11,25 +11,26 @@
       scope : {
         showModal : '=',
         video : '=',
-        playerParameters : '='
+        playerParameters : '=',
+        modalSelection : '=',
+        flags: '='
       },
       controller : function ($scope) {
 
         $scope.close = function ($event) {
           $scope.showModal = false;
-        };
-
-        $scope.showSection = function (section) {
-          $scope.selection = section;
+          $scope.modalSelection = null;
         };
 
         $scope.$on('close-modal', function ($event) {
           $event.stopPropagation();
           $scope.showModal = false;
+          $scope.modalSelection = null;
         });
 
         $scope.$on('video-saving', function ($event, data) {
           $scope.showModal = false;
+          $scope.modalSelection = null;
         });
       }
     };
