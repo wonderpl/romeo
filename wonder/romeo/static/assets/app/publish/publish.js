@@ -20,8 +20,6 @@
   angular.module('RomeoApp.publish').config(['$routeProvider', 'securityAuthorizationProvider', PublishRouteProvider]);
 
   function publishCtrl ($scope, $routeParams, VideoService, TagService, modal, video) {
-
-
     function isPublishedAtWonder () {
       var published = false;
       var tags = $scope.video.tags.items;
@@ -93,6 +91,7 @@
         console.log(data);
         angular.extend($scope.video, data);
         resolvePublished();
+        $scope.isPublic = isPublishedAtWonder();
       });
     }
 
@@ -166,6 +165,7 @@
         $scope.video = video;
         $scope.showOnlyPublic = true;
         getTags();
+        $scope.isPublic = isPublishedAtWonder();
       }
     }
 
@@ -175,6 +175,7 @@
         console.log(data);
         $scope.video = data;
         resolvePublished();
+        $scope.isPublic = isPublishedAtWonder();
       });
     }
 
