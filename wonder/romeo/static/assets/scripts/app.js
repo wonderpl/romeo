@@ -13,6 +13,7 @@
     angular.module('RomeoApp.controllers', ['RomeoApp.services', 'RomeoApp.directives', 'LocalStorageModule']);
     // -- App modules
     angular.module('RomeoApp.analytics', ['RomeoApp.directives', 'nvd3ChartDirectives', 'ngRoute']);
+    angular.module('RomeoApp.pages', ['RomeoApp.services']);
     angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
     angular.module('RomeoApp.search', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
     angular.module('RomeoApp.video', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
@@ -39,7 +40,8 @@
             'RomeoApp.profile',
             'RomeoApp.search',
             'RomeoApp.video',
-            'RomeoApp.publish'
+            'RomeoApp.publish',
+            'RomeoApp.pages'
         ]); // module dependencies
 
     app.config(['$routeProvider', '$interpolateProvider', '$httpProvider', 'securityAuthorizationProvider',
@@ -137,6 +139,7 @@
         });
 
         $routeProvider.when('/', {
+            controller: 'StaticPagesCtrl',
             templateUrl: 'pages/home.tmpl.html',
             resolve: securityAuthorizationProvider.loadAuthentication
         });
