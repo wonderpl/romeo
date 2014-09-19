@@ -37,6 +37,9 @@
                 return result;
               }
             },
+            createSearchChoice: function (term) {
+              return {id: term, text: term};
+            },
             'initSelection': function (element, callback) {
               var data = [];
               $(element.val().split(",")).each(function () {

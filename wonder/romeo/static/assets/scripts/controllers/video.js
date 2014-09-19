@@ -261,6 +261,16 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
       if (angular.isArray($scope.video.search_keywords)) {
         $scope.video.search_keywords = $scope.video.search_keywords.join(',');
       }
+      if ($scope.video.hosted_url) {
+        if (! $scope.video.hosted_url.match(/^http[s]?:\/\/.+/i)) {
+          if ($scope.video.hosted_url.match(/^http[s]?:\/\/$/i)) {
+            $scope.video.hosted_url = '';
+          }
+          else {
+            $scope.video.hosted_url = 'http://' + $scope.video.hosted_url;
+          }
+        }
+      }
       VideoService.update($scope.video.id, $scope.video).then(function (data) {
         saveCallback(data);
 
