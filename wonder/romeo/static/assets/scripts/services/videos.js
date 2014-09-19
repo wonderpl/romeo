@@ -89,6 +89,11 @@ function VideoService ($rootScope, $q, $http, localStorageService, DataService, 
       return DataService.request({ url: url, method: 'DELETE' });
   };
 
+  Video.copyToAccount = function (id) {
+      var url = '/api/account/' + (AccountService.getAccount().id) + '/videos';
+      return DataService.request({ url: url, method: 'POST', data: {"_copy_video": id} });
+  };
+
   /*
   * Upload a custom logo to be used for the embedded player for this video
   */

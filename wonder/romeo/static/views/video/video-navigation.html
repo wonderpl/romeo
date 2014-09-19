@@ -5,7 +5,7 @@
         <video-download video-id="videoId" ng-show="videoId && (flags.canDownload || flags.isOwner) && (videoStatus == 'published' || videoStatus == 'ready')"></video-download>
       </li>
       <li class="sub-navigation__mode  f--left" ng-if="!flags.isOwner && !isCollaborator && flags.canDownload">
-        <a class="btn  btn--utility  icon-text"><i class="icon  icon--paper-stack  icon-text__icon"></i>Copy video to my account</a>
+        <a class="btn  btn--utility  icon-text" ng-click="copyToAccount()"><i class="icon  icon--paper-stack  icon-text__icon"></i>Copy video to my account</a>
       </li>
       <li class="sub-navigation__mode" ng-show="flags.isEdit">
         <a class="sub-navigation__btn btn btn--positive  icon-text"

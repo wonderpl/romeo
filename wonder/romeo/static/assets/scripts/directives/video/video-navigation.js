@@ -1,5 +1,5 @@
 angular.module('RomeoApp.directives')
-  .directive('videoNavigation', ['$templateCache', 'SecurityService', function ($templateCache, SecurityService) {
+  .directive('videoNavigation', ['$templateCache', 'VideoService', 'SecurityService', function ($templateCache, VideoService, SecurityService) {
   'use strict';
 
   return {
@@ -17,6 +17,26 @@ angular.module('RomeoApp.directives')
       $scope.save = function () {
         $scope.$emit('video-save');
       };
+
+      $scope.copyToAccount = function () {
+        if ($scope.videoId) {
+          VideoService.copyToAccount($scope.videoId).then(function (res) {
+            $scope.$emit('notify', {
+              status : 'success',
+              title : 'Video copy',
+              message : 'Video successfully copied to your account'}
+            );
+          }, function (res) {
+            debug.error(res.error);
+            $scope.$emit('notify', {
+              status : 'error',
+              title : 'Video copy',
+              message : 'Failed to copy to your account'}
+            );
+          });
+        }
+      };
+
 
       $scope.cancel = function () {
         $scope.$emit('video-cancel');
