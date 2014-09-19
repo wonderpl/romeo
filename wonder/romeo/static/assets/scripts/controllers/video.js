@@ -585,7 +585,7 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
 
   $scope.showComments = function () {
     if ($scope.video.id) {
-      if (SecurityService.isCollaborator()) {
+      if (!$scope.flags.isOwner) {
         return $scope.flags.canComment;
       } else {
         return $scope.flags.isComments;
