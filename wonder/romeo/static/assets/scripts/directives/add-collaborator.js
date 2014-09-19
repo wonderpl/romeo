@@ -3,7 +3,7 @@
   'use strict';
 
   function addCollaboratorDirective ($templateCache, CollaboratorsService, UserService) {
-
+    var select2Elem;
     return {
       restrict : 'E',
       replace : true,
@@ -12,8 +12,10 @@
         video : '=',
         addCollaboratorShow : '='
       },
+      link: function (scope, elem, attr) {
+        select2Elem = elem.find('.select2');
+      },
       controller : function ($scope) {
-
         $scope.connections = [];
 
         $scope.invite = {
@@ -56,7 +58,11 @@
             );
           });
         };
-
+        $scope.$watch('addCollaboratorShow', function (newValue, oldValue) {
+          if (newValue && newValue !== oldValue) {
+            select2Elem.select2('focus');
+          }
+        });
       }
     };
   }
