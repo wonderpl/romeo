@@ -1,7 +1,7 @@
 <section class="video-collaborators video-collaborators--{{ $root.layoutMode }}">
 
   <header class="video-collaborators__header">
-    <h4 class="video-collaborators__title  no-spacing">collaborators <a class="show-modal-indicator" ng-click="showCollaboratorsModal()">[+]</a></h4>
+    <h4 class="video-collaborators__title  no-spacing">collaborators <a class="show-modal-indicator" ng-click="showCollaboratorsModal()" ng-if="flags.isOwner">[+]</a></h4>
     <a class="btn  btn--small  btn--positive  video-collaborators__notify  f--right"
       ng-click="!flags.notified && notify(videoId)"
       ng-class="{ 'btn--disabled' : flags.notified || !collaborators || !comments.length }">Notify All</a>
