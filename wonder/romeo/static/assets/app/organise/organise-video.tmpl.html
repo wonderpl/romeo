@@ -19,11 +19,11 @@
   </ul>
 
   <a ng-href="#/video/{{video.id}}" class="video-thumb-link">
-    <span class="heading  trunc  video-thumb-link__title  video-thumb-link__title-list" ng-show="isList" ng-bind="video.title"></span>
+    <span class="heading  trunc  video-thumb-link__title  video-thumb-link__title-list" ng-show="isList" ng-bind-html="video.title"></span>
   </a>
 
   <a ng-href="#/video/{{video.id}}" class="video-thumb-link">
-    <span class="heading  trunc  trunc--two  video-thumb-link__title" ng-hide="isList" ng-bind="video.title"></span>
+    <span class="heading  trunc  trunc--two  video-thumb-link__title" ng-hide="isList" ng-bind-html="video.title"></span>
   </a>
 
   <div class="ratio  ratio--16x9  video-thumb" ng-hide="isList">
