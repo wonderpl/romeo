@@ -161,7 +161,7 @@ describe('Sign up', function() {
   });
 
   describe('Register web service call', function() {
-    beforeEach(inject(function($rootScope, $injector, $controller, userJSON, registerJSON, apiJSON, AuthService) {
+    beforeEach(inject(function($rootScope, $injector, $controller, userJSON, registerJSON, apiJSON) {
       scope.username = user.email;
       scope.name = user.name;
       scope.password = user.password;

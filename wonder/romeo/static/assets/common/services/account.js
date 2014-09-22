@@ -3,7 +3,7 @@
 //
 (function () {
     'use strict';
-    function AccountService($http, $q, DataService, localStorageService, AuthService, SecurityService) {
+    function AccountService($http, $q, DataService, localStorageService, SecurityService) {
         var debug = new DebugClass('AccountService');
 
         var service = {},
@@ -63,5 +63,5 @@
     }
 
     angular.module('RomeoApp.services').factory('AccountService',
-        ['$http', '$q', 'DataService', 'localStorageService', 'AuthService', 'SecurityService', AccountService]);
+        ['$http', '$q', 'DataService', 'localStorageService', 'SecurityService', AccountService]);
 })();

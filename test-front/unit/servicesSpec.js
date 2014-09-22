@@ -24,11 +24,6 @@ describe('services', function(){
   	expect(AccountService.getAccount).toBeDefined();
   }));
 
-  it('should have auth service', inject(function(AuthService) {
-  	expect(AuthService).toBeDefined();
-  	expect(AuthService.login).toBeDefined();
-  }));
-
   it('should have collaborators service', inject(function(CollaboratorsService) {
   	expect(CollaboratorsService).toBeDefined();
   	expect(CollaboratorsService.addCollaborators).toBeDefined();

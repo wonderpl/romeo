@@ -7,7 +7,7 @@ describe('security', function(){
   var $location;
   beforeEach(module('RomeoApp'));
 
-  beforeEach(inject(function(_$location_, _$q_, _AuthService_, _AccountService_, SecurityService) {
+  beforeEach(inject(function(_$location_, _$q_, _AccountService_, SecurityService) {
       service = SecurityService;
   }));
 
