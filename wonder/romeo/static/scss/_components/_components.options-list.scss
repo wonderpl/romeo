@@ -1,0 +1,21 @@
+/**
+ * _components.options-list.scss
+ */
+.options-list {
+  
+}
+  .options-list__item {
+    height: 207px;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+  }
+    .options-list__link {
+      margin: 0;
+      position: absolute;
+      top:    0;
+      right:  0;
+      bottom: 0;
+      left:   0;
+      text-align: center;
+    }
