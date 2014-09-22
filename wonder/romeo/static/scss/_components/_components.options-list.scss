@@ -18,4 +18,11 @@
       bottom: 0;
       left:   0;
       text-align: center;
+      -webkit-transition: $base-timing-transition;
+              transition: $base-timing-transition;
+
+      &:hover {
+        -webkit-transform: scale(0.95);
+                transform: scale(0.95);
+      }
     }
