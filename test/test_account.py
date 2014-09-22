@@ -90,3 +90,17 @@ class ConnectionTestCase(unittest.TestCase):
             r = self._connect(user1, user2)
             self.assertEquals(r.status_code, 201)
             self.assertEquals(send_email.call_count, 3)
+
+
+class InviteRequestTestCase(unittest.TestCase):
+
+    def test_invite_request(self):
+        with patch('wonder.romeo.account.forms.send_email') as send_email:
+            user = dict(email='noreply+invite@wonderpl.com', name='Invite User')
+            with current_app.test_client() as client:
+                r = client.post('/api/invite_request', json=user)
+                self.assertEquals(r.status_code, 204)
+
+            recipient, body = send_email.call_args[0]
+            self.assertEquals(recipient, user['email'])
+            self.assertIn(user['name'], body)

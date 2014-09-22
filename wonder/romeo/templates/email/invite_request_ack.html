@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Thank you for your interest in Wonder PL{% endblock %}
+
+{% block body %}
+
+{% if recipient.name %}
+<div style="font-weight:bold;font-size:28px;line-height:1.35;font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif;color:#2e2e32">
+  Dear {{ recipient.name }},
+</div>
+<br>
+{% endif %}
+
+<div>
+Thank you for registering your interest in the closed beta test of Wonder;
+the world's first collaborative video publishing platform and creative network.
+</div>
+<br>
+
+<div>
+We will be in touch as soon as our network starts to expand.
+In the meantime why not follow us on
+<a href="https://twitter.com/wearewonderpl">Twitter</a> or
+<a href="https://www.facebook.com/WonderPL">Facebook</a>.
+</div>
+<br>
+
+<div>
+With thanks,
+</div>
+<div>
+The Wonder Team
+</div>
+<br>
+{% endblock %}

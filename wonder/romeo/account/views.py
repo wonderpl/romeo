@@ -18,7 +18,8 @@ from wonder.romeo.core.rest import Resource, api_resource, cache_control
 from wonder.romeo.core.dolly import DollyUser
 from wonder.romeo.core.util import gravatar_url
 from .forms import (RegistrationForm, ExternalLoginForm, LoginForm,
-                    AccountUserForm, AccountUserConnectionForm, AccountPaymentForm)
+                    AccountUserForm, AccountUserConnectionForm, AccountPaymentForm,
+                    InviteRequestForm)
 from .models import UserProxy, Account, AccountUser, AccountUserConnection
 
 
@@ -170,6 +171,22 @@ def login_items(user):
         user=_user_item(user),
         account=account_item(user.account, get_dollyuser(user.account), full=False)
     )
+
+
+class FormResource(Resource):
+
+    form_cls = None
+
+    @commit_on_success
+    def post(self):
+        return self.validate_form(self.form_cls(csrf_enabled=False))
+
+    def validate_form(self, form):
+        if form.validate():
+            form.save()
+            return None, 204
+        else:
+            return dict(error='invalid_request', form_errors=form.errors), 400
 
 
 class BaseLoginResource(Resource):
@@ -439,7 +456,7 @@ class AccountResource(Resource):
 
 
 @api_resource('/account/<int:account_id>/payment')
-class AccountPaymentResource(Resource):
+class AccountPaymentResource(FormResource):
 
     @commit_on_success
     @dolly_account_view()
@@ -447,10 +464,11 @@ class AccountPaymentResource(Resource):
         # Allow alternative token identifier
         if isinstance(request.json, dict):
             request.json.setdefault('payment_token', request.json.get('stripeToken'))
+        return self.validate_form(AccountPaymentForm(csrf_enabled=False))
 
-        form = AccountPaymentForm(csrf_enabled=False)
-        if form.validate():
-            form.save()
-            return None, 204
-        else:
-            return dict(error='invalid_request', form_errors=form.errors), 400
+
+@api_resource('/invite_request')
+class InviteRequestResource(FormResource):
+
+    decorators = []
+    form_cls = InviteRequestForm

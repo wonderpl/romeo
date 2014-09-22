@@ -1,5 +1,6 @@
 import os
 import sys
+from collections import namedtuple
 from werkzeug.utils import import_string
 from flask import current_app
 from . import manager
@@ -18,7 +19,7 @@ def send_test_email(email_type, recipient, output=None):
     from wonder.romeo.video import forms as video_forms
     from wonder.romeo.account import forms as account_forms
     from wonder.romeo.account.models import (
-        Account, AccountUser, AccountUserConnection, RegistrationToken)
+        Account, AccountUser, AccountUserConnection, RegistrationToken, InviteRequest)
     from wonder.romeo.video.models import (
         Video, VideoThumbnail, VideoCollaborator, VideoComment)
     from wonder.romeo.admin import account as account_admin
@@ -33,7 +34,7 @@ def send_test_email(email_type, recipient, output=None):
         video_forms.send_email = account_forms.send_email =\
             account_admin.send_email = _send_email
 
-    def _create_test_video():
+    def _create_test_data():
         video = Video(title='test', status='ready')
         video.thumbnails = [VideoThumbnail(url='http://lorempixel.com/640/360/technics/2/',
                                            width=640, height=360)]
@@ -58,31 +59,37 @@ def send_test_email(email_type, recipient, output=None):
 
         reg_tokens = [RegistrationToken.new(recipient).id]
 
+        invite_request = InviteRequest(email=recipient, name='Maynard Cohen')
+        db.session.add(invite_request)
+
         db.session.commit()
-        return video, account, reg_tokens
+        return namedtuple('Data', 'video, account, reg_tokens, invite_request')(
+            video, account, reg_tokens, invite_request)
 
     with current_app.test_request_context():
         db.create_all()
-        video, account, reg_tokens = _create_test_video()
+        data = _create_test_data()
         emails = dict(
+            invite_request=(account_forms.send_invite_request_ack_email,
+                            (data.invite_request.id,)),
             beta_invite=(account_admin.send_beta_invite_emails,
-                         (reg_tokens,)),
+                         (data.reg_tokens,)),
             welcome=(account_forms.send_welcome_email,
-                     (account.users[0].id,)),
+                     (data.account.users[0].id,)),
             connect=(account_forms.send_connection_invite_email,
-                     (account.users[1].id, account.users[0].id)),
+                     (data.account.users[1].id, data.account.users[0].id)),
             acceptance=(account_forms.send_connection_acceptance_email,
-                        (account.users[1].id, account.users[0].id)),
+                        (data.account.users[1].id, data.account.users[0].id)),
             processed_error=(video_forms.send_processed_email,
-                             (video.id, 'Duplicate video content')),
+                             (data.video.id, 'Duplicate video content')),
             processed=(video_forms.send_processed_email,
-                       (video.id,)),
+                       (data.video.id,)),
             published=(video_forms.send_published_email,
-                       (video.id, 'ch123', 'vi123')),
+                       (data.video.id, 'ch123', 'vi123')),
             invite=(video_forms.send_collaborator_invite_email,
-                    (video.collaborators[0].id, account.users[0].id)),
+                    (data.video.collaborators[0].id, data.account.users[0].id)),
             comments=(video_forms.send_comment_notifications,
-                      (video.id, video.comments[0].user_type, video.comments[0].user_id)),
+                      (data.video.id, data.video.comments[0].user_type, data.video.comments[0].user_id)),
         )
         try:
             f, args = emails[email_type]

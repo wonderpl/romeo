@@ -185,6 +185,15 @@ class RegistrationToken(db.Model):
         return token
 
 
+class InviteRequest(db.Model):
+
+    id = Column(Integer, primary_key=True)
+    date_added = Column(DateTime(), nullable=False, default=func.now())
+    email = Column(String(256), nullable=False)
+    name = Column(String(256))
+    message = Column(String(1024))
+
+
 class CollaborationMixin(object):
 
     def get_collaborator(self, video_id, permission=True):

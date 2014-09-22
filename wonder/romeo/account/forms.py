@@ -18,7 +18,7 @@ from wonder.romeo.core.util import COUNTRY_CODES
 from wonder.romeo.video.forms import BaseForm, ImageData, JsonBoolean, JsonOptional
 from .models import (
     Account, AccountUser, AccountUserAuthToken, AccountUserConnection,
-    RegistrationToken, EXTERNAL_SYSTEM_CHOICES)
+    RegistrationToken, InviteRequest, EXTERNAL_SYSTEM_CHOICES)
 
 
 def get_auth_handler(system):
@@ -376,3 +376,26 @@ class AccountPaymentForm(Form):
         else:
             current_user.account.payment_token = self.payment_token.data
             current_user.account.set_account_type('content_owner')
+
+
+class InviteRequestForm(Form):
+    email = wtforms.StringField(validators=[wtforms.validators.Email(), email_validator()])
+    name = wtforms.StringField()
+    message = wtforms.StringField()
+
+    def save(self):
+        obj = InviteRequest()
+        self.populate_obj(obj)
+        db.session.add(obj)
+        db.session.flush()
+
+        send_invite_request_ack_email(obj.id)
+
+        return obj
+
+
+@background_on_sqs
+def send_invite_request_ack_email(request_id):
+    invite_request = InviteRequest.query.get(request_id)
+    template = email_template_env.get_template('invite_request_ack.html')
+    send_email(invite_request.email, template.render(recipient=invite_request))

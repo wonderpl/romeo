@@ -581,3 +581,19 @@ Content-Type: application/json
  }
 }
 ```
+
+## Register Interest
+
+To register a user's interest in joining the beta program or request an invite `POST`
+to `invite_request`.
+
+```http
+POST /api/invite_request
+Content-Type: application/json
+
+{
+ "email": "user@server.com",
+ "name": "User Name",
+ "message": "some text"
+}
+```
