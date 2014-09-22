@@ -1,0 +1,25 @@
+/**
+ * _objects.multi-list.scss
+ */
+
+/**
+ * The `.multi-list` object is a lot like the `.matrix` object only without the
+ * blocky borders and padding.
+ *
+   <ul class="multi-list  four-cols">
+       <li>Lorem</li>
+       <li>Ipsum</li>
+       <li>Dolor</li>
+       <li>Sit</li>
+   </ul>
+ */
+.multi-list {
+  list-style: none;
+  margin-left: 0;
+  @extend .cf;
+  
+  > li {
+    width: 100%;
+    float: left;
+  }
+}

@@ -1,0 +1,31 @@
+/**
+ * _objects.matrix.scss
+ */
+
+/**
+ * Create a grid of items out of a single list, e.g.:
+ *
+   <ul class="matrix  three-cols">
+       <li class=all-cols>Lorem</li>
+       <li>Ipsum <a href=#>dolor</a></li>
+       <li><a href=# class=matrix__link>Sit</a></li>
+       <li>Amet</li>
+       <li class=all-cols>Consectetuer</li>
+   </ul>
+ *
+ * Extend this object in your theme stylesheet.
+ */
+.matrix {
+  @extend .block-list;
+  border-left-width: 1px;
+  @extend .cf;
+  
+  > li {
+    float: left;
+    border-right-width: 1px;
+  }
+}
+
+    .matrix__link {
+      @extend .block-list__link;
+    }
