@@ -21,6 +21,19 @@ angular.module('RomeoApp.directives')
           if ($scope.remaining < 0) {
             $scope.video.link_title = oldValue;
           }
+          else {
+            // Update player frame
+            var frame = $('.video-player__frame')[0].contentDocument || $('.video-player__frame')[0].contentWindow.document;
+            frame.dispatchEvent(new CustomEvent('video-data-change', { detail : { path : 'video.link_title', data : newValue }}));
+          }
+        }
+      });
+
+      $scope.$watch('video.link_url', function (newValue, oldValue) {
+        if (newValue !== oldValue) {
+          // Update player frame
+          var frame = $('.video-player__frame')[0].contentDocument || $('.video-player__frame')[0].contentWindow.document;
+          frame.dispatchEvent(new CustomEvent('video-data-change', { detail : { path : 'video.link_url', data : newValue }}));
         }
       });
 
