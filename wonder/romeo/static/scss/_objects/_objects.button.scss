@@ -1,9 +1,35 @@
 /**
- * _objects.button.scss
+ * _objects.buttons.scss
  */
+
 /**
  * A simple button object.
  */
+
+// Predefine the variables below in order to alter and enable specific features.
+$btn-namespace:       $namespace !default;
+
+$btn-padding:         halve($base-spacing-unit) !default;
+$btn-padding--small:  halve($btn-padding) !default;
+$btn-padding--large:  double($btn-padding) !default;
+$btn-background:      transparent !default;
+$btn-color:           inherit !default;
+$btn-border-width:    1px !default;
+$btn-border-style:    solid !default;
+$btn-border-color:    $btn-background !default;
+$btn-radius:          40px !default;
+
+$enable-btn--small:   false !default;
+$enable-btn--large:   false !default;
+$enable-btn--full:    false !default;
+$enable-btn--pill:    false !default;
+
+
+// Here we set a variable assuming that `box-sizing: border-box;` is not set
+// globally. If it has been previously been defined, the following variable will
+// be overriden and will be set to `true`.
+$global-border-box: false !default;
+
 
 /**
  * 1. Allow us to style box model properties.
@@ -16,95 +42,245 @@
  * 7. Subtract the border size from the padding value so that buttons do not
  *    grow larger as we add borders.
  */
-.btn {
+.#{$btn-namespace}btn,
+%#{$btn-namespace}btn {
   display: inline-block; /* [1] */
-  overflow: visible; /* [6] */
-  vertical-align: middle; /* [2]*/
-  margin: 0; /* [4] */
-  padding: $half-spacing-unit $base-spacing-unit; /* [7] */
+  vertical-align: middle; /* [2] */
   font: inherit; /* [3] */
   text-align: center; /* [4] */
-  background-color: transparent;
   border: none; /* [4] */
+  margin:  0; /* [4] */
   cursor: pointer; /* [5] */
+  overflow: visible; /* [6] */
+  //padding: $btn-padding - $btn-border-width  double($btn-padding) - $btn-border-width; /* [7] */
+  padding: 8px 18px;
+  background-color: $btn-background;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+
+  @if($btn-border-width != 0) {
+      border: $btn-border-width $btn-border-style $btn-border-color;
+  }
+
+  @if($btn-radius != 0) {
+      border-radius: $btn-radius;
+  }
+
+  & {
+    font-size: 0.7777777777777778em;
+    font-family: $heading-font-family;
+    color: rgba($base-color-ui-dark, 0.75);
+    border-color: rgba($base-color-ui-dark, 0.5);
+    transition: all $base-timing-transition;
+  }
 
   &,
   &:hover,
   &:active,
-  &:focus,
-  &:visited {
-    text-decoration: none; /* [4] */
+  &:focus {
+      text-decoration: none; /* [4] */
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $base-color-ui-dark;
+    border-color: $base-color-ui-dark;
   }
 }
 
-/**
- * Fix a Firefox bug whereby `input type="submit"` gains 2px extra padding.
- */
-.btn::-moz-focus-inner,
-.btn::-moz-focus-inner {
-  border: 0;
-  padding: 0;
+
+.#{$btn-namespace}btn--positive,
+%#{$btn-namespace}btn--positive {
+  color: rgba($base-color-link, 0.75);
+  border-color: rgba($base-color-link, 0.5);
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $base-color-link;
+    border-color: $base-color-link;
+  }
 }
 
-/**
- * Small buttons
- */
-.btn--small { padding: ($half-spacing-unit / 2) $half-spacing-unit; }
+
+.#{$btn-namespace}btn--destructive,
+%#{$btn-namespace}btn--destructive {
+  color: rgba($base-color-destructive, 0.75);
+  border-color: rgba($base-color-destructive, 0.5);
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $base-color-destructive;
+    border-color: $base-color-destructive;
+  }
+}
+
+
+.#{$btn-namespace}btn--light,
+%#{$btn-namespace}btn--light {
+  color: rgba($base-color-background, 0.75);
+  border-color: rgba($base-color-background, 0.5);
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $base-color-background;
+    border-color: $base-color-background;
+  }
+}
+
+
+.#{$btn-namespace}btn--disabled,
+%#{$btn-namespace}btn--disabled {
+    
+  &,
+  &:hover,
+  &:active,
+  &:focus {
+    color: rgba($base-color-ui-dark, 0.5);
+    border-color: rgba($base-color-ui-dark, 0.25);
+    cursor: not-allowed;
+  }
+}
+
+
+.btn--positive.btn--disabled,
+.btn--positive.btn--disabled {
+    
+  &,
+  &:hover,
+  &:active,
+  &:focus {
+    color: rgba($base-color-link, 0.5);
+    border-color: rgba($base-color-link, 0.25);
+    cursor: not-allowed;
+  }
+}
+
+.btn--destructive.btn--disabled,
+.btn--destructive.btn--disabled {
+
+  &,
+  &:hover,
+  &:active,
+  &:focus {
+    color: rgba($base-color-destructive, 0.5);
+    border-color: rgba($base-color-destructive, 0.25);
+    cursor: not-allowed;
+  }
+}
+
+
+.btn--light.btn--disabled,
+.btn--light.btn--disabled {
+    
+  &,
+  &:hover,
+  &:active,
+  &:focus {
+    color: rgba($base-color-background, 0.5);
+    border-color: rgba($base-color-background, 0.25);
+    cursor: not-allowed;
+  }
+}
+
 
 /**
- * Large buttons
+ * button alterations
  */
-.btn--large { padding: $base-spacing-unit  ($base-spacing-unit * 2); }
-
-/**
- * Full-width buttons
- */
-.btn--full {
+.#{$btn-namespace}btn--full,
+%#{$btn-namespace}btn--full {
   width: 100%;
-  /**
-   * Remove paddings so that widths and paddings don’t conflict.
-   */
   padding-right: 0;
   padding-left:  0;
 }
-
-
-.btn--round { border-radius: 3px !important; }
-
-/**
- * Round-ended buttons.
- *
- * 1. Overly-large value to ensure the radius rounds the whole end of the
- *    button.
- */
-.btn--pill {
-  padding: $half-spacing-unit ($half-spacing-unit + ($half-spacing-unit / 2 ));
-  border-radius: 40px !important;
+.#{$btn-namespace}btn--smooth,
+%#{$btn-namespace}btn--smooth {
+  border-radius: 3px !important;
+}
+.#{$btn-namespace}btn--sharp,
+%#{$btn-namespace}btn--sharp {
+  border-radius: 0 !important;
+}
+.#{$btn-namespace}btn--blob,
+%#{$btn-namespace}btn--blob {
+  padding: $half-spacing-unit !important;
+  line-height: 1 !important;
+  border-radius: 100% !important;
 }
 
-/**
- * Circular buttons.
- *
- * 1. Use a full-value percentage number to ensure all rounded corners are
- *    equal which will result in a circle if all sides are equal.
- */
-.btn--blob {
-  border-radius: 100%;
-}
 
-.btn-center {
+/**
+ * center buttons
+ */
+.#{$btn-namespace}btn-center,
+%#{$btn-namespace}btn-center {
   display: block;
   width: 100%;
   margin-bottom: $base-spacing-unit;
   text-align: center;
-
-  > .btn {
-    margin-right: auto;
-    margin-left:  auto;
-  }
 }
 
 
-.btn-actionable {
+/**
+ * actionable buttons
+ */
+.#{$btn-namespace}btn-actionable,
+%#{$btn-namespace}btn-actionable {
   position: relative;
+}
+
+
+/**
+ * Arrowed buttons
+ */
+.#{$btn-namespace}btn-arrow,
+%#{$btn-namespace}btn-arrow {
+  position: relative;
+
+  &:before,
+  &:after {
+    content: "";
+    height: 0;
+    width:  0;
+    position: absolute;
+    border: solid transparent;
+    pointer-events: none;
+  }
+}
+
+.#{$btn-namespace}btn-arrow--left,
+%#{$btn-namespace}btn-arrow--left {
+  border-top-left-radius:    0 !important;
+  border-bottom-left-radius: 0 !important;
+
+  &:before,
+  &:after {
+    right: 100%;
+    top: 50%;
+  }
+
+  &:before {
+    margin-top: -20px;
+    border-color: rgba(112,121,123,0);
+    border-right-color: rgba($base-color-ui-dark, 0.5);
+    border-width: 20px;
+  }
+
+  &:after {
+    margin-top: -19px;
+    border-color: rgba(255,255,255,0);
+    border-right-color: #fff;
+    border-width: 19px;
+  }
+
+  &:hover {
+
+    &:before {
+      border-right-color: $base-color-ui-dark;
+    }
+  }
 }
