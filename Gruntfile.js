@@ -38,32 +38,6 @@ module.exports = function (grunt) {
         /* Copy Files! */
         /* ======== */
         copy: {
-            // css: {
-            //     src: '<%= assetsDir %>/css/app.css',
-            //     dest: 'dist/assets/css/app.css'
-            // },
-            // fonts: {
-            //     files: [
-            //         {
-            //             expand: true,
-            //             src: 'assets/fonts/*',
-            //             dest: 'dist/',
-            //             filter: 'isFile',
-            //             cwd: '<%= staticDir %>/'
-            //         }
-            //     ]
-            // },
-            // img: {
-            //     files: [
-            //         {
-            //             expand: true,
-            //             src: 'assets/img/*',
-            //             dest: 'dist/',
-            //             filter: 'isFile',
-            //             cwd: '<%= staticDir %>/'
-            //         }
-            //     ]
-            // },
             bowerfiles: {
                 files: [
                     {
@@ -203,7 +177,15 @@ module.exports = function (grunt) {
             },
             RomeoApp: {
                 module: 'RomeoApp',
-                src: ['<%= staticDir %>/views/**/*.html', '<%= assetsDir %>/app/**/*.tmpl.html', '<%= assetsDir %>/common/**/*.tmpl.html'],
+                src: [
+                    '<%= staticDir %>/views/**/*.html',
+                    '<%= assetsDir %>/app/**/*.dir.html',
+                    '<%= assetsDir %>/app/**/*.modal.html',
+                    '<%= assetsDir %>/app/**/*.tmpl.html',
+                    '<%= assetsDir %>/common/**/*.dir.html',
+                    '<%= assetsDir %>/common/**/*.modal.html',
+                    '<%= assetsDir %>/common/**/*.tmpl.html'
+                ],
                 dest: '<%= outputDir %>/romeo/views.js'
             }
         },
@@ -222,7 +204,11 @@ module.exports = function (grunt) {
             angular: {
                 files: [
                   '<%= staticDir %>/views/**/*.html',
+                  '<%= assetsDir %>/app/**/*.dir.html',
+                  '<%= assetsDir %>/app/**/*.modal.html',
                   '<%= assetsDir %>/app/**/*.tmpl.html',
+                  '<%= assetsDir %>/common/**/*.dir.html',
+                  '<%= assetsDir %>/common/**/*.modal.html',
                   '<%= assetsDir %>/common/**/*.tmpl.html'
                 ],
                 tasks: ['ngtemplates']
