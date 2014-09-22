@@ -70,7 +70,7 @@ def register_user(accountname, username, password, location=None, account_type=N
         if token:
             token.account_user = user
         else:
-            abort(401, message='registration_token_required')
+            abort(401, error='registration_token_required')
 
     account = Account(name=accountname, users=[user])
     db.session.add(account)

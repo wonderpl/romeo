@@ -31,7 +31,8 @@ def _oauth_session(state=None):
 
 
 def _get_google_auth_url(next=None):
-    return _oauth_session().authorization_url(GOOGLE_AUTH_URL)[0]
+    return _oauth_session().authorization_url(
+        GOOGLE_AUTH_URL, hd=current_app.config['ADMIN_APPS_DOMAIN'])[0]
 
 
 def _verify_oauth_callback(code, state):

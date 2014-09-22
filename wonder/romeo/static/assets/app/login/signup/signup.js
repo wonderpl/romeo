@@ -30,7 +30,12 @@ angular
             console.log(response);
             $scope.isLoading = false;
             if (response.data.error) {
-              $scope.errorMessage = 'login error';
+              if (response.data.error == 'registration_token_required') {
+                $scope.errorMessage = 'Registration is by invite only';
+              } else {
+                // TODO: Handle response.data.form_errors
+                $scope.errorMessage = response.data.message || 'login error';
+              }
             }
           });
         return true;

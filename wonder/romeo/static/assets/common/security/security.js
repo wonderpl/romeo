@@ -9,6 +9,7 @@
             originalUrl = null,
             checkingLogin = { request: null, response: new $q.defer() },
             externalCredentials = null,
+            registrationToken = $location.search().reg_token,
             _acceptConnection = false,
             _token = false;
 
@@ -118,6 +119,15 @@
                 deferred.resolve({'user': currentUser, 'account': currentAccount});
             }
             return deferred.promise;
+        }
+
+        function _getRegistrationHeaders() {
+            var headers = {};
+            // Bearer token required for closed beta
+            if (registrationToken) {
+              headers.Authorization = 'Bearer ' + registrationToken;
+            }
+            return headers;
         }
 
         var service = {
@@ -234,7 +244,8 @@
                 return $http({
                     method: 'post',
                     url: '/api/register',
-                    data: data
+                    data: data,
+                    headers: _getRegistrationHeaders()
                 }).success(function (data) {
                     debug.info('Registration successful');
                     debug.dir(data);
@@ -259,7 +270,8 @@
                 }
 
                 debug.dir(data);
-                request = $http.post('/api/login/external', data);
+                request = $http.post('/api/login/external', data,
+                                     {headers: _getRegistrationHeaders()});
                 request.then(function (response) {
                     debug.info('Logged in from external service');
                     debug.dir(response.data);
