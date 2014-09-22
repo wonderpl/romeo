@@ -6,9 +6,7 @@ angular.module('RomeoApp.services')
 
   var Data = {};
 
-  /*
-  * If the user is authorised to make a request, go for it!
-  */
+  // If the user is authorised to make a request, go for it!
   Data.request = function(options) {
       var deferred = new $q.defer();
       var promise = SecurityService.requireAuthenticated();
@@ -32,6 +30,18 @@ angular.module('RomeoApp.services')
       else {
         deferred.reject('not logged in');
       }
+
+      return deferred.promise;
+  };
+
+  Data.get = function(url) {
+      var deferred = new $q.defer();
+
+      $http.get(url).then(function (res) {
+        deferred.resolve(res.data || res);
+      }, function (res) {
+        deferred.reject(res);
+      });
 
       return deferred.promise;
   };

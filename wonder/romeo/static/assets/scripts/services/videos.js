@@ -156,7 +156,7 @@ function VideoService ($rootScope, $q, $http, localStorageService, DataService, 
   */
   Video.get = function(id) {
       var url = '/api/video/' + id + '';
-      return DataService.request({ url: url, method: 'GET'});
+      return DataService.get(url);
   };
 
   /*
