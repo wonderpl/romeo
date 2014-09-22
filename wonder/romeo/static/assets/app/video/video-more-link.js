@@ -6,7 +6,7 @@ angular.module('RomeoApp.directives')
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('video-more-link.html'),
+    template : $templateCache.get('video/video-more-link.dir.html'),
     scope : {
       video : '='
     },

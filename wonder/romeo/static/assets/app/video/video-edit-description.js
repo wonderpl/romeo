@@ -9,7 +9,7 @@
     return {
       replace: true,
       restrict: 'E',
-      template : $templateCache.get('video/edit-description.tmpl.html'),
+      template : $templateCache.get('video/video-edit-description.dir.html'),
       scope: {
         video: '='
       },
@@ -25,6 +25,6 @@
     };
   }
 
-  angular.module('RomeoApp.video').directive('editDescription', ['$templateCache', 'VideoService', editDescription]);
+  angular.module('RomeoApp.video').directive('videoEditDescription', ['$templateCache', 'VideoService', editDescription]);
 
 })();

@@ -6,7 +6,7 @@ angular.module('RomeoApp.directives')
   return {
     restrict : 'AE',
     replace : true,
-    template : $templateCache.get('video-share.html'),
+    template : $templateCache.get('video/video-share.dir.html'),
     scope : {
       video : '=',
       videoId : '@',
@@ -76,7 +76,7 @@ window.fbAsyncInit = function() {
       xfbml      : true  // parse XFBML
     });
     };
- 
+
   (function(d){
     'use strict';
      var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
@@ -85,4 +85,3 @@ window.fbAsyncInit = function() {
      js.src = "//connect.facebook.net/en_US/all.js";
      ref.parentNode.insertBefore(js, ref);
    }(document));
- 

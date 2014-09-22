@@ -9,7 +9,7 @@ function VideoDownloadDirective ($templateCache, $location, VideoService, $q) {
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('video-download.html'),
+    template : $templateCache.get('video/video-download.dir.html'),
     scope : {
       videoId : '='
     },

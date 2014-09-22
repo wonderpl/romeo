@@ -7,7 +7,7 @@
     return {
       restrict : 'E',
       replace : true,
-      template : $templateCache.get('video/modal.tmpl.html'),
+      template : $templateCache.get('video/video-properties.modal.html'),
       scope : {
         showModal : '=',
         video : '=',
@@ -36,7 +36,7 @@
     };
   }
 
-  angular.module('RomeoApp.video').directive('videoModal', ['$templateCache', 'VideoService', modal]);
+  angular.module('RomeoApp.video').directive('videoPropertiesModal', ['$templateCache', 'VideoService', modal]);
 
 })();
 

@@ -5,7 +5,7 @@
       return {
         restrict : 'E',
         replace : true,
-        template : $templateCache.get('video-search-terms.html'),
+        template : $templateCache.get('video/video-search-terms.dir.html'),
         scope: {
             video: '=',
             flags: '=',

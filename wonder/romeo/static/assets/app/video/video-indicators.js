@@ -7,7 +7,7 @@ angular.module('RomeoApp.directives')
   return {
     restrict : 'E',
     replace: true,
-    template : $templateCache.get('video-indicators.html'),
+    template : $templateCache.get('video/video-indicators.dir.html'),
     scope : {
       comments: '=',
       currentTime: '=',

@@ -7,7 +7,7 @@ angular.module('RomeoApp.directives')
   return {
     restrict : 'E',
     replace: true,
-    template : $templateCache.get('video-frame-stepper.html'),
+    template : $templateCache.get('video/video-frame-stepper.dir.html'),
     scope : {
       currentTime: '='
     },

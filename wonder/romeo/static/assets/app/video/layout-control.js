@@ -10,7 +10,7 @@ function LayoutControl ($templateCache, $rootScope, $cookies) {
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('layout-control.html'),
+    template : $templateCache.get('video/layout-control.dir.html'),
     scope : true,
     controller : function ($scope) {
 

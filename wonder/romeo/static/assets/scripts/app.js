@@ -67,21 +67,21 @@
 
         // Videos
         $routeProvider.when('/video', {
-            templateUrl: 'video.html',
+            templateUrl: 'video/video.tmpl.html',
             controller: 'VideoCtrl',
             resolve: securityAuthorizationProvider.requireContentOwner
         });
 
         // Videos
         $routeProvider.when('/video/:id', {
-            templateUrl: 'video.html',
+            templateUrl: 'video/video.tmpl.html',
             controller: 'VideoCtrl',
             resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
         // Videos
         $routeProvider.when('/video/:id/comments', {
-            templateUrl: 'video.html',
+            templateUrl: 'video/video.tmpl.html',
             controller: 'VideoCtrl',
             resolve: securityAuthorizationProvider.requireAuthenticated
         });

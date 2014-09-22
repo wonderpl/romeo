@@ -7,7 +7,7 @@ angular.module('RomeoApp.directives')
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('video-thumbnail.html'),
+    template : $templateCache.get('video/video-thumbnail.dir.html'),
     link : function (scope, elem, attrs) {
 
       $timeout(function () {

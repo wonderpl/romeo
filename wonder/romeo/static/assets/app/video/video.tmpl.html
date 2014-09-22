@@ -46,7 +46,7 @@
             <video-upload ng-show="flags.showUpload && flags.isEdit" ng-cloak></video-upload>
             <video-player ng-hide="flags.isEdit && !video.id"></video-player>
 
-            <video-modal ng-show="flags.isEdit && video.id && showModal" flags="flags" modal-selection="modalSelection" show-modal="showModal" video="video" player-parameters="playerParameters"></video-modal>
+            <video-properties-modal ng-show="flags.isEdit && video.id && showModal" flags="flags" modal-selection="modalSelection" show-modal="showModal" video="video" player-parameters="playerParameters"></video-properties-modal>
 
             <extended-player-controls ng-show="showExtendedControls && flags.isEdit"></extended-player-controls>
 

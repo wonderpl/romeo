@@ -9,7 +9,7 @@
     return {
       restrict : 'E',
       replace : true,
-      template : $templateCache.get('video-collaborators.html'),
+      template : $templateCache.get('video/video-collaborators.dir.html'),
       controller : function ($scope) {
 
         $scope.invite = {

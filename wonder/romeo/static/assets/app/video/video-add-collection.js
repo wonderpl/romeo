@@ -6,7 +6,7 @@
     return {
       restrict : 'E',
       replace : true,
-      template : $templateCache.get('video/video-add-collection.tmpl.html'),
+      template : $templateCache.get('video/video-add-collection.dir.html'),
       scope : true,
       controller : function ($scope) {
         $scope.saveNewCollection = function () {

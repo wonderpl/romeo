@@ -6,7 +6,7 @@ angular.module('RomeoApp.directives')
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('video-extended-controls.html'),
+    template : $templateCache.get('video/video-extended-controls.dir.html'),
     scope : true,
     controller : function ($scope) {
       $scope.showHideCollectionExtended = function() {

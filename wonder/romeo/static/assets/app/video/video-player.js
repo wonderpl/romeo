@@ -21,7 +21,7 @@
     return {
       restrict : 'E',
       replace : true,
-      template : $templateCache.get('video-player.html'),
+      template : $templateCache.get('video/video-player.dir.html'),
       controller : function ($scope) {
 
         $scope.$watch('video.thumbnail_url', function (newValue, oldValue) {

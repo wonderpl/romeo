@@ -6,6 +6,6 @@ angular.module('RomeoApp.directives')
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('video-upload.html')
+    template : $templateCache.get('video/video-upload.dir.html')
   };
 }]);
