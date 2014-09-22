@@ -1,34 +1,30 @@
 <div class="cover-selector">
+  <div class="wrapper">
 
-  <a class="btn btn--positive t--push-bottom" ng-class="{ 'btn--disabled' : !previewImages }" ng-if="!showSelector" ng-click="!!previewImages && displaySelector()">Pick a generated thumbnail</a>
+    <section class="cover-selector__upload  box  u--ta-center" ng-if="!showSelector" ng-file-drop="onCoverSelect($files)">
+      <p class="u--ff-sans"><b>Drag &amp; drop your cover here to begin uploading</b><br>
+      Or if you prefer</p>
+      <ul class="list-inline  u--ta-center">
+        <li><a class="btn" ng-class="{ 'btn--disabled' : !previewImages }" ng-if="!showSelector" ng-click="!!previewImages && displaySelector()">Choose a generated cover</a></li>
+        <li><div class="btn  btn-actionable">Choose a cover to upload <input type="file" ng-file-select="onCoverSelect($files)" class="hidden-input" /></div></li>
+      </ul>
+    </section>
 
-  <section class="cover-selector__upload t--pad-all" ng-if="!showSelector" ng-file-drop="onCoverSelect($files)">
-    <p>Choose your own thumbnail</p>
-    <input type="file" ng-file-select="onCoverSelect($files)" />
-  </section>
+    <section class="cover-selector__carousel" ng-if="showSelector">
+      <ul class="cover-selector__images js-preview-images" style="width: {{ previewImages.length * 500 }}px" ng-style="indexOffset">
+        <li class="cover-selector__image-container cover-selector__image-container-{{ $index }}" ng-class="{ 'video-preview__available-image-container--active' : previewIndex === $index }" ng-repeat="preview in previewImages">
+          <img class="cover-selector__image" ng-class="{ 'cover-selector__image--active' : previewIndex === $index }" ng-src="{{ preview.url }}" ng-click="updateIndex($index)" />
+        </li>
+      </ul>
+    </section>
 
-  <section class="cover-selector__carousel" ng-if="showSelector">
-    <ul class="cover-selector__images js-preview-images" style="width: {{ previewImages.length * 500 }}px" ng-style="indexOffset">
-      <li class="cover-selector__image-container cover-selector__image-container-{{ $index }}"
-        ng-class="{ 'video-preview__available-image-container--active' : previewIndex === $index }"
-        ng-repeat="preview in previewImages">
-        <img class="cover-selector__image"
-          ng-class="{ 'cover-selector__image--active' : previewIndex === $index }"
-          ng-src="{{ preview.url }}"
-          ng-click="updateIndex($index)" />
-      </li>
-    </ul>
-  </section>
-
-  <section class="btn-center btn-group" style="margin-bottom: 24px;" ng-if="showSelector">
-    <a class="btn btn--small no-selection" ng-click="decrementIndex()">&lt;</a>
-    <span class="btn btn--small">{{ previewIndex + 1 }}/{{ previewImages.length }}</span>
-    <span class="btn btn--small">
-      <a ng-click="setBackground()">Select</a>
-    </span>
-    <a class="btn btn--small no-selection" ng-click="incrementIndex()">&gt;</a>
-  </section>
-
-
+    <section class="btn-center  btn-group" ng-if="showSelector">
+      <a class="btn  no-selection" ng-click="decrementIndex()">&lt;</a>
+      <span class="btn">{{ previewIndex + 1 }}/{{ previewImages.length }}</span>
+      <span class="btn">
+        <a ng-click="setBackground()">Select</a>
+      </span>
+      <a class="btn  no-selection" ng-click="incrementIndex()">&gt;</a>
+    </section>
 
 </div>
