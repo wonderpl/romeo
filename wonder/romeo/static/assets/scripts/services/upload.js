@@ -113,6 +113,7 @@ angular.module('RomeoApp.services')
     function pollVideoForReady (id) {
       var promise = $interval(function(){
         VideoService.get(id).then(function (response) {
+          response = response.data || response;
           $rootScope.$broadcast('video-upload-poll', response);
           if (videoIsReady(response)) {
             $rootScope.isUploadingOrProcessingTemp = false;
