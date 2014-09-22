@@ -30,6 +30,15 @@ class AccountUserAdminModelView(AdminModelView):
 
 
 @admin_view()
+class InviteRequestAdminModelView(AdminModelView):
+    model = models.InviteRequest
+
+    column_list = 'email', 'name', 'date_added'
+
+    form_excluded_columns = 'date_added',
+
+
+@admin_view()
 class RegistrationTokenAdminModelView(AdminModelView):
     model = models.RegistrationToken
 
