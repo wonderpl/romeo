@@ -99,6 +99,7 @@ function ModalService ($compile, $templateCache, $timeout) {
           $el_bg.addClass('show');
           $el.addClass('animate--flipInX');
       }
+      return $el;
   };
 
   /*

@@ -3,8 +3,8 @@
   'use strict';
 
   angular.module('RomeoApp.directives')
-    .directive('videoCollaborators', ['$templateCache', 'CommentsService', 'CollaboratorsService', 'UserService', 'modal',
-    function ($templateCache, CommentsService, CollaboratorsService, UserService, modal) {
+    .directive('videoCollaborators', ['$templateCache', '$timeout', 'CommentsService', 'CollaboratorsService', 'UserService', 'modal',
+    function ($templateCache, $timeout, CommentsService, CollaboratorsService, UserService, modal) {
 
     return {
       restrict : 'E',
@@ -59,7 +59,11 @@
         );
 
         $scope.showCollaboratorsModal = function () {
-          modal.load('manage-collaborators.tmpl.html', true, $scope, {});
+          var elem = modal.load('manage-collaborators.tmpl.html', true, $scope, {});
+          $timeout(function () {
+            elem.find('.select2').select2('focus');
+          }, 100);
+
         };
 
         $scope.close = function () {

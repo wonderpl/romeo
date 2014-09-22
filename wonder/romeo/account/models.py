@@ -192,14 +192,22 @@ class CollaborationMixin(object):
         collaborators = VideoCollaborator.query.filter_by(video_id=video_id)
         collaborator = None
 
+        # check session
         if session.get('collaborator_ids'):
             collaborator = collaborators.filter(
                 VideoCollaborator.id.in_(session['collaborator_ids']),
             ).first()
 
+        # then match on user id
         if self.id and not collaborator:
             collaborator = collaborators.filter(
                 VideoCollaborator.account_user_id == self.id
+            ).first()
+
+        # finally fall back on email match
+        if self.id and self.email and not collaborator:
+            collaborator = collaborators.filter(
+                func.lower(VideoCollaborator.email) == func.lower(self.email)
             ).first()
 
         if collaborator and (permission is True or
