@@ -1,7 +1,13 @@
-.video-config-nav {
+.video-options {
+  width: 153px;
   position: absolute;
   top: 0;
-  right: -200px;
+  right: -165px;
+}
+.video-config-nav {
   display: block;
-  width: 200px;
+
+  > li {
+    margin-bottom: $half-spacing-unit;
+  }
 }

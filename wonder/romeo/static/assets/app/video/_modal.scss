@@ -7,12 +7,11 @@
 
 .video-modal__overlay {
   position:absolute;
-  top: 24px;
-  left: 24px;
-  height: 85%;
-  width: 85%;
-  background: $white;
-  box-shadow: 0 0 24px black;
+  top:  0;
+  left: 0;
+  height: calc(100% - 38px);
+  width: 100%;
+  background: rgba($white, 0.98);
 }
 
 .video-modal__window {
