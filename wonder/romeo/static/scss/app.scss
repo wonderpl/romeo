@@ -127,32 +127,9 @@
 //  "components/_modal",
 //  "components/_notice",
 
-  "specifics/video/_layout-control",
-  "specifics/video/_configurable-layout",
-  "specifics/video/_video-edit",
-  "specifics/video/_video-feedback",
-  "specifics/video/_video-player",
-  "specifics/video/_video-view",
-  "specifics/video/_video-share",
-  "specifics/video/_video-indicators",
-  "specifics/video/_video-upload",
-  "specifics/video/_video-thumbnail",
-  "specifics/video/_video-extended-controls",
-  "specifics/video/_video-edit-categories",
-  "specifics/video/_video-edit-collections",
-  "specifics/video/_video-new-collection",
-  "specifics/video/_video-add-collaborators",
-  "specifics/video/_video-frame-stepper",
-  "specifics/video/_video-more",
-  "specifics/video/_video-collaborators",
-  "specifics/video/_video-medium",
-  "specifics/video/_video-section-drawer",
+  "specifics/video/__video",
 
   "specifics/upload/_upload-progress",
-
-//  "specifics/header/_page-header",
-
-  "specifics/footer/_page-footer",
 
   "../assets/app/organise/__organise",
   "../assets/app/profile/__profile",
@@ -163,4 +140,5 @@
   "../assets/app/video/__video",
   "../assets/app/video/config/__config",
 
-  "../assets/common/directives/_global-navigation";
+  "../assets/common/directives/_global-navigation",
+  "../assets/common/directives/_local-navigation";

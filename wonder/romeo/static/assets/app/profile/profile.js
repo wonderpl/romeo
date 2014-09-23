@@ -43,6 +43,12 @@ function ProfileCtrl($scope, UserService, LocationService, SecurityService) {
       accountId: null
     };
 
+    $scope.pages = [
+      {url: '#/profile', title: 'Profile', isActive: true},
+      {url: '#/profile/edit', title: 'Edit'}
+
+    ];
+
     // Defaults until the web service call is completed
     locations = { 'country': { 'items': [
       { 'code': 'GB', 'name': 'United Kingdom' },

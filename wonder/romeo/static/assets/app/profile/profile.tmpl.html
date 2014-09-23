@@ -1,8 +1,10 @@
 <section class="profile">
 
-  <div class="profile-view__nav-placeholder sub-navigation__placeholder" ng-show="flags.isOwner">
+  <!-- div class="profile-view__nav-placeholder sub-navigation__placeholder" ng-show="flags.isOwner">
     <profile-navigation flags="flags" ng-if="flags.isOwner"></profile-navigation>
-  </div>
+  </div -->
+
+  <local-navigation pages="pages"></local-navigation>
 
   <profile-cover></profile-cover>
 
@@ -14,7 +16,7 @@
 
 
     <list-videos ng-if="! flags.isOwner">
-      This should be the list of collaborators and public videos
+      This should be the list of public videos
     </list-videos>
 
   </div>

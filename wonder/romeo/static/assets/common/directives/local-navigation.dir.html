@@ -1,0 +1,5 @@
+<nav ng-if="pages" class="local-nav">
+    <ul class="local-nav__list">
+        <li class="local-nav__item u--ff-sans" ng-repeat="page in pages" ng-class="{'local-nav__item--active' : page.isActive }"><a href="{{ page.url }}">{{ page.title }}</a></li>
+    </ul>
+</nav>

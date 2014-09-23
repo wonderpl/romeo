@@ -1,0 +1,24 @@
+.local-nav {
+    text-align: center;
+}
+.local-nav__list {
+    list-type: none;
+    display: block;
+    width: auto;
+}
+.local-nav__item {
+    display: inline-block;
+    border-top: 1px solid $grey;
+    padding: 4px 12px 0;
+    text-transform: uppercase;
+    a {
+        color: $grey;
+    }
+}
+.local-nav__item--active {
+    border-top: 3px solid $cold-black;
+    padding-top: 2px;
+    a {
+        color: $cold-black;
+    }
+}
