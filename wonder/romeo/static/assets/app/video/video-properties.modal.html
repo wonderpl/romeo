@@ -12,7 +12,7 @@
       <cover-selector ng-if="modalSelection === 'cover'" video="video"></cover-selector>
       <player-editor ng-if="modalSelection === 'player'" player-parameters="playerParameters" video="video"></player-editor>
       <video-edit-description ng-if="modalSelection === 'description'" video="video"></video-edit-description>
-
+      <video-more-link video="video" ng-if="modalSelection === 'more-link'"></video-more-link>
     </div>
     <div class="video-modal__footer modal__footer">
       <div class="modal__actions">
