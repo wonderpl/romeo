@@ -12,20 +12,22 @@
 		<li class="zeta  u--ff-sans" ng-if="profile.website_url"><a href="{{ profile.website_url }}" target="_new">{{ profile.website_url }}</a></li>
 	</ul>
 
-	<hr class="rule">
+    <div ng-show="connections">
+    	<hr class="rule">
 
-	<h2 class="heading delta u--ta-center f--sans" ng-if="connections">People I've collaborated with</h2>
-	<ul class="layout" ng-show="connections">
+    	<h2 class="heading delta u--ta-center f--sans" ng-if="connections">People I've collaborated with</h2>
+    	<ul class="layout" >
 
-		<li class="layout__item  one-quarter" ng-repeat="connection in connections">
-        <div class="avatar  avatar--center">
-          <a href="#/profile/{{ connection.user.id}}" ng-if="! connection.hideLink" class="profile-collaborators__link avatar">
-				<img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img" style="background-image: url({{connection.user.avatar || '/static/assets/img/user-avatar.png' }});">
-			</a>
-			<img  ng-if="connection.hideLink" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img" style="background-image: url({{connection.user.avatar || '/static/assets/img/user-avatar.png' }});">
-        </div>
-        <p class="heading  epsilon  u--w700  u--ta-center  u--m-none">{{connection.user.display_name}}</p>
-        <p class="zeta  u--ff-sans  u--ta-center  u--o75">{{connection.user.title}}</p>
-      </li>
-	</ul>
+    		<li class="layout__item  one-quarter" ng-repeat="connection in connections">
+            <div class="avatar  avatar--center">
+              <a href="#/profile/{{ connection.user.id}}" ng-if="! connection.hideLink" class="profile-collaborators__link avatar">
+    				<img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img" style="background-image: url({{connection.user.avatar || '/static/assets/img/user-avatar.png' }});">
+    			</a>
+    			<img  ng-if="connection.hideLink" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img" style="background-image: url({{connection.user.avatar || '/static/assets/img/user-avatar.png' }});">
+            </div>
+            <p class="heading  epsilon  u--w700  u--ta-center  u--m-none trunc">{{connection.user.display_name}}</p>
+            <p class="zeta  u--ff-sans  u--ta-center  u--o75 trunc">{{connection.user.title}}</p>
+          </li>
+    	</ul>
+    </div>
 </div>

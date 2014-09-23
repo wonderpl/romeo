@@ -1,5 +1,8 @@
-<section class="public-profile__wrapper">
-	<ul class="public-profile__videos" ng-show="videos">
+<section class="public-profile__wrapper" ng-show="videos">
+  <hr class="rule">
+
+  <h2 class="heading delta u--ta-center f--sans" ng-if="connections">Videos I've worked on</h2>
+	<ul class="public-profile__videos">
 		<li ng-repeat="item in videos" class="cf t--block t--pad-top--half">
         <a href="#/video/{{item.id}}" class="media non-link">
           <div class="media__img one-third search__thumbnail">
@@ -8,8 +11,8 @@
             </div>
           </div>
           <div class="media__body">
-            <p class="heading no-spacing trunc" ng-bind-html="item.title"></p>
-            <p class="search__item-description milli trunc--three" ng-bind-html="item.description"></p>
+            <p class="heading epsilon u--w700 u--m-none heading trunc" ng-bind-html="item.title"></p>
+            <p class="search__item-description zeta u--ff-sans u--o75 trunc--three" ng-bind-html="item.description"></p>
           </div>
         </a>
       </li>
