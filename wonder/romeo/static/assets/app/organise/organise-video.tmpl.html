@@ -1,11 +1,11 @@
 <div class="video">
-  <div class="video-thumb">
+  <div class="video-thumb" ng-if="! isList || isCollaboration">
     <a ng-href="#/video/{{video.id}}" class="ratio  ratio--16x9  video-thumb__poster">
       <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="ratio__src" style="background-image:url('http://blog.napc.com/Portals/10319/images/clouds.jpg');">
     </a>
     <div class="video-thumb__meta">
-      <a ng-href="#/video/{{video.id}}" title="" class="trunc  u--d-block  reverse-link  u--ff-sans" ng-if="isList" ng-bind-html="video.title"></a>
-      <ul class="list-inline  list-inline--meta" ng-hide="isList">
+      <a ng-href="#/video/{{video.id}}" title="" class="trunc  u--d-block  reverse-link  u--ff-sans" ng-bind-html="video.title"></a>
+      <ul class="list-inline  list-inline--meta">
         <li><a href="#/video/{{video.id}}/comments" class="milli  u--ff-sans  reverse-link">Collaborate</a></li><!--
      --><li><a ng-href="#/video/{{video.id}}/publish" class="milli  u--ff-sans  reverse-link">Publish</a></li><!--
      --><li><a href="#/analytics" class="milli  u--ff-sans  reverse-link">Stats</a></li><!--
@@ -13,16 +13,16 @@
      --><li><a ng-click="showDelete(video)" class="milli  u--ff-sans  reverse-link">Delete</a></li>
       </ul>
     </div>
+  </div>
 
-    <div class="video-thumb__meta  split" ng-show="isList && !isCollaboration">
-      <ul class="list-inline  list-inline--meta  split__title">
-        <li><a href="#/video/{{video.id}}/comments" class="milli  u--ff-sans  reverse-link  simptip-position-top  simptip-smooth  simptip-movable" data-tooltip="Collaborate"><i class="icon  icon--medium  icon--group"></i></a></li><!--
-     --><li><a ng-href="" class="milli  u--ff-sans  reverse-link  simptip-position-top  simptip-smooth  simptip-movable" data-tooltip="Publish"><i class="icon  icon--medium  icon--eye"></i></a></li><!--
-     --><li><a href="#/analytics" class="milli  u--ff-sans  reverse-link  simptip-position-top  simptip-smooth  simptip-movable" data-tooltip="Stats"><i class="icon  icon--medium  icon--bar-graph"></i></a></li><!--
-     --><li><a ng-click="addRemove(video)" class="milli  u--ff-sans  reverse-link  simptip-position-top  simptip-smooth  simptip-movable" data-tooltip="Add to collection"><i class="icon  icon--medium  icon--collection"></i></a></li><!--
-     --><li><a ng-click="showDelete(video)" class="milli  u--ff-sans  reverse-link  simptip-position-top  simptip-smooth  simptip-movable" data-tooltip="Delete"><i class="icon  icon--medium  icon--trash"></i></a></li>
-      </ul>
-      <a ng-href="#/video/{{video.id}}" title="" class="trunc  u--d-block  reverse-link  u--ff-sans" ng-show="isList" ng-bind-html="video.title"></a>
-    </div>
-  </div>  
+  <div class="video-thumb__meta  split" ng-if="isList && !isCollaboration">
+    <ul class="list-inline  list-inline--meta  split__title">
+      <li><a href="#/video/{{video.id}}/comments" class="milli  u--ff-sans  reverse-link  simptip-position-top  simptip-smooth  simptip-movable" data-tooltip="Collaborate"><i class="icon  icon--medium  icon--group"></i></a></li><!--
+   --><li><a ng-href="" class="milli  u--ff-sans  reverse-link  simptip-position-top  simptip-smooth  simptip-movable" data-tooltip="Publish"><i class="icon  icon--medium  icon--eye"></i></a></li><!--
+   --><li><a href="#/analytics" class="milli  u--ff-sans  reverse-link  simptip-position-top  simptip-smooth  simptip-movable" data-tooltip="Stats"><i class="icon  icon--medium  icon--bar-graph"></i></a></li><!--
+   --><li><a ng-click="addRemove(video)" class="milli  u--ff-sans  reverse-link  simptip-position-top  simptip-smooth  simptip-movable" data-tooltip="Add to collection"><i class="icon  icon--medium  icon--collection"></i></a></li><!--
+   --><li><a ng-click="showDelete(video)" class="milli  u--ff-sans  reverse-link  simptip-position-top  simptip-smooth  simptip-movable" data-tooltip="Delete"><i class="icon  icon--medium  icon--trash"></i></a></li>
+    </ul>
+    <a ng-href="#/video/{{video.id}}" title="" class="trunc  u--d-block  reverse-link  u--ff-sans" ng-bind-html="video.title"></a>
+  </div>
 </div>
