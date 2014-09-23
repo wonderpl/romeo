@@ -83,6 +83,10 @@
             $scope.video.thumbnail_url = data.thumbnail_url;
             $scope.$emit('close-modal');
 
+            // Update player frame
+            var frame = $('.video-player__frame')[0].contentDocument || $('.video-player__frame')[0].contentWindow.document;
+            $(frame).find('#wonder-poster img').attr('src', $scope.video.thumbnail_url);
+
             $scope.$emit('notify', {
               status : 'success',
               title : 'Preview Image Updated',
@@ -124,6 +128,12 @@
           VideoService.setPreviewImage($scope.video.id, data).then(function(data) {
             $scope.video.thumbnail_url = data.image.items[0].url;
             $scope.$emit('close-modal');
+
+            // Update player frame
+            var frame = $('.video-player__frame')[0].contentDocument || $('.video-player__frame')[0].contentWindow.document;
+            $(frame).find('#wonder-poster img').attr('src', $scope.video.thumbnail_url);
+
+
             $scope.$emit('notify', {
               status : 'success',
               title : 'Preview Image Updated',

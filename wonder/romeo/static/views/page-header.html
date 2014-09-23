@@ -4,10 +4,6 @@
       <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="page-logo__img" alt="Wonder PL">
     </a>
     <upload-progress ng-if="isLoggedIn() && isUploading()"></upload-progress>
-    <ul class="nav  nav-menu" ng-if="isLoggedIn()">
-      <li class="nav-menu__item" ng-if="isContentOwner()"><a href="#/video" class="nav-menu__link">Upload</a></li>
-      <li class="nav-menu__item"><a href="#/profile" class="nav-menu__link  avatar  avatar--small"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="{{ display_name }}" class="avatar__img" ng-style="profileStyle"></a></li>
-    </ul>
     <ul class="nav  nav-menu" ng-if="! isLoggedIn()">
       <li class="nav-menu__item"><a href="#/login" class="nav-menu__link">Login</a></li>
     </ul>

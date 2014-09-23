@@ -220,7 +220,7 @@ module.exports = function (grunt) {
                     '<%= assetsDir %>/app/**/*.js'
                 ],
                 tasks: ['jshint']
-            }, // @TODO enable karma unit tests as part of watch
+            },
             unittest: {
                 files: [
                     '<%= assetsDir %>/scripts/**/*.js',

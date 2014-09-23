@@ -158,57 +158,6 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
     console.log(id);
   };
 
-  $scope.onPreviewImageSelect = function (files) {
-    $scope.$emit('notify', {
-      status : 'info',
-      title : 'Uploading Image',
-      message : 'Thumbnail uploading.'}
-    );
-    VideoService.saveCustomPreview($scope.video.id, files[0]).then(function(data){
-      angular.extend($scope.video, data);
-      $scope.loadVideo($scope.video.id);
-      $scope.showPreviewSelector = false;
-      $scope.showVideoEdit = true;
-      $scope.$emit('notify', {
-        status : 'success',
-        title : 'Preview Image Updated',
-        message : 'New preview image saved.'}
-      );
-    }, function () {
-      $scope.$emit('notify', {
-        status : 'error',
-        title : 'Preview Image Update Error',
-        message : 'Preview image not saved.'}
-      );
-    });
-  };
-
-  $scope.onFileSelect = function(files) {
-    $scope.video.title = $scope.video.title || stripExtension(files[0].name);
-    var data = { title : $scope.video.title };
-
-    $scope.$emit('notify', {
-      status : 'info',
-      title : 'Uploading Video',
-      message : 'Upload started for video ' + $scope.video.title + '.'}
-    );
-
-    //@TODO refactor
-    if ($scope.video.id) {
-      persistVideoData(data);
-      UploadService.uploadVideo(files[0], $scope.video.id);
-    } else {
-      VideoService.create(data).then(function (data) {
-        persistVideoData(data);
-        UploadService.uploadVideo(files[0], data.id);
-        $rootScope.uploadingVideoId = data.id;
-      });
-    }
-    $rootScope.isUploadingOrProcessingTemp = true;
-    $scope.showPreviewSelector = true;
-    $scope.flags.showUpload = false;
-  };
-
   $scope.closePreviewSelector = function () {
     $scope.showPreviewSelector = false;
     $scope.showThumbnailSelector = false;

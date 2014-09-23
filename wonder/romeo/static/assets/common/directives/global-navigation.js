@@ -4,7 +4,7 @@
     return {
       restrict : 'E',
       replace : true,
-      template : $templateCache.get('directives/global-navigation.tmpl.html'),
+      template : $templateCache.get('directives/global-navigation.dir.html'),
       scope: {
 
       },

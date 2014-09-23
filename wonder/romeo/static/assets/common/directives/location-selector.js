@@ -4,7 +4,7 @@
 		return {
 			restrict : 'E',
 			replace : true,
-			template : $templateCache.get('directives/location-selector.tmpl.html'),
+			template : $templateCache.get('directives/location-selector.dir.html'),
       scope: {
         location: '=',
         allowEmpty: '='
