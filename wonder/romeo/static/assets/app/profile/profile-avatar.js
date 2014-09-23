@@ -7,7 +7,7 @@ angular
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('profile/profile-avatar.tmpl.html'),
+    template : $templateCache.get('profile/profile-avatar.dir.html'),
     scope: true,
     controller : function ($scope) {
       function init() {

@@ -19,7 +19,7 @@
         };
 
         $scope.invite = function () {
-          modal.load('profile/invite-modal.tmpl.html', true, $scope);
+          modal.load('profile/profile-invite.modal.html', true, $scope);
           console.log($scope.profile);
           $scope.invitation = {
             user: $scope.profile.id

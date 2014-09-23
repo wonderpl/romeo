@@ -7,7 +7,7 @@ function ($templateCache, UserService) {
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('profile/cover-image.tmpl.html'),
+    template : $templateCache.get('profile/profile-cover.dir.html'),
     scope : true,
     controller : function ($scope) {
       $scope.uploadProfileCover = function (files) {

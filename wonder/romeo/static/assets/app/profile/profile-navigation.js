@@ -7,7 +7,7 @@ angular
       return {
         restrict : 'E',
         replace : true,
-        template : $templateCache.get('profile/profile-navigation.tmpl.html'),
+        template : $templateCache.get('profile/profile-navigation.dir.html'),
         scope : {
           flags : '='
         },
