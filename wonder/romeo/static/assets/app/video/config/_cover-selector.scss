@@ -7,7 +7,9 @@
 }
 
 .cover-selector__images {
+  list-style: none;
   overflow: hidden;
+  margin-left: none;
   transition: margin-left 0.4s ease-in-out;
 }
 

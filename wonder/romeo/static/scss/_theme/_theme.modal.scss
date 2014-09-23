@@ -47,19 +47,17 @@
   .modal__title,
   .modal__content,
   .modal__footer {
-    padding: $half-spacing-unit;
     @extend .cf;
   }
   .modal__title {
-    font-size: 22px;
-    font-family: $heading-font-family;
-    border-bottom: 1px solid $swatch-two;
+    padding-top: $half-spacing-unit;
   }
     .modal__link {
-      display: inline-block;
-      color: $swatch-four;
-      text-decoration: none;
-      border: none;
+      margin-top:   $base-spacing-unit;
+      margin-right: $base-spacing-unit;
+      position: absolute;
+      top: 0;
+      right: 0;
       cursor: pointer;
     }
 

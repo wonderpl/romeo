@@ -1,6 +1,7 @@
 <div class="cover-selector">
   <div class="wrapper">
 
+  <div class="text-col">
     <section class="cover-selector__upload  box  u--ta-center" ng-if="!showSelector" ng-file-drop="onCoverSelect($files)">
       <p class="u--ff-sans"><b>Drag &amp; drop your cover here to begin uploading</b><br>
       Or if you prefer</p>
@@ -9,6 +10,7 @@
         <li><div class="btn  btn-actionable">Choose a cover to upload <input type="file" ng-file-select="onCoverSelect($files)" class="hidden-input" /></div></li>
       </ul>
     </section>
+  </div>
 
     <section class="cover-selector__carousel" ng-if="showSelector">
       <ul class="cover-selector__images js-preview-images" style="width: {{ previewImages.length * 500 }}px" ng-style="indexOffset">
@@ -19,12 +21,13 @@
     </section>
 
     <section class="btn-center  btn-group" ng-if="showSelector">
-      <a class="btn  no-selection" ng-click="decrementIndex()">&lt;</a>
-      <span class="btn">{{ previewIndex + 1 }}/{{ previewImages.length }}</span>
+      <a class="btn  no-selection" ng-click="decrementIndex()">&lsaquo;</a>
       <span class="btn">
         <a ng-click="setBackground()">Select</a>
       </span>
-      <a class="btn  no-selection" ng-click="incrementIndex()">&gt;</a>
+      <a class="btn  no-selection" ng-click="incrementIndex()">&rsaquo;</a>
     </section>
+    <p class="u--ff-sans  u--ta-center" ng-if="showSelector">{{ previewIndex + 1 }}/{{ previewImages.length }}</p>
 
+  </div>
 </div>
