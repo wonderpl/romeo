@@ -1,4 +1,32 @@
-<section class="video-extended-controls" ng-show="flags.isEdit">
+
+<section class="page-section" ng-if="flags.isEdit">
+  <h3 class="heading  gamma  u--ta-center">Manage your content</h3>
+  <div class="text-col">
+    <ul class="matrix  options-list">
+      <li class="options-list__item  one-third">
+        <a href="" class="matrix__link  reverse-link  options-list__link">
+          <h4 class="heading  delta  u--ta-center">Add collaborators</h4>
+          <i class="icon  icon--group  icon--large  u--m-half"></i>
+          <p class="zeta  u--ta-center  u--m-none">Invite someone to view and comment on your video</p>
+        </a>
+      </li>
+      <li class="options-list__item  one-third">
+        <a href="" class="matrix__link  reverse-link  options-list__link">
+          <h4 class="heading  delta  u--ta-center">Wonder Transfer</h4>
+          <i class="icon  icon--upload  icon--large  u--m-half"></i>
+          <p class="zeta  u--ta-center  u--m-none">Send your video assets to&hellip;</p>
+        </a>
+      </li>
+      <li class="options-list__item  one-third">
+        <a href="" class="matrix__link  reverse-link  options-list__link">
+          <h4 class="heading  delta  u--ta-center">Add to collection</h4>
+          <i class="icon  icon--collection  icon--large  u--m-half"></i>
+          <p class="zeta  u--ta-center  u--m-none">Organise your video</p>
+        </a>
+      </li>
+    </ul>
+  </div>
+<!-- section class="video-extended-controls" ng-show="flags.isEdit">
   <section class="video-extended-controls__section" ng-class="{ 'video-extended-controls__section--expanded' : addCollectionShow }">
     <i class="icon  icon--medium  icon--plus  section-drawer__icon" ng-click="showHideCollectionExtended()" ng-hide="addCollectionShow"></i>
     <i class="icon  icon--medium  icon--minus  section-drawer__icon" ng-click="showHideCollectionExtended()" ng-show="addCollectionShow"></i>
@@ -28,4 +56,5 @@
       flags="flags">
     </add-collaborator>
   </section>
+</section -->
 </section>
