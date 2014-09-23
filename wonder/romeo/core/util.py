@@ -13,9 +13,10 @@ COUNTRY_CODES = [
 
 
 def gravatar_url(email):
+    default = current_app.config['GRAVATAR_DEFAULT_URL']
     base = current_app.config['GRAVATAR_BASE_URL']
     hash = md5(email.lower()).hexdigest()
-    query = urlencode(dict(d='mm', s=current_app.config['GRAVATAR_SIZE']))
+    query = urlencode(dict(d=default, s=current_app.config['GRAVATAR_SIZE']))
     return base + hash + '?' + query
 
 

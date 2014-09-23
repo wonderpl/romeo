@@ -75,7 +75,8 @@ AVATAR_THUMBNAIL_SIZES = (
     (120, 120),
 )
 
-GRAVATAR_BASE_URL = "http://www.gravatar.com/avatar/"
+GRAVATAR_BASE_URL = 'https://www.gravatar.com/avatar/'
+GRAVATAR_DEFAULT_URL = 'https://d2sjb83b7sgvkt.cloudfront.net/static/assets/img/user-avatar.png'
 GRAVATAR_SIZE = 60
 
 # Map Ooyala error messages to our own:
