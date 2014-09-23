@@ -1,44 +1,28 @@
-<div class="video-thumb-wrapper  organise-video">
-
-  <ul class="nav  nav--block  organise-video__inline-controls" ng-show="isList && !isCollaboration">
-    <li class="organise-video__inline-control">
-      <a class="organise-video__inline-link organise-video__inline-link--edit  simptip-position-top  simptip-smooth  simptip-movable" ng-href="#/video/{{video.id}}" data-tooltip="Edit video"><i class="icon  icon--edit"></i></a>
-    </li>
-    <li class="organise-video__inline-control">
-      <a class="organise-video__inline-link organise-video__inline-link--view  simptip-position-top  simptip-smooth  simptip-movable" ng-href="#/video/{{video.id}}/publish" data-tooltip="Publish video"><i class="icon  icon--eye"></i></a>
-    </li>
-    <li class="organise-video__inline-control">
-      <a class="organise-video__inline-link organise-video__inline-link--stats  simptip-position-top  simptip-smooth  simptip-movable" href="#/analytics" data-tooltip="View statistics"><i class="icon  icon--bar-graph"></i></a>
-    </li>
-    <li class="organise-video__inline-control">
-      <a class="organise-video__inline-link organise-video__inline-link--add-remove  simptip-position-top  simptip-smooth  simptip-movable" ng-click="addRemove(video)" data-tooltip="Add to/Remove from a collection"><i class="icon  icon--collection"></i></a>
-    </li>
-    <li class="organise-video__inline-control">
-      <a class="organise-video__inline-link organise-video__inline-link--delete  simptip-position-top  simptip-smooth  simptip-movable" ng-click="showDelete(video)" data-tooltip="Delete video"><i class="icon  icon--trash"></i></a>
-    </li>
-  </ul>
-
-  <a ng-href="#/video/{{video.id}}" class="video-thumb-link">
-    <span class="heading  trunc  video-thumb-link__title  video-thumb-link__title-list" ng-show="isList" ng-bind-html="video.title"></span>
-  </a>
-
-  <a ng-href="#/video/{{video.id}}" class="video-thumb-link">
-    <span class="heading  trunc  trunc--two  video-thumb-link__title" ng-hide="isList" ng-bind-html="video.title"></span>
-  </a>
-
-  <div class="ratio  ratio--16x9  video-thumb" ng-hide="isList">
-    <ul class="nav  nav--block  video-thumb-list" ng-hide="isCollaboration">
-      <li class="video-thumb-list__item"><a class="video-thumb-list__link" ng-class="{'is-disabled' : video.status=='error'}" href="#/video/{{video.id}}"><i class="icon  icon--edit"></i><span class="t--block  t--center">Edit</span></a></li>
-      <li class="video-thumb-list__item"><a class="video-thumb-list__link" ng-class="{'is-disabled' : video.status=='error'}" href="#/video/{{video.id}}/publish"><i class="icon  icon--eye"></i><span class="t--block  t--center">Publish</span></a></li>
-      <li class="video-thumb-list__item"><a class="video-thumb-list__link" ng-class="{'is-disabled' : video.status=='error'}" ng-href="#/video/{{video.id}}/comments"><i class="icon  icon--group"></i><span class="t--block  t--center">Collaborate</span></a></li>
-      <li class="video-thumb-list__item"><a class="video-thumb-list__link" href="#/analytics"><i class="icon  icon--bar-graph"></i><span class="t--block  t--center">Stats</span></a></li>
-      <li class="video-thumb-list__item"><a class="video-thumb-list__link" ng-class="{'is-disabled' : video.status=='error'}" ng-click="addRemove(video)"><i class="icon  icon--collection"></i><span class="t--block  t--center">Add / Remove</span></a></li>
-      <li class="video-thumb-list__item"><a class="video-thumb-list__link" ng-click="showDelete(video)"><i class="icon  icon--trash"></i><span class="t--block  t--center">Delete</span></a></l>
-    </ul>
-    <a ng-href="#/video/{{video.id}}">
-      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="ratio__src  video-thumb__img" style="background-image: url('{{ thumbnail }}')">
-      <div class="status" ng-if="showStatus"><span>{{video.status}}</span></div>
+<div class="video">
+  <div class="video-thumb">
+    <a ng-href="#/video/{{video.id}}" class="ratio  ratio--16x9  video-thumb__poster">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="ratio__src" style="background-image:url('http://blog.napc.com/Portals/10319/images/clouds.jpg');">
     </a>
-  </div>
+    <div class="video-thumb__meta">
+      <a ng-href="#/video/{{video.id}}" title="" class="trunc  u--d-block  reverse-link  u--ff-sans" ng-if="isList" ng-bind-html="video.title"></a>
+      <ul class="list-inline  list-inline--meta" ng-hide="isList">
+        <li><a href="#/video/{{video.id}}/comments" class="milli  u--ff-sans  reverse-link">Collaborate</a></li><!--
+     --><li><a ng-href="#/video/{{video.id}}/publish" class="milli  u--ff-sans  reverse-link">Publish</a></li><!--
+     --><li><a href="#/analytics" class="milli  u--ff-sans  reverse-link">Stats</a></li><!--
+     --><li><a ng-click="addRemove(video)" class="milli  u--ff-sans  reverse-link">Add to collection</a></li><!--
+     --><li><a ng-click="showDelete(video)" class="milli  u--ff-sans  reverse-link">Delete</a></li>
+      </ul>
+    </div>
 
+    <div class="video-thumb__meta  split" ng-show="isList && !isCollaboration">
+      <ul class="list-inline  list-inline--meta  split__title">
+        <li><a href="#/video/{{video.id}}/comments" class="milli  u--ff-sans  reverse-link  simptip-position-top  simptip-smooth  simptip-movable" data-tooltip="Collaborate"><i class="icon  icon--medium  icon--group"></i></a></li><!--
+     --><li><a ng-href="" class="milli  u--ff-sans  reverse-link  simptip-position-top  simptip-smooth  simptip-movable" data-tooltip="Publish"><i class="icon  icon--medium  icon--eye"></i></a></li><!--
+     --><li><a href="#/analytics" class="milli  u--ff-sans  reverse-link  simptip-position-top  simptip-smooth  simptip-movable" data-tooltip="Stats"><i class="icon  icon--medium  icon--bar-graph"></i></a></li><!--
+     --><li><a ng-click="addRemove(video)" class="milli  u--ff-sans  reverse-link  simptip-position-top  simptip-smooth  simptip-movable" data-tooltip="Add to collection"><i class="icon  icon--medium  icon--collection"></i></a></li><!--
+     --><li><a ng-click="showDelete(video)" class="milli  u--ff-sans  reverse-link  simptip-position-top  simptip-smooth  simptip-movable" data-tooltip="Delete"><i class="icon  icon--medium  icon--trash"></i></a></li>
+      </ul>
+      <a ng-href="#/video/{{video.id}}" title="" class="trunc  u--d-block  reverse-link  u--ff-sans" ng-show="isList" ng-bind-html="video.title"></a>
+    </div>
+  </div>  
 </div>
