@@ -238,3 +238,26 @@ def migrate_video_files(account):
         ooyala.set_metadata(video.external_id, dict(path=dst, label=account))
 
     db.session.commit()
+
+
+@manager.option("--file", dest="file", help="Video file to upload")
+@manager.option("--title", dest="title", help="Video title", default="Test Title")
+@manager.option("--description", dest="description", help="Video description", default="Test Description")
+@manager.option("--category", dest="category", help="Numeric video category. " + "See https://developers.google.com/youtube/v3/docs/videoCategories/list", default="22")
+@manager.option("--keywords", dest="keywords", help="Video keywords, comma separated", default="")
+@manager.option("--privacyStatus", dest="privacyStatus", help="Video privacy status: public, private or unlisted", default="private")
+def youtube_upload(**kwargs):
+    import os
+    from wonder.romeo.core.youtube import initialize_upload
+    from collections import namedtuple
+    options = namedtuple('Options', kwargs.keys())(*kwargs.values())
+    if options.file is None or not os.path.exists(options.file):
+        exit("Please specify a valid file using the --file= parameter.")
+    else:
+        initialize_upload(options)
+
+
+@manager.command
+def youtube_thumbnail(video_id, file):
+    from wonder.romeo.core.youtube import upload_thumbnail
+    upload_thumbnail(video_id, file)
