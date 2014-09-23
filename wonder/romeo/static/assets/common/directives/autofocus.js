@@ -4,7 +4,7 @@
 
   'use strict';
 
-  /* http://stackoverflow.com/a/20865048/3983822 */
+  // http://stackoverflow.com/a/20865048/3983822
   function autoFocus ($timeout) {
     return {
       restrict: 'AC',
