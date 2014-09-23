@@ -7,11 +7,17 @@
   <div class="text-col">
     <input type="hidden" ui-select2="select2Options" class="select2" ng-model="invite.collaborators" />
   
-    <select class="sort-ui__options" ng-model="invite.permissions">
-      <option value="canComment">Comment</option>
-      <option value="canCommentDownload">Comment and Download</option>
-      <option value="canDownload">Download</option>
-    </select>
+    <ul class="sort-ui">
+      <li>
+        <label for="" class="sort-ui__label">Permissions:</label>
+        <select class="sort-ui__options" ng-model="invite.permissions">
+          <option value="canComment">Comment</option>
+          <option value="canCommentDownload">Comment and Download</option>
+          <option value="canDownload">Download</option>
+        </select>
+      </li>
+    </ul>
+
     <div class="btn-center">
       <a class="btn btn--small btn--positive" ng-click="sendInvitations()">Send invite</a>
     </div>
