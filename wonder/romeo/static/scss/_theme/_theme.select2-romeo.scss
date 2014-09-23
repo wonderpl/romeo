@@ -1,0 +1,29 @@
+.romeo-theme {
+  .select2-container {
+    @extend .btn;
+  }
+
+  .select2-choice {
+    border-width: 0;
+    border-radius: 0;
+    background-image: none;
+    height: auto;
+  }
+  .select2-container .select2-choice .select2-arrow {
+    display: none;
+  }
+  .select2-dropdown-open .select2-choice {
+    background-color: inherit;
+  }
+  .select2-container-active .select2-choice,
+  .select2-container-active .select2-choices {
+    box-shadow: none;
+  }
+}
+.select2-drop {
+  padding-top: 4px;
+}
+.select2-drop-active {
+  border: 1px solid #aaa;
+  border-top-width: 1px;
+}
