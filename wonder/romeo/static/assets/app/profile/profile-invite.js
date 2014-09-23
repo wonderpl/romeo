@@ -7,7 +7,7 @@
     return {
       restrict : 'E',
       replace : true,
-      template : '<a class="profile-invite__link btn btn--utility" ng-click="invite()">Connect with me</a>',
+      template : '<div class="btn-center"><a class="btn btn--positive" ng-click="invite()">Connect with me</a></div>',
       scope : {
         profile: '='
       },
