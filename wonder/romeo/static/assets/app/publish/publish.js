@@ -163,6 +163,10 @@
         $scope.isModal = true;
         initProviders();
         $scope.video = video;
+        $scope.flags = {
+          isOwner: true,
+          isReview: true
+        };
         $scope.showOnlyPublic = true;
         getTags();
         $scope.isPublic = isPublishedAtWonder();

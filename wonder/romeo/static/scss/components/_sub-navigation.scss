@@ -1,6 +1,10 @@
 .sub-navigation {
+  position: fixed;
+  top: 6px;
+  left: 75px;
+  right: 0;
   text-align: right;
-  border-bottom: 1px solid rgba(183, 188, 189, 0.5);
+  z-index: 10;
 }
 
 .sub-navigation__control {
@@ -24,18 +28,6 @@
   display: inline-block;
 }
 
-
-
-.sub-navigation {
-  background: $swatch-one;
-  z-index: 10;
-}
-
-/*.sub-navigation--column {
-  width: 960px;
-  margin: 0 auto;
-}*/
-
 .sub-navigation--sticky {
   position: fixed;
   top:  0;
@@ -46,15 +38,6 @@
   border-bottom: 1px solid rgba(0,0,0,0.1);
   box-shadow: 0 4px 4px -4px rgba(0,0,0,0.05);
 }
-
-/*.sub-navigation--mirror,
-.sub-navigation--wide {
-  left: 0;
-  margin: 0;
-  width: 100%;
-  padding-left: 12px;
-  padding-right: 12px;
-}*/
 
 .sub-navigation__placeholder {
   display: block;

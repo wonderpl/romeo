@@ -7,7 +7,7 @@
     return {
       restrict : 'E',
       replace : true,
-      template : $templateCache.get('search/form.tmpl.html'),
+      template : $templateCache.get('search/form.dir.html'),
       scope : {
         q : '=',
         location : '='
