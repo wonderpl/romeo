@@ -1,6 +1,5 @@
 .romeo-theme {
   .select2-container {
-    @extend .btn;
   }
 
   .select2-choice {
@@ -10,7 +9,9 @@
     height: auto;
   }
   .select2-container .select2-choice .select2-arrow {
-    display: none;
+    border-left-width: 0;
+    background-image: none;
+    background-color: inherit;
   }
   .select2-dropdown-open .select2-choice {
     background-color: inherit;
