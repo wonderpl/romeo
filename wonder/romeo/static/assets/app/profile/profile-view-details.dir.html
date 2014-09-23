@@ -1,0 +1,31 @@
+<div class="profile-details">
+	<h1 class="heading  alpha  u--m-none  u--ta-center" ng-bind="profile.display_name"></h1>
+
+	<p ng-if="profile.title" class="zeta  u--ff-sans  u--ta-center  u--o75">{{ profile.title }}</p>
+
+	<profile-invite ng-if="!flags.isOwner && profile.contactable" data-profile="profile"></profile-invite>
+
+	<p class="u--ta-center" ng-if="profile.description" ng-bind-html="profile.description"></p>
+
+	<ul class="profile-details__optional u--ta-center  list-inline  list-inline--delimited  u--m-default">
+		<li ng-if="profile.location" class="zeta  u--ff-sans  u--o75">{{ findLocationName() }}</li>
+		<li class="zeta  u--ff-sans" ng-if="profile.website_url"><a href="{{ profile.website_url }}" target="_new">{{ profile.website_url }}</a></li>
+	</ul>
+
+	<hr class="rule">
+
+	<h2 class="heading delta u--ta-center f--sans" ng-if="connections">People I've collaborated with</h2>
+	<ul class="layout" ng-show="connections">
+
+		<li class="layout__item  one-quarter" ng-repeat="connection in connections">
+        <div class="avatar  avatar--center">
+          <a href="#/profile/{{ connection.user.id}}" ng-if="! connection.hideLink" class="profile-collaborators__link avatar">
+				<img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img" style="background-image: url({{connection.user.avatar || '/static/assets/img/user-avatar.png' }});">
+			</a>
+			<img  ng-if="connection.hideLink" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img" style="background-image: url({{connection.user.avatar || '/static/assets/img/user-avatar.png' }});">
+        </div>
+        <p class="heading  epsilon  u--w700  u--ta-center  u--m-none">{{connection.user.display_name}}</p>
+        <p class="zeta  u--ff-sans  u--ta-center  u--o75">{{connection.user.title}}</p>
+      </li>
+	</ul>
+</div>

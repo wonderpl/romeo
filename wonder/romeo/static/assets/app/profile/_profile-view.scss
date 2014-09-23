@@ -2,39 +2,7 @@
 	margin-bottom: 50px;
 }
 
-.profile-details__name {
-  font-size: 50px;
-  margin-bottom: $half-spacing-unit;
-  font-family: $heading-font-family;
-  color: $swatch-three;
-  text-align: center;
-}
-
-.profile-details__description {
-  margin-bottom: $base-spacing-unit;
-  @extend .lead;
-  color: $swatch-three;
-  text-align: center;
-}
-.profile-details__job-title,
-.profile-details__location,
-.profile-details__website
-{
-  text-align: center;
-}
 .profile-details__optional {
-  list-style: none;
-  display: block;
-  width: auto;
-  text-align: center;
-  margin-bottom: $half-spacing-unit;
-  border-bottom: 2px $light-grey solid;
-  padding: 0 auto;
-  > li {
-    display: inline-block;
-    width: auto;
-    margin-bottom: $half-spacing-unit;
-  }
   > li:before{
     content: '\00B7';
     font-size: 24px;
@@ -46,24 +14,7 @@
     padding: 0;
   }
 }
-.profile-details__legend {
-  text-transform: uppercase;
-  color: $dark-grey;
-  width: auto;
-  margin-left: $base-spacing-unit;
-  font-size: 12px;
-}
-.profile-collaborators {
-  list-style: none;
-  display: block;
-  margin-bottom: $half-spacing-unit;
-  width: 912px;
 
-  > li {
-    display: inline-block;
-    width: 100px;
-  }
-}
 .profile-collaborators__link {
   position: relative;
   padding-right: 6px;
@@ -74,20 +25,4 @@
   .avatar__img {
     border-radius: 50%;
   }
-}
-.profile-collaborators__remove {
-  display:none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  padding: 5px 0;
-  color: #fff;
-  background-color: rgba(0,0,0,.6);
-  font-size: 40px;
-  font-family: $heading-font-family;
-}
-.profile-invite__link {
-    float: right;
 }

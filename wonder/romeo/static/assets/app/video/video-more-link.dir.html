@@ -6,8 +6,7 @@
     {{ video.link_title ? video.link_title : 'Add a link (optional) &hellip;' }}
   </a>
 
-  <section class="video-more__form" ng-class="{ 'video-more__form--active' : showMoreLinkConfigPanel }">
-
+  <section class="text-col">
     <section class="video-more__controls-container">
 
       <form name="videoMoreLink" ng-submit="videoMoreLink.$valid && save(); isSubmitted = true">
@@ -38,9 +37,6 @@
         <span class="video-more__error" ng-show="isSubmitted && videoMoreLink.url.$error.required">Enter URL</span>
 
         <p class="video-more__hint"><strong>Hint:</strong> Drive traffic to your website by adding a link</p>
-
-        <input class="btn  btn--small  btn--positive" type="submit" value="Okay" />
-
       </form>
 
     </section>

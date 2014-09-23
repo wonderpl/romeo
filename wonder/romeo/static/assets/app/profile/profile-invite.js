@@ -7,7 +7,7 @@
     return {
       restrict : 'E',
       replace : true,
-      template : '<a class="profile-invite__link btn btn--utility" ng-click="invite()">Connect with me</a>',
+      template : '<div class="btn-center"><a class="btn btn--positive" ng-click="invite()">Connect with me</a></div>',
       scope : {
         profile: '='
       },
@@ -19,7 +19,7 @@
         };
 
         $scope.invite = function () {
-          modal.load('profile/invite-modal.tmpl.html', true, $scope);
+          modal.load('profile/profile-invite.modal.html', true, $scope);
           console.log($scope.profile);
           $scope.invitation = {
             user: $scope.profile.id
