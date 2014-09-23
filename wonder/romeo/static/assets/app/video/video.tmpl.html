@@ -43,7 +43,6 @@
           <h3 class="video-view__sub-title" ng-hide="flags.isEdit||showComments()" ng-bind-html="video.strapline"></h3>
 
           <div class="video-view__container" ng-class="{'video-view__container--fixed': flags.isEdit}">
-            <video-upload ng-show="flags.showUpload && flags.isEdit" ng-cloak></video-upload>
             <video-player ng-hide="flags.isEdit && !video.id"></video-player>
 
             <video-properties-modal ng-show="flags.isEdit && video.id && showModal" flags="flags" modal-selection="modalSelection" show-modal="showModal" video="video" player-parameters="playerParameters"></video-properties-modal>
