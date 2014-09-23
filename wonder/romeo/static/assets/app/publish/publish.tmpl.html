@@ -1,18 +1,6 @@
-<section class="sub-navigation">
-  <div class="wrapper">
-    <ul class="sub-navigation__modes">
-      <li class="sub-navigation__mode">
-        <a href="#/video/{{video.id}}" class="sub-navigation__link  btn  btn--utility  icon-text"><i class="icon  icon--edit  icon-text__icon"></i>Edit</a>
-      </li>
-      <li class="sub-navigation__mode">
-        <a href="#/video/{{video.id}}/publish" class="sub-navigation__link  sub-navigation__link--active  btn  btn--utility  icon-text"><i class="icon  icon--eye  icon-text__icon"></i>Publish</a>
-      </li>
-      <li class="sub-navigation__mode">
-        <a href="#/video/{{video.id}}/comments" class="sub-navigation__link  btn  btn--utility  icon-text"><i class="icon  icon--speech-bubble  icon-text__icon"></i>Collaborate</a>
-      </li>
-    </ul>
-  </div>
-</section>
+<div class="video-view__nav-placeholder">
+  <video-navigation flags="flags" video-id="video.id" video-status="video.status"></video-navigation>
+</div>
 <section class="page-section">
   <div class="wrapper  wrapper--fixed">
 

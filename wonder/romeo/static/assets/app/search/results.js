@@ -7,7 +7,7 @@
     return {
       restrict : 'E',
       replace : true,
-      template : $templateCache.get('search/results.tmpl.html'),
+      template : $templateCache.get('search/results.dir.html'),
       scope : {
         results : '='
       }

@@ -48,7 +48,7 @@
 }
 .profile-details__legend {
   text-transform: uppercase;
-  color: $light-grey;
+  color: $dark-grey;
   width: auto;
   margin-left: $base-spacing-unit;
   font-size: 12px;
@@ -56,9 +56,8 @@
 .profile-collaborators {
   list-style: none;
   display: block;
-  margin: 0 auto $half-spacing-unit;
+  margin-bottom: $half-spacing-unit;
   width: 912px;
-  text-align: center;
 
   > li {
     display: inline-block;

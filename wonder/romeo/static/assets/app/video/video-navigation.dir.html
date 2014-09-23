@@ -2,7 +2,7 @@
   <div class="wrapper">
     <ul class="sub-navigation__modes">
       <li class="sub-navigation__mode  f--left">
-        <video-download video-id="videoId" ng-show="videoId && (flags.canDownload || flags.isOwner) && (videoStatus == 'published' || videoStatus == 'ready')"></video-download>
+        <video-download video-id="videoId" ng-show="videoId && (flags.canDownload || flags.isOwner) && (videoStatus == 'published' || videoStatus == 'ready') && !flags.isReview"></video-download>
       </li>
       <li class="sub-navigation__mode  f--left" ng-if="!flags.isOwner && !isCollaborator && flags.canDownload">
         <a class="btn  btn--utility  icon-text" ng-click="copyToAccount()"><i class="icon  icon--paper-stack  icon-text__icon"></i>Copy video to my account</a>
@@ -30,15 +30,6 @@
           Edit
         </a>
       </li>
-      <li class="sub-navigation__mode" ng-show="flags.isOwner && (videoStatus === 'published' || videoStatus === 'ready')">
-        <a
-          class="sub-navigation__link btn  btn--utility icon-text"
-          ng-href="#/video/{{videoId}}/publish"
-          ng-class="{ 'sub-navigation__link--active' : flags.isReview }">
-          <i class="icon  icon--eye  icon-text__icon"></i>
-          Publish
-        </a>
-      </li>
       <li class="sub-navigation__mode" ng-hide="flags.showUpload || (videoStatus !== 'published' && videoStatus !== 'ready')">
         <a
           class="sub-navigation__link btn  btn--utility icon-text"
@@ -46,6 +37,15 @@
           ng-class="{ 'sub-navigation__link--active' : flags.isComments }">
           <i class="icon  icon--speech-bubble  icon-text__icon"></i>
           Collaborate
+        </a>
+      </li>
+      <li class="sub-navigation__mode" ng-show="flags.isOwner && (videoStatus === 'published' || videoStatus === 'ready')">
+        <a
+          class="sub-navigation__link btn  btn--utility icon-text"
+          ng-href="#/video/{{videoId}}/publish"
+          ng-class="{ 'sub-navigation__link--active' : flags.isReview }">
+          <i class="icon  icon--eye  icon-text__icon"></i>
+          Publish
         </a>
       </li>
     </ul>
