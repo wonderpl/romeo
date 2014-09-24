@@ -6,7 +6,7 @@
       <p class="u--ff-sans"><b>Drag &amp; drop your cover here to begin uploading</b><br>
       Or if you prefer</p>
       <ul class="list-inline  u--ta-center">
-        <li><a class="btn" ng-class="{ 'btn--disabled' : !previewImages }" ng-if="!showSelector" ng-click="!!previewImages && displaySelector()">Choose a generated cover</a></li>
+        <li><a class="btn" ng-class="{ 'btn--disabled' : !previewImages }" ng-if="!showSelector && (video.status === 'ready' || video.status === 'published')" ng-click="!!previewImages && displaySelector()">Choose a generated cover</a></li>
         <li><div class="btn  btn-actionable">Choose a cover to upload <input type="file" ng-file-select="onCoverSelect($files)" class="hidden-input" /></div></li>
       </ul>
     </section>
