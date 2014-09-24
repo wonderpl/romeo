@@ -1,0 +1,23 @@
+/**
+ * _components.grid-list.scss
+ */
+.grid-list {
+  
+}
+  .grid-list__item {
+    padding-top:    $half-spacing-unit;
+    padding-bottom: $half-spacing-unit;
+
+    /**
+     * When in list view, strip margin bottom from the grid view container.
+     */
+    .video {
+      margin-bottom: 0;
+    }
+  }
+  .grid-list__item + .grid-list__item {
+    border-top: 1px solid rgba($base-color-ui, 0.25);
+  }
+    .grid-list__link {
+
+    }
