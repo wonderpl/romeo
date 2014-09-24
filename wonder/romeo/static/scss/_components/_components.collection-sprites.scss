@@ -28,3 +28,15 @@
 .collection-link:active .collection-sprite--new, .collection-link:focus .collection-sprite--new {
   background-position: 0 -96px;
 }
+
+.block-link--active {
+
+  &,
+  &:hover,
+  &:active {
+
+    .collection-sprite {
+      background-position: 0 -240px;
+    }
+  }
+}
