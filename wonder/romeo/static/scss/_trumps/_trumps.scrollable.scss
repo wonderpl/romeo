@@ -1,0 +1,27 @@
+/**
+ * _trumps.scrollable.scss
+ */
+
+/**
+ * 1. Disable scrolling
+ */
+.disable-scroll {
+  overflow: hidden !important; /* 1 */
+}
+
+
+/**
+ * 1. Renable scrolling
+ */
+.is-scrollable {
+  overflow-y: scroll !important; /* 1 */
+}
+
+
+/**
+ * 1. Show content is scrollable by affordance
+ */
+.is-scrollable-ui {
+  background-clip: padding-box;
+  border-bottom: 1px solid rgba($base-color-ui, 0.25); /* 1 */  
+}

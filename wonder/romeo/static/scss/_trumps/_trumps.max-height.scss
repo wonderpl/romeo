@@ -1,0 +1,14 @@
+/**
+ * _trumps.max-height.scss
+ */
+// Lets define some variables
+$max-height-small:            $base-spacing-unit * 12;
+$max-height-medium:           $base-spacing-unit * 24;
+$max-height-large:            $base-spacing-unit * 48;
+$max-height-huge:             $base-spacing-unit * 72;
+
+
+.u--mh-small  { max-height: $max-height-small; }
+.u--mh-meidum { max-height: $max-height-medium; }
+.u--mh-large  { max-height: $max-height-large; }
+.u--mh-huge   { max-height: $max-height-huge; }
