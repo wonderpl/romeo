@@ -35,7 +35,7 @@
       padding: 4px 6px;
       font-size: 1em;
       line-height: 1.25;
-      color: $swatch-four;
+      color: $base-color-text;
       border: 1px solid transparent;
       border-radius: 3px;
       cursor: pointer;
@@ -44,7 +44,7 @@
 
       &:hover {
         text-decoration: underline;
-        border-color: rgba($swatch-two,0.12);
+        border-color: rgba($base-color-ui,0.25);
       }
     }
 
@@ -55,7 +55,7 @@
       font-weight: bold;
       text-indent: -20px;
       //border: $base-shadow-outline;
-      border-color: rgba($swatch-two,0.12);
+      border-color: rgba($base-color-ui,0.25);
       -webkit-transition: text-indent 0.15s ease-in-out;
               transition: text-indent 0.15s ease-in-out;
 
@@ -90,7 +90,7 @@
       &:active,
       &:focus {
         text-decoration: none;
-        background-color: rgba($swatch-two,0.12);
+        background-color: rgba($base-color-ui,0.25);
         cursor: default;
       }
     }
