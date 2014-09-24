@@ -27,16 +27,18 @@ a.block-link {
     outline: none;
   }
 }
-.block-link--active {
-  color: #fff;
-  background-color: #51B364;
-  border: 2px solid;
-  border-color: #51B364;
+
+
+a.block-link--active {
 
   &,
   &:hover,
   &:active,
   &:focus {
+    color: #fff;
+    background-color: #51B364;
+    border: 2px solid;
+    border-color: #51B364;
     cursor: default;
   }
 }
