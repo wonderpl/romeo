@@ -10,7 +10,10 @@
 $list-inline-namespace:           $namespace !default;
 
 $enable-list-inline--delimited:   false !default;
+$enable-list-inline--justified:   false !default;
+$enable-list-inline--meta:        true !default;
 $list-inline-delimit-character:   ",\00A0" !default;
+$list-inline-meta-character:      "\00A0\b7\00A0" !default;
 
 .#{$list-inline-namespace}list-inline,
 %#{$list-inline-namespace}list-inline {
@@ -47,14 +50,42 @@ $list-inline-delimit-character:   ",\00A0" !default;
 }
 
 
-.#{$list-inline-namespace}list-justified,
-%#{$list-inline-namespace}list-justified {
-  width: 100%;
-  display: table;
+@if ($enable-list-inline--delimited == true) {
 
-  > li {
-    display: table-cell;
-    width: 1%;
-    text-align: center;
+  /**
+   * Have a list fit the entirety of it's parent container.
+   */
+  .#{$list-inline-namespace}list-inline--justified,
+  %#{$list-inline-namespace}list-inline--justified {
+    width: 100%;
+    display: table;
+
+    > li {
+      display: table-cell;
+      width: 1%;
+      text-align: center;
+    }
+  }
+}
+
+
+@if ($enable-list-inline--meta == true) {
+
+  /**
+   * Change the seperate to a inerpunct (&middot;).
+   */
+  .#{$list-inline-namespace}list-inline--meta,
+  %#{$list-inline-namespace}list-inline--meta {
+
+    > li + li {
+      
+      &:before {
+        content: "#{$list-inline-meta-character}";
+      }
+    }
+
+    .avatar {
+      top: 8px;
+    }
   }
 }
