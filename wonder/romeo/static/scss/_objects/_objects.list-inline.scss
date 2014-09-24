@@ -17,7 +17,7 @@ $list-inline-meta-character:      "\00A0\b7\00A0" !default;
 
 .#{$list-inline-namespace}list-inline,
 %#{$list-inline-namespace}list-inline {
-  margin:  0;
+  margin-left: 0;
   padding: 0;
   list-style: none;
 
