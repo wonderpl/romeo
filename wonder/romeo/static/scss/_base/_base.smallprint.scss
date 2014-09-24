@@ -1,13 +1,16 @@
 /**
  * _base.smallprint.scss
  */
+
+
 /**
  * A series of classes for setting tiny type; for use in smallprint etc.
  */
 .smallprint,
 .milli {
-  @include font-size($milli-size);
+  @include font-size($base-font-size * 0.6666666666666666, 1.5);
 }
+
 .micro {
-  @include font-size($micro-size);
+  @include font-size($base-font-size * 0.5555555555555556, 1.5);
 }
