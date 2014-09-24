@@ -141,7 +141,7 @@
         $routeProvider.when('/', {
             controller: 'StaticPagesCtrl',
             templateUrl: 'pages/home.tmpl.html',
-            resolve: securityAuthorizationProvider.loadAuthentication
+            resolve: securityAuthorizationProvider.requireAuthenticated
         });
 
         $routeProvider.otherwise({redirectTo: '/organise'});
