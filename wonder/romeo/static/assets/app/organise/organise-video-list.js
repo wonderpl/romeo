@@ -70,6 +70,10 @@ function OrganiseVideoList ($templateCache, $cookies) {
         }
       });
 
+      $scope.onChange = function () {
+        $scope.isList = ($scope.collectionSortView === 'List');
+      };
+
       function getFilteredVideoList() {
         if ($scope.filterByRecent)
           return filterVideosByRecent();
@@ -81,6 +85,7 @@ function OrganiseVideoList ($templateCache, $cookies) {
       }
 
       $scope.isList = $cookies.isList === 'true' ? true : false;
+      $scope.collectionSortView = $scope.isList ? 'List' : 'Grid';
 
       function filterVideosByTagId (tagId) {
         var filteredVideos = [];

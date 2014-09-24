@@ -13,9 +13,9 @@
     </li><!--
  --><li>
       <label for="organize-collection-sort__view" class="sort-ui__label">View:</label>
-      <select class="sort-ui__options" id="organize-collection-sort__view">
-        <option selected="{{ !isList }}">Grid</option>
-        <option selected="{{ isList }}">List</option>
+      <select class="sort-ui__options" id="organize-collection-sort__view" ng-model="collectionSortView" ng-change="onChange()">
+        <option ng-selected="{{ !isList }}">Grid</option>
+        <option ng-selected="{{ isList }}">List</option>
       </select>
     </li>
   </ul>
