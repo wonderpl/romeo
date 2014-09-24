@@ -14,8 +14,8 @@
  --><li>
       <label for="organize-collection-sort__view" class="sort-ui__label">View:</label>
       <select class="sort-ui__options" id="organize-collection-sort__view">
-        <option ng-class="{ 'btn--active' : !isList }" ng-click="isList = false">Grid</option>
-        <option ng-class="{ 'btn--active' : isList }" ng-click="isList = true">List</option>
+        <option selected="{{ !isList }}">Grid</option>
+        <option selected="{{ isList }}">List</option>
       </select>
     </li>
   </ul>
