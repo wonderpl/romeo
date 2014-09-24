@@ -92,7 +92,7 @@ function ModalService ($compile, $templateCache, $timeout) {
   };
 
   modal.loadDirective = function (name, scope) {
-    $el.append($compile('<' + name + '></' + name + '>')(scope));
+    $el.children().first().append($compile('<' + name + '></' + name + '>')(scope));
     modal.show();
   };
 
