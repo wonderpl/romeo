@@ -1,5 +1,5 @@
 angular.module('RomeoApp.directives')
-  .directive('videoExtendedControls', ['$templateCache', function ($templateCache) {
+  .directive('videoExtendedControls', ['$templateCache', 'modal', function ($templateCache, modal) {
 
   'use strict';
 
@@ -26,6 +26,21 @@ angular.module('RomeoApp.directives')
           setAvaliableTags(newValue);
         }
       });
+
+      $scope.showModal = function (modalName) {
+        if (modalName == 'wonder-transfer') {
+          modal.load('video/edit/wonder-transfer.modal.html', true, $scope);
+        }
+        else if (modalName == 'add-collaborator') {
+          modal.load('video/add-collaborator.modal.html', true, $scope);
+        }
+        else if (modalName == 'add-to-collection') {
+          modal.load('modal/add-to-collection.modal.html', true, $scope);
+        }
+        else {
+          console.error('Unknown modal: ', modalName);
+        }
+      };
     }
   };
 }]);
