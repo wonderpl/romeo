@@ -8,6 +8,7 @@
     // -- Common modules, modules in common should never depend on modules in App so they come first
     angular.module('RomeoApp.filters', []);
     angular.module('RomeoApp.security', []);
+    angular.module('RomeoApp.modal', []);
     angular.module('RomeoApp.services', ['RomeoApp.security']);
     angular.module('RomeoApp.directives', ['RomeoApp.services', 'ui.select2']);
     angular.module('RomeoApp.controllers', ['RomeoApp.services', 'RomeoApp.directives', 'LocalStorageModule']);
@@ -33,6 +34,7 @@
             'nvd3ChartDirectives',
             'RomeoApp.filters',
             'RomeoApp.security',
+            'RomeoApp.modal',
             'RomeoApp.services',
             'RomeoApp.directives',
             'RomeoApp.controllers',

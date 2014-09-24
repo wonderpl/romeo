@@ -13,7 +13,7 @@ function ModalService ($compile, $templateCache, $timeout) {
   var modal = {},
       el = document.createElement('div'),
       $el,
- 
+
       b = document.body || document.documentElement,
       template,
       compiledTemplate,
@@ -89,6 +89,11 @@ function ModalService ($compile, $templateCache, $timeout) {
          modal.show();
       }
       return $el;
+  };
+
+  modal.loadDirective = function (name, scope) {
+    $el.append($compile('<' + name + '></' + name + '>')(scope));
+    modal.show();
   };
 
   /*

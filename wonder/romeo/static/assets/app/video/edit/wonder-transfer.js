@@ -14,6 +14,9 @@
         modalSelection : '=',
         flags: '='
       },
+      link: function (scope, element, attr) {
+        element.append('<h1>Hi from controller</h1>');
+      },
       controller : function ($scope) {
         $scope.close = function ($event) {
           $scope.showModal = false;

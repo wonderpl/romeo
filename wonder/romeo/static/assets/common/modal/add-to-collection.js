@@ -29,6 +29,6 @@
     };
   }
 
-  angular.module('RomeoApp.video').directive('modalAddToCollection', ['$templateCache', modal]);
+  angular.module('RomeoApp.modal').directive('modalAddToCollection', ['$templateCache', modal]);
 
 })();

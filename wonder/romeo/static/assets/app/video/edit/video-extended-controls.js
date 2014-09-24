@@ -28,18 +28,7 @@ angular.module('RomeoApp.directives')
       });
 
       $scope.showModal = function (modalName) {
-        if (modalName == 'wonder-transfer') {
-          modal.load('video/edit/wonder-transfer.modal.html', true, $scope);
-        }
-        else if (modalName == 'add-collaborator') {
-          modal.load('video/add-collaborator.modal.html', true, $scope);
-        }
-        else if (modalName == 'add-to-collection') {
-          modal.load('modal/add-to-collection.modal.html', true, $scope);
-        }
-        else {
-          console.error('Unknown modal: ', modalName);
-        }
+        modal.loadDirective(modalName, $scope);
       };
     }
   };
