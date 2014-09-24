@@ -33,6 +33,10 @@ angular.module('RomeoApp.directives')
         $scope.showPreviewSelector = true;
         $scope.flags.showUpload = false;
       };
+
+      function stripExtension (value) {
+        return value.substr(0, value.lastIndexOf('.'));
+      }
     }
   };
 }]);

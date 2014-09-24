@@ -124,10 +124,6 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
     return str ? str.replace(/^[ ]+|[ ]+$/g,'') : str;
   }
 
-  function stripExtension (value) {
-    return value.substr(0, value.lastIndexOf('.'));
-  }
-
   $scope.$watch(
     'video.category',
     function(newValue, oldValue) {
