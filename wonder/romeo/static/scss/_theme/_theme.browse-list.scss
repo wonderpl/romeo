@@ -47,15 +47,12 @@
         border-color: rgba($swatch-two,0.12);
       }
     }
-    .browse-list__link--create,
-    .browse-list__link--active {
-      font-weight: bold;
-    }
 
     .browse-list__link--create {
       text-decoration: underline;
       margin-bottom: 4px;
       /* !Note! – Find a better property to transition, for performance purposes. */
+      font-weight: bold;
       text-indent: -20px;
       //border: $base-shadow-outline;
       border-color: rgba($swatch-two,0.12);

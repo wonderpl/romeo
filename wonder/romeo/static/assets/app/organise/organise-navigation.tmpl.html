@@ -8,11 +8,11 @@
       <li class="browse-list__item"><a class="browse-list__link  browse-list__link--create  icon-text" ng-click="createPrivateCollection()"><i class="icon  icon-text__icon  icon--plus"></i>Create a collection</a></li>
     </ul>
     <ul class="nav  nav--stacked  browse-list" ng-if="!isCollaborator()">
-      <li class="browse-list__item"><span class="browse-list__title">Collections not visible in app</span></li>
+      <li class="browse-list__item"><span class="browse-list__title">Private Collections</span></li>
       <li class="browse-list__item" ng-repeat="tag in tags | orderBy : 'label' | filter : { public : false }"><a class="browse-list__link" ng-class="{ 'browse-list__link--active' : currentTag.id === tag.id }" ng-bind-html="tag.label" ng-click="loadCollection(tag.id)"></a></li>
     </ul>
     <ul class="nav  nav--stacked  browse-list"ng-if="!isCollaborator()">
-      <li class="browse-list__item"><span class="browse-list__title">Collections visible in app</span></li>
+      <li class="browse-list__item"><span class="browse-list__title">Public Collections</span></li>
       <li class="browse-list__item" ng-repeat="tag in tags | filter : { public : true } | orderBy : 'label'"><a class="browse-list__link" ng-class="{ 'browse-list__link--active' : currentTag.id === tag.id }" ng-bind-html="tag.label" ng-click="loadCollection(tag.id)"></a></li>
     </ul>
   </div>
