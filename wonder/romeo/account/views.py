@@ -319,8 +319,18 @@ def _unique_collaborator_users(user, public=False):
                     avatar=gravatar_url(collaborator.email),
                     email=collaborator.email,
                 )
-            seen[collaborator.email] = data
-    return seen.values()
+            seen[collaborator.email] = 1
+            yield data
+
+
+def _unique_connections(connections):
+    seen = dict()
+    for connection in connections:
+        userid = connection.get('user', {}).get('id')
+        if userid and userid in seen:
+            continue
+        seen[userid] = 1
+        yield connection
 
 
 @api_resource('/user/<int:user_id>/connections')
@@ -329,8 +339,10 @@ class UserConnectionsResource(Resource):
     @user_view(public=None)
     def get(self, user):
         public = 'public' in request.args
-        items = [_connection_item(c, public=public) for c in user.connections] +\
+        items = list(_unique_connections(chain(
+            (_connection_item(c, public=public) for c in user.connections),
             _unique_collaborator_users(user, public=public)
+        )))
         return dict(connection=dict(items=items, total=len(items)))
 
     @commit_on_success

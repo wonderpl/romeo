@@ -1,7 +1,8 @@
 from random import randint
 from mock import patch
-from flask import current_app
+from collections import OrderedDict
 from contextlib import contextmanager
+from flask import current_app
 from wonder.romeo.account.models import AccountUser
 
 
@@ -11,6 +12,7 @@ def register_user(**kwargs):
 
 
 def _register_user(client, **kwargs):
+    content_owner = kwargs.pop('content_owner', False)
     id = randint(0, 10 ** 6)
     userdata = dict(
         username='noreply+test%s@wonderpl.com' % id,
@@ -20,8 +22,15 @@ def _register_user(client, **kwargs):
     )
     userdata.update(kwargs)
     response = client.post('/api/register', json=userdata)
-    reg = response.json()
+    reg = OrderedDict(sorted(response.json().items()))
     assert reg['user']['display_name'] == userdata['display_name']
+    reg['user'].setdefault('username', userdata['username'])
+    if content_owner:
+        dolly_user = dict(user_id=str(id), access_token='xxx')
+        with patch('wonder.romeo.core.dolly.login', return_value=dolly_user):
+            payment = dict(payment_token='xxx')
+            r = client.post(reg['account']['href'] + '/payment', json=payment)
+            assert r.status_code == 204
     return reg
 
 

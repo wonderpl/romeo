@@ -91,6 +91,21 @@ class ConnectionTestCase(unittest.TestCase):
             self.assertEquals(r.status_code, 201)
             self.assertEquals(send_email.call_count, 3)
 
+    def test_connection_dups(self):
+        account1, user1 = register_user(content_owner=True).values()
+        account2, user2 = register_user().values()
+
+        with patch('wonder.romeo.account.forms.send_email'), patch('wonder.romeo.video.forms.send_email'):
+            # Connect & collaborate with the same user
+            self._connect(user1, user2)
+            with client_for_user(user1['id']) as client:
+                video = client.post(account1['href'] + '/videos',
+                                    json=dict(title='test')).json()
+                collab = dict(email=user2['username'], name=user2['display_name'])
+                client.post(video['href'] + '/collaborators', json=collab)
+                connections = client.get(user1['href'] + '/connections').json()
+                self.assertEquals(connections['connection']['total'], 1)
+
 
 class InviteRequestTestCase(unittest.TestCase):
 
