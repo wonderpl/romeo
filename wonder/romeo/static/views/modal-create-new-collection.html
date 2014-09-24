@@ -1,50 +1,60 @@
-<div class="modal__title  split">
-  <span class="split__title  t--block  w--600">Create a{{showOnlyPrivate ? ' private' : ''}} collection</span>
-  <a class="modal__link" ng-click="close()"><i class="icon icon--medium icon--circle-cross"></i></a>
-</div>
-<div class="modal__content">
-  <div class="media">
-    <div class="media__img">
-      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="modal-collection-thumb">
+<a href="#" class="modal-close  " ng-click="close()"><i class="icon  icon--large  icon--cross"></i></a>
+<div class="center-object">
+  <header class="modal-header">
+    <div class="wrapper">
+      <h2 class="heading  alpha  u--ta-center">Create a{{showOnlyPrivate ? ' private' : ''}} collection</h2>
     </div>
-    <div class="media__body">
-      <form name="newCollectionForm" class="modal-form">
-        <fieldset class="modal-form__fieldset">
-          <legend class="is-hidden">Enter collection details</legend>
-          <ul class="form-fields  ">
-            <li>
-              <input type="text" ng-model="collection.label" placeholder="Name" class="form-input  modal-input  video-new-collection__new-collection-name" name="collectionLabel" validate-collection-title required />
-              <span class="video-new-collection__error" ng-show="newCollectionForm.collectionLabel.$error.exists && isSubmitted">Error: there is already a collection with that name</span>
-            </li>
-            <li>
-              <textarea ng-model="collection.description" placeholder="Collection description (optional)&hellip;" class="video-new-collection__new-collection-description"></textarea>
-            </li>
-            <li ng-if="! (showOnlyPrivate || showOnlyPublic)">
-              <ul class="nav  nav--blocks  modal-check-list">
+  </header>
+  <div class="modal-body">
+    <div class="wrapper  wrapper--fixed">
+      <div class="media">
+        <div class="media__img">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="collection-sprite  collection-sprite--new">
+        </div>
+        <div class="media__body">
+          <form class="form-ui" name="newCollectionForm">
+            <fieldset class="form-ui__fieldset">
+              <legend class="accessible">Enter collection details</legend>
+              <ul class="form-fields">
                 <li>
-                  <label class="video-new-collection__label">
-                    <input type="radio" name="scope" ng-model="collection.scope" value="public" />
-                    Public
-                  </label>
+                  <label for="collectionLabel" class="accessible">Enter a name for your new collection:</label>
+                  <input id="collectionLabel" name="collectionLabel" type="text" class="text-input" ng-model="collection.label" placeholder="Collection name" validate-collection-title required />
+                  <span class="u--d-block  milli  u--ff-sans  u--c-destructive" ng-show="newCollectionForm.collectionLabel.$error.exists && isSubmitted">Error: there is already a collection with that name</span>
                 </li>
                 <li>
-                  <label class="video-new-collection__label">
-                    <input type="radio" name="scope" ng-model="collection.scope" value="private" />
-                    Private
-                  </label>
+                  <label for="collectionLabel" class="accessible">Enter a description for your new collection</label>
+                  <textarea class="text-input  video-new-collection__new-collection-description" ng-model="collection.description" placeholder="Collection description (optional)&hellip;"></textarea>
+                </li>
+                <li ng-if="! (showOnlyPrivate || showOnlyPublic)">
+                  <ul class="nav  nav--blocks  modal-check-list">
+                    <li>
+                      <label class="video-new-collection__label">
+                        <input type="radio" name="scope" ng-model="collection.scope" value="public" />
+                        Public
+                      </label>
+                    </li>
+                    <li>
+                      <label class="video-new-collection__label">
+                        <input type="radio" name="scope" ng-model="collection.scope" value="private" />
+                        Private
+                      </label>
+                    </li>
+                  </ul>
                 </li>
               </ul>
-            </li>
-          </ul>
-          <input type="hidden" ng-model="collection.scope" ng-if="showOnlyPrivate || showOnlyPublic" />
-        </fieldset>
-      </form>
+              <input type="hidden" ng-model="collection.scope" ng-if="showOnlyPrivate || showOnlyPublic" />
+            </fieldset>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-<div class="modal__footer">
-  <div class="modal__actions">
-    <a ng-if="!collection.label" ng-click="close()" class="btn  btn--small  btn--positive">Close</a>
-    <a ng-if="collection.label" ng-click="newCollectionForm.$valid && saveNewCollection(); isSubmitted = true;" class="btn  btn--small  btn--positive">Okay</a>
-  </div>
+  <footer class="modal-footer">
+    <div class="wrapper">
+      <ul class="list-inline  u--ta-center">
+        <li><a ng-if="!collection.label" ng-click="close()" class="btn  btn--destructive">Cancel</a></li>
+        <li><a ng-if="collection.label" ng-click="newCollectionForm.$valid && saveNewCollection(); isSubmitted = true;" class="btn  btn--positive">Create</a></li>
+      </ul>
+    </div>
+  </footer>
 </div>

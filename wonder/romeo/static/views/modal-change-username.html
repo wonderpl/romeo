@@ -1,14 +1,37 @@
-<h2>Change Username</h2>
-<div class="modal-content">
-	<form name"changeUsername" ng-submit="saveUsername(data)">
-		<div class="row">
-			<label>New Username</label>
-			<input type="text" ng-model="data.username" pl-focus-field/>
-		</div>
-		<div class="row">
-			<input type="submit" value="Save" />
-		</div>	
-		<div class="clear"></div>
-	</form>
-	<a class="icon-cross close-modal" ng-click="closeModal()"></a>
+<a href="#" class="modal-close  " ng-click="closeModal()"><i class="icon  icon--large  icon--cross"></i></a>
+<div class="center-object">
+  <header class="modal-header">
+    <div class="wrapper">
+      <h2 class="heading  alpha  u--ta-center">Change Username</h2>
+    </div>
+  </header>
+  <div class="modal-body">
+    <div class="wrapper  wrapper--fixed">
+      <div class="text-col">
+      <form class="form-ui" name"changeUsername" ng-submit="saveUsername(data)">
+        <fieldset class="form-ui__fieldset">
+          <legend class="accessible">Change your username.</legend>
+          <ul class="form-fields">
+            <!--<li>
+              <label for="current-username" class="accessible">Current username:</label>
+              <input id="current-username" name="current-username" class="text-input" type="text" placeholder="Enter your current username." ng-model="data.username" pl-focus-field>
+            </li>-->
+            <li>
+              <label for="new-username" class="accessible">New username:</label>
+              <input id="new-username" name="new-username" class="text-input" type="text" placeholder="Enter your new desired username." ng-model="data.username" pl-focus-field>
+            </li>
+            <li>
+              <div class="btn-center">
+                <input type="submit" value="Save" class="btn  btn--positive">
+              </div>
+            </li>
+          </ul>
+      </form>
+      </div>
+    </div>
+  </div>
+  <footer class="modal-footer">
+    <div class="wrapper">
+    </div>
+  </footer>
 </div>
