@@ -1,0 +1,117 @@
+/**
+ * _components.video-thumb.scss
+ */
+// Let's define some variables
+$video-thumb-small-width:    160px;
+$video-thumb-small-height:   90px;
+
+$video-thumb-medium-width:   320px;
+$video-thumb-medium-height:  180px;
+
+$video-thumb-large-width:    640px;
+$video-thumb-large-height:   360px;
+
+
+.video {
+  margin-bottom: $base-spacing-unit;
+}
+  
+.video-thumb--small {
+  width: $video-thumb-small-width;
+  height: $video-thumb-small-height;
+}
+
+.video-thumb--medium {
+  width: $video-thumb-medium-width;
+  height: $video-thumb-medium-height;
+}
+
+.video-thumb--large {
+  width: $video-thumb-large-width;
+  height: $video-thumb-large-height;
+}
+
+
+.video-thumb__poster {
+  display: block;
+  margin-bottom: quarter($base-spacing-unit);
+  
+  &:hover {
+    
+    .video-overlay-list {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+      .video-overlay-list__item {
+        opacity: 1;
+        -webkit-transform: translate3d(0,0,0) scale3d(1, 1, 1);
+                transform: translate3d(0,0,0) scale3d(1, 1, 1);
+        -webkit-transition: all $base-timing-transition;
+                transition: all $base-timing-transition;
+      }
+  }
+}
+.video-overlay-list {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+  background-color: rgba(0,0,0,0.8);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  -webkit-transition: all $base-timing-transition;
+          transition: all $base-timing-transition;
+  
+  > li {
+    padding: 0;
+    border: 0;
+  }
+}
+  .video-overlay-list__item {
+    display: block;
+    width: 33.3333%;
+    height: 50%;
+    position: relative;
+    float: left;
+    text-align: center;
+    border: 0;
+    opacity: 0;
+    -webkit-transform: translate3d(0,25%,0) scale3d(0, 0.5, 0);
+            transform: translate3d(0,25%,0) scale3d(0, 0.5, 0);
+    
+    &:nth-child(1n+1){
+      transition-delay: 0.025s;
+    }
+    &:nth-child(1n+2){
+      transition-delay: 0.05s;
+    }
+    &:nth-child(1n+3){
+      transition-delay: 0.075s;
+    }
+    &:nth-child(1n+4){
+      transition-delay: 0.1s;
+    }
+    &:nth-child(1n+5){
+      transition-delay: 0.15s;
+    }
+  }
+    .video-overlay-list__link {
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: 12px;
+      font-size: 75%;
+      font-family: $heading-font-family;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border: 0;
+      cursor: pointer;
+    }
