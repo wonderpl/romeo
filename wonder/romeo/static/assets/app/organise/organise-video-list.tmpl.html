@@ -1,27 +1,24 @@
 <section class="organise-video-list">
-
-  <section class="organise-video-list__list-controls">
-    <label class="organise-video-list__list-control-label">
-      Sort:
-      <select class="organise-video-list__select  btn  btn--small"
-        ng-model="sortOption"
-        ng-init="sortOption=''">
-        <option value="">Oldest</option>
+  <ul class="sort-ui">
+    <li>
+      <label for="organize-collection-sort__options" class="sort-ui__label">Sort by:</label>
+      <select class="sort-ui__options" id="organize-collection-sort__options" ng-model="sortOption" ng-init="sortOption=''">
         <option value="date_updated">Newest</option>
+        <option value="">Oldest</option>
+        <option value="">A-Z</option>
+        <option value="">Z-A</option>
+        <option value="">Hotness</option>
+        <option value="">Views</option>
       </select>
-    </label>
-    <label class="organise-video-list__list-control-label">
-      View:
-      <div class="btn-group">
-        <a class="btn  btn--small" title="Display videos in a grid view."
-        ng-class="{ 'btn--active' : !isList }"
-        ng-click="isList = false"><i class="icon  icon--grid"></i></a>
-        <a class="btn  btn--small" title="Display videos in a list view."
-        ng-class="{ 'btn--active' : isList }"
-        ng-click="isList = true"><i class="icon  icon--align-justify"></i></a>
-      </div>
-    </label>
-  </section>
+    </li><!--
+ --><li>
+      <label for="organize-collection-sort__view" class="sort-ui__label">View:</label>
+      <select class="sort-ui__options" id="organize-collection-sort__view">
+        <option ng-class="{ 'btn--active' : !isList }" ng-click="isList = false">Grid</option>
+        <option ng-class="{ 'btn--active' : isList }" ng-click="isList = true">List</option>
+      </select>
+    </li>
+  </ul>
 
   <div ng-hide="filteredVideos" class="organise-video-list__message">
     <p>There are no videos here right now</p>
