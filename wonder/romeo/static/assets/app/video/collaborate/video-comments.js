@@ -36,7 +36,7 @@ angular.module('RomeoApp.directives')
   return {
     restrict : 'E',
     replace: true,
-    template : $templateCache.get('video/video-comments.dir.html'),
+    template : $templateCache.get('video/collaborate/video-comments.dir.html'),
     scope : true,
     link : function (scope, element, attrs) {
       scope.$watch(function () {

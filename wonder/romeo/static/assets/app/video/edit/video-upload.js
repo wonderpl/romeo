@@ -6,7 +6,7 @@ angular.module('RomeoApp.directives')
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('video/video-upload.dir.html'),
+    template : $templateCache.get('video/edit/video-upload.dir.html'),
     controller: function ($scope) {
       $scope.onFileSelect = function(files) {
         $scope.video.title = $scope.video.title || stripExtension(files[0].name);

@@ -7,7 +7,7 @@
     return {
       restrict : 'E',
       replace : true,
-      template : $templateCache.get('video/video-config-nav.dir.html'),
+      template : $templateCache.get('video/edit/video-config-nav.dir.html'),
       scope : {
         showModal : '=',
         modalSelection : '='

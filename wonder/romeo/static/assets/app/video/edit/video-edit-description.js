@@ -9,7 +9,7 @@
     return {
       replace: true,
       restrict: 'E',
-      template : $templateCache.get('video/video-edit-description.dir.html'),
+      template : $templateCache.get('video/edit/video-edit-description.dir.html'),
       scope: {
         video: '='
       },

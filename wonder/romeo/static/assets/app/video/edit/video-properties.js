@@ -7,7 +7,7 @@
     return {
       restrict : 'E',
       replace : true,
-      template : $templateCache.get('video/video-properties.modal.html'),
+      template : $templateCache.get('video/edit/video-properties.modal.html'),
       scope : {
         showModal : '=',
         video : '=',
