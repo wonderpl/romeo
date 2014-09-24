@@ -6,7 +6,9 @@ function LocalNavigation($templateCache) {
     restrict : 'E',
     replace : true,
     template : $templateCache.get('directives/local-navigation.dir.html'),
-    scope : true
+    scope : {
+      pages: '='
+    }
   };
 }
 

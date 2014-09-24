@@ -70,7 +70,7 @@ describe('controllers', function () {
   });
 
   it('should have Publish video controller', inject(function ($controller) {
-    controller = $controller('PublishCtrl', { $scope: scope, video: {} });
+    controller = $controller('PublishCtrl', { $scope: scope, video: { id: 123 } });
     expect(controller).toBeDefined();
   }));
 

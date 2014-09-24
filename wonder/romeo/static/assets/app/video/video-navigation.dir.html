@@ -21,33 +21,6 @@
           Discard
         </a>
       </li>
-      <li class="sub-navigation__mode" ng-show="flags.isOwner">
-        <a
-          class="sub-navigation__link btn  btn--utility icon-text"
-          ng-class="{ 'sub-navigation__link--active' : flags.isEdit }"
-          ng-href="#/video/{{videoId}}">
-          <i class="icon  icon--edit  icon-text__icon"></i>
-          Edit
-        </a>
-      </li>
-      <li class="sub-navigation__mode" ng-hide="flags.showUpload || (videoStatus !== 'published' && videoStatus !== 'ready')">
-        <a
-          class="sub-navigation__link btn  btn--utility icon-text"
-          ng-href="#/video/{{videoId}}/comments"
-          ng-class="{ 'sub-navigation__link--active' : flags.isComments }">
-          <i class="icon  icon--speech-bubble  icon-text__icon"></i>
-          Collaborate
-        </a>
-      </li>
-      <li class="sub-navigation__mode" ng-show="flags.isOwner && (videoStatus === 'published' || videoStatus === 'ready')">
-        <a
-          class="sub-navigation__link btn  btn--utility icon-text"
-          ng-href="#/video/{{videoId}}/publish"
-          ng-class="{ 'sub-navigation__link--active' : flags.isReview }">
-          <i class="icon  icon--eye  icon-text__icon"></i>
-          Publish
-        </a>
-      </li>
     </ul>
   </div>
 </section>

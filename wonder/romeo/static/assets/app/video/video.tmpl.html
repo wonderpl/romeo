@@ -5,6 +5,8 @@
     <video-navigation flags="flags" video-id="video.id" video-status="video.status"></video-navigation>
   </div>
 
+  <local-navigation pages="pages"></local-navigation>
+
   <div ng-if="video.id && !flags.isPublic && !flags.isOwner" class="video-view__avatar u--ta-center">
     <div class="avatar avatar--large"><img class="avatar__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" style="background-image : url('{{ video.account.avatar || '/static/assets/img/user-avatar.png' }}');" /></div>
     {{video.account.display_name}}

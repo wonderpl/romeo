@@ -9,7 +9,43 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
   'use strict';
   var debug = new DebugClass('VideoCtrl');
 
-  $rootScope.layoutMode = $cookies.layout ? $cookies.layout : (SecurityService.isCollaborator()) ? 'column' : 'wide';
+  function init() {
+    $rootScope.layoutMode = $cookies.layout ? $cookies.layout : (SecurityService.isCollaborator()) ? 'column' : 'wide';
+
+    initialiseNewScope();
+    // Call routing method on opening of controllers screen
+    videoRouting();
+
+    $scope.pages = [
+    ];
+    setNavigation();
+  }
+
+  function setNavigation() {
+    if ($scope.video.id && !$scope.flags.isPublic) {
+      if ($scope.flags.isOwner) {
+        $scope.pages.push({
+          url: '#/video/' + $scope.video.id,
+          title: 'Edit',
+          isActive: $scope.flags.isEdit
+        });
+      }
+      if (! $scope.flags.showUpload && ($scope.video.status === 'published' || $scope.video.status === 'ready')) {
+        $scope.pages.push({
+          url: '#/video/' + $scope.video.id + '/comments',
+          title: 'Collaborate',
+          isActive: $scope.flags.isComments || $scope.flags.canComment
+        });
+      }
+      if ($scope.flags.isOwner && ($scope.video.status === 'published' || $scope.video.status === 'ready')) {
+        $scope.pages.push({
+          url: '#/video/' + $scope.video.id + '/publish',
+          title: 'Publish',
+          isActive: $scope.flags.isReview
+        });
+      }
+    }
+  }
 
   function persistVideoData (data) {
     debug.info('persistVideoData (' + data.id + ') ' + data.title);
@@ -151,6 +187,14 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
       }
     }
   );
+
+  $scope.$watch(
+    'flags',
+    function (newValue, oldValue) {
+      if (newValue !== oldValue) {
+        setNavigation();
+      }
+    }, true);
 
   $scope.removeCollaborator = function (id) {
 
@@ -611,8 +655,5 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
   $scope.collaborator = function () {
     return SecurityService.isCollaborator();
   };
-
-  initialiseNewScope();
-  // Call routing method on opening of controllers screen
-  videoRouting();
+  init();
 }
