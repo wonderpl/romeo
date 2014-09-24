@@ -1,0 +1,50 @@
+/**
+ * _components.form-ui.scss
+ */
+.form-ui {
+
+  fieldset {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .text-input {
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    padding: $half-spacing-unit / 2 $half-spacing-unit;
+    background-color: transparent;
+    border: 0 solid $base-color-ui;
+    border-bottom-width: 1px;
+    transition: all $base-timing-transition;
+
+    &:active,
+    &:focus {
+      background-color: rgba($base-color-ui, 0.25);
+      border-color: $base-color-ui-dark;
+      outline: none;
+    }
+  }
+}
+    textarea.text-input {
+      @extend %u--mh-default;
+      text-indent: 0;
+      resize: vertical;
+      -webkit-transition: min-height $base-timing-transition;
+              transition: min-height $base-timing-transition;
+
+      &:focus {
+        @extend %u--mh-large;
+      }
+    }
+
+.hidden-input {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}

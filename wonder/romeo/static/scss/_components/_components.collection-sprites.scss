@@ -1,0 +1,30 @@
+/**
+ * _components.collection-sprites.scss
+ */
+.collection-sprite {
+  width: 48px;
+  height: 48px;
+  background-image: url('/static/assets/img/collection-sprite.svg');
+  background-size: 48px 288;
+  background-position: 0 -144px;
+}
+
+.collection-sprite--new {
+  background-position: 0 0;
+}
+
+.collection-link {
+  margin-bottom: 24px;
+}
+.collection-link:hover .collection-sprite {
+  background-position: 0 -192px;
+}
+.collection-link:hover .collection-sprite--new {
+  background-position: 0 -48px;
+}
+.collection-link:active .collection-sprite, .collection-link:focus .collection-sprite {
+  background-position: 0 -240px;
+}
+.collection-link:active .collection-sprite--new, .collection-link:focus .collection-sprite--new {
+  background-position: 0 -96px;
+}

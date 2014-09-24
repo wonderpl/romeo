@@ -1,20 +1,30 @@
-<div class="modal__title  split">
-  <span class="split__title  t--block  w--600">Delete Video</span>
-  <a class="modal__link" ng-click="close()"><i class="icon icon--medium icon--circle-cross"></i></a>
-</div>
-<div class="modal__content">
-  <div class="media">
-    <div class="media__img">
-      <i class="icon icon--trash icon--large"></i>
+<a class="modal-close" ng-click="close()"><i class="icon  icon--large  icon--cross"></i></a>
+<div class="center-object">
+  <header class="modal-header">
+    <div class="wrapper">
+      <h2 class="heading  alpha  u--ta-center">Delete video?</h2>
     </div>
-    <div class="media__body">
-      <p class="organise-video-delete__msg">Are you sure you want to delete '{{video.title}}'?</p>
+  </header>
+  <div class="modal-body">
+    <div class="wrapper  wrapper--fixed">
+      <div class="text-col">
+        <div class="media">
+          <div class="media__img">
+            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="collection-sprite">
+          </div>
+          <div class="media__body">
+            <p class="u--ff-sans  organise-video-delete__msg">Are you sure you want to delete '{{video.title}}'?</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-<div class="modal__footer">
-  <div class="modal__actions">
-    <a ng-click="close()" class="btn  btn--small">Cancel</a>
-    <a ng-click="delete(video)" class="btn  btn--small  btn--positive">Okay</a>
-  </div>
+  <footer class="modal-footer">
+    <div class="wrapper">
+      <ul class="list-inline  u--ta-center">
+        <li><a ng-if="!collection.label" ng-click="close()" class="btn">Cancel</a></li>
+        <li><a ng-click="delete(video)" class="btn  btn--destructive">Delete</a></li>
+      </ul>
+    </div>
+  </footer>
 </div>

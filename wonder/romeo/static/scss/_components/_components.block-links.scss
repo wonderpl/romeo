@@ -1,0 +1,42 @@
+/**
+ * _components.block-links.scss
+ */
+
+a.block-link {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  outline: 0;
+}
+
+.block-link {
+  display: block;
+  width: 100%;
+  position: relative;
+  border: 2px solid transparent;
+  border-radius: 3px;
+
+  &:hover {
+    color: #51B364;
+    border-color: #51B364;
+  }
+  &:active,
+  &:focus {
+    color: #fff;
+    background-color: #51B364;
+    outline: none;
+  }
+}
+.block-link--active {
+  color: #fff;
+  background-color: #51B364;
+  border: 2px solid;
+  border-color: #51B364;
+
+  &,
+  &:hover,
+  &:active,
+  &:focus {
+    cursor: default;
+  }
+}

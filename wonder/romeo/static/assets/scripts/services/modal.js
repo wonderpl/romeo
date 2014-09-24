@@ -13,31 +13,30 @@ function ModalService ($compile, $templateCache, $timeout) {
   var modal = {},
       el = document.createElement('div'),
       $el,
-      el_bg = document.createElement('div'),
-      $el_bg,
+ 
       b = document.body || document.documentElement,
       template,
       compiledTemplate,
       urlCache = {};
 
 
-  el_bg.setAttribute('id', 'modal-bg');
-  b.appendChild(el_bg);
-  $el_bg = angular.element(el_bg);
-  $el_bg.addClass('modal-bg');
+  el.setAttribute('id', 'modal-bg');
+  b.appendChild(el);
+  $el = angular.element(el);
+  $el.addClass('modal  modal--fullscreen');
 
   var container  = document.createElement('div');
   var $container = angular.element(container);
   $container.addClass('center-object');
 
-  el_bg.appendChild(container);
+  el.appendChild(container);
 
-  el.setAttribute('id', 'modal');
-  container.appendChild(el);
-  $el = angular.element(el);
-  $el.addClass('modal animated-half fadeInUp');
+  // el.setAttribute('id', 'modal');
+  // container.appendChild(el);
+  // $el = angular.element(el);
+  // $el.addClass('modal animated-half fadeInUp');
 
-  $container.on('click', function (e) {
+  $el.on('click', function (e) {
       if(e.currentTarget === e.target){
           modal.hide();
       }
@@ -47,25 +46,16 @@ function ModalService ($compile, $templateCache, $timeout) {
   * Show the modal ( assuming it has a compiled view inside it )
   */
   modal.show = function ( opts ) {
-      $el_bg.addClass('show');
-      $el.addClass('show');
+    $el.addClass('is-visible');
+    $('body').addClass('disable-scroll');
   };
 
   modal.hide = function () {
-
-    $el.addClass('fadeOutDown');
-    $el.removeClass('fadeInUp');
-
-    $timeout(function() {
-
-      $el_bg.removeClass('show');
-
-
-    },250);
-
-    $timeout(function() {
-      $el.removeClass('fadeOutDown');
-    },500);
+    $el.removeClass('is-visible');
+    $('body').removeClass('disable-scroll');
+    $timeout(function () {
+      $el.empty();
+    }, 500);
   };
 
   /*
@@ -92,12 +82,11 @@ function ModalService ($compile, $templateCache, $timeout) {
           compiledTemplate = $compile(template)(scope);
       }
 
-      $el.html('');
+      // $el.html('');
       $el.append(compiledTemplate);
 
       if (show === true) {
-          $el_bg.addClass('show');
-          $el.addClass('animate--flipInX');
+         modal.show();
       }
       return $el;
   };
