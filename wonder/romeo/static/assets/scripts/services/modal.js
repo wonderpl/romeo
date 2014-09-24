@@ -36,11 +36,11 @@ function ModalService ($compile, $templateCache, $timeout) {
   // $el = angular.element(el);
   // $el.addClass('modal animated-half fadeInUp');
 
-  $el.on('click', function (e) {
-      if(e.currentTarget === e.target){
-          modal.hide();
-      }
-  });
+  // $el.on('click', function (e) {
+  //     if(e.currentTarget === e.target){
+  //         modal.hide();
+  //     }
+  // });
 
   /*
   * Show the modal ( assuming it has a compiled view inside it )

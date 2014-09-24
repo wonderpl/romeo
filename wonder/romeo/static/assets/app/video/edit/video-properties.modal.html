@@ -1,23 +1,25 @@
 <div class="video-modal video-modal__overlay">
 
-  <div class="video-modal__window">
+  <a class="modal-close" ng-click="close($event)"><i class="icon  icon--medium  icon--cross"></i></a>
+
+  <div class="center-object">
 
     <div class="video-modal__header  modal__title">
       <h2 class="heading  gamma  u--ta-center">Configure Video</h2>
-      <a class="modal__link" ng-click="close($event)"><i class="icon  icon--medium  icon--cross"></i></a>
     </div>
-
+  
     <div class="video-modal__container modal__content modal__content--video">
-
       <cover-selector ng-if="modalSelection === 'cover'" video="video"></cover-selector>
       <player-editor ng-if="modalSelection === 'player'" player-parameters="playerParameters" video="video"></player-editor>
       <video-edit-description ng-if="modalSelection === 'description'" video="video"></video-edit-description>
       <video-more-link video="video" ng-if="modalSelection === 'more-link'"></video-more-link>
     </div>
+
     <div class="video-modal__footer modal__footer">
       <div class="modal__actions">
       </div>
     </div>
+
   </div>
 
 </div>
