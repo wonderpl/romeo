@@ -20,7 +20,7 @@
 
   .browse-list__title {
     font-weight: bold;
-    font-size: 0.6875em;
+    font-size: 0.75em;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: $swatch-two;
@@ -36,15 +36,15 @@
       font-size: 1em;
       line-height: 1.25;
       color: $swatch-four;
-      border: none;
+      border: 1px solid transparent;
       border-radius: 3px;
       cursor: pointer;
-      -webkit-transition: background-color 0.15s ease-in-out;
-              transition: background-color 0.15s ease-in-out;
+      -webkit-transition: 0.15s ease-in-out;
+              transition: 0.15s ease-in-out;
 
       &:hover {
         text-decoration: underline;
-        background-color: rgba($swatch-two,0.12);
+        border-color: rgba($swatch-two,0.12);
       }
     }
     .browse-list__link--create,
@@ -58,6 +58,7 @@
       /* !Note! – Find a better property to transition, for performance purposes. */
       text-indent: -20px;
       //border: $base-shadow-outline;
+      border-color: rgba($swatch-two,0.12);
       -webkit-transition: text-indent 0.15s ease-in-out;
               transition: text-indent 0.15s ease-in-out;
 
@@ -92,8 +93,7 @@
       &:active,
       &:focus {
         text-decoration: none;
-        color: $swatch-five;
-        background-color: transparent;
+        background-color: rgba($swatch-two,0.12);
         cursor: default;
       }
     }
