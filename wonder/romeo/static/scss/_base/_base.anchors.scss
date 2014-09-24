@@ -3,6 +3,11 @@
  */
 
 // Set up base behaviours and displays for all anchors
+a,
+a:link {
+  cursor: pointer;
+}
+
 a {
   color: $base-color-link;
   text-decoration: none;
