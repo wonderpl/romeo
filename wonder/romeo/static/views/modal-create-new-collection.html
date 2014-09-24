@@ -19,7 +19,7 @@
                 <ul class="form-fields">
                   <li>
                     <label for="collectionLabel" class="accessible">Enter a name for your new collection:</label>
-                    <input id="collectionLabel" name="collectionLabel" type="text" class="text-input" ng-model="collection.label" placeholder="Collection name" validate-collection-title required />
+                    <input id="collectionLabel" name="collectionLabel" type="text" class="text-input  one-whole" ng-model="collection.label" placeholder="Collection name" validate-collection-title required />
                     <p class="milli  u--ff-sans  u--m-none  u--c-destructive" ng-show="newCollectionForm.collectionLabel.$error.exists && isSubmitted">Error: there is already a collection with that name</p>
                   </li>
                   <li>
