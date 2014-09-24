@@ -3,7 +3,6 @@
   'use strict';
 
   function modal ($templateCache, VideoService) {
-
     return {
       restrict : 'E',
       replace : true,
@@ -31,6 +30,13 @@
         $scope.$on('video-saving', function ($event, data) {
           $scope.showModal = false;
           $scope.modalSelection = null;
+        });
+
+        $scope.$watch('modalSelection', function (newValue, oldValue) {
+          if (newValue !== oldValue) {
+            $('.medium-editor-toolbar').remove();
+            $('.medium-editor-anchor-preview').remove();
+          }
         });
       }
     };

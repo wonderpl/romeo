@@ -1,5 +1,5 @@
 angular.module('RomeoApp.directives')
-  .directive('videoExtendedControls', ['$templateCache', function ($templateCache) {
+  .directive('videoExtendedControls', ['$templateCache', 'modal', function ($templateCache, modal) {
 
   'use strict';
 
@@ -26,6 +26,10 @@ angular.module('RomeoApp.directives')
           setAvaliableTags(newValue);
         }
       });
+
+      $scope.showModal = function (modalName) {
+        modal.loadDirective(modalName, $scope);
+      };
     }
   };
 }]);
