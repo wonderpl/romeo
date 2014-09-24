@@ -74,6 +74,7 @@
       top:   0;
       right: 0;
       cursor: pointer;
+      @extend .reverse-link;
     }
 
     .modal-thumb {
