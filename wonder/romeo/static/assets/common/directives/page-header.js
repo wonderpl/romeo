@@ -8,7 +8,7 @@ function PageHeaderDirective ($templateCache, $timeout, SecurityService, UserSer
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('page-header.html'),
+    template : $templateCache.get('directives/page-header.dir.html'),
     controller : function ($scope) {
       $scope.controller = 'RomeoApp.directives.pageHeader';
       $scope.$watch(function () {

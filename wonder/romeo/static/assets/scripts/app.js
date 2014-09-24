@@ -107,24 +107,24 @@
 
         $routeProvider.when('/logout', {
             controller: 'LoginCtrl',
-            templateUrl: 'login.html'
+            templateUrl: 'login/login.tmpl.html'
         });
 
 // ******* END DEPRECATED **************************************************
 
         $routeProvider.when('/login', {
             controller: 'LoginCtrl',
-            templateUrl: 'login.html'
+            templateUrl: 'login/login.tmpl.html'
         });
 
         $routeProvider.when('/login/twitter', {
             controller: 'TwitterLoginCtrl',
-            templateUrl: 'twitter-login.html'
+            templateUrl: 'login/twitter/signup.tmpl.html'
         });
 
         $routeProvider.when('/signup', {
             controller: 'SignupCtrl',
-            templateUrl: 'signup.html'
+            templateUrl: 'login/signup/signup.tmpl.html'
         });
 
         $routeProvider.when('/login/upgrade', {

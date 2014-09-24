@@ -9,7 +9,7 @@ function NotificationTrayDirective ($templateCache, $interval, $rootScope) {
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('notification-tray.html'),
+    template : $templateCache.get('directives/notification-tray.dir.html'),
     scope : {
       notifications : '='
     },
