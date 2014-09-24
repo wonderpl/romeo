@@ -1,7 +1,7 @@
 <div class="video">
   <div class="video-thumb" ng-if="! isList || isCollaboration">
     <a ng-href="#/video/{{video.id}}" class="ratio  ratio--16x9  video-thumb__poster">
-      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="ratio__src" style="background-image:url('http://blog.napc.com/Portals/10319/images/clouds.jpg');">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="ratio__src" style="background-image: url('{{ thumbnail }}')">
     </a>
     <div class="video-thumb__meta">
       <a ng-href="#/video/{{video.id}}" title="" class="trunc  u--d-block  reverse-link  u--ff-sans" ng-bind-html="video.title"></a>

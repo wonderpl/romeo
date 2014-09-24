@@ -28,8 +28,8 @@
     <p ng-if="!filterByCollaboration">Go and <a href="#/video">upload</a> a video.</p>
   </div>
 
-  <ul class="layout" ng-show="filteredVideos">
-    <li class="layout__item" ng-repeat="video in filteredVideos | orderBy: sortOption" ng-class="{ 'organise-video-list__video--last' : ($index + 1) % 3 == 0, 'one-third' : !isList }">
+  <ul class="layout" ng-class="{ 'grid-list' : isList }" ng-show="filteredVideos">
+    <li class="layout__item" ng-repeat="video in filteredVideos | orderBy: sortOption" ng-class="{ 'one-third ' : !isList, 'grid-list__item' : isList }">
       <organise-video video="video" is-list="isList" is-collaboration="filterByCollaboration"></organise-video>
     </li>
   </ul>
