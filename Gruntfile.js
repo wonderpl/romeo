@@ -217,7 +217,9 @@ module.exports = function (grunt) {
                 files: [
                     '<%= assetsDir %>/scripts/**/*.js',
                     '<%= assetsDir %>/common/**/*.js',
-                    '<%= assetsDir %>/app/**/*.js'
+                    '<%= assetsDir %>/common/**/**/*.js',
+                    '<%= assetsDir %>/app/**/*.js',
+                    '<%= assetsDir %>/app/**/**/*.js'
                 ],
                 tasks: ['jshint']
             },

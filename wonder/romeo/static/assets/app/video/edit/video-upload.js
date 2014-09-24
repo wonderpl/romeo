@@ -1,5 +1,5 @@
 angular.module('RomeoApp.directives')
-  .directive('videoUpload', ['$templateCache', '$upload', function ($templateCache, $upload) {
+  .directive('videoUpload', ['$templateCache', '$upload', 'VideoService', 'UploadService', function ($templateCache, $upload, VideoService, UploadService) {
 
   'use strict';
 
@@ -19,20 +19,25 @@ angular.module('RomeoApp.directives')
         );
 
         if ($scope.video.id) {
-          persistVideoData(data);
+          angular.extend($scope.video, data);
           UploadService.uploadVideo(files[0], $scope.video.id);
         } else {
-          VideoService.create(data).then(function (data) {
-            persistVideoData(data);
+          VideoService.create(data).then(function (res) {
+            res = res.data || res;
+            angular.extend($scope.video, res);
             $scope.flags.isOwner = true;
-            UploadService.uploadVideo(files[0], data.id);
-            $rootScope.uploadingVideoId = data.id;
+            UploadService.uploadVideo(files[0], res.id);
+            $rootScope.uploadingVideoId = res.id;
           });
         }
         $rootScope.isUploadingOrProcessingTemp = true;
         $scope.showPreviewSelector = true;
         $scope.flags.showUpload = false;
       };
+
+      function stripExtension (value) {
+        return value.substr(0, value.lastIndexOf('.'));
+      }
     }
   };
 }]);

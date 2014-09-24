@@ -6,7 +6,7 @@ angular.module('RomeoApp.directives')
   return {
     restrict : 'E',
     replace : true,
-    template : $templateCache.get('upload-progress.html'),
+    template : $templateCache.get('directives/upload-progress.dir.html'),
     scope: {
       upload : '='
     },
