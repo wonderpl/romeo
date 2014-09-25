@@ -10,10 +10,7 @@
       replace: true,
       restrict: 'E',
       template : $templateCache.get('video/config/player-editor.tmpl.html'),
-      scope: {
-        playerParameters : '@',
-        video : '@'
-      },
+      scope: true,
       link : function (scope, element, attrs) {
 
         $frame = $('.video-player__frame');

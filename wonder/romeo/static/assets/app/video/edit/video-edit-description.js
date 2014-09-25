@@ -10,14 +10,7 @@
       replace: true,
       restrict: 'E',
       template : $templateCache.get('video/edit/video-edit-description.dir.html'),
-      scope: {
-        video: '='
-      },
-      link : function (scope, elem, attrs) {
-
-
-
-      },
+      scope: true,
       controller : function ($scope) {
         $scope.$watch('video.description', function (newValue, oldValue) {
           // Update player frame

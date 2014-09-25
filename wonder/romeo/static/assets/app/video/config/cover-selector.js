@@ -10,9 +10,7 @@
       replace: true,
       restrict: 'E',
       template : $templateCache.get('video/config/cover-selector.tmpl.html'),
-      scope: {
-        video : '='
-      },
+      scope: true,
       link : function (scope, elem, attrs) {
 
         $frame = $('.video-player__frame');
