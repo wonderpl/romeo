@@ -3,7 +3,7 @@ from sqlalchemy import func
 from flask.ext.restful.reqparse import RequestParser
 from wonder.romeo.core.rest import Resource, api_resource, cache_control
 from wonder.romeo.core.util import COUNTRY_CODES
-from wonder.romeo.video.models import Video, VideoCollaborator
+from wonder.romeo.video.models import Video, VideoLocaleMeta, VideoCollaborator
 from wonder.romeo.account.models import Account, AccountUser
 
 
@@ -54,7 +54,9 @@ class SearchResource(Resource):
         )
 
     def _search_video(self, query, location, size, start=0):
-        videos = Video.query.filter_by(deleted=False, status='published')
+        videos = Video.query.filter_by(deleted=False, status='published').outerjoin(
+            VideoLocaleMeta,
+            (VideoLocaleMeta.video_id == Video.id) & (VideoLocaleMeta.locale == ''))
 
         owner_filter = VIDEO_OWNER_USER_QUERY_RE.match(query.strip())
         if owner_filter:
@@ -79,7 +81,8 @@ class SearchResource(Resource):
 
         videos, total = self._db_match(videos, size, start, query,
                                        Video.title,
-                                       Video.search_keywords)
+                                       Video.search_keywords,
+                                       VideoLocaleMeta.description)
         items = [self._video_item(v) for v in videos]
         return dict(items=items, total=total)
 
@@ -102,6 +105,7 @@ class SearchResource(Resource):
             users = users.filter(AccountUser.location == location)
         users, total = self._db_match(users, size, start, query,
                                       AccountUser.display_name,
+                                      AccountUser.description,
                                       AccountUser.search_keywords,
                                       AccountUser.title)
         items = [self._user_item(u) for u in users]
