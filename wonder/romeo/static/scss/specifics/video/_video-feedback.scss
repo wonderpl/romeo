@@ -22,48 +22,52 @@
 
 .video-feedback__form {
   text-align: right;
-  transition: max-height 0.4s linear;
-  max-height: $base-spacing-unit * 5;
+  max-height: $base-spacing-unit * 3.5;
   overflow: hidden;
-  border-bottom: solid 1px $light-grey;
+  border-bottom: solid 1px $base-color-ui;
+  -webkit-transition: 0.15s ease-in-out;
+          transition: 0.15s ease-in-out;
 }
 
 .video-feedback__form--active {
-  max-height: 20em;
+  max-height: $base-spacing-unit * 8.5;
 }
 
 .video-feedback__input {
+  width: 100%;
+  min-height: $base-spacing-unit * 2;
   text-align: left;
+  font-size: 1em;
   border: 0 none;
   resize: none;
-  transition: height 0.4s ease-in-out;
-  height: 48px;
-  font-size: 1em;
-  width: 100%;
+  -webkit-transition: .15s ease-in-out;
+          transition: .15s ease-in-out;
+
 }
 
 .video-feedback__input--active {
-  height: 60px;
+  min-height: $base-spacing-unit * 4;
 }
 
 .video-feedback__comments {
-  margin: 20px 0;
-  transition: all 1s ease-in-out;
+  margin-bottom: $base-spacing-unit;
   position: relative;
   text-align: left;
+  -webkit-transition: all 1s ease-in-out;
+          transition: all 1s ease-in-out;
 }
 
 .video-feedback__comment {
-  transition: opacity 0.4s linear;
-  margin: 1em 0;
+  margin-bottom: $base-spacing-unit;
   position: relative;
   clear: both;
   text-align: left;
+  -webkit-transition: opacity 0.4s linear;
+          transition: opacity 0.4s linear;
 }
 
 .video-feedback__comment-details {
   display: block;
-  padding-top: 0.5em;
   min-height: 0.5em;
 }
 
@@ -89,7 +93,7 @@
 }
 
 .video-feedback__comment-content {
-  margin-top: 0.5em;
+  @extend %zeta;
 }
 
 .video-feedback__comment-timestamp {
@@ -204,7 +208,9 @@
 
 
 .video-feedback__comment-timestamp-link {
-  color: $dark-green;
+  font-weight: bold;
+  @extend .u--ff-sans;
+  @extend .reverse-link;
   cursor: pointer;
 }
 
