@@ -49,7 +49,7 @@
     }
 
     .browse-list__link--create {
-      text-decoration: underline;
+      text-decoration: none;
       margin-bottom: 4px;
       /* !Note! – Find a better property to transition, for performance purposes. */
       font-weight: bold;

@@ -308,7 +308,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
     outline: none;
 }
 .sp-input.sp-validation-error {
-    border: 1px solid red;
+    border-bottom: 1px solid red;
     background: #fdd;
 }
 .sp-picker-container , .sp-palette-container {

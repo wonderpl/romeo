@@ -283,4 +283,19 @@ $global-border-box: false !default;
       border-right-color: $base-color-ui-dark;
     }
   }
+
+  &.active {
+    background-color: $base-color-ui-dark;
+
+    &,
+    &:hover {
+      color: $base-color-background;
+    }
+
+    &:before,
+    &:after {
+      border-color: rgba(112,121,123,0);
+      border-right-color: $base-color-ui-dark;
+    }
+  }
 }
