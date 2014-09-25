@@ -54,7 +54,8 @@ function ModalService ($rootScope, $compile, $templateCache, $timeout) {
   // Show the modal ( assuming it has a compiled view inside it )
   modal.show = function ( opts ) {
     modalShowing = true;
-    $el.addClass('is-visible');
+    $timeout(function () { $el.addClass('is-visible'); }, 150);
+
   };
 
   modal.hide = function () {
@@ -63,7 +64,7 @@ function ModalService ($rootScope, $compile, $templateCache, $timeout) {
     $timeout(function () {
       $el.remove();
       modalShowing = false;
-    }, 500);
+    }, 300);
   };
 
 
