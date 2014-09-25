@@ -77,7 +77,6 @@ function ModalService ($rootScope, $compile, $templateCache, $timeout) {
   modal.load = function (url, show, scope, obj, opts) {
     opts = opts || {};
     opts.fullScreen = !(opts && opts.small);
-    settings.class = (opts && opts['class']);
     createModalElements(scope, opts);
     if ( opts && 'width' in opts ) {
         $el.css('width', opts.width + 'px');
