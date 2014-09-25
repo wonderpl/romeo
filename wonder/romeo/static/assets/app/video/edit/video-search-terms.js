@@ -6,11 +6,7 @@
         restrict : 'E',
         replace : true,
         template : $templateCache.get('video/edit/video-search-terms.dir.html'),
-        scope: {
-            video: '=',
-            flags: '=',
-            addSearchTermsShow: '='
-        },
+        scope: true,
         controller : function ($scope) {
           $scope.select2Options = {
             'multiple': true,
