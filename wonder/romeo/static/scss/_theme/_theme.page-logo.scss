@@ -2,8 +2,8 @@
  * _theme.page-logo.scss
  */
 .page-logo {
-  width: 185px;
-  height: 15px;
+  width: 48px;
+  height: 33px;
   margin-top:    $half-spacing-unit;
   margin-right:  $base-spacing-unit;
   margin-bottom: $half-spacing-unit;
@@ -22,6 +22,6 @@
 }
 
 .page-logo__img {
-  background-image: url(/static/assets/img/wonder-logo-185x15.svg);
+  background-image: url(/static/assets/img/wonder-logo-vertical-102x72.svg);
   @extend %img--full;
 }
