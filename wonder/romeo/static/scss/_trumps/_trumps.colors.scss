@@ -4,5 +4,9 @@
 /**
  * Set arbitrary colour classes
  */
-.u--c-destructive { color: $base-color-destructive; }
-.u--c-positive    { color: $base-color-link; }
+.u--c-destructive { color: $base-color-destructive !important; }
+.u--c-positive,
+.u--c-link        { color: $base-color-link !important; }
+.u--c-ui          { color: $base-color-ui !important; }
+.u--c-ui-dark     { color: $base-color-ui-dark !important; }
+.u--c-text        { color: $base-color-text !important; }
