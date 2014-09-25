@@ -1,15 +1,19 @@
 import os
 from base64 import b32encode
+from cStringIO import StringIO
 from urlparse import urljoin
 from sqlalchemy import (
     Column, Integer, String, Boolean, ForeignKey, PrimaryKeyConstraint, DateTime, Enum, CHAR, event, func)
 from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm.attributes import instance_state, get_history
 from werkzeug.routing import RequestRedirect
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import url_for, flash, session, current_app
 from flask.ext.login import UserMixin
+from wonder.common.sqs import background_on_sqs
 from wonder.romeo import db, login_manager
 from wonder.romeo.core import dolly
+from wonder.romeo.core.s3 import download_file, media_bucket
 from wonder.romeo.core.db import genid
 
 
@@ -22,8 +26,6 @@ EXTERNAL_SYSTEM_CHOICES = zip(EXTERNAL_SYSTEMS, map(str.capitalize, EXTERNAL_SYS
 
 
 class Account(db.Model):
-    __tablename__ = 'account'
-
     id = Column(Integer, primary_key=True)
     date_added = Column(DateTime(), nullable=False, default=func.now())
     account_type = Column(Enum(*ACCOUNT_TYPES, name='account_type'), nullable=False,
@@ -51,6 +53,7 @@ class Account(db.Model):
             dollydata = dolly.login(first_user)
             self.dolly_user = dollydata['user_id']
             self.dolly_token = dollydata['access_token']
+            _push_profile_changes_to_dolly(first_user)
 
 
 def _image_field_accessors(field, default_thumbnail=True):
@@ -70,8 +73,6 @@ def _image_field_accessors(field, default_thumbnail=True):
 
 
 class AccountUser(db.Model):
-    __tablename__ = 'account_user'
-
     id = Column(Integer, primary_key=True)
     date_added = Column(DateTime(), nullable=False, default=func.now())
     account_id = Column('account', ForeignKey(Account.id), nullable=False, index=True)
@@ -134,8 +135,6 @@ class AccountUser(db.Model):
 
 
 class AccountUserAuthToken(db.Model):
-    __tablename__ = 'account_user_auth_token'
-
     id = Column(Integer, primary_key=True)
     account_user_id = Column('account_user', ForeignKey(AccountUser.id), nullable=False)
     external_system = Column(Enum(*EXTERNAL_SYSTEMS, name='external_system'), nullable=False)
@@ -270,6 +269,33 @@ def load_user(userid):
 def load_user_or_collaborator(request):
     if 'collaborator_ids' in session:
         return CollaborationUser()
+
+
+@background_on_sqs
+def _push_profile_changes_to_dolly(account_user_id, changes='ALL'):
+    # TODO: assert first user in account only
+    user = AccountUser.query.get(account_user_id)
+    account = user and user.account
+    if account and account.dolly_user:
+        dolly_user = dolly.DollyUser(account.dolly_user, account.dolly_token)
+        changed = lambda f: getattr(user, f, None) and (changes == 'ALL' or f in changes)
+        image_file = lambda filename, field: StringIO(
+            download_file(media_bucket, user.get_image_filepath(account.id, filename, field)))
+        if changed('display_name'):
+            dolly_user.set_display_name(user.display_name)
+        if changed('description'):
+            dolly_user.set_description(user.description)
+        if changed('avatar_filename'):
+            dolly_user.set_avatar_image(image_file(user.avatar_filename, 'avatar'))
+        if changed('profile_cover_filename'):
+            dolly_user.set_profile_image(image_file(user.profile_cover_filename, 'profile_cover'))
+
+
+@event.listens_for(AccountUser, 'after_update')
+def _account_user_after_update(mapper, connection, target):
+    changes = [a for a in instance_state(target).committed_state
+               if get_history(target, a).has_changes()]
+    _push_profile_changes_to_dolly(target.id, changes)
 
 
 event.listen(Account, 'before_insert', genid())

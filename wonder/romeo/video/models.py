@@ -29,8 +29,6 @@ def _clone_model_instance(src, cls=None, exclude=()):
 
 
 class Video(db.Model):
-    __tablename__ = 'video'
-
     id = Column(Integer, primary_key=True)
     account_id = Column('account', ForeignKey(Account.id), nullable=False)
     deleted = Column(Boolean(), nullable=False, server_default='false', default=False)
@@ -194,8 +192,6 @@ class Video(db.Model):
 
 
 class VideoThumbnail(db.Model):
-    __tablename__ = 'video_thumbnail'
-
     id = Column(Integer, primary_key=True)
     video_id = Column('video', ForeignKey(Video.id, ondelete='CASCADE'), nullable=False)
     url = Column(String(1024), nullable=False)
@@ -216,7 +212,6 @@ class VideoThumbnail(db.Model):
 
 
 class VideoLocaleMeta(db.Model):
-    __tablename__ = 'video_locale_meta'
     __table_args__ = (
         UniqueConstraint('video', 'locale'),
     )
@@ -237,8 +232,6 @@ class VideoLocaleMeta(db.Model):
 
 
 class VideoPlayerParameter(db.Model):
-    __tablename__ = 'video_player_parameter'
-
     id = Column(Integer, primary_key=True)
     video_id = Column('video', ForeignKey(Video.id), nullable=False)
     name = Column(String(32), nullable=False)
@@ -251,8 +244,6 @@ class VideoPlayerParameter(db.Model):
 
 
 class VideoTag(db.Model):
-    __tablename__ = 'video_tag'
-
     id = Column(Integer, primary_key=True)
     account_id = Column('account', ForeignKey(Account.id), nullable=False)
     label = Column(String(128), nullable=False)
@@ -312,8 +303,6 @@ class VideoTagVideo(db.Model):
 
 
 class VideoWorkflowEvent(db.Model):
-    __tablename__ = 'video_workflow_event'
-
     id = Column(Integer, primary_key=True)
     video_id = Column('video', ForeignKey(Video.id), nullable=False)
     user_id = Column(ForeignKey(AccountUser.id), nullable=True)
@@ -331,8 +320,6 @@ class VideoWorkflowEvent(db.Model):
 
 
 class VideoComment(db.Model):
-    __tablename__ = 'video_comment'
-
     id = Column(Integer, primary_key=True)
     video_id = Column('video', ForeignKey(Video.id), nullable=False)
     date_added = Column(DateTime(), nullable=False, default=func.now())
@@ -401,8 +388,6 @@ class VideoComment(db.Model):
 
 
 class VideoCollaborator(db.Model):
-    __tablename__ = 'video_collaborator'
-
     id = Column(Integer, primary_key=True)
     video_id = Column('video', ForeignKey(Video.id), nullable=False)
     can_download = Column(Boolean(), nullable=False, server_default='false', default=False)
@@ -428,8 +413,6 @@ class VideoCollaborator(db.Model):
 
 
 class VideoSeoEmbed(db.Model):
-    __tablename__ = 'video_seo_embed'
-
     id = Column(Integer, primary_key=True)
     video_id = Column('video', ForeignKey(Video.id), nullable=False)
     link_url = Column(String(2048))
