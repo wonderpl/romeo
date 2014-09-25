@@ -14,95 +14,100 @@
 
   <ul class="configurable-layout configurable-layout-{{ showComments() ? $root.layoutMode : 'column' }}" ng-class="{ 'configurable-layout-column--is-comments' : showComments() }">
 
+    <li class="columns__sidebar-bg"></li>
     <li class="layout-block layout-block__quaternary" ng-show="$root.layoutMode !== 'column'">
-      <section class="cf video-view__comments" ng-show="showComments()">
-        <video-collaborators flags="flags" comments="comments" ng-show="video.id && showComments() && $root.layoutMode === 'column'" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>
-        <video-comments flags="flags" comments="comments" video-id="{{ video.id }}" current-time="videoCurrentTime" ng-if="$root.layoutMode !== 'column'"></video-comments>
-      </section>
+      <div class="wrapper">
+        <section class="cf video-view__comments" ng-show="showComments()">
+          <video-collaborators flags="flags" comments="comments" ng-show="video.id && showComments() && $root.layoutMode === 'column'" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>
+          <video-comments flags="flags" comments="comments" video-id="{{ video.id }}" current-time="videoCurrentTime" ng-if="$root.layoutMode !== 'column'"></video-comments>
+        </section>
+      </div>
     </li>
 
     <li class="layout-block  layout-block--group">
+      <div class="wrapper">
 
-      <div class="layout-block layout-block__primary layout-block-primary--{{ showComments() ? $root.layoutMode : 'column' }}" ng-class="{ 'layout-block--narrow' : showComments() }">
-
-        <section class="main-view video-view">
-          <h2 class="video-view__title"
-            data-placeholder="{{ titlePlaceholder }}"
-            medium-editor
-            options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
-            ng-model="video.title"
-            ng-show="flags.isEdit">
-          </h2>
-          <h3 class="video-view__sub-title"
-            data-placeholder="{{ straplinePlaceholder }}"
-            medium-editor
-            options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
-            ng-model="video.strapline"
-            ng-show="flags.isEdit">
-          </h3>
-
-          <h2 class="video-view__title" ng-hide="flags.isEdit" ng-bind-html="video.title" ng-class="{ 'video-view__title--small' : showComments() }"></h2>
-          <h3 class="video-view__sub-title" ng-hide="flags.isEdit||showComments()" ng-bind-html="video.strapline"></h3>
-
-          <div class="video-view__container" ng-class="{'video-view__container--fixed': flags.isEdit}">
-            <video-upload ng-show="flags.showUpload && flags.isEdit" ng-cloak></video-upload>
-            <video-player ng-hide="flags.isEdit && !video.id"></video-player>
-
-            <video-properties-modal ng-show="flags.isEdit && video.id && showModal" flags="flags" modal-selection="modalSelection" show-modal="showModal" video="video" player-parameters="playerParameters"></video-properties-modal>
-
-            <extended-player-controls ng-show="showExtendedControls && flags.isEdit"></extended-player-controls>
-
-            <video-config-nav show-modal="showModal" modal-selection="modalSelection" ng-show="flags.isEdit && video.id"></video-config-nav>
-
-          </div>
-
-
-          <video-share
-            video="video"
-            has-tags="{{ video.tags && video.tags.items && video.tags.items.length > 0 }}"
-            ng-hide="showComments() || flags.isPublic"
-            video-id="{{ video.id }}">
-          </video-share>
-
-          <video-extended-controls ng-if="flags.isEdit" ></video-extended-controls>
-
-          <video-download video-id="video.id" ng-show="video.id && !flags.isOwner && flags.canDownload && (videoStatus == 'published' || videoStatus == 'ready')"></video-download>
-
-          <div class="video-view__save-controls" ng-show="flags.isEdit">
-            <a ng-click="bottomCancel()" class="btn  btn--small">cancel</a>
-            <a ng-click="save()" class="btn  btn--small  btn--positive">save changes</a>
-          </div>
-
-          <div ng-if="flags.isPublic">
-            <h3 class="video-view__owner"><a href="#/profile/{{owner.user.id}}"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar avatar__img video-view__avatar" style="background-image: url({{owner.avatar || '/static/assets/img/user-avatar.png' }});"> {{owner.display_name}}</a></h3>
-            <p class="profile-details__legend f--sans" ng-if="collaborators">Collaborators:</p>
-            <ul class="profile-collaborators" ng-show="collaborators">
-              <li ng-repeat="connection in collaborators">
-                <a href="#/profile/{{ connection.user.id}}" data-tooltip="{{connection.display_name}}, {{connection.user.title}}" class="profile-collaborators__link avatar simptip-position-top  simptip-smooth  simptip-movable"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img" style="background-image: url({{connection.avatar || '/static/assets/img/user-avatar.png' }});">
-                </a>
-              </li>
-            </ul>
-          </div>
-
-        </section>
-
-      </div>
-
-      <div class="layout-block layout-block__secondary layout-block-secondary--{{ showComments() ? $root.layoutMode : 'column' }}" ng-class="{ 'layout-block--narrow' : showComments() }">
-
-        <section class="cf video-view__comments" ng-show="showComments()">
-          <video-indicators comments="comments" current-time="videoCurrentTime" total-time="videoTotalTime"></video-indicators>
-          <video-frame-stepper current-time="videoCurrentTime"></video-frame-stepper>
-          <video-collaborators flags="flags" comments="comments" ng-show="video.id && showComments() && $root.layoutMode !== 'column'" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>
-        </section>
-
-      </div>
-
-      <div ng-show="$root.layoutMode === 'column'" class="layout-block layout-block__tertiary layout-block-tertiary--{{ showComments() ? $root.layoutMode : 'column' }}">
-        <section class="cf video-view__comments" ng-show="showComments()">
-          <video-collaborators flags="flags" comments="comments" ng-show="video.id && showComments() && $root.layoutMode === 'column'" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>
-          <video-comments flags="flags" comments="comments" video-id="{{ video.id }}" current-time="videoCurrentTime" ng-if="$root.layoutMode === 'column'"></video-comments>
-        </section>
+        <div class="layout-block layout-block__primary layout-block-primary--{{ showComments() ? $root.layoutMode : 'column' }}" ng-class="{ 'layout-block--narrow' : showComments() }">
+  
+          <section class="main-view video-view">
+            <h2 class="video-view__title"
+              data-placeholder="{{ titlePlaceholder }}"
+              medium-editor
+              options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
+              ng-model="video.title"
+              ng-show="flags.isEdit">
+            </h2>
+            <h3 class="video-view__sub-title"
+              data-placeholder="{{ straplinePlaceholder }}"
+              medium-editor
+              options="{ disableToolbar : true, forcePlainText : true, disableReturn : true }"
+              ng-model="video.strapline"
+              ng-show="flags.isEdit">
+            </h3>
+  
+            <h2 class="video-view__title" ng-hide="flags.isEdit" ng-bind-html="video.title" ng-class="{ 'video-view__title--small' : showComments() }"></h2>
+            <h3 class="video-view__sub-title" ng-hide="flags.isEdit||showComments()" ng-bind-html="video.strapline"></h3>
+  
+            <div class="video-view__container" ng-class="{'video-view__container--fixed': flags.isEdit}">
+              <video-upload ng-show="flags.showUpload && flags.isEdit" ng-cloak></video-upload>
+              <video-player ng-hide="flags.isEdit && !video.id"></video-player>
+  
+              <video-properties-modal ng-show="flags.isEdit && video.id && showModal" flags="flags" modal-selection="modalSelection" show-modal="showModal" video="video" player-parameters="playerParameters"></video-properties-modal>
+  
+              <extended-player-controls ng-show="showExtendedControls && flags.isEdit"></extended-player-controls>
+  
+              <video-config-nav show-modal="showModal" modal-selection="modalSelection" ng-show="flags.isEdit && video.id"></video-config-nav>
+  
+            </div>
+  
+  
+            <video-share
+              video="video"
+              has-tags="{{ video.tags && video.tags.items && video.tags.items.length > 0 }}"
+              ng-hide="showComments() || flags.isPublic"
+              video-id="{{ video.id }}">
+            </video-share>
+  
+            <video-extended-controls ng-if="flags.isEdit" ></video-extended-controls>
+  
+            <video-download video-id="video.id" ng-show="video.id && !flags.isOwner && flags.canDownload && (videoStatus == 'published' || videoStatus == 'ready')"></video-download>
+  
+            <div class="video-view__save-controls" ng-show="flags.isEdit">
+              <a ng-click="bottomCancel()" class="btn  btn--small">cancel</a>
+              <a ng-click="save()" class="btn  btn--small  btn--positive">save changes</a>
+            </div>
+  
+            <div ng-if="flags.isPublic">
+              <h3 class="video-view__owner"><a href="#/profile/{{owner.user.id}}"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar avatar__img video-view__avatar" style="background-image: url({{owner.avatar || '/static/assets/img/user-avatar.png' }});"> {{owner.display_name}}</a></h3>
+              <p class="profile-details__legend f--sans" ng-if="collaborators">Collaborators:</p>
+              <ul class="profile-collaborators" ng-show="collaborators">
+                <li ng-repeat="connection in collaborators">
+                  <a href="#/profile/{{ connection.user.id}}" data-tooltip="{{connection.display_name}}, {{connection.user.title}}" class="profile-collaborators__link avatar simptip-position-top  simptip-smooth  simptip-movable"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img" style="background-image: url({{connection.avatar || '/static/assets/img/user-avatar.png' }});">
+                  </a>
+                </li>
+              </ul>
+            </div>
+  
+          </section>
+  
+        </div>
+  
+        <div class="layout-block layout-block__secondary layout-block-secondary--{{ showComments() ? $root.layoutMode : 'column' }}" ng-class="{ 'layout-block--narrow' : showComments() }">
+  
+          <section class="cf video-view__comments" ng-show="showComments()">
+            <video-indicators comments="comments" current-time="videoCurrentTime" total-time="videoTotalTime"></video-indicators>
+            <video-frame-stepper current-time="videoCurrentTime"></video-frame-stepper>
+            <video-collaborators flags="flags" comments="comments" ng-show="video.id && showComments() && $root.layoutMode !== 'column'" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>
+          </section>
+  
+        </div>
+  
+        <div ng-show="$root.layoutMode === 'column'" class="layout-block layout-block__tertiary layout-block-tertiary--{{ showComments() ? $root.layoutMode : 'column' }}">
+          <section class="cf video-view__comments" ng-show="showComments()">
+            <video-collaborators flags="flags" comments="comments" ng-show="video.id && showComments() && $root.layoutMode === 'column'" collaborators="collaborators" video-id="{{ video.id }}"></video-collaborators>
+            <video-comments flags="flags" comments="comments" video-id="{{ video.id }}" current-time="videoCurrentTime" ng-if="$root.layoutMode === 'column'"></video-comments>
+          </section>
+        </div>
       </div>
 
     </li>

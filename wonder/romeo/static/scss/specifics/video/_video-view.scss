@@ -30,7 +30,6 @@
 }
 
 .video-view__comments {
-  padding-left: $half-spacing-unit;
   position: relative;
   vertical-align: top;
 }
@@ -50,11 +49,8 @@
 }
 
 .video-view__container {
+  @extend %ratio;
   @extend %ratio--16x9;
-  position: relative;
-  width: 100%;
-  max-height: 540px;
-  margin-bottom: 24px;
 }
 
 .video-view__container--fixed {
