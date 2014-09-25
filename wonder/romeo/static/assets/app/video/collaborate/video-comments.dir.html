@@ -60,9 +60,9 @@
               </div>
             </div>
             <div class="list-inline  u--f-right  video-feedback__comment-controls">
-              <a class="zeta  video-feedback__reply-link" ng-hide="comment.resolved" ng-click="reply(comment.timestamp)">reply</a>
-              <a class="zeta  video-feedback__resolve-link" ng-hide="comment.resolved || !flags.isOwner" ng-click="resolve(comment.id)">resolve</a>
-              <a class="zeta  video-feedback__resolve-link" ng-show="comment.resolved && flags.isOwner" ng-click="unresolve(comment.id)">reopen</a>
+              <a class="zeta  u--ff-sans  video-feedback__reply-link" ng-hide="comment.resolved" ng-click="reply(comment.timestamp)">reply</a>
+              <a class="zeta  u--ff-sans  video-feedback__resolve-link" ng-hide="comment.resolved || !flags.isOwner" ng-click="resolve(comment.id)">resolve</a>
+              <a class="zeta  u--ff-sans  video-feedback__resolve-link" ng-show="comment.resolved && flags.isOwner" ng-click="unresolve(comment.id)">reopen</a>
             </div>
           </div>
         </div>
