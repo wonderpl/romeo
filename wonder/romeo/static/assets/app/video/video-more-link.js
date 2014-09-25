@@ -7,9 +7,7 @@ angular.module('RomeoApp.directives')
     restrict : 'E',
     replace : true,
     template : $templateCache.get('video/video-more-link.dir.html'),
-    scope : {
-      video : '='
-    },
+    scope : true,
     controller : function ($scope) {
       $scope.remaining = 30;
       var maxLength = 30;
