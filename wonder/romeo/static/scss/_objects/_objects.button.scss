@@ -264,17 +264,17 @@ $global-border-box: false !default;
   }
 
   &:before {
-    margin-top: -21px;
+    margin-top: -1.3333333333333333em;
     border-color: rgba(112,121,123,0);
     border-right-color: rgba($base-color-ui-dark, 0.5);
-    border-width: 21px;
+    border-width: 1.3333333333333333em;
   }
 
   &:after {
-    margin-top: -20px;
+    margin-top: -1.2777777777777777em;
     border-color: rgba(255,255,255,0);
     border-right-color: #fff;
-    border-width: 20px;
+    border-width: 1.2777777777777777em;
   }
 
   &:hover {
