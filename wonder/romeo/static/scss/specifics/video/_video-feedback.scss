@@ -77,10 +77,11 @@
   color: $white;
   background: $black;
   display: inline-block;
-  transition: opacity 0.4s;
   opacity: 0;
   position: absolute;
   left: -9999px;
+  -webkit-transition: opacity 0.15s ease-in-out;
+          transition: opacity 0.15s ease-in-out;
 }
 
 .video-feedback__comment-resolved--active {
@@ -88,6 +89,10 @@
   position: static;
 }
 
+.video-feedback__comment {
+  -webkit-transition: opacity 0.15s ease-in-out;
+          transition: opacity 0.15s ease-in-out;
+}
 .video-feedback__comment--resolved {
   opacity: 0.4;
 }

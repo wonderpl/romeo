@@ -45,7 +45,7 @@
 
     <ul class="video-feedback__comments-list" id="video-comments-list-{{ $root.layoutMode }}">
       <li id="comment-{{ comment.id }}" class="video-feedback__comment" ng-class="{ 'video-feedback__comment--active' : isTimeSync(comment.timestamp) }" ng-repeat="comment in comments | orderBy : 'timestamp' | filter: { resolved : filterResolved }">
-        <div class="media" ng-class="{ 'video-feedback__comment--resolved' : comment.resolved }">
+        <div class="media  video-feedback__comment" ng-class="{ 'video-feedback__comment--resolved' : comment.resolved }">
           <a class="media__img  video-feedback__comment-profile-image" ng-style="{ 'background-image' : 'url(' + (comment.avatar || '/static/assets/img/user-avatar.png') + ')' }"></a>
           <div class="media__body">
             <div class="video-feedback__comment-details">

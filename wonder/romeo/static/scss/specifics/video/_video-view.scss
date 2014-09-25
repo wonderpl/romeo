@@ -49,6 +49,7 @@
 }
 
 .video-view__container {
+  margin-bottom: $base-spacing-unit;
   @extend %ratio;
   @extend %ratio--16x9;
 }
