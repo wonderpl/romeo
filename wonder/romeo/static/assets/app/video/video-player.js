@@ -84,6 +84,9 @@
           bus.subscribe(OO.EVENTS.PAUSED, 'WonderUIModule', function () {
             scope.$broadcast('player-paused');
           });
+          bus.subscribe(OO.EVENTS.PLAY, 'WonderUIModule', function () {
+            scope.$broadcast('player-play');
+          });
           bus.subscribe(OO.EVENTS.ERROR, 'WonderUIModule', function (code) {
             debug.log('player error ', code);
             scope.$emit('notify', {
