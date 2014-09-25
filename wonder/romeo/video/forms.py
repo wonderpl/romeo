@@ -122,11 +122,11 @@ class VideoTagForm(BaseForm):
 
 
 class VideoForm(BaseForm):
-    title = wtforms.StringField(validators=[wtforms.validators.Required()])
+    title = wtforms.StringField(validators=[wtforms.validators.Required(), wtforms.validators.Length(max=100)])
     strapline = wtforms.StringField()
-    description = wtforms.StringField()
+    description = wtforms.StringField(validators=[wtforms.validators.Length(max=5000)])
     category = wtforms.SelectField(validators=[wtforms.validators.Optional()])
-    search_keywords = wtforms.StringField()
+    search_keywords = wtforms.StringField(validators=[wtforms.validators.Length(max=500)])
     hosted_url = wtforms.StringField(validators=[wtforms.validators.Optional(), wtforms.validators.URL()])
     filename = wtforms.StringField()
     player_logo = wtforms.FileField(validators=[ImageData('logo')])
