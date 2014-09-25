@@ -99,10 +99,17 @@ angular.module('RomeoApp.directives')
       }
 
       $scope.$on('player-paused', videoOnPaused);
+      $scope.$on('player-play', videoOnPlay);
 
       function videoOnPaused (event, data) {
         $timeout(function () {
           $scope.inputActive = true;
+        });
+      }
+
+      function videoOnPlay (event, data) {
+        $timeout(function () {
+          $scope.inputActive = false;
         });
       }
 
