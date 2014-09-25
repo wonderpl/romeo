@@ -1,122 +1,114 @@
 angular
   .module('RomeoApp.services')
-  .factory('modal', ['$compile', '$templateCache', '$timeout', ModalService]);
+  .factory('modal', ['$rootScope', '$compile', '$templateCache', '$timeout', ModalService]);
 
 
-function ModalService ($compile, $templateCache, $timeout) {
-
+function ModalService ($rootScope, $compile, $templateCache, $timeout) {
   'use strict';
 
-  /*
-  * Create some elements and add some classes / ID's to them
-  */
+  // Create some elements and add some classes / ID's to them
   var modal = {},
-      el = document.createElement('div'),
       $el,
-
       b = document.body || document.documentElement,
       template,
       compiledTemplate,
       urlCache = {},
+      modalShowing = false,
       modalClass = '',
       modalIsSmall = false;
 
+  function createModalElements(scope, fullScreen, className) {
+    scope = scope || $rootScope.$new();
+    if (typeof scope.close !== 'function') {
+      scope.close = modal.hide;
+    }
+    var el = document.createElement('div');
+    if (modalShowing) {
+      $el.remove();
+      modalShowing = false;
+    }
 
-  el.setAttribute('id', 'modal-bg');
-  b.appendChild(el);
-  $el = angular.element(el);
-  $el.addClass('modal  modal--fullscreen');
-
-  var container  = document.createElement('div');
-  var $container = angular.element(container);
-  $container.addClass('center-object');
-
-  el.appendChild(container);
-
-  // el.setAttribute('id', 'modal');
-  // container.appendChild(el);
-  // $el = angular.element(el);
-  // $el.addClass('modal animated-half fadeInUp');
-
-  // $el.on('click', function (e) {
-  //     if(e.currentTarget === e.target){
-  //         modal.hide();
-  //     }
-  // });
-
-  /*
-  * Show the modal ( assuming it has a compiled view inside it )
-  */
-  modal.show = function ( opts ) {
-    $el.removeClass();
-    $el.addClass(modalClass || 'modal  modal--fullscreen');
-    modalClass = '';
-
-    $el.addClass('is-visible');
-    if (! modalIsSmall) {
+    el.setAttribute('id', 'modal-bg');
+    b.appendChild(el);
+    $el = angular.element(el);
+    $el.addClass(className || 'modal  modal--fullscreen');
+    if (fullScreen) {
       $('body').addClass('disable-scroll');
     }
-    else {
-      modalIsSmall = false;
-    }
+
+    // Close button
+    var $closeBtn  = $compile('<a ng-click="close()" class="modal-close"><i class="icon  icon--large  icon--cross"></i></a>')(scope);
+
+    var container  = document.createElement('div');
+    var $container = angular.element(container);
+    $container.addClass('center-object');
+
+    $el.append($closeBtn);
+    el.appendChild(container);
+  }
+
+  // Show the modal ( assuming it has a compiled view inside it )
+  modal.show = function ( opts ) {
+    modalShowing = true;
+    $el.addClass('is-visible');
   };
 
   modal.hide = function () {
     $el.removeClass('is-visible');
     $('body').removeClass('disable-scroll');
     $timeout(function () {
-      $el.children().first().empty();
+      $el.remove();
+      modalShowing = false;
     }, 500);
   };
 
-  /*
-  * Load the modal template and show it ( optional )
-  * url: the name of the template in the template cache
-  * show: bool, defines whether it is show when straight after loading
-  * scope: the scope of the controller that has called the modal to load is passed in
-  * obj: any data that is needed in the modal is passed in
-  * opts: any additional options that are required
-  */
+
+  // Load the modal template and show it ( optional )
+  // url: the name of the template in the template cache
+  // show: bool, defines whether it is show when straight after loading
+  // scope: the scope of the controller that has called the modal to load is passed in
+  // obj: any data that is needed in the modal is passed in
+  // opts: any additional options that are required
   modal.load = function (url, show, scope, obj, opts) {
+    var fullScreen = !(opts && opts.small);
+    var className = (opts && opts['class']);
+    createModalElements(scope, fullScreen, className);
+    if ( opts && 'width' in opts ) {
+        $el.css('width', opts.width + 'px');
+    }
 
-      if ( opts && 'width' in opts ) {
-          $el.css('width', opts.width + 'px');
-      }
+    template = $templateCache.get(modal.getUrl(url));
+    if ( typeof obj !== 'undefined' ) {
+        var $scp = angular.extend(scope.$new(), {
+            data: angular.extend({}, obj)
+        });
+        compiledTemplate = $compile(template)($scp);
+    } else {
+        compiledTemplate = $compile(template)(scope);
+    }
 
-      template = $templateCache.get(modal.getUrl(url));
-      if ( obj !== undefined ) {
-          var $scp = angular.extend(scope.$new(), {
-              data: angular.extend({}, obj)
-          });
-          compiledTemplate = $compile(template)($scp);
-      } else {
-          compiledTemplate = $compile(template)(scope);
-      }
+    $el.append(compiledTemplate);
 
-      // $el.html('');
-      $el.append(compiledTemplate);
-
-      if (show === true) {
-         modal.show();
-      }
-      return $el;
+    if (show === true) {
+       modal.show();
+    }
+    return $el;
   };
 
-  modal.loadDirective = function (name, scope, attr) {
-    $el.children().first().empty();
-    if (attr) {
-      if (attr.class)
-        modalClass = attr.class;
-      if (attr.small)
-        modalIsSmall = true;
-    }
-    $el.children().first().append($compile('<' + name + '></' + name + '>')(scope));
+  // Load the modal directive and show it
+  // name: the name of the directive to load
+  // scope: the scope of the controller that has called the modal to load is passed in
+  // opts: any additional options that are required
+  modal.loadDirective = function (name, scope, opts) {
+    var fullScreen = !(opts && opts.small);
+    var className = (opts && opts['class']);
+    createModalElements(scope, fullScreen, className);
+
+    $el.find('.center-object').append($compile('<' + name + '></' + name + '>')(scope));
     modal.show();
   };
 
-  /*
-  * Check if the URL is cached
-  */
+  // Check if the URL is cached
   modal.getUrl = function (url) {
       if (urlCache[url] === undefined) {
           return url;
@@ -125,9 +117,7 @@ function ModalService ($compile, $templateCache, $timeout) {
       }
   };
 
-  /*
-  * Expose the methods to the service
-  */
+  // Expose the methods to the service
   return modal;
 
 }
