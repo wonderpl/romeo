@@ -1,3 +1,51 @@
 <div>
-add to collection modal
+  <a class="modal-close" ng-click="close()"><i class="icon  icon--large  icon--cross"></i></a>
+  <div class="center-object">
+    <header class="modal-header">
+      <div class="wrapper">
+        <h2 class="heading  alpha  u--ta-center">Add to a collection</h2>
+      </div>
+    </header>
+    <div class="modal-body">
+      <div class="wrapper  wrapper--fixed">
+        <ul class="layout  is-scrollable  is-scrollable-ui  u--mxh-small  u--m-default">
+          <li class="layout__item  one-half">
+            <a class="block-link  collection-link">
+              <div class="flag  box  box--small">
+                <div class="flag__img">
+                  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="collection-sprite  collection-sprite--new">
+                </div>
+                <div class="flag__body">
+                  <div class="trunc"><span class="u--ff-sans  u--m-none">Create a new collection</span></div>
+                </div>
+              </div>
+            </a>
+          </li><!--
+       --><li class="layout__item  one-half">
+            <a href="" class="block-link  collection-link">
+              <div class="flag  box  box--small">
+                <div class="flag__img">
+                  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="collection-sprite">
+                </div>
+                <div class="flag__body">
+                  <div class="trunc"><span class="u--ff-sans"></span></div>
+                  <p class="trunc  u--ff-sans  milli  u--o50  u--m-none"></p>
+                </div>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <ul class="list-inline  u--ta-center">
+          <li class="zeta  u--ff-sans  u--o75  icon-text--rev"><span></span><i class="icon  icon--cross  icon-text__icon  u--c-destructive  u--c-pointer"></i></li>
+        </ul>
+        <div class="btn-center">
+          <a ng-click="close()" class="btn  btn--positive">Okay</a>
+        </div>
+      </div>
+    </div>
+    <footer class="modal-footer">
+      <div class="wrapper">
+      </div>
+    </footer>
+  </div>
 </div>

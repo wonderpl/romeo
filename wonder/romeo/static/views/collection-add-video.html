@@ -35,7 +35,7 @@
         </li>
       </ul>
       <ul class="list-inline  u--ta-center" ng-show="video.tags.items.length && !showOnlyPublic">
-        <li class="zeta  u--ff-sans  u--o75  icon-text--rev" ng-repeat="tag in video.tags.items"><span ng-bind-html="tag.label">Good Life Advice</span><i class="icon  icon--cross  icon-text__icon  u--c-destructive  u--c-pointer" ng-click="removeTag(tag.id, $event)"></i></li>
+        <li class="zeta  u--ff-sans  u--o75  icon-text--rev" ng-repeat="tag in video.tags.items"><span ng-bind-html="tag.label"></span><i class="icon  icon--cross  icon-text__icon  u--c-destructive  u--c-pointer" ng-click="removeTag(tag.id, $event)"></i></li>
       </ul>
       <div class="btn-center">
         <a ng-click="close()" class="btn  btn--positive">Okay</a>

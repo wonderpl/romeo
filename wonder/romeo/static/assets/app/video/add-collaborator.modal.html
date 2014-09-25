@@ -1,3 +1,44 @@
 <div>
-add-collaborator modal
+  <a class="modal-close" ng-click="close()"><i class="icon  icon--large  icon--cross"></i></a>
+  <div class="center-object">
+    <header class="modal-header">
+      <div class="wrapper">
+        <h2 class="heading  alpha  u--ta-center">Invite a collaborator</h2>
+      </div>
+    </header>
+    <div class="modal-body">
+      <div class="wrapper">
+        <div class="text-col">
+          <form class="form-ui">
+            <fieldset class="form-ui__fieldset">
+              <legend class="accessible">Invite collaborators by sending them an email.</legend>
+              <ul class="form-fields">
+                <li>
+                  <label for="collaborator-name" class="accessible">Invite a collaborator:</label>
+                  <input id="collaborator-name" name="collaborator-name" class="text-input" type="text" placeholder="Type the email address or name of someone to invite">
+                </li>
+                <li class="split">
+                  <label for="" class="u--w700  split__title">Permissions:</label>
+                  <select class="sort-ui__options">
+                    <option value="">Comment</option>
+                    <option value="">Download</option>
+                    <option value="">Comment &amp; Download</option>
+                  </select>
+                </li>
+                <li>
+                  <div class="btn-center">
+                    <a class="btn  btn--positive" ng-click="close()">Send invite</a>
+                  </div>
+                </li>
+              </ul>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+    <footer class="modal-footer">
+      <div class="wrapper">
+      </div>
+    </footer>
+  </div>
 </div>

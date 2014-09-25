@@ -1,3 +1,36 @@
 <div>
-wonder transfer modal
+  <a class="modal-close" ng-click="close()"><i class="icon  icon--large  icon--cross"></i></a>
+  <div class="center-object">
+    <header class="modal-header">
+      <div class="wrapper">
+        <h2 class="heading  alpha  u--ta-center">Wonder Transfer</h2>
+      </div>
+    </header>
+    <div class="modal-body">
+      <div class="wrapper">
+        <div class="text-col">
+          <form class="form-ui">
+            <fieldset class="form-ui__fieldset">
+              <legend class="accessible">Export your work and all the assets.</legend>
+              <ul class="form-fields">
+                <li>
+                  <label for="collaborator-name" class="accessible">Send your assets to:</label>
+                  <input id="collaborator-name" name="collaborator-name" class="text-input  one-whole" type="text" placeholder="Type the email address or name of someone to transfer">
+                </li>
+                <li>
+                  <div class="btn-center">
+                    <a class="btn  btn--positive" ng-click="close()">Transfer</a>
+                  </div>
+                </li>
+              </ul>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+    <footer class="modal-footer">
+      <div class="wrapper">
+      </div>
+    </footer>
+  </div>
 </div>
