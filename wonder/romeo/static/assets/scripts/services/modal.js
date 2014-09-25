@@ -17,8 +17,9 @@ function ModalService ($rootScope, $compile, $templateCache, $timeout) {
       modalClass = '',
       modalIsSmall = false;
 
-  function createModalElements(scope, fullScreen, className) {
+  function createModalElements(scope, opts) {
     scope = scope || $rootScope.$new();
+    opts = opts || {};
     if (typeof scope.close !== 'function') {
       scope.close = modal.hide;
     }
@@ -29,10 +30,13 @@ function ModalService ($rootScope, $compile, $templateCache, $timeout) {
     }
 
     el.setAttribute('id', 'modal-bg');
-    b.appendChild(el);
+    if (opts.element && document.getElementById(opts.element))
+      document.getElementById(opts.element).appendChild(el);
+    else
+      b.appendChild(el);
     $el = angular.element(el);
-    $el.addClass(className || 'modal  modal--fullscreen');
-    if (fullScreen) {
+    $el.addClass(opts.class || 'modal  modal--fullscreen');
+    if (opts.fullScreen) {
       $('body').addClass('disable-scroll');
     }
 
@@ -70,9 +74,9 @@ function ModalService ($rootScope, $compile, $templateCache, $timeout) {
   // obj: any data that is needed in the modal is passed in
   // opts: any additional options that are required
   modal.load = function (url, show, scope, obj, opts) {
-    var fullScreen = !(opts && opts.small);
-    var className = (opts && opts['class']);
-    createModalElements(scope, fullScreen, className);
+    opts.fullScreen = !(opts && opts.small);
+    settings.class = (opts && opts['class']);
+    createModalElements(scope, opts);
     if ( opts && 'width' in opts ) {
         $el.css('width', opts.width + 'px');
     }
@@ -100,9 +104,8 @@ function ModalService ($rootScope, $compile, $templateCache, $timeout) {
   // scope: the scope of the controller that has called the modal to load is passed in
   // opts: any additional options that are required
   modal.loadDirective = function (name, scope, opts) {
-    var fullScreen = !(opts && opts.small);
-    var className = (opts && opts['class']);
-    createModalElements(scope, fullScreen, className);
+    opts.fullScreen = !(opts && opts.small);
+    createModalElements(scope, opts);
 
     $el.find('.center-object').append($compile('<' + name + '></' + name + '>')(scope));
     modal.show();
