@@ -11,8 +11,8 @@
       restrict: 'E',
       template : $templateCache.get('video/config/player-editor.tmpl.html'),
       scope: {
-        playerParameters : '=',
-        video : '='
+        playerParameters : '@',
+        video : '@'
       },
       link : function (scope, element, attrs) {
 
@@ -28,7 +28,7 @@
           var frame = $frame[0].contentDocument || $frame[0].contentWindow.document;
           frame.dispatchEvent(new CustomEvent('video-data-change', { detail : { path : path, data : isHide }}));
         };
-
+        $scope.playerParameters = $scope.playerParameters || {};
         $scope.rgb = $scope.playerParameters.rgb;
 
         $scope.$watch('rgb', function (newValue, oldValue) {

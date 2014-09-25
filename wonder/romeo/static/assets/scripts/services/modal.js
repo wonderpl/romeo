@@ -17,7 +17,9 @@ function ModalService ($compile, $templateCache, $timeout) {
       b = document.body || document.documentElement,
       template,
       compiledTemplate,
-      urlCache = {};
+      urlCache = {},
+      modalClass = '',
+      modalIsSmall = false;
 
 
   el.setAttribute('id', 'modal-bg');
@@ -46,15 +48,24 @@ function ModalService ($compile, $templateCache, $timeout) {
   * Show the modal ( assuming it has a compiled view inside it )
   */
   modal.show = function ( opts ) {
+    $el.removeClass();
+    $el.addClass(modalClass || 'modal  modal--fullscreen');
+    modalClass = '';
+
     $el.addClass('is-visible');
-    $('body').addClass('disable-scroll');
+    if (! modalIsSmall) {
+      $('body').addClass('disable-scroll');
+    }
+    else {
+      modalIsSmall = false;
+    }
   };
 
   modal.hide = function () {
     $el.removeClass('is-visible');
     $('body').removeClass('disable-scroll');
     $timeout(function () {
-      $el.empty();
+      $el.children().first().empty();
     }, 500);
   };
 
@@ -91,7 +102,14 @@ function ModalService ($compile, $templateCache, $timeout) {
       return $el;
   };
 
-  modal.loadDirective = function (name, scope) {
+  modal.loadDirective = function (name, scope, attr) {
+    $el.children().first().empty();
+    if (attr) {
+      if (attr.class)
+        modalClass = attr.class;
+      if (attr.small)
+        modalIsSmall = true;
+    }
     $el.children().first().append($compile('<' + name + '></' + name + '>')(scope));
     modal.show();
   };
