@@ -1,25 +1,48 @@
 /**
  * _components.center-content.scss
  */
-.center-object,
-%center-object {
+/**
+ * Vertically align anything with just 3 lines of css, brought to you from 
+ * Sebastian Ekström of zerosixthree:
+ * http://zerosixthree.se/vertical-align-anything-with-just-3-lines-of-css/
+ *
+ * N.B. It's also worth mentioning that when using translate, the content may 
+ * blur due to it sitting on a half pixel. It's advised to use 
+ * 'transform-style: preserve-3d;' on the parent container to avoid such
+ * occurrences.
+ */
+.center-object {
   position: relative;
   top: 50%;
-  @include vendor(transform, translateY(-50%));
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
 }
 
-.center-container,
-%center-container {
+.ie9 .center-object {
+      -ms-transform: translateY(-50%);
+}
+
+/**
+ * When the parent container has a height applied, we can use a table display
+ * to centre content vertically. This usually works best with a container that
+ * has 100% height, to create full-screen, centred content.
+ */
+.center-container {
   display: table;
   width: 100%;
   height: 100%;
   position: relative;
-
-  > .center-object,
-  > %center-object {
+}
+  .center-container > .center-object {
     display: table-cell;
     vertical-align: middle;
     top: 0;
-    @include vendor(transform, translateY(0));
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
   }
+/**
+ * according to caniuse.com, only IE9 needs an affixed '-ms-'' vendor prefix.
+ */
+.ie9 .center-container > .center-object {
+        -ms-transform: translateY(0);
 }
