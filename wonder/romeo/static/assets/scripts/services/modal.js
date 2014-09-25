@@ -75,6 +75,7 @@ function ModalService ($rootScope, $compile, $templateCache, $timeout) {
   // obj: any data that is needed in the modal is passed in
   // opts: any additional options that are required
   modal.load = function (url, show, scope, obj, opts) {
+    opts = opts || {};
     opts.fullScreen = !(opts && opts.small);
     settings.class = (opts && opts['class']);
     createModalElements(scope, opts);
@@ -105,6 +106,7 @@ function ModalService ($rootScope, $compile, $templateCache, $timeout) {
   // scope: the scope of the controller that has called the modal to load is passed in
   // opts: any additional options that are required
   modal.loadDirective = function (name, scope, opts) {
+    opts = opts || {};
     opts.fullScreen = !(opts && opts.small);
     createModalElements(scope, opts);
 
