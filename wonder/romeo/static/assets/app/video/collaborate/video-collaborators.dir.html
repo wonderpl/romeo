@@ -4,7 +4,7 @@
     <div class="split__title">
       <div class="icon-text--rev">
         <h4 class="video-collaborators__title  no-spacing">collaborators</h4>
-        <a class="btn  icon-text__icon" ng-click="showCollaboratorsModal()" ng-if="flags.isOwner">Invite</a>
+        <a class="btn  icon-text__icon" fullscreen-modal="video-add-collaborator" ng-if="flags.isOwner">Invite</a>
       </div>
     </div>
     <a class="btn  video-collaborators__notify" ng-click="!flags.notified && notify(videoId)" ng-class="{ 'btn--disabled' : flags.notified || !collaborators || !comments.length }">Notify All</a>

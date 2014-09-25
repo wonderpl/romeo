@@ -2,7 +2,7 @@
 
   'use strict';
 
-  function modal ($templateCache) {
+  function AddToCollection ($templateCache, modal) {
 
     return {
       restrict : 'E',
@@ -16,19 +16,12 @@
       },
       controller : function ($scope) {
         $scope.close = function ($event) {
-          $scope.showModal = false;
-          $scope.modalSelection = null;
+          modal.hide();
         };
-
-        $scope.$on('close-modal', function ($event) {
-          $event.stopPropagation();
-          $scope.showModal = false;
-          $scope.modalSelection = null;
-        });
       }
     };
   }
 
-  angular.module('RomeoApp.modal').directive('modalAddToCollection', ['$templateCache', modal]);
+  angular.module('RomeoApp.modal').directive('modalAddToCollection', ['$templateCache', 'modal', AddToCollection]);
 
 })();

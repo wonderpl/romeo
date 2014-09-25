@@ -95,7 +95,8 @@ class ConnectionTestCase(unittest.TestCase):
         account1, user1 = register_user(content_owner=True).values()
         account2, user2 = register_user().values()
 
-        with patch('wonder.romeo.account.forms.send_email'), patch('wonder.romeo.video.forms.send_email'):
+        with patch('wonder.romeo.account.forms.send_email'),\
+                patch('wonder.romeo.video.forms.send_email'):
             # Connect & collaborate with the same user
             self._connect(user1, user2)
             with client_for_user(user1['id']) as client:

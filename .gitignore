@@ -18,6 +18,10 @@ lib
 lib64
 __pycache__
 
+# py.test coverage
+/htmlcov
+*,cover
+
 # Grunt generated files
 /static/gen
 

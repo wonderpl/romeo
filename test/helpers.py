@@ -27,7 +27,8 @@ def _register_user(client, **kwargs):
     reg['user'].setdefault('username', userdata['username'])
     if content_owner:
         dolly_user = dict(user_id=str(id), access_token='xxx')
-        with patch('wonder.romeo.core.dolly.login', return_value=dolly_user):
+        with patch('wonder.romeo.core.dolly.login', return_value=dolly_user),\
+                patch('wonder.romeo.account.models._push_profile_changes_to_dolly'):
             payment = dict(payment_token='xxx')
             r = client.post(reg['account']['href'] + '/payment', json=payment)
             assert r.status_code == 204

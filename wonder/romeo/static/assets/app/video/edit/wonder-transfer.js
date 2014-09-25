@@ -13,21 +13,6 @@
         video : '=',
         modalSelection : '=',
         flags: '='
-      },
-      link: function (scope, element, attr) {
-        element.append('<h1>Hi from controller</h1>');
-      },
-      controller : function ($scope) {
-        $scope.close = function ($event) {
-          $scope.showModal = false;
-          $scope.modalSelection = null;
-        };
-
-        $scope.$on('close-modal', function ($event) {
-          $event.stopPropagation();
-          $scope.showModal = false;
-          $scope.modalSelection = null;
-        });
       }
     };
   }
