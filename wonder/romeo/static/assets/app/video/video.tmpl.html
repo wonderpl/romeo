@@ -8,7 +8,7 @@
   <local-navigation pages="pages"></local-navigation>
 
   <div ng-if="video.id && !flags.isPublic && !flags.isOwner" class="video-view__avatar u--ta-center">
-    <div class="avatar avatar--large"><img class="avatar__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" style="background-image : url('{{ video.account.avatar || '/static/assets/img/user-avatar.png' }}');" /></div>
+    <div class="avatar  avatar--center  avatar--large"><img class="avatar__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" style="background-image : url('{{ video.account.avatar || '/static/assets/img/user-avatar.png' }}');" /></div>
     {{video.account.display_name}}
   </div>
 
@@ -78,7 +78,7 @@
               </div>
 
               <div ng-if="flags.isPublic">
-                <h3 class="video-view__owner"><a href="#/profile/{{owner.user.id}}"><span class="avatar"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img video-view__avatar" style="background-image: url({{owner.avatar || '/static/assets/img/user-avatar.png' }});"></span> {{owner.display_name}}</a></h3>
+                <h3 class="video-view__owner"><a href="#/profile/{{owner.user.id}}"><span class="avatar  avatar--center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img video-view__avatar" style="background-image: url({{owner.avatar || '/static/assets/img/user-avatar.png' }});"></span> {{owner.display_name}}</a></h3>
                 <p class="profile-details__legend f--sans" ng-if="collaborators">Collaborators:</p>
                 <ul class="profile-collaborators" ng-show="collaborators">
                   <li ng-repeat="connection in collaborators">
