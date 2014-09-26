@@ -19,12 +19,11 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
     // For add collection modal
     $scope.showOnlyPrivate = true;
 
-    $scope.pages = [
-    ];
     setNavigation();
   }
 
   function setNavigation() {
+    $scope.pages = [];
     if ($scope.video.id && !$scope.flags.isPublic) {
       if ($scope.flags.isOwner) {
         $scope.pages.push({

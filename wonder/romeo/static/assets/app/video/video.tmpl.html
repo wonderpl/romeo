@@ -70,7 +70,7 @@
 
               <video-extended-controls ng-if="flags.isEdit" ></video-extended-controls>
 
-              <video-download video-id="video.id" ng-show="video.id && !flags.isOwner && flags.canDownload && (videoStatus == 'published' || videoStatus == 'ready')"></video-download>
+              <video-download video-id="video.id" ng-if="video.id && !flags.isOwner && flags.canDownload && (video.status == 'published' || video.status == 'ready')"></video-download>
 
               <div class="video-view__save-controls" ng-show="flags.isEdit">
                 <a ng-click="bottomCancel()" class="btn  btn--small">cancel</a>

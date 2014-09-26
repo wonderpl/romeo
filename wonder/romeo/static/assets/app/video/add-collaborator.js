@@ -16,7 +16,6 @@
 
         $scope.select2Options = {
           width: '100%',
-          // allowClear: true,
           simple_tags: true,
           multiple: true,
           data: function () {
@@ -33,27 +32,21 @@
             callback(data);
           },
           formatResult: function (obj) {
-            console.log('formatResult', obj);
             if (obj.avatar)
               return '<div class="media"><span class="media__img avatar avatar--small"><img src="' + obj.avatar + '" class="avatar__img"></span> ' + obj.text + '</div>';
             return obj.text;
           },
           formatSelection: function (obj) {
-            console.log('formatSelection', obj);
             var connection = findConnectionById(obj.id || obj);
-            console.dir(connection);
             return connection.text || connection.id;
           }
         };
 
         UserService.getConnections(true).then(function (data) {
           $scope.connections = data;
-          console.log('Connections: ', data);
-          // $scope.select2Options.data = data;
         });
 
         $scope.add = function () {
-          console.log('add', $scope.invite);
           if (! $scope.invite.collaborators || !$scope.invite.collaborators.length) {
 
             $scope.$emit('notify', {
@@ -70,7 +63,6 @@
               $scope.invite.collaborators[i] = coll.text ? coll : { text: $scope.invite.collaborators[i] };
             }
           }
-          console.log('Collaborators to invite: ', $scope.invite.collaborators);
           CollaboratorsService.addCollaborators($scope.video.id, $scope.invite)
           .success(function () {
             $scope.collaboratorAdded = true;
@@ -100,15 +92,6 @@
               return $scope.connections[i];
           }
           return { id: id };
-        }
-
-        function findConnectionByText(text) {
-          for (var i = 0; i < $scope.connections.length; ++i) {
-            console.dir($scope.connections[i]);
-            if ($scope.connections[i].text == text)
-              return $scope.connections[i];
-          }
-          return { id: text };
         }
       }
     };
