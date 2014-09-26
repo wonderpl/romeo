@@ -63,10 +63,12 @@
             );
             return;
           }
-
+          var originalCollaborators = angular.copy($scope.invite.collaborators);
           for (var i = 0; i < $scope.invite.collaborators.length; ++i) {
-            if (angular.isString($scope.invite.collaborators[i]))
-              $scope.invite.collaborators[i] = findConnectionById($scope.invite.collaborators[i]);
+            if (angular.isString($scope.invite.collaborators[i])) {
+              var coll = findConnectionById($scope.invite.collaborators[i]);
+              $scope.invite.collaborators[i] = coll.text ? coll : { text: $scope.invite.collaborators[i] };
+            }
           }
           console.log('Collaborators to invite: ', $scope.invite.collaborators);
           CollaboratorsService.addCollaborators($scope.video.id, $scope.invite)
@@ -88,6 +90,7 @@
               message : 'No invitations have been sent.'}
             );
           });
+          $scope.invite.collaborators = originalCollaborators;
         };
 
         function findConnectionById(id) {
