@@ -4,33 +4,71 @@
 
 .search__form-input {
   @extend .giga;
-  @extend .input--borderless;
-  @extend .t--push-top;
-  @extend .t--push-bottom;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  padding: $half-spacing-unit / 2 $half-spacing-unit;
+  margin-bottom: $base-spacing-unit;
+  background-color: transparent;
+  border: 0 solid $base-color-ui;
+  border-bottom-width: 1px;
+  transition: all $base-timing-transition;
+
+  &:active,
+  &:focus {
+    background-color: rgba($base-color-ui, 0.25);
+    border-color: $base-color-ui-dark;
+    outline: none;
+  }
 }
 
-.search__results-container {
-  @extend .t--pad-top;
-  border-top: solid 1px $light-grey;
+
+/**
+ * !NOTE! - Pretty much copies the layout module.
+ * !TODO! - Change markup to use proper layout module.
+ */
+.search__results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-left: -$base-spacing-unit;
 }
 
-.search__results-container--left {
-  @extend .one-third;
-  @extend .t--push-right;
-  @extend .t--push-bottom;
-  @extend .f--left;
-  clear: left;
+  .search__results-container {
+    display: inline-block;
+    padding-left: $base-spacing-unit;
+    vertical-align: top;
+  }
+
+  .search__results-container--left {
+    width: 33.3333333%;
+  }
+
+  .search__results-container--right {
+    width: 66.6666666%;
+  }
+
+
+/**
+ * Search container headings
+ */
+.content-heading {
+  display: inline-block;
+  font-weight: bold;
+  font-family: $heading-font-family;
+  font-size: 10px;
+  font-size: 0.66667rem;
+  line-height: 2.25;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #b7bcbd;
 }
 
-.search__results-container--right {
-  @extend .seven-twelfths;
-  @extend .t--iblock;
-  clear: right;
-}
 
 .search__item-description {
   color: $cold-black;
 }
+
 
 .search__thumbnail {
   background-color: $grey;

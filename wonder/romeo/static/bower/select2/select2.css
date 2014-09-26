@@ -76,7 +76,7 @@ Version: 3.4.8 Timestamp: Thu May  1 09:50:32 EDT 2014
     margin-right: 26px;
     display: block;
     overflow: hidden;
-
+    font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
     white-space: nowrap;
 
     text-overflow: ellipsis;
@@ -332,12 +332,11 @@ Version: 3.4.8 Timestamp: Thu May  1 09:50:32 EDT 2014
 }
 
 .select2-results .select2-result-label {
+    min-height: 1em;
     padding: 3px 7px 4px;
     margin: 0;
+    font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
     cursor: pointer;
-
-    min-height: 1em;
-
     -webkit-touch-callout: none;
       -webkit-user-select: none;
          -moz-user-select: none;
