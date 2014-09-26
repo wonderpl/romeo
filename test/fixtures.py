@@ -28,6 +28,7 @@ class AccountData(DataSet):
         name = 'account1'
         dolly_user = 'iii'
         dolly_token = 'xxx'
+        account_type = 'content_owner'
 
 
 class AccountUserData(DataSet):

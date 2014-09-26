@@ -4,7 +4,8 @@ from itsdangerous import URLSafeSerializer
 from sqlalchemy import (
     Column, Integer, String, Text, Boolean, DateTime, ForeignKey, Enum,
     PrimaryKeyConstraint, UniqueConstraint, func, event, null)
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.dialects.postgresql import TSVECTOR
+from sqlalchemy.orm import relationship, backref, deferred
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.ext.associationproxy import association_proxy
 from flask import session, url_for, current_app, json
@@ -44,6 +45,7 @@ class Video(db.Model):
     hosted_url = Column(String(1024))
     player_logo_filename = Column(String(128))
     dolly_instance = Column(String(128))
+    search_vector = deferred(Column(TSVECTOR))
 
     account = relationship(Account, backref=backref('videos', cascade='all, delete-orphan'))
 

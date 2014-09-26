@@ -4,7 +4,8 @@ from cStringIO import StringIO
 from urlparse import urljoin
 from sqlalchemy import (
     Column, Integer, String, Boolean, ForeignKey, PrimaryKeyConstraint, DateTime, Enum, CHAR, event, func)
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.dialects.postgresql import TSVECTOR
+from sqlalchemy.orm import relationship, backref, deferred
 from sqlalchemy.orm.attributes import instance_state, get_history
 from werkzeug.routing import RequestRedirect
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -75,6 +76,7 @@ def _image_field_accessors(field, default_thumbnail=True):
 class AccountUser(db.Model):
     id = Column(Integer, primary_key=True)
     date_added = Column(DateTime(), nullable=False, default=func.now())
+    date_updated = Column(DateTime(), nullable=False, default=func.now(), onupdate=func.now())
     account_id = Column('account', ForeignKey(Account.id), nullable=False, index=True)
     username = Column(String(128), nullable=False)
     password_hash = Column(String(128))
@@ -88,6 +90,7 @@ class AccountUser(db.Model):
     avatar_filename = Column(String(256))
     profile_cover_filename = Column(String(256))
     contactable = Column(Boolean, nullable=False, default=True, server_default='true')
+    search_vector = deferred(Column(TSVECTOR))
 
     account = relationship(Account, backref=backref('users', cascade='all, delete-orphan'))
 

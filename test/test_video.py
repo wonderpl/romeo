@@ -4,7 +4,6 @@ from mock import patch, MagicMock, DEFAULT
 from fixture import DataTestCase
 from flask import current_app, json, g
 from wonder.romeo import db
-from wonder.romeo.account.models import AccountUser
 from wonder.romeo.video.models import Video, VideoLocaleMeta, VideoComment
 from .helpers import client_for_account, client_for_new_user, client_for_user, client_for_collaborator
 from .fixtures import dbfixture, DataSet, genimg
@@ -345,18 +344,17 @@ class VideoCommentTestCase(DataTestCase, TestCase):
                 [c.comment for k, c in self.data.VideoCommentData])
 
     def test_post_comment(self):
-        user = AccountUser.query.first()
-        video = user.account.videos[0]
+        video = Video.query.first()
         comment = dict(comment='A test comment', timestamp=60)
 
-        with client_for_user(user.id) as client:
+        with client_for_account(video.account_id) as client:
             r = client.post('/api/video/%d/comments' % video.id, json=comment)
             self.assertEquals(r.status_code, 201)
 
             r = client.get('/api/video/%d/comments' % video.id)
             comments = r.json()['comment']['items']
             self.assertEqual(comments[0]['comment'], comment['comment'])
-            self.assertEqual(comments[0]['display_name'], user.username)
+            self.assertEqual(comments[0]['display_name'], video.account.name)
 
     def test_resolve_comment(self):
         video = self.data.VideoData.video
@@ -419,7 +417,7 @@ class VideoCollaboratorTestCase(TestCase):
             return re.search('token=([\w.-]+)', send_email.call_args[0][1]).group(1)
 
     def test_invite_collaborator(self):
-        video = Video.query.first()
+        video = Video.query.get(1)
         token = self._send_collaborator_token(video)
 
         # Check that collaborator can access video with token

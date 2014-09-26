@@ -5,6 +5,7 @@ from wonder.romeo.core.rest import Resource, api_resource, cache_control
 from wonder.romeo.core.util import COUNTRY_CODES
 from wonder.romeo.video.models import Video, VideoLocaleMeta, VideoCollaborator
 from wonder.romeo.account.models import Account, AccountUser
+from . import models    # NOQA: Ensure triggers get loaded
 
 
 VIDEO_OWNER_USER_QUERY_RE = re.compile('owner_user:(\d+)')
@@ -34,12 +35,14 @@ class SearchResource(Resource):
 
         return result
 
-    def _db_match(self, dbquery, size, start, query, *args):
+    def _db_match(self, dbquery, size, start, query, search_vector):
         if query:
             query = re.sub('\W+', ' ', query).strip().replace(' ', ' & ')
-            body = func.concat_ws(' ', *args)
-            dbquery = dbquery.filter(func.to_tsvector(body).match(query))
+            dbquery = dbquery.filter(search_vector.match(query))
         total = dbquery.count()
+        if query:
+            dbquery = dbquery.order_by(
+                func.ts_rank(search_vector, func.to_tsquery(query)).desc())
         dbquery = dbquery.offset(start).limit(size)
         return dbquery, total
 
@@ -79,10 +82,7 @@ class SearchResource(Resource):
             ).distinct()
             query = ''
 
-        videos, total = self._db_match(videos, size, start, query,
-                                       Video.title,
-                                       Video.search_keywords,
-                                       VideoLocaleMeta.description)
+        videos, total = self._db_match(videos, size, start, query, Video.search_vector)
         items = [self._video_item(v) for v in videos]
         return dict(items=items, total=total)
 
@@ -103,11 +103,7 @@ class SearchResource(Resource):
             (Account.account_type == account_type))
         if location:
             users = users.filter(AccountUser.location == location)
-        users, total = self._db_match(users, size, start, query,
-                                      AccountUser.display_name,
-                                      AccountUser.description,
-                                      AccountUser.search_keywords,
-                                      AccountUser.title)
+        users, total = self._db_match(users, size, start, query, AccountUser.search_vector)
         items = [self._user_item(u) for u in users]
         return dict(items=items, total=total)
 

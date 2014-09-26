@@ -1,14 +1,14 @@
 """video_locale_meta.search_keywords
 
 Revision ID: 20ef698b860b
-Revises: 1f9c87f36da6
+Revises: 56062aa2c0f6
 Create Date: 2014-09-29 16:38:11.192741
 
 """
 
 # revision identifiers, used by Alembic.
 revision = '20ef698b860b'
-down_revision = '1f9c87f36da6'
+down_revision = '56062aa2c0f6'
 
 from alembic import op
 import sqlalchemy as sa
