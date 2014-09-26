@@ -140,6 +140,11 @@
             resolve: securityAuthorizationProvider.loadAuthentication
         });
 
+        $routeProvider.when('/curator-accept', {
+            templateUrl: 'pages/curator-accept.tmpl.html',
+            resolve: securityAuthorizationProvider.loadAuthentication
+        });
+
         $routeProvider.when('/', {
             controller: 'StaticPagesCtrl',
             templateUrl: 'pages/home.tmpl.html',
