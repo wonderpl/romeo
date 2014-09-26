@@ -1,6 +1,7 @@
 /**
- * _components.avatars.scss
+ * _components.avatar.scss
  */
+
 // Define a set of avatar dimensions.
 $avatar-dimensions:         66px;
 $avatar-dimensions--tiny:   22px;
@@ -8,31 +9,28 @@ $avatar-dimensions--small:  33px;
 $avatar-dimensions--large:  88px;
 $avatar-dimensions--huge:   120px;
 
-
 .avatar {
   display: block;
   width: $avatar-dimensions;
   height: $avatar-dimensions;
-  overflow: hidden;
-  margin-left: -($avatar-dimensions / 2);
+  overflow: visible;
   margin-bottom: $base-spacing-unit;
   position: relative;
-  left: 50%;
   text-align: center;
   background-clip: padding-box;
   border-radius: 100%;
-  border: 1px solid #fff;
-  box-shadow: 0 0 0 1px rgba(0,0,0,0.16),
-              0 2px 12px 1px rgba(0,0,0,0.2);
+  //border: 1px solid $base-color-background;
+  //box-shadow: 0 0 0 1px rgba(0,0,0,0.16),
+  //            0 2px 12px 1px rgba(0,0,0,0.2);
 
   > .avatar__img {
-    display: block;
     @extend %img--full;
-    background-position: 50%;
+    z-index: -1;
+    border-radius: 100%;
   }
 
 
-    /**
+  /**
    * An icon can be included inside the avatar
    * to signify a status
    */
@@ -73,8 +71,7 @@ $avatar-dimensions--huge:   120px;
 }
 .avatar--large {
   width: $avatar-dimensions--large;
-  height: $avatar-dimensions--large;
-  margin-left: -$avatar-dimensions--large / 2;
+  height: $avatar-dimensions--large; 
 }
 .avatar--huge {
   width: $avatar-dimensions--huge;
@@ -93,16 +90,16 @@ $avatar-dimensions--huge:   120px;
   &.avatar--tiny {
     margin-left: -($avatar-dimensions--tiny / 2);
   }
-
+  
   &.avatar--small {
     margin-left: -($avatar-dimensions--small / 2);
   }
-
+  
   &.avatar--large {
     margin-left: -($avatar-dimensions--large / 2);
   }
-
+  
   &.avatar--huge {
-    margin-left: -($avatar-dimensions--huge / 2);
+    margin-left: -($avatar-dimensions--huge / 2); 
   }
 }
