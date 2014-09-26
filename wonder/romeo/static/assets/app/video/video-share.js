@@ -8,22 +8,50 @@ angular.module('RomeoApp.directives')
     replace : true,
     template : $templateCache.get('video/video-share.dir.html'),
     scope : {
-      video : '=',
-      videoId : '@',
-      hasTags : '@'
+      video : '='
+    },
+    link: function (scope, element, attr) {
+      // Include facebook
+      $('body').append('<div id="fb-root"></div>');
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : wonder.romeo.settings.facebook_app_id, // FB app id
+          // channelUrl : 'YOUR_WEBSITE_CHANNEL_URL',
+          status     : false, // check login status
+          cookie     : false, // enable cookies to allow the server to access the session
+          xfbml      : true  // parse XFBML
+        });
+      };
+
+      (function(d){
+         var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement('script'); js.id = id; js.async = true;
+         js.src = "//connect.facebook.net/en_US/all.js";
+         ref.parentNode.insertBefore(js, ref);
+       }(document));
     },
     controller : function ($scope) {
 
-      $scope.$watch('hasTags',function (newValue, oldValue) {
-        if (newValue && newValue !== oldValue) {
-          if (newValue === 'true') {
-            VideoService.getEmbedCode($scope.videoId, { style : 'simple', width : '100', height : '100' }).then(function (data) {
-              $scope.embedCode = data;
-            });
-          }
-          $scope.videoIsPublic = videoIsPublic();
+      $scope.$watch('video.status',function (newValue, oldValue) {
+        if (newValue !== oldValue) {
+          setPublished(newValue);
         }
       });
+
+      function setPublished(value) {
+        $scope.videoIsPublic = (value === 'published');
+        if ($scope.videoIsPublic) {
+          VideoService.getEmbedCode($scope.video.id, { style : 'simple', width : '100', height : '100' }).then(function (data) {
+            $scope.embedCode = data;
+          });
+        }
+        else {
+          $scope.embedCode = '';
+        }
+      }
+
+      setPublished($scope.video.status);
 
       $scope.shareFacebook = function () {
 
@@ -65,23 +93,3 @@ angular.module('RomeoApp.directives')
   };
 }]);
 
-// Include facebook
-window.fbAsyncInit = function() {
-  'use strict';
-    FB.init({
-      appId      : wonder.romeo.settings.facebook_app_id, // FB app id
-//      channelUrl : 'YOUR_WEBSITE_CHANNEL_URL',
-      status     : false, // check login status
-      cookie     : false, // enable cookies to allow the server to access the session
-      xfbml      : true  // parse XFBML
-    });
-    };
-
-  (function(d){
-    'use strict';
-     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement('script'); js.id = id; js.async = true;
-     js.src = "//connect.facebook.net/en_US/all.js";
-     ref.parentNode.insertBefore(js, ref);
-   }(document));

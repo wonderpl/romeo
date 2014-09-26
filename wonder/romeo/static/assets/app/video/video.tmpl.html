@@ -63,8 +63,7 @@
 
               <video-share
                 video="video"
-                has-tags="{{ video.tags && video.tags.items && video.tags.items.length > 0 }}"
-                ng-hide="showComments() || flags.isPublic"
+                ng-if="flags.isOwner && !flags.isComments"
                 video-id="{{ video.id }}">
               </video-share>
 
