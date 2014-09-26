@@ -98,6 +98,9 @@
           }
         });
 
+
+        $scope.$on('created-new-tag', function () { getAllCollections(); });
+
         // Scope methods:
 
         $scope.saveNewCollection = function () {

@@ -15,8 +15,6 @@
           DataService.request({url: '/api/account/' + AccountService.getAccountId() + '/tags'}).then(function(response) {
               Tags = response.tag.items;
 
-              console.log(Tags);
-
               deferred.resolve(response);
           });
           return deferred.promise;
@@ -26,7 +24,6 @@
           var dfd = new $q.defer();
           DataService.request({url: '/api/account/' + AccountService.getAccountId() + '/tags'})
           .then(function(response) {
-            console.log(response);
             var tags = response.tag.items;
             var l = tags.length;
             var publicTags = [];

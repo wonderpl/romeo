@@ -8,8 +8,6 @@ function FullScreenModal (modal) {
         restrict: 'A',
         scope: true,
         link: function (scope, element, attr) {
-            console.log('FullscreenModal link, attr: ', attr);
-            console.warn(attr.fullscreenModal);
             element.on('click', function () {
                 modal.loadDirective(attr.fullscreenModal, scope);
             });

@@ -27,7 +27,7 @@
 
   <ul class="layout" ng-class="{ 'grid-list' : isList }" ng-show="filteredVideos">
     <li class="layout__item" ng-repeat="video in filteredVideos | orderBy: sortOption" ng-class="{ 'one-third ' : !isList, 'grid-list__item' : isList }">
-      <organise-video video="video" is-list="isList" is-collaboration="filterByCollaboration"></organise-video>
+      <organise-video video="video" is-list="isList" is-collaboration="filterByCollaboration" tags="tags"></organise-video>
     </li>
   </ul>
 

@@ -12,6 +12,7 @@ function OrganiseVideo ($templateCache, modal) {
     scope : {
       video : '=',
       isList : '=',
+      tags : '=',
       isCollaboration : '='
     },
     controller : function ($scope) {

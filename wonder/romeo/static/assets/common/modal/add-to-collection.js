@@ -6,7 +6,7 @@
     function setAvailableTags(scope) {
         if (scope.showOnlyPrivate)
           scope.availableTags = filterPrivateTags(scope.tags);
-        else if ($scope.showOnlyPublic)
+        else if (scope.showOnlyPublic)
           scope.availableTags = filterPublicTags(scope.tags);
         else
           scope.availableTags = scope.tags;

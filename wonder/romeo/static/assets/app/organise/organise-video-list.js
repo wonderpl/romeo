@@ -24,11 +24,11 @@ function OrganiseVideoList ($templateCache, $cookies) {
       collaborationVideos : '=',
       videos : '=',
       tag : '=',
+      tags : '=',
       filterByRecent: '=',
       filterByCollaboration: '='
     },
     controller : function ($scope) {
-
       $scope.$watch('isList', function (newValue, oldValue) {
         if (newValue !== oldValue) {
           $cookies.isList = newValue.toString();
