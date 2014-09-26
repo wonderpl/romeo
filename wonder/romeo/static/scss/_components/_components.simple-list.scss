@@ -1,0 +1,14 @@
+/**
+ * _components.simple-list.scss
+ */
+.simple-list {
+  border: 0;
+
+  > li {
+    padding: 0;
+    border: 0;
+  }
+}
+  .simple-list__item {
+    margin-bottom: $base-spacing-unit;
+  }
