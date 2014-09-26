@@ -16,6 +16,9 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
     // Call routing method on opening of controllers screen
     videoRouting();
 
+    // For add collection modal
+    $scope.showOnlyPrivate = true;
+
     $scope.pages = [
     ];
     setNavigation();
