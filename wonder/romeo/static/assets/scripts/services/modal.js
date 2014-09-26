@@ -1,9 +1,9 @@
 angular
   .module('RomeoApp.services')
-  .factory('modal', ['$rootScope', '$compile', '$templateCache', '$timeout', ModalService]);
+  .factory('modal', ['$rootScope', '$compile', '$templateCache', '$timeout', '$window', ModalService]);
 
 
-function ModalService ($rootScope, $compile, $templateCache, $timeout) {
+function ModalService ($rootScope, $compile, $templateCache, $timeout, $window) {
   'use strict';
 
   // Create some elements and add some classes / ID's to them
@@ -16,6 +16,14 @@ function ModalService ($rootScope, $compile, $templateCache, $timeout) {
       modalShowing = false,
       modalClass = '',
       modalIsSmall = false;
+
+  // Close modal on ESC key press
+  $window.onkeydown = function(e) {
+      if ( e.keyCode == 27 ) {
+          modal.hide();
+      }
+      return true;
+  };
 
   function createModalElements(scope, opts) {
     scope = scope || $rootScope.$new();
@@ -42,6 +50,7 @@ function ModalService ($rootScope, $compile, $templateCache, $timeout) {
 
     // Close button
     var $closeBtn  = $compile('<a ng-click="close()" class="modal-close"><i class="icon  icon--large  icon--cross"></i></a>')(scope);
+
 
     var container  = document.createElement('div');
     var $container = angular.element(container);
