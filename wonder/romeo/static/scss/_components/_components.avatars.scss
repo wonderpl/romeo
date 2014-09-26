@@ -19,9 +19,6 @@ $avatar-dimensions--huge:   120px;
   text-align: center;
   background-clip: padding-box;
   border-radius: 100%;
-  //border: 1px solid $base-color-background;
-  //box-shadow: 0 0 0 1px rgba(0,0,0,0.16),
-  //            0 2px 12px 1px rgba(0,0,0,0.2);
 
   > .avatar__img {
     @extend %img--full;
@@ -102,4 +99,15 @@ $avatar-dimensions--huge:   120px;
   &.avatar--huge {
     margin-left: -($avatar-dimensions--huge / 2); 
   }
+}
+
+
+/**
+ * Add some contrast to avatars when they sit on a dark background
+ * or on a photo.
+ */
+.avatar--ui {
+  border: 1px solid $base-color-background;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.16),
+              0 2px 12px 1px rgba(0,0,0,0.2);
 }
