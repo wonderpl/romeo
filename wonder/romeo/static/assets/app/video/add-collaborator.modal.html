@@ -11,19 +11,19 @@
         <ul class="form-fields">
           <li class="u--m-none">
             <label for="collaborator-name" class="accessible">Invite a collaborator:</label>
-            <input id="collaborator-name" name="collaborator-name" class="text-input  one-whole" type="text" placeholder="Type the email address or name of someone to invite">
+            <input id="collaborator-name" name="collaborator-name" class="text-input  one-whole" type="text" placeholder="Type the email address or name of someone to invite" ui-select2="select2Options" ng-model="invite.collaborators">
           </li>
           <li class="split">
             <label for="" class="u--ff-sans  u--w700  split__title">Permissions:</label>
-            <select class="sort-ui__options">
-              <option value="">Comment</option>
-              <option value="">Download</option>
-              <option value="">Comment &amp; Download</option>
+            <select class="sort-ui__options" ng-model="invite.permissions">
+              <option value="canComment">Comment</option>
+              <option value="canDownload">Download</option>
+              <option value="canCommentDownload">Comment &amp; Download</option>
             </select>
           </li>
           <li>
             <div class="btn-center">
-              <a class="btn  btn--positive" ng-click="close()">Send invite</a>
+              <a class="btn  btn--positive" ng-click="add()">Send invite</a>
             </div>
           </li>
         </ul>
