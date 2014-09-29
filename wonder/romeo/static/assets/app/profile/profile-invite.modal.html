@@ -1,12 +1,28 @@
-<div class="modal__title  split">
-  <span class="split__title  t--block  w--600">Invite User</span>
-  <a class="modal__link" ng-click="close()"><i class="icon icon--medium icon--circle-cross"></i></a>
-</div>
-
-<div class="modal__content">
-  <fieldset class="modal-form__fieldset">
-    <label for="inviteMessage" class="is-hidden">Invitation Message:</label>
-    <textarea id="inviteMessage" class="modal-textbox" ng-model="invitation.message" placeholder="Invitation Message"></textarea>
-  </fieldset>
-  <button class="btn btn--positive" ng-click="sendInvite()">Send Invitation</button>
+<div>
+  <header class="modal-header">
+    <div class="wrapper">
+      <h2 class="heading  alpha  u--ta-center">Invite User</h2>
+    </div>
+  </header>
+  <div class="modal-body">
+    <div class="wrapper  wrapper--fixed">
+      <div class="text-col">
+        <form class="form-ui">
+          <fieldset class="form-ui__fieldset">
+            <legend class="accessible">Connect with Someone:</legend>
+            <ul class="form-fields">
+              <li>
+                <label for="inviteMessage" class="accessible">Invitation Message:</label>
+                <textarea id="inviteMessage" class="text-input  one-whole" ng-model="invitation.message" placeholder="Invitation Message"></textarea>
+              </li>
+              <li>
+                <div class="btn-center">
+                  <button class="btn  btn--positive" ng-click="sendInvite()">Send Invitation</button>
+                </div>
+              </li>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
