@@ -9,11 +9,13 @@
       template : $templateCache.get('modal/create-collection.modal.html'),
       scope : true,
       controller : function ($scope) {
-        $scope.collection = $scope.collection || {};
+        $scope.collection = $scope.collection || { scope: 'private' };
 
-        $scope.close = function () {
-          modal.hide();
-        };
+        if (typeof $scope.close !== 'function') {
+          $scope.close = function ($event) {
+            modal.hide();
+          };
+        }
 
         $scope.save = function () {
           var label = $scope.collection.label;

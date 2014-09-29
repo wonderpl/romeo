@@ -25,9 +25,6 @@ function OrganiseVideo ($templateCache, modal) {
         $scope.video = video;
         modal.load('modal-delete-video.html', true, $scope, {});
       };
-      $scope.addRemove = function (video) {
-        $scope.$emit('add-remove-video', video);
-      };
       $scope.close = function () {
         modal.hide();
       };
