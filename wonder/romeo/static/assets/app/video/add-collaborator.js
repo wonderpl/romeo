@@ -85,7 +85,6 @@
 
         function findConnectionById(id) {
           for (var i = 0; i < $scope.connections.length; ++i) {
-            console.dir($scope.connections[i]);
             if ($scope.connections[i].id == id)
               return $scope.connections[i];
           }
