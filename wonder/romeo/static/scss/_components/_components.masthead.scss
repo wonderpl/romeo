@@ -28,6 +28,9 @@
     z-index: 10;
   }
 }
+.masthead--img + .page-section {
+  padding-top: $base-spacing-unit * 2;
+}
 
 
 .masthead--cropped {
