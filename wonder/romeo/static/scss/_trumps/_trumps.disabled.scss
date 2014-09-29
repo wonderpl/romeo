@@ -1,0 +1,21 @@
+/**
+ * _trumps.disabled.scss
+ */
+.is-disabled {
+    
+  &,
+  &:hover,
+  &:active,
+  &:focus {
+    pointer-events: none;
+    color: rgba($base-color-ui-dark, 0.5);
+    border-color: rgba($base-color-ui-dark, 0.25);
+    cursor: not-allowed;
+    -webkit-transition: none;
+            transition: none;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+  }
+}
