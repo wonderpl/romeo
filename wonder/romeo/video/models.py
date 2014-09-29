@@ -41,7 +41,6 @@ class Video(db.Model):
     filename = Column(String(16))
     external_id = Column(String(32))
     category = Column(String(8))
-    search_keywords = Column(String(1024))
     hosted_url = Column(String(1024))
     player_logo_filename = Column(String(128))
     dolly_instance = Column(String(128))
@@ -143,6 +142,7 @@ class Video(db.Model):
 
     strapline = property(*_default_locale_meta_property('strapline'))
     description = property(*_default_locale_meta_property('description'))
+    search_keywords = property(*_default_locale_meta_property('search_keywords'))
     link_url = property(*_default_locale_meta_property('link_url'))
     link_title = property(*_default_locale_meta_property('link_title'))
 
@@ -224,6 +224,7 @@ class VideoLocaleMeta(db.Model):
     title = Column(String(256))
     strapline = Column(String(1024))
     description = Column(Text)
+    search_keywords = Column(String(1024))
 
     video = relationship(Video, backref=backref('locale_meta', cascade='all, delete-orphan'))
 
