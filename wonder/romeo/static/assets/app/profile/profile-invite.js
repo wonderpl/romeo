@@ -7,10 +7,8 @@
     return {
       restrict : 'E',
       replace : true,
-      template : '<div class="btn-center"><a class="btn btn--positive" ng-click="invite()">Connect with me</a></div>',
-      scope : {
-        profile: '='
-      },
+      template : $templateCache.get('profile/profile-invite.modal.html'),
+      scope : true,
       controller : function ($scope) {
         $scope.sendInvite = function () {
           console.log($scope.invitation);
@@ -18,12 +16,8 @@
           modal.hide();
         };
 
-        $scope.invite = function () {
-          modal.load('profile/profile-invite.modal.html', true, $scope);
-          console.log($scope.profile);
-          $scope.invitation = {
-            user: $scope.profile.id
-          };
+        $scope.invitation = {
+          user: $scope.profile.id
         };
 
         $scope.close = function () {
@@ -34,6 +28,6 @@
     };
   }
 
-  angular.module('RomeoApp.profile').directive('profileInvite', ['$templateCache', 'modal', profileInvite]);
+  angular.module('RomeoApp.profile').directive('profileInviteModal', ['$templateCache', 'modal', profileInvite]);
 
 })();

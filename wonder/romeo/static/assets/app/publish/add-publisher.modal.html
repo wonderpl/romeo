@@ -11,7 +11,7 @@
         <ul class="form-fields">
           <li class="u--m-none">
             <label for="publisher-name" class="accessible">Invite a publisher:</label>
-            <input id="publisher-name" name="publisher-name" class="text-input  one-whole" type="text" placeholder="Name or email address of a publisher you want to invite">
+            <input id="publisher-name" name="publisher-name" class="text-input  one-whole" type="hidden" placeholder="Name or email address of a publisher you want to invite" ui-select2="select2Options" ng-model="invite.collaborators">
           </li>
           <li>
             <label for="publisher-message" class="accessible">Invite a publisher:</label>
