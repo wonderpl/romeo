@@ -60,6 +60,7 @@ $global-nav-width: 320px;
   overflow: hidden;
 
   .container {
+    overflow: hidden;
     @include transition-transform($global-nav-width);
     pointer-events: none;
   }
