@@ -1,7 +1,7 @@
 <div>
   <header class="modal-header">
     <div class="wrapper">
-      <h2 class="heading  alpha  u--ta-center">Invite a collaborator</h2>
+      <h2 class="heading  alpha  u--ta-center">{{ onlyAllowDownload ? 'Wonder Transfer' : 'Invite a collaborator' }}</h2>
     </div>
   </header>
   <div class="modal-body">
@@ -10,10 +10,10 @@
         <legend class="accessible">Invite collaborators by sending them an email.</legend>
         <ul class="form-fields">
           <li class="u--m-none">
-            <label for="collaborator-name" class="accessible">Invite a collaborator:</label>
-            <input id="collaborator-name" name="collaborator-name" class="" type="text" placeholder="Type the email address or name of someone to invite" ui-select2="select2Options" ng-model="invite.collaborators">
+            <label for="collaborator-name" class="accessible">{{ onlyAllowDownload ? 'Send your assets to:' : 'Invite a collaborator:' }}</label>
+            <input id="collaborator-name" name="collaborator-name" class="" type="text" placeholder="{{ onlyAllowDownload ? 'Type the email address or name of someone to transfer' : 'Type the email address or name of someone to invite' }}" ui-select2="select2Options" ng-model="invite.collaborators">
           </li>
-          <li class="split">
+          <li class="split" ng-if="! onlyAllowDownload">
             <label for="" class="u--ff-sans  u--w700  split__title">Permissions:</label>
             <select class="sort-ui__options" ng-model="invite.permissions">
               <option value="canComment">Comment</option>
@@ -22,6 +22,7 @@
             </select>
           </li>
           <li>
+            <input type="hidden" ng-model="invite.permissions" value="canDownload" ng-if="onlyAllowDownload">
             <div class="btn-center">
               <a class="btn  btn--positive" ng-click="add()">Send invite</a>
             </div>

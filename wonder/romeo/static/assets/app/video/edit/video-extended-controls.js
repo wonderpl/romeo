@@ -9,6 +9,10 @@ angular.module('RomeoApp.directives')
     template : $templateCache.get('video/edit/video-extended-controls.dir.html'),
     scope : true,
     controller : function ($scope) {
+      function init() {
+        $scope.wonderTransferOptions = { onlyAllowDownload: true };
+        setAvaliableTags($scope.tags);
+      }
       $scope.showHideCollectionExtended = function() {
         $scope.$emit('show-hide-collection');
       };
@@ -19,7 +23,6 @@ angular.module('RomeoApp.directives')
             $scope.availableTags.push(val);
         });
       }
-      setAvaliableTags($scope.tags);
 
       $scope.$watch('tags', function (newValue, oldValue) {
         if (! angular.equals(newValue, oldValue)) {
@@ -30,6 +33,7 @@ angular.module('RomeoApp.directives')
       $scope.showModal = function (modalName) {
         modal.loadDirective(modalName, $scope);
       };
+      init();
     }
   };
 }]);
