@@ -64,6 +64,7 @@
               );
               setCollection();
               refresh();
+              redirect('/organise', true);
             });
           }
         });
