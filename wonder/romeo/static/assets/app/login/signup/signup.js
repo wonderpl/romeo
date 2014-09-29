@@ -33,8 +33,16 @@ angular
               if (response.data.error == 'registration_token_required') {
                 $scope.errorMessage = 'Registration is by invite only';
               } else {
-                // TODO: Handle response.data.form_errors
-                $scope.errorMessage = response.data.message || 'login error';
+                console.error(response.data.form_errors);
+                if (response.data.form_errors) {
+                  if (response.data.form_errors.password)
+                    $scope.errorMessage = 'Password must be at least 8 characters long.';
+                  else if (response.data.form_errors.username)
+                    $scope.errorMessage = response.data.form_errors.username[0];
+                }
+                else {
+                  $scope.errorMessage = 'login error';
+                }
               }
             }
           });
@@ -51,8 +59,10 @@ angular
     function validate() {
       if (! $scope.name) {
         $scope.errorMessage = 'Name required';
-      } else if (! $scope.username || $scope.username.indexOf('@') == -1) {
+      } else if (! $scope.username || ! $scope.username.length) {
         $scope.errorMessage = 'Email required';
+      } else if ($scope.username.indexOf('@') == -1) {
+        $scope.errorMessage = 'Invalid email';
       } else if (! $scope.password) {
         $scope.errorMessage = 'Password required';
       } else if (! $scope.tandc) {

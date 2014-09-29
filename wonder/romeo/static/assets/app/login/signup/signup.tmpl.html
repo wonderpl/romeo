@@ -28,6 +28,9 @@
                   </location-selector>
                 </div>
               </li>
+              <li class="text-col" ng-show="errorMessage">
+                <div class="error u--c-destructive u--ff-sans" ng-bind="errorMessage"></div>
+              </li>
               <li class="text-col">
                 <ul class="check-list">
                   <li>
@@ -35,11 +38,6 @@
                     <label class="t--inline  login-view__label" for="tandc">I agree with the standard Wonder Place Ltd <a href="http://wonderpl.com/tos">terms and conditions</a> and the following conditions of the Closed Beta Program:</label>
                   </li>
                 </ul>
-              </li>
-              <li class="text-col" ng-show="errorMessage">
-                <div class="error">
-                  {{ errorMessage }}
-                </div>
               </li>
               <li class="text-col">
                 <span class="login-view__errors" ng-bind="errors"></span>
