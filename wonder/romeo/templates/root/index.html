@@ -2,13 +2,18 @@
 
 {% block headjs %}
 <script>
-location.replace('/app' + location.hash);
+if (loggedIn) {
+  location.replace('/app' + location.hash);
+}
 </script>
 {% endblock %}
 
 {% block content %}
+<div class="apps">
+  <a href="http://wonderpl.com/wonder-discover">Wonder Discover</a>
+  <a href="http://rockpack.com/">Rockpack</a>
+</div>
 <div class="container">
-
-    </div>
-
+ <a href="/app#/organise">Log in</a>
+</div>
 {% endblock %}
