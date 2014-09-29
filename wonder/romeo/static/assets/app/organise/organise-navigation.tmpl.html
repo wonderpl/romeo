@@ -5,7 +5,7 @@
       <li class="browse-list__item" ng-if="!isCollaborator()"><a class="browse-list__link" ng-class="{ 'browse-list__link--active' : !filterByCollaboration &&  !filterByRecent && !currentTag }" ng-click="showAllVideos()">All my videos</a></li>
       <li class="browse-list__item" ng-if="!isCollaborator()"><a class="browse-list__link" ng-class="{ 'browse-list__link--active' : filterByRecent }" ng-click="showRecentVideos()">My recently added videos</a></li>
       <li class="browse-list__item"><a class="browse-list__link" ng-class="{ 'browse-list__link--active' : filterByCollaboration }" ng-click="showCollaborationVideos()">Collaborating videos</a></li>
-      <li class="browse-list__item"><a class="browse-list__link  browse-list__link--create  icon-text" fullscreen-modal="modal-create-collection"><i class="icon  icon-text__icon  icon--plus"></i>Create a collection</a></li>
+      <li class="browse-list__item" ng-if="!isCollaborator()"><a class="browse-list__link  browse-list__link--create  icon-text" fullscreen-modal="modal-create-collection"><i class="icon  icon-text__icon  icon--plus"></i>Create a collection</a></li>
     </ul>
     <ul class="nav  nav--stacked  browse-list" ng-if="!isCollaborator()">
       <li class="browse-list__item"><span class="browse-list__title">Private Collections</span></li>
