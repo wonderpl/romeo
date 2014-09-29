@@ -32,9 +32,7 @@
             callback(data);
           },
           formatResult: function (obj) {
-            if (obj.avatar)
-              return '<div class="media"><span class="media__img avatar avatar--small"><img src="' + obj.avatar + '" class="avatar__img"></span> ' + obj.text + '</div>';
-            return obj.text;
+            return '<div class="media"><span class="media__img avatar avatar--small"><img src="' + (obj.avatar || '/static/assets/img/user-avatar.png') + '" class="avatar__img"></span> ' + obj.text + '</div>';
           },
           formatSelection: function (obj) {
             var connection = findConnectionById(obj.id || obj);
