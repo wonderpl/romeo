@@ -17,7 +17,7 @@
   top:   100%;
   right: 0;
   left:  50%;
-  z-index: 1;
+  z-index: 10;
   text-align: left;
   background-clip: padding-box;
   background-color: #fff;
@@ -95,6 +95,7 @@
   top:   100%;
   left:  50%;
   right: 0;
+  z-index: 20;
   background-size: cover;
   background-image: url('/static/assets/img/date-picker-placeholder.png');
   opacity: 0;
