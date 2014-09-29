@@ -14,7 +14,7 @@ function ProfileEditCtrl($scope, $location, UserService) {
       uploadingProfileImage: false,
       uploadingProfileCover: false,
       isFormValid: true,
-      accountId: null
+      userId: null
     };
 
     $scope.$on('profile-save', ctrl.save);
@@ -34,7 +34,7 @@ function ProfileEditCtrl($scope, $location, UserService) {
   function loadPrivateProfile() {
       $scope.profile = angular.copy(UserService.getUser());
       if ($scope.profile) {
-        $scope.flags.accountId = $scope.profile.id;
+        $scope.flags.userId = $scope.profile.id;
       }
   }
 

@@ -3,7 +3,7 @@
 
 	<p ng-if="profile.title" class="zeta  u--ff-sans  u--ta-center  u--o75">{{ profile.title }}</p>
 
-    <div class="btn-center"><a class="btn btn--positive" fullscreen-modal="profile-invite-modal">Connect with me</a></div>
+    <div class="btn-center" ng-if="! isConnectedTo()"><a class="btn btn--positive" fullscreen-modal="profile-invite-modal">Connect with me</a></div>
 
 	<p class="u--ta-center" ng-if="profile.description" ng-bind-html="profile.description"></p>
 

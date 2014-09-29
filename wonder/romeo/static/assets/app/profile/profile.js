@@ -40,7 +40,7 @@ function ProfileCtrl($scope, UserService, LocationService, SecurityService) {
       uploadingProfileImage: false,
       uploadingProfileCover: false,
       isFormValid: true,
-      accountId: null
+      userId: null
     };
 
     $scope.pages = [
@@ -77,7 +77,7 @@ function ProfileCtrl($scope, UserService, LocationService, SecurityService) {
     $scope.flags.isOwner = true;
     $scope.profile = UserService.getUser();
     if ($scope.profile) {
-      $scope.flags.accountId = $scope.profile.id;
+      $scope.flags.userId = $scope.profile.id;
     }
     if (SecurityService.isAuthenticated()) {
       UserService.getConnections().then(function (res) {
