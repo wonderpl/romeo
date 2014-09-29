@@ -85,3 +85,16 @@
   margin-right: 6px;
 }
 
+.video-search-title {
+  margin-bottom: 6px;
+}
+
+.video-search-description > * {
+  margin: 0;
+}
+
+.video-search-description > *,
+.video-search-description > * > * {
+  font-size: 12px !important;
+  line-height: 1.5 !important;
+}
