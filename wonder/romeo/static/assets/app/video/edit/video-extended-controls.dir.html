@@ -4,21 +4,21 @@
   <div class="text-col">
     <ul class="matrix  options-list">
       <li class="options-list__item  one-third">
-        <a class="matrix__link  reverse-link  options-list__link" fullscreen-modal="video-add-collaborator">
+        <a class="matrix__link  reverse-link  options-list__link" fullscreen-modal="video-add-collaborator" ng-class="{ 'btn--disabled' : !video.id }">
           <h4 class="heading  delta  u--ta-center">Add collaborators</h4>
           <i class="icon  icon--group  icon--large  u--m-half"></i>
           <p class="zeta  u--ta-center  u--m-none">Invite someone to view and comment on your video</p>
         </a>
       </li>
       <li class="options-list__item  one-third">
-        <a class="matrix__link  reverse-link  options-list__link" fullscreen-modal="video-add-collaborator" modal-options="{{wonderTransferOptions}}">
+        <a class="matrix__link  reverse-link  options-list__link" fullscreen-modal="video-add-collaborator" modal-options="{{wonderTransferOptions}}" ng-class="{ 'btn--disabled' : !video.id }">
           <h4 class="heading  delta  u--ta-center">Wonder Transfer</h4>
           <i class="icon  icon--upload  icon--large  u--m-half"></i>
           <p class="zeta  u--ta-center  u--m-none">Send your video assets to&hellip;</p>
         </a>
       </li>
       <li class="options-list__item  one-third">
-        <a class="matrix__link  reverse-link  options-list__link" fullscreen-modal="modal-add-to-collection">
+        <a class="matrix__link  reverse-link  options-list__link" fullscreen-modal="modal-add-to-collection" ng-class="{ 'btn--disabled' : !video.id }">
           <h4 class="heading  delta  u--ta-center">Add to collection</h4>
           <i class="icon  icon--collection  icon--large  u--m-half"></i>
           <p class="zeta  u--ta-center  u--m-none">Organise your video</p>
