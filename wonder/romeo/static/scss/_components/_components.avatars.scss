@@ -22,7 +22,6 @@ $avatar-dimensions--huge:   120px;
 
   > .avatar__img {
     @extend %img--full;
-    z-index: -1;
     border-radius: 100%;
   }
 
@@ -68,7 +67,7 @@ $avatar-dimensions--huge:   120px;
 }
 .avatar--large {
   width: $avatar-dimensions--large;
-  height: $avatar-dimensions--large; 
+  height: $avatar-dimensions--large;
 }
 .avatar--huge {
   width: $avatar-dimensions--huge;
@@ -87,17 +86,17 @@ $avatar-dimensions--huge:   120px;
   &.avatar--tiny {
     margin-left: -($avatar-dimensions--tiny / 2);
   }
-  
+
   &.avatar--small {
     margin-left: -($avatar-dimensions--small / 2);
   }
-  
+
   &.avatar--large {
     margin-left: -($avatar-dimensions--large / 2);
   }
-  
+
   &.avatar--huge {
-    margin-left: -($avatar-dimensions--huge / 2); 
+    margin-left: -($avatar-dimensions--huge / 2);
   }
 }
 
@@ -107,6 +106,7 @@ $avatar-dimensions--huge:   120px;
  * or on a photo.
  */
 .avatar--ui {
+  z-index: 1;
   border: 1px solid $base-color-background;
   box-shadow: 0 0 0 1px rgba(0,0,0,0.16),
               0 2px 12px 1px rgba(0,0,0,0.2);
