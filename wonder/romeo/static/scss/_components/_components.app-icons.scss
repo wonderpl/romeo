@@ -12,16 +12,16 @@
 }
 
 .app-icon--wonder {
-  background-image: url('AppIcon60x60.png');
+  background-image: url('/static/assets/img/AppIcon60x60.png');
   
   @media print,(-o-min-device-pixel-ratio:5/4),(-webkit-min-device-pixel-ratio:1.25),(min-resolution:120dpi){
-    background-image: url('AppIcon60x60@2x.png');
+    background-image: url('/static/assets/img/AppIcon60x60@2x.png');
   }
 }
 .app-icon--rockpack {
-  background-image: url('AppIcon60x60--rockpack.png');
+  background-image: url('/static/assets/img/AppIcon60x60--rockpack.png');
   
   @media print,(-o-min-device-pixel-ratio:5/4),(-webkit-min-device-pixel-ratio:1.25),(min-resolution:120dpi){
-    background-image: url('AppIcon60x60@2x--rockpack.png');
+    background-image: url('/static/assets/img/AppIcon60x60@2x--rockpack.png');
   }
 }
