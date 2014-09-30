@@ -122,17 +122,13 @@ if (localStorage && localStorage.appRedirect) {
     <div class="wrapper">
       <ul class="list-inline  footer-nav">
         <li class="footer-nav__item"><span class="footer-nav__span">&copy; 2014 Wonder Place</span></li>
-        <li class="footer-nav__item"><a href="/#privacy" class="footer-nav__link  reverse-link">Privacy Policy</a></li>
-        <li class="footer-nav__item"><a href="/#tos" class="footer-nav__link  reverse-link">Terms</a></li>
-        <li class="footer-nav__item"><a href="/#cookies" class="footer-nav__link  reverse-link">Cookies</a></li>
+        <li class="footer-nav__item"><a href="/privacy" class="footer-nav__link  reverse-link">Privacy Policy</a></li>
+        <li class="footer-nav__item"><a href="/tos" class="footer-nav__link  reverse-link">Terms</a></li>
+        <li class="footer-nav__item"><a href="/cookies" class="footer-nav__link  reverse-link">Cookies</a></li>
       </ul>
     </div>
   </footer>
 </div>
-    <script>
-    {# XXX: Shouldn't be so hacky to get this url #}
-    var inviteRequestUrl = "{{ url_for('api.inviterequest', _external=True).replace('http://romeo', 'https://romeo') }}";
-    </script>
     {% assets filters="rjsmin", output="gen/homepage.%(version)s.js",
       "assets/js/ideal-image-slider.min.js",
       "assets/js/slideshow.js"
