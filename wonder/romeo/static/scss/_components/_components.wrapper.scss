@@ -1,0 +1,14 @@
+/**
+ * _components.wrapper.scss
+ */
+.wrapper {
+  margin-right: auto;
+  margin-left:  auto;
+  padding-right: $base-spacing-unit;
+  padding-left:  $base-spacing-unit;
+  @extend .cf;
+}
+.wrapper--fixed {
+  max-width: 1008px;
+  //max-width: 56rem; // 1008 = 960 + 48($base-spacing-unit * 2)
+}
