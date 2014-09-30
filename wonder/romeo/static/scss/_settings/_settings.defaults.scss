@@ -6,13 +6,13 @@
 $base-font-weight:          400 !default;
 $base-font-size:            16px !default;
 $base-line-height:          24px !default;
-$base-font-family:          "FreightText Pro", Georgia, Cambria, 'Times New Roman', Times, serif;
+$base-font-family:          "freight-text-pro", Georgia, Cambria, 'Times New Roman', Times, serif;
 $base-color-text:           #2e2e32;        // cold black | type-color
 $base-color-background:     #fff;           // white | background-color
 
 
 // define font-families
-$heading-font-family:       "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+$heading-font-family:       "freight-sans-pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 $small-heading-font-family: $heading-font-family;
 $monospace-font-family:     "M+ 1m", Consolas, "Lucida Console", Courier, monospace;
 $ampersand-font-family:     Ampersand, Georgia, serif;
