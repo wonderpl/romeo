@@ -1,0 +1,19 @@
+/**
+ * _components.nav-menu.scss
+ */
+.nav-menu {
+  float: right;
+  clear: right;
+}
+  .nav-menu__item + .nav-menu__item {
+    margin-left: $half-spacing-unit;
+  }
+    .nav-menu__link {
+      font-variant: small-caps;
+      font-weight: 500;
+      font-size: 1.1111111111111112em;
+      line-height: 3;
+      font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+      text-transform: lowercase;
+      letter-spacing: 0.1em;
+    }

@@ -1,0 +1,146 @@
+/**
+ * _components.macbook.scss
+ */
+.macbook {
+  max-width: 1540px;
+  overflow: hidden;
+  margin-top: 96px;
+  margin-right: auto;
+  margin-left:  auto;
+  padding: 3.6% 3.2467532467532463% 0;
+  //padding: 5.7591623036649215% 3.2467532467532463% 0;
+  //padding: 4.3% 3.35% 0;
+  z-index: 0;
+  background-image: url('../img/content/screen.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  -webkit-transform: translate3d(0,0,0);
+          transform: translate3d(0,0,0);
+
+  @media screen and (min-width:1588px){
+    padding: 3.0555555555555554em 2.7777777777777777em 0;
+  }
+
+  @media print,(-o-min-device-pixel-ratio:5/4),(-webkit-min-device-pixel-ratio:1.25),(min-resolution:120dpi){
+    background-image: url('../img/content/screen@2x.png');
+  }
+}
+
+.loading {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  top: 50%;
+  left: 50%;
+  margin-left: -40px;
+  margin-top: -30px;
+}
+.apple {
+  color: #fff;
+  font-size: 5.111111111111111em;
+  //text-shadow: 0 1px 0 rgba(255,255,255,0.3);
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  left: 29px;
+  top: 140px;
+  text-align: center;
+  opacity: 0.3;
+  
+  > .bar1 {
+    -webkit-transform: rotate(0deg) translate(0, -142%);
+            transform: rotate(0deg) translate(0, -142%);
+    -webkit-animation-delay: 0s;
+            animation-delay: 0s;
+  }
+  > .bar2 {
+    -webkit-transform: rotate(30deg) translate(0, -142%);
+            transform: rotate(30deg) translate(0, -142%);
+    -webkit-animation-delay: -0.9167s;
+            animation-delay: -0.9167s;
+  }
+  > .bar3 {
+    -webkit-transform: rotate(60deg) translate(0, -142%);
+            transform: rotate(60deg) translate(0, -142%);
+    -webkit-animation-delay: -0.833s;
+            animation-delay: -0.833s;
+  }
+  > .bar4 {
+    -webkit-transform: rotate(90deg) translate(0, -142%);
+            transform: rotate(90deg) translate(0, -142%);
+    -webkit-animation-delay: -0.75s;
+            animation-delay: -0.75s;
+  }
+  > .bar5 {
+    -webkit-transform: rotate(120deg) translate(0, -142%);
+            transform: rotate(120deg) translate(0, -142%);
+    -webkit-animation-delay: -0.667s;
+            animation-delay: -0.667s;
+  }
+  > .bar6 {
+    -webkit-transform: rotate(150deg) translate(0, -142%);
+            transform: rotate(150deg) translate(0, -142%);
+    -webkit-animation-delay: -0.5833s;
+            animation-delay: -0.5833s;
+  }
+  > .bar7 {
+    -webkit-transform: rotate(180deg) translate(0, -142%);
+            transform: rotate(180deg) translate(0, -142%);
+    -webkit-animation-delay: -0.5s;
+            animation-delay: -0.5s;
+  }
+  > .bar8 {
+    -webkit-transform: rotate(210deg) translate(0, -142%);
+            transform: rotate(210deg) translate(0, -142%);
+    -webkit-animation-delay: -0.41667s;
+            animation-delay: -0.41667s;
+  }
+  > .bar9 {
+    -webkit-transform: rotate(240deg) translate(0, -142%);
+            transform: rotate(240deg) translate(0, -142%);
+    -webkit-animation-delay: -0.333s;
+            animation-delay: -0.333s;
+  }
+  > .bar10 {
+    -webkit-transform: rotate(270deg) translate(0, -142%);
+            transform: rotate(270deg) translate(0, -142%);
+    -webkit-animation-delay: -0.25s;
+            animation-delay: -0.25s;
+  }
+  > .bar11 {
+    -webkit-transform: rotate(300deg) translate(0, -142%);
+            transform: rotate(300deg) translate(0, -142%);
+    -webkit-animation-delay: -0.1667s;
+            animation-delay: -0.1667s;
+  }
+  .bar12 {
+    -webkit-transform: rotate(330deg) translate(0, -142%);
+            transform: rotate(330deg) translate(0, -142%);
+    -webkit-animation-delay: -0.0833s;
+            animation-delay: -0.0833s;
+  }
+}
+  .spinner__bar {
+    width: 10%;
+    height: 25%;
+    background: #000;
+    position: absolute;
+    left: 44.5%;
+    top: 37%;
+    opacity: 0;
+    -webkit-animation: fade 1s linear infinite;
+            animation: fade 1s linear infinite;
+    border-radius: 50px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+  }
+  @-webkit-keyframes fade {
+    from { opacity: 1; }
+    to   { opacity: 0.25; }
+  }
+  @keyframes fade {
+    from { opacity: 1; }
+    to   { opacity: 0.25; }
+  }

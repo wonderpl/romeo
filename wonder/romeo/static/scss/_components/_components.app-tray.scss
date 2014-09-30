@@ -1,0 +1,56 @@
+/**
+ * _components.app-tray.scss
+ */
+// Let's define some variables
+$app-tray-height: 6em;
+
+.app-tray {
+  width: 100%;
+  height: 6.375em;;
+  position: absolute;
+  top:   0;
+  right: 0;
+  left:  0;
+  z-index: 100;
+  background-color: #2e2e32;
+  
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  -webkit-transition: opacity 0.15s 0.15s ease-in-out;
+          transition: opacity 0.15s 0.15s ease-in-out;
+  -webkit-transform: none;
+          transform: none;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+
+  @media screen and (min-width: 1199px){
+    height: 6em;
+  }
+  
+  &.is-hidden {
+    top: -6.375em;;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    -webkit-transform: translate3d(0,-100%,0);
+            transform: translate3d(0,-100%,0);
+
+    @media screen and (min-width: 1199px){
+      top: -6em;
+    }
+  }
+}
+
+.page-content {
+  -webkit-transition: -webkit-transform 0.15s ease-in-out;
+          transition:         transform 0.15s ease-in-out;
+  -webkit-transform: none;
+          transform: none;
+}
+
+.tray-open .page-content {
+  -webkit-transform: translate3d(0,$app-tray-height,0);
+          transform: translate3d(0,$app-tray-height,0);
+}

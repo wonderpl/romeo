@@ -1,0 +1,10 @@
+/**
+ * _components.feature-points.scss
+ */
+.feature-point {
+  overflow: hidden;
+
+  @include media-query(lap-and-up) {
+    text-align: center;
+  }
+}

@@ -1,0 +1,23 @@
+/**
+ * _components.page-logo.scss
+ */
+// Let's define some variables
+$page-logo-width:  48px;
+$page-logo-height: 33px;
+
+.page-logo {
+  width:  $page-logo-width;
+  height: $page-logo-height;
+  margin-top: $base-spacing-unit;
+  position: relative;
+  float: left;
+
+  &,
+  .page-logo__img {
+    display: block;
+  }
+}
+  .page-logo__img {
+    @extend %img-full;
+    background-image: url('wonder-logo-vertical-102x72.svg');
+  }

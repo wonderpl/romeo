@@ -1,0 +1,18 @@
+/**
+ * _components.app-tray-list.scss
+ */
+.app-tray-list {
+  text-align: center;
+}
+  .app-tray-list__item + .app-tray-list__item {
+    margin-left: $base-spacing-unit;
+  }
+    .app-tray-list__link {
+      font-size: 0.7777777777777778em;
+      font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+      color: #fff;
+      
+      &:hover {
+        color: rgba(255,255,255,0.5);
+      }
+    }

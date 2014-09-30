@@ -1,0 +1,27 @@
+/**
+ * _components.app-icons.scss
+ */
+.app-icon {
+  width: 60px;
+  height: 60px;
+  margin-top:    $half-spacing-unit + 2;
+  margin-bottom: $half-spacing-unit / 2;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.app-icon--wonder {
+  background-image: url('AppIcon60x60.png');
+  
+  @media print,(-o-min-device-pixel-ratio:5/4),(-webkit-min-device-pixel-ratio:1.25),(min-resolution:120dpi){
+    background-image: url('AppIcon60x60@2x.png');
+  }
+}
+.app-icon--rockpack {
+  background-image: url('AppIcon60x60--rockpack.png');
+  
+  @media print,(-o-min-device-pixel-ratio:5/4),(-webkit-min-device-pixel-ratio:1.25),(min-resolution:120dpi){
+    background-image: url('AppIcon60x60@2x--rockpack.png');
+  }
+}

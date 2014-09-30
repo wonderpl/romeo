@@ -1,0 +1,15 @@
+/**
+ * _components.footer-nav.scss
+ */
+.footer-nav {
+  margin-bottom: 24px;
+  text-align: center;
+}
+  .footer-nav__item + .footer-nav__item {
+    margin-left: $half-spacing-unit;
+  }
+    .footer-nav__link,
+    .footer-nav__span{
+      font-size: 0.7777777777777778em;
+      font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+    }

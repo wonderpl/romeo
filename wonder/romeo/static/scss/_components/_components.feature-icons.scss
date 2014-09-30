@@ -1,0 +1,26 @@
+/**
+ * _components.feature-icons.scss
+ */
+.feature-icon {
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin-right: $base-spacing-unit;
+  float: left;
+  background-image: url('../img/content/feature-icon-sprite.png');
+  background-image: url('../img/content/feature-icon-sprite.svg');
+  background-size: 64px;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+
+  @include media-query(lap-and-up) {
+    float: none;
+    margin-right:  auto;
+    margin-bottom: $base-spacing-unit;
+    margin-left:   auto;
+  }
+}
+
+.feature-icon--connect     { background-position: 0 0;}
+.feature-icon--collaborate { background-position: 0 -64px;}
+.feature-icon--publish     { background-position: 0 -128px;}
