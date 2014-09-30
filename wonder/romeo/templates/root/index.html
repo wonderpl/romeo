@@ -1,7 +1,20 @@
-{% extends "base.html" %}
-
 {% set app_link = url_for('.app', _external=True) + '#organise' %}
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="{{ config.ASSETS_URL }}/assets/img/favicon@2x.png">
+    <title>Wonder PL</title>
+  {#
+    {% assets filters="cssmin", output="gen/homepage.%(version)s.css",
+      "gen/romeo/homepage.css"
+    %}
+    <link rel="stylesheet" href="{{ ASSET_URL }}"/>
+  #}
 {% block headjs %}
 <script>
 if (localStorage && localStorage.appRedirect) {
@@ -9,7 +22,9 @@ if (localStorage && localStorage.appRedirect) {
 }
 </script>
 {% endblock %}
+</head>
 
+  <body>
 {% block content %}
 <div class="app-tray  is-hidden">
   <ul class="list-inline  app-tray-list  u--ta-center">
@@ -51,7 +66,7 @@ if (localStorage && localStorage.appRedirect) {
           </div>-->
         </div>
       </div>
-      
+
     </div>
     div>
     ection class="page-section  page-section--feature" role="main">
@@ -119,7 +134,15 @@ if (localStorage && localStorage.appRedirect) {
   clicking on "#js-app-tray-trigger" toggles class "is-hidden" on ".app-tray"
   clicking on "#js-app-tray-trigger" toggles class "tray-open" on "#page-body"
 </code>
-<script src="/static/assets/js/uilang.js"></script>
-<script src="/static/assets/js/ideal-image-slider.min.js"></script>
-<script src="/static/assets/js/app.js"></script>
+    {#
+    {% assets filters="rjsmin", output="gen/homepage.%(version)s.js",
+      "assets/js/uilang.js",
+      "assets/js/ideal-image-slider.min.js",
+      "assets/js/slideshow.js"
+     %}
+    <script src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+    #}
 {% endblock %}
+  </body>
+</html>
