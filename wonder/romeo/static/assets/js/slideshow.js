@@ -37,27 +37,25 @@ window.smoothScrollTo = (function () {
   'use strict';
   var timer;
 
-  function toogleClass(elem, className) {
+  function toggleClass(elem, className) {
     var tempClassName = ' ' + elem.className + ' ';
     if (tempClassName.indexOf(' ' + className + ' ') !== -1)
-      elem.className.replace(className, '');
+      elem.className = tempClassName.replace(' ' + className + ' ', ' ');
     else
       elem.className += ' ' + className;
   }
 
   document.getElementById('js-app-tray-trigger').addEventListener('click', function () {
-    var elems = document.getElementsByClass('app-tray');
+    var elems = document.getElementsByClassName('app-tray');
     for (var i = 0; i < elems.length; ++i) {
-      toggleClass(elems[1], 'is-hidden');
+      toggleClass(elems[i], 'is-hidden');
     }
-  });
-  document.getElementById('js-app-tray-trigger').addEventListener('click', function () {
     toggleClass(document.getElementById('page-body'), 'tray-open');
   });
   document.getElementById('invite-form').addEventListener('submit', function (e) {
     if (e.preventDefault) e.preventDefault();
     document.getElementById('invite-email').disabled = true;
-    toogleClass(document.getElementById('invite-submit'), 'btn--disabled');
+    toggleClass(document.getElementById('invite-submit'), 'btn--disabled');
     registerInterest();
     return false;
   });

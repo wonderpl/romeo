@@ -9,6 +9,10 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="{{ config.ASSETS_URL }}/assets/img/favicon@2x.png">
     <title>Wonder PL</title>
+
+    <script type="text/javascript" src="//use.typekit.net/ftv4doz.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
     {% assets filters="cssmin", output="gen/homepage.%(version)s.css",
       "gen/romeo/homepage.css"
     %}
