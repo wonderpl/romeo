@@ -64,7 +64,7 @@ window.smoothScrollTo = (function () {
     // var name = document.getElementById('invite-name').value;
     var email = document.getElementById('invite-email').value;
     // var msg = document.getElementById('invite-message').value;
-    ajaxPost('/api/invite_request', {
+    ajaxPost(inviteRequestUrl || '/api/invite_request', {
       'email': email,
       // 'name': name,
       // 'message': msg
