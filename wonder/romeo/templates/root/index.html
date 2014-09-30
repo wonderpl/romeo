@@ -129,8 +129,10 @@ if (localStorage && localStorage.appRedirect) {
     </div>
   </footer>
 </div>
+    <script>
     {# XXX: Shouldn't be so hacky to get this url #}
     var inviteRequestUrl = "{{ url_for('api.inviterequest', _external=True).replace('http://romeo', 'https://romeo') }}";
+    </script>
     {% assets filters="rjsmin", output="gen/homepage.%(version)s.js",
       "assets/js/ideal-image-slider.min.js",
       "assets/js/slideshow.js"
