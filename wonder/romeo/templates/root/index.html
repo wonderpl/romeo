@@ -129,12 +129,7 @@ if (localStorage && localStorage.appRedirect) {
     </div>
   </footer>
 </div>
-<code class="accessible">
-  clicking on "#js-app-tray-trigger" toggles class "is-hidden" on ".app-tray"
-  clicking on "#js-app-tray-trigger" toggles class "tray-open" on "#page-body"
-</code>
     {% assets filters="rjsmin", output="gen/homepage.%(version)s.js",
-      "assets/js/uilang.min.js",
       "assets/js/ideal-image-slider.min.js",
       "assets/js/slideshow.js"
      %}
