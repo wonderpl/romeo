@@ -1,10 +1,17 @@
 @import
+  // Extra needed files from romeo app
+  "_settings/settings.defaults",
+  "_settings/settings.colors",
+  "_base/base.images",
+  "_settings/settings.responsive",
+  "_tools/tools.responsive",
+  // New code for homepage
   "_components/components.page-logo",
   "_components/components.nav-menu",
   "_components/components.app-tray",
   "_components/components.app-tray-list",
   "_components/components.app-icons",
-  "_components/components.masthead",
+  "_components/components.masthead--home",
   "_components/components.page-section",
   "_components/components.footer-nav",
 

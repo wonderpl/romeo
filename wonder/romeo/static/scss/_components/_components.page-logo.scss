@@ -18,6 +18,6 @@ $page-logo-height: 33px;
   }
 }
   .page-logo__img {
-    @extend %img-full;
+    @extend %img--full;
     background-image: url('wonder-logo-vertical-102x72.svg');
   }

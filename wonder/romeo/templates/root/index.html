@@ -9,12 +9,11 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="{{ config.ASSETS_URL }}/assets/img/favicon@2x.png">
     <title>Wonder PL</title>
-  {#
     {% assets filters="cssmin", output="gen/homepage.%(version)s.css",
       "gen/romeo/homepage.css"
     %}
     <link rel="stylesheet" href="{{ ASSET_URL }}"/>
-  #}
+    {% endassets %}
 {% block headjs %}
 <script>
 if (localStorage && localStorage.appRedirect) {
