@@ -11,7 +11,7 @@
   //padding: 5.7591623036649215% 3.2467532467532463% 0;
   //padding: 4.3% 3.35% 0;
   z-index: 0;
-  background-image: url('../img/content/screen.png');
+  background-image: url('/static/assets/img/screen.png');
   background-repeat: no-repeat;
   background-size: 100%;
   -webkit-transform: translate3d(0,0,0);
@@ -22,7 +22,7 @@
   }
 
   @media print,(-o-min-device-pixel-ratio:5/4),(-webkit-min-device-pixel-ratio:1.25),(min-resolution:120dpi){
-    background-image: url('../img/content/screen@2x.png');
+    background-image: url('/static/assets/img/screen@2x.png');
   }
 }
 
