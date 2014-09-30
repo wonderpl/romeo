@@ -300,3 +300,35 @@ $global-border-box: false !default;
     }
   }
 }
+
+
+/**
+ * dark buttons
+ */
+.#{$btn-namespace}btn--focus,
+%#{$btn-namespace}btn--focus {
+
+  & {
+    color: $base-color-background;
+    background-color: $base-color-text;
+    border-color: $base-color-text;
+    -webkit-transition: all 0.15s ease-in-out;
+            transition: all 0.15s ease-in-out;
+  }
+  &:hover,
+  &:active,
+  &:focus {
+    color: $base-color-text;
+    background-color: transparent;
+  }
+}
+
+
+/**
+ * bigger buttons
+ */
+.#{$btn-namespace}btn--large,
+%#{$btn-namespace}btn--large {
+  font-size: 18px;
+  font-size: 1rem;
+}
