@@ -11,11 +11,115 @@ if (localStorage && localStorage.appRedirect) {
 {% endblock %}
 
 {% block content %}
-<div class="apps">
-  <a href="http://wonderpl.com/wonder-discover">Wonder Discover</a>
-  <a href="http://rockpack.com/">Rockpack</a>
+<div class="app-tray  is-hidden">
+  <ul class="list-inline  app-tray-list  u--ta-center">
+    <li class="app-tray-list__item"><a href="http://wonderpl.com/wonder-discover" class="app-tray-list__link"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="app-icon  app-icon--wonder"><p class="u--m-none  u--ta-center">Wonder Pl</p></a></li>
+    <li class="app-tray-list__item"><a href="http://rockpack.com/" class="app-tray-list__link"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="app-icon  app-icon--rockpack"><p class="u--m-none  u--ta-center">Rockpack</p></a></li>
+  </ul>
 </div>
-<div class="container">
-  <a href="{{ app_link }}">Log in</a>
+<div class="page-content">
+  <header class="page-header  animated  bounceInDown" role="banner">
+    <nav class="wrapper  wrapper--fixed">
+      <a href="#" class="page-logo">
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Wonder Place" class="page-logo__img">
+      </a>
+      <ul class="list-inline  nav-menu">
+        <li class="nav-menu__item"><a href="#" class="nav-menu__link  reverse-link" id="js-app-tray-trigger">Our Apps</a></li>
+        <li class="nav-menu__item"><a href="{{ app_link }}" class="nav-menu__link  reverse-link">Log In</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="masthead  masthead--header">
+    <div class="wrapper">
+      <div class="text-col" style="position: relative; z-index: 1;">
+        <h1 class="heading  mega  u--ta-center  animated  fadeIn">The place creatives come to work every day.</h1>
+        <div class="btn-center">
+          <a href="#invite-form" class="btn  btn--focus  btn--large  animated  fadeIn" onclick="smoothScrollTo(document.getElementById('invite-email').offsetTop); document.getElementById('invite-email').focus();">Request  Invite</a>
+        </div>
+      </div>
+      <div class="macbook  animated  bounceInUp">
+        <div class="macbook__screen">
+          <div id="slider">
+            <img data-src-2x="<!-- @path screen-1@2x.png -->" data-src="<!-- @path screen-1.png -->" alt="Manage your library of content using the slick, clean UI.">
+            <img data-src-2x="<!-- @path screen-2@2x.png -->" data-src="<!-- @path screen-2.png -->" alt="Show off your profile as well as work and people you've worked with, to other like minded creatives.">
+            <img data-src-2x="<!-- @path screen-3@2x.png -->" data-src="<!-- @path screen-3.png -->" alt="Search a vast network for talent far and wide.">
+            <img data-src-2x="<!-- @path screen-4@2x.png -->" data-src="<!-- @path screen-4.png -->" alt="Collaborate with your colleagues on projects.">
+            <img data-src-2x="<!-- @path screen-5@2x.png -->" data-src="<!-- @path screen-5.png -->" alt="Publish your content to multiple networks and to curators and journalists.">
+          </div>
+          <!--<div class="loading">
+            <span class="apple"></span>
+          </div>-->
+        </div>
+      </div>
+      
+    </div>
+    div>
+    ection class="page-section  page-section--feature" role="main">
+    <div class="wrapper  wrapper--fixed">
+      <div class="layout">
+        <div class="layout__item  one-whole  lap-and-up-one-third">
+          <div class="feature-icon  feature-icon--connect"></div>
+          <div class="feature-point">
+            <h2 class="heading  beta  feature-point__title">Connect</h2>
+            <p class="lede  u--ff-sans  feature-point__copy">Connect with creative talent and publish video to a multitude of networks.</p>
+          </div>
+        </div><!--
+     --><div class="layout__item  one-whole  lap-and-up-one-third">
+          <div class="feature-icon  feature-icon--collaborate"></div>
+          <div class="feature-point">
+            <h2 class="heading  beta  feature-point__title">Collaborate</h2>
+            <p class="lede  u--ff-sans  feature-point__copy">Wonder is LinkedIn meets Vimeo. Together, creatives can connect, collaborate and publish across the web.</p>
+          </div>
+        </div><!--
+     --><div class="layout__item  one-whole  lap-and-up-one-third">
+          <div class="feature-icon  feature-icon--publish"></div>
+          <div class="feature-point">
+            <h2 class="heading  beta  feature-point__title">Publish</h2>
+            <p class="lede  u--ff-sans  feature-point__copy">Push your content out across multiple networks and benefit.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    section>
+    ection class="page-section  page-section--feature" role="complementary">
+    <div class="wrapper">
+      <div class="text-col">
+      <h4 class="heading  delta  u--ta-center">Request an invite now:</h4>
+      <form id="invite-form" class="form-ui">
+        <fieldset class="form-ui__fieldset">
+          <legend class="accessible">Request a beta invite:</legend>
+          <ul class="layout  form-fields">
+            <li class="layout__item  lap-and-up-one-half">
+              <label for="invite-email" class="accessible">Your email</label>
+              <input id="invite-email" name="" required type="text" class="text-input" placeholder="Your email"/>
+            </li><!--
+         --><li class="layout__item  lap-and-up-one-half">
+              <div class="btn-center">
+                <button id="invite-submit" type="submit" class="btn  btn--focus">Request an invite</button>
+              </div>
+            </li>
+          </ul>
+        </fieldset>
+      </form>
+      </div>
+    </div>
+  </section>
+  <footer class="page-footer" role="contentinfo">
+    <div class="wrapper">
+      <ul class="list-inline  footer-nav">
+        <li class="footer-nav__item"><span class="footer-nav__span">&copy; 2014 Wonder Place</span></li>
+        <li class="footer-nav__item"><a href="/#privacy" class="footer-nav__link  reverse-link">Privacy Policy</a></li>
+        <li class="footer-nav__item"><a href="/#tos" class="footer-nav__link  reverse-link">Terms</a></li>
+        <li class="footer-nav__item"><a href="/#cookies" class="footer-nav__link  reverse-link">Cookies</a></li>
+      </ul>
+    </div>
+  </footer>
 </div>
+<code class="accessible">
+  clicking on "#js-app-tray-trigger" toggles class "is-hidden" on ".app-tray"
+  clicking on "#js-app-tray-trigger" toggles class "tray-open" on "#page-body"
+</code>
+<script src="/static/assets/js/uilang.js"></script>
+<script src="/static/assets/js/ideal-image-slider.min.js"></script>
+<script src="/static/assets/js/app.js"></script>
 {% endblock %}
