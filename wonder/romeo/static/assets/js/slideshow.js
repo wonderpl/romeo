@@ -73,7 +73,7 @@ window.smoothScrollTo = (function () {
       clearForm();
     }, function (res) {
       console.error('Failed ajax post: ', res);
-      notify('Failed', 'Invitation failed');
+      notify('Failed', 'Invalid email address.');
       clearForm();
     });
   }
