@@ -35,6 +35,7 @@ window.smoothScrollTo = (function () {
 
 (function () {
   'use strict';
+  var timer;
 
   function toogleClass(elem, className) {
     var tempClassName = ' ' + elem.className + ' ';
@@ -53,7 +54,10 @@ window.smoothScrollTo = (function () {
   document.getElementById('js-app-tray-trigger').addEventListener('click', function () {
     toggleClass(document.getElementById('page-body'), 'tray-open');
   });
-  document.getElementById('invite-submit').addEventListener('click', function (event) {
+  document.getElementById('invite-form').addEventListener('submit', function (e) {
+    if (e.preventDefault) e.preventDefault();
+    document.getElementById('invite-email').disabled = true;
+    toogleClass(document.getElementById('invite-submit'), 'btn--disabled');
     registerInterest();
     return false;
   });
@@ -83,10 +87,20 @@ window.smoothScrollTo = (function () {
   }
 
   function notify(state, msg) {
-    var elem = document.getElementById('invite-form').insertAdjacentHTML('afterend', '<div class="notification ' + state + '"><h2>' + state + '</h2> ' + msg + '</div>');
-    setTimeout(function () {
+    if (! timer) {
+      document.getElementById('invite-form').insertAdjacentHTML('afterend', '<div id="notification" class=""></div>');
+    } else {
+      clearTimeout(timer);
+    }
+    console.log('Notify', state, msg);
+    var elem = document.getElementById('notification');
+    elem.innerHTML = '<div class="flag  flag--rev"><div class="flag__body"><b>' + state + '</b><p>' + msg + '</p></div></div>';
+    elem.className = 'notice  animated-half  bounceIn notice--active ' + (state == 'Success' ? '  notice--succes' : '  notice--error');
+
+    timer = setTimeout(function () {
+      console.log('clear notification');
       elem.parentElement.removeChild(elem);
-    }, 3000);
+    }, 3500);
   }
 
   function ajaxPost(url, data, success, failure) {
