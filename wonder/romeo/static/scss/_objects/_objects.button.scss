@@ -323,6 +323,19 @@ $global-border-box: false !default;
   }
 }
 
+.btn--focus.btn--disabled,
+.btn--focus.btn--disabled {
+    
+  &,
+  &:hover,
+  &:active,
+  &:focus {
+    color: rgba($base-color-background, 0.5);
+    border-color: rgba($base-color-text, 0.75);
+    background-color: rgba($base-color-text, 0.75);
+    cursor: not-allowed;
+  }
+}
 
 /**
  * bigger buttons
