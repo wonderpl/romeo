@@ -74,7 +74,7 @@ describe('Sign up', function() {
         expect(scope.username).toBe(user.name);
 
         expect(scope.signUp()).toBe(false);
-        expect(scope.errorMessage).toEqual('Email required');
+        expect(scope.errorMessage).toEqual('Invalid email');
       });
 
       it('should have validation error (password required) if only name and username is set', function() {

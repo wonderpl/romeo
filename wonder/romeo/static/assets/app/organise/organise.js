@@ -64,23 +64,9 @@
               );
               setCollection();
               refresh();
+              redirect('/organise', true);
             });
           }
-        });
-
-        $scope.$on('add-remove-video', function ($event, video) {
-          $event.stopPropagation = true;
-          $scope.availableTags = $scope.tags;
-          $scope.video = video;
-          $scope.isModal = true;
-          modal.load('collection-add-video.html', true, $scope);
-        });
-
-        $scope.$on('show-create-collection', function ($event, isPublic) {
-          $event.stopPropagation = true;
-          $scope.collection = {};
-          $scope.collection.scope = isPublic ? 'public' : 'private';
-          modal.load('modal-create-new-collection.html', true, $scope, {});
         });
 
         $scope.$on('delete-video', function ($event, video) {

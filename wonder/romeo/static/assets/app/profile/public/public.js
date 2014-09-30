@@ -15,7 +15,7 @@ function ProfilePublicCtrl($scope, $location, $routeParams, UserService, VideoSe
       uploadingProfileImage: false,
       uploadingProfileCover: false,
       isFormValid: true,
-      accountId: null
+      userId: null
     };
     // Some simple defaults in case the web service call hasn't completed
     locations = { 'country': { 'items': [
@@ -42,6 +42,7 @@ function ProfilePublicCtrl($scope, $location, $routeParams, UserService, VideoSe
       }
       return name;
     };
+
     $scope.$on('send-invitation-request', ctrl.sendInvitationRequest);
     loadUserDetails();
   }
@@ -52,7 +53,7 @@ function ProfilePublicCtrl($scope, $location, $routeParams, UserService, VideoSe
     var id = $routeParams.id;
     UserService.getPublicUser(id).then(function(res) {
       $scope.profile = res.data;
-      $scope.flags.accountId = id;
+      $scope.flags.userId = id;
       UserService.getPublicConnections(id).then(function (res) {
         $scope.connections = res.data.connection.items;
       });

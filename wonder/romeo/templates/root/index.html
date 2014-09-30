@@ -1,14 +1,21 @@
 {% extends "base.html" %}
 
+{% set app_link = url_for('.app', _external=True) + '#organise' %}
+
 {% block headjs %}
 <script>
-location.replace('/app' + location.hash);
+if (localStorage && localStorage.appRedirect) {
+  location.replace('{{ app_link }}');
+}
 </script>
 {% endblock %}
 
 {% block content %}
+<div class="apps">
+  <a href="http://wonderpl.com/wonder-discover">Wonder Discover</a>
+  <a href="http://rockpack.com/">Rockpack</a>
+</div>
 <div class="container">
-
-    </div>
-
+  <a href="{{ app_link }}">Log in</a>
+</div>
 {% endblock %}

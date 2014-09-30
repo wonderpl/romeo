@@ -42,9 +42,11 @@
 
         $scope.$on('created-new-tag', function () { setAvailableTags($scope); });
 
-        $scope.close = function ($event) {
-          modal.hide();
-        };
+        if (typeof $scope.close !== 'function') {
+          $scope.close = function ($event) {
+            modal.hide();
+          };
+        }
         $scope.hasTag = function (tagId) {
           return VideoService.hasTag(tagId, $scope.video);
         };

@@ -25,7 +25,7 @@
     </div>
     <div class="text-col">
       <p class="heading  kilo" ng-if="isPublished">Your video has been published!</p>
-      <p ng-if="isPublic && video.tags.items">Your video has been published to: <span ng-bind="video.tags.items | filter:public='true' | commaSeparatedList"></span></p>
+      <p ng-if="providers.wonderpl.isPublished && video.tags.items">Your video has been published to: <span ng-bind="video.tags.items | filter:public='true' | commaSeparatedList"></span></p>
 
       <!--<div class="notice  notice--info">
         <p>By clicking 'Publish', you agree that this video does not violate the Terms of Use of any of the video sites you plan to upload to and that you own all copyrights in this video or have express permission from all copyright owners to upload it. You also agree to Wonder PL’s Terms of Service.</p>
@@ -36,8 +36,8 @@
         <div class="btn  btn--positive  btn--small  btn--popup">
           <span class="icon-text--rev" ng-click="showPublishOptions = !showPublishOptions">publish<i class="icon  icon--ellipsis  icon-text__icon"></i></span>
           <ul class="nav  nav--stacked  popup" ng-class="{ 'visible' : showPublishOptions }">
-            <li class="popup__item"><a class="popup__link" ng-click="showPublish()">Publish Now</a></li>
-            <li class="popup__item"><a class="popup__link" ng-click="showPublish()">Add to Queue</a></li>
+            <li class="popup__item"><a class="popup__link" fullscreen-modal="modal-add-to-collection">Publish Now</a></li>
+            <li class="popup__item"><a class="popup__link" fullscreen-modal="modal-add-to-collection">Add to Queue</a></li>
             <li class="popup__item">
               <a class="popup__link  popup__link-cal" ng-click="showCalendar = !showCalendar">Schedule a date
                 <div class="schedule-date" ng-class="{ 'visible' : showCalendar }"></div>

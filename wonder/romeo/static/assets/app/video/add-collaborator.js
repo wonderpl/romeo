@@ -14,6 +14,11 @@
           collaborators : []
         };
 
+        $scope.close = function () {
+          modal.hide();
+          $scope.onlyAllowDownload = false;
+        };
+
         $scope.select2Options = {
           width: '100%',
           simple_tags: true,
