@@ -102,17 +102,13 @@ if (localStorage && localStorage.appRedirect) {
       <form id="invite-form" class="form-ui">
         <fieldset class="form-ui__fieldset">
           <legend class="accessible">Request a beta invite:</legend>
-          <ul class="layout  form-fields">
-            <li class="layout__item  lap-and-up-one-half">
-              <label for="invite-email" class="accessible">Your email</label>
-              <input id="invite-email" name="" required type="text" class="text-input" placeholder="Your email"/>
-            </li><!--
-         --><li class="layout__item  lap-and-up-one-half">
-              <div class="btn-center">
-                <button id="invite-submit" type="submit" class="btn  btn--focus">Request an invite</button>
-              </div>
-            </li>
-          </ul>
+          <div class="text-col">
+            <label for="invite-email" class="accessible">Your email</label>
+            <input id="invite-email" name="" required type="text" class="text-input  one-whole  u--m-default" placeholder="Your email"/>
+            <div class="btn-center">
+              <button id="invite-submit" type="submit" class="btn  btn--focus">Request an invite</button>
+            </div>
+          </div>
         </fieldset>
       </form>
       </div>
