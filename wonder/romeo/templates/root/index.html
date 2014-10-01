@@ -51,10 +51,19 @@ if (localStorage && localStorage.appRedirect) {
     <div class="wrapper">
       <div class="text-col" style="position: relative; z-index: 1;">
         <h1 class="heading  mega  u-m-none  u--ta-center  animated  fadeIn" style="color:#fff !important;">Wonder Place</h1>
-        <h2 class="heading  alpha  u--w400  u-m-none  u--ta-center  animated  fadeIn" style="color:#fff !important;">Where the creative industries come to work every day.</h2>
-        <div class="btn-center">
-          <a href="#invite-form" class="btn  btn--focus  btn--large  animated  fadeIn" onclick="smoothScrollTo(document.getElementById('invite-email').offsetTop); document.getElementById('invite-email').focus(); return false;">Request  Invite</a>
-        </div>
+        <h2 class="heading  beta  u--w400  u-m-none  u--ta-center  animated  fadeIn" style="color:#fff !important;">Where the creative industries come to work every day.</h2>
+        <form id="invite-form" class="form-ui">
+          <fieldset class="form-ui__fieldset">
+            <legend class="accessible">Request a beta invite:</legend>
+            <div class="text-col">
+              <label for="invite-email" class="accessible">Your email</label>
+              <input id="invite-email" name="" required type="text" class="text-input  one-whole  u--m-default" placeholder="Your email"/>
+              <div class="btn-center">
+                <button id="invite-submit" type="submit" class="btn  btn--large  btn--focus">Request an invite</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
       </div>
 
     </div>
@@ -66,42 +75,23 @@ if (localStorage && localStorage.appRedirect) {
           <div class="feature-icon  feature-icon--connect"></div>
           <div class="feature-point">
             <h2 class="heading  beta  feature-point__title">Connect</h2>
-            <p class="lede  u--ff-sans  feature-point__copy">Connect with creative talent and publish video to a multitude of networks.</p>
+            <p class="lede  u--ff-sans  feature-point__copy">Manage your professional identity and build your network</p>
           </div>
         </div><!--
      --><div class="layout__item  one-whole  lap-and-up-one-third">
           <div class="feature-icon  feature-icon--collaborate"></div>
           <div class="feature-point">
             <h2 class="heading  beta  feature-point__title">Collaborate</h2>
-            <p class="lede  u--ff-sans  feature-point__copy">Wonder is LinkedIn meets Vimeo. Together, creatives can connect, collaborate and publish across the web.</p>
+            <p class="lede  u--ff-sans  feature-point__copy">Collaborate with other creatives<br> and brands</p>
           </div>
         </div><!--
      --><div class="layout__item  one-whole  lap-and-up-one-third">
           <div class="feature-icon  feature-icon--publish"></div>
           <div class="feature-point">
             <h2 class="heading  beta  feature-point__title">Publish</h2>
-            <p class="lede  u--ff-sans  feature-point__copy">Push your content out across multiple networks and benefit.</p>
+            <p class="lede  u--ff-sans  feature-point__copy">Publish to relevant networks and tap into a world of opportunity</p>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-  <section class="page-section  page-section--feature" role="complementary">
-    <div class="wrapper">
-      <div class="text-col">
-      <h4 class="heading  delta  u--ta-center">Request an invite now:</h4>
-      <form id="invite-form" class="form-ui">
-        <fieldset class="form-ui__fieldset">
-          <legend class="accessible">Request a beta invite:</legend>
-          <div class="text-col">
-            <label for="invite-email" class="accessible">Your email</label>
-            <input id="invite-email" name="" required type="text" class="text-input  one-whole  u--m-default" placeholder="Your email"/>
-            <div class="btn-center">
-              <button id="invite-submit" type="submit" class="btn">Request an invite</button>
-            </div>
-          </div>
-        </fieldset>
-      </form>
       </div>
     </div>
   </section>
