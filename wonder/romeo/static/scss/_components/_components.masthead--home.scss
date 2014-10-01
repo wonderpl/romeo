@@ -3,24 +3,25 @@
 .masthead--header {
   overflow: hidden;
   padding: 0;
-  padding-top: $base-spacing-unit * 4;
+  padding-top: $base-spacing-unit * 8;
+  padding-bottom: $base-spacing-unit * 8;
   margin-bottom: 0;
   position: relative;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: bottom center;
-  background-image: url('/static/assets/img/blur-bg.jpg');
+  background-image: url('/static/assets/img/bg.jpg');
 
-  &:before {
-    content: "";
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top:   0;
-    right: 0;
-    left:  0;
-    z-index: 0;
-    background-image: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 50%);
-    background-image:         linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 50%);
-  }
+  // &:before {
+    // content: "";
+    // width: 100%;
+    // height: 100%;
+    // position: absolute;
+    // top:   0;
+    // right: 0;
+    // left:  0;
+    // z-index: 0;
+    // background-image: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 50%);
+    // background-image:         linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 50%);
+  // }
 }

@@ -10,9 +10,9 @@
     .app-tray-list__link {
       font-size: 0.7777777777777778em;
       font-family: "FreightSans Pro", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
-      color: #fff;
+      color: $base-color-text;
       
       &:hover {
-        color: rgba(255,255,255,0.5);
+        color: rgba($base-color-text,0.75);
       }
     }

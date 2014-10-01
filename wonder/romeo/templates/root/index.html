@@ -36,7 +36,7 @@ if (localStorage && localStorage.appRedirect) {
   </ul>
 </div>
 <div class="page-content">
-  <header class="page-header  animated  bounceInDown" role="banner">
+  <header class="page-header  animated  fadeIn" role="banner">
     <nav class="wrapper  wrapper--fixed">
       <a href="#" class="page-logo">
         <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Wonder Place" class="page-logo__img">
@@ -50,23 +50,10 @@ if (localStorage && localStorage.appRedirect) {
   <div class="masthead  masthead--header">
     <div class="wrapper">
       <div class="text-col" style="position: relative; z-index: 1;">
-        <h1 class="heading  mega  u--ta-center  animated  fadeIn">The place creatives come to work every day.</h1>
+        <h1 class="heading  mega  u-m-none  u--ta-center  animated  fadeIn" style="color:#fff !important;">Wonder Place</h1>
+        <h2 class="heading  alpha  u--w400  u-m-none  u--ta-center  animated  fadeIn" style="color:#fff !important;">Where the creative industries come to work every day.</h2>
         <div class="btn-center">
           <a href="#invite-form" class="btn  btn--focus  btn--large  animated  fadeIn" onclick="smoothScrollTo(document.getElementById('invite-email').offsetTop); document.getElementById('invite-email').focus(); return false;">Request  Invite</a>
-        </div>
-      </div>
-      <div class="macbook  animated  bounceInUp">
-        <div class="macbook__screen">
-          <div id="slider">
-            <img data-src-2x="{{ config.ASSETS_URL }}/assets/img/screen-1@2x.jpg" src="{{ config.ASSETS_URL }}/assets/img/screen-1.jpg" alt="Manage your library of content using the slick, clean UI.">
-            <img data-src-2x="{{ config.ASSETS_URL }}/assets/img/screen-2@2x.jpg" src="{{ config.ASSETS_URL }}/assets/img/screen-2.jpg" alt="Show off your profile as well as work and people you've worked with, to other like minded creatives.">
-            <img data-src-2x="{{ config.ASSETS_URL }}/assets/img/screen-3@2x.jpg" src="{{ config.ASSETS_URL }}/assets/img/screen-3.jpg" alt="Search a vast network for talent far and wide.">
-            <img data-src-2x="{{ config.ASSETS_URL }}/assets/img/v2screen-4@2x.jpg" src="{{ config.ASSETS_URL }}/assets/img/v2screen-4.jpg" alt="Collaborate with your colleagues on projects.">
-            <img data-src-2x="{{ config.ASSETS_URL }}/assets/img/v2screen-5@2x.jpg" src="{{ config.ASSETS_URL }}/assets/img/v2screen-5.jpg" alt="Publish your content to multiple networks and to curators and journalists.">
-          </div>
-          <!--<div class="loading">
-            <span class="apple"></span>
-          </div>-->
         </div>
       </div>
 
@@ -110,7 +97,7 @@ if (localStorage && localStorage.appRedirect) {
             <label for="invite-email" class="accessible">Your email</label>
             <input id="invite-email" name="" required type="text" class="text-input  one-whole  u--m-default" placeholder="Your email"/>
             <div class="btn-center">
-              <button id="invite-submit" type="submit" class="btn  btn--focus">Request an invite</button>
+              <button id="invite-submit" type="submit" class="btn">Request an invite</button>
             </div>
           </div>
         </fieldset>
