@@ -112,6 +112,8 @@
      %}
     <script src="{{ ASSET_URL }}"></script>
     {% endassets %}
+    {% include "ga.html" %}
+    <script>ga('send', 'pageview');</script>
 {% endblock %}
   </body>
 </html>

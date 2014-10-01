@@ -51,6 +51,7 @@ window.smoothScrollTo = (function () {
       toggleClass(elems[i], 'is-hidden');
     }
     toggleClass(document.getElementById('page-body'), 'tray-open');
+    ga('send', 'event', 'uiAction', 'app-tray-trigger');
   });
   document.getElementById('invite-form').addEventListener('submit', function (e) {
     if (e.preventDefault) e.preventDefault();
@@ -71,6 +72,7 @@ window.smoothScrollTo = (function () {
     }, function () {
       notify('Success', 'Invitation sent');
       clearForm();
+      ga('send', 'event', 'goal', 'invite-request');
     }, function (res) {
       console.error('Failed ajax post: ', res);
       notify('Failed', 'Invalid email address.');
