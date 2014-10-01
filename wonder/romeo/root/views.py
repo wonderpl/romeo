@@ -8,6 +8,7 @@ rootapp = Blueprint('root', __name__)
 
 
 @rootapp.route('/')
+@cache_control(max_age=3600, view=True)
 def home():
     return render_template('root/index.html')
 

@@ -1,7 +1,7 @@
 import logging
 from werkzeug.utils import import_string
 from werkzeug.contrib.fixers import ProxyFix
-from flask import Flask, request, json
+from flask import Flask, request, json, request_finished
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.admin import Admin
@@ -73,6 +73,11 @@ def _load_extensions(app, wsgi=False):
             DebugToolbarExtension(app)
 
 
+def _dont_set_public_cookie(sender, response, **extra):
+    if response.cache_control.public:
+        response.headers.pop('Set-Cookie', None)
+
+
 def _register_middleware(app):
     from wonder.common import sqs
     sqs.init_app(app)
@@ -87,6 +92,8 @@ def _register_middleware(app):
             response.status_code = status_code
         return response
     app.after_request(_force_status)
+
+    request_finished.connect(_dont_set_public_cookie, app)
 
 
 def _register_blueprints(app):

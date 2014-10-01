@@ -1,6 +1,6 @@
 from functools import wraps
 from werkzeug.routing import RequestRedirect
-from flask import request
+from flask import request, make_response
 from flask.ext.login import current_user
 from flask.ext import restful
 from flask.ext.restful.utils import unpack
@@ -27,10 +27,14 @@ def support_bulk_save(f):
     return decorator
 
 
-def cache_control(**cache_properties):
+def cache_control(view=False, **cache_properties):
     def decorator(func):
         func._cache_control = cache_properties
-        return func
+        if view:
+            # Apply decorator directly
+            return _cache_control(func)
+        else:
+            return func
     return decorator
 
 
@@ -44,6 +48,12 @@ def _cache_control(func):
             viewfunc = func.func_closure[0].cell_contents.view_class.get
         except Exception:
             viewfunc = func
+
+        try:
+            # assume response instance
+            response.cache_control
+        except AttributeError:
+            response = make_response(response)
 
         if hasattr(viewfunc, '_cache_control'):
             for k, v in viewfunc._cache_control.items():
