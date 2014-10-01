@@ -83,6 +83,10 @@
                         debug.info("LoginCheck: Logged in");
                         _saveAccountAndUserDetails(res);
                         checkingLogin.response.resolve(res);
+                        // Set user to have already logged in at least once to be
+                        // redirected from the marketing home page
+                        if (localStorage)
+                            localStorage.appRedirect = true;
                     }
                     else {
                         debug.info("LoginCheck: Logged out");
