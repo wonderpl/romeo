@@ -93,7 +93,7 @@ window.smoothScrollTo = (function () {
     console.log('Notify', state, msg);
     var elem = document.getElementById('notification');
     elem.innerHTML = '<div class="flag  flag--rev"><div class="flag__body"><b>' + state + '</b><p>' + msg + '</p></div></div>';
-    elem.className = 'notice  animated-half  bounceIn notice--active ' + (state == 'Success' ? '  notice--succes' : '  notice--error');
+    elem.className = 'notice  animated-half  bounceIn notice--active ' + (state == 'Success' ? '  notice--success' : '  notice--error');
 
     timer = setTimeout(function () {
       console.log('clear notification');
