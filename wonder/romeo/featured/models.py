@@ -21,3 +21,19 @@ class AccountUserFeatured(db.Model):
     @property
     def public_href(self):
         return self.href + '?public'
+
+
+class ArticlesFeatured(db.Model):
+    __tablename__ = 'article_featured'
+
+    id = Column('id', primary_key=True)
+    article_type = Column('article_type', nullable=False)
+    article_url = Column('article_url', nullable=False)
+    title = Column('title', nullable=False)
+    author = Column('author_name', nullable=False)
+    summary = Column('summary', nullable=False)
+    content = Column('content', nullable=False)
+    published_date = Column('published_date', nullable=False, default=func.now())
+    featured_image = Column('featured_image', nullable=False)
+
+    # should get category as well
