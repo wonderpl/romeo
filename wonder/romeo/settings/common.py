@@ -13,7 +13,7 @@ BLUEPRINTS = [
 ]
 
 API_VIEWS = [
-    'wonder.romeo.%s.views' % mod for mod in 'analytics', 'video', 'search'
+    'wonder.romeo.%s.views' % mod for mod in 'analytics', 'video', 'search', 'featured'
 ]
 
 DATABASE_URL = ''

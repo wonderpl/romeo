@@ -5,44 +5,14 @@
   <section class="masthead  masthead--feature">
     <h2 class="heading  alpha  u--ta-center">New to Wonder</h2>
     <ul class="layout">
-      <li class="layout__item   one-quarter">
+      <li class="layout__item   one-quarter" ng-repeat="user in users">
         <div class="avatar  avatar--large  avatar--center">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="avatar__img" style="background-image:url('/static/assets/img/avatar/shin-iwata.jpg');">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="avatar__img" style="background-image:url({{ user.avatar || '/static/assets/img/avatar/shin-iwata.jpg' }});">
         </div>
-        <h3 class="heading  gamma  u--ta-center">Shin Iwata</h3>
-        <p class="zeta  u--ta-center">Responsible for 15 Sony brands around the world, currently working on the crowd source campaigns&hellip;</p>
+        <h3 class="heading  gamma  u--ta-center">{{ user.display_name }}</h3>
+        <p class="zeta  u--ta-center">{{ user.description }}</p>
         <div class="btn-center">
-          <a href="#" class="btn  btn--positive">More from Shin</a>
-        </div>
-      </li><!--
-   --><li class="layout__item   one-quarter">
-        <div class="avatar  avatar--large  avatar--center">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="avatar__img" style="background-image:url('/static/assets/img/avatar/wes-gordon.jpg');">
-        </div>
-        <h3 class="heading  gamma  u--ta-center">Wes Gordon</h3>
-        <p class="zeta  u--ta-center">Designer and creative director of Wes Gordon, formerly at Tom Ford &amp; Oscar de la Renta</p>
-        <div class="btn-center">
-          <a href="#" class="btn  btn--positive">More from Wes</a>
-        </div>
-      </li><!--
-   --><li class="layout__item   one-quarter">
-        <div class="avatar  avatar--large  avatar--center">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="avatar__img" style="background-image:url('/static/assets/img/avatar/danielle-calodney.jpg');">
-        </div>
-        <h3 class="heading  gamma  u--ta-center">Danielle Calodney</h3>
-        <p class="zeta  u--ta-center">Ex-New York Times video editor, currently freelancing for VICE news, 20to30.com and other projects.</p>
-        <div class="btn-center">
-          <a href="#" class="btn  btn--positive">More from Danielle</a>
-        </div>
-      </li><!--
-   --><li class="layout__item   one-quarter">
-        <div class="avatar  avatar--large  avatar--center">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="avatar__img" style="background-image:url('/static/assets/img/avatar/josie-thaddeus-johns.jpg');">
-        </div>
-        <h3 class="heading  gamma  u--ta-center">Josie Thaddeus-Johns</h3>
-        <p class="zeta  u--ta-center">Online editor at Sleek Magazine, freelancer for Dazed, iD, Sleek Magazine, Fault.</p>
-        <div class="btn-center">
-          <a href="#" class="btn  btn--positive">More from Josie</a>
+          <a href="#/profile/{{user.id}}" class="btn  btn--positive">More from {{ user.display_name }}</a>
         </div>
       </li>
     </ul>

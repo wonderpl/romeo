@@ -146,7 +146,7 @@
         });
 
         $routeProvider.when('/', {
-            controller: 'StaticPagesCtrl',
+            controller: 'HomePageCtrl',
             templateUrl: 'pages/home.tmpl.html',
             resolve: securityAuthorizationProvider.requireAuthenticated
         });
