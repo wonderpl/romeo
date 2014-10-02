@@ -99,7 +99,7 @@ def _register_middleware(app):
 def _register_blueprints(app):
     for blueprint in app.config['BLUEPRINTS']:
         app.register_blueprint(import_string(blueprint))
-    from admin import account     # NOQA
+    from admin import account, featured     # NOQA
 
 
 def _register_api_views(app):
