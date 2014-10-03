@@ -26,7 +26,7 @@ class VideoWorkflowTestCase(DataTestCase, TestCase):
             id = 1001
             name = 'test'
             account_type = 'content_owner'
-            dolly_user = 'dudu'
+            dolly_user = 'du' * 11
 
     class AccountUserData(DataSet):
         class user:

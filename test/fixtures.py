@@ -73,9 +73,6 @@ class VideoTagVideoData(DataSet):
 def loaddata():
     datasets = [d for d in globals().values() if type(d) is type(DataSet) and d is not DataSet]
 
-    with current_app.app_context():
-        dbfixture.data(*datasets).setup()
-
-    db.session.commit()
+    dbfixture.data(*datasets).setup()
 
     cache.set('dolly_categories', [dict(id=1, name='Food', sub_categories=[])])

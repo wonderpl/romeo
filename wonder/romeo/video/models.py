@@ -397,6 +397,8 @@ class VideoCollaborator(db.Model):
     account_user_id = Column('account_user', ForeignKey(AccountUser.id))
 
     video = relationship(Video, backref=backref('collaborators', cascade='all, delete-orphan'))
+    account_user = relationship(
+        AccountUser, backref=backref('collaborator_videos', cascade='all, delete-orphan'))
 
     @property
     def token(self):
