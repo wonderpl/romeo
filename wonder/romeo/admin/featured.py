@@ -1,8 +1,5 @@
-from flask import request, redirect, url_for
-from wonder.romeo import db
-from wonder.romeo.account.forms import RegistrationForm
 from wonder.romeo.featured import models
-from . import AdminView, AdminModelView, admin_view, expose
+from . import AdminModelView, admin_view
 
 
 @admin_view()

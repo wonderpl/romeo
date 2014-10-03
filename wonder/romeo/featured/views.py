@@ -1,4 +1,3 @@
-from flask import request, jsonify
 from wonder.romeo.core.rest import Resource, api_resource
 from wonder.romeo.account.views import _user_item
 from .models import AccountUserFeatured, ArticlesFeatured
