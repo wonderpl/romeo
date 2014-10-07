@@ -62,9 +62,7 @@
                 title : 'Collection deleted',
                 message : $scope.tag.label + ' deleted.'}
               );
-              setCollection();
-              refresh();
-              redirect('/organise', true);
+              $location.url('/organise');
             });
           }
         });
