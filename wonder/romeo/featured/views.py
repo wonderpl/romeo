@@ -1,17 +1,17 @@
 from wonder.romeo.core.rest import Resource, api_resource
 from wonder.romeo.account.views import _user_item
-from .models import AccountUserFeatured, ArticlesFeatured
+from .models import FeaturedUser, FeaturedArticle
 
 
 @api_resource('/featured')
 class FeaturedResource(Resource):
     def get(self):
-        featuredUsers = AccountUserFeatured().query.limit(4)
+        featuredUsers = FeaturedUser().query.limit(4)
         users = []
         for row in featuredUsers:
             users.append(_user_item(row.account_user, True))
 
-        featuredArticles = ArticlesFeatured().query.limit(6)
+        featuredArticles = FeaturedArticle().query.limit(6)
         articles = []
         for row in featuredArticles:
             article = _article_item(row)

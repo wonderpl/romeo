@@ -95,7 +95,7 @@ class AccountUser(db.Model):
     profile_cover = property(*_image_field_accessors('profile_cover'))
 
     def __unicode__(self):
-        return self.username
+        return self.name
 
     @classmethod
     def get_from_credentials(cls, username, password):

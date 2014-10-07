@@ -1,5 +1,5 @@
 from sqlalchemy import (
-    Column, String, Integer, Text, ForeignKey, PrimaryKeyConstraint, DateTime, Enum, func)
+    Column, String, Integer, Text, ForeignKey, DateTime, Enum, func)
 from flask import url_for
 from sqlalchemy.orm import relationship
 from wonder.romeo import db
@@ -9,14 +9,9 @@ from wonder.romeo.account.models import AccountUser
 ARTICLE_TYPES = 'Blog', 'RFP', 'Feature', 'Video'
 
 
-class AccountUserFeatured(db.Model):
-    __tablename__ = 'account_user_featured'
-    __table_args__ = (
-        PrimaryKeyConstraint('user'),
-    )
-
-    account_user_id = Column('user', ForeignKey(AccountUser.id), nullable=False)
-
+class FeaturedUser(db.Model):
+    id = Column(Integer, primary_key=True)
+    account_user_id = Column('user', Integer, ForeignKey(AccountUser.id), nullable=False)
     account_user = relationship(AccountUser, foreign_keys=[account_user_id], uselist=False)
 
     @property
@@ -28,9 +23,7 @@ class AccountUserFeatured(db.Model):
         return self.href + '?public'
 
 
-class ArticlesFeatured(db.Model):
-    __tablename__ = 'article_featured'
-
+class FeaturedArticle(db.Model):
     id = Column(Integer, primary_key=True)
     article_type = Column(Enum(*ARTICLE_TYPES, name='article_type'), nullable=False)
     article_url = Column(String(1024), nullable=False)
