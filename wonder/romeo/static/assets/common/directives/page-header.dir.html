@@ -7,5 +7,8 @@
     <ul class="nav  nav-menu" ng-if="! isLoggedIn()">
       <li class="nav-menu__item"><a href="#/login" class="nav-menu__link">Login</a></li>
     </ul>
+    <ul class="nav  nav-menu nav-search" ng-if="isLoggedIn() && !isSearch">
+      <li class="nav-menu__item"><form ng-submit="search()" class="global-search-box"><i class="icon icon--search"></i> <input type="search" ng-model="search.query" placeholder="search" /></form></li>
+    </ul>
   </nav>
 </header>

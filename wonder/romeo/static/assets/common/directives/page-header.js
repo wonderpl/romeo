@@ -1,8 +1,8 @@
 angular
   .module('RomeoApp.directives')
-  .directive('pageHeader', ['$templateCache', '$timeout', 'SecurityService', 'UserService', 'UploadService', PageHeaderDirective]);
+  .directive('pageHeader', ['$templateCache', '$timeout', '$location', 'SecurityService', 'UserService', 'UploadService', PageHeaderDirective]);
 
-function PageHeaderDirective ($templateCache, $timeout, SecurityService, UserService, UploadService) {
+function PageHeaderDirective ($templateCache, $timeout, $location, SecurityService, UserService, UploadService) {
   'use strict';
 
   return {
@@ -11,6 +11,16 @@ function PageHeaderDirective ($templateCache, $timeout, SecurityService, UserSer
     template : $templateCache.get('directives/page-header.dir.html'),
     controller : function ($scope) {
       $scope.controller = 'RomeoApp.directives.pageHeader';
+      $scope.search = { query: '' };
+      $scope.isSearch = ($location.url().indexOf('/search') !== -1);
+      $scope.$watch(function () {
+        return $location.url();
+      }, function (newValue, oldValue) {
+        if (newValue !== oldValue && newValue) {
+          $scope.isSearch = (newValue.indexOf('/search') !== -1);
+          $scope.search.query = '';
+        }
+      });
       $scope.$watch(function () {
         return UserService.getUser();
       }, function (newValue, oldValue) {
@@ -33,6 +43,9 @@ function PageHeaderDirective ($templateCache, $timeout, SecurityService, UserSer
         $scope.display_name = account ? account.name : '';
       }
       setAccountValues(UserService.getUser());
+      $scope.search = function () {
+        $location.url('/search?q=' + $scope.search.query);
+      };
     },
     link: function ($scope, $element, $attrs) {
       var hasBeenCalled = false;
