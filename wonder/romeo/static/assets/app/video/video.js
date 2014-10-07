@@ -487,6 +487,11 @@ function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadSe
         $scope.loadVideo($scope.video.id);
         $scope.flags.showUpload = false;
         break;
+      case 'error':
+      case 'processing':
+        $scope.flags.hasProcessed = false;
+        $scope.flags.showUpload = false;
+        break;
       case 'uploading':
         $scope.flags.showUpload = true;
         break;

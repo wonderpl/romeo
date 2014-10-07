@@ -9,8 +9,11 @@ angular.module('RomeoApp.directives')
     template : $templateCache.get('video/video-more-link.dir.html'),
     scope : true,
     controller : function ($scope) {
-      $scope.remaining = 30;
       var maxLength = 30;
+      $scope.remaining = 30;
+      if ($scope.video && $scope.video.link_title) {
+        $scope.remaining -= $scope.video.link_title.length;
+      }
 
       $scope.$watch('video.link_title', function (newValue, oldValue) {
         if (newValue !== oldValue) {
