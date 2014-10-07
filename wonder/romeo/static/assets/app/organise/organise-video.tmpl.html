@@ -8,9 +8,7 @@
       <a ng-href="#/video/{{video.id}}" title="" class="trunc  u--d-block  reverse-link  u--ff-sans" ng-bind-html="video.title"></a>
       <ul class="list-inline  list-inline--meta" ng-if="!isCollaboration">
         <li><a href="#/video/{{video.id}}/comments" class="milli  u--ff-sans  reverse-link">Collaborate</a></li><!--
-     --><li><a ng-href="#/video/{{video.id}}/publish" class="milli  u--ff-sans  reverse-link">Publish</a></li><!--
-     --><li><a href="#/analytics" class="milli  u--ff-sans  reverse-link">Stats</a></li><!--
-     --><li><a fullscreen-modal="modal-add-to-collection" class="milli  u--ff-sans  reverse-link">Add to collection</a></li><!--
+     --><li><a ng-href="#/video/{{video.id}}/publish" class="milli  u--ff-sans  reverse-link">Publish</a></li><li><a fullscreen-modal="modal-add-to-collection" class="milli  u--ff-sans  reverse-link">Add to collection</a></li><!--
      --><li><a ng-click="showDelete(video)" class="milli  u--ff-sans  reverse-link">Delete</a></li>
       </ul>
     </div>
@@ -20,7 +18,6 @@
     <ul class="list-inline  list-inline--meta  split__title  u--m-none">
       <li><a href="#/video/{{video.id}}/comments" class="milli  u--ff-sans  reverse-link  simptip-position-top  simptip-smooth  simptip-movable" data-tooltip="Collaborate"><i class="icon  icon--medium  icon--group"></i></a></li><!--
    --><li><a ng-href="" class="milli  u--ff-sans  reverse-link  simptip-position-top  simptip-smooth  simptip-movable" data-tooltip="Publish"><i class="icon  icon--medium  icon--eye"></i></a></li><!--
-   --><li><a href="#/analytics" class="milli  u--ff-sans  reverse-link  simptip-position-top  simptip-smooth  simptip-movable" data-tooltip="Stats"><i class="icon  icon--medium  icon--bar-graph"></i></a></li><!--
    --><li><a fullscreen-modal="modal-add-to-collection" class="milli  u--ff-sans  reverse-link  simptip-position-top  simptip-smooth  simptip-movable" data-tooltip="Add to collection"><i class="icon  icon--medium  icon--collection"></i></a></li><!--
    --><li><a ng-click="showDelete(video)" class="milli  u--ff-sans  reverse-link  simptip-position-top  simptip-smooth  simptip-movable" data-tooltip="Delete"><i class="icon  icon--medium  icon--trash"></i></a></li>
     </ul>
