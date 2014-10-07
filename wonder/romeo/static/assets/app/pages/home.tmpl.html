@@ -6,9 +6,9 @@
     <h2 class="heading  alpha  u--ta-center">New to Wonder</h2>
     <ul class="layout">
       <li class="layout__item   one-quarter" ng-repeat="user in users">
-        <div class="avatar  avatar--large  avatar--center">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="avatar__img" style="background-image:url({{ user.avatar || '/static/assets/img/avatar/shin-iwata.jpg' }});">
-        </div>
+        <a href="#/profile/{{user.id}}" class="avatar  avatar--large  avatar--center">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="avatar__img" style="background-image:url({{ user.avatar || '/static/assets/img/user-avatar.png' }});">
+        </a>
         <h3 class="heading  gamma  u--ta-center">{{ user.display_name }}</h3>
         <p class="zeta  u--ta-center">{{ user.description }}</p>
         <div class="btn-center">
@@ -74,15 +74,17 @@
           </div>
         </div>
       </li><!--
-   --><li class="layout__item  one-half">
+   --><li class="layout__item  one-half" ng-repeat="article in articles">
         <div class="wrapper">
-          <div class="trunc  milli"><span class="u--ff-sans  u--o75">Written by Dan Eden</span></div>
-          <h3 class="heading  gamma  u--m-none">Design By Numbers: Typography</h3>
-          <p class="lede  u--ff-sans">A Web Designer's Primer to Typography</p>
-          <p class="lede">One thing I hear a lot of people&mdash;web developers more than anyone&mdash;say is how they &ldquo;can&rsquo;t&rdquo;. They say that they just don&rsquo;t have an eye for it.</p>
-          <p>Let me tell you that that&rsquo;s bullshit. Anybody (and I mean anybody) can learn how to produce good design. All it takes is an understanding of the components of good and functional design, and take it from me; the most important component of all is Typography.</p>
-          <div class="btn-center  u--m-double">
-            <a href="#" class="btn  btn--positive">Read More</a>
+          <div class="ratio  ratio--16x9  video-thumb__poster" ng-if="article.featured_image">
+            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="ratio__src" style="background-image:url({{ article.featured_image }});">
+          </div>
+          <div class="trunc  milli"><span class="u--ff-sans  u--o75">Written by {{ article.author }}</span></div>
+          <h3 class="heading  gamma  u--m-none" ng-bind="article.title"></h3>
+          <div class="trunc  milli  u--m-default" ng-bind="article.article_type"></div>
+          <p class="lede" ng-bind-html="article.summary"></p>
+          <div class="btn-center  u--m-double" ng-if="article.content">
+            <a href="{{ article.article_url }}" class="btn  btn--positive">Read More</a>
           </div>
         </div>
       </li>
