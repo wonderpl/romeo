@@ -26,7 +26,9 @@ class AccountTestCase(unittest.TestCase):
         credentials = dict(username='a@b.com', password='123')
         accountdata = dict(display_name='test', description=None, avatar_thumbnail_url='', profile_cover_url='')
         userdata = self._create_test_user(**credentials)
-        with patch('wonder.romeo.account.views.DollyUser') as DollyUser:
+        with patch('wonder.romeo.account.views.DollyUser') as DollyUser,\
+                patch('wonder.romeo.account.models._push_profile_changes_to_dolly'),\
+                patch('wonder.romeo.account.forms.send_email'):
             DollyUser.return_value.get_userdata.return_value = accountdata
             with current_app.test_client() as client:
                 r = client.post('/api/login', data=credentials)
