@@ -9,7 +9,7 @@
     <h1 class="heading  alpha  t--center">Publish '{{ video.title }}' to Wonder Place</h1>
 
     <div class="text-col">
-      <p class="t--center">Schedule a timed publish for your video on Wonder Place. The act of publishing on Wonder Place is done by placing your video inside a public collection which will appear on the app.</p>
+      <p class="t--center">The act of publishing on Wonder Place is done by placing your video inside a public collection which will appear on the app.</p>
     </div>
     <div class="media">
       <div class="media__img  publish-thumb">
@@ -33,93 +33,13 @@
 
       <div class="btn-center">
 
-        <div class="btn  btn--positive  btn--small  btn--popup">
-          <span class="icon-text--rev" ng-click="showPublishOptions = !showPublishOptions">publish<i class="icon  icon--ellipsis  icon-text__icon"></i></span>
+        <div class="btn  btn--positive  btn--small  btn--popup" ng-click="showPublishOptions = !showPublishOptions">
+          <span class="icon-text--rev">publish<i class="icon  icon--ellipsis  icon-text__icon"></i></span>
           <ul class="nav  nav--stacked  popup" ng-class="{ 'visible' : showPublishOptions }">
             <li class="popup__item"><a class="popup__link" fullscreen-modal="modal-add-to-collection">Publish Now</a></li>
-            <li class="popup__item"><a class="popup__link" fullscreen-modal="modal-add-to-collection">Add to Queue</a></li>
-            <li class="popup__item">
-              <a class="popup__link  popup__link-cal" ng-click="showCalendar = !showCalendar">Schedule a date
-                <div class="schedule-date" ng-class="{ 'visible' : showCalendar }"></div>
-                <!--<div class="date-picker" ng-show="showCalendar ">
-
-                </div>-->
-              </a>
-            </li>
           </ul>
         </div>
-
       </div>
     </div>
-    <hr class="rule">
-  </div>
-</section>
-<section class="page-section">
-  <div class="wrapper  wrapper--fixed">
-
-    <h2 class="heading  beta  t--center">Set up your multi-platform publishing&hellip;</h2>
-    <div class="text-col">
-      <p class="t--center">Publish to many different places with Wonder Place and we will make sure your posts look great everywhere. Click the associated logo buttons below to begin connecting your accounts to Wonder Place.</p>
-    </div>
-
-    <ul class="layout  publish-host">
-      <li class="layout__item  one-quarter  publish-host__option" ng-class="{ 'publish-host__option--published' : providers.wonderpl.isPublished }">
-        <div class="avatar  avatar--center  avatar--ui  avatar--huge">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img  publish-logo-wonder">
-        </div>
-        <p class="publish-host__title  u--ta-center  u--m-none  icon-text"><i class="icon  icon-text__icon  icon--circle-check" ng-if="providers.wonderpl.isPublished"></i>Wonder PL</p>
-        <p class="zeta  u--ff-sans  u--o75  u--ta-center">Platform</p>
-      </li><!--
-
-   --><li class="layout__item  one-quarter  publish-host__option">
-        <div class="avatar  avatar--center  avatar--ui  avatar--huge">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img  publish-logo-youtube">
-        </div>
-        <p class="publish-host__title  u--ta-center  u--m-none  icon-text"><i class="icon  icon-text__icon  icon--circle-check" ng-if="providers.youtube.isPublished"></i>Youtube</p>
-        <p class="zeta  u--ff-sans  u--o75  u--ta-center">Platform</p>
-      </li><!--
-
-   --><li class="layout__item  one-quarter  publish-host__option">
-        <div class="avatar  avatar--center  avatar--ui  avatar--huge">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img  publish-logo-facebook">
-        </div>
-        <p class="publish-host__title  u--ta-center  u--m-none  icon-text"><i class="icon  icon-text__icon  icon--circle-check" ng-if="providers.facebook.isPublished"></i>Facebook</p>
-        <p class="zeta  u--ff-sans  u--o75  u--ta-center">Platform</p>
-      </li><!--
-
-   --><li class="layout__item  one-quarter  publish-host__option">
-        <a class="reverse-link" fullscreen-modal="video-publish-add-publisher-modal">
-          <div class="avatar  avatar--center  avatar--ui  avatar--huge">
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img  publish-logo-more">
-          </div>
-          <p class="publish-host__title  u--ta-center  u--m-none  icon-text--rev">Add<i class="icon  icon-text__icon  icon--plus"></i></p>
-        </a>
-      </li><!--
-
-   --><li class="layout__item  one-quarter  publish-host__option">
-        <div class="avatar  avatar--center  avatar--ui  avatar--huge">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img" style="background-image:url('/static/assets/img/avatar/josie-thaddeus-johns.jpg');">
-        </div>
-        <p class="publish-host__title  u--ta-center  u--m-none  icon-text--rev">Josie Thaddeus-Johns</p>
-        <p class="zeta  u--ff-sans  u--o75  u--ta-center">Editor and Writer</p>
-      </li><!--
-
-   --><li class="layout__item  one-quarter  publish-host__option">
-        <div class="avatar  avatar--center  avatar--ui  avatar--huge">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img" style="background-image:url('/static/assets/img/avatar/caroline-roux.jpg');">
-        </div>
-        <p class="publish-host__title  u--ta-center  u--m-none  icon-text--rev">Caroline Roux</p>
-        <p class="zeta  u--ff-sans  u--o75  u--ta-center">Journalist</p>
-      </li><!--
-
-   --><li class="layout__item  one-quarter  publish-host__option">
-        <div class="avatar  avatar--center  avatar--ui  avatar--huge">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img" style="background-image:url('/static/assets/img/avatar/peter-yeung.jpeg');">
-        </div>
-        <p class="publish-host__title  u--ta-center  u--m-none  icon-text--rev">Peter Yeung</p>
-        <p class="zeta  u--ff-sans  u--o75  u--ta-center">Journalist</p>
-      </li>
-    </ul>
-
   </div>
 </section>

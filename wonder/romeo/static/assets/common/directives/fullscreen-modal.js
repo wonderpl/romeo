@@ -13,7 +13,6 @@ function FullScreenModal (modal) {
         angular.extend(scope, modalOptions);
       }
       element.on('click', function () {
-
         modal.loadDirective(attr.fullscreenModal, scope);
       });
     }

@@ -30,6 +30,7 @@
           isReview: true
         };
         $scope.showOnlyPublic = true;
+        $scope.showPublishOptions = false;
         getTags();
         resolvePublished();
       }
