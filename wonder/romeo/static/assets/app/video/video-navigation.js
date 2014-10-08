@@ -1,4 +1,4 @@
-angular.module('RomeoApp.directives')
+angular.module('RomeoApp.video')
   .directive('videoNavigation', ['$templateCache', 'VideoService', 'SecurityService', function ($templateCache, VideoService, SecurityService) {
   'use strict';
 

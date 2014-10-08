@@ -1,6 +1,6 @@
 
 angular
-  .module('RomeoApp.controllers')
+  .module('RomeoApp.login')
   .controller('LoginCtrl', ['$scope', '$location', 'SecurityService', LoginController]);
 
 function LoginController ($scope, $location, SecurityService) {

@@ -294,7 +294,7 @@
       });
   }
 
-  angular.module('RomeoApp.controllers').controller('OrganiseCtrl', ['$rootScope', '$scope', 'TagService', '$location', 'modal', '$routeParams', '$route', 'VideoService', 'SecurityService', 'UserService', organiseController]);
+  angular.module('RomeoApp.organise').controller('OrganiseCtrl', ['$rootScope', '$scope', 'TagService', '$location', 'modal', '$routeParams', '$route', 'VideoService', 'SecurityService', 'UserService', organiseController]);
 
 })();
 

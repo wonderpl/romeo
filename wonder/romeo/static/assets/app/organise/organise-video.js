@@ -1,5 +1,5 @@
 angular
-  .module('RomeoApp.directives')
+  .module('RomeoApp.organise')
   .directive('organiseVideo', ['$templateCache', 'modal', OrganiseVideo]);
 
 function OrganiseVideo ($templateCache, modal) {
@@ -23,7 +23,7 @@ function OrganiseVideo ($templateCache, modal) {
       };
       $scope.showDelete = function (video) {
         $scope.video = video;
-        modal.load('modal-delete-video.html', true, $scope, {});
+        modal.load('organise/modal-delete-video.modal.html', true, $scope, {});
       };
       $scope.close = function () {
         modal.hide();

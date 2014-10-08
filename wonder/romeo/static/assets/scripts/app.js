@@ -7,16 +7,18 @@
     // Define all the sub modules of the app here so we can include files in any order
     // -- Common modules, modules in common should never depend on modules in App so they come first
     angular.module('RomeoApp.filters', []);
-    angular.module('RomeoApp.security', []);
+    angular.module('RomeoApp.security', ['LocalStorageModule']);
     angular.module('RomeoApp.modal', []);
     angular.module('RomeoApp.services', ['RomeoApp.security']);
     angular.module('RomeoApp.directives', ['RomeoApp.services', 'ui.select2']);
-    angular.module('RomeoApp.controllers', ['RomeoApp.services', 'RomeoApp.directives', 'LocalStorageModule']);
     // -- App modules
-    angular.module('RomeoApp.analytics', ['RomeoApp.directives', 'nvd3ChartDirectives', 'ngRoute']);
+    angular.module('RomeoApp.login', ['RomeoApp.services', 'ngRoute']);
+    // Add this back when re-enabling this module
+    angular.module('RomeoApp.analytics', []); // ['RomeoApp.directives', 'nvd3ChartDirectives', 'ngRoute']);
     angular.module('RomeoApp.pages', ['RomeoApp.services']);
     angular.module('RomeoApp.profile', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
     angular.module('RomeoApp.search', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
+    angular.module('RomeoApp.organise', ['RomeoApp.services', 'RomeoApp.directives']);
     angular.module('RomeoApp.video', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
     angular.module('RomeoApp.publish', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
 
@@ -31,17 +33,18 @@
             'angularFileUpload',
             'angulartics',
             'angulartics.google.analytics',
-            'nvd3ChartDirectives',
+            //'nvd3ChartDirectives',
             'RomeoApp.filters',
             'RomeoApp.security',
             'RomeoApp.modal',
             'RomeoApp.services',
             'RomeoApp.directives',
-            'RomeoApp.controllers',
+            'RomeoApp.login',
             'RomeoApp.analytics',
             'RomeoApp.profile',
             'RomeoApp.search',
             'RomeoApp.video',
+            'RomeoApp.organise',
             'RomeoApp.publish',
             'RomeoApp.pages'
         ]); // module dependencies
@@ -87,32 +90,6 @@
             controller: 'VideoCtrl',
             resolve: securityAuthorizationProvider.requireAuthenticated
         });
-
-// ****** DEPRECATED **************************************************
-
-        // Analytics
-        // Types can be
-        // - /geographic/
-        // - /general/
-        // - /engagement/
-        $routeProvider.when('/analytics/:videoID/:type', {
-            templateUrl: 'analytics.html',
-            controller: 'AnalyticsController',
-            resolve: securityAuthorizationProvider.requireAuthenticated
-        });
-
-        $routeProvider.when('/analytics/:videoID', {
-            templateUrl: 'analytics.html',
-            controller: 'AnalyticsController',
-            resolve: securityAuthorizationProvider.requireAuthenticated
-        });
-
-        $routeProvider.when('/logout', {
-            controller: 'LoginCtrl',
-            templateUrl: 'login/login.tmpl.html'
-        });
-
-// ******* END DEPRECATED **************************************************
 
         $routeProvider.when('/login', {
             controller: 'LoginCtrl',

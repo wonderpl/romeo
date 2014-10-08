@@ -108,7 +108,7 @@
     };
   }
 
-  angular.module('RomeoApp.directives').directive('videoPlayer', ['$templateCache', '$timeout', VideoPlayerDirective]);
+  angular.module('RomeoApp.video').directive('videoPlayer', ['$templateCache', '$timeout', VideoPlayerDirective]);
 
 })();
 

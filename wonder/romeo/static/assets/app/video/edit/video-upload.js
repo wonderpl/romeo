@@ -1,4 +1,4 @@
-angular.module('RomeoApp.directives')
+angular.module('RomeoApp.video')
   .directive('videoUpload', ['$templateCache', '$upload', 'VideoService', 'UploadService', function ($templateCache, $upload, VideoService, UploadService) {
 
   'use strict';

@@ -1,7 +1,7 @@
 //angular.module('fileUpload', [ 'angularFileUpload' ]);
 
 angular
-  .module('RomeoApp.controllers')
+  .module('RomeoApp.video')
   .controller('VideoCtrl', ['$rootScope', '$http', '$q', '$scope', '$cookies', '$location', 'UploadService', '$routeParams', 'VideoService', '$sce', 'TagService', 'CommentsService', '$timeout', 'CollaboratorsService', 'UserService', 'AccountService', 'SecurityService', VideoCtrl]);
 
 function VideoCtrl ($rootScope, $http, $q, $scope, $cookies, $location, UploadService, $routeParams, VideoService, $sce, TagService, CommentsService, $timeout, CollaboratorsService, UserService, AccountService, SecurityService) {

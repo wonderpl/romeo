@@ -1,4 +1,4 @@
-angular.module('RomeoApp.directives')
+angular.module('RomeoApp.video')
   .directive('videoComments', ['$templateCache', '$timeout', 'UserService', 'SecurityService', 'CommentsService',
   function ($templateCache, $timeout, UserService, SecurityService, CommentsService) {
 

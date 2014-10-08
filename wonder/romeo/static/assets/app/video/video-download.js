@@ -1,5 +1,5 @@
 angular
-  .module('RomeoApp.directives')
+  .module('RomeoApp.video')
   .directive('videoDownload', ['$templateCache', '$location', 'VideoService', '$q', VideoDownloadDirective]);
 
 function VideoDownloadDirective ($templateCache, $location, VideoService, $q) {

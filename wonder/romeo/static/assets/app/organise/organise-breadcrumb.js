@@ -1,5 +1,5 @@
 angular
-  .module('RomeoApp.directives')
+  .module('RomeoApp.organise')
   .directive('organiseBreadcrumb', ['$templateCache', OrganiseBreadcrumbDirective]);
 
 function OrganiseBreadcrumbDirective ($templateCache) {

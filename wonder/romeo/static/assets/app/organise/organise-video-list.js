@@ -1,6 +1,6 @@
 
 angular
-  .module('RomeoApp.directives')
+  .module('RomeoApp.organise')
   .directive('organiseVideoList', ['$templateCache', '$cookies', OrganiseVideoList]);
 
 

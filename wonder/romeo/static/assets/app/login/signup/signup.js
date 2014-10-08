@@ -1,5 +1,5 @@
 angular
-  .module('RomeoApp.controllers')
+  .module('RomeoApp.login')
   .controller('SignupCtrl', ['$scope', 'SecurityService', '$location',
     function($scope, SecurityService, $location) {
   	'use strict';

@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('RomeoApp.directives')
+  angular.module('RomeoApp.video')
     .directive('videoCollaborators', ['$templateCache', '$timeout', 'CommentsService', 'CollaboratorsService', 'UserService', 'modal',
     function ($templateCache, $timeout, CommentsService, CollaboratorsService, UserService, modal) {
 

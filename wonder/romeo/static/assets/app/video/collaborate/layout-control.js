@@ -1,5 +1,5 @@
 angular
-  .module('RomeoApp.directives')
+  .module('RomeoApp.video')
   .directive('layoutControl', LayoutControl);
 
 

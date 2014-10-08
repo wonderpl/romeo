@@ -1,4 +1,4 @@
-angular.module('RomeoApp.directives')
+angular.module('RomeoApp.video')
   .directive('videoExtendedControls', ['$templateCache', 'modal', function ($templateCache, modal) {
 
   'use strict';

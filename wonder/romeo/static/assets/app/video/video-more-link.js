@@ -1,4 +1,4 @@
-angular.module('RomeoApp.directives')
+angular.module('RomeoApp.video')
   .directive('videoMoreLink', ['$templateCache', '$rootScope', function ($templateCache, $rootScope) {
 
   'use strict';

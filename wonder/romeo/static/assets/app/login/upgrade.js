@@ -28,6 +28,6 @@ function UpgradeController($scope, $location, AccountService) {
     };
 }
 
-angular.module('RomeoApp.controllers')
+angular.module('RomeoApp.login')
     .controller('UpgradeCtrl', ['$scope', '$location', 'AccountService', UpgradeController]);
 })();

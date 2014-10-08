@@ -1,6 +1,6 @@
 
 angular
-  .module('RomeoApp.directives')
+  .module('RomeoApp.organise')
   .directive('organiseNavigation', ['$templateCache', 'SecurityService', OrganiseNavigationDirective]);
 
 function OrganiseNavigationDirective ($templateCache, SecurityService) {

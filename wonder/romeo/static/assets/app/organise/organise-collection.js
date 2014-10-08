@@ -1,6 +1,6 @@
 
 angular
-  .module('RomeoApp.directives')
+  .module('RomeoApp.organise')
   .directive('organiseCollection', ['$templateCache', OrganiseCollectionDirective]);
 
 function OrganiseCollectionDirective ($templateCache) {

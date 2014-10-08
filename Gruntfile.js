@@ -21,7 +21,7 @@ module.exports = function (grunt) {
                 jshintrc: true
             },
             files: [
-                '<%= assetsDir %>/scripts/**/*.js',
+                '<%= assetsDir %>/scripts/*.js',
                 '<%= assetsDir %>/common/**/*.js',
                 '<%= assetsDir %>/app/**/*.js'
             ]
@@ -65,7 +65,7 @@ module.exports = function (grunt) {
                 separator: '\n'
             },
             dist: {
-                src: ['<%= assetsDir %>/scripts/**/*.js', '<%= assetsDir %>/common/**/*.js', '<%= assetsDir %>/app/**/*.js'],
+                src: ['<%= assetsDir %>/scripts/*.js', '<%= assetsDir %>/common/**/*.js', '<%= assetsDir %>/app/**/*.js'],
                 dest: 'dist/assets/scripts/app.js'
             },
             vendor: {
@@ -178,7 +178,6 @@ module.exports = function (grunt) {
             RomeoApp: {
                 module: 'RomeoApp',
                 src: [
-                    '<%= staticDir %>/views/**/*.html',
                     '<%= assetsDir %>/app/**/*.dir.html',
                     '<%= assetsDir %>/app/**/*.modal.html',
                     '<%= assetsDir %>/app/**/*.tmpl.html',
@@ -203,7 +202,6 @@ module.exports = function (grunt) {
             },
             angular: {
                 files: [
-                  '<%= staticDir %>/views/**/*.html',
                   '<%= assetsDir %>/app/**/*.dir.html',
                   '<%= assetsDir %>/app/**/*.modal.html',
                   '<%= assetsDir %>/app/**/*.tmpl.html',
@@ -215,7 +213,7 @@ module.exports = function (grunt) {
             },
             jshint: {
                 files: [
-                    '<%= assetsDir %>/scripts/**/*.js',
+                    '<%= assetsDir %>/scripts/*.js',
                     '<%= assetsDir %>/common/**/*.js',
                     '<%= assetsDir %>/common/**/**/*.js',
                     '<%= assetsDir %>/app/**/*.js',
@@ -225,7 +223,7 @@ module.exports = function (grunt) {
             },
             unittest: {
                 files: [
-                    '<%= assetsDir %>/scripts/**/*.js',
+                    '<%= assetsDir %>/scripts/*.js',
                     '<%= assetsDir %>/common/**/*.js',
                     '<%= assetsDir %>/app/**/*.js',
                     'test-front/unit/**/*.js'

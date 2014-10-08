@@ -1,4 +1,4 @@
-angular.module('RomeoApp.controllers')
+angular.module('RomeoApp.login')
 .controller('TwitterLoginCtrl', ['$scope', '$location', 'SecurityService', 'AccountService',
     function ($scope, $location, SecurityService, AccountService) {
       'use strict';

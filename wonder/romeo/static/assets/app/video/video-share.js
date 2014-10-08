@@ -1,4 +1,4 @@
-angular.module('RomeoApp.directives')
+angular.module('RomeoApp.video')
   .directive('videoShare', ['$templateCache', '$sce', 'VideoService', function ($templateCache, $sce, VideoService) {
 
   'use strict';

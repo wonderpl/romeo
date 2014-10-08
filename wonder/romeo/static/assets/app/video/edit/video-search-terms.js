@@ -47,7 +47,7 @@
       }
     };
   }
-  angular.module('RomeoApp.directives')
+  angular.module('RomeoApp.video')
     .directive('videoSearchTerms', ['$templateCache', VideoSearchTerms]);
 
 })();

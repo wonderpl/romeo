@@ -19,9 +19,11 @@
       "bower/jquery.ui/themes/base/menu.css",
       "bower/jquery.ui/themes/base/autocomplete.css",
       "bower/jquery.ui/themes/base/theme.css",
-      "bower/nvd3/nv.d3.css",
       "gen/romeo/app.css"
     %}
+    {# Only needed for stats page not currently shown
+      "bower/nvd3/nv.d3.css",
+    #}
     <link rel="stylesheet" href="{{ ASSET_URL }}"/>
     {% endassets %}
 
@@ -70,11 +72,12 @@
             "bower/jquery.ui/ui/menu.js",
             "bower/jquery.ui/ui/position.js",
             "bower/jquery.ui/ui/autocomplete.js",
+            "bower/Chart.js/Chart.js"
+        %}{# Only needed for stats page not currently shown
             "bower/d3/d3.js",
             "bower/nvd3/nv.d3.js",
             "bower/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js",
-            "bower/Chart.js/Chart.js"
-        %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
+    #}<script src="{{ ASSET_URL }}"></script>{% endassets %}
     {% endblock %}
 
     {% block appjs %}
@@ -82,20 +85,11 @@
             "assets/scripts/helpers.js",
             "assets/scripts/app.js",
 
-            "assets/scripts/filters.js",
-            "assets/scripts/services.js",
-
-
             "assets/common/security/*.js",
             "assets/common/filters/*.js",
             "assets/common/modal/*.js",
             "assets/common/services/*.js",
             "assets/common/directives/*.js",
-
-            "assets/scripts/services/*.js",
-            "assets/scripts/controllers/*.js",
-            "assets/scripts/directives/*.js",
-            "assets/scripts/directives/**/*.js",
 
             "assets/app/**/*.js",
             "assets/app/**/**/*.js"

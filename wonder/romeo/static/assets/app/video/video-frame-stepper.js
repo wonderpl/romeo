@@ -1,4 +1,4 @@
-angular.module('RomeoApp.directives')
+angular.module('RomeoApp.video')
   .directive('videoFrameStepper', ['$templateCache',
   function ($templateCache) {
 
