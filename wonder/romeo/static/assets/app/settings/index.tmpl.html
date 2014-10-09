@@ -1,1 +1,41 @@
-index.tmpl.html
+<main role="main" class="page-content">
+  <header class="masthead">
+    <div class="wrapper  wrapper--fixed">
+      <div class="text-col">
+        <h1 class="heading  alpha  u--ta-center">Settings</h1>
+        <p class="u--ta-center">Change your password, and other account specific settings here.</p>
+      </div>
+    </div>
+  </header>
+  <section class="page-section">
+    <div class="wrapper  wrapper--fixed">
+      <div class="text-col">
+        <form class="form-ui">
+          <fieldset>
+            <legend class="accessible">Edit your settings</legend>
+            <ul class="form-fields">
+              <li class="split">
+                <label for="" class="u--ff-sans  u--w700  split__title">Email address</label>
+                <input type="text" class="text-input" value="name@host.com">
+              </li>
+              <li class="split">
+                <label for="" class="u--ff-sans  u--w700  split__title">Change password</label>
+                <input type="password" class="text-input" placeholder="">
+              </li>
+              <li class="split">
+                <label for="" class="u--ff-sans  u--w700  split__title">Import contacts</label>
+                <a href="#/settings/import" class="btn  btn--positive">Import contacts</a>
+              </li>
+              <li>
+                <ul class="list-inline  u--ta-center">
+                  <li><a href="" class="btn  btn--destructive">Cancel</a></li>
+                  <li><a href="" class="btn  btn--positive">Save Changes</a></li>
+                </ul>
+              </li>
+            </ul>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
