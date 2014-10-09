@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  {% for system, title in ('live', 'Hotmail'), ('google', 'Gmail'), ('yahoo', 'Yahoo! Mail') %}
+  <a href="{{ url_for('.contacts_auth_redirect') }}?external_system={{ system }}&callback=contactsDone" target="_new" class="btn btn-lg btn-primary btn-block">{{ title }}</a>
+  {% endfor %}
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+function contactsDone(result) {
+  console.log(result);
+  if (result.error) {
+    alert(result.error);
+  } else {
+    console.log('imported ' + result.count + ' contacts from ' + result.external_system);
+    $.ajax({
+      url: result.href,
+      type: "get",
+      dataType: "json"
+    })
+      .done(function (data) {
+          console.log(data);
+      }) ;
+  }
+}
+</script>
+{% endblock %}

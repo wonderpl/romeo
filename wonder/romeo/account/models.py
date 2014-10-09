@@ -3,7 +3,8 @@ from base64 import b32encode
 from cStringIO import StringIO
 from urlparse import urljoin
 from sqlalchemy import (
-    Column, Integer, String, Boolean, ForeignKey, PrimaryKeyConstraint, DateTime, Enum, CHAR, event, func, text)
+    Column, Integer, String, Boolean, DateTime, Enum, CHAR,
+    ForeignKey, PrimaryKeyConstraint, event, func, text)
 from sqlalchemy.dialects.postgresql import TSVECTOR
 from sqlalchemy.orm import relationship, backref, deferred
 from sqlalchemy.orm.attributes import instance_state, get_history
@@ -22,7 +23,7 @@ CONNECTION_STATE = 'pending', 'accepted'
 
 ACCOUNT_TYPES = 'collaborator', 'content_owner'
 
-EXTERNAL_SYSTEMS = 'email', 'facebook', 'twitter', 'google', 'apns', 'dolly'
+EXTERNAL_SYSTEMS = 'email', 'facebook', 'twitter', 'google', 'yahoo', 'live', 'apns', 'dolly'
 EXTERNAL_SYSTEM_CHOICES = zip(EXTERNAL_SYSTEMS, map(str.capitalize, EXTERNAL_SYSTEMS))
 
 

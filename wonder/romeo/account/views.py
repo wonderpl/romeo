@@ -72,11 +72,6 @@ def verify():
         return jsonify(), 401
 
 
-@accountapp.route('/auth/twitter')
-def twitter_auth():
-    return render_template('account/twitter_auth.html')
-
-
 @accountapp.route('/auth/twitter_redirect')
 def twitter_auth_redirect():
     callback_uri = url_for('.twitter_auth_callback', _external=True)
@@ -140,7 +135,7 @@ def twitter_auth_callback():
         else:
             result['error'] = _('Invalid token')
 
-    return render_template('account/twitter_auth_callback.html',
+    return render_template('auth_callback.html',
                            result=result, callback_function=callback_function)
 
 

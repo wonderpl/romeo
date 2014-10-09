@@ -25,7 +25,7 @@ VIDEO_SEARCH_VECTOR = ' || '.join(
         ('vlm.strapline', 'A', 'english'),
         ('vlm.description', 'B', 'english'),
         ('vlm.search_keywords', 'B', 'english'),    # simple?
-        ('a.name', 'C', 'english'), # simple?
+        ('a.name', 'C', 'english'),     # simple?
     )
 )
 

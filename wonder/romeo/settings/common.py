@@ -9,7 +9,7 @@ except pkg_resources.DistributionNotFound:
 BLUEPRINTS = [
     'wonder.romeo.%s.views.%sapp' % (mod, mod)
     for mod in
-    'root', 'account', 'video', 'payments', 'seo'
+    'root', 'account', 'video', 'payments', 'contacts', 'seo'
 ]
 
 API_VIEWS = [
