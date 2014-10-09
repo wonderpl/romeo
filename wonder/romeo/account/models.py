@@ -196,6 +196,26 @@ class InviteRequest(db.Model):
     message = Column(String(1024))
 
 
+class AccountUserVisit(db.Model):
+
+    id = Column(Integer, primary_key=True)
+    visitor_user_id = Column('visitor', Integer(), ForeignKey(AccountUser.id), nullable=False)
+    profile_user_id = Column('profile', Integer(), ForeignKey(AccountUser.id), nullable=False)
+    visit_date = Column(DateTime(), nullable=False, default=func.now())
+    notified = Column(Boolean, default=False)
+
+    profile_user = relationship(AccountUser, foreign_keys=[profile_user_id])
+    visitor_user = relationship(AccountUser, foreign_keys=[visitor_user_id])
+
+    @property
+    def href(self):
+        return url_for('api.user', user_id=self.profile_user_id)
+
+    @property
+    def public_href(self):
+        return self.href + '?public'
+
+
 class CollaborationMixin(object):
 
     def get_collaborator(self, video_id, permission=True):

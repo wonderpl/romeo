@@ -88,6 +88,10 @@ function ProfileCtrl($scope, UserService, LocationService, SecurityService) {
         });
         debug.log('Private profile connections: ', $scope.connections);
       });
+      UserService.getVisits().then(function (res) {
+        var data = res.data || res;
+        $scope.visits = data.visit.items;
+      });
     }
   }
 

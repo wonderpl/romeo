@@ -87,6 +87,18 @@
           return $http.get('/api/user/' + user.id + '/collaborator_videos');
         };
 
+        service.trackPublicProfileVisits = function(profileId) {
+          var user = this.getUser();
+          var visitor = (user !== null) ? user.id : 0;
+          if (profileId && visitor && profileId !== visitor)
+            $http.post('/api/user/' + visitor + '/visit', { profile: profileId });
+        };
+
+        service.getVisits = function() {
+          var user = this.getUser();
+          return $http.get('/api/user/' + user.id + '/visit');
+        };
+
         return service;
     }
     angular.module('RomeoApp.services').factory('UserService', ['$http', '$q', '$location', 'SecurityService', 'DataService', UserService]);
