@@ -597,3 +597,48 @@ Content-Type: application/json
  "message": "some text"
 }
 ```
+
+## Public profile visit tracking
+
+To find users that has visit your profile recently (last 7 days) you `GET` from `visit` on your own user account
+
+```http
+GET /api/user/<user_id>/visit HTTP/1.1
+Content-Type: application/json
+
+{
+ "visit": {
+    "total": 2,
+    "items": [
+      {
+        "id": 123,
+        "href": "/api/user/123",
+        "display_name": "name",
+        "title": null,
+        "avatar": null
+      },
+      {
+        "id": 80036952,
+        "href": "/api/user/80036952",
+        "display_name": "Collaborator with account",
+        "title": null,
+        "avatar": "http://path/to/avatar/img"
+      }
+    ]
+  }
+}
+```
+
+
+To track a visit to a public profile, so we can send out notifications and show on the site who has viewed your profile you `POST`
+to `visit` on your own user account
+
+```http
+POST /api/user/<user_id>/visit HTTP/1.1
+Content-Type: application/json
+
+{
+ "profile": "<public_profile_user_id>"
+}
+```
+

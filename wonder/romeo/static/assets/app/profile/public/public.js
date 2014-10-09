@@ -45,9 +45,9 @@ function ProfilePublicCtrl($scope, $location, $routeParams, UserService, VideoSe
 
     $scope.$on('send-invitation-request', ctrl.sendInvitationRequest);
     loadUserDetails();
+
+    UserService.trackPublicProfileVisits($routeParams.id);
   }
-
-
 
   function loadUserDetails() {
     var id = $routeParams.id;
@@ -69,7 +69,7 @@ function ProfilePublicCtrl($scope, $location, $routeParams, UserService, VideoSe
         title : 'User not found',
         message : 'Could not find the user you were looking for'}
       );
-      $location.path('/organise', true);
+      $location.path('/search', true);
     });
   }
 

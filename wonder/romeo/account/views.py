@@ -1,4 +1,5 @@
 import re
+import datetime
 from pkg_resources import resource_string
 from itertools import chain
 from functools import wraps
@@ -19,8 +20,8 @@ from wonder.romeo.core.dolly import DollyUser
 from wonder.romeo.core.util import gravatar_url
 from .forms import (RegistrationForm, ExternalLoginForm, LoginForm,
                     AccountUserForm, AccountUserConnectionForm, AccountPaymentForm,
-                    InviteRequestForm)
-from .models import UserProxy, Account, AccountUser, AccountUserConnection
+                    AccountUserVisitForm, InviteRequestForm)
+from .models import UserProxy, Account, AccountUser, AccountUserConnection, AccountUserVisit
 
 
 CALLBACK_JS_FUNCTION_RE = re.compile('^[\w.]+$')
@@ -333,6 +334,16 @@ def _unique_connections(connections):
         yield connection
 
 
+def _unique_visits(visits):
+    seen = dict()
+    for visit in visits:
+        userid = visit.visitor_user_id
+        if userid and userid in seen:
+            continue
+        seen[userid] = 1
+        yield visit
+
+
 @api_resource('/user/<int:user_id>/connections')
 class UserConnectionsResource(Resource):
 
@@ -388,6 +399,45 @@ class SuggestionResource(Resource):
         matches = [(100, t) for t in self.default_terms if t.lower().startswith(prefix)]
         items = sorted(matches, key=lambda x: x[0])[args.start:args.start + args.size]
         return {self.label: dict(items=items and zip(*items)[1], total=len(matches))}
+
+
+def _visit_item(visit):
+    data = {}
+    data['id'] = visit.visitor_user.id
+    data['public_href'] = visit.visitor_user.public_href
+    data['display_name'] = visit.visitor_user.display_name
+    data['avatar'] = visit.visitor_user.avatar
+    data['title'] = visit.visitor_user.title
+    data['visit_date'] = visit.visit_date.isoformat()
+    return data
+
+
+@api_resource('/user/<int:user_id>/visit')
+class UserVisitsResource(Resource):
+
+    @user_view(public=None)
+    def get(self, user):
+        current_time = datetime.datetime.utcnow()
+        last_week = current_time - datetime.timedelta(weeks=1)
+        items = map(_visit_item, list(
+            _unique_visits(
+                AccountUserVisit.query.filter(AccountUserVisit.profile_user_id == user.id, AccountUserVisit.notified == False, AccountUserVisit.visit_date > last_week).order_by(AccountUserVisit.visit_date.desc())
+            )
+        ))
+        return dict(visit=dict(items=items, total=len(items)))
+
+    @commit_on_success
+    @user_view()
+    def post(self, user):
+        form = AccountUserVisitForm(account_user=user)
+        if form.validate():
+            visit = form.save()
+            if visit:
+                return None, 204
+            else:
+                return dict(error='failed_to_save', form_errors=form.errors), 400
+        else:
+            return dict(error='invalid_request', form_errors=form.errors), 400
 
 
 @api_resource('/user_titles')
