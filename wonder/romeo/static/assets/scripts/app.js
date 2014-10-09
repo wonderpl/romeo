@@ -21,6 +21,7 @@
     angular.module('RomeoApp.organise', ['RomeoApp.services', 'RomeoApp.directives']);
     angular.module('RomeoApp.video', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
     angular.module('RomeoApp.publish', ['RomeoApp.services', 'RomeoApp.directives', 'RomeoApp.security', 'ngRoute']);
+    angular.module('RomeoApp.settings', ['RomeoApp.services', 'ngRoute']);
 
     var debug = new DebugClass('App');
 
