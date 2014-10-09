@@ -47,6 +47,7 @@
             'RomeoApp.video',
             'RomeoApp.organise',
             'RomeoApp.publish',
+            'RomeoApp.settings',
             'RomeoApp.pages'
         ]); // module dependencies
 
