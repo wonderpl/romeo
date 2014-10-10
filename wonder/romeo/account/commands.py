@@ -1,6 +1,6 @@
 import sys
 import datetime
-from sqlalchemy import extract
+from sqlalchemy import extract, func
 from sqlalchemy.exc import DataError
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from wonder.romeo import manager, db
@@ -96,22 +96,41 @@ def fixup_user_data():
 @manager.cron_command(3600)
 def send_profile_visitor_email(**kwargs):
     current_time = datetime.datetime.now()
-    current_day_of_week = current_time.weekday()
-    current_hour = current_time.hour
+    current_day_of_week = 5  # current_time.weekday()
+    current_hour = 10  # current_time.hour
     one_week_ago = current_time - datetime.timedelta(weeks=1)
     template = email_template_env.get_template('profile_visitors.html')
     senders = AccountUser.query.filter(extract('dow', AccountUserVisit.visit_date) == current_day_of_week, extract('hour', AccountUserVisit.visit_date) == current_hour)
     for sender in senders:
-        visitors = map(AccountUserVisit.visit_item, list(
-            AccountUserVisit.unique_visits(
-                AccountUserVisit.query.filter(AccountUserVisit.profile_user_id == sender.id, AccountUserVisit.visit_date > one_week_ago)
-            )
-        ))
+        visitors = AccountUser.query.filter(
+            AccountUserVisit.profile_user_id == sender.id,
+            AccountUserVisit.visit_date > one_week_ago
+        ).join(
+            AccountUserVisit,
+            AccountUserVisit.visitor_user_id == AccountUser.id
+        ).with_entities(
+            AccountUser,
+            func.max(AccountUserVisit.visit_date)
+        ).group_by(AccountUser.id).order_by(func.count().desc()).limit(5)
+
+        visitors = [_visit_item(*v) for v in visitors.all()]
+
         if len(visitors):
             body = template.render(
                 sender=sender,
                 visitors=visitors,
                 **kwargs
             )
-            print body
-        send_email(sender.username, body)
+            send_email(sender.username, body)
+
+
+def _visit_item(visitor, date):
+    data = dict()
+
+    data['id'] = visitor.id
+    data['display_name'] = visitor.display_name
+    data['username'] = visitor.username
+    data['avatar'] = visitor.avatar
+    data['visit_date'] = date
+
+    return data
