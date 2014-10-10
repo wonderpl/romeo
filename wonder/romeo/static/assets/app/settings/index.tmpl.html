@@ -9,33 +9,51 @@
   </header>
   <section class="page-section">
     <div class="wrapper  wrapper--fixed">
-      <div class="text-col">
-        <form class="form-ui">
-          <fieldset>
-            <legend class="accessible">Edit your settings</legend>
-            <ul class="form-fields">
-              <li class="split">
-                <label for="" class="u--ff-sans  u--w700  split__title">Email address</label>
-                <input type="text" class="text-input" value="name@host.com">
-              </li>
-              <li class="split">
-                <label for="" class="u--ff-sans  u--w700  split__title">Change password</label>
-                <input type="password" class="text-input" placeholder="">
-              </li>
-              <li class="split">
-                <label for="" class="u--ff-sans  u--w700  split__title">Import contacts</label>
-                <a href="#/settings/import" class="btn  btn--positive">Import contacts</a>
-              </li>
-              <li>
-                <ul class="list-inline  u--ta-center">
-                  <li><a href="" class="btn  btn--destructive">Cancel</a></li>
-                  <li><a href="" class="btn  btn--positive">Save Changes</a></li>
+      <form class="form-ui">
+        <fieldset>
+          <legend class="accessible">Edit your settings</legend>
+          <ul class="form-fields">
+            <li class="split">
+              <label for="" class="split__title">
+                <span class="u--d-block  u--ff-sans  u--w700">Your primary email</span>
+                <span class="u--ff-sans">mike@stezycki.com</span>
+              </label>
+              <a class="btn">Edit</a>
+            </li>
+            <li>
+              <label for="" class="">
+                <span class="u--d-block  zeta  u--ff-sans  u--w700">Other associated email</span>
+                <ul class="list-ui  simple-list">
+                  <li><span class="u--ff-sans  zeta  u--o75">mstezy@gmail.com</span></li>
+                  <li><span class="u--ff-sans  zeta  u--o75">mstezy@outlook.com</span></li>
+                  <li><span class="u--ff-sans  zeta  u--o75">mikestezy@yahoo.com</span></li>
+                  <li><span class="u--ff-sans  zeta  u--o75">mstezy@icloud.com</span></li>
+                  <li><span class="u--ff-sans  zeta  u--o75">mike@wonderpl.com</span></li>
+                  <li><span class="u--ff-sans  zeta  u--o75">mike@rockpack.com</span></li>
+                  <li><a href="#" class="u--ff-sans  zeta  icon-text--rev">Add<i class="icon  icon--plus  icon-text__icon"></i></a></li>
                 </ul>
-              </li>
-            </ul>
-          </fieldset>
-        </form>
-      </div>
+              </label>
+            </li>
+            <li class="split">
+              <label for="" class="split__title">
+                <span class="u--d-block  u--ff-sans  u--w700">Change password</span>
+                <input type="password" class="accessible  text-input" placeholder="">
+              </label>
+              <a class="btn">Change</a>
+            </li>
+            <li class="split">
+              <label for="" class="u--ff-sans  u--w700  split__title">Import contacts</label>
+              <a href="#/settings/import" class="btn  btn--positive">Import</a>
+            </li>
+            <li>
+              <ul class="list-inline  u--ta-center">
+                <li><a href="" class="btn  btn--destructive">Cancel</a></li>
+                <li><a href="" class="btn  btn--positive">Save Changes</a></li>
+              </ul>
+            </li>
+          </ul>
+        </fieldset>
+      </form>
     </div>
   </section>
 </main>

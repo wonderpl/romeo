@@ -12,6 +12,13 @@ legend {
   padding: 0;
 }
 
+label,
+input,
+textarea,
+select {
+  cursor: pointer;
+}
+
 input,
 textarea,
 select {

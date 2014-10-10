@@ -1,0 +1,15 @@
+/**
+ * _components.card-links.scss
+ */
+.card-link {
+  display: block;
+  margin-bottom: $base-spacing-unit;
+  @extend .reverse-link;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: $base-shadow-outline;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

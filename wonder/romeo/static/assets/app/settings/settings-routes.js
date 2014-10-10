@@ -22,6 +22,13 @@
       controller: 'SettingsCtrl',
       resolve: securityAuthorizationProvider.requireAuthenticated
     });
+
+    // Invite
+    $routeProvider.when('/settings/invite', {
+      templateUrl: 'settings/invite.tmpl.html',
+      controller: 'SettingsCtrl',
+      resolve: securityAuthorizationProvider.requireAuthenticated
+    });
   }
 
   angular.module('RomeoApp.settings').config(['$routeProvider', 'securityAuthorizationProvider', SettingsRouteProvider]);

@@ -2,7 +2,8 @@
  * _components.grid-list.scss
  */
 .grid-list {
-  
+  list-style: none;
+  margin-left: 0;
 }
   .grid-list__item {
     padding-top:    $half-spacing-unit;

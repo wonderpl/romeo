@@ -86,8 +86,8 @@ td {
 
   td,
   tbody th {
-    border: 0 solid rgba($base-color-ui, 0.12);
-    border-top-width: 2px;
+    border: 0 solid rgba($base-color-ui, 0.25);
+    border-top-width: 1px;
   }
 
   tbody th {
@@ -119,7 +119,7 @@ td {
 .table--striped {
 
   tbody tr:nth-of-type(odd) {
-    background-color: rgba($base-color-ui, 0.5); /* Override this color in your theme stylesheet */
+    background-color: rgba($base-color-ui, 0.12); /* Override this color in your theme stylesheet */
   }
 }
 
