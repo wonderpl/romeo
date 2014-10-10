@@ -1,6 +1,14 @@
 <div class="profile-details">
 	<h1 class="heading  alpha  u--m-none  u--ta-center" ng-bind="profile.display_name"></h1>
 
+
+    <aside class="profile-visitors" ng-if="flags.isOwner && visits">
+      <h2>Profile viewed by:</h2>
+      <ul>
+        <li ng-repeat="visit in visits" class="profile-visitor"><span class="avatar avatar--small"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img" style="background-image: url({{ visit.avatar || '/static/assets/img/user-avatar.png' }});"></span><a href="#/profile/{{visit.id}}" ng-bind="visit.display_name"></span></li>
+      </ul>
+    </aside>
+
 	<p ng-if="profile.title" class="zeta  u--ff-sans  u--ta-center  u--o75">{{ profile.title }}</p>
 
     <div class="btn-center" ng-if="! isConnectedTo()"><a class="btn btn--positive" fullscreen-modal="profile-invite-modal">Connect with me</a></div>
@@ -12,7 +20,7 @@
 		<li class="zeta  u--ff-sans" ng-if="profile.website_url"><a href="{{ profile.website_url }}" target="_new">{{ profile.website_url }}</a></li>
 	</ul>
 
-    <div ng-show="connections">
+    <div ng-show="connections" class="profile-connections">
     	<hr class="rule">
 
     	<h2 class="heading delta u--ta-center f--sans" ng-if="connections">People I've collaborated with</h2>
