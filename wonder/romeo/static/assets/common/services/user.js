@@ -90,7 +90,7 @@
         service.trackPublicProfileVisits = function(profileId) {
           var user = this.getUser();
           var visitor = (user !== null) ? user.id : 0;
-          if (profileId && visitor && profileId !== visitor)
+          if (profileId && visitor && profileId != visitor)
             $http.post('/api/user/' + visitor + '/visit', { profile: profileId });
         };
 

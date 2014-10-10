@@ -12,17 +12,8 @@
     <profile-edit-details data-profile="profile" data-flags="flags" ng-if="flags.isEdit"></profile-edit-details>
     <profile-view-details data-profile="profile" data-flags="flags" ng-if="! flags.isEdit"></profile-view-details>
 
-
     <list-videos ng-if="! flags.isOwner">
       This should be the list of public videos
     </list-videos>
-
-    <div ng-if="flags.isOwner && visits">
-      <h2>Profile viewed by:</h2>
-      <ul>
-        <li ng-repeat="visit in visits"><a href="#/profile/{{visit.id}}" ng-bind="visit.display_name"></span></li>
-      </ul>
-    </div>
   </div>
-
 </section>
