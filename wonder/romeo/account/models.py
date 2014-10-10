@@ -215,6 +215,27 @@ class AccountUserVisit(db.Model):
     def public_href(self):
         return self.href + '?public'
 
+    @staticmethod
+    def unique_visits(visits):
+        seen = dict()
+        for visit in visits:
+            userid = visit.visitor_user_id
+            if userid and userid in seen:
+                continue
+            seen[userid] = 1
+            yield visit
+
+    @staticmethod
+    def visit_item(visit):
+        data = {}
+        data['id'] = visit.visitor_user.id
+        data['public_href'] = visit.visitor_user.public_href
+        data['display_name'] = visit.visitor_user.display_name
+        data['avatar'] = visit.visitor_user.avatar
+        data['title'] = visit.visitor_user.title
+        data['visit_date'] = visit.visit_date.isoformat()
+        return data
+
 
 class CollaborationMixin(object):
 

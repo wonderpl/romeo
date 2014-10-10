@@ -334,16 +334,6 @@ def _unique_connections(connections):
         yield connection
 
 
-def _unique_visits(visits):
-    seen = dict()
-    for visit in visits:
-        userid = visit.visitor_user_id
-        if userid and userid in seen:
-            continue
-        seen[userid] = 1
-        yield visit
-
-
 @api_resource('/user/<int:user_id>/connections')
 class UserConnectionsResource(Resource):
 
@@ -401,17 +391,6 @@ class SuggestionResource(Resource):
         return {self.label: dict(items=items and zip(*items)[1], total=len(matches))}
 
 
-def _visit_item(visit):
-    data = {}
-    data['id'] = visit.visitor_user.id
-    data['public_href'] = visit.visitor_user.public_href
-    data['display_name'] = visit.visitor_user.display_name
-    data['avatar'] = visit.visitor_user.avatar
-    data['title'] = visit.visitor_user.title
-    data['visit_date'] = visit.visit_date.isoformat()
-    return data
-
-
 @api_resource('/user/<int:user_id>/visit')
 class UserVisitsResource(Resource):
 
@@ -419,8 +398,8 @@ class UserVisitsResource(Resource):
     def get(self, user):
         current_time = datetime.datetime.utcnow()
         last_week = current_time - datetime.timedelta(weeks=1)
-        items = map(_visit_item, list(
-            _unique_visits(
+        items = map(AccountUserVisit.visit_item, list(
+            AccountUserVisit.unique_visits(
                 AccountUserVisit.query.filter(AccountUserVisit.profile_user_id == user.id, AccountUserVisit.notified == False, AccountUserVisit.visit_date > last_week).order_by(AccountUserVisit.visit_date.desc())
             )
         ))
