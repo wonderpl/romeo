@@ -216,11 +216,11 @@ class AccountUserVisit(db.Model):
         return self.href + '?public'
 
     @staticmethod
-    def unique_visits(visits):
-        seen = dict()
+    def unique_visits(visits, seen=dict()):
         for visit in visits:
             userid = visit.visitor_user_id
             if userid and userid in seen:
+                seen[userid] += 1
                 continue
             seen[userid] = 1
             yield visit
