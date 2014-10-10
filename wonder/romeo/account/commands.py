@@ -1,9 +1,12 @@
 import sys
+import datetime
+from sqlalchemy import extract
 from sqlalchemy.exc import DataError
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from wonder.romeo import manager, db
 from wonder.romeo.core.db import commit_on_success
-from .models import Account, AccountUser, RegistrationToken
+from wonder.romeo.core.email import send_email, email_template_env
+from .models import Account, AccountUser, AccountUserVisit, RegistrationToken
 from .views import get_dollyuser
 from .forms import register_user
 
@@ -88,3 +91,27 @@ def fixup_user_data():
         form.user_data = userdata
         form.account_id = user.account_id
         form._update_user(user)
+
+
+@manager.cron_command(3600)
+def send_profile_visitor_email(**kwargs):
+    current_time = datetime.datetime.now()
+    current_day_of_week = current_time.weekday()
+    current_hour = current_time.hour
+    one_week_ago = current_time - datetime.timedelta(weeks=1)
+    template = email_template_env.get_template('profile_visitors.html')
+    senders = AccountUser.query.filter(extract('dow', AccountUserVisit.visit_date) == current_day_of_week, extract('hour', AccountUserVisit.visit_date) == current_hour)
+    for sender in senders:
+        visitors = map(AccountUserVisit.visit_item, list(
+            AccountUserVisit.unique_visits(
+                AccountUserVisit.query.filter(AccountUserVisit.profile_user_id == sender.id, AccountUserVisit.visit_date > one_week_ago)
+            )
+        ))
+        if len(visitors):
+            body = template.render(
+                sender=sender,
+                visitors=visitors,
+                **kwargs
+            )
+            print body
+        send_email(sender.username, body)
