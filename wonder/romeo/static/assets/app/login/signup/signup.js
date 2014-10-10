@@ -23,7 +23,7 @@ angular
 
         SecurityService.registration(user).then(
           function () {
-            SecurityService.restoreUrl('/profile/edit');
+            SecurityService.restoreUrl('/settings/import');
             $scope.isLoading = false;
           },
           function (response) {

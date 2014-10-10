@@ -136,12 +136,12 @@
 
         var service = {
             restoreUrl: function (url) {
-                $location.url(originalUrl || url || '/organise');
+                $location.url(originalUrl || url || '/search');
                 originalUrl = null;
             },
             redirect: function (url) {
                 // If the url wasn't login set the url to redirect back to after login
-                if ($location.url() && $location.url().indexOf('/login') === -1 && $location.url().indexOf('/organise') === -1)
+                if ($location.url() && $location.url() === '/' && $location.url().indexOf('/login') === -1)
                     originalUrl = $location.url();
                 $location.url(url || '/login');
             },
