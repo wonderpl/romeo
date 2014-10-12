@@ -6,6 +6,7 @@
   margin-bottom: $base-spacing-unit;
   margin-left:   0;
   counter-reset: step;
+  @extend .cf;
 
   > li {
 
