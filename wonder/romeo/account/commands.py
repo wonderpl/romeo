@@ -96,11 +96,16 @@ def fixup_user_data():
 @manager.cron_command(3600)
 def send_profile_visitor_email(**kwargs):
     current_time = datetime.datetime.now()
-    current_day_of_week = 5  # current_time.weekday()
-    current_hour = 10  # current_time.hour
     one_week_ago = current_time - datetime.timedelta(weeks=1)
     template = email_template_env.get_template('profile_visitors.html')
-    senders = AccountUser.query.filter(extract('dow', AccountUserVisit.visit_date) == current_day_of_week, extract('hour', AccountUserVisit.visit_date) == current_hour)
+    senders = AccountUser.query.filter(
+        extract('dow', AccountUser.date_added) == 5,
+        extract('hour', AccountUser.date_added) == 11
+    ).join(
+        AccountUserVisit,
+        (AccountUserVisit.profile_user_id == AccountUser.id) &
+        (AccountUserVisit.notified == False)
+    )
     for sender in senders:
         visitors = AccountUser.query.filter(
             AccountUserVisit.profile_user_id == sender.id,
@@ -113,9 +118,8 @@ def send_profile_visitor_email(**kwargs):
             func.max(AccountUserVisit.visit_date)
         ).group_by(AccountUser.id).order_by(func.count().desc()).limit(5)
 
-        visitors = [_visit_item(*v) for v in visitors.all()]
-
-        if len(visitors):
+        visitors = [AccountUserVisit.visit_item(*v) for v in visitors.all()]
+        if visitors:
             body = template.render(
                 sender=sender,
                 visitors=visitors,
@@ -123,14 +127,9 @@ def send_profile_visitor_email(**kwargs):
             )
             send_email(sender.username, body)
 
-
-def _visit_item(visitor, date):
-    data = dict()
-
-    data['id'] = visitor.id
-    data['display_name'] = visitor.display_name
-    data['username'] = visitor.username
-    data['avatar'] = visitor.avatar
-    data['visit_date'] = date
-
-    return data
+            try:
+                db.session.query(AccountUserVisit).filter_by(profile_user_id=sender.id).update({"notified": True})
+                db.session.commit()
+            except:
+                db.session.rollback()
+                raise

@@ -226,15 +226,21 @@ class AccountUserVisit(db.Model):
             yield visit
 
     @staticmethod
-    def visit_item(visit):
-        data = {}
-        data['id'] = visit.visitor_user.id
-        data['public_href'] = visit.visitor_user.public_href
-        data['display_name'] = visit.visitor_user.display_name
-        data['avatar'] = visit.visitor_user.avatar
-        data['title'] = visit.visitor_user.title
-        data['visit_date'] = visit.visit_date.isoformat()
-        return data
+    def visit_item(visit, date=False):
+        if date:
+            user = visit
+        else:
+            user = visit.visitor_user
+            date = visit.visit_date
+
+        return dict(
+            id=user.id,
+            public_href=user.public_href,
+            display_name=user.display_name,
+            avatar=user.avatar,
+            title=user.title,
+            visit_date=date.isoformat(),
+        )
 
 
 class CollaborationMixin(object):

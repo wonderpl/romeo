@@ -411,10 +411,7 @@ class UserVisitsResource(Resource):
         form = AccountUserVisitForm(account_user=user)
         if form.validate():
             visit = form.save()
-            if visit:
-                return None, 204
-            else:
-                return dict(error='failed_to_save', form_errors=form.errors), 400
+            return None, 204
         else:
             return dict(error='invalid_request', form_errors=form.errors), 400
 

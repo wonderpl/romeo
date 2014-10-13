@@ -385,6 +385,12 @@ class AccountUserVisitForm(BaseForm):
         super(AccountUserVisitForm, self).__init__(*args, **kwargs)
         self.account_user = account_user
 
+    def validate_profile(self, field):
+        if field.data:
+            self.profile_user = AccountUser.query.filter_by(id=field.data, active=True).first()
+            if not self.profile_user or self.profile_user.id == self.account_user.id:
+                raise wtforms.ValidationError(_('Invalid profile id.'))
+
     def save(self):
         obj = AccountUserVisit()
         obj.visitor_user_id = self.account_user.id
