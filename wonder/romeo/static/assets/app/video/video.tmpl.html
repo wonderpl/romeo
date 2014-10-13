@@ -81,8 +81,9 @@
                 <p class="profile-details__legend f--sans" ng-if="collaborators">Collaborators:</p>
                 <ul class="profile-collaborators" ng-show="collaborators">
                   <li ng-repeat="connection in collaborators">
-                    <a href="#/profile/{{ connection.user.id}}" data-tooltip="{{connection.display_name}}, {{connection.user.title}}" class="profile-collaborators__link avatar simptip-position-top  simptip-smooth  simptip-movable"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img" style="background-image: url({{connection.avatar || '/static/assets/img/user-avatar.png' }});">
+                    <a href="#/profile/{{ connection.user.id}}" class="profile-collaborators__link avatar"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" class="avatar__img" style="background-image: url({{connection.avatar || '/static/assets/img/user-avatar.png' }});">
                     </a>
+                    <span ng-bind="connection.display_name"></span>
                   </li>
                 </ul>
               </div>
