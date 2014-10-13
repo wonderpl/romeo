@@ -81,7 +81,7 @@ describe('Romeo login', function() {
       page.setTAndC();
 
       page.submitButton.click();
-      expect(browser.getLocationAbsUrl()).toMatch("/app#/organise");
+      expect(browser.getLocationAbsUrl()).toMatch("/app#/search");
     });
 
   });

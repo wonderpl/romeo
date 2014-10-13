@@ -23,7 +23,7 @@ angular.module('RomeoApp.login')
 
       function externalLogin(profile) {
         SecurityService.ExternalLogin(profile).then(function (response) {
-          SecurityService.restoreUrl('/profile/edit');
+          SecurityService.restoreUrl('/settings/import');
         },
         function (response) {
           if (response.data.error == 'registration_required') {
