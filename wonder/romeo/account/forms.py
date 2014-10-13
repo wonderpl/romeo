@@ -18,7 +18,7 @@ from wonder.romeo.core.util import COUNTRY_CODES
 from wonder.romeo.video.forms import BaseForm, ImageData, JsonBoolean, JsonOptional
 from .models import (
     Account, AccountUser, AccountUserAuthToken, AccountUserConnection,
-    RegistrationToken, InviteRequest, EXTERNAL_SYSTEM_CHOICES)
+    RegistrationToken, InviteRequest, AccountUserVisit, EXTERNAL_SYSTEM_CHOICES)
 
 
 def get_auth_handler(system):
@@ -376,6 +376,29 @@ class AccountPaymentForm(Form):
         else:
             current_user.account.payment_token = self.payment_token.data
             current_user.account.set_account_type('content_owner')
+
+
+class AccountUserVisitForm(BaseForm):
+    profile = wtforms.IntegerField(validators=[wtforms.validators.Required()])
+
+    def __init__(self, account_user=None, *args, **kwargs):
+        super(AccountUserVisitForm, self).__init__(*args, **kwargs)
+        self.account_user = account_user
+
+    def validate_profile(self, field):
+        if field.data:
+            self.profile_user = AccountUser.query.filter_by(id=field.data, active=True).first()
+            if not self.profile_user or self.profile_user.id == self.account_user.id:
+                raise wtforms.ValidationError(_('Invalid profile id.'))
+
+    def save(self):
+        obj = AccountUserVisit()
+        obj.visitor_user_id = self.account_user.id
+        obj.profile_user_id = self.profile.data
+        db.session.add(obj)
+        db.session.flush()
+
+        return obj
 
 
 class InviteRequestForm(Form):

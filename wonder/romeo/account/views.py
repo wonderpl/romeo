@@ -19,8 +19,8 @@ from wonder.romeo.core.dolly import DollyUser
 from wonder.romeo.core.util import gravatar_url
 from .forms import (RegistrationForm, ExternalLoginForm, LoginForm,
                     AccountUserForm, AccountUserConnectionForm, AccountPaymentForm,
-                    InviteRequestForm)
-from .models import UserProxy, Account, AccountUser, AccountUserConnection
+                    AccountUserVisitForm, InviteRequestForm)
+from .models import UserProxy, Account, AccountUser, AccountUserConnection, AccountUserVisit
 
 
 CALLBACK_JS_FUNCTION_RE = re.compile('^[\w.]+$')
@@ -388,6 +388,25 @@ class SuggestionResource(Resource):
         matches = [(100, t) for t in self.default_terms if t.lower().startswith(prefix)]
         items = sorted(matches, key=lambda x: x[0])[args.start:args.start + args.size]
         return {self.label: dict(items=items and zip(*items)[1], total=len(matches))}
+
+
+@api_resource('/user/<int:user_id>/visit')
+class UserVisitsResource(Resource):
+
+    @user_view(public=None)
+    def get(self, user):
+        items = [AccountUserVisit.visit_item(*v) for v in AccountUserVisit.get_all_visits_in_last_7_days(user, 25).all()]
+        return dict(visit=dict(items=items, total=len(items)))
+
+    @commit_on_success
+    @user_view()
+    def post(self, user):
+        form = AccountUserVisitForm(account_user=user)
+        if form.validate():
+            form.save()
+            return None, 204
+        else:
+            return dict(error='invalid_request', form_errors=form.errors), 400
 
 
 @api_resource('/user_titles')

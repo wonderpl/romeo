@@ -1,9 +1,11 @@
 import sys
+from sqlalchemy import extract, func
 from sqlalchemy.exc import DataError
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from wonder.romeo import manager, db
 from wonder.romeo.core.db import commit_on_success
-from .models import Account, AccountUser, RegistrationToken
+from wonder.romeo.core.email import send_email, email_template_env
+from .models import Account, AccountUser, AccountUserVisit, RegistrationToken
 from .views import get_dollyuser
 from .forms import register_user
 
@@ -88,3 +90,35 @@ def fixup_user_data():
         form.user_data = userdata
         form.account_id = user.account_id
         form._update_user(user)
+
+
+@manager.cron_command(3600)
+def send_profile_visitor_email(**kwargs):
+    template = email_template_env.get_template('profile_visitors.html')
+    senders = AccountUser.query.filter(
+        extract('dow', AccountUser.date_added) == extract('dow', func.now()),
+        extract('hour', AccountUser.date_added) == extract('hour', func.now()),
+    ).join(
+        AccountUserVisit,
+        (AccountUserVisit.profile_user_id == AccountUser.id) &
+        (AccountUserVisit.notified == False)
+    )
+
+    for sender in senders:
+        visitors = AccountUserVisit.get_all_visits_in_last_7_days(sender, 5)
+
+        visitors = [AccountUserVisit.visit_item(*v) for v in visitors.all()]
+        if visitors:
+            body = template.render(
+                sender=sender,
+                visitors=visitors,
+                **kwargs
+            )
+            send_email(sender.username, body)
+
+            try:
+                db.session.query(AccountUserVisit).filter_by(profile_user_id=sender.id).update({"notified": True})
+                db.session.commit()
+            except:
+                db.session.rollback()
+                raise

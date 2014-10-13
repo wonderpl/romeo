@@ -3,7 +3,7 @@ from base64 import b32encode
 from cStringIO import StringIO
 from urlparse import urljoin
 from sqlalchemy import (
-    Column, Integer, String, Boolean, ForeignKey, PrimaryKeyConstraint, DateTime, Enum, CHAR, event, func)
+    Column, Integer, String, Boolean, ForeignKey, PrimaryKeyConstraint, DateTime, Enum, CHAR, event, func, text)
 from sqlalchemy.dialects.postgresql import TSVECTOR
 from sqlalchemy.orm import relationship, backref, deferred
 from sqlalchemy.orm.attributes import instance_state, get_history
@@ -194,6 +194,68 @@ class InviteRequest(db.Model):
     email = Column(String(256), nullable=False)
     name = Column(String(256))
     message = Column(String(1024))
+
+
+class AccountUserVisit(db.Model):
+
+    id = Column(Integer, primary_key=True)
+    visitor_user_id = Column('visitor', Integer(), ForeignKey(AccountUser.id), nullable=False)
+    profile_user_id = Column('profile', Integer(), ForeignKey(AccountUser.id), nullable=False)
+    visit_date = Column(DateTime(), nullable=False, default=func.now())
+    notified = Column(Boolean, default=False)
+
+    profile_user = relationship(AccountUser, foreign_keys=[profile_user_id])
+    visitor_user = relationship(AccountUser, foreign_keys=[visitor_user_id])
+
+    @property
+    def href(self):
+        return url_for('api.user', user_id=self.profile_user_id)
+
+    @property
+    def public_href(self):
+        return self.href + '?public'
+
+    @staticmethod
+    def unique_visits(visits, seen=dict()):
+        for visit in visits:
+            userid = visit.visitor_user_id
+            if userid and userid in seen:
+                seen[userid] += 1
+                continue
+            seen[userid] = 1
+
+            yield visit
+
+    @staticmethod
+    def visit_item(visit, date=False):
+        if date:
+            user = visit
+        else:
+            user = visit.visitor_user
+            date = visit.visit_date
+
+        return dict(
+            id=user.id,
+            public_href=user.public_href,
+            display_name=user.display_name,
+            avatar=user.avatar,
+            title=user.title,
+            visit_date=date.isoformat(),
+        )
+
+    @staticmethod
+    def get_all_visits_in_last_7_days(profile, query_limit):
+        return AccountUser.query.filter(
+            AccountUserVisit.profile_user_id == profile.id,
+            AccountUserVisit.visit_date > func.now() - text("interval '7 day'"),
+            AccountUserVisit.notified == False,
+        ).join(
+            AccountUserVisit,
+            AccountUserVisit.visitor_user_id == AccountUser.id
+        ).with_entities(
+            AccountUser,
+            func.max(AccountUserVisit.visit_date)
+        ).group_by(AccountUser.id).order_by(func.count().desc()).limit(query_limit)
 
 
 class CollaborationMixin(object):

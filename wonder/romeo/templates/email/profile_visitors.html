@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% macro profile_url(userId) %}
+{{ url_for('root.app', _external=True) }}#/profile/{{ userId }}
+{%- endmacro %}
+
+{% block title %}See who discovered you on Wonder PL this week{% endblock %}
+
+{% block body %}
+
+<div style="font-weight:bold;font-size:28px;line-height:1.35;font-family:'Lucida Grande','Lucida Sans Unicode','Lucida Sans',Geneva,Verdana,sans-serif;color:#2e2e32">
+  Hello {{ sender.name }},
+</div>
+<br>
+
+{% for visitor in visitors %}
+    {% if visitor.avatar %}
+      <div style="width:100%;overflow:hidden;text-align:center;">
+        <a href="{{ profile_url(visitor.id) }}">
+            <img src="{{ visitor.avatar }}" alt="" width="66" height="66" style="display:block;max-width:none;width:66px;height:auto;margin:0 auto;border-radius:100%;"/>
+            <span>{{ visitor.display_name }}</span>
+        </a>
+      </div>
+      <br>
+    {% endif %}
+{% endfor %}
+
+{% endblock %}

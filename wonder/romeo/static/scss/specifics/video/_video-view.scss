@@ -92,3 +92,16 @@
     margin: 0 $half-spacing-unit $half-spacing-unit 0;
   }
 }
+.profile-collaborators {
+  display: block;
+  list-style: none;
+
+  li {
+    text-align: center;
+    display: inline-block;
+    margin-right: $base-spacing-unit;
+  }
+  a {
+    margin: 0 auto;
+  }
+}
