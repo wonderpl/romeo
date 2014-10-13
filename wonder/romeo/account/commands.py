@@ -1,6 +1,5 @@
 import sys
-import datetime
-from sqlalchemy import extract, func
+from sqlalchemy import extract, func, text
 from sqlalchemy.exc import DataError
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from wonder.romeo import manager, db
@@ -95,12 +94,10 @@ def fixup_user_data():
 
 @manager.cron_command(3600)
 def send_profile_visitor_email(**kwargs):
-    current_time = datetime.datetime.now()
-    one_week_ago = current_time - datetime.timedelta(weeks=1)
     template = email_template_env.get_template('profile_visitors.html')
     senders = AccountUser.query.filter(
-        extract('dow', AccountUser.date_added) == 5,
-        extract('hour', AccountUser.date_added) == 11
+        extract('dow', AccountUser.date_added) == extract('dow', func.now()),
+        extract('hour', AccountUser.date_added) == extract('hour', func.now()),
     ).join(
         AccountUserVisit,
         (AccountUserVisit.profile_user_id == AccountUser.id) &
@@ -110,7 +107,8 @@ def send_profile_visitor_email(**kwargs):
     for sender in senders:
         visitors = AccountUser.query.filter(
             AccountUserVisit.profile_user_id == sender.id,
-            AccountUserVisit.visit_date > one_week_ago
+            AccountUserVisit.visit_date > func.now() - text("interval '7 day'"),
+            AccountUserVisit.notified == False,
         ).join(
             AccountUserVisit,
             AccountUserVisit.visitor_user_id == AccountUser.id
