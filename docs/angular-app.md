@@ -4,7 +4,7 @@
 
 The app is setup to use <b>Grunt</b> as it's task runner, which is responsible for compiling and minifying the angular templates, compiling the SCSS (compass), linting the javascript and also for running any unit tests that are specified.
 
-To setup your front-end workflow, first check out the project and get all of the back-end hoopla up and running.  Then you will need to navigate to the root of the project in your terminal and run <code>npm install</code>. If you don't have Node installed, go and install it and run that command again.  As I described above, you will need Grunt installed, which you can do by running <code>npm install -g grunt-cli</code>.  In order for grunt to compile the SCSS, you will also need to ensure that you have Compass installed.  To do this, simply run <code>gem system -update</code>, followed by <code>gem install compass</code> (possibly requiring sudo). Now <em>assuming everything has gone brilliantly</em>, you can run <code>grunt watch</code> to start make Grunt listen for changes to your source template and scss files.
+To setup your front-end workflow, first check out the project and get all of the back-end hoopla up and running.  Then you will need to navigate to the root of the project in your terminal and run <code>npm install</code>. If you don't have Node installed, go and install it and run that command again.  As described above, you will need Grunt installed, which you can do by running <code>npm install -g grunt-cli</code>.  In order for grunt to compile the SCSS, you will also need to ensure that you have Compass installed.  To do this, simply run <code>gem system -update</code>, followed by <code>gem install compass</code> (possibly requiring sudo). Now <em>assuming everything has gone brilliantly</em>, you can run <code>grunt watch</code> to start make Grunt listen for changes to your source template and scss files.
 
 ### Optional extra packages
 
@@ -29,9 +29,26 @@ Angular application scripts:
 - <code>/wonder/romeo/static/assets/scripts</code>
 	- <code>app.js</code>
 
+Any app module should live in the app folder (f.e. login or search), there should be no relationship between the different app modules. Any common code or other dependency should be handled by code in the common folder. This means that any module can be removed or added as needed, without affecting the rest of the application.
+
+For the views in app and common we use the following naming convertion:
+
+- <name of module>.tmpl.html
+    - An app module (called in association with a controller)
+- <name of directive>.dir.html
+    - Any html associated with a directive
+- <name of directive>.modal.html
+    - For html modals
+
+Any html file not following the naming convention above will not be included in the template cache by the grunt task.
+
+
 SCSS (compass) source files:
 
 - <code>/wonder/romeo/static/scss/</code>
+
+For page or directive specific css it can go into the relevant folder, where the html is stored (app or common)
+
 
 Asset files (scripts, images, fonts etc):
 
@@ -39,14 +56,7 @@ Asset files (scripts, images, fonts etc):
 
 App index page:
 
-- <code>/wonder/romeo/templates/root/app.html/</code>
-
-All of the app script files follow a convention of wrapping everything in a closure with some handy shorthand variable names:
-
-<code>(function (w, d, ng, ns, m) {<br/>
-	// CODE <br/>
-})(window, document, window.angular, 'RomeoApp', 'stats-services');
-</code>
+- <code>/wonder/romeo/templates/root/app.html</code>
 
 ### Routing
 
@@ -58,6 +68,7 @@ Currently there are only a few pages that make up the app:
 - <code>/video/{id}/comments</code> - where users can collaborate on videos.
 - <code>/organise/{filter}/{id}</code> - where users can manage their videos and organise them into collections
 - <code>/profile</code> - where users edit their profile
+- <code>/settings</code> - where users edit their account settings (email, password)
 
 ### Services
 
@@ -78,7 +89,7 @@ There are a number of other services used by the app, several of which are curre
 
 - $modal - a simple modal service for loading and displaying templates from the $templateCache.
 - $tooltip - a service for displaying tooltips (works with tooltip directives)
-- FlashService - used for displaying notifications ( i.e. "Saved" ). Currently a bit borked while Mike styles it.
+- FlashService - used for displaying notifications ( i.e. "Saved" ).
 - DragDropService - a service for controlling draggable and droppable elements (works with drag and drop directives)
 - prettydate - a service that takes a standard date object and returns a nice "x minutes ago" string
 - animLoop - a basic rendering pipeline - allows you to add functions to a request animation frame loop, useful for animating things with javascript.
@@ -87,15 +98,21 @@ There are a number of other services used by the app, several of which are curre
 
 ##### OrganiseController
 
-This controller deals with manage videos and tags, so it includes the VideoService and TagService as dependencies.  Currently not fully implemented and only allows the creation of new tags, and allows users to add videos to collections. The missing features are as follows:
-
-- Cannot properly filter the videos
-- Cannot delete collections
-- Cannot change the status of the collections ( public / private ).
+This controller deals with manage videos and tags, so it includes the VideoService and TagService as dependencies.
 
 ##### VideoController
 
-The core features of this page are implemented i.e. adding uploading video files and giving them some meta data, however there are features that are not fully implemented yet.  For example the Quick Share - the idea that when a user starts uploading a video they can generate an embeddable link for that video, enter in some email addresses and it will send it off when the video is ready.  The functionality for this is mainly built via the QuickShare directive.
+The core features of this page are uploading video files, giving them some meta data, collaborate on the video via comments, transfer videos to publishers.
+
+##### ProfileController
+
+This controller deals with uploading cover image, avatar and the public profile information. It also deals with the connections between users.
+
+##### LoginController
+
+This controller deals with everything sign in and sign up related, like creating accounts.
+
+
 
 ===
 
