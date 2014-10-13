@@ -410,7 +410,7 @@ class UserVisitsResource(Resource):
     def post(self, user):
         form = AccountUserVisitForm(account_user=user)
         if form.validate():
-            visit = form.save()
+            form.save()
             return None, 204
         else:
             return dict(error='invalid_request', form_errors=form.errors), 400

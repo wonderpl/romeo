@@ -106,6 +106,7 @@ def send_profile_visitor_email(**kwargs):
         (AccountUserVisit.profile_user_id == AccountUser.id) &
         (AccountUserVisit.notified == False)
     )
+
     for sender in senders:
         visitors = AccountUser.query.filter(
             AccountUserVisit.profile_user_id == sender.id,
