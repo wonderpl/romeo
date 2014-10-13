@@ -1,7 +1,7 @@
 import re
-import datetime
 from pkg_resources import resource_string
 from itertools import chain
+from sqlalchemy import func, text
 from functools import wraps
 from urlparse import parse_qs
 from requests_oauthlib import OAuth1, requests
