@@ -396,11 +396,13 @@ class UserVisitsResource(Resource):
 
     @user_view(public=None)
     def get(self, user):
-        current_time = datetime.datetime.utcnow()
-        last_week = current_time - datetime.timedelta(weeks=1)
         items = map(AccountUserVisit.visit_item, list(
             AccountUserVisit.unique_visits(
-                AccountUserVisit.query.filter(AccountUserVisit.profile_user_id == user.id, AccountUserVisit.notified == False, AccountUserVisit.visit_date > last_week).order_by(AccountUserVisit.visit_date.desc())
+                AccountUserVisit.query.filter(
+                    AccountUserVisit.profile_user_id == user.id,
+                    AccountUserVisit.notified == False,
+                    AccountUserVisit.visit_date > func.now() - text("interval '7 day'")
+                ).order_by(AccountUserVisit.visit_date.desc())
             )
         ))
         return dict(visit=dict(items=items, total=len(items)))
