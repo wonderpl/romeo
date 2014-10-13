@@ -1,5 +1,5 @@
 import sys
-from sqlalchemy import extract, func, text
+from sqlalchemy import extract, func
 from sqlalchemy.exc import DataError
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from wonder.romeo import manager, db
@@ -105,17 +105,7 @@ def send_profile_visitor_email(**kwargs):
     )
 
     for sender in senders:
-        visitors = AccountUser.query.filter(
-            AccountUserVisit.profile_user_id == sender.id,
-            AccountUserVisit.visit_date > func.now() - text("interval '7 day'"),
-            AccountUserVisit.notified == False,
-        ).join(
-            AccountUserVisit,
-            AccountUserVisit.visitor_user_id == AccountUser.id
-        ).with_entities(
-            AccountUser,
-            func.max(AccountUserVisit.visit_date)
-        ).group_by(AccountUser.id).order_by(func.count().desc()).limit(5)
+        visitors = AccountUserVisit.get_all_visits_in_last_7_days(sender, 5)
 
         visitors = [AccountUserVisit.visit_item(*v) for v in visitors.all()]
         if visitors:

@@ -3,7 +3,7 @@ from base64 import b32encode
 from cStringIO import StringIO
 from urlparse import urljoin
 from sqlalchemy import (
-    Column, Integer, String, Boolean, ForeignKey, PrimaryKeyConstraint, DateTime, Enum, CHAR, event, func)
+    Column, Integer, String, Boolean, ForeignKey, PrimaryKeyConstraint, DateTime, Enum, CHAR, event, func, text)
 from sqlalchemy.dialects.postgresql import TSVECTOR
 from sqlalchemy.orm import relationship, backref, deferred
 from sqlalchemy.orm.attributes import instance_state, get_history
@@ -223,6 +223,7 @@ class AccountUserVisit(db.Model):
                 seen[userid] += 1
                 continue
             seen[userid] = 1
+
             yield visit
 
     @staticmethod
@@ -241,6 +242,20 @@ class AccountUserVisit(db.Model):
             title=user.title,
             visit_date=date.isoformat(),
         )
+
+    @staticmethod
+    def get_all_visits_in_last_7_days(profile, query_limit):
+        return AccountUser.query.filter(
+            AccountUserVisit.profile_user_id == profile.id,
+            AccountUserVisit.visit_date > func.now() - text("interval '7 day'"),
+            AccountUserVisit.notified == False,
+        ).join(
+            AccountUserVisit,
+            AccountUserVisit.visitor_user_id == AccountUser.id
+        ).with_entities(
+            AccountUser,
+            func.max(AccountUserVisit.visit_date)
+        ).group_by(AccountUser.id).order_by(func.count().desc()).limit(query_limit)
 
 
 class CollaborationMixin(object):

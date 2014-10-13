@@ -1,7 +1,6 @@
 import re
 from pkg_resources import resource_string
 from itertools import chain
-from sqlalchemy import func, text
 from functools import wraps
 from urlparse import parse_qs
 from requests_oauthlib import OAuth1, requests
@@ -396,15 +395,7 @@ class UserVisitsResource(Resource):
 
     @user_view(public=None)
     def get(self, user):
-        items = map(AccountUserVisit.visit_item, list(
-            AccountUserVisit.unique_visits(
-                AccountUserVisit.query.filter(
-                    AccountUserVisit.profile_user_id == user.id,
-                    AccountUserVisit.notified == False,
-                    AccountUserVisit.visit_date > func.now() - text("interval '7 day'")
-                ).order_by(AccountUserVisit.visit_date.desc())
-            )
-        ))
+        items = [AccountUserVisit.visit_item(*v) for v in AccountUserVisit.get_all_visits_in_last_7_days(user, 25).all()]
         return dict(visit=dict(items=items, total=len(items)))
 
     @commit_on_success
