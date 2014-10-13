@@ -89,20 +89,18 @@ describe('Romeo signup', function() {
     expect(page.errors.getText()).toBe('Password must be at least 8 characters long.');
   });
 
-  // Using Lynn Blades account for login testing, see:
-  // https://gist.github.com/paulegan/17393427db79edc7e540
-
   it('should redirect to profile when valid sign up', function () {
     var randomStr = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 12);
+    var username = 'noreply+e2etest-' + randomStr + '@wonderpl.com';
     page.setName('John Doe');
-    page.setUsername('noreply+' + randomStr + '@wonderpl.com');
+    page.setUsername(username);
     page.setPassword('romeo123');
     page.setLocation('FR');
     page.setTAndC();
 
-    console.log('Creating account: ', 'noreply+' + randomStr + '@wonderpl.com');
+    console.log('Creating account: ', username);
 
     page.submitButton.click();
-    expect(browser.getLocationAbsUrl()).toMatch("/app#/profile");
+    expect(browser.getLocationAbsUrl()).toMatch("/app#/settings/import");
   });
 });
