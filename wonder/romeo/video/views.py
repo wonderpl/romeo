@@ -179,7 +179,10 @@ class UploadArgsResource(Resource):
             get_filepath = Video.get_video_filepath
             bucket = video_bucket.name
         key = get_filepath(account.id, get_random_filename())
-        return s3connection.build_post_form_args(bucket, key, 3600, storage_class=None)
+        args = s3connection.build_post_form_args(bucket, key, 3600, storage_class=None)
+        # Force https on top-level s3 domain to avoid browser security warnings
+        args['action'] = 'https://%s/%s/' % (s3connection.server_name(), video_bucket.name)
+        return args
 
 
 @api_resource('/account/<int:account_id>/videos')
