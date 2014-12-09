@@ -165,7 +165,10 @@ def update_video_status(video, data, send_email=True):
         video.record_workflow_event('processing complete')
         video.duration = data['duration'] / 1000
         if not video.thumbnails:
-            video.thumbnails = [VideoThumbnail(**t) for t in data['thumbnails']]
+            video.thumbnails = [
+                VideoThumbnail(url=t['url'], width=t['width'], height=t['height'])
+                for t in data['thumbnails']
+            ]
 
     if send_email:
         send_processed_email(video.id, error=failure_reason)
